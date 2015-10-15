@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Welcome to the diary logger!</data></match></read>
+    <write><data>\x04\x01</data></write>
+    <write><data>BBrp\x08\x00\x00\x00\x02\x03\x0e\x00C\x00\x00\x03\x11\x15\x00\x26\x00cbababcbacbcbaaca\x01\x03\x0f\x2d\x00\x3c\x00baccccbcbbabaaa\x05\x00\x00z\x00\x00\x00\x03\x04I\x00\x97\x00\x00\x03\x0aP\x00Z\x00bcbcaaaaaa\x05\x04\x00\x01\x00a\x00\x02\x03\x10h\x00x\x00abaacabbababaacc\x03\x03\x18\x7f\x00\x00\x00cccaaabbaccabbabaccaaacb\x01\x03\x9d\x00\xcd\x00\x00\x03\x0e\xa4\x00\xb2\x00accaacbaacbcca\x05\x03\x0d\xb9\x00\xc6\x00abbcaaaccbaac\x04\x01\x00\xfa\x93\x00\x00\x02\x04\xd3\x00\x00\x00\x09\x03\x12\xda\x00\xec\x00abccabccacacacbbab\x01\x03\x03\xf3\x00\xf6\x00abb\x05\x00\x00K\x00\xfd\x00\x03\x01\x00\xe1y\x00\x00</data></write>
+    <read><delim>\x0a</delim><match><data>Length: 260</data></match></read>
+    <read><delim>\x0a</delim><match><data>Magic number: 0x4242</data></match></read>
+    <read><delim>\x0a</delim><match><data>Future: 0x7072</data></match></read>
+    <read><delim>\x0a</delim><match><data>Offset: 0x8</data></match></read>
+    <read><delim>\x0a</delim><match><data>Title: vehicles</data></match></read>
+    <read><delim>\x0a</delim><match><data>Entry Count: 0x3</data></match></read>
+    <read><delim>\x0a</delim><match><data>make: cbababcbacbcbaaca</data></match></read>
+    <read><delim>\x0a</delim><match><data>model: baccccbcbbabaaa</data></match></read>
+    <read><delim>\x0a</delim><match><data>doors: 0x7a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Title: books</data></match></read>
+    <read><delim>\x0a</delim><match><data>Entry Count: 0x4</data></match></read>
+    <read><delim>\x0a</delim><match><data>author: bcbcaaaaaa</data></match></read>
+    <read><delim>\x0a</delim><match><data>made into a movie: true</data></match></read>
+    <read><delim>\x0a</delim><match><data>summary: abaacabbababaacc</data></match></read>
+    <read><delim>\x0a</delim><match><data>publisher: cccaaabbaccabbabaccaaacb</data></match></read>
+    <read><delim>\x0a</delim><match><data>Title: movies</data></match></read>
+    <read><delim>\x0a</delim><match><data>Entry Count: 0x3</data></match></read>
+    <read><delim>\x0a</delim><match><data>title: accaacbaacbcca</data></match></read>
+    <read><delim>\x0a</delim><match><data>plot summary: abbcaaaccbaac</data></match></read>
+    <read><delim>\x0a</delim><match><data>year released: 0x93fa</data></match></read>
+    <read><delim>\x0a</delim><match><data>Title: vehicles</data></match></read>
+    <read><delim>\x0a</delim><match><data>Entry Count: 0x4</data></match></read>
+    <read><delim>\x0a</delim><match><data>WRONG FORMAT: 1 vs 3</data></match></read>
+</replay>
+</pov>

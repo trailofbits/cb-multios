@@ -1,0 +1,6 @@
+set( POLLS_RELEASE_SEED "-348354587")
+set( POLLS_TESTING_SEED "-1304034264")
+set( AUTHOR_ID "NRFIN")
+set( SERVICE_ID "00011")
+set( CFLAGS "-g -O0  -Wno-overlength-strings -Wno-packed -Wno-array-bounds")
+buildCB(${CFLAGS})

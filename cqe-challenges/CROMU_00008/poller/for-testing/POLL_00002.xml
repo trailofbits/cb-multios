@@ -1,0 +1,68 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>login\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>You logged in.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>: </delim><match><data>First name: </data></match></read>
+    <write><data>Eric\x0a</data></write>
+    <read><delim>: </delim><match><data>Last name: </data></match></read>
+    <write><data>Yaeger\x0a</data></write>
+    <read><delim>: </delim><match><data>User name: </data></match></read>
+    <write><data>eyaeger\x0a</data></write>
+    <read><delim>: </delim><match><data>Birthdate \x28mm\x2fdd\x2fyy hh:mm:ss\x29: </data></match></read>
+    <write><data>9\x2f24\x2f37 23:50:42\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 9\x2f24\x2f1937 23:50:42\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Data added\x2c record 0\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>find\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter search express \x28firstname or fn\x2c lastname or ln\x2c username or un\x2c birthdate or bd\x2c operators \x3d\x3d\x2c !\x3d\x2c \x3e\x2c \x3c\x2c AND and OR\x29:\x0a</data></match></read>
+    <write><data>username == "jdoe" \x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Search results\x2c 0 items found:\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>find\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter search express \x28firstname or fn\x2c lastname or ln\x2c username or un\x2c birthdate or bd\x2c operators \x3d\x3d\x2c !\x3d\x2c \x3e\x2c \x3c\x2c AND and OR\x29:\x0a</data></match></read>
+    <write><data>firstname == "Eric" OR (username == "Charles" AND firstname !\x3d\x22Ao\x26Rl!dWHE2Y\x22) \x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Search results\x2c 1 items found:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Record \x5b0\x5d\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>First name: Eric\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Last name: Yaeger\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>User name: eyaeger\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Birthdate: 9\x2f24\x2f1937 23:50:42\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>print\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to print \x28or \x22all\x22 for all records\x29: </data></match></read>
+    <write><data>0\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record \x5b0\x5d\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>First name: Eric\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Last name: Yaeger\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>User name: eyaeger\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Birthdate: 9\x2f24\x2f1937 23:50:42\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>update\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to update: </data></match></read>
+    <write><data>0\x0a</data></write>
+    <read><delim>: </delim><match><data>Update first name (Eric): </data></match></read>
+    <write><data>Chris\x0a</data></write>
+    <read><delim>: </delim><match><data>Update last name (Yaeger): </data></match></read>
+    <write><data>Shilling!\x0a</data></write>
+    <read><delim>: </delim><match><data>Update user name (eyaeger): </data></match></read>
+    <write><data>cshilling\x0a</data></write>
+    <read><delim>: </delim><match><data>Update birthdate \x289\x2f24\x2f1937 23:50:42\x29: </data></match></read>
+    <write><data>9\x2f21\x2f42 16:0:51\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 9\x2f21\x2f1942 16:0:51\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Record 0 updated.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>remove\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to remove: </data></match></read>
+    <write><data>0\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record 0 removed.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>exit\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Disconnecting.\x0a</data></match></read>
+</replay>
+</pov>

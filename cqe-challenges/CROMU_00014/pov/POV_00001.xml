@@ -1,0 +1,70 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>C \x2d Change Diver Info</data></match></read>
+    <read><delim>\x0a</delim><match><data>L \x2d Log a New Dive</data></match></read>
+    <read><delim>\x0a</delim><match><data>D \x2d Download Dive Data</data></match></read>
+    <read><delim>\x0a</delim><match><data>E \x2d Edit Dives</data></match></read>
+    <read><delim>\x0a</delim><match><data>P \x2d Print Dive Logs</data></match></read>
+    <read><delim>\x0a</delim><match><data>R \x2d Remove Dives</data></match></read>
+    <read><delim>\x0a</delim><match><data>S \x2d Diver Statistics</data></match></read>
+    <read><delim>\x0a</delim><match><data>X \x2d Exit Application</data></match></read>
+    <read><length>1</length><match><data>:</data></match></read>
+    <write><data>d\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <write><data>\xfd\x0b\x87S</data></write>
+    <write><data>\x01\x00\x00\x00</data></write>
+    <write><data>9\x0c\x87S</data></write>
+    <write><data>\x5c\x00\x00\x00</data></write>
+    <write><data>u\x0c\x87S</data></write>
+    <write><data>\x5c\x00\x00\x00</data></write>
+    <write><data>\xb1\x0c\x87S</data></write>
+    <write><data>\x23\x00\x00\x00</data></write>
+    <write><data>\xed\x0c\x87S</data></write>
+    <write><data>\x09\x00\x00\x00</data></write>
+    <write><data>\x29\x0d\x87S</data></write>
+    <write><data>\x22\x00\x00\x00</data></write>
+    <write><data>e\x0d\x87S</data></write>
+    <write><data>\x1a\x00\x00\x00</data></write>
+    <write><data>\xa1\x0d\x87S</data></write>
+    <write><data>d\x00\x00\x00</data></write>
+    <write><data>\xdd\x0d\x87S</data></write>
+    <write><data>\x1e\x00\x00\x00</data></write>
+    <write><data>\x19\x0e\x87S</data></write>
+    <write><data>3\x00\x00\x00</data></write>
+    <write><data>U\x0e\x87S</data></write>
+    <write><data>\x11\x00\x00\x00</data></write>
+    <write><data>\x91\x0e\x97S</data></write>
+    <write><data>B\x00\x00\x00</data></write>
+    <write><data>\xcd\x0e\x87S</data></write>
+    <write><data>D\x00\x00\x00</data></write>
+    <write><data>\x09\x0f\x87S</data></write>
+    <write><data>\x12\x00\x00\x00</data></write>
+    <write><data>E\x0f\x87S</data></write>
+    <write><data>\x28\x00\x00\x00</data></write>
+    <write><data>\x81\x0f\x87S</data></write>
+    <write><data>5\x00\x00\x00</data></write>
+    <write><data>\xbd\x0f\x87S</data></write>
+    <write><data>\x18\x00\x00\x00</data></write>
+    <write><data>\xf9\x0f\x87S</data></write>
+    <write><data>Q\x00\x00\x00</data></write>
+    <write><data>5\x10\x87S</data></write>
+    <write><data>\x60\x00\x00\x00</data></write>
+    <write><data>q\x10\x87S</data></write>
+    <write><data>v\x00\x00\x00</data></write>
+    <write><data>\xad\x10\x87S</data></write>
+    <write><data>\x0f\x00\x00\x00</data></write>
+    <write><data>\xe9\x10\x87S</data></write>
+    <write><data>M\x00\x00\x00</data></write>
+    <write><data>\x25\x11\x87S</data></write>
+    <write><data>M\x00\x00\x00</data></write>
+    <write><data>a\x11\x87S</data></write>
+    <write><data>6\x00\x00\x00</data></write>
+    <write><data>\x9d\x11\x87S</data></write>
+    <write><data>\x29\x00\x00\x00</data></write>
+    <write><data>\x00\x00\x00\x00</data></write>
+</replay>
+</pov>

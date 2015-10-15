@@ -1,0 +1,35 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\n</delim><match><data>Please Enter a 2 Digit Number\n</data></match></read>
+    <write><data>61\x0a</data></write>
+    <read><delim>\n</delim><match><data>Word: _am_ a_wa_s _ai_ l_fe wa_ l_ke a _ox of ch_co_at_s.\n</data></match></read>
+    <write><data>Mama always said life was like a box of chocolates.\x0a</data></write>
+    <read><delim>\n</delim><match><data>Next Word: _r_e_, f_r l_c_ _f a b_t_e_ _o_d, _s g_o_.\n</data></match></read>
+    <write><data>Greed, for lack of a better word, is good.\n</data></write>
+    <read><delim>\n</delim><match><data>Next Word: _obo_y p_ts _aby in _ co_ner.\n</data></match></read>
+    <write><data>Nobody puts Baby in a corner.\n</data></write>
+    <read><delim>\n</delim><match><data>Next Word: _ay _he _orc_ be wit_ yo_.\n</data></match></read>
+    <write><data>May the Force be with you.\n</data></write>
+    <read><delim>\n</delim><match><data>Next Word: _pen the pod bay doo_s p_eas_, H_L.\n</data></match></read>
+    <write><data>Open the pod bay doors please, HAL.\n</data></write>
+    <read><delim>\n</delim><match><data>Next Word: _f y_u b_i_d i_, h_ _i_l c_m_.\n</data></match></read>
+    <write><data>If you build it, he will come.\n</data></write>
+    <read><delim>\n</delim><match><data>Next Word: _ lo_e t_e s_ell of _apa_m i_ th_ mo_nin_.\n</data></match></read>
+    <write><data>I love the smell of napalm in the morning.\n</data></write>
+    <read><delim>\n</delim><match><data>Next Word: _'m _s m_d a_ he_l, _nd _'m _ot _oin_ to tak_ th_s a_ymo_e!\n</data></match></read>
+    <write><data>I'm as mad as hell, and I'm not going to take this anymore!\n</data></write>
+    <read><delim>\n</delim><match><data>Next Word: _s i_ _a_e?\n</data></match></read>
+    <write><data>Is it safe?\n</data></write>
+    <read><delim>\n</delim><match><data>Next Word: _ell_, g_rge_us.\n</data></match></read>
+    <write><data>Hello, gorgeous.\n</data></write>
+    <read><delim>\n</delim><match><data>Final Round. Chose another 2 digit number\n</data></match></read>
+    <write><data>99\n</data></write>
+    <read><delim>\n</delim><match><data>_ha_ w_'v_ g_t _er_ i_ f_il_re to co_mu_ic_te.\n</data></match></read>
+    <write><data>What we've got here is failure to communicate.\n</data></write>
+    <read><delim>\n</delim><match><data>You Win!\n</data></match></read>
+</replay>
+</pov>
+

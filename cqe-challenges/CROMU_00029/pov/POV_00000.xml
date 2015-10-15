@@ -1,0 +1,17 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>CROMU_00029</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>For what material would you like to run this simulation?\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  1\x2e Air\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  2\x2e Aluminum\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  3\x2e Copper\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  4\x2e Custom\x0a</data></match></read>
+    <read><delim>: </delim><match><data>Selection: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>How large is the material (X,Y,Z meters): </data></match></read>
+    <write><data>64,512,16384\x0a</data></write>
+    <delay>2</delay>
+</replay>
+</pov>

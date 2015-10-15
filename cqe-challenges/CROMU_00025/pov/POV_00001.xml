@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+	<cbid>CROMU_00025</cbid>
+	<replay>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>sxarfc\n</data></write>
+		<write echo="ascii"><data>\x21\x00\xb0\xc4\xdf\x76\xaa\xaa\x04\x04\xaa\xbb\x61\xaa\xcc\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x3f\xaa\xdd\x3f\x00\x00\x00\xaa\xee</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo = "ascii"><data>4\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>sxarfc\n</data></write>
+		<read echo= "ascii"><delim>\x00\x00\x00\x00\x0a\x00\x00\x00\x00\x0a\x00\x00\x00\x00\x0a\x00\x00\x00\x00\n</delim><match><data>\x00\x00\x00\x00\x0a\x00\x00\x00\x00\x0a\x00\x00\x00\x00\x0a\x00\x00\x00\x00\n</data></match></read>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo = "ascii"><data>4\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>sxarfc\n</data></write>
+		<read echo= "ascii"><delim>\x00\x00\x00\x00\x0a\x00\x00\x00\x00\x0a\x00\x00\x00\x00\x0a\x00\x00\x00\x00\n</delim><match><data>\x00\x00\x00\x00\x0a\x00\x00\x00\x00\x0a\x00\x00\x00\x00\x0a\x00\x00\x00\x00\n</data></match></read>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>5\n</data></write>
+	</replay>
+</pov>

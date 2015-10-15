@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x04\x04\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x00\x00\x00\x00\xf0\x03\x00\x00\xe8\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe8\x03\x00\x00\x27\x0d\xd4\x00g\xfc\x3edN\x2f\xe6\xda.\xa3\x1fhna3\x09s\x00\x00\x00F\x00K\xd3\x84\x85\x93\xc4.\xbcZ\x8f\x830\xebT\xde\x0b\x96\x27\xb5\x0e\x1f\x91\xbc\xf7z\x0bP\x91!\xe7\x0e\xd4\xe2\xa5\x83\x28\x9b\xdb?\xb6\xd8\x25\x24\x3d\x5b\xadw\xf4\xab4\xf2\x8bfxWe\xbb\xf7\x00u\xc4\x87B\xa5\x3d\xb8\x9bj\x00\xfe\x99\xe1\x1a\x8d\xb9\x80I\xf7 \xb8\xad\x14L\xdaIVoL\xda\xabI\xc4j\xb96\x89\xf0r\xee1\x18F\xf1\x87\xd4P\x97:f\x89\x04\xb1\xe0\xaa\x2c\xe8\xc3\xa8Y\xac\xc3F\xd0\x13\xa3\x90\x84\xff\x1b\x2d\xfb\x9db\x01\xb3\x14e\x19\xe6\xcf\x22TF\x00\x80\x98xX\xaeu\x10Z\xa2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===rofl</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===vernileDasya</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===hookahsupersimplicity</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

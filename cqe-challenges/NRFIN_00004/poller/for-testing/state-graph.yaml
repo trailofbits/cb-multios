@@ -1,0 +1,39 @@
+---
+nodes:
+- name: start
+  chance: 1.0
+  continue: 0.9
+- name: prompt
+  chance: 1.0
+  continue: 0.9
+- name: quit
+- name: will_match
+- name: will_nomatch
+- name: edgr_match
+- name: edgr_nomatch
+- name: eliz_all
+- name: john_match
+- name: john_nomatch
+- name: error
+- name: empty 
+edges:
+- start: prompt
+- prompt: will_match
+- prompt: will_nomatch
+- prompt: edgr_match
+- prompt: edgr_nomatch
+- prompt: eliz_all
+- prompt: john_match
+- prompt: john_nomatch
+- prompt: error
+- prompt: quit
+- prompt: empty
+
+- will_match: prompt
+- will_nomatch: prompt
+- edgr_match: prompt
+- edgr_nomatch: prompt
+- eliz_all: prompt
+- john_match: prompt
+- john_nomatch: prompt
+- empty: prompt

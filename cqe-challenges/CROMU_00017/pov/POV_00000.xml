@@ -1,0 +1,312 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Enter some data</data></match></read>
+    <write ><data>K.\x3eqZk\x5dMR\x28\x5fS\x26d\x3eU9jXo0N\x27zK?LFedQo\x7cE\x5d0ruxA20\x26Xpja\x40!A\x3cq\x60H\x2dNnCm\x29MYf\x3be6jFiMj\x7eH\x5c.4A6Ar\x24c\x22HN.9\x22iSfhn\x409\x5c:77fm\x3b\x40Enk\x5d\x5bm\x7c0?Xs\x5c\x5eUGLlH\x22a\x2cl\x7bD1\x40qN14\x258\x2cr\x7exR\x7bHB\x7ck</data></write>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28247\x2a88\x2b195\x2b114\x29\x2b5073</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28247\x2a88\x2b195\x2b114\x29\x2b5073 does resolve to 27118\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28103\x2d154\x2b222\x2b20\x29\x2b183</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28103\x2d154\x2b222\x2b20\x29\x2b183 does resolve to 374\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x28\x28136\x2f168\x2b252\x2b148\x29\x29\x29\x2b20129</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x28\x28136\x2f168\x2b252\x2b148\x29\x29\x29\x2b20129 does resolve to 20529\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x28\x28\x289\x2d115\x2b221\x2b7\x29\x29\x29\x29\x2b4057</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x28\x28\x289\x2d115\x2b221\x2b7\x29\x29\x29\x29\x2b4057 does resolve to 4179\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28205\x2f19\x2b210\x2b239\x29\x2b2625</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28205\x2f19\x2b210\x2b239\x29\x2b2625 does resolve to 3084\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x28\x28\x28164\x2f81\x2b92\x2b35\x29\x29\x29\x29\x2b8055</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x28\x28\x28164\x2f81\x2b92\x2b35\x29\x29\x29\x29\x2b8055 does resolve to 8184\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x28\x28238\x2b35\x2b21\x2b170\x29\x29\x29\x2b22669</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x28\x28238\x2b35\x2b21\x2b170\x29\x29\x29\x2b22669 does resolve to 23133\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28107\x2f199\x2b44\x2b214\x29\x2b5028</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28107\x2f199\x2b44\x2b214\x29\x2b5028 does resolve to 5286\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>246\x2d10\x2b72\x2b179\x2b21637</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>246\x2d10\x2b72\x2b179\x2b21637 does resolve to 22124\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x28\x28\x2890\x2b153\x2b172\x2b2\x29\x29\x29\x29\x2b11826</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x28\x28\x2890\x2b153\x2b172\x2b2\x29\x29\x29\x29\x2b11826 does resolve to 12243\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x2835\x2a206\x2b115\x2b103\x29\x29\x2d5772</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x2835\x2a206\x2b115\x2b103\x29\x29\x2d5772 does resolve to 1656\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x28\x2853\x2d242\x2b47\x2b72\x29\x29\x29\x2b10252</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x28\x2853\x2d242\x2b47\x2b72\x29\x29\x29\x2b10252 does resolve to 10182\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x28\x28243\x2f182\x2b8\x2b189\x29\x29\x29\x2b15905</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x28\x28243\x2f182\x2b8\x2b189\x29\x29\x29\x2b15905 does resolve to 16103\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x28\x2815\x2a60\x2b252\x2b134\x29\x29\x29\x2b27208</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x28\x2815\x2a60\x2b252\x2b134\x29\x29\x29\x2b27208 does resolve to 28494\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x28\x28121\x2a92\x2b140\x2b247\x29\x29\x29\x2b12869</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x28\x28121\x2a92\x2b140\x2b247\x29\x29\x29\x2b12869 does resolve to 24388\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>53\x2f160\x2b194\x2b163\x2b13607</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>53\x2f160\x2b194\x2b163\x2b13607 does resolve to 13964\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x2870\x2a127\x2b20\x2b112\x29\x29\x2b2052</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x2870\x2a127\x2b20\x2b112\x29\x29\x2b2052 does resolve to 11074\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28245\x2f166\x2b144\x2b26\x29\x2b15322</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28245\x2f166\x2b144\x2b26\x29\x2b15322 does resolve to 15493\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x28\x28\x28\x28\x2867\x2b216\x2b149\x2b252\x29\x29\x29\x29\x29\x2b2596</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x28\x28\x28\x28\x2867\x2b216\x2b149\x2b252\x29\x29\x29\x29\x29\x2b2596 does resolve to 3280\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>2</data></write>
+    <read><delim>\x0a</delim><match><pcre>Enter .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>It must .*</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>and must .*</pcre></match></read>
+    <write ><data>\x2887\x2f241\x2b122\x2b30\x29\x2b18970</data></write>
+    <read><delim>\x0a</delim><match><data>string is formatted correct</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2887\x2f241\x2b122\x2b30\x29\x2b18970 does resolve to 19122\x2c good!</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>1. Solve Equation</data></match></read>
+    <read><delim>Equation\x0a</delim><match><data>2. Create Equation</data></match></read>
+    <read><delim>Area\x0a</delim><match><data>3. Solve Area</data></match></read>
+    <read><delim>Perimeter\x0a</delim><match><data>4. Solve Perimeter</data></match></read>
+    <read><delim>Volume\x0a</delim><match><data>5. Solve Volume</data></match></read>
+    <read><delim>Statistics\x0a</delim><match><data>6. View Statistics</data></match></read>
+    <read><delim>Exit\x0a</delim><match><data>7. Exit</data></match></read>
+    <write ><data>6</data></write>
+    <read><delim>\x0a</delim><assign> <var>totalwon</var> <pcre>Total won: (\d+)</pcre> </assign></read>
+    <read><delim>\x0a</delim><match><pcre>Total lost: \d+</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>Equations solved correctly: 0</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>Equations solved incorrectly: 0</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>Equations created correctly: 20</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>Equations created incorrectly: 0</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>Solved perimeter problems 0</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>Unsolved perimeter problems 0</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>Solved volume problems 0</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>Unsolved volume problems 0</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>Solved area problems 0</pcre></match></read>
+    <read><delim>\x0a</delim><match><pcre>Unsolved area problems 0</pcre></match></read>
+    <read><delim>:</delim><match><data>Wow\x2c you created 20 equations! What\x27s your name?:</data></match></read>
+    <write ><data>NameNameNameNameNameNameNameNameNameName</data></write>
+    <read><delim>\x0a</delim><match><pcre>.*</pcre></match></read>
+</replay>
+</pov>

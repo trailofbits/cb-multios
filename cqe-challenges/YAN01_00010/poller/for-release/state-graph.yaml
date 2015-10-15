@@ -1,0 +1,16 @@
+---
+nodes:
+- name: start
+- name: go
+- name: end
+
+edges:
+
+- start: go
+
+- go: go
+  weight: .99
+
+- go: end
+  weight: .01
+

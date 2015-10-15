@@ -1,0 +1,6 @@
+set( POLLS_RELEASE_SEED "-563855678")
+set( POLLS_TESTING_SEED "-911784856")
+set( AUTHOR_ID "NRFIN")
+set( SERVICE_ID "00027")
+set( CFLAGS "-O0 -g -Wall -Wextra -Wno-missing-field-initializers -Wno-sign-compare -mno-sse")
+buildCB(${CFLAGS})

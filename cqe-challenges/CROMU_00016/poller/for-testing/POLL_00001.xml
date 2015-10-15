@@ -1,0 +1,120 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>CROMU_000016</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Welcome to the network queuing simulator\x0a</data></match></read>
+    <read><delim>: </delim><match><data>What\x27s the interface speed \x28in bps up to 4194304 bps\x29: </data></match></read>
+    <write><data>440598\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>The following packet generators are available:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  1 \x2d Random\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  2 \x2d Poisson\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  3 \x2d Manual\x0a</data></match></read>
+    <read><delim>: </delim><match><data>Which generator would you like to use? \x281\x2d3\x29: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>What average bit rate do you want the random generator to produce? \x281 \x2d 4194304 bps\x29: </data></match></read>
+    <write><data>2182636\x0a</data></write>
+    <read><delim>: </delim><match><data>For how long would you like the simulation to run? \x281 - 10s\x29: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>: </delim><match><data>How many queues \x281\x2d8\x29?: </data></match></read>
+    <write><data>6\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Queue 0:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  Is queue \x230 a priority queue\x28y\x2cn\x29: </data></match></read>
+    <write><data>n\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the minimum priority packet to place in queue \x230 \x280\x2d63\x29: </data></match></read>
+    <write><data>53\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the maximum priority packet to place in queue \x230 \x280\x2d63\x29: </data></match></read>
+    <write><data>63\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the depth of queue \x230 \x281 \x2d 1024 packets\x29: </data></match></read>
+    <write><data>835\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the weight of queue \x230 \x281 \x2d 100 percent\x29: </data></match></read>
+    <write><data>16\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Queue 1:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  What\x27s the minimum priority packet to place in queue \x231 \x280\x2d63\x29: </data></match></read>
+    <write><data>42\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the maximum priority packet to place in queue \x231 \x280\x2d63\x29: </data></match></read>
+    <write><data>52\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the depth of queue \x231 \x281 \x2d 1024 packets\x29: </data></match></read>
+    <write><data>786\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the weight of queue \x231 \x281 \x2d 100 percent\x29: </data></match></read>
+    <write><data>16\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Queue 2:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  What\x27s the minimum priority packet to place in queue \x232 \x280\x2d63\x29: </data></match></read>
+    <write><data>31\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the maximum priority packet to place in queue \x232 \x280\x2d63\x29: </data></match></read>
+    <write><data>41\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the depth of queue \x232 \x281 \x2d 1024 packets\x29: </data></match></read>
+    <write><data>448\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the weight of queue \x232 \x281 \x2d 100 percent\x29: </data></match></read>
+    <write><data>16\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Queue 3:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  What\x27s the minimum priority packet to place in queue \x233 \x280\x2d63\x29: </data></match></read>
+    <write><data>20\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the maximum priority packet to place in queue \x233 \x280\x2d63\x29: </data></match></read>
+    <write><data>30\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the depth of queue \x233 \x281 \x2d 1024 packets\x29: </data></match></read>
+    <write><data>172\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the weight of queue \x233 \x281 \x2d 100 percent\x29: </data></match></read>
+    <write><data>16\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Queue 4:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  What\x27s the minimum priority packet to place in queue \x234 \x280\x2d63\x29: </data></match></read>
+    <write><data>9\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the maximum priority packet to place in queue \x234 \x280\x2d63\x29: </data></match></read>
+    <write><data>19\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the depth of queue \x234 \x281 \x2d 1024 packets\x29: </data></match></read>
+    <write><data>808\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the weight of queue \x234 \x281 \x2d 100 percent\x29: </data></match></read>
+    <write><data>16\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Queue 5:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  What\x27s the minimum priority packet to place in queue \x235 \x280\x2d63\x29: </data></match></read>
+    <write><data>0\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the maximum priority packet to place in queue \x235 \x280\x2d63\x29: </data></match></read>
+    <write><data>8\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the depth of queue \x235 \x281 \x2d 1024 packets\x29: </data></match></read>
+    <write><data>915\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the weight of queue \x235 \x281 \x2d 100 percent\x29: </data></match></read>
+    <write><data>10\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>  Total weight of all queues must total up to 100\x25\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  What is the weight of queue \x235 \x281 \x2d 100 percent\x29: </data></match></read>
+    <write><data>20\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>wall\x5fclock: 2.00664 \x28s\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Queue 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       23\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Dropped:           0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Average Latency \x28s\x29:    0.77491\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Enqueued Pkts:          107\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Queue Depth \x28bytes\x29:    84791\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Queue 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       23\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Dropped:           0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Average Latency \x28s\x29:    0.82060\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Enqueued Pkts:          114\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Queue Depth \x28bytes\x29:    92419\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Queue 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       21\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Dropped:           0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Average Latency \x28s\x29:    0.92262\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Enqueued Pkts:          108\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Queue Depth \x28bytes\x29:    76253\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Queue 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       22\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Dropped:           0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Average Latency \x28s\x29:    0.80800\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Enqueued Pkts:          105\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Queue Depth \x28bytes\x29:    75622\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Queue 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       16\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Dropped:           0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Average Latency \x28s\x29:    0.87173\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Enqueued Pkts:          119\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Queue Depth \x28bytes\x29:    90299\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Queue 5\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       28\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Dropped:           0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Average Latency \x28s\x29:    0.80238\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Enqueued Pkts:          72\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Queue Depth \x28bytes\x29:    56043\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Interface Stats\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       133\x0a</data></match></read>
+</replay>
+</pov>

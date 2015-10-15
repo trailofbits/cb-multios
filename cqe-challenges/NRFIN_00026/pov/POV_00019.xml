@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x04\x04\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x00\x00\x00\x00\xf0\x03\x00\x00\xe8\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe8\x03\x00\x00\xdcW\xff\x29G\x60\x7b\x0c\xdf\xce\x5f\xef!\x1a1\x12\x24\x7b\xea\xd2o\x00\x00\x00w\x17\xbe\x09N5\xd8\x1dm\x23FIJ\x1f\x10\xd1\x06fG\x17\x5ex\x98v\x11\x00kxIu\xd9\x1b\xde\xffP\xb1\xed\x8a\x04n\xcaO\x83B\x5e\xb78\xac\xc3hv\x2c\xa6\xd5\x7c\xc7\x27\xd3\x7fW\x9bvj\x22H\x88\xf2\xa2\x8f\x09\x90\xa8\xc4\x17\xa6\xcf\x7fN\xed\xe9 \x28\x22\x84f\x04F\xa7\x17\x7f3\x13x\xc8FN5\x8c\x27L8\x0fv\xc3\x15\x2f:\x96Y\xbd\x5e4\x83\x98\x1e\x2aT\xdf\xd5\x2a\xf62\xe5\x99\x96F.\xa3Y\xbez\x0c\x15L\x17\x0d4l\x811\xce\x94\x86\xfcb\xa3\xcb8\xcdDW\x2a\xe9\x03H\x19YVR\xdfz7\xe7\xc1u\xbe\xb4\xac\x60\xaf6\x5f\xcc\xb3\xad\x29\x0b\xe1w\xc4X\xa7\xea\xd1\x92m                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===rofl</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===refilmopenhandedness</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

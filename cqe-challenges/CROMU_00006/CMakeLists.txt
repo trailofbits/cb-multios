@@ -1,0 +1,8 @@
+set( POLLS_TESTING_SEED "-710644949")
+set( AUTHOR_ID "CROMU")
+set( SERVICE_ID "00006")
+set( CFLAGS "-O0 -g -Wall  -Wno-overlength-strings -Wno-packed -mno-sse -fblocks")
+set( NO_STRIP "1")
+set( POLLS_RELEASE_MAX_DEPTH "20")
+set( POLLS_RELEASE_SEED "40")
+buildCB(${CFLAGS})

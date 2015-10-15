@@ -1,0 +1,25 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- Login and get token -->
+        <write><data>login foobar\x0a</data></write>
+        <read><delim>\x0a</delim></read>
+        <read><delim>\x0a</delim></read>
+
+        <!-- Login and get token -->
+        <write><data>login foobar\x0a</data></write>
+        <read><delim>\x0a</delim></read>
+        <read><delim>\x0a</delim></read>
+
+        <!-- Use of non-cryptographically secure hash function allows us to append data to the token
+             and compute a new valid signature without knowing the secret -->
+        <write><data>greet counter=2cf0ffb7|name=foobar|counter=deadbeef|3b1706c4\x0a</data></write>
+
+        <write><data>quit\x0a</data></write>
+    </replay>
+</pov>

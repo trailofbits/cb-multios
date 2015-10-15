@@ -1,0 +1,27 @@
+---
+nodes:
+- name: start
+- name: top
+- name: add_string
+- name: find_strings
+- name: delete_strings
+- name: walk_tree
+- name: get_stats
+- name: exit
+
+edges:
+- start: top
+- top: add_string
+- top: find_strings
+- top: delete_strings
+  weight: .2
+- top: walk_tree
+  weight: .5
+- top: get_stats
+- top: exit
+  weight: .1
+- add_string: top
+- find_strings: top
+- delete_strings: top
+- walk_tree: top
+- get_stats: top

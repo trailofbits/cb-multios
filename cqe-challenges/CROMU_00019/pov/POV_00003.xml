@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read echo="ascii"><delim>:</delim><match><data>Enter your name:</data></match></read>
+    <write echo="ascii"><data>71db10261c\x0a</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Hello\x2c 71db10261c!\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Access Granted</data></match></read>
+    <write echo="ascii">
+        <data>\x70\x00\x00\x00</data>
+        <data>````````````````````````````````````````````````````````</data>
+        <data>````````````````````````````````````````````````````````</data>
+    </write>
+    <read><length>10</length></read>
+<!--    <delay>500</delay> -->
+</replay>
+</pov>

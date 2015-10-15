@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+<write><data>END {
+    print;
+    {
+    }
+    print;
+}record1
+</data></write>
+<read><delim>\x0a</delim><match><data>RUNTIME ERROR\x0a</data></match></read>
+</replay>
+</pov>

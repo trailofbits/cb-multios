@@ -1,0 +1,8 @@
+POLLS_TESTING_SEED= 986419036
+AUTHOR_ID  = KPRCA
+SERVICE_ID = 00051
+TCP_PORT   = 10010
+CFLAGS     = -O0 -g -Wall
+POLLS_RELEASE_SEED = 1900525947
+
+include /usr/share/cb-testing/cgc-cb.mk

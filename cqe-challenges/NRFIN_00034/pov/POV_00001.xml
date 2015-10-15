@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- Create a cyclical symlink -->
+        <write><data>\x03\x00\x00\x00</data></write>
+        <write><data>\x61\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x00</data></write>
+        <write><data>\x2f\x68\x6f\x6d\x65\x2f\x75\x73\x65\x72\x2f\x61</data></write>
+
+        <!-- Read cyclical symlink -->
+        <write><data>\x01\x00\x00\x00</data></write>
+        <write><data>\x61\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</data></write>
+
+        <!-- Terminate if patched -->
+        <write><data>\xff\xff\xff\xff</data></write>
+    </replay>
+</pov>

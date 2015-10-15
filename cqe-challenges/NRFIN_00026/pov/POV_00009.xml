@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x04\x04\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x00\x00\x00\x00\xf0\x03\x00\x00\xe8\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe8\x03\x00\x00z\xc35\xa3Y8:\x9f9\xc1\x3b\xf3.M\xa2k\x16\xc0\xd4F0\x00\x00\x00M2\xba\x0d5\xe5\x60q\xc7\xe6V\xb0\xf4\x9e\x29.\xccu\xc0\x991\xfeQ\x1d\xce\x2df\xc4I\x00W\x28\x82\xba\xe9t\xa3\x97\xb2\xa470\x80E5\xe4N\x7cI\x00R7\xdb\x2b\xd9\xe7\x5c\x24\x40h\x04\xcfy7I\xe5z\x60\xb5\xbc\xdf\x98!\x9b\x12\x282\x1awS\x27\xf4\x24\xa9\xd5\x92\x7dL\xbb\xff\xd5\x5e\x0c\x0e\xb7P\xd6\xb2\x5d\x2f\x87p\x2c\xd3\x82\xf4\xb4\x7b\x0e\xbb\x81C\x27\xa8Y\xff\x97\xdc\x89A\x11X\xf7\x93e\xb0P\x3e\xacb\xber.i\xab\x2d\xdf\xe9\x0c\x0d\x7e\xc6\xe6I\x19P\x7b\xd8\xf6\xdcj\xf2\xef\xc7\xfb\xfdgW\xd3\xb84w\xf9\xba\x7b\x83\x846o\xac\xe6\xf2i\x9c\xbe\x2a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===rofl</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===phantasmascopeMelanochroid</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===iridemiabisque</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

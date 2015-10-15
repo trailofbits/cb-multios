@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x04\x04\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x01\x00\x00\x00\xf0\x03\x00\x00\xe8\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe8\x03\x00\x00\x05\x5d\x1bqa\x0b\x7e\xc0\x8f\x99\xc2\xb7\x05\x00\x00\x005\xf1\x27\x7e\xccl\xf7\xbex\xa4\xe4\xf8\xa3\xdb\xf9\xba\xa9\x16K :4\x7c\xd35\x16\x2c\x2c\x8fG\x8bN\xdeRA\xeb\xff\x16x\x14\x7f\x3d\x22Y\x10\x81\x11ju\x12\x7d\x0d7n\x5f\xa9\x9e\xba\xbe\x7f\xa8\xa5\xd4\xcc\xbe6U0\xf8\x26\xde\x00\x0bVC\xf5\xa6\xa5\xe1\x01\xc29\x04\xe1A\xe1\xd2kl\xd2\x3d\x8f\x5bvy\xdb\x26Q\x2fC\xa0G\xeex\x5d2\x9e\xf6\x1fF\x7b:\x9f\xdb\xe7\xe6\x8a\xfcFM\xaa\xeabs\x9a\xa4\x5e\xb5\x7c\xda\x5eU\x94\xa28\x993\x1aJ\x2c\xf5\x9e\xeb\xf2\x2bOl\xf1L\xb8J\xd5z\xdaD\x25\x18\xa9\x1c\xddJ\x82\xfd\xadK\x00g\x04\xca\x7f\x83\xbc\xac\x9d2e                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===lol</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===ourselfmetaplast</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

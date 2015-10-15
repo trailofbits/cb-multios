@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+	<cbid>CROMU_00033</cbid>
+	<replay>
+		<write echo="ascii"><data>SEND\x08/VFKAnsb\x60\x00jJARyEMEAML6uDbCNb9QXyXpS1yTCL36tpP705LvgWvi7kCblkJpF0znbAuTLM6Kr7lGnzFEKnq2CfWenLUh50yvInsOgvk3</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>[INFO] File received: /VFKAnsb\n</data></match></read>
+		<write echo="ascii"><data>SEND\x0a/DJAPnNXiZ\x4a\x00JhLb2G1sSeK5B79apgEAkIKBqgrKh6JEsCsKDytJJKR7oTLfrey4Ju3Gkw3bK4tbuw7bVH6aTv</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>[INFO] File received: /DJAPnNXiZ\n</data></match></read>
+		<write echo="ascii"><data>SEND\x0b/lusfctS4at\x44\x00XfwmXGkhmNGPvwxHOXTtsB0YEgw5nSkckUYgEay2g2z6FYZ76CvUx4NJu3qCnVXfHtRH</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>[INFO] File received: /lusfctS4at\n</data></match></read>
+		<write echo="ascii"><data>SEND\x0b/QuI5bCPCP3\x21\x00FXpG9sZsMdku3lFqiZNgGzVkrfTGSnVmE</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>[INFO] File received: /QuI5bCPCP3\n</data></match></read>
+		<write echo="ascii"><data>REPO\x0a/DJAPnNXiZ</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>[INFO] DJAPnNXiZ removed\n</data></match></read>
+		<write echo="ascii"><data>PRNT</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>[INFO] Listing files\n</data></match></read>
+		<read echo="ascii"><delim>\n</delim><match><data>/QuI5bCPCP3     File     33\n</data></match></read>
+		<read echo="ascii"><delim>\n</delim><match><data>/VFKAnsb     File     96\n</data></match></read>
+		<read echo="ascii"><delim>\n</delim><match><data>/lusfctS4at     File     68\n</data></match></read>
+		<write echo="ascii"><data>STOP</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>[INFO] Terminating\n</data></match></read>
+	</replay>
+</pov>

@@ -1,0 +1,517 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>10</length><match><data>\x2d\x2dText\x2d\x2d\x0a\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>10</length><match><data>\x2d\x2dText\x2d\x2d\x0a\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>7\x0a</data></write>
+    <read><length>33</length><match><data>Input text has not been received\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><length>20</length><match><data>Enter search string\x0a</data></match></read>
+    <write><data>L\x2b</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>18</length><match><data>\x5bSearchString\x3dL\x2b\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>7\x0a</data></write>
+    <read><length>33</length><match><data>Input text has not been received\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>18</length><match><data>\x5bSearchString\x3dL\x2b\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><length>20</length><match><data>Enter search string\x0a</data></match></read>
+    <write><data>\x5bV\x5d</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>19</length><match><data>\x5bSearchString\x3d\x5bV\x5d\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>10</length><match><data>\x2d\x2dText\x2d\x2d\x0a\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>19</length><match><data>\x5bSearchString\x3d\x5bV\x5d\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>7\x0a</data></write>
+    <read><length>33</length><match><data>Input text has not been received\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>19</length><match><data>\x5bSearchString\x3d\x5bV\x5d\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>19</length><match><data>\x5bSearchString\x3d\x5bV\x5d\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>19</length><match><data>\x5bSearchString\x3d\x5bV\x5d\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>19</length><match><data>\x5bSearchString\x3d\x5bV\x5d\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><length>20</length><match><data>Enter search string\x0a</data></match></read>
+    <write><data>x</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>10</length><match><data>\x2d\x2dText\x2d\x2d\x0a\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>7\x0a</data></write>
+    <read><length>33</length><match><data>Input text has not been received\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>10</length><match><data>\x2d\x2dText\x2d\x2d\x0a\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>7\x0a</data></write>
+    <read><length>33</length><match><data>Input text has not been received\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>10</length><match><data>\x2d\x2dText\x2d\x2d\x0a\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>\x3cdg\x5b\x40\x60u\x25\x40\x29 5:\x2djV\x3cE\x5dj\x3b \x0a6\x5dcQ\x3cnU0\x7e\x5d \x0a\x28oA\x7eNzolC6 App\x3e\x23cw5\x5be \x0a3!fmsEwTp\x26 \x0a\x3brmL\x25\x7em\x29gm </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x3cdg\x5b\x40\x60u\x25\x40\x29 5:\x2dj...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x3cdg\x5b\x40\x60u\x25\x40\x29 5:\x2dj...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>XV\x2fk:gVSt3 Y\x5e\x3d3oTAT9R \x0a\x7d.b\x5b2V\x5dl8\x3e </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>44</length><match><data>\x2d\x2dText\x2d\x2d\x0aXV\x2fk:gVSt3 Y\x5e\x3d3oTAT9R \x0a\x7d.b\x5b2V\x5dl8\x3e \x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>6\x0a</data></write>
+    <read><length>20</length><match><data>\x2d\x2dSearch String\x2d\x2d\x0ax\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>6\x0a</data></write>
+    <read><length>20</length><match><data>\x2d\x2dSearch String\x2d\x2d\x0ax\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>6\x0a</data></write>
+    <read><length>20</length><match><data>\x2d\x2dSearch String\x2d\x2d\x0ax\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>44</length><match><data>\x2d\x2dText\x2d\x2d\x0aXV\x2fk:gVSt3 Y\x5e\x3d3oTAT9R \x0a\x7d.b\x5b2V\x5dl8\x3e \x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dXV\x2fk:gVSt3 Y\x5e\x3d3...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>\x5d8QGHE\x24Ii2 \x2c.p\x40cawy\x250 \x0a6wW\x7eqoGFx\x3e \x0ae\x3eT2\x3c\x40\x23w\x7cb \x40p\x7b\x40mM\x2d.K\x2f \x0as2wgsEe\x2bc? \x0a2Bs\x5e\x3eF\x22p\x28A esl!x\x7d\x5f\x3b\x2c4 \x0aZk0v?xCyyI \x0a4UO\x2b:!3:Iw \x60D\x3b\x27\x3czEv\x23B \x0ak:q:\x40\x24t\x7bs: \x0az4r\x5f6j\x5c9\x5fk \x7d\x7eii\x3cg\x5ed\x7co \x0a?\x227\x5b\x22pis\x2f6 \x0a\x5c\x2a\x2aORB96\x7c\x5c E?k\x2dHlnUQ\x26 \x0a0\x5dv\x29vZJVG\x3b \x0aE\x5f.\x7b2\x2a\x5bhs: \x2cDPdF5O\x5cee \x0aIHMVZ3z\x3e\x7c1 \x0a\x5b\x3ef730\x2b\x2b\x2as 3Z7\x2a0\x5bL\x2a\x2cB \x0a\x22\x3eNm\x228xZIR \x0aH\x7cL\x2c\x7buG\x27x? 3\x3c\x5fW\x09h\x5f\x239o \x0aYn\x2bnqePPnl \x0al2yE\x2d!qHQF \x2b\x252c.v48\x7e\x3b \x0ah\x23\x24G:a2KWk \x0a\x28obzYtI\x2aVH YzAZPOo\x60\x3b? \x0a\x27v\x3bCCN\x7dC\x40O \x0avL\x2c\x7b\x3e\x2c\x22VV0 f\x5f\x27\x2d\x2dLzaP5 \x0aHU\x7b\x7e5\x5f2\x3eAm \x0aOnJ\x5be:j1\x40R \x3bj3s\x60N\x29w9o \x0a\x5eea7\x7e\x2c\x22nmS </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5d8QGHE\x24Ii2 \x2c.p\x40...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>7\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5d8QGHE\x24Ii2 \x2c.p\x40...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>464</length><match><data>\x2d\x2dText\x2d\x2d\x0a\x5d8QGHE\x24Ii2 \x2c.p\x40cawy\x250 \x0a6wW\x7eqoGFx\x3e \x0ae\x3eT2\x3c\x40\x23w\x7cb \x40p\x7b\x40mM\x2d.K\x2f \x0as2wgsEe\x2bc? \x0a2Bs\x5e\x3eF\x22p\x28A esl!x\x7d\x5f\x3b\x2c4 \x0aZk0v?xCyyI \x0a4UO\x2b:!3:Iw \x60D\x3b\x27\x3czEv\x23B \x0ak:q:\x40\x24t\x7bs: \x0az4r\x5f6j\x5c9\x5fk \x7d\x7eii\x3cg\x5ed\x7co \x0a?\x227\x5b\x22pis\x2f6 \x0a\x5c\x2a\x2aORB96\x7c\x5c E?k\x2dHlnUQ\x26 \x0a0\x5dv\x29vZJVG\x3b \x0aE\x5f.\x7b2\x2a\x5bhs: \x2cDPdF5O\x5cee \x0aIHMVZ3z\x3e\x7c1 \x0a\x5b\x3ef730\x2b\x2b\x2as 3Z7\x2a0\x5bL\x2a\x2cB \x0a\x22\x3eNm\x228xZIR \x0aH\x7cL\x2c\x7buG\x27x? 3\x3c\x5fW\x09h\x5f\x239o \x0aYn\x2bnqePPnl \x0al2yE\x2d!qHQF \x2b\x252c.v48\x7e\x3b \x0ah\x23\x24G:a2KWk \x0a\x28obzYtI\x2aVH YzAZPOo\x60\x3b? \x0a\x27v\x3bCCN\x7dC\x40O \x0avL\x2c\x7b\x3e\x2c\x22VV0 f\x5f\x27\x2d\x2dLzaP5 \x0aHU\x7b\x7e5\x5f2\x3eAm \x0aOnJ\x5be:j1\x40R \x3bj3s\x60N\x29w9o \x0a\x5eea7\x7e\x2c\x22nmS \x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5d8QGHE\x24Ii2 \x2c.p\x40...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5d8QGHE\x24Ii2 \x2c.p\x40...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>hvFW\x09\x26e2d\x7b ?J.\x60\x26vU1\x3dd \x0aoLg\x5e5H\x3c\x3b\x2bT \x0a\x2c!\x282\x29bN\x5dd7 \x28\x3d\x2dPS\x3cc\x09\x5b\x5d \x0a\x23\x7c\x5dJIo:\x5c\x5ci \x0al\x24o\x5ds3u\x26.\x3b f4xJE:N:qK \x0aF\x5f.Ni18\x247y \x0aNn!?\x22Q\x2b2Q\x5f Sf\x25!\x3b\x3e\x7b\x22\x5bS \x0av\x2dXWjR\x22zoa \x0aLnwkk\x5e\x3d8\x5c\x2f \x7cI\x23Az\x299v4K \x0ae2XT9m\x7b!\x2aY \x0axfWzl\x27\x2aF9Y xt\x2b\x60v\x7e\x2dSg\x2d \x0a9?C\x2b\x3dK\x5b\x2c\x2a\x60 \x0a\x2ae\x3eJ\x2b\x7d?fI8 \x7d1Ek43\x27Gf1 </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dhvFW\x09\x26e2d\x7b ?J.\x60...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>242</length><match><data>\x2d\x2dText\x2d\x2d\x0ahvFW\x09\x26e2d\x7b ?J.\x60\x26vU1\x3dd \x0aoLg\x5e5H\x3c\x3b\x2bT \x0a\x2c!\x282\x29bN\x5dd7 \x28\x3d\x2dPS\x3cc\x09\x5b\x5d \x0a\x23\x7c\x5dJIo:\x5c\x5ci \x0al\x24o\x5ds3u\x26.\x3b f4xJE:N:qK \x0aF\x5f.Ni18\x247y \x0aNn!?\x22Q\x2b2Q\x5f Sf\x25!\x3b\x3e\x7b\x22\x5bS \x0av\x2dXWjR\x22zoa \x0aLnwkk\x5e\x3d8\x5c\x2f \x7cI\x23Az\x299v4K \x0ae2XT9m\x7b!\x2aY \x0axfWzl\x27\x2aF9Y xt\x2b\x60v\x7e\x2dSg\x2d \x0a9?C\x2b\x3dK\x5b\x2c\x2a\x60 \x0a\x2ae\x3eJ\x2b\x7d?fI8 \x7d1Ek43\x27Gf1 \x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dhvFW\x09\x26e2d\x7b ?J.\x60...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>Kq6dvm\x23AJB qCPpsI\x2d\x3b\x2aD \x0ag\x24\x28IM\x607J\x3ep \x0aY\x28FNdSs\x5c6\x2a x\x7eM0kS\x29.Bw \x0a\x2flKL2?Rx\x7b: \x0avi\x5bB7\x2a3\x5f?\x40 </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dKq6dvm\x23AJB qCPp...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>KmxI8l\x3ct0\x5b \x60O\x3c\x5f\x28!azB\x7e \x0as\x3e9\x3dIPM\x2b\x22\x09 \x0a\x5eS6S5h\x7ci\x22j 6\x266M\x5c1\x3buBg \x0aXmL\x7dh9hyw? \x0aDPj\x7dx1LPwa 1Nxr9mksTY \x0a6\x3cSmXIvtd\x2a \x0akh\x25x3\x3ckn\x60\x2d P\x2d\x2awBo\x26VbX \x0a\x7dk\x5e\x263OV\x60A\x7c \x0aZo\x7b\x5b\x60G\x7dtA\x3d Cp\x3b\x5cE32O3\x25 \x0a6\x09G\x3btJ2\x2ajl \x0a9\x2fp6edO8gM 8N\x7eXN\x2ce\x3de\x40 \x0a\x25E\x27U\x09G.K1\x2c \x0a\x5bhKQsE:\x7dE\x2a yThW\x7d\x3dw\x09o! </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dKmxI8l\x3ct0\x5b \x60O\x3c\x5f...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>T\x7b\x2d2\x2b\x7c?CZl tR\x2769s\x7ewh6 \x0a\x5cB\x09Lw\x22qFp? \x0ai.d\x26PP\x5dM8W \x3c\x2bJqRTJ\x40v\x7e \x0a\x5f\x5dik\x5c8j\x3dNj \x0akaPb\x5b\x3dfJ\x3bq dO\x26\x3br.rZ\x26N \x0a\x22\x7eG\x27YvI3vG \x0aY\x26\x3bS\x22Nb5\x2d\x5f :KW4?tZ\x3cC6 \x0a\x2a\x09\x409jMp\x2a6\x29 \x0azAB1Z8uC3I u\x2fi\x23frNn?\x40 \x0a6YFI\x5f\x3e\x60N\x25\x22 \x0aX\x3cYH?81dNv oi\x28s.R.m?\x60 \x0aaL2a\x2dRxUF\x5b \x0acO20o\x28\x7e0\x5cX \x3b\x5d\x2aHvf\x7b\x60GU \x0aCF\x22BPAzPc0 \x0a\x23:g\x3dU\x23l\x27MH \x3dfhl8B8FVZ \x0a\x3dv\x29BXv\x2b\x2dgg \x0an\x27\x7dTsAu\x29lV EzEM\x29v6\x3c\x2cw \x0ai5o\x3c8aJHv1 \x0a\x2f\x7e\x5bJT\x2d\x3c:bO h\x40\x22mn\x29LXvV \x0a?UK\x09m\x2a4i\x2a\x23 \x0agBLd\x3b\x2bRN\x3cW jv\x2b\x2dcFNQ\x5da \x0a2\x26\x272tyAJD\x3e \x0au\x2czI\x3d\x5e\x5fU\x5c\x22 p\x2f\x2b6\x28IJ\x2fZC \x0at\x7dGos\x7cI\x3cm\x2d \x0a\x3dXl2trI\x22NS </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dT\x7b\x2d2\x2b\x7c?CZl tR\x276...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>7\x0a</data></write>
+    <read><length>11</length><match><data>aL2a\x2dRxUF\x5b </data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3dT\x7b\x2d2\x2b\x7c?CZl tR\x276...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>1Wkwp\x22Ei9z \x3cqvaLVw:A7 \x0acPiP\x22\x24P\x2f\x26\x29 \x0aCx\x2f\x2fb\x24\x283\x3dK \x29\x5fia\x7cG4mL\x5c \x0ak\x25fdtY59cL \x0aH\x3cN0.W2MAV idMPZl\x3e?y1 \x0a\x2cvIPJ9\x7bZyQ \x0az\x23E\x40e:l\x5f\x2dM !Z8W\x24\x25k.!B \x0aqBLbLc\x2btpz \x0aLHe\x26e\x27q\x28a\x24 C\x7dcxG\x40m9\x3d! \x0acN\x7bFxIcr:X \x0aR\x23VRPAA\x28J3 \x5fz\x40\x7c8\x2anlc\x7e \x0a1d\x3e\x3b\x2bu91Zx \x0a\x5d\x3d\x5bhX8p.\x2fO ?!\x29\x23t\x5elO\x29\x5b \x0aHD.5Q\x608\x22\x5b\x25 \x0a:BTH1PqN\x3bk cp\x23D\x29i5bj\x2f \x0a.t\x2b\x237\x40OA5P \x0a\x5d\x5fLJZuf9nc \x09Che\x3cT\x7cm\x24l </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d1Wkwp\x22Ei9z \x3cqva...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>312</length><match><data>\x2d\x2dText\x2d\x2d\x0a1Wkwp\x22Ei9z \x3cqvaLVw:A7 \x0acPiP\x22\x24P\x2f\x26\x29 \x0aCx\x2f\x2fb\x24\x283\x3dK \x29\x5fia\x7cG4mL\x5c \x0ak\x25fdtY59cL \x0aH\x3cN0.W2MAV idMPZl\x3e?y1 \x0a\x2cvIPJ9\x7bZyQ \x0az\x23E\x40e:l\x5f\x2dM !Z8W\x24\x25k.!B \x0aqBLbLc\x2btpz \x0aLHe\x26e\x27q\x28a\x24 C\x7dcxG\x40m9\x3d! \x0acN\x7bFxIcr:X \x0aR\x23VRPAA\x28J3 \x5fz\x40\x7c8\x2anlc\x7e \x0a1d\x3e\x3b\x2bu91Zx \x0a\x5d\x3d\x5bhX8p.\x2fO ?!\x29\x23t\x5elO\x29\x5b \x0aHD.5Q\x608\x22\x5b\x25 \x0a:BTH1PqN\x3bk cp\x23D\x29i5bj\x2f \x0a.t\x2b\x237\x40OA5P \x0a\x5d\x5fLJZuf9nc \x09Che\x3cT\x7cm\x24l \x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d1Wkwp\x22Ei9z \x3cqva...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>arZH\x2f7\x28\x29t\x3e nHdWWI\x7em\x28\x5c \x0a\x5dIKiTTFelP \x0a.m\x40\x7d64\x22C\x2cZ \x7eMBd3wR\x7b\x5e\x24 \x0ajkOYi\x7bdh8n \x0ae\x2dk\x7e9ns\x60bO XV?Q\x7dz5\x3cDN \x0a\x40\x2aae\x5dMD\x28\x5cb \x0a6o\x7bN1qR9h\x28 \x7c\x7ebKP\x22\x7eopq \x0aF\x3eM?\x7d\x24\x23FKx \x0a\x5cN2\x5d4Y\x28\x5eV: 80C!\x2d65\x40yE \x0asdH4x\x3c\x3dzG\x09 \x0aD\x5fZZVDoT1H \x40hjq\x2c.8HX\x40 \x0aUO2V1yOy\x09S \x0aNniDw\x24wG8Q pl\x7baFy1.zY \x0a\x60\x22\x7c\x09\x5e\x3b\x28\x405\x3c \x0ar\x40t\x7duMv!\x2a\x5b q\x2a.\x090Ds3\x7e\x27 \x0a\x5c\x2asOF8\x25\x3ch\x3d \x0ag9BD\x3eyH\x2ag\x3d </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3darZH\x2f7\x28\x29t\x3e nHdW...\x5d\x0a</data></match></read>
+    <read><length>17</length><match><data>\x5bSearchString\x3dx\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><length>20</length><match><data>Enter search string\x0a</data></match></read>
+    <write><data>w?</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3darZH\x2f7\x28\x29t\x3e nHdW...\x5d\x0a</data></match></read>
+    <read><length>18</length><match><data>\x5bSearchString\x3dw?\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>\x2fcc78Ru\x5dQ\x5b QBRi6XnR\x3e\x5f \x0aDuT3Hg\x22!\x2d\x2f \x0a\x5eSM\x2830\x3c\x5d3! 1V9P\x3e\x3d15c\x27 \x0a\x7bc.K\x5b\x27Y5j3 \x0aOSiotj\x7b\x27w\x5c I\x09K\x2bAFci\x3dw \x0ajR.\x7cO\x2a\x5b?\x5cv \x0aX\x29i\x7d\x7e?lX!R r4Re\x7ea.?\x3b\x7e \x0a8\x22\x7e\x40pcz\x5cTD \x0aQ\x26MB\x2d\x60\x3b\x3c\x2b\x5c Z\x29\x2cw\x40\x7dY\x3e:j \x0aAt\x3de\x24\x2f\x5f\x2coM \x0a\x2bj5myA\x40X0\x2d \x24\x5bj8\x3d\x40\x7c2z\x3c \x0avz.JxGoBES \x0ah\x2bMC\x5dt\x7dif\x28 \x5bLFtU\x2d\x2fRPq \x0a\x27\x5c\x22b\x2be\x26\x28Wo \x0a?\x2cL\x3bl\x291\x2d1\x5d \x5cCFqnkAjqe \x0a\x7d\x232bHko\x2cYJ \x0apyPXN\x5edc8P \x2b0IAYwOqLW \x0aLF2O\x2fULV\x40k \x0a\x3c742sverk\x3d \x7c!S5\x2cJG4A\x23 \x0arF\x5d\x60\x2fgaBi\x09 \x0a\x25\x09bCD7b?\x23f q\x7d\x2b\x27MW\x5fJNx \x0aW\x5d\x2c\x5b3\x2c\x7cxMP \x0aM70YE\x3eVi\x5fI !vF\x7bD\x2bC\x5ey\x5c \x0aXe5:cUCH6z \x0a\x5bo2tqs\x7c\x2f\x2fP u\x5b\x27l\x292\x5fS0\x2f </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x2fcc78Ru\x5dQ\x5b QBRi...\x5d\x0a</data></match></read>
+    <read><length>18</length><match><data>\x5bSearchString\x3dw?\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>452</length><match><data>\x2d\x2dText\x2d\x2d\x0a\x2fcc78Ru\x5dQ\x5b QBRi6XnR\x3e\x5f \x0aDuT3Hg\x22!\x2d\x2f \x0a\x5eSM\x2830\x3c\x5d3! 1V9P\x3e\x3d15c\x27 \x0a\x7bc.K\x5b\x27Y5j3 \x0aOSiotj\x7b\x27w\x5c I\x09K\x2bAFci\x3dw \x0ajR.\x7cO\x2a\x5b?\x5cv \x0aX\x29i\x7d\x7e?lX!R r4Re\x7ea.?\x3b\x7e \x0a8\x22\x7e\x40pcz\x5cTD \x0aQ\x26MB\x2d\x60\x3b\x3c\x2b\x5c Z\x29\x2cw\x40\x7dY\x3e:j \x0aAt\x3de\x24\x2f\x5f\x2coM \x0a\x2bj5myA\x40X0\x2d \x24\x5bj8\x3d\x40\x7c2z\x3c \x0avz.JxGoBES \x0ah\x2bMC\x5dt\x7dif\x28 \x5bLFtU\x2d\x2fRPq \x0a\x27\x5c\x22b\x2be\x26\x28Wo \x0a?\x2cL\x3bl\x291\x2d1\x5d \x5cCFqnkAjqe \x0a\x7d\x232bHko\x2cYJ \x0apyPXN\x5edc8P \x2b0IAYwOqLW \x0aLF2O\x2fULV\x40k \x0a\x3c742sverk\x3d \x7c!S5\x2cJG4A\x23 \x0arF\x5d\x60\x2fgaBi\x09 \x0a\x25\x09bCD7b?\x23f q\x7d\x2b\x27MW\x5fJNx \x0aW\x5d\x2c\x5b3\x2c\x7cxMP \x0aM70YE\x3eVi\x5fI !vF\x7bD\x2bC\x5ey\x5c \x0aXe5:cUCH6z \x0a\x5bo2tqs\x7c\x2f\x2fP u\x5b\x27l\x292\x5fS0\x2f \x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x2fcc78Ru\x5dQ\x5b QBRi...\x5d\x0a</data></match></read>
+    <read><length>18</length><match><data>\x5bSearchString\x3dw?\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>7\x0a</data></write>
+    <read><length>22</length><match><data>OSiotj\x7b\x27w\x5c I\x09K\x2bAFci\x3dw </data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>22</length><match><data>Q\x26MB\x2d\x60\x3b\x3c\x2b\x5c Z\x29\x2cw\x40\x7dY\x3e:j </data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>22</length><match><data>pyPXN\x5edc8P \x2b0IAYwOqLW </data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x2fcc78Ru\x5dQ\x5b QBRi...\x5d\x0a</data></match></read>
+    <read><length>18</length><match><data>\x5bSearchString\x3dw?\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>21</length><match><data>Enter text to search\x0a</data></match></read>
+    <write><data>\x5dAhp\x24e\x60?bz 1o2j?s\x3e\x5eLy \x0adqfr7?28\x60S \x0a\x3e\x5ee\x24\x25\x2d\x7e?\x29e M\x3bV\x27lP\x24r.L \x0azcTxhZ\x2aM\x5e\x5c \x0a2\x29\x3colS7L9o UsCU6kKjB\x7c \x0aqD\x7eXF\x2cI57q \x0aT5fY\x3cVAg2h T7Q\x3dOGA\x09Wu \x0a\x24l\x7dC\x60\x5c\x7b\x23zv \x0aidI\x5c7\x3e\x5bsb\x5c a8mj!k\x25\x5e6. \x0aCaE0xs\x3craB \x0a\x26c?E\x7ehia!\x29 RD\x2bQd91a\x29\x2d \x0a\x26\x5e\x24Sh\x40\x27R\x3eZ \x0a\x7c\x2bp.\x7c\x23:\x5dV4 lkLbZ2J6dE \x0a\x2f\x2ctr:\x7cl\x22i3 \x0av\x290\x27\x5d0Ur\x2b\x5e 9OAdsA\x7c\x3c5\x22 \x0ajaLnM\x5b\x60\x2dlR \x0aSnv\x2d\x5bpuR\x7dH \x3e\x3bF\x25fZ:vrK \x0aEr\x5bF!\x60ALu\x5d \x0aDDO:Mo\x5c\x605\x3c nH69B\x3eU!\x5bc \x0ar\x3c\x25\x7db\x7dW:EE \x0a\x27mD\x40\x5f\x7c1D\x5be IOC\x3eE5ox\x2a\x60 \x0a9Rpn\x40V\x5f\x5e\x5ds \x0adxz1i0\x09\x27I2 Ei\x2ft0PUH\x3e. \x0a\x7bYy\x5f?\x5dqT\x40\x7d \x0aze:qWpVJQp Lv0xb\x2a\x2b0\x3e\x2a \x0a0Fjh:dbdb2 \x0a2ymb\x7cf\x5el3G meM7T\x23wC\x7bP \x0a\x5dW\x278?\x09Q3B? \x0a1\x25\x3e\x097u.oUe hOPH7i69kA \x0aQ485X0\x5f\x7cS! \x0alQ:U\x25D?m5v Y86:\x5d\x7e\x28xZ\x27 \x0a\x7di1\x7cGAZyY9 </data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5dAhp\x24e\x60?bz 1o2j...\x5d\x0a</data></match></read>
+    <read><length>18</length><match><data>\x5bSearchString\x3dw?\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><length>569</length><match><data>\x2d\x2dText\x2d\x2d\x0a\x5dAhp\x24e\x60?bz 1o2j?s\x3e\x5eLy \x0adqfr7?28\x60S \x0a\x3e\x5ee\x24\x25\x2d\x7e?\x29e M\x3bV\x27lP\x24r.L \x0azcTxhZ\x2aM\x5e\x5c \x0a2\x29\x3colS7L9o UsCU6kKjB\x7c \x0aqD\x7eXF\x2cI57q \x0aT5fY\x3cVAg2h T7Q\x3dOGA\x09Wu \x0a\x24l\x7dC\x60\x5c\x7b\x23zv \x0aidI\x5c7\x3e\x5bsb\x5c a8mj!k\x25\x5e6. \x0aCaE0xs\x3craB \x0a\x26c?E\x7ehia!\x29 RD\x2bQd91a\x29\x2d \x0a\x26\x5e\x24Sh\x40\x27R\x3eZ \x0a\x7c\x2bp.\x7c\x23:\x5dV4 lkLbZ2J6dE \x0a\x2f\x2ctr:\x7cl\x22i3 \x0av\x290\x27\x5d0Ur\x2b\x5e 9OAdsA\x7c\x3c5\x22 \x0ajaLnM\x5b\x60\x2dlR \x0aSnv\x2d\x5bpuR\x7dH \x3e\x3bF\x25fZ:vrK \x0aEr\x5bF!\x60ALu\x5d \x0aDDO:Mo\x5c\x605\x3c nH69B\x3eU!\x5bc \x0ar\x3c\x25\x7db\x7dW:EE \x0a\x27mD\x40\x5f\x7c1D\x5be IOC\x3eE5ox\x2a\x60 \x0a9Rpn\x40V\x5f\x5e\x5ds \x0adxz1i0\x09\x27I2 Ei\x2ft0PUH\x3e. \x0a\x7bYy\x5f?\x5dqT\x40\x7d \x0aze:qWpVJQp Lv0xb\x2a\x2b0\x3e\x2a \x0a0Fjh:dbdb2 \x0a2ymb\x7cf\x5el3G meM7T\x23wC\x7bP \x0a\x5dW\x278?\x09Q3B? \x0a1\x25\x3e\x097u.oUe hOPH7i69kA \x0aQ485X0\x5f\x7cS! \x0alQ:U\x25D?m5v Y86:\x5d\x7e\x28xZ\x27 \x0a\x7di1\x7cGAZyY9 \x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5dAhp\x24e\x60?bz 1o2j...\x5d\x0a</data></match></read>
+    <read><length>18</length><match><data>\x5bSearchString\x3dw?\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>7\x0a</data></write>
+    <read><length>22</length><match><data>2ymb\x7cf\x5el3G meM7T\x23wC\x7bP </data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5dAhp\x24e\x60?bz 1o2j...\x5d\x0a</data></match></read>
+    <read><length>18</length><match><data>\x5bSearchString\x3dw?\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bLineMatching\x3dPartial\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5dAhp\x24e\x60?bz 1o2j...\x5d\x0a</data></match></read>
+    <read><length>18</length><match><data>\x5bSearchString\x3dw?\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><length>20</length><match><data>Enter search string\x0a</data></match></read>
+    <write><data>\x28I\x29</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5dAhp\x24e\x60?bz 1o2j...\x5d\x0a</data></match></read>
+    <read><length>19</length><match><data>\x5bSearchString\x3d\x28I\x29\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><length>20</length><match><data>Enter search string\x0a</data></match></read>
+    <write><data>(a*b*)*</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5dAhp\x24e\x60?bz 1o2j...\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bSearchString\x3d(a*b*)*\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>7\x0a</data></write>
+    <read><length>1</length><match><data>\x0a</data></match></read>
+    <read><length>187</length><match><data>Text Searcher: Main Menu\x0a1. Enter Text\x0a2. Enter Search String\x0a3. Line Search \x2d Partial Matches\x0a4. Line Search \x2d Exact Matches\x0a5. Print Text\x0a6. Print Search String\x0a7. Search Text\x0a8. Quit\x0a\x0a</data></match></read>
+    <read><length>26</length><match><data>\x5bText\x3d\x5dAhp\x24e\x60?bz 1o2j...\x5d\x0a</data></match></read>
+    <read><length>23</length><match><data>\x5bSearchString\x3d(a*b*)*\x5d\x0a</data></match></read>
+    <read><length>21</length><match><data>\x5bLineMatching\x3dExact\x5d\x0a</data></match></read>
+    <read><length>8</length><match><data>Select: </data></match></read>
+    <write><data>8\x0a</data></write>
+    <read><length>10</length><match><data>Exiting...</data></match></read>
+</replay>
+</pov>

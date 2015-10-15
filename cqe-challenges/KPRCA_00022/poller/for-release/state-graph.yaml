@@ -1,0 +1,85 @@
+---
+nodes:
+- name: start
+- name: enter_field
+- name: update_field
+- name: next_page
+- name: prev_page
+- name: help
+- name: exit
+
+edges:
+- start: enter_field
+- start: update_field
+  weight: .1
+- start: next_page
+  weight: .1
+- start: prev_page
+  weight: .1
+- start: help
+  weight: .5
+- start: exit
+  weight: .1
+
+- enter_field: enter_field
+- enter_field: update_field
+  weight: .1
+- enter_field: next_page
+  weight: .5
+- enter_field: prev_page
+  weight: .2
+- enter_field: help
+  weight: .1
+- enter_field: exit
+  weight: .05
+
+- update_field: enter_field
+- update_field: update_field
+  weight: .1
+- update_field: next_page
+- update_field: prev_page
+  weight: .2
+- update_field: help
+  weight: .1
+- update_field: exit
+  weight: .05
+
+- next_page: enter_field
+- next_page: update_field
+  weight: .1
+- next_page: next_page
+  weight: .4
+- next_page: prev_page
+  weight: .2
+- next_page: help
+  weight: .1
+- next_page: exit
+  weight: .05
+
+
+- prev_page: enter_field
+  weight: .1
+- prev_page: update_field
+  weight: .1
+- prev_page: next_page
+  weight: .65
+- prev_page: prev_page
+  weight: .2
+- prev_page: help
+  weight: .1
+- prev_page: exit
+  weight: .05
+
+
+- help: enter_field
+- help: update_field
+  weight: .1
+- help: next_page
+  weight: .65
+- help: prev_page
+  weight: .2
+- help: help
+  weight: .1
+- help: exit
+  weight: .05
+

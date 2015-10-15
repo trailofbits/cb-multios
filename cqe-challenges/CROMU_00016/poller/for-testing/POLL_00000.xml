@@ -1,0 +1,32 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>CROMU_000016</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Welcome to the network queuing simulator\x0a</data></match></read>
+    <read><delim>: </delim><match><data>What\x27s the interface speed \x28in bps up to 4194304 bps\x29: </data></match></read>
+    <write><data>1411745\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>The following packet generators are available:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  1 \x2d Random\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  2 \x2d Poisson\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  3 \x2d Manual\x0a</data></match></read>
+    <read><delim>: </delim><match><data>Which generator would you like to use? \x281\x2d3\x29: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>What average bit rate do you want the random generator to produce? \x281 \x2d 4194304 bps\x29: </data></match></read>
+    <write><data>541133\x0a</data></write>
+    <read><delim>: </delim><match><data>For how long would you like the simulation to run? \x281 - 10s\x29: </data></match></read>
+    <write><data>8\x0a</data></write>
+    <read><delim>: </delim><match><data>How many queues \x281\x2d8\x29?: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Queue 0:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  Is queue \x230 a priority queue\x28y\x2cn\x29: </data></match></read>
+    <write><data>y\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the minimum priority packet to place in queue \x230 \x280\x2d63\x29: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the maximum priority packet to place in queue \x230 \x280\x2d63\x29: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the depth of queue \x230 \x281 \x2d 1024 packets\x29: </data></match></read>
+    <write><data>533\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Not all priority values from 0 to 63 are accounted for in the queue definitions.\x0a</data></match></read>
+</replay>
+</pov>

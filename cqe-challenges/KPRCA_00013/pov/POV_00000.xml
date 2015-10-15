@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><length>9</length><match><data>Accel:\x2d\x24 </data></match></read>
+    <write><data>A0==A1+SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)))))))))))))))))\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Success.\x0a</data></match></read>
+    <read><length>9</length><match><data>Accel:\x2d\x24 </data></match></read>
+    <write><data>SHOW A0\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Cell Value: 129.000\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Success.\x0a</data></match></read>
+    <read><length>9</length><match><data>Accel:\x2d\x24 </data></match></read>
+    <write><data>A2==SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,SUM(1,1)))))))))))))))))\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Success.\x0a</data></match></read>
+    <read><length>9</length><match><data>Accel:\x2d\x24 </data></match></read>
+    <write><data>SHOW A2\x0a</data></write>
+    <read><delim>\x0a</delim></read>
+    <read><delim>\x0a</delim><match><data>Success.\x0a</data></match></read>
+    <write><data>EXIT\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Exiting...\x0a</data></match></read>
+</replay>
+</pov>

@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <read><length>2</length><match><data>\x3e </data></match></read>
+        <write>
+            <data>enable racoiaws\n</data>
+        </write>
+        <read><length>2</length><match><data>\x24 </data></match></read>
+        <write>
+            <data>add 1\n</data>
+        </write>
+        <read><delim>\x0a</delim><match><data>AS 1\x0a</data></match></read>
+        <read><delim>\x0a</delim><match><data> Name: \x0a</data></match></read>
+        <read><delim>\x0a</delim><match><data> IP: 0.0.0.0\x0a</data></match></read>
+        <read><length>13</length><match><data>Modify name? </data></match></read>
+        <write><data>n\x0a</data></write>
+        <read><length>11</length><match><data>Modify IP? </data></match></read>
+        <write><data>n\x0a</data></write>
+        <read><length>2</length><match><data>\x24 </data></match></read>
+        <write>
+            <data>edit 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAX\x00\x00\x00X\x00\x00\x00X\x00\x00\x00X\x00\x00\x00\n</data>
+        </write>
+        <write><data>y\x0a</data></write>
+        <write><data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data></write>
+        <write><data>n\x0a</data></write>
+        <write><data>quit\n</data></write>
+        <write><data>add 0.0.0.0 128.0.0.0 0\n</data></write>
+        <write><data>quit\n</data></write>
+        <read echo="yes"><delim>GOOD-BYE\x0a</delim></read>
+    </replay>
+</pov>

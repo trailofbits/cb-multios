@@ -1,0 +1,20 @@
+---
+nodes:
+- name: start
+- name: ReadObject
+- name: WriteObject
+- name: TestErrors
+- name: end
+edges:
+- start: ReadObject
+- start: WriteObject
+- start: TestErrors
+- ReadObject: WriteObject
+- ReadObject: TestErrors
+- ReadObject: end
+- WriteObject: ReadObject
+- WriteObject: TestErrors
+- WriteObject: end
+- TestErrors: ReadObject
+- TestErrors: WriteObject
+- TestErrors: end

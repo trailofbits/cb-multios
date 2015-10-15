@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x04\x04\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x01\x00\x00\x00\xf0\x03\x00\x00\xe8\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe8\x03\x00\x00\xcbk\xc4\xc7I\xc2SET\x9f\x88\xb5\x2b\x00\x00\x00\xe13\xfa\x98DO2\xcb\xb7\x9bb1\x1e\xa6BW\x0c\x04\x00\x04\x1dD\xfe\x0c\x11\xe4x\xc1\xffu\xcf.\xc7\x91\xa4\xe1\x0ey\xf2\x8e\xe3\xa9\x12\x14NK \x04\x28\xcf\xe9A\x9f\x7d\x0e.\xd2\xf9\x18.\xe9\xde\xb9\x1f\xe5\x5e\x8b\x9dd\x0c\xa8\xa6\xddY\x91\x0a\xf2\x8a\xa1\xa6\x7f\xc3\xff\x3d\x9c\x2a\x13\xc9\x04\x00\x8f\xcet\xf0\xd4\x5f\x0a\x04\xc9\x09:e\xb5nY\x04\x89\x03\x04\x00\xd21\xd1\x92\x09\x1c\x91x\x04J\xea\xb5\xe4Uk\x88RQ\xf3\xb9o\xf4\x80\x2fq\xe3\xafg\x2aL\xd6\x0e\x3b\xf2\xab\x03\x01\xdc\x9a\xca\xf6\x5e\x1d6\x26G\xee\xe2J\xcc\x24\xcf\xfe\xe5f\xfb\x11K\xafl\x99u\xd9\x1a\x19\xf2\xc5\x7c\xe8\xca\xad\x04e\xb1F\x5e\x2c\x98\x0b\xac\x04\xbb\xbb\xc7\x1f\x14w\xc5\x04\xb6n\x14\x25\x3b\xb5\x1b\x7c4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===lol</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===Lachnosternaadenodermia</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

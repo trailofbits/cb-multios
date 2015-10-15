@@ -1,0 +1,63 @@
+# Copyright (C) 2014 Narf Industries <info@narfindustries.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+---
+nodes:
+- name: start
+- name: finish
+- name: cmd
+  continue: 0.7
+- name: list_stocks
+- name: list_orders
+- name: list_orders_valid
+- name: list_orders_invalid
+- name: add_order
+- name: add_order_existing
+- name: add_order_new
+- name: check_order
+- name: cancel_order
+
+edges:
+- start: cmd
+
+- cmd: list_stocks
+- cmd: list_orders
+- cmd: add_order
+- cmd: check_order
+- cmd: cancel_order
+
+- list_orders: list_orders_valid
+  weight: 0.8
+- list_orders: list_orders_invalid
+  weight: 0.2
+
+- add_order: add_order_existing
+  weight: 0.8
+- add_order: add_order_new
+  weight: 0.2
+
+- list_stocks: cmd
+- list_orders_valid: cmd
+- list_orders_invalid: cmd
+- add_order_existing: cmd
+- add_order_new: cmd
+- check_order: cmd
+- cancel_order: cmd
+

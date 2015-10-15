@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+	<cbid>CROMU_00025</cbid>
+	<replay>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>ydzqmzkxmae\n</data></write>
+		<write echo="ascii"><data>\x1a\x00\x24\xc7\xee\x85\x14\x53\x80\x00\x04\xd0\x13\x48\x2d\x20\xb4\x02\xd2\x0b\x40\x0d\x00\x34\x02\xd0\x03\x40</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo = "ascii"><data>4\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>ydzqmzkxmae\n</data></write>
+		<read echo= "ascii"><delim>\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\n</delim><match><data>\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\n</data></match></read>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>5\n</data></write>
+	</replay>
+</pov>

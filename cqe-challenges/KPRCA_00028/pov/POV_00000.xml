@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><length>61</length><match><data>Welcome to the SLUR REPL. Type an expression to evaluate it.\x0a</data></match></read>
+    <read><length>2</length><match><data>\x3e </data></match></read>
+    <write><data>((lambda (x) (x x x x x)) (quote CAKE))\x0a</data></write>
+    <read><length>48</length><match><data>(CAKE CAKE CAKE CAKE CAKE That's a lot of CAKE!)</data></match></read>
+</replay>
+</pov>

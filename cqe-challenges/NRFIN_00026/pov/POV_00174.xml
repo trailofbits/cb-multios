@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x04\x04\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x01\x00\x00\x00\xf0\x03\x00\x00\xe8\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe8\x03\x00\x00\x13\x07\x7f\x17I\x3c\xcb\x14\xd6\xd8\x0aG\xcc\x01\x00\x00\xd7\x98\x5dK\x2d\x00\x2d\x00\x1az\x9dox\xcfvI\x98\x15\xfe\x2b\xf2\x8c4\x96\x7f\xe9\xbd5P\xef\x05\x0b\xb3!\x3e\xc9\xe6\xc3\x15K\x8d\x29\x84y\x3b\xfa1\x22B\xc9U\xb7WT\xa9 \xe6cD\x11\x3d\xc6\xc01V9aS\xcbMU9\x28\x2d\x2aBQs\xbd\xad\xac\x8e\xcbm\xe3\x23\xdb\x9a\xcf5?\xe4\x3e\xe4\xe6\xd3y\xc8\xeb\x9c\xf9\x03\x95\xeay\xf5Q\xea\x9eT\x7fu\xbdO\xfb\xa4\xb7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===lol</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===ananaamasty</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===overgenialitybuzzle</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

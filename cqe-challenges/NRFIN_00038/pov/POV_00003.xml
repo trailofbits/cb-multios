@@ -1,0 +1,28 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- Login and get token -->
+        <write><data>login foobar\x0a</data></write>
+        <read><delim>\x0a</delim></read>
+        <read><delim>\x0a</delim></read>
+
+        <!-- Login and get token -->
+        <write><data>login foobar\x0a</data></write>
+        <read><delim>\x0a</delim></read>
+        <read><delim>\x0a</delim></read>
+
+        <!-- Login and get token -->
+        <write><data>login foobar|\x0a</data></write>
+        <read><delim>\x0a</delim></read>
+
+        <!-- HMAC is not used, allowing length extension attacks against the md5 hash -->
+        <write><data>greet counter=3cf0ffb7|name=foobar|\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80|counter=deadbeef|f27190cda39fbe60e64a12a4b3879d09\x0a</data></write>
+        
+        <write><data>quit\x0a</data></write>
+    </replay>
+</pov>

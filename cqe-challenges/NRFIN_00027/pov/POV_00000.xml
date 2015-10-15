@@ -1,0 +1,51 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- Push matrix [[0.0]] -->
+        <write><data>\x00\x00\x00\x00\x01\x00\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00</data></write>
+        <read><length>4</length><match><data>\x00\x00\x00\x00</data></match></read>
+
+        <!-- Invert matrix -->
+        <write><data>\x07\x00\x00\x00</data></write>
+        <read><length>4</length><match><pcre>\x00\x00\x00\x00|\xff\xff\xff\xff</pcre></match></read>
+
+        <!-- Push integer 1 -->
+        <write><data>\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00</data></write>
+        <read><length>4</length><match><data>\x00\x00\x00\x00</data></match></read>
+
+        <!-- Add -->
+        <write><data>\x03\x00\x00\x00</data></write>
+        <read><length>4</length><match><data>\x00\x00\x00\x00</data></match></read>
+
+        <!-- Push integer 41343 -->
+        <write><data>\x00\x00\x00\x00\x00\x00\x00\x00\x7f\xa1\x00\x00</data></write>
+        <read><length>4</length><match><data>\x00\x00\x00\x00</data></match></read>
+
+        <!-- Multiply -->
+        <write><data>\x05\x00\x00\x00</data></write>
+        <read><length>4</length><match><data>\x00\x00\x00\x00</data></match></read>
+
+        <!-- Push integer 130367, note that 41343 * 130367 == 0x141414141 -->
+        <write><data>\x00\x00\x00\x00\x00\x00\x00\x00\x3f\xfd\x01\x00</data></write>
+        <read><length>4</length><match><data>\x00\x00\x00\x00</data></match></read>
+
+        <!-- Multiply -->
+        <write><data>\x05\x00\x00\x00</data></write>
+        <read><length>4</length><match><data>\x00\x00\x00\x00</data></match></read>
+
+        <!-- Push integer 0x42424242 -->
+        <write><data>\x00\x00\x00\x00\x00\x00\x00\x00\x42\x42\x42\x42</data></write>
+        <read><length>4</length><match><data>\x00\x00\x00\x00</data></match></read>
+
+        <!-- Add -->
+        <write><data>\x03\x00\x00\x00</data></write>
+
+        <!-- Terminate if patched -->
+        <write><data>\xff\xff\xff\xff</data></write>
+    </replay>
+</pov>

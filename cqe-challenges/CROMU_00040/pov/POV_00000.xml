@@ -1,0 +1,61 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>1 \x2d Enter a Recipe\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>2 \x2d Find a Recipe\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>3 \x2d Print Tagged Recipes\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>4 \x2d Print Shopping List\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>5 \x2d Exit\x0a</data></match></read>
+    <write echo="ascii"><data>1\x0a</data></write>
+    <read echo="ascii"><length>13</length><match><data>Enter Title: </data></match></read>
+    <write echo="ascii"><data>hi\x0a</data></write>
+    <read echo="ascii"><length>74</length><match><data>Enter the measurement and ingredients\x2c one per line.  A blank line ends.\x0a\x0a</data></match></read>
+    <write echo="ascii"><data>apples\x0a</data></write>
+    <write echo="ascii"><data>\x0a</data></write>
+    <read echo="ascii"><length>60</length><match><data>Enter the step by step instructions.  A blank line to end.\x0a\x0a</data></match></read>
+    <read echo="ascii"><length>8</length><match><data>Step 1: </data></match></read>
+    <write echo="ascii"><data>\x0a</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>1 \x2d Enter a Recipe\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>2 \x2d Find a Recipe\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>3 \x2d Print Tagged Recipes\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>4 \x2d Print Shopping List\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>5 \x2d Exit\x0a</data></match></read>
+    <write echo="ascii"><data>2\x0a</data></write>
+    <read echo="ascii"><length>19</length><match><data>Enter search term: </data></match></read>
+    <write echo="ascii"><data>hi\x0a</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><length>6</length><match><data>\x09\x09hi\x0a\x0a</data></match></read>
+    <read echo="ascii"><length>12</length><match><data>Ingredients\x0a</data></match></read>
+    <read echo="ascii"><length>12</length><match><data>\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x0a</data></match></read>
+    <read echo="ascii"><length>7</length><match><data>apples\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><length>13</length><match><data>Instructions\x0a</data></match></read>
+    <read echo="ascii"><length>13</length><match><data>\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><length>35</length><match><data>Would you like to tag this recipe? </data></match></read>
+    <write echo="ascii"><data>y\x0a</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>1 \x2d Enter a Recipe\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>2 \x2d Find a Recipe\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>3 \x2d Print Tagged Recipes\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>4 \x2d Print Shopping List\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>5 \x2d Exit\x0a</data></match></read>
+    <write echo="ascii"><data>3\x0a</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><length>6</length><match><data>\x09\x09hi\x0a\x0a</data></match></read>
+    <read echo="ascii"><length>12</length><match><data>Ingredients\x0a</data></match></read>
+    <read echo="ascii"><length>12</length><match><data>\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x0a</data></match></read>
+    <read echo="ascii"><length>7</length><match><data>apples\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><length>13</length><match><data>Instructions\x0a</data></match></read>
+    <read echo="ascii"><length>13</length><match><data>\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>\x0a</data></match></read>
+</replay>
+</pov>

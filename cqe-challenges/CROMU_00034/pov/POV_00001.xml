@@ -1,0 +1,30 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Welcome to the diary logger!</data></match></read>
+    <write echo="ascii"><data>\xb2\x00</data></write>
+    <write echo="ascii"><data>BB\x92\x5c\x08\x00\x00\x00\x00\x06\x0e\x00y\x00\x00\x03\x13\x15\x00\x28\x00bcbaaababcaccbbbabc\x02\x03\x0c\x2f\x00\x3b\x00cbcbcbcbbbcb\x03\x00\x00\x90\x00B\x00\x01\x03\x0fI\x00X\x00babcccabacbaaba\x05\x03\x0a\x5f\x00i\x00ccccababca\x06\x03\x09p\x00\x00\x00cabbbbccb\x06\x01\x7f\x00\x00\x00\x06\x03\x85\x90\x00\x00\x00\x03\x10\x8c\x00\x9c\x00cbcababcbccababc\x01\x03\x08\xa3\x00\xab\x00acccaacc\x02\x00\x00\xba\x00\x00\x00</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Length: 178</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Magic number: 0x4242</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Future: 0x5c92</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Offset: 0x8</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Title: identity</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Entry Count: 0x6</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>first name: bcbaaababcaccbbbabc</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>last name: cbcbcbcbbbcb</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>age: 0x90</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>middle name: babcccabacbaaba</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>birth country: ccccababca</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>birth state: cabbbbccb</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Title: hobbies</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Entry Count: 0x1</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Title: sports</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Entry Count: 0x3</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>name: cbcababcbccababc</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>position: acccaacc</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>years experience: 0xba</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>good book.</data></match></read>
+</replay>
+</pov>

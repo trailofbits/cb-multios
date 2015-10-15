@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x04\x04\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x01\x00\x00\x00\xf0\x03\x00\x00\xe8\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe8\x03\x00\x00y\xeeGu\xd0\x0419:\xdb\xbb\x06\xf0\x00\x00\x00up\xad\x8c\x14Fo\xbfU\x8e\x099\xd2FZ\xbe\x22\xfe\x96\xf8\x2f\x91\x5csn\x22\xa6X\x08\x88\xe16\xc5\xb6\x2a\x88\xa5\x04\xd8:\x12\xeb\x1ea32\xffjJ3\x1f\xb8\x40\x1e\xeb\x1c\x10 \x8eV0v\x8f\x927tp\x24\x05\xdd6mc\xf8\xc3\xea\x0c!\xd7\xf3\xf3\x8d\xf4\xb0\x9akM\xdbv\x00\xdc\xad\x3d\x8bK\x1f\x0a\x0b\x28g\xa7Q\x8d\x93\xe0f\xe1\xa9\x2d\x85\xa6\xd6\x8b\x9e\xe3\x8a\xe0\xfbc\x15\x0bIe\xc3I\xfb\x8a\x3c\xde\x96t\xb64?\xf2\xf1q\x978\xca\x7c\xc3W\xe7\xfcm\xc4\xc8Y\xae\x5d\xff\x18\x03\xf8\xab\xde\x8d\x154\x5e8\xd9\xef\x8d\x96t16p\xe7P\xbcd\xdb\x86\x93S\x23\x0c\xa5\x96\xf4?L\xd4\xc80\x81e\x11f\x96\x87\xb2\x2b\xe2\x9es\x5e\x1fH\xca\x0dAi7\x91w\x19KHz\xaf7\xa4\x86\x2a\xbc\x02\x0c\x3d\xf4\xdd\xd0\x1f\xfe\x07\xe6\xc1\x01\x3d\x91Q\x24\xf9q\xefX\x88\xfe\xfa\xdf\xe0\xafg\xd4\x80\xa6A\xaau\xe3ahD                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===lol</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===prosubscriptiontribracteate</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===heliconbonnetman</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

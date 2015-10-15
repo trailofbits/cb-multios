@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x04\x04\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x01\x00\x00\x00\xf0\x03\x00\x00\xe8\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe8\x03\x00\x00\x29\x8c\xcd\x8f\xc7\xa4\x14I\xee\x24W\x11\x2f\x00\x00\x00P\x98\x80\xd2D\x23!\x06\x3b\xbe\xb9\x89\x00\xdd\xfebI\x1a\x18T\x8d\x9f\xcfF\x7crD\x5e\x00q\xd7\xfc\x5c\xb0vjc\xf5\xf8F\x11\x16b\x2f\x8f\x0c3\x00\x02\xce\x03\xe1\xa2\xd8\x033\xac\xae\x9d\x29\x7f\x0d\xd2\x9f\xfe\x2f\x18\xc0I\x07\xe7\xf5\xf4\x1a\x90\xc4b\xcaF\xf2\xfe\xda\xbcU\xa22\x87\xb3\x1c\xf7\xea3\x40\x2c\x3e\x93\xd8\x9b\xb8Y\x8c\x2dg\x7b\x5fv:\x08\x8d\xc3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===lol</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===kempstergarefowl</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+	<cbid>CROMU_00015</cbid>
+	<replay>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\n-\x3E </data></match></read>
+		<write echo="ascii"><data>hello\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		
+		<write echo="ascii"><data>4\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>1) hello\n\n-\x3E </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: hello\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+		<write echo="ascii"><data>11\n</data></write>
+		<read echo="ascii"><delim>Name: </delim><match><data>\nNew Name: </data></match></read>
+		<write echo="ascii"><data>hello\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: hello\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+		<write echo="ascii"><data>12\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>\nCountries:\n1) hello\n\n-\x3E </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nCountry: hello\n1) Display CountryInfo\n2) Set Capitol\n3) Set Population\n4) Add Language\n5) Add border\n6) Add Territory\n7) Select Territory\n8) Delete Country and Exit Menu\n9) Exit menu\nSelection: </data></match></read>
+		<write echo="ascii"><data>2\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>\n-\x3E </data></match></read>
+		<write echo="ascii"><data>CrashCrashCrashCrashCrashCrashCrashCra\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nCountry: hello\n1) Display CountryInfo\n2) Set Capitol\n3) Set Population\n4) Add Language\n5) Add border\n6) Add Territory\n7) Select Territory\n8) Delete Country and Exit Menu\n9) Exit menu\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><length>102</length></read>
+	</replay>
+</pov>

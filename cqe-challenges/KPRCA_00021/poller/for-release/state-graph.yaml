@@ -1,0 +1,22 @@
+---
+nodes:
+- name: start
+- name: option
+- name: loads
+- name: dumps
+- name: nyan
+- name: quit
+- name: invalid_menu
+
+edges:
+- start: option
+- option: loads
+- option: dumps
+- option: nyan
+- option: invalid_menu
+- loads: option
+- dumps: option
+- nyan: option
+- invalid_menu: option
+- option: quit
+  weight: 0.10

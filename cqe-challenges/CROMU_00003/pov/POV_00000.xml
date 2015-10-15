@@ -1,0 +1,211 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+	<cbid>yolodex</cbid>
+	<replay>
+		<read echo="yes">
+			<delim>\n</delim>
+			<match>
+				<data>Welcome to the yolodex.</data>
+			</match>
+		</read>
+		<write>
+			<data>B\n</data>
+		</write>
+		<read>
+			<delim> </delim>
+			<match>
+				<data>First:</data>
+			</match>
+		</read>
+		<write>
+			<data>Pwnies\n</data>
+		</write>
+		<read>
+			<delim> </delim>
+			<match>
+				<data>Last:</data>
+			</match>
+		</read>
+		<write>
+			<data>McPwn\n</data>
+		</write>
+		<read>
+			<delim>\n</delim>
+			<match>
+				<data>Updating fields.  Send just a newline to keep old data.</data>
+			</match>
+		</read>
+		<read>
+			<delim>: </delim>
+			<match>
+				<data>New first name</data>
+			</match>
+		</read>
+		<write>
+			<data>\n</data>
+		</write>
+		<read>
+			<delim>: </delim>
+			<match>
+				<data>New last name</data>
+			</match>
+		</read>
+		<write>
+			<data>AAAAAAAAAAAAAAAAAAAA\n</data>
+		</write>
+		<read>
+			<delim>: </delim>
+			<match>
+				<data>New phone number</data>
+			</match>
+		</read>
+		<write>
+			<data>(123)456-78900</data>
+		</write>
+		<read>
+			<delim>: </delim>
+			<match>
+				<data>New office number</data>
+			</match>
+		</read>
+		<write>
+			<data>4097\n</data>
+		</write>
+		<read>
+			<delim>: </delim>
+			<match>
+				<data>New gender</data>
+			</match>
+		</read>
+		<write>
+			<data>M\n</data>
+		</write>
+		<read echo="ascii">
+			<delim>? </delim>
+			<match>
+				<data>Is the user a hacker</data>
+			</match>
+		</read>
+		<write echo="ascii">
+			<data>y\n</data>
+		</write>
+		<write echo="ascii">
+			<data>C\n</data>
+		</write>
+		<read echo="ascii">
+			<delim>: </delim>
+			<match>
+				<data>First</data>
+			</match>
+		</read>
+		<write echo="ascii">
+			<data>Pwnies\n</data>
+		</write>
+		<read>
+			<delim>: </delim>
+			<match>
+				<data>Last</data>
+			</match>
+		</read>
+		<write>
+			<data>AAAAAAAAAAAAAAAAAAAA\n</data>
+		</write>
+		<read echo="ascii">
+			<delim>Phone num:\t</delim>
+		</read>
+		<read echo="ascii">
+			<length>24</length>
+			<assign>
+				<var>cookie</var>
+				<slice begin="20" />
+			</assign>
+		</read>
+		<read echo="ascii">
+			<delim>********************\n</delim>
+		</read>
+		<write>
+			<data>q\nB\n</data>
+		</write>
+		<read>
+			<delim>: </delim>
+			<match>
+				<data>First</data>
+			</match>
+		</read>
+		<write>
+			<data>Chareth\n</data>
+		</write>
+		<read>
+			<delim>: </delim>
+			<match>
+				<data>Last</data>
+			</match>
+		</read>
+		<write>
+			<data>Cutestory\n</data>
+		</write>
+		<read>
+			<delim>: </delim>
+		</read>
+		<write>
+			<data>\n</data>
+		</write>
+		<read echo="ascii">
+			<delim>: </delim>
+		</read>
+		<write echo="ascii">
+			<data>BBBBBBBBBBBBBBBBBBBB</data>
+			<var>cookie</var>
+			<data>QQQQDDDD</data>
+		</write>
+		<read echo="ascii">
+			<delim>: </delim>
+		</read>
+		<write echo="ascii">
+			<data>(123)456-78900</data>
+		</write>
+		<read echo="ascii">
+			<delim>: </delim>
+		</read>
+		<write>
+			<data>\n</data>
+		</write>
+		<read echo="ascii">
+			<delim>: </delim>
+		</read>
+		<write>
+			<data>\n</data>
+		</write>
+		<read echo="ascii">
+			<delim>? </delim>
+		</read>
+		<write>
+			<data>\n</data>
+		</write>
+		<write>
+			<data>C\n</data>
+		</write>
+		<read echo="ascii">
+			<delim>: </delim>
+		</read>
+		<write>
+			<data>Robert\n</data>
+		</write>
+		<read echo="ascii">
+			<delim>: </delim>
+		</read>
+		<write>
+			<data>Morris\n</data>
+		</write>
+		<read echo="ascii">
+			<delim>*****\n</delim>
+		</read>
+		<read>
+			<delim>*****\n</delim>
+		</read>
+		<write>
+			<data>n\np\n</data>
+		</write>
+	</replay>
+</pov>

@@ -1,0 +1,32 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>new\x0a</data></write>
+    <write><data>sd 1\x0a</data></write>
+    <write><data>s1t3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p7p5\x0a</data></match></read>
+    <write><data>?\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move q2q3\x0a</data></match></read>
+    <write><data>q8p7\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p1t5\x0a</data></match></read>
+    <write><data>p7q8\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move r1p3\x0a</data></match></read>
+    <write><data>o8q6\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p3t7\x0a</data></match></read>
+    <write><data>q6t3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move s2t3\x0a</data></match></read>
+    <write><data>q8p7\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move t7r5\x0a</data></match></read>
+    <write><data>p7o6\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move t5t8\x0a</data></match></read>
+    <write><data>o6o5\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p2p4\x0a</data></match></read>
+    <write><data>o5n4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move o1p2\x0a</data></match></read>
+    <write><data>remove\x0a</data></write>
+    <write><data>quit\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>bye\x0a</data></match></read>
+</replay>
+</pov>

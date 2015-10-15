@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\xfa\x00\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x00\x00\x00\x00\xe2\x00\x00\x00\xda\x00\x00\x00\x00\x00\x00\x00\x10\x01\x10\x10\x00\x00\x00\x00\xda\x00\x00\x00\xe1S\x02\x8b\xbf\x0b\xab\x9c\x28gt\x0f\x87\x3c\xe7\x9e\x12\xb2He\x0a\x00\x00\x00A\x00J\xfb\xff\xffZ\xa6O8\xff\xff\x01\x27\xff\x1c\x01\x00\x06A\x00\xff\x03\x11\xf1\x17\x93\xb3\x28\xa8\x01\x00\x89AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\x00\x29A\x00\x91\x22K\x07\xc7A\x00X\x2c\xd9\xb5\x01\x00\x0a\xff\xff\xff\xff\xff3\x5e\x95\x8fJ\xd0\xb9\xca\x01\x87</data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===llama</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===llamaJaina</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

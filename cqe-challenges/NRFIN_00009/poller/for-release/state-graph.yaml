@@ -1,0 +1,35 @@
+---
+nodes:
+- name: start
+- name: get_search
+- name: send_number
+- name: create_artist_result
+- name: create_album_result
+- name: create_song_result
+- name: send_results
+- name: purchase_song
+- name: quit
+
+edges:
+- start: get_search
+- get_search: send_number
+- send_number: create_artist_result
+- send_number: create_album_result
+- send_number: create_song_result
+- create_artist_result: create_artist_result
+- create_artist_result: create_album_result
+- create_artist_result: create_song_result
+- create_artist_result: send_results
+  weight: 0.1
+- create_album_result: create_artist_result
+- create_album_result: create_album_result
+- create_album_result: create_song_result
+- create_album_result: send_results
+  weight: 0.1
+- create_song_result: create_artist_result
+- create_song_result: create_album_result
+- create_song_result: create_song_result
+- create_song_result: send_results
+  weight: 0.1
+- send_results: purchase_song
+- purchase_song: quit

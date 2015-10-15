@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>CROMU_000031</cbid>
+<replay>
+    <read><delim>WHITE: </delim><match><data>jhilkihj\x0agggggggg\x0a........\x0a........\x0a........\x0a........\x0aaaaaaaaa\x0adbcfecbd\x0aWHITE: </data></match></read>
+    <write><data>0,1 0,2\x0a</data></write>
+    <read><delim>BLACK: </delim><match><data>OK\x0aBLACK: </data></match></read>
+    <write><data>7,7 :,7\x00AAAAAAA:</data></write>
+    <read><delim>: </delim><match><pcre>.*BLACK: .*|.*WHITE:</pcre></match></read>
+    <write><data>666\x0a</data></write>
+    <delay>5</delay>
+</replay>
+</pov>

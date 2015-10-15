@@ -1,0 +1,6 @@
+set( POLLS_TESTING_SEED "1659397510")
+set( AUTHOR_ID "KPRCA")
+set( SERVICE_ID "00008")
+set( POLLS_RELEASE_SEED "189673785")
+set( CFLAGS "-Os -g  -msse")
+buildCB(${CFLAGS})

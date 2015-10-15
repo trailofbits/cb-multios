@@ -1,0 +1,27 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><length>96</length></read>
+    <write><data>1\x0a</data></write>
+    <read><length>13</length></read>
+    <write><data>00\x0a</data></write>
+    <read><length>74</length></read>
+    <write><data>00\x0a\x0a</data></write>
+    <read><length>68</length></read>
+    <write><data>AA\x0a</data></write>    
+    <read><length>8</length></read>
+    <write><data>00\x0a</data></write>
+    <read><length>8</length></read>
+    <write><data>00\x0a</data></write>
+    <read><length>8</length></read>
+    <write><data>00\x0a</data></write>
+    <read><length>8</length></read>
+    <write><data>00\x0a</data></write>
+    <read><length>8</length></read>
+    <write><data>AAAAAAAA\x0a</data></write>
+    <read><length>8</length></read>
+    <write><data>00\x0a</data></write>
+</replay>
+</pov>

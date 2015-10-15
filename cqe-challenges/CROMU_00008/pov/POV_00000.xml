@@ -1,0 +1,30 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <read><delim>\x20</delim><match><data>>\x20</data></match></read>
+        <write><data>login\x0a</data></write>
+        <read><delim>\x0a</delim><match><data>You logged in.\x0a</data></match></read>
+        <read><delim>\x20</delim><match><data>>\x20</data></match></read>
+        <write><data>insert\x0a</data></write>
+        <read><delim>:\x20</delim><match><data>First name:\x20</data></match></read>
+        <write><data>John\x0a</data></write>
+        <read><delim>:\x20</delim><match><data>Last name:\x20</data></match></read>
+        <write><data>Doe\x0a</data></write>
+        <read><delim>:\x20</delim><match><data>User name:\x20</data></match></read>
+        <write><data>jdoe\x0a</data></write>
+        <read><delim>:\x20</delim><match><data>Birthdate (mm/dd/yy hh:mm:ss):\x20</data></match></read>
+        <write><data>12/21/83 5:43:21\x0a</data></write>
+        <read><delim>\x0a</delim><match><data>Date is: 12/21/1983 5:43:21\x0a</data></match></read>
+        <read><delim>\x0a</delim><match><data>Data added, record 0\x0a</data></match></read>
+        <read><delim>\x20</delim><match><data>>\x20</data></match></read>
+        <write><data>find\x0a</data></write>
+        <read><delim>\x0a</delim><match><data>Enter search express (firstname or fn, lastname or ln, username or un, birthdate or bd, operators ==, !=, >, \x3c, AND and OR):\x0a</data></match></read>
+        <write><data>(((( (((( (((( (((( (((( (((( ((((lastname=="blah")))))))))))))))))))))))))))) asdf\x0a</data></write>
+        <read><delim>\x0a</delim><match><data>Parser overflow\x0a</data></match></read>
+        <read><delim>\x20</delim><match><data>>\x20</data></match></read>
+        <write><data>exit\x0a</data></write>
+        <read><delim>\x0a</delim><match><data>Disconnecting.\x0a</data></match></read>
+    </replay>
+</pov>

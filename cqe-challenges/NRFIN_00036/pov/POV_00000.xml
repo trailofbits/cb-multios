@@ -1,0 +1,34 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x01\x00\x00\x00</data></write>
+    <write><data>qDmQNiyPd\x07</data></write>
+    <write><data>\x01\x00\x00\x00</data></write>
+    <read><delim>\x0a</delim><match><data>New budget created!\x0a</data></match></read>
+    <write><data>\x01\x00\x00\x00</data></write>
+    <write><data>BACON\x07</data></write>
+    <write><data>\x01\x00\x00\x00</data></write>
+    <read><delim>\x0a</delim><match><data>New budget created!\x0a</data></match></read>
+     <write><data>\x01\x00\x00\x00</data></write>
+    <write><data>3Antt5cWW\x07</data></write>
+    <write><data>\x01\x00\x00\x00</data></write>
+    <read><delim>\x0a</delim><match><data>New budget created!\x0a</data></match></read>
+    <write><data>\x06\x00\x00\x00</data></write>
+    <write><data>BACON\x07</data></write>
+    <write><data>\x01\x00\x00\x00</data></write>
+    <write><data>BACON\x07</data></write>
+    <write><data>\x01\x00\x00\x00</data></write>
+    <read><delim>\x0a</delim><match><data>New budget created!\x0a</data></match></read>
+     <write><data>\x06\x00\x00\x00</data></write>
+    <write><data>BACON\x07</data></write>
+    <write><data>\x07\x00\x00\x00</data></write>
+    <read><length>17</length><match><pcre>.*</pcre></match></read>
+    <read><length>21</length><match><pcre>.*</pcre></match></read>
+    <read><length>17</length><match><pcre>.*</pcre></match></read>
+    <read><length>21</length><match><pcre>.*</pcre></match></read>
+    <read><length>21</length><match><pcre>2[0]*</pcre></match></read>
+    <write><data>\x08\x00\x00\x00</data></write>
+</replay>
+</pov>

@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><length>2</length></read>
+    <write><data>set1= |set2,"data"|\x0a</data></write>
+    <read><length>2</length></read>
+    <write><data>set2 = |set1,"data2"|\x0a</data></write>
+    <read><length>2</length></read>
+    <write><data>.psset1\x0a</data></write>
+    <read><length>1</length></read>
+</replay>
+</pov>

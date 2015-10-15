@@ -1,0 +1,28 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read echo="ascii"><delim>WHITE: </delim><match><pcre>^\x00?([.abcdefghijkl]{8}\n){8}</pcre></match></read>
+    <write echo="ascii"><data>6\x2c0 5\x2c2</data></write>
+    <read echo="ascii"><delim>BLACK: </delim><match><pcre>OK\nBLACK: </pcre></match></read>
+    <write echo="ascii"><data>1\x2c6 1\x2c5</data></write>
+    <read echo="ascii"><delim>WHITE: </delim><match><pcre>OK\nWHITE: </pcre></match></read>
+    <write echo="ascii"><data>5\x2c2 6\x2c4</data></write>
+    <read echo="ascii"><delim>BLACK: </delim><match><pcre>OK\nBLACK: </pcre></match></read>
+    <write echo="ascii"><data>2\x2c6 2\x2c5</data></write>
+    <read echo="ascii"><delim>WHITE: </delim><match><pcre>OK\nWHITE: </pcre></match></read>
+    <write echo="ascii"><data>6\x2c4 4\x2c5</data></write>
+    <read echo="ascii"><delim>BLACK: </delim><match><pcre>OK\nBLACK: </pcre></match></read>
+    <write echo="ascii"><data>0\x2c6 0\x2c5</data></write>
+    <read echo="ascii"><delim>WHITE: </delim><match><pcre>OK\nWHITE: </pcre></match></read>
+    <write echo="ascii"><data>4\x2c5 6\x2c6</data></write>
+    <read echo="ascii"><delim>BLACK: </delim><match><pcre>OK\nBLACK: </pcre></match></read>
+    <write echo="ascii"><data>1\x2c5 1\x2c4</data></write>
+    <read echo="ascii"><delim>WHITE: </delim><match><pcre>OK\nWHITE: </pcre></match></read>
+    <write echo="ascii"><data>6\x2c6 7\x2c8</data></write>
+    <!-- This generic read was put in to prevent failure on a patched CB-->
+    <read echo="ascii"><delim>: </delim></read>
+    <write echo="ascii"><data>9</data></write>
+</replay>
+</pov>

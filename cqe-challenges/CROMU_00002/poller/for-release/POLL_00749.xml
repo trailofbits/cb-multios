@@ -1,0 +1,158 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+<read><delim>\x0a</delim><match><data>2D Particle Simulator\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Enter the number of particles to simulate \x281-10\x29:\x0a</data></match></read>
+<write><data>9\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Position (x,y):\x0a</data></match></read>
+<write><data>112.09689,182.42511\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Velocity (x,y):\x0a</data></match></read>
+<write><data>3.70655,1.07627\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Mass:\x0a</data></match></read>
+<write><data>5.30356\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Radius:\x0a</data></match></read>
+<write><data>4.69771\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Particle #1 added at (112.09689,182.42511) velocity(3.70655,1.07627) mass(5.30356) radius(4.69771).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Enter Position (x,y):\x0a</data></match></read>
+<write><data>156.84119,124.25632\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Velocity (x,y):\x0a</data></match></read>
+<write><data>7.92640,4.40926\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Mass:\x0a</data></match></read>
+<write><data>8.73815\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Radius:\x0a</data></match></read>
+<write><data>9.80568\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Particle #2 added at (156.84119,124.25632) velocity(7.92640,4.40926) mass(8.73815) radius(9.80568).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Enter Position (x,y):\x0a</data></match></read>
+<write><data>146.77558,146.53731\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Velocity (x,y):\x0a</data></match></read>
+<write><data>8.60249,1.81575\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Mass:\x0a</data></match></read>
+<write><data>8.68709\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Radius:\x0a</data></match></read>
+<write><data>1.03372\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Particle #3 added at (146.77558,146.53731) velocity(8.60249,1.81575) mass(8.68709) radius(1.03372).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Enter Position (x,y):\x0a</data></match></read>
+<write><data>142.25929,195.36789\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Velocity (x,y):\x0a</data></match></read>
+<write><data>2.62537,3.54456\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Mass:\x0a</data></match></read>
+<write><data>7.43745\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Radius:\x0a</data></match></read>
+<write><data>3.67593\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Particle #4 added at (142.25929,195.36789) velocity(2.62537,3.54456) mass(7.43745) radius(3.67593).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Enter Position (x,y):\x0a</data></match></read>
+<write><data>172.30539,190.25762\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Velocity (x,y):\x0a</data></match></read>
+<write><data>8.25772,9.19458\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Mass:\x0a</data></match></read>
+<write><data>5.06560\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Radius:\x0a</data></match></read>
+<write><data>8.32450\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Particle #5 added at (172.30539,190.25762) velocity(8.25772,9.19458) mass(5.06560) radius(8.32450).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Enter Position (x,y):\x0a</data></match></read>
+<write><data>131.78075,152.42560\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Velocity (x,y):\x0a</data></match></read>
+<write><data>5.74915,7.37148\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Mass:\x0a</data></match></read>
+<write><data>5.68273\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Radius:\x0a</data></match></read>
+<write><data>9.56580\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Particle #6 added at (131.78075,152.42560) velocity(5.74915,7.37148) mass(5.68273) radius(9.56580).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Enter Position (x,y):\x0a</data></match></read>
+<write><data>185.43860,165.88511\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Velocity (x,y):\x0a</data></match></read>
+<write><data>3.94601,3.44092\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Mass:\x0a</data></match></read>
+<write><data>6.62284\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Radius:\x0a</data></match></read>
+<write><data>5.83843\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Particle #7 added at (185.43860,165.88511) velocity(3.94601,3.44092) mass(6.62284) radius(5.83843).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Enter Position (x,y):\x0a</data></match></read>
+<write><data>184.26913,191.83850\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Velocity (x,y):\x0a</data></match></read>
+<write><data>9.57921,3.05862\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Mass:\x0a</data></match></read>
+<write><data>7.72456\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Radius:\x0a</data></match></read>
+<write><data>3.26973\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Particle #8 added at (184.26913,191.83850) velocity(9.57921,3.05862) mass(7.72456) radius(3.26973).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Enter Position (x,y):\x0a</data></match></read>
+<write><data>186.52110,121.96103\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Velocity (x,y):\x0a</data></match></read>
+<write><data>9.65564,3.64453\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Mass:\x0a</data></match></read>
+<write><data>4.32652\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Enter Radius:\x0a</data></match></read>
+<write><data>9.38681\x0a</data></write>
+<read><delim>\x0a</delim><match><data>Particle #9 added at (186.52110,121.96103) velocity(9.65564,3.64453) mass(4.32652) radius(9.38681).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Running simulation with...\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>9 total particles:\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>0: Position (112.09000,182.42000) Velocity (3.70000,1.07000) mass (5.30000) radius (4.69000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>1: Position (156.84000,124.25000) Velocity (7.92000,4.40000) mass (8.73000) radius (9.80000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>2: Position (146.77000,146.53000) Velocity (8.60000,1.81000) mass (8.68000) radius (1.03000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>3: Position (142.25000,195.36000) Velocity (2.62000,3.54000) mass (7.43000) radius (3.67000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>4: Position (172.30000,190.25000) Velocity (8.25000,9.19000) mass (5.06000) radius (8.32000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>5: Position (131.78000,152.42000) Velocity (5.74000,7.37000) mass (5.68000) radius (9.56000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>6: Position (185.43000,165.88000) Velocity (3.94000,3.44000) mass (6.62000) radius (5.83000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>7: Position (184.26000,191.83000) Velocity (9.57000,3.05000) mass (7.72000) radius (3.26000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>8: Position (186.52000,121.96000) Velocity (9.65000,3.64000) mass (4.32000) radius (9.38000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>--------------------\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000100000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000101000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00100000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000100\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000010000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000010000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000100000100\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>--------------------\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Simulation complete, 15 collisions simulated over 10 seconds in 160 frames.\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>9 total particles:\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>0: Position (131.44924,190.47224) Velocity (-3.04665,-3.75774) mass (5.30000) radius (4.69000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>1: Position (147.98992,133.55871) Velocity (-1.10630,-2.94434) mass (8.73000) radius (9.80000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>2: Position (196.73063,116.01320) Velocity (3.27889,9.79259) mass (8.68000) radius (1.03000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>3: Position (148.61403,176.69091) Velocity (0.50319,-4.14180) mass (7.43000) radius (3.67000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>4: Position (164.30780,143.18062) Velocity (11.61344,-1.28516) mass (5.06000) radius (8.32000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>5: Position (131.98741,149.61368) Velocity (11.80405,-3.44777) mass (5.68000) radius (9.56000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>6: Position (164.30874,128.60598) Velocity (-1.92189,-4.97978) mass (6.62000) radius (5.83000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>7: Position (172.91818,171.11828) Velocity (-8.78996,-4.81580) mass (7.72000) radius (3.26000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>8: Position (121.34445,114.40106) Velocity (-4.73591,-9.86534) mass (4.32000) radius (9.38000).\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>--------------------\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000010000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000010000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000100000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000010000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000010000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000010000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000010000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000001\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00001000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>00000000000000000000\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>--------------------\x0a</data></match></read>
+<read><delim>\x0a</delim><match><data>Goodbye\x0a</data></match></read>
+</replay>
+</pov>

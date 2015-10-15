@@ -1,0 +1,22 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: submit_lyrics
+- name: view_lyrics
+- name: quit
+- name: invalid
+
+edges:
+- start: menu
+- menu: submit_lyrics
+  weight: 0.45
+- menu: view_lyrics
+  weight: 0.40
+- menu: quit
+  weight: 0.10
+- menu: invalid
+  weight: 0.05
+- submit_lyrics: menu
+- view_lyrics: menu
+- invalid: menu

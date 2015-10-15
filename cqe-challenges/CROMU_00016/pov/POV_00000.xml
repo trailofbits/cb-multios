@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>CROMU_000016</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Welcome to the network queuing simulator\x0a</data></match></read>
+    <read><delim>: </delim><match><data>What\x27s the interface speed \x28in bps up to 4194304 bps\x29: </data></match></read>
+    <write><data>1411745\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>The following packet generators are available:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  1 \x2d Random\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  2 \x2d Poisson\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  3 \x2d Manual\x0a</data></match></read>
+    <read><delim>: </delim><match><data>Which generator would you like to use? \x281\x2d3\x29: </data></match></read>
+    <write><data>1\x00AAAAAAAAAAAAAAAAAAAA\x0a</data></write>
+    <read><delim>: </delim><match><pcre>.*</pcre></match></read>
+    <write><data>8\x0a</data></write>
+    <read><delim>: </delim><match><pcre>.*</pcre></match></read>
+    <write><data>8\x0a</data></write>
+</replay>
+</pov>

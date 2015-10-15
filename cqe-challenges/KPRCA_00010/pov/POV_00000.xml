@@ -1,0 +1,59 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\x2d\x2dNO FILE LOADED\x2d\x2d\x0a</delim><match><data>1. Load File\x0a2. Quit\x0a\x0a</data></match></read>
+    <write><data>nb7\x22m ?42r\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>ERROR: Bad Input. Valid Options: 1\x2c 2</data></match></read>
+    <read><delim>\x2d\x2dNO FILE LOADED\x2d\x2d\x0a</delim><match><data>1. Load File\x0a2. Quit\x0a\x0a</data></match></read>
+    <write><data>1\x0a</data></write>
+    <write><data>FFIR\x26\x00\x00\x00UWFCcgc \x00\xff\xff\xff\x01\x00\x02\x00"V\x00\x00\x88X\x01\x00\x04\x00\x10\x00data\x12\x01\x00\x00AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data></write>
+    <read><delim>\x0a\x0a</delim><match><data>1. Load New File\x0a2. Wave Visualizer\x0a3. EQ Visualizer\x0a4. Power Visualizer\x0a5. Enable Low Pass Filter\x0a6. Enable High Pass Filter\x0a7. Disable Filters\x0a8. Set visualization speed multiplier \x280\x2d9\x29\x0a9. Quit</data></match></read>
+    <read><delim>::\x0a\x0a</delim><match><pcre>--Current\ Track:\ Sampled\ @\d{4,5}Hz\ (?:8|16)\ bit,\ (?:Stereo|Mono)\ -\ Data\ Size=\d*
+::Options:\ Filter\ Type=(?:None|Low\ Pass|High\ Pass)\ \|\ Visualization\ Slowdown\ Multiplier=[0-9]</pcre></match></read>
+    <write><data>5\x0a</data></write>
+    <read><delim>\x0a\x0a</delim><match><data>1. Load New File\x0a2. Wave Visualizer\x0a3. EQ Visualizer\x0a4. Power Visualizer\x0a5. Enable Low Pass Filter\x0a6. Enable High Pass Filter\x0a7. Disable Filters\x0a8. Set visualization speed multiplier \x280\x2d9\x29\x0a9. Quit</data></match></read>
+    <read><delim>::\x0a\x0a</delim><match><pcre>--Current\ Track:\ Sampled\ @\d{4,5}Hz\ (?:8|16)\ bit,\ (?:Stereo|Mono)\ -\ Data\ Size=\d*
+::Options:\ Filter\ Type=(?:None|Low\ Pass|High\ Pass)\ \|\ Visualization\ Slowdown\ Multiplier=[0-9]</pcre></match></read>
+    <write><data>6\x0a</data></write>
+    <read><delim>\x0a\x0a</delim><match><data>1. Load New File\x0a2. Wave Visualizer\x0a3. EQ Visualizer\x0a4. Power Visualizer\x0a5. Enable Low Pass Filter\x0a6. Enable High Pass Filter\x0a7. Disable Filters\x0a8. Set visualization speed multiplier \x280\x2d9\x29\x0a9. Quit</data></match></read>
+    <read><delim>::\x0a\x0a</delim><match><pcre>--Current\ Track:\ Sampled\ @\d{4,5}Hz\ (?:8|16)\ bit,\ (?:Stereo|Mono)\ -\ Data\ Size=\d*
+::Options:\ Filter\ Type=(?:None|Low\ Pass|High\ Pass)\ \|\ Visualization\ Slowdown\ Multiplier=[0-9]</pcre></match></read>
+    <write><data>3\x0a</data></write>
+    <read><delim>\x2b\x2b\x2b\x2bEND VISUALIZATION\x2b\x2b\x2b\x2b\x0a\x0a</delim><match><pcre>(?:\ {3}(?:\|[\ \|=-]{5}\|){12}
+*)*</pcre></match></read>
+    <read><delim>\x0a\x0a</delim><match><data>1. Load New File\x0a2. Wave Visualizer\x0a3. EQ Visualizer\x0a4. Power Visualizer\x0a5. Enable Low Pass Filter\x0a6. Enable High Pass Filter\x0a7. Disable Filters\x0a8. Set visualization speed multiplier \x280\x2d9\x29\x0a9. Quit</data></match></read>
+    <read><delim>::\x0a\x0a</delim><match><pcre>--Current\ Track:\ Sampled\ @\d{4,5}Hz\ (?:8|16)\ bit,\ (?:Stereo|Mono)\ -\ Data\ Size=\d*
+::Options:\ Filter\ Type=(?:None|Low\ Pass|High\ Pass)\ \|\ Visualization\ Slowdown\ Multiplier=[0-9]</pcre></match></read>
+    <write><data>5\x0a</data></write>
+    <read><delim>\x0a\x0a</delim><match><data>1. Load New File\x0a2. Wave Visualizer\x0a3. EQ Visualizer\x0a4. Power Visualizer\x0a5. Enable Low Pass Filter\x0a6. Enable High Pass Filter\x0a7. Disable Filters\x0a8. Set visualization speed multiplier \x280\x2d9\x29\x0a9. Quit</data></match></read>
+    <read><delim>::\x0a\x0a</delim><match><pcre>--Current\ Track:\ Sampled\ @\d{4,5}Hz\ (?:8|16)\ bit,\ (?:Stereo|Mono)\ -\ Data\ Size=\d*
+::Options:\ Filter\ Type=(?:None|Low\ Pass|High\ Pass)\ \|\ Visualization\ Slowdown\ Multiplier=[0-9]</pcre></match></read>
+    <write><data>7\x0a</data></write>
+    <read><delim>\x0a\x0a</delim><match><data>1. Load New File\x0a2. Wave Visualizer\x0a3. EQ Visualizer\x0a4. Power Visualizer\x0a5. Enable Low Pass Filter\x0a6. Enable High Pass Filter\x0a7. Disable Filters\x0a8. Set visualization speed multiplier \x280\x2d9\x29\x0a9. Quit</data></match></read>
+    <read><delim>::\x0a\x0a</delim><match><pcre>--Current\ Track:\ Sampled\ @\d{4,5}Hz\ (?:8|16)\ bit,\ (?:Stereo|Mono)\ -\ Data\ Size=\d*
+::Options:\ Filter\ Type=(?:None|Low\ Pass|High\ Pass)\ \|\ Visualization\ Slowdown\ Multiplier=[0-9]</pcre></match></read>
+    <write><data>6\x0a</data></write>
+    <read><delim>\x0a\x0a</delim><match><data>1. Load New File\x0a2. Wave Visualizer\x0a3. EQ Visualizer\x0a4. Power Visualizer\x0a5. Enable Low Pass Filter\x0a6. Enable High Pass Filter\x0a7. Disable Filters\x0a8. Set visualization speed multiplier \x280\x2d9\x29\x0a9. Quit</data></match></read>
+    <read><delim>::\x0a\x0a</delim><match><pcre>--Current\ Track:\ Sampled\ @\d{4,5}Hz\ (?:8|16)\ bit,\ (?:Stereo|Mono)\ -\ Data\ Size=\d*
+::Options:\ Filter\ Type=(?:None|Low\ Pass|High\ Pass)\ \|\ Visualization\ Slowdown\ Multiplier=[0-9]</pcre></match></read>
+    <write><data>6\x0a</data></write>
+    <read><delim>\x0a\x0a</delim><match><data>1. Load New File\x0a2. Wave Visualizer\x0a3. EQ Visualizer\x0a4. Power Visualizer\x0a5. Enable Low Pass Filter\x0a6. Enable High Pass Filter\x0a7. Disable Filters\x0a8. Set visualization speed multiplier \x280\x2d9\x29\x0a9. Quit</data></match></read>
+    <read><delim>::\x0a\x0a</delim><match><pcre>--Current\ Track:\ Sampled\ @\d{4,5}Hz\ (?:8|16)\ bit,\ (?:Stereo|Mono)\ -\ Data\ Size=\d*
+::Options:\ Filter\ Type=(?:None|Low\ Pass|High\ Pass)\ \|\ Visualization\ Slowdown\ Multiplier=[0-9]</pcre></match></read>
+    <write><data>4\x0a</data></write>
+    <read><delim>\x2b\x2b\x2b\x2bEND VISUALIZATION\x2b\x2b\x2b\x2b\x0a\x0a</delim><match><pcre>(?:=*]
+)*</pcre></match></read>
+    <read><delim>\x0a\x0a</delim><match><data>1. Load New File\x0a2. Wave Visualizer\x0a3. EQ Visualizer\x0a4. Power Visualizer\x0a5. Enable Low Pass Filter\x0a6. Enable High Pass Filter\x0a7. Disable Filters\x0a8. Set visualization speed multiplier \x280\x2d9\x29\x0a9. Quit</data></match></read>
+    <read><delim>::\x0a\x0a</delim><match><pcre>--Current\ Track:\ Sampled\ @\d{4,5}Hz\ (?:8|16)\ bit,\ (?:Stereo|Mono)\ -\ Data\ Size=\d*
+::Options:\ Filter\ Type=(?:None|Low\ Pass|High\ Pass)\ \|\ Visualization\ Slowdown\ Multiplier=[0-9]</pcre></match></read>
+    <write><data>0\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>ERROR: Bad Choice. Select another option</data></match></read>
+    <read><delim>\x0a\x0a</delim><match><data>1. Load New File\x0a2. Wave Visualizer\x0a3. EQ Visualizer\x0a4. Power Visualizer\x0a5. Enable Low Pass Filter\x0a6. Enable High Pass Filter\x0a7. Disable Filters\x0a8. Set visualization speed multiplier \x280\x2d9\x29\x0a9. Quit</data></match></read>
+    <read><delim>::\x0a\x0a</delim><match><pcre>--Current\ Track:\ Sampled\ @\d{4,5}Hz\ (?:8|16)\ bit,\ (?:Stereo|Mono)\ -\ Data\ Size=\d*
+::Options:\ Filter\ Type=(?:None|Low\ Pass|High\ Pass)\ \|\ Visualization\ Slowdown\ Multiplier=[0-9]</pcre></match></read>
+    <write><data>9\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>EXITING...\x0a</data></match></read>
+</replay>
+</pov>

@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x04\x04\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x00\x00\x00\x00\xf0\x03\x00\x00\xe8\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe8\x03\x00\x00\x40\xc2V2VPpx \xa4F\xa8\xd4\xbf\x26ZR\xab\xac\xa8F\x01\x00\x00\x09\x9a\xb5q\x2dm\xd4\x9a\x29\x0a\xda\x23R\x09\x0e\xbd\xbec\x17\x83z\xdc\xa0L\xf0\x01\x25p\xa9y\xb6?\x1b\x00\x3e\xc2\x2ac\x89\xddLY8\xd8N2\x7f\x23\xec\x074\xe6i\x98\x90\xe2l\x2d\xe6\xe8\x08 \xc7\xb0k\x82\xe9\xd5\x5f\x9b\xc0\xe5\xaao\x9fMu\xf3zH\x9a\xd7\x96\x1e\xdf\xfdD\x24\xb6\xbc\x0c\xc6\xac\xa8\xd3\x9a\xf0\x84\x15\xba\xf4gj\x00p\x18\xf4\x1d\xb4\x5f\x28x\xff\x28k\x0f\x7b\x278\x91l6\xe6\xbb\x9f\x15\xf8\x1a\x3b\xbe\xa1\xf0\xc3L\x89\x3b\x16?0X\xd5\x04\x8bON\x89\x92\xf3\xdb\x3d\x06\xe8\x25\x05C\x5b\x864\xc3\xae\x22\x9b\xd7\xf6\x16\x05h\x8e\x5c\xdc\xbbr\x5dj.z\x8dA\x14\x87\xd8\x26\xa1\xbd\x40\x1eV\xeb\x0a\x84\xd0\x1c\x048\xe1\x03\x7c\x804\x89t\xf7\xc70r\xdbXV\xb5\xb5\x08\xfa\x0f\xbc\x85\xdf\xd8\xd6f\xf4\xfd\x05\x2dla\x88\xa1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===rofl</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===mausoleandecasualize</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===unhittabledoublehorned</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

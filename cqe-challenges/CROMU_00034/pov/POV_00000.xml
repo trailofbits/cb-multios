@@ -1,0 +1,66 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Welcome to the diary logger!</data></match></read>
+    <write echo="ascii"><data>K\x02</data></write>
+    <write echo="ascii"><data>BB\xfc\x1d\x08\x00\x00\x00\x00\x08\x0e\x00\x9b\x00\x00\x03\x13\x15\x00\x28\x00aabcbcbaaccbaaabcca\x02\x03\x16\x2f\x00E\x00cabaaccabbaccbacbbbcab\x03\x00\x00\x09\x00L\x00\x07\x03\x17S\x00j\x00bbcacaccbacaccbacccbbcb\x01\x03\x14q\x00\x85\x00aacbbbabacbbcccaacbc\x05\x03\x01\x8c\x00\x8d\x00b\x08\x04\x00\x00\x00\x94\x00\x04\x01\x00\x7f\xc7\x00\x00\x00\x06\xa1\x00\xe5\x00\x00\x03\x12\xa8\x00\xba\x00acbbccbbbcaccbbabc\x02\x03\x02\xc1\x00\xc3\x00cc\x03\x00\x00\xf1\x00\xca\x00\x04\x01\x00cA\xd1\x00\x01\x03\x06\xd8\x00\xde\x00acbbba\x08\x04\x00\x01\x00\x00\x00\x00\x08\xeb\x00Z\x01\x00\x03\x15\xf2\x00\x07\x01baccaccccabbbabbbbaca\x02\x03\x09\x0e\x01\x17\x01bbccaaccc\x03\x00\x00\xe7\x00\x1e\x01\x05\x03\x02\x25\x01\x27\x01ca\x07\x03\x16.\x01D\x01abcbcbacabaccaacbcbcbc\x06\x03\x01K\x01L\x01b\x08\x04\x00\x01\x00S\x01\x04\x01\x00Y\x2b\x00\x00\x07\x06\x60\x01\x9f\x01\x00\x03\x07g\x01n\x01abacacb\x01\x03\x0eu\x01\x83\x01cbaabccabcbacb\x05\x04\x00\x00\x00\x8a\x01\x03\x04\x00\x01\x00\x91\x01\x04\x00\x00\x29\x00\x98\x01\x02\x00\x00\xaf\x00\x00\x00\x07\x03\xa5\x01\xd8\x01\x00\x03\x07\xac\x01\xb3\x01bacabba\x01\x03\x17\xba\x01\xd1\x01abbbbababbacbcbaaacaacb\x05\x04\x00\x01\x00\x00\x00\x05\x06\xde\x01\x00\x00\x00\x03\x0e\xe5\x01\xf3\x01caabacccbcbaac\x03\x03\x15\xfa\x01\x0f\x02ccaaccabcababacabaaaa\x05\x02\x04\x16\x02\x1a\x02\xaf\xb9z\x40\x01\x00\x00\x20\x00!\x02\x02\x03\x04\x28\x02\x2c\x02acac\x00\x03\x183\x02\x00\x00ababbcabbaacbaccbcbbacab</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Length: 587</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Magic number: 0x4242</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Future: 0x1dfc</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Offset: 0x8</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Title: identity</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Entry Count: 0x8</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>first name: aabcbcbaaccbaaabcca</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>last name: cabaaccabbaccbacbbbcab</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>age: 0x9</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>birth city: bbcacaccbacaccbacccbbcb</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>middle name: aacbbbabacbbcccaacbc</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>birth country: b</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>married: false</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>weight: 0xc77f</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Title: identity</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Entry Count: 0x6</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>first name: acbbccbbbcaccbbabc</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>last name: cc</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>age: 0xf1</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>weight: 0x4163</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>middle name: acbbba</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>married: true</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Title: identity</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Entry Count: 0x8</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>first name: baccaccccabbbabbbbaca</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>last name: bbccaaccc</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>age: 0xe7</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>birth country: ca</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>birth city: abcbcbacabaccaacbcbcbc</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>birth state: b</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>married: true</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>weight: 0x2b59</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Title: pets</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Entry Count: 0x6</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>name: abacacb</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>species: cbaabccabcbacb</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>shots updated: false</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>inside only: true</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>age: 0x29</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>legs: 0xaf</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Title: pets</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Entry Count: 0x3</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>name: bacabba</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>species: abbbbababbacbcbaaacaacb</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>shots updated: true</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Title: jobs</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>Entry Count: 0x6</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>title: caabacccbcbaac</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>company: ccaaccabcababacabaaaa</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>salary: 0x407ab9af</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>years: 0x20</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>job category: acac</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>title: ababbcabbaacbaccbcbbacab</data></match></read>
+    <read echo="ascii"><delim>\x0a</delim><match><data>What is your family's last name?</data></match></read>
+    <write echo="ascii"><data>the best family in the whole world\n</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>good book.</data></match></read>
+</replay>
+</pov>

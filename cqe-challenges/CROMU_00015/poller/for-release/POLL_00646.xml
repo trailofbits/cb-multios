@@ -1,0 +1,45 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+	<cbid>CROMU_00015</cbid>
+	<replay>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>OYYgnAC2UAF\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: OYYgnAC2UAF\n</delim><match><data>Name: OYYgnAC2UAF\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>2Ha6CJY1MoZ\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>iTriKOr9sn\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: OYYgnAC2UAF\nName: 2Ha6CJY1MoZ\nName: iTriKOr9sn\n</delim><match><data>Name: OYYgnAC2UAF\nName: 2Ha6CJY1MoZ\nName: iTriKOr9sn\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: OYYgnAC2UAF\nName: 2Ha6CJY1MoZ\nName: iTriKOr9sn\n</delim><match><data>Name: OYYgnAC2UAF\nName: 2Ha6CJY1MoZ\nName: iTriKOr9sn\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>2\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>PML: </data></match></read>
+		<write echo="ascii"><data>{Planet}{     Name  }  BkYJ7k6fG   {#Name    }  {    Mass     }    0.40000  {   #Mass   }    { Period  }     1.66667 { #Period     } {  Gravity     }    2.64789{ #Gravity     }   {    Perihelion     }    0.88832     {   #Perihelion    }     {     Aphelion  }  0.15657  {    #Aphelion     }     {  ERadius    }  0.87075  {  #ERadius    }   {    Radius   }     0.75000  {#Radius  }   {OrbitSpeed} 1.26786{#OrbitSpeed   }{Population } 2884 {#Population  }    {#Planet}\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: OYYgnAC2UAF\nName: 2Ha6CJY1MoZ\nName: iTriKOr9sn\nName: BkYJ7k6fG\n\tPopulation: 2884\n\tPeriod: 1.66667\n\tOrbit Speed: 1.26786\n\tAphelion: 0.15657\n\tPerihelion: 0.88832\n\tRadius: 0.75000\n\tERadius: 0.87075\n\tMass: 0.40000\n\tGravity: 2.64789\n</delim><match><data>Name: OYYgnAC2UAF\nName: 2Ha6CJY1MoZ\nName: iTriKOr9sn\nName: BkYJ7k6fG\n\tPopulation: 2884\n\tPeriod: 1.66667\n\tOrbit Speed: 1.26786\n\tAphelion: 0.15657\n\tPerihelion: 0.88832\n\tRadius: 0.75000\n\tERadius: 0.87075\n\tMass: 0.40000\n\tGravity: 2.64789\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>2\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>PML: </data></match></read>
+		<write echo="ascii"><data>{Planet}{Name   }  aQzKCA    { #Name   }  {   Mass   }     8.50000     { #Mass    }     {   Period  }     0.96842  {   #Period    }  {   Gravity }  0.17600 { #Gravity   }  { Perihelion } 0.95161 {     #Perihelion     }{     Aphelion   }  1.81481  {  #Aphelion    }     { ERadius  }    0.04965{  #ERadius     }   {  Radius}0.94203{     #Radius   }   {    OrbitSpeed}     0.59195    {   #OrbitSpeed    }   {     Population  }     3046 { #Population  }    {#Planet}\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>5\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>Exitting..\n</data></match></read>
+	</replay>
+</pov>

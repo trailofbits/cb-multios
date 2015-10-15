@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x04\x04\x00\x00</data></write>
+    <write><data>\x01\x00\x00\x00\x00\x00\x00\x00\xf0\x03\x00\x00\xe8\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe8\x03\x00\x00Q\xe7\xdb\xd77\xee\x9dU\xdb\xdc\xd2p\x0cL\x0bf\xc0l\x9b\x2f\x3e\x00\x00\x00\xe0\xb1\x1aww\x01\xb9S\xcd\x9b\x1d\x29\xd9\x04\xb3p\xc5d\xae\xca\x23R\xa1\xf0\x87ea9\x8a\x82Ni\xf2\xce\xdbK\x1d\xbb\x95\x5f\xd2\x11Q\xc7\xc2\xee\xd1\xa3\xa8\xa1\x5f\x5f\x90\x97\xd2\xfe\xf85\xbb\x3e\xef\x2c\xcbu\xc5\x85\xd4\x13\x0e\xb3\x8fW2\xc9\xc68\xbf\xf2\x9ega\x9c2!\xbdc\xc5\x95F\x9bJ\xc7\xe28Ga\xb0p\xa6\xbbE\xef\x0c\x1e\xe5\xb7\x9cr\xb5\x09\xde\xc7\xe7\xceK\xe4\xb1\xc7Y\xccU\xd5\xfd\xb1\x99\xdeX\x1b\x5fT\xd1L\x0eK\x89\x91\x0d\x9d\xb8\x2d\xcc\x1fZ\xf0\xb5\xfc\xa6\xaa\x19\x84\xf6\xf4U\x06\x85\x8c\xa5\xa4\x09\xe37\xb9\x5b\x90\xa7\x9c\xf7w\x0d\xcel\x01\xb7\x9b\x16\x94\xfb\xf3n\xb8a\xf7\x9e\xbbH\x83\xe2\x9b\xfd\xefO\xf6\xa0\x10U?\xd5\x03\x25\x82\xec                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </data></write>
+    <read><delim>\x0a</delim><match><data>Starting dissection...</data></match></read>
+    <read><delim>\x3d\x3d\x3d\x3d\x0a</delim><match><pcre>.*New Packet</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===rofl</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*===enforcedlypraisable</pcre></match></read>
+    <read><delim>\x3d\x3d\x3d\x0a</delim><match><pcre>.*Dissection finished</pcre></match></read>
+</replay>
+</pov>

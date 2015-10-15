@@ -1,0 +1,23 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: show_table
+- name: show
+- name: clear
+- name: assign
+- name: quit
+
+edges:
+- start: menu
+- menu: show_table
+  weight: 0.05
+- menu: show
+- menu: clear
+- menu: assign
+- show_table: menu
+- show: menu
+- clear: menu
+- assign: menu
+- menu: quit
+  weight: 0.05

@@ -1,0 +1,9 @@
+POLLS_RELEASE_SEED= 1375240554
+POLLS_TESTING_SEED= -1042426167
+AUTHOR_ID  = CROMU
+SERVICE_ID = 00027
+CFLAGS     = -O0 -g -Werror -Wno-overlength-strings -Wno-packed
+
+POLLS_RELEASE_COUNT = 300
+POLLS_TESTING_COUNT = 700
+include /usr/share/cb-testing/cgc-cb.mk

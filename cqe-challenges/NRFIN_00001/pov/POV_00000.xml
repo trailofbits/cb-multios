@@ -1,0 +1,105 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>NRFIN_00001</cbid>
+    <replay>
+        <delay>15</delay>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">This is the Chuck Norris (joke) Management Protocol (CNMP).\n</data>
+            </match>
+        </read>
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">We know you need a break, so take some time and amuse yourself. If you have a good Chuck Norris joke, you can add it to our listing.\n</data>
+             </match>
+        </read>
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">Enter one of these commands:\n</data>
+            </match>
+        </read>
+       <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">  LIST  - list all jokes\n</data>
+            </match>
+        </read>
+       <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">  ADD   - upload your own joke\n</data>
+            </match>
+        </read>
+       <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">  COUNT - find out how many jokes we have to offer you\n</data>
+            </match>
+        </read>
+       <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">  SHOW  - show a joke\n</data>
+            </match>
+        </read>
+       <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">  MENU  - display this menu\n</data>
+            </match>
+        </read>
+       <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">  HELP  - you gotta be kididin' me!\n</data>
+            </match>
+        </read>
+       <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">  QUIT  - take off eh?\n</data>
+            </match>
+        </read>
+        <read echo="yes">
+            <delim> </delim>
+            <match>
+                <data format="asciic">> </data>
+           </match>
+        </read>
+
+        <delay>10</delay>
+
+        <write echo="yes">
+            <data format="asciic">ADD\x07</data>
+        </write>
+
+        <delay>10</delay>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data format="asciic">So, you think you have a good Chuck Norris joke? Give me the joke string already....\n</data>
+            </match>
+        </read>
+        <read echo="yes">
+            <delim> </delim>
+            <match>
+                <data format="asciic">ADD> </data>
+            </match>
+        </read>
+        
+        <delay>10</delay>
+
+        <write echo="yes">
+            <data format="asciic">Once upon a time there was a guy named Chuck, Chuck Norris to be precise. He was all powerful, so was never beaten. 100~c of the people that challenged him were defeated. He was all knowing, so was never caught off-guard. When a normal human was controlled by a force of nature, Chuck Norris was immune to those controls. 100~c of the forces that nature could amass were unable to cause a reaction in Chuck Norris. The thruth of the matter is, Chuck Norris is not only invincible, he is immortal. -Chuck Norris.\x07</data>
+        </write>
+        
+        <delay>10</delay>
+
+    </replay>
+</pov>

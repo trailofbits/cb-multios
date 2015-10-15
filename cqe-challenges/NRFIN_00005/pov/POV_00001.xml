@@ -1,0 +1,36 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Welcome to Tick\x2dA\x2dTack.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Make your selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>PLAY\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>QUIT\x0a</data></match></read>
+    <read><delim>\x24 </delim><match><data>\x24 </data></match></read>
+    <write><data>PLAY\x07</data></write>
+    <read><delim>\x0a</delim><match><data>P goes first. Do you want P or Q?\x0a</data></match></read>
+    <read><delim>\x24 </delim><match><data>\x24 </data></match></read>
+    <write><data>P\x07</data></write>
+    <read><delim>!\x0a</delim><match><data>Game on!\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>It\x27s your move. Enter \x27row col\x27\x0a</data></match></read>
+    <read><delim>\x24 </delim><match><data>\x24 </data></match></read>
+    <write><data>1 0\x07</data></write>
+    <read><delim>.\x0a</delim><match><data>Computer\x27s move: 0 1.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>It\x27s your move. Enter \x27row col\x27\x0a</data></match></read>
+    <read><delim>\x24 </delim><match><data>\x24 </data></match></read>
+    <write><data>2 0\x07</data></write>
+    <read><delim>.\x0a</delim><match><data>Computer\x27s move: 1 1.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>It\x27s your move. Enter \x27row col\x27\x0a</data></match></read>
+    <read><delim>\x24 </delim><match><data>\x24 </data></match></read>
+    <write><data>0 0\x07</data></write>
+    <read><delim>\x0a</delim><match><data>Congratulations! You Win!\x0a</data></match></read>
+    <read><delim>.\x0a</delim><match><data>1 wins. 0 losses.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Make your selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>PLAY AGAIN\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>START OVER\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>QUIT\x0a</data></match></read>
+    <read><delim>\x24 </delim><match><data>\x24 </data></match></read>
+    <write><data>START OVER\x07</data></write>
+</replay>
+</pov>
