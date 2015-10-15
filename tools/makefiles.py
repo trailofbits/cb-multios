@@ -48,5 +48,6 @@ def doAll(path):
 			readAndMake(folder)
 
 
-path = "."
-doAll(path)
+path = "../cqe-challenges"
+#doAll(path)   ##path should be folder containing multiple challenge binaries and nothing else. 
+readAndMake("../cqe-challenges/YAN01_00003/")  #path should be folder of a single challenge binary

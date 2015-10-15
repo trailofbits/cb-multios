@@ -3,7 +3,7 @@ from os.path import isdir, isfile
 from sys import argv
 from os import system
 
-path = "./cqe-challenges" 
+
 ##Actually works recursively
 #currently set to, when run, replace command line args with cgc_[orignal phrase]
 #recursively for all files in the path
@@ -36,8 +36,10 @@ def runInDirectory(path, replaceThis, withThis):
 		if "cgc_replacer.py" not in f:  #dont overwrite yourself
 			f = path + "/" + f
 			if isdir(f) : #is directory, replace inthat directory
+				print "runnin in directory " + f
 				runInDirectory(f, replaceThis, withThis)
 			elif isfile(f):   #is file, replace the words
+				print "runnin on file " + f
 				replaceInFile(f, replaceThis, withThis)
 			else:
 				print"Not file or directory: " + f
@@ -51,10 +53,10 @@ def replaceList(replaceThese, here):
 		runInDirectory(here, replaceThis, withThis)
 
 def removeCache(here):
-	dirs = os.listdir()
+	dirs = os.listdir(here)
 	dirs.pop(0) #remove .ds_store
 	for i in dirs:
-		os.system("rm -r " + i + "/bin/CMakeFiles")
+		os.system("rm -r " + path + "/" + i + "/bin/CMakeFiles")
 
 
 replaceThese = []
@@ -65,10 +67,14 @@ for i in range(numReplace):
 	i += 1
 	replaceThese += [argv[i]]
 
-print "Replacing: " + replaceThese
-replaceList(replaceThese, path)
-removeCache(path)
+#path = "../cqe-challenges/" 
 
+#replaceList(replaceThese, path)
+#removeCache(path)
+
+runInDirectory("../cqe-challenges/YAN01_00003", "cgc_cgc_cgc_cgc_fd_set", "cgc_fd_set")
+runInDirectory("../cqe-challenges/YAN01_00003", "timeval", "cgc_timeval")
+runInDirectory("../cqe-challenges/YAN01_00003", "fdwait", "cgc_fdwait")
 
 
 

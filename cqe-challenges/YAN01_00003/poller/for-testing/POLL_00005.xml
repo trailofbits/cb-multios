@@ -1,0 +1,63 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data> </data></write>
+    <read><length>1</length><match><data> </data></match></read>
+    <write><data>W</data></write>
+    <read><length>1</length><match><data>W</data></match></read>
+    <write><data>S</data></write>
+    <read><length>1</length><match><data>S</data></match></read>
+    <write><data>Q</data></write>
+    <read><length>1</length><match><data>Q</data></match></read>
+    <write><data>8</data></write>
+    <read><length>1</length><match><data>8</data></match></read>
+    <write><data>C</data></write>
+    <read><length>1</length><match><data>C</data></match></read>
+    <write><data>0</data></write>
+    <read><length>1</length><match><data>0</data></match></read>
+    <write><data>N</data></write>
+    <read><length>1</length><match><data>N</data></match></read>
+    <write><data>e</data></write>
+    <read><length>1</length><match><data>e</data></match></read>
+    <write><data>x</data></write>
+    <read><length>1</length><match><data>x</data></match></read>
+    <write><data>6</data></write>
+    <read><length>1</length><match><data>6</data></match></read>
+    <write><data>\x0c</data></write>
+    <read><length>1</length><match><data>\x0c</data></match></read>
+    <write><data>9</data></write>
+    <read><length>1</length><match><data>9</data></match></read>
+    <write><data> </data></write>
+    <read><length>1</length><match><data> </data></match></read>
+    <write><data>\x2c</data></write>
+    <read><length>1</length><match><data>\x2c</data></match></read>
+    <write><data>5</data></write>
+    <read><length>1</length><match><data>5</data></match></read>
+    <write><data>Z</data></write>
+    <read><length>1</length><match><data>Z</data></match></read>
+    <write><data>\x09</data></write>
+    <read><length>1</length><match><data>\x09</data></match></read>
+    <write><data>d</data></write>
+    <read><length>1</length><match><data>d</data></match></read>
+    <write><data>D</data></write>
+    <read><length>1</length><match><data>D</data></match></read>
+    <write><data>q</data></write>
+    <read><length>1</length><match><data>q</data></match></read>
+    <write><data>\x2f</data></write>
+    <read><length>1</length><match><data>\x2f</data></match></read>
+    <write><data>o</data></write>
+    <read><length>1</length><match><data>o</data></match></read>
+    <write><data>K</data></write>
+    <read><length>1</length><match><data>K</data></match></read>
+    <write><data>s</data></write>
+    <read><length>1</length><match><data>s</data></match></read>
+    <read><delim>\x0a</delim><match><data>numbers  \x3d 0000000005</data></match></read>
+    <read><delim>\x0a</delim><match><data>uppers   \x3d 0000000008</data></match></read>
+    <read><delim>\x0a</delim><match><data>lowers   \x3d 0000000006</data></match></read>
+    <read><delim>\x0a</delim><match><data>spaces   \x3d 0000000003</data></match></read>
+    <read><delim>\x0a</delim><match><data>special  \x3d 0000000002</data></match></read>
+    <read><delim>\x0a</delim><match><data>other    \x3d 0000000001</data></match></read>
+</replay>
+</pov>
