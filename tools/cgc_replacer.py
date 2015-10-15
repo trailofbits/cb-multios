@@ -72,10 +72,6 @@ for i in range(numReplace):
 #replaceList(replaceThese, path)
 #removeCache(path)
 
-runInDirectory("../cqe-challenges/YAN01_00003", "cgc_cgc_cgc_cgc_fd_set", "cgc_fd_set")
-runInDirectory("../cqe-challenges/YAN01_00003", "timeval", "cgc_timeval")
-runInDirectory("../cqe-challenges/YAN01_00003", "fdwait", "cgc_fdwait")
-
 
 
 

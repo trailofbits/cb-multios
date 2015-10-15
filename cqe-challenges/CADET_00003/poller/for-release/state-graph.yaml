@@ -1,0 +1,18 @@
+---
+nodes:
+- name: start
+- name: banner
+- name: request
+- name: palindrome
+  continue: .9
+- name: not_palindrome
+  continue: .9
+edges:
+- start: banner
+- banner: request
+- request: palindrome
+  weight: .2
+- request: not_palindrome
+  weight: .8
+- palindrome: request
+- not_palindrome: request
