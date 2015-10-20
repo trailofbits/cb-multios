@@ -1,0 +1,76 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x00\x00\x00\x00</data></write>
+    <write><data>\x00\x00\x00\x00</data></write>
+    <write><data>\x00\x04\x00</data></write>
+    <write><data>\x00\x00\x00\x00</data></write>
+    <write><data>\x2f\x98\xdd\x87</data></write>
+    <read><length>4</length><assign> <var>card0</var> <slice begin="0" /> </assign></read>
+    <read><length>4</length><assign> <var>auth1</var> <slice begin="0" /> </assign></read>
+    <read><length>3</length><match><data>\x00\x04\x00</data></match></read>
+    <read><length>4</length><assign> <var>trans2</var> <slice begin="0" /> </assign></read>
+    <write><var>card0</var></write>
+    <write><var>auth1</var></write>
+    <write><data>\x03\x04\x00</data></write>
+    <write><var>trans2</var></write>
+    <read><length>8</length></read>
+    <read><length>3</length><match><data>\x03\x04\x00</data></match></read>
+    <read><length>4</length><assign> <var>trans3</var> <slice begin="0" /> </assign></read>
+    <write><var>card0</var></write>
+    <write><var>auth1</var></write>
+    <write><data>\x01\x00\x00</data></write>
+    <write><data>\x00\x00\x00\x00</data></write>
+    <read><length>8</length></read>
+    <read><length>3</length><match><data>\x01\x00\x00</data></match></read>
+    <read><length>4</length><assign> <var>trans4</var> <slice begin="0" /> </assign></read>
+    <write><var>card0</var></write>
+    <write><var>auth1</var></write>
+    <write><data>\x02\x00\x00</data></write>
+    <write><var>trans4</var></write>
+    <write><data>\x83\x92\x07\xc5\x82\xc9\x3bt\x00\x03\x00\x22\x04\x00</data></write>
+    <read><length>8</length></read>
+    <read><length>3</length><match><data>\x02\x00\x00</data></match></read>
+    <read><length>4</length><assign> <var>trans5</var> <slice begin="0" /> </assign></read>
+    <write><var>card0</var></write>
+    <write><var>auth1</var></write>
+    <write><data>\x03\x00\x00</data></write>
+    <write><var>trans4</var></write>
+    <read><length>8</length></read>
+    <read><length>3</length><match><data>\x03\x00\x00</data></match></read>
+    <read><length>4</length><assign> <var>trans6</var> <slice begin="1" /> </assign></read>
+    <write><var>card0</var></write>
+    <write><var>auth1</var></write>
+    <write><data>\x01\x05\x00</data></write>
+    <write><data>\x00\x00\x00\x00</data></write>
+    <read><length>8</length></read>
+    <read><length>3</length><match><data>\x01\x05\x00</data></match></read>
+    <read><length>4</length><assign> <var>trans7</var> <slice begin="0" /> </assign></read>
+    <write><var>card0</var></write>
+    <write><var>auth1</var></write>
+    <write><data>\x02\x05\x00</data></write>
+    <write><var>trans7</var></write>
+    <write><data>\x83\x92\x07\xc5</data></write>
+    <write><data>\x14</data></write>
+    <write><var>trans6</var></write>
+    <read><length>8</length></read>
+    <read><length>3</length><match><data>\x02\x05\x00</data></match></read>
+    <read><length>4</length><assign> <var>trans8</var> <slice begin="0" /> </assign></read>
+    <write><var>card0</var></write>
+    <write><var>auth1</var></write>
+    <write><data>\x03\x05\x00</data></write>
+    <write><var>trans7</var></write>
+    <read><length>8</length></read>
+    <read><length>3</length><match><data>\x03\x05\x00</data></match></read>
+    <read><length>4</length><assign> <var>trans9</var> <slice begin="0" /> </assign></read>
+    <write><data>\x00\x00\x00\x00</data></write>
+    <write><data>\x00\x00\x00\x00</data></write>
+    <write><data>\x01\x04\x00</data></write>
+    <write><data>\x00\x00\x00\x00</data></write>
+    <read><length>8</length></read>
+    <read><length>3</length><match><data>\x01\x04\x0d</data></match></read>
+    <read><length>4</length><assign> <var>trans10</var> <slice begin="0" /> </assign></read>
+</replay>
+</pov>

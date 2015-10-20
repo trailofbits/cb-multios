@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <read  echo="ascii"> <delim>\x3e </delim> <match><data>\x3e </data></match> </read>
+        <write echo="ascii"> <data>ch_sec |\n</data> </write>
+
+        <read  echo="ascii"> <delim>\x3e </delim> <match><data>\x3e </data></match> </read>
+        <write echo="ascii"> <data>make_sec foo\n</data> </write>
+
+        <read  echo="ascii"> <delim>\x3e </delim> <match><data>\x3e </data></match> </read>
+        <write echo="ascii"> <data>ch_sec |a|++|++|AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA|\n</data> </write>
+        <read  echo="ascii"> <delim>\x3e </delim> <match><data>\x3e </data></match> </read>
+        <write echo="ascii"> <data>ch_sec |a|++|++|BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB|\n</data> </write>
+        <read  echo="ascii"> <delim>\x3e </delim> <match><data>\x3e </data></match> </read>
+        <write echo="ascii"> <data>ch_sec |a|++|++|CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC|\n</data> </write>
+        <read  echo="ascii"> <delim>\x3e </delim> <match><data>\x3e </data></match> </read>
+        <write echo="ascii"> <data>ch_sec |a|++|++|DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD|\n</data> </write>
+        <read  echo="ascii"> <delim>\x3e </delim> <match><data>\x3e </data></match> </read>
+        <write echo="ascii"> <data>ch_sec |a|++|++|D\x90\x90\x90\n</data> </write>
+        <read  echo="ascii"> <delim>\x3e </delim> <match><data>\x3e </data></match> </read>
+        <write echo="ascii"> <data>cur_sec\n</data> </write>
+        <read  echo="ascii"> <delim>\n</delim> <match><data>|\n</data></match></read>
+    </replay>
+</pov>

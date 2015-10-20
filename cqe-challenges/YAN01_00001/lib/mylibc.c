@@ -26,7 +26,7 @@ ssize_t readLine(int fd, char* buf, size_t len)
 #ifdef PATCHED
   //do nothing
 #else
-  //overwrite it since its a bug
+  //overcgc_write it since its a bug
   temp = 0x7FFFFFFF; //32 bit INT_MAX
 #endif
 
@@ -110,7 +110,7 @@ size_t myStrLen(const char* str)
   return (i);
 }
 
-void write(int fd, const void* buf, size_t len) {
+void cgc_write(int fd, const void* buf, size_t len) {
    const void *end = buf + len;
    size_t n;
    while (buf < end) {

@@ -1,0 +1,77 @@
+---
+nodes:
+
+# intialization of state
+- name: start
+
+# auth is the "default" node that everyone falls back to
+- name: auth
+  chance: 1.0
+  continue: 0.9
+
+- name: quit
+
+# ERROR STATES
+- name: invalid_verb
+- name: invalid_request
+- name: file_not_found
+
+# SLOWLANE & FASTLANE
+- name: smore
+- name: youup
+- name: mooch
+- name: sup
+
+# FASTLANE
+- name: tip
+- name: status
+- name: gimme
+- name: list
+
+
+edges:
+
+# initalize and immediately go to auth loop
+- start: auth
+
+- auth: quit
+  weight: 0.1
+
+# ERROR STATES
+- auth: invalid_verb
+  weight: 0.5
+- auth: invalid_request
+  weight: 0.5
+- auth: file_not_found
+  weight: 0.5
+
+# SLOWLANE & FASTLANE
+- auth: smore
+- auth: youup
+- auth: mooch
+- auth: sup
+
+# FASTLANE
+- auth: tip
+- auth: status
+- auth: gimme
+- auth: list
+
+# ERROR STATES
+- invalid_verb: auth
+- invalid_request: auth
+- file_not_found: auth
+
+# SLOWLANE & FASTLANE
+- smore: auth
+- youup: auth
+- mooch: auth
+- sup: auth
+
+# FASTLANE
+- tip: auth
+- status: auth
+- gimme: auth
+- list: auth
+
+

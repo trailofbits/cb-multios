@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>NRFIN_00003</cbid>
+    <replay>
+
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <write><data>SUP\n</data></write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">here're your files, plebian:\n</data>
+                <data format="asciic">----------------------------\n</data>
+                <pcre>([a-z]{16}\n)+</pcre>
+            </match>
+        </read>
+        
+    </replay>
+</pov>

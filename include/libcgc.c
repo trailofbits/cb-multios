@@ -3,7 +3,7 @@
 //#include <stdlib.h>
 //#include <errno.h>
 #include <libcgc.h>
-
+#include <stdlib.h>
 #if 0
 void _terminate(unsigned int status) __attribute__((__noreturn__));
 int transmit(int fd, const void *buf, size_t count, size_t *tx_bytes);

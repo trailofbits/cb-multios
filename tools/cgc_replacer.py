@@ -65,11 +65,12 @@ replaceThese = []
 numReplace = len(argv) - 1
 for i in range(numReplace):
 	i += 1
+	print i
 	replaceThese += [argv[i]]
 
-#path = "../cqe-challenges/" 
+path = "../cqe-challenges/YAN01_00001/" 
 
-#replaceList(replaceThese, path)
+replaceList(replaceThese, path)
 #removeCache(path)
 
 

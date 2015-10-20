@@ -4,29 +4,29 @@
     <cbid>sample_shipgame</cbid>
     <replay>
         <delay>25</delay>
-        <write echo='ascii'>
+        <cgc_write echo='ascii'>
             <data>P20AR\n</data>
-        </write>
+        </cgc_write>
         <read echo='ascii'><delim>\x24 </delim></read>
         <delay>25</delay>
-        <write echo='ascii'>
+        <cgc_write echo='ascii'>
             <data>P20AD\n</data>
-        </write>
+        </cgc_write>
         <read echo='ascii'><delim>\x24 </delim></read>
         <delay>25</delay>
-        <write echo='ascii'>
+        <cgc_write echo='ascii'>
             <data>M\n</data>
-        </write>
+        </cgc_write>
         <read echo='ascii'><delim>\x24 </delim></read>
         <delay>25</delay>
-        <write echo='ascii'>
+        <cgc_write echo='ascii'>
             <data>M\n</data>
-        </write>
+        </cgc_write>
         <read echo='ascii'><delim>\x24 </delim></read>
         <delay>25</delay>
-        <write echo='ascii'>
+        <cgc_write echo='ascii'>
             <data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
-        </write>
+        </cgc_write>
         <read echo='ascii'><delim>\x24 </delim></read>
     </replay>
 </pov>

