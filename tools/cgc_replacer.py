@@ -69,7 +69,7 @@ for i in range(numReplace):
 	print i
 	replaceThese += [argv[i]]
 
-path = "../cqe-challenges//" 
+path = "../cqe-challenges/CROMU_00006/" 
 
 replaceList(replaceThese, path)
 #removeCache(path)

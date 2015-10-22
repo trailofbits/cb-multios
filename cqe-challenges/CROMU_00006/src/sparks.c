@@ -14,7 +14,7 @@ void sparks(data_package data) {
   uint32 bar_buf[data.size];
   __block uint32* bar_buf_ptr = (uint32*)bar_buf;
 
-  read(&candidate_count, sizeof(candidate_count));
+  cgc_read(&candidate_count, sizeof(candidate_count));
 
   if ((candidate_count == 0 && sparkle_count == 0) ||
    (candidate_count > MAX_ALLOCATE_SIZE)) {
@@ -38,7 +38,7 @@ void sparks(data_package data) {
 
     for (uint32 cur = 0; cur < sparkle_count; cur++) {
       uint32 sparkle;
-      read(&sparkle, sizeof(sparkle));
+      cgc_read(&sparkle, sizeof(sparkle));
       sparkles[cur] = sparkle;
     }
   }

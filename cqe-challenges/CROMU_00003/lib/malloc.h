@@ -50,8 +50,8 @@ typedef struct MALLOC_MANAGER
     void *pFreeList;
 } tMallocManager;
 
-void* calloc( size_t count, size_t obj_size );
-void* malloc( size_t alloc_size );
-void free( void *pMem );
+void* cgc_calloc( size_t count, size_t obj_size );
+void* cgc_malloc( size_t alloc_size );
+void cgc_free( void *pMem );
 
 #endif // __MALLOC_H__

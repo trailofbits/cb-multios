@@ -83,11 +83,11 @@ void float_to_str( double val, char *buf )
     if ( buf == NULL )
         return;
 
-    if ( isnan( val ) )
+    if ( cgc_isnan( val ) )
     {
         cgc_strcpy( buf, "nan" );
     }
-    else if ( isinf( val ) )
+    else if ( cgc_isinf( val ) )
     {
         cgc_strcpy( buf, "inf" );
     }
@@ -129,7 +129,7 @@ void float_to_str( double val, char *buf )
         while ( val > F32_PRECISION || m >= 0 )
         {
             double weight = pow( 10.0, m );
-            if ( weight > 0 && !isinf(weight) )
+            if ( weight > 0 && !cgc_isinf(weight) )
             {
                 digit = floor( val / weight );
                 val -= (digit * weight);

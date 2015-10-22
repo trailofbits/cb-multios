@@ -103,7 +103,7 @@ size_t myStrLen(const char* str)
   return (i);
 }
 
-void write(int fd, const void* buf, size_t len) {
+void cgc_write(int fd, const void* buf, size_t len) {
    const void *end = buf + len;
    size_t n;
    while (buf < end) {

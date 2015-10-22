@@ -37,12 +37,12 @@ THE SOFTWARE.
 
 tMallocManager g_memManager;
 
-void *calloc( size_t count, size_t obj_size )
+void *cgc_calloc( size_t count, size_t obj_size )
 {
     size_t allocation_size = (count * obj_size);
     void *pMemBuffer;
 
-    pMemBuffer = malloc( allocation_size );
+    pMemBuffer = cgc_malloc( allocation_size );
 
     cgc_memset( pMemBuffer, 0, allocation_size );
 
@@ -83,7 +83,7 @@ void *add_free_list( size_t request_size )
     return (void*)pNewAllocHdr;
 }
 
-void *malloc( size_t alloc_size )
+void *cgc_malloc( size_t alloc_size )
 {
     // Allocate
     if ( alloc_size < 8 )
@@ -196,7 +196,7 @@ void *malloc( size_t alloc_size )
     }
 }
 
-void free( void *pItem )
+void cgc_free( void *pItem )
 {
     // Free an object and coalesce to neighboring block if available
 

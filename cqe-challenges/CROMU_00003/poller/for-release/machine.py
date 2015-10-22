@@ -175,7 +175,7 @@ class Yolodex(Actions):
 		self.write(new.gender + "\n")
 		self.read(delim="? ", expect="Is the user a hacker")
 		self.write(new.hacker + "\n")
-		self.contacts[self.contacts.cgc_index(picked)] = new
+		self.contacts[self.contacts.index(picked)] = new
 
 	def badcommand(self):
 		self.write(random.choice("qwertyuiopasdfghjklzxcvbnm,.[];'/1234567890!#$%^&*()-=_+") + "\n")
@@ -193,20 +193,20 @@ class Yolodex(Actions):
 		if not getattr(self, "picked", None):
 			return
 		self.write("p\n")
-		if self.contacts.cgc_index(self.picked) == 0:
+		if self.contacts.index(self.picked) == 0:
 			self.read(delim="\n", expect="No previous contact.")
 		else:
-			self.picked = self.contacts[self.contacts.cgc_index(self.picked)-1]
+			self.picked = self.contacts[self.contacts.index(self.picked)-1]
 			self.showGoodUser()
 
 	def shownext(self):
 		if not getattr(self, "picked", None):
 			return
 		self.write("n\n")
-		if self.contacts.cgc_index(self.picked) == len(self.contacts)-1:
+		if self.contacts.index(self.picked) == len(self.contacts)-1:
 			self.read(delim="\n", expect="No next contact.")
 		else:
-			self.picked = self.contacts[self.contacts.cgc_index(self.picked)+1]
+			self.picked = self.contacts[self.contacts.index(self.picked)+1]
 			self.showGoodUser()
 
 	def showexit(self):
@@ -244,18 +244,18 @@ class Yolodex(Actions):
 		if not getattr(self, "picked", None):
 			return
 
-		cgc_index = self.contacts.cgc_index(self.picked)
+		index = self.contacts.index(self.picked)
 
-		if cgc_index == 0 and len(self.contacts) == 0:
+		if index == 0 and len(self.contacts) == 0:
 			self.picked = None
 			return
 
 		self.write("d\n")
 
-		if cgc_index == len(self.contacts)-1:
-			self.picked = self.contacts[cgc_index-2]
+		if index == len(self.contacts)-1:
+			self.picked = self.contacts[index-2]
 		else:
-			self.picked = self.contacts[cgc_index]
+			self.picked = self.contacts[index]
 		self.showGoodUser()
 
 
