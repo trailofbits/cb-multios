@@ -65,7 +65,7 @@ int getCommand(Command* cmd)
     return (-1);
   }
   
-  ret = readLine(STDIN, buf, 512); 
+  ret = cgc_readLine(STDIN, buf, 512); 
   if (ret < 0)
   {
     return (-2); //-2 is 

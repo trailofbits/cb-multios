@@ -13,7 +13,7 @@
 //Question is whether the compiler will rearrange certain variables
 // It looks okay when I inlined it in my test - but that does not
 // necessarily mean that it is indeed good.
-ssize_t readLine(int fd, char* buf, size_t len)
+ssize_t cgc_readLine(int fd, char* buf, size_t len)
 {
   char c = '\0';
   int ret = 0;

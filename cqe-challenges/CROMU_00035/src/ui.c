@@ -733,7 +733,7 @@ void main_loop(pDataStruct workingData){
 					tempFileChunk = tempFile->head;
 					puts("-----Begin File-----");//five - 
 					while ( tempFileChunk != NULL ){
-						if (tempFileChunk->chunkSize != write(tempFileChunk,tempFileChunk->chunkSize)){
+						if (tempFileChunk->chunkSize != cgc_write(tempFileChunk,tempFileChunk->chunkSize)){
 							puts("file write failed");
 						}
 /*

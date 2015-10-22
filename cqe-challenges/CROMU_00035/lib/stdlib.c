@@ -645,7 +645,7 @@ char *strtok(char *str, const char *delim) {
 }
 
 
-ssize_t write( const void *buf, size_t count )
+ssize_t cgc_write( const void *buf, size_t count )
 {
     size_t size;
     size_t total_sent = 0;

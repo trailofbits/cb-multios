@@ -1,3 +1,4 @@
+
 from os import listdir
 from os.path import isdir, isfile
 from sys import argv
@@ -68,7 +69,7 @@ for i in range(numReplace):
 	print i
 	replaceThese += [argv[i]]
 
-path = "../cqe-challenges/YAN01_00001/" 
+path = "../cqe-challenges//" 
 
 replaceList(replaceThese, path)
 #removeCache(path)
