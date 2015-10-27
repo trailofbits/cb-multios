@@ -1,7 +1,7 @@
 /*
  * Copyright (C) Narf Industries <info@narfindustries.com>
  *
- * Permission is hereby granted, free of charge, to any person obtaining a
+ * Permission is hereby granted, cgc_free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -36,7 +36,7 @@ struct MALLOC_AR {
     MALLOC_E *head;
 };
 
-static struct MALLOC_AR malloc_array;
+static struct MALLOC_AR cgc_malloc_array;
 
 unsigned int pos_ceil(double num){
     unsigned int trunc_num = (unsigned int) num;
@@ -46,12 +46,12 @@ unsigned int pos_ceil(double num){
     return trunc_num + 1;
 }
 
-int malloc_init(){
-    int ret =  allocate(MAX_ALLOCATIONS*sizeof(MALLOC_E), 0, (void **) &malloc_array.head);
+int cgc_malloc_init(){
+    int ret =  allocate(MAX_ALLOCATIONS*sizeof(MALLOC_E), 0, (void **) &cgc_malloc_array.head);
     if(ret != 0){
         _terminate(ret);
     }
-    assert(malloc_array.head != NULL);
+    assert(cgc_malloc_array.head != NULL);
     return 0;
 }
 
@@ -109,7 +109,7 @@ size_t read_ascii_line(int fd, char *data, size_t len){
 
 char *STRTOK = "";
 
-char *strtok(char *str, const char delim){
+char *cgc_strtok(char *str, const char delim){
     if(str == NULL){
         str = STRTOK;
     }else{
@@ -136,12 +136,12 @@ char *strtok(char *str, const char delim){
 }
 
 
-void * calloc(size_t nmemb, size_t s){
+void * cgc_calloc(size_t nmemb, size_t s){
     size_t sz = nmemb * s;
 
 
 
-    char *x = (char *) malloc(sz);
+    char *x = (char *) cgc_malloc(sz);
     if(x == NULL){
 
         return NULL;
@@ -214,11 +214,11 @@ char *cgc_strcat(char * s1, char *s2){
     return s1;
 }
 
-void * malloc(size_t s){
+void * cgc_malloc(size_t s){
     // todo check size incoming and limit it.
 
     for(int i = 0; i < MAX_ALLOCATIONS; i++){
-        MALLOC_E *mm = malloc_array.head+i;
+        MALLOC_E *mm = cgc_malloc_array.head+i;
         if(mm->allocation == NULL){
 
             int ret = allocate(s, 0, (void **)  &(mm->allocation));
@@ -245,11 +245,11 @@ void * malloc(size_t s){
     return NULL;
 }
 
-void free(void *p){
+void cgc_free(void *p){
     // traverse from the rear just to throw off identification
     if(p == NULL){
 #ifdef DEBUG
-        err("Can't free null!");
+        err("Can't cgc_free null!");
 #endif
         return;
 
@@ -257,7 +257,7 @@ void free(void *p){
 
 
     for(int i = MAX_ALLOCATIONS-1; i >= 0; i--){
-        MALLOC_E *mm = malloc_array.head+i;
+        MALLOC_E *mm = cgc_malloc_array.head+i;
         if(mm != NULL && p == mm->allocation){
             int x = deallocate(mm->allocation, mm->size);
 #ifdef DEBUG            
@@ -283,8 +283,8 @@ void cgc_memcpy(void *d, const void *s, size_t size){
     }
 }
 
-// todo not true memcmp in positive results
-int memcmp(void *d, const void *s, size_t size){
+// todo not true cgc_memcmp in positive results
+int cgc_memcmp(void *d, const void *s, size_t size){
     char *dc = (char *)d;
     char *sc = (char *)s;
 
@@ -299,7 +299,7 @@ int memcmp(void *d, const void *s, size_t size){
 
 char * itoaB10(int value){
     int max_width = 12;
-    char *s = malloc(max_width); // max len of 2**32 + negative to be paranoid
+    char *s = cgc_malloc(max_width); // max len of 2**32 + negative to be paranoid
     if(s == NULL)
         return NULL;
     int tmp = value;
@@ -326,18 +326,18 @@ char * itoaB10(int value){
     if(neg == 1)
         s[i+1] = '-';
 
-    char *f = malloc(max_width);
+    char *f = cgc_malloc(max_width);
     int final_len = cgc_strlen(s);
     for(int j =0; j < final_len; ++j){
         f[j] = s[final_len-j-1];
     }
-    free(s);
+    cgc_free(s);
     return f;
 }
 
-void malloc_reset(){
+void cgc_malloc_reset(){
     for(int i = MAX_ALLOCATIONS-1; i >= 0; i--){
-        MALLOC_E *mm = malloc_array.head+i;
+        MALLOC_E *mm = cgc_malloc_array.head+i;
         if(mm != NULL && mm->allocation != NULL){
             int x = deallocate(mm->allocation, mm->size);
 #ifdef DEBUG

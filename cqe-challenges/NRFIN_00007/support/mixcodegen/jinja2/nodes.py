@@ -830,7 +830,7 @@ class ImportedName(Expr):
 class InternalName(Expr):
     """An internal name in the compiler.  You cannot create these nodes
     yourself but the parser provides a
-    :meth:`~jinja2.parser.Parser.free_identifier` method that creates
+    :meth:`~jinja2.parser.Parser.cgc_free_identifier` method that creates
     a new identifier for you.  This identifier is not available from the
     template and is not threated specially by the compiler.
     """
@@ -838,7 +838,7 @@ class InternalName(Expr):
 
     def __init__(self):
         raise TypeError('Can\'t create internal names.  Use the '
-                        '`free_identifier` method on a parser.')
+                        '`cgc_free_identifier` method on a parser.')
 
 
 class MarkSafe(Expr):

@@ -287,7 +287,7 @@ class InternationalizationExtension(Extension):
         else:
             next(parser.stream)
 
-        # register free names as simple name expressions
+        # register cgc_free names as simple name expressions
         for var in referenced:
             if var not in variables:
                 variables[var] = nodes.Name(var, 'load')

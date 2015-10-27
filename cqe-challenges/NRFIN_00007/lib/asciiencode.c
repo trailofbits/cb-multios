@@ -1,7 +1,7 @@
 /*
  * Copyright (C) Narf Industries <info@narfindustries.com>
  *
- * Permission is hereby granted, free of charge, to any person obtaining a
+ * Permission is hereby granted, cgc_free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -38,7 +38,7 @@ unsigned char get_num_for_char(unsigned char u){
 char * encode(char * input, size_t size){
 	
 	size_t sz = size*BLOCK_SZ;
-	char *outbuf = (char *) calloc(1, sz+1);
+	char *outbuf = (char *) cgc_calloc(1, sz+1);
 	if(outbuf == NULL)
 		return NULL;
 	int outidx = 0;
@@ -47,7 +47,7 @@ char * encode(char * input, size_t size){
 		unsigned int idx1 = inch/divisor;
 		unsigned int idx2 = inch % divisor;
 		if(idx1 >= ABETSZ || idx2 >= ABETSZ){
-			free(outbuf);
+			cgc_free(outbuf);
 			return NULL;
 		}
 		outbuf[outidx] = ALPHABET[idx1];
@@ -63,7 +63,7 @@ char * encode(char * input, size_t size){
 }
 
 char * decode(char * input, size_t size){
-	unsigned char * outbuf = calloc(1, size/BLOCK_SZ);
+	unsigned char * outbuf = cgc_calloc(1, size/BLOCK_SZ);
 	int outct = 0;
 	for(int i =0; i < size; i+=BLOCK_SZ){
 		unsigned char in1 = input[i];
@@ -74,7 +74,7 @@ char * decode(char * input, size_t size){
 			outbuf[outct] = ch1 * divisor + ch2;
 
 		}else{
-			free(outbuf);
+			cgc_free(outbuf);
 			return NULL;
 		}
 		outct +=1;

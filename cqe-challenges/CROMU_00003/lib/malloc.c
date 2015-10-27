@@ -49,7 +49,7 @@ void *cgc_calloc( size_t count, size_t obj_size )
     return (pMemBuffer);
 }
 
-void *add_free_list( size_t request_size )
+void *cgc_add_free_list( size_t request_size )
 {
     // Include header
     size_t grow_size = (request_size + 4);
@@ -104,7 +104,7 @@ void *cgc_malloc( size_t alloc_size )
         if ( pFreeCur == NULL )
         {
             // End of list -- no suitable allocations available
-            pFreeCur = add_free_list( alloc_size );
+            pFreeCur = cgc_add_free_list( alloc_size );
         }
 
         tMallocAllocHdr *pFreeCurHeader = ((tMallocAllocHdr *)pFreeCur);
@@ -137,7 +137,7 @@ void *cgc_malloc( size_t alloc_size )
 
                 if ( ((void *)pNewChunkHeader + (pNewChunkHeader->alloc_size & ~0x3)-sizeof(tMallocAllocHdr)) != pFreeCurFooter )
                 {
-                    printf( "Footer != in malloc" );
+                    cgc_printf( "Footer != in malloc" );
                     _terminate( -3 );
                 }
 

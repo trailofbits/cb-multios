@@ -1,7 +1,7 @@
 /*
  * Copyright (C) Narf Industries <info@narfindustries.com>
  *
- * Permission is hereby granted, free of charge, to any person obtaining a
+ * Permission is hereby granted, cgc_free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -32,12 +32,12 @@ int main(void) {
     int ret;
     size_t size;
 
-    malloc_init();
+    cgc_malloc_init();
     
     
 
-    if (ret != 0)
-        _terminate(ret);
+    // if (ret != 0)
+    //     _terminate(ret);
 
 
 
@@ -47,17 +47,17 @@ int main(void) {
 
 
 
-        char * cmd_buf = calloc(1, MAX_LINE_SZ);
+        char * cmd_buf = cgc_calloc(1, MAX_LINE_SZ);
         if(cmd_buf != NULL){
             size_t line_sz = read_ascii_line(STDIN, cmd_buf, MAX_LINE_SZ);
             if(line_sz < 3){
-                free(cmd_buf);
+                cgc_free(cmd_buf);
                 continue;
             }
             
             int (*cmd_func)(char *);
             cmd_func = get_command_from_input(cmd_buf);
-            // strtok with NULL has 2nd argument
+            // cgc_strtok with NULL has 2nd argument
             // first arg is at the head of cmd buf...
 
 
@@ -74,7 +74,7 @@ int main(void) {
                 _terminate(cmd_result);
             }
 
-            free(cmd_buf);
+            cgc_free(cmd_buf);
         }else{
             continue;
         }

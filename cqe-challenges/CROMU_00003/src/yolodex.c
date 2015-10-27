@@ -52,7 +52,7 @@ typedef struct _contact {
 
 contact *head = NULL;
 
-void put(char *str) {
+void cgc_put(char *str) {
 	transmit(1, str, cgc_strlen(str), 0);
 }
 
@@ -195,11 +195,11 @@ void printGender(char gender)
 
 void printContact(contact *toPrint)
 {
-	put("First Name: \t");
+	cgc_put("First Name: \t");
 	cgc_puts(toPrint->first);
-	put("Last Name: \t");
+	cgc_put("Last Name: \t");
 	cgc_puts(toPrint->last);
-	put("Phone Number: \t");
+	cgc_put("Phone Number: \t");
 	cgc_puts(toPrint->phone);
 }
 
@@ -310,23 +310,23 @@ void promptAdd() {
 	cgc_memset(officetmp, 0, 8);
 	ptr = NULL;
 	while(ptr == NULL) {
-		put("First: ");
+		cgc_put("First: ");
 		recvUntil(first, 32, '\n');
-		put("Last: ");
+		cgc_put("Last: ");
 		recvUntil(last, 32, '\n');
-		put("Phone Number: ");
+		cgc_put("Phone Number: ");
 		recvUntil(phone, 14, '\n');
-		put("Office Number: ");
+		cgc_put("Office Number: ");
 		cgc_memset(officetmp, 0, 8);
 		recvUntil(officetmp, 6, '\n');
 		officenum = (unsigned short)atoi(officetmp);
-		put("Gender: ");
+		cgc_put("Gender: ");
 		recvUntil(tmp, 2, '\n');
 		gender = tmp[0];
 		hacker = '?';
 		while(hacker == '?')
 		{
-			put("Hacker: ");
+			cgc_put("Hacker: ");
 			recvUntil(tmp, 2, '\n');
 			if(tmp[0] == 'n' || tmp[0] == 'y')
 				hacker = tmp[0];
@@ -348,9 +348,9 @@ contact *findContact() {
 	char last[32];
 	contact *ptr;
 	contact *ret = NULL;
-	put("First: ");
+	cgc_put("First: ");
 	recvUntil(first, 32, '\n');
-	put("Last: ");
+	cgc_put("Last: ");
 	recvUntil(last, 32, '\n');
 
 	ptr = head;
@@ -385,7 +385,7 @@ void editUser(contact *ptr) {
 
 	if(ptr != NULL) {
 		cgc_puts("Updating fields.  Send just a newline to keep old data.");
-		put("New first name: ");
+		cgc_put("New first name: ");
 		recvUntil(data, 32, '\n');
 		if(data[0] && validateName(data) == 0){
 			cgc_puts("Not a legal first name.  Stopping edit.");
@@ -398,7 +398,7 @@ void editUser(contact *ptr) {
 			cgc_memset(ptr->first, 0, 32);
 			cgc_memcpy(ptr->first, data, cgc_strlen(data));
 		}
-		put("New last name: ");
+		cgc_put("New last name: ");
 		recvUntil(data, 32, '\n');
 #ifdef PATCHED
 		data[31] = 0;
@@ -412,7 +412,7 @@ void editUser(contact *ptr) {
 			cgc_memset(ptr->last, 0, 32);
 			cgc_memcpy(ptr->last, data, cgc_strlen(data));
 		}
-		put("New phone number: ");
+		cgc_put("New phone number: ");
 		recvUntil(data, 14, '\n');
 #ifdef PATCHED
 		data[13] = 0;
@@ -425,17 +425,17 @@ void editUser(contact *ptr) {
 			cgc_memset(ptr->phone, 0, 16);
 			cgc_memcpy(ptr->phone, data, cgc_strlen(data));
 		}
-		put("New office number: ");
+		cgc_put("New office number: ");
 		recvUntil(data, 6, '\n');
 		if(data[0]) {
 			cgc_memcpy(number, data, 5);
 			ptr->officenum = atoi(number);
 		}
-		put("New gender: ");
+		cgc_put("New gender: ");
 		recvUntil(data, 2, '\n');
 		if(data[0])
 			ptr->gender = data[0];
-		put("Is the user a hacker? ");
+		cgc_put("Is the user a hacker? ");
 		recvUntil(data, 2, '\n');
 		if(data[0])
 			ptr->hacker = data[0];
@@ -477,16 +477,16 @@ void promptShow() {
 	while(useraction[0] != 'q') {
 		cgc_memset(office, 0, 6);
 		cgc_puts("****************************************");
-		put("First name:\t");
+		cgc_put("First name:\t");
 		cgc_puts(ptr->first);
-		put("Last name:\t");
+		cgc_put("Last name:\t");
 		cgc_puts(ptr->last);
-		put("Phone num:\t");
+		cgc_put("Phone num:\t");
 		cgc_puts(ptr->phone);
 		cgc_itoa(office, ptr->officenum, 6);
-		put("Office Number:\t");
+		cgc_put("Office Number:\t");
 		cgc_puts(office);
-		put("Gender:\t\t");
+		cgc_put("Gender:\t\t");
 		printGender(ptr->gender);
 		if(ptr->hacker == 'y')
 		{

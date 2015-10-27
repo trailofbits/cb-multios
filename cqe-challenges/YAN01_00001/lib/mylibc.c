@@ -26,7 +26,7 @@ ssize_t cgc_readLine(int fd, char* buf, size_t len)
 #ifdef PATCHED
   //do nothing
 #else
-  //overcgc_write it since its a bug
+  //overwrite it since its a bug
   temp = 0x7FFFFFFF; //32 bit INT_MAX
 #endif
 

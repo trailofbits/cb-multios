@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <mymath.h>
 #include <stdint.h>
 
-double floor( double val )
+double cgc_floor( double val )
 {
     if ( val > 0.0 )
         return rint( val + 0.5 ) - 1.0;

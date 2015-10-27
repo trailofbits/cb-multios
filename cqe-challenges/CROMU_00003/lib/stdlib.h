@@ -62,7 +62,7 @@ void *cgc_malloc(size_t size);
 
 
 char *cgc_strcpy( char *dest, char *src );
-int printf( const char *fmt, ... );
+int cgc_printf( const char *fmt, ... );
 void cgc_bzero( void *, size_t );
 int cgc_strcmp( const char *, const char * );
 char *cgc_strncat( char *dest, const char *src, size_t n );
