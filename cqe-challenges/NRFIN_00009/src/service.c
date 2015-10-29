@@ -12,7 +12,7 @@ char* setValue(char* buffer, char* value) {
     while(*ptr && (*ptr!=*delim) && count < RESULT_VALUE_SIZE)
         ptr++, count++;
 
-    cgc_memcpy(value, buffer, count);
+    memcpy(value, buffer, count);
 
     return ++ptr;
 
@@ -36,8 +36,8 @@ int parseResultSize(char* buffer)
     while(*end && (*end!=*delim) && count < KEY_SIZE)
             end++, count++;
 
-    cgc_memcpy(key, start, count);
-    if(cgc_strcmp(key, NUM_STR) == 0) {
+    memcpy(key, start, count);
+    if(strcmp(key, NUM_STR) == 0) {
         setValue(++end, value);
         num_results = str2int(value);
         return num_results;
@@ -65,8 +65,8 @@ int parseBalanceResult(char* buffer)
     while(*end && (*end!=*delim) && count < KEY_SIZE)
             end++, count++;
 
-    cgc_memcpy(key, start, count);
-    if(cgc_strcmp(key, BAL_STR) == 0) {
+    memcpy(key, start, count);
+    if(strcmp(key, BAL_STR) == 0) {
         setValue(++end, value);
         balance = str2int(value);
         if (balance < 0 || balance > 255)
@@ -88,7 +88,7 @@ int parseSearchResult(char* buffer, Song* song)
     char* delim = KEYVAL_DELIM;
     int ret =0;
 
-    cgc_memset(song, 0, SONG_SIZE);
+    memset(song, 0, SONG_SIZE);
 
     start = buffer;
     while(1) {
@@ -97,16 +97,16 @@ int parseSearchResult(char* buffer, Song* song)
         while(*end && (*end!=*delim) && count < KEY_SIZE)
             end++, count++;
         
-        cgc_memcpy(key, start, count);
-        if(cgc_strcmp(key, SONG_ID_STR) == 0)
+        memcpy(key, start, count);
+        if(strcmp(key, SONG_ID_STR) == 0)
             start = setValue(++end, song->id);
-        else if(cgc_strcmp(key, PRICE_STR) == 0)
+        else if(strcmp(key, PRICE_STR) == 0)
             start = setValue(++end, song->price);
-        else if(cgc_strcmp(key, ARTIST_STR) == 0)
+        else if(strcmp(key, ARTIST_STR) == 0)
             start = setValue(++end, song->artist);
-        else if (cgc_strcmp(key, ALBUM_STR) == 0)
+        else if (strcmp(key, ALBUM_STR) == 0)
             start = setValue(++end, song->album);
-        else if (cgc_strcmp(key, SONG_STR) == 0) {
+        else if (strcmp(key, SONG_STR) == 0) {
             setValue(++end, song->song);
 
             return 0;
@@ -114,7 +114,7 @@ int parseSearchResult(char* buffer, Song* song)
         else
             return 0;
 
-        cgc_memset(key, 0, KEY_SIZE);
+        memset(key, 0, KEY_SIZE);
     }
 
     return 0;
@@ -200,19 +200,19 @@ char * createSearchString(Request request)
     if (ret != 0)
         _terminate(3);
 
-    cgc_memset(buffer, 0, sizeof(request)+MIN_REQ_LEN);
-    cgc_strcat(buffer, TERM_STR);
-    cgc_strcat(buffer, KEYVAL_DELIM);
-    cgc_strcat(buffer, request.term);
-    cgc_strcat(buffer, PARAM_DELIM);
-    cgc_strcat(buffer, ATTRIBUTE_STR);
-    cgc_strcat(buffer, KEYVAL_DELIM);
-    cgc_strcat(buffer, request.attribute);
-    cgc_strcat(buffer, PARAM_DELIM);
-    cgc_strcat(buffer, LIMIT_STR);
-    cgc_strcat(buffer, KEYVAL_DELIM);
-    cgc_strcat(buffer, request.limit);
-    cgc_strcat(buffer, EOL_STR);
+    memset(buffer, 0, sizeof(request)+MIN_REQ_LEN);
+    strcat(buffer, TERM_STR);
+    strcat(buffer, KEYVAL_DELIM);
+    strcat(buffer, request.term);
+    strcat(buffer, PARAM_DELIM);
+    strcat(buffer, ATTRIBUTE_STR);
+    strcat(buffer, KEYVAL_DELIM);
+    strcat(buffer, request.attribute);
+    strcat(buffer, PARAM_DELIM);
+    strcat(buffer, LIMIT_STR);
+    strcat(buffer, KEYVAL_DELIM);
+    strcat(buffer, request.limit);
+    strcat(buffer, EOL_STR);
 
     return buffer;
 }
@@ -220,43 +220,41 @@ char * createSearchString(Request request)
 unsigned int getRandomNumber(unsigned int max)
 {
     size_t bytes_written =0;
-    unsigned int cgc_index =0;
+    unsigned int index =0;
     int ret =0;
-
-    ret = random(&cgc_index, sizeof(cgc_index), &bytes_written);
+    ret = cgc_random(&index, sizeof(index), &bytes_written);
     if (ret != 0)
         _terminate(1);
-
-    if (bytes_written != sizeof(cgc_index))
+    printf("bytes_written: %d & sizeof index: %d\n", bytes_written, sizeof(index));
+    if (bytes_written != sizeof(index))
         _terminate(2);
+    index = index % max;
 
-    cgc_index = cgc_index % max;
-
-    return cgc_index;
+    return index;
 }
 
 void getRandomAttribute(Request* request)
 {
-    int cgc_index =0;
+    int index =0;
 
-    cgc_index = getRandomNumber(ATTR_NUM);
-    cgc_memcpy(request->attribute, attributes[cgc_index], cgc_strlen(attributes[cgc_index]));
+    index = getRandomNumber(ATTR_NUM);
+    memcpy(request->attribute, attributes[index], strlen(attributes[index]));
 }
 
 void getRandomTerm(Request* request)
 {
     unsigned int size =0;
     unsigned int charset_size =0;
-    int cgc_index =0;
+    int index =0;
 
     while(size == 0) {
         size = getRandomNumber(RESULT_VALUE_SIZE);
     }
 
-    charset_size = cgc_strlen(charset);
-    for(cgc_index = 0; cgc_index < size; cgc_index++) {
+    charset_size = strlen(charset);
+    for(index = 0; index < size; index++) {
         int letter = getRandomNumber(charset_size);
-        request->term[cgc_index] = charset[letter];
+        request->term[index] = charset[letter];
     }
 
     request->term[size] = '\0';
@@ -265,35 +263,29 @@ void getRandomTerm(Request* request)
 
 void createRandomRequest(Request *request) {
 
-    cgc_memset(request, 0, REQUEST_SIZE);
+    memset(request, 0, REQUEST_SIZE);
 
     getRandomTerm(request);
     getRandomAttribute(request);
-    cgc_memcpy(request->limit, RESULT_LIMIT_STR, sizeof(RESULT_LIMIT_STR));
+    memcpy(request->limit, RESULT_LIMIT_STR, sizeof(RESULT_LIMIT_STR));
 
 }
 
 size_t getRandomGiftCard(char** gift_card) {
-
     unsigned int charset_size =0;
-    int cgc_index =0;
+    int index =0;
     int section =0;
     int ret =0;
-
     ret = allocate(GIFT_CARD_LEN+1, 0, (void **) gift_card);
     if (ret != 0)
         _terminate(3);
-
-    cgc_memset(*gift_card, 0, GIFT_CARD_LEN);
-    charset_size = cgc_strlen(charset);
-
-    for(cgc_index = 0; cgc_index < GIFT_CARD_LEN; cgc_index++) {
+    memset(*gift_card, 0, GIFT_CARD_LEN);
+    charset_size = strlen(charset);
+    for(index = 0; index < GIFT_CARD_LEN; index++) {
         int letter = getRandomNumber(charset_size);
-        (*gift_card)[cgc_index] =  charset[letter];
+        (*gift_card)[index] =  charset[letter];
     }
-
     (*gift_card)[GIFT_CARD_LEN] = '\0';
-
     return GIFT_CARD_LEN+1;
 }
 
@@ -317,12 +309,12 @@ int purchaseSong(int socket, Song* selectedSong, SongList* mySongList) {
 
         mySongList->balance -= price;
         mySongList->size++;
-        cgc_memcpy(&mySongList->songs[mySongList->size-1], selectedSong, RESULT_VALUE_SIZE*3);
+        memcpy(&mySongList->songs[mySongList->size-1], selectedSong, RESULT_VALUE_SIZE*3);
 
-        ret = transmit_all(socket, mySongList->songs[mySongList->size-1].id, cgc_strlen(mySongList->songs[mySongList->size-1].id));
+        ret = transmit_all(socket, mySongList->songs[mySongList->size-1].id, strlen(mySongList->songs[mySongList->size-1].id));
         if (ret != 0)
             _terminate(10);
-        ret = transmit_all(socket, "\n", cgc_strlen("\n"));
+        ret = transmit_all(socket, "\n", strlen("\n"));
         if (ret != 0)
             _terminate(10);
 
@@ -339,7 +331,7 @@ int sendSearchString(int socket, Request request) {
 
     search_string = createSearchString(request);
 
-    ret = transmit_all(socket, search_string, cgc_strlen(search_string));
+    ret = transmit_all(socket, search_string, strlen(search_string));
     if (ret != 0)
         _terminate(4);
 
@@ -358,17 +350,17 @@ int getBalance(SongList* mySongList) {
     if (ret != 0)
         _terminate(3);
 
-    cgc_memset(buffer, 0, size+sizeof("ID=")+sizeof("\n")+1);
+    memset(buffer, 0, size+sizeof("ID=")+sizeof("\n")+1);
 
-    cgc_strcat(buffer,"ID=");
-    cgc_strcat(buffer,gift_card);
-    cgc_strcat(buffer,"\n");
+    strcat(buffer,"ID=");
+    strcat(buffer,gift_card);
+    strcat(buffer,"\n");
 
     ret = deallocate(gift_card, size);
     if (ret != 0)
         _terminate(3);
 
-    ret = transmit_all(STDOUT, buffer, cgc_strlen(buffer));
+    ret = transmit_all(STDOUT, buffer, strlen(buffer));
     if (ret != 0)
         _terminate(10);
 
@@ -407,6 +399,7 @@ int main(void) {
     Song songs[RESULT_LIMIT] ={0};
     Song* selectedSong =NULL;
     results.songs = songs;
+
 
     getBalance(&mySongList);
 

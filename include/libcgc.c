@@ -23,6 +23,8 @@ extern void *mmap(void *addr, size_t len, int prot, int flags, int fildes, ssize
 extern int munmap(void *addr, size_t length);
 extern void *memcpy(void *dest, const void *src, size_t n);
 extern long int random(void);
+extern int open(const char *filename, const char *mode);
+extern int close(int fildes);
 
 #ifdef APPLE
     extern int errno;
@@ -136,13 +138,18 @@ int cgc_random(void *buf, size_t count, size_t *rnd_bytes)
     if (count > SSIZE_MAX)
         return NULL; //??? unspecified
 
-    FILE * fp;
     int numRead;
 
-    fp = fopen("/dev/urandom", "r");
-    numRead = fread(buf, 1, count, fp);
-    fclose(fp);
+    int fp;
+    fp = open("/dev/urandom", 0); //0 for rdonly
+    numRead = read(fp, buf, count);
+    close(fp);
 
+    // FILE * fp;                               //didn't work 
+    // fp = fopen("/dev/urandom", "r");
+    // numRead = fread(buf, 1, count, fp);
+    // fclose(fp);
+    
     if (numRead < count){
         return errno;
     }
