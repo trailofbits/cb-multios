@@ -153,8 +153,8 @@ int cgc_random(void *buf, size_t count, size_t *rnd_bytes)
     if (numRead < count){
         return errno;
     }
-
-    *rnd_bytes = numRead;
+    if (rnd_bytes)
+        *rnd_bytes = numRead;
     return 0;
 }
 

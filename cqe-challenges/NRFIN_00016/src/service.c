@@ -256,11 +256,8 @@ int main(void) {
     int res = 0;
     reqpkt_t req = {0};
     char *r;
-
     RAND(&valvepos,sizeof(valvepos),NULL);
-    
     RECV(sizeof(reqpkt_t),(char *)&req);
-
     r = process_pkt(&req);
 
     SSENDL(cgc_strlen(r),r);
