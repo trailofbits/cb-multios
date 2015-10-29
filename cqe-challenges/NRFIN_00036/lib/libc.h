@@ -115,7 +115,7 @@
  * @param r Location to store number of bytes read
  * @return Random data in b
  */
-#define RAND(b,s,r) if (random(b,s,r)){ SSENDL(sizeof(RNDERR)-1,RNDERR); _terminate(19);}
+#define RAND(b,s,r) if (cgc_random(b,s,r)){ SSENDL(sizeof(RNDERR)-1,RNDERR); _terminate(19);}
 
 #define STACKPROTECTINIT extern uint32_t __cookie;
 #define STACKPROTECTADD  uint32_t __wat = __cookie;

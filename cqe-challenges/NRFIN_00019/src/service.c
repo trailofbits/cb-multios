@@ -322,7 +322,7 @@ int heisenberg_hooey(void) {
     // be written into a garbage buffer and ignored, but rnd_bytes will take on 
     // the same value as count.
     size_t rnd_bytes = 0;
-    if (SUCCESS != (ret = random(&garbage, rx_buf[SYSCALL_PROP_OFF], &rnd_bytes))) {
+    if (SUCCESS != (ret = cgc_random(&garbage, rx_buf[SYSCALL_PROP_OFF], &rnd_bytes))) {
 #ifdef DEBUG
         fprintf(stderr, "[E] hooey | error during random() call\n");
 #endif

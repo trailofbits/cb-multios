@@ -40,7 +40,7 @@ unsigned long getAuthVal() {
 	for(b = 0; b<4; b++) {
 		char byte = 0;
 		while (byte == 0 || byte == 0x0a) {
-			ret = random((void *)&byte, sizeof(byte), &rnd_bytes);
+			ret = cgc_random((void *)&byte, sizeof(byte), &rnd_bytes);
 			if(ret != 0)
 				_terminate(RANDOM_ERROR);	
 		}

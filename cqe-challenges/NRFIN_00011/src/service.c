@@ -38,7 +38,7 @@ void random_alpha_lower(char *buf, size_t len) {
     size_t rnd_bytes = 0;
     unsigned char rnd[len];
 
-    while ((0 != random(rnd, len, &rnd_bytes)) && (len != rnd_bytes)) {}
+    while ((0 != cgc_random(rnd, len, &rnd_bytes)) && (len != rnd_bytes)) {}
 
     for (int i = 0; i < len; i++) {
         buf[i] = (rnd[i] % NUM_CHARS_ALPHA) + 'a';

@@ -84,7 +84,7 @@ void handle_auth(char *buf, int buf_len)
     if (memcmp(g_mkey, buf, MASTER_KEY_LEN) == 0)
     {
       g_auth = 3;
-      random(g_session_key, MASTER_KEY_LEN, NULL);
+      cgc_random(g_session_key, MASTER_KEY_LEN, NULL);
       _send_response(RES_OK, g_session_key, MASTER_KEY_LEN);
       return;
     }

@@ -165,7 +165,7 @@ node_t * get_last_node(list_t * lst) {
 // returns 0 on success, non-zero on failure.
 int rand(char *buf, size_t sz) {
     size_t bytes = 0;
-    return random(buf, sz, &bytes);
+    return cgc_random(buf, sz, &bytes);
 }
 
 

@@ -357,7 +357,7 @@ int usb_init(usb_t *self)
     /* randomly generate a busid for the device */
     uint8_t id;
     size_t bytes;
-    random(&id, 1, &bytes);
+    cgc_random(&id, 1, &bytes);
     id = id % 100;
 
     int busnum = id / 10;

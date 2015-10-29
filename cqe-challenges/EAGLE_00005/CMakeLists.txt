@@ -1,5 +1,5 @@
 set( AUTHOR_ID "EAGLE")
 set( SERVICE_ID "00005")
-set( CFLAGS "-O0 -g -Werror -Wno-overlength-strings -Wno-packed -Wall -fno-builtin ")
+set( CFLAGS "-O0 -g -Werror -Wno-overlength-strings -Wno-packed -Wall -fno-builtin -Wno-int-to-pointer-cast ")
 set( VULN_COUNT "2")
 buildCB(${CFLAGS})

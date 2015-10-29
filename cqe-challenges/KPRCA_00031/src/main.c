@@ -200,7 +200,7 @@ int will_chat(unsigned n)
 {
   unsigned p;
   size_t wrote;
-  if (random(&p, sizeof(unsigned), &wrote) < 0)
+  if (cgc_random(&p, sizeof(unsigned), &wrote) < 0)
     return 0;
 
   if (wrote == sizeof(unsigned) && (p % 100) <= n)

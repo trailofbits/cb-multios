@@ -1177,7 +1177,7 @@ static int randint(unsigned int max)
 {
     uint32_t x;
     size_t bytes;
-    random(&x, sizeof(x), &bytes);
+    cgc_random(&x, sizeof(x), &bytes);
     return x % max;
 }
 

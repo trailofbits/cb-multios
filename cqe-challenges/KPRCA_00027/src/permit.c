@@ -38,7 +38,7 @@ ppermit_t* permit_new(char *license_number, int num_entrances, int spot_number)
   if ((permit = (ppermit_t *) malloc(sizeof(ppermit_t))) != NULL)
   {
     int i, cs;
-    random(permit->permit_token, sizeof(permit->permit_token), NULL);
+    cgc_random(permit->permit_token, sizeof(permit->permit_token), NULL);
     permit->permit_token[4] = 0x55;
     for (i = 0; i < sizeof(permit->permit_token) - 1; ++i)
       cs += ((int) permit->permit_token[i]) & 0xFF;

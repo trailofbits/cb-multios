@@ -145,7 +145,7 @@ static void john_nomatch(htreq *req) {
     int res;
     size_t bytes;
     char rand = 0;
-    random(&rand,1,&bytes);
+    cgc_random(&rand,1,&bytes);
     SENDL(johnarr[rand%SIZEOFARR(johnarr)],
             cgc_strlen(johnarr[rand%SIZEOFARR(johnarr)]), res);
     SENDL("\n-John",sizeof("\n-John")-1,res)

@@ -175,7 +175,7 @@ void free_list_of_lists(const list *l, int leave_data)
 const void *random_element(list *l)
 {
   size_t i, x, len = len_list(l);
-  if (random(&i, sizeof(size_t), &x) < 0)
+  if (cgc_random(&i, sizeof(size_t), &x) < 0)
     error(ERAND);
 
   if (x != sizeof(size_t))

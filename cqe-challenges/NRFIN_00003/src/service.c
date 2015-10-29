@@ -202,7 +202,7 @@ int init_content() {
     size_t j = 0;
 
     // determine number of files in the directory; range: [1, 255]
-    while ((0 != random(rnd, 1, &rnd_bytes)) && (1 != rnd_bytes)) {}
+    while ((0 != cgc_random(rnd, 1, &rnd_bytes)) && (1 != rnd_bytes)) {}
     num_files = rnd[0];
     if (0 == num_files) { num_files = 1; } // yeah, this biases
 
@@ -212,7 +212,7 @@ int init_content() {
 
     // for each file, determine a 16-character (no NULL) ASCII name & contents
     for (i=0; i<num_files; i++) {
-        while ((0 != random(rnd, FILE_BUF_SZ*2, &rnd_bytes)) && (FILE_BUF_SZ*2 != rnd_bytes)) {}
+        while ((0 != cgc_random(rnd, FILE_BUF_SZ*2, &rnd_bytes)) && (FILE_BUF_SZ*2 != rnd_bytes)) {}
 
         // filename, limited to lowercase ASCII characters
         for (j=0; j < FILE_BUF_SZ; j++) {

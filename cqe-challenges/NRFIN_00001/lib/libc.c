@@ -214,7 +214,7 @@ char * strchr(char *str, char ch) {
 // returns 0 on success, non-zero on failure.
 int rand(uint32_t * res) {
     size_t bytes = 0;
-    return random((char *)res, 4, &bytes);
+    return cgc_random((char *)res, 4, &bytes);
 }
 
 // simple vsnprintf with supported format specifiers

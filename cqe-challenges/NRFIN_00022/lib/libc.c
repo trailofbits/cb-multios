@@ -203,7 +203,7 @@ void * cgc_memcpy(void* dst, const void* src, size_t cnt) {
 // returns 0 on success, non-zero on failure.
 int rand(char *res, size_t len) {
     size_t bytes = 0;
-    return random(res, len, &bytes);
+    return cgc_random(res, len, &bytes);
 }
 
 // simple vsnprintf with supported format specifiers

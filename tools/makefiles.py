@@ -17,7 +17,7 @@ def readAndMake(folder):
 			var = var.strip()
 			val = val.strip()
 			if (var == "CFLAGS"):
-				makeVars += ['set( ' + var + ' "' + val + ' -fno-builtin ")']
+				makeVars += ['set( ' + var + ' "' + val + ' -fno-builtin -Wno-int-to-pointer-cast ")']
 			else:
 				makeVars += ['set( ' + var + ' "' + val + '")']
 	newMake = ""

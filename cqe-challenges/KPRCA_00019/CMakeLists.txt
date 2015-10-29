@@ -1,6 +1,6 @@
 set( POLLS_RELEASE_SEED "1777784436")
 set( AUTHOR_ID "KPRCA")
 set( SERVICE_ID "00019")
-set( CFLAGS "-O1 -g -Werror -Wno-overlength-strings -Wno-packed -fno-builtin ")
+set( CFLAGS "-O1 -g -Werror -Wno-overlength-strings -Wno-packed -fno-builtin -Wno-int-to-pointer-cast ")
 set( POLLS_TESTING_SEED "-1046949493")
 buildCB(${CFLAGS})

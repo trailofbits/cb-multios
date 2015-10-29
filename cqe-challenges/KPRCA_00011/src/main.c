@@ -60,8 +60,8 @@ void initialize()
 
   for (i = 0; i <= sizeof(g_password)/sizeof(g_password[0]); ++i)
   {
-    random(&c, sizeof(c), NULL);
-    random(&rand, sizeof(rand), NULL);
+    cgc_random(&c, sizeof(c), NULL);
+    cgc_random(&rand, sizeof(rand), NULL);
     if (c & 1)
       g_password[i] = 'A' + (rand % 26);
     else

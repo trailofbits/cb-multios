@@ -180,7 +180,7 @@ static int handle_hello(char *input)
     if (input != NULL)
         return send_error(500);
     while (g_token == INVALID_TOKEN)
-        random(&g_token, sizeof(g_token), NULL);
+        cgc_random(&g_token, sizeof(g_token), NULL);
     if (fdprintf(STDOUT, "OK %08X\n", g_token) < 12)
         return 1;
     return 0;

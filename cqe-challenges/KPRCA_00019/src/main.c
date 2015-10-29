@@ -56,7 +56,7 @@ static void send_report(void *channel)
 {
     unsigned char data[800];
     size_t bytes;
-    random(data, sizeof(data), &bytes);
+    cgc_random(data, sizeof(data), &bytes);
     send_data(channel, 1, g_protocol == 0 ? 200 : 700, data);
 }
 
