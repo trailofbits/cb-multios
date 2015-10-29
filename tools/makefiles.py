@@ -16,17 +16,20 @@ def readAndMake(folder):
 			val = i[i.find("=") + 1:]
 			var = var.strip()
 			val = val.strip()
-			makeVars += ['set( ' + var + ' "' + val + '")']
+			if (var == "CFLAGS"):
+				makeVars += ['set( ' + var + ' "' + val + ' -fno-builtin ")']
+			else:
+				makeVars += ['set( ' + var + ' "' + val + '")']
 	newMake = ""
 
 	for i in makeVars:
 		newMake += i + "\n"
-	if "-Werror" in newMake:
-		newMake = newMake.replace("-Werror", "")
+	# if "-Werror" in newMake:
+	# 	newMake = newMake.replace("-Werror", "")
 
 	
 	if "CFLAGS" not in newMake:
-		newMake +=  'set( CFLAGS " ")\n' 
+		newMake +=  'set( CFLAGS " -fno-builtin ")\n' 
 	#newMake += 'MESSAGE("Building!!! ")\n'
 	newMake += "buildCB(${CFLAGS})"
 
@@ -49,6 +52,6 @@ def doAll(path):
 
 
 path = "../cqe-challenges"
-#doAll(path)   ##path should be folder containing multiple challenge binaries and nothing else. 
-readAndMake("../cqe-challenges/NRFIN_00010/")  #path should be folder of a single challenge binary
-readAndMake("../cqe-challenges/NRFIN_00013/") 
+doAll(path)   ##path should be folder containing multiple challenge binaries and nothing else. 
+# readAndMake("../cqe-challenges/NRFIN_00010/")  #path should be folder of a single challenge binary
+# readAndMake("../cqe-challenges/NRFIN_00013/") 

@@ -1,7 +1,7 @@
 set( POLLS_TESTING_SEED "-16949350")
 set( AUTHOR_ID "KPRCA")
 set( SERVICE_ID "00018")
-set( CFLAGS "-O0 -g -Wall")
+set( CFLAGS "-O0 -g -Wall -fno-builtin ")
 set( POLLS_RELEASE_SEED "259379680")
 set( NO_CB_DPKG "1")
 set( NO_CB_EXTENDED_APP "1")

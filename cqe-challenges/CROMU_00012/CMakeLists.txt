@@ -1,6 +1,6 @@
 set( AUTHOR_ID "CROMU")
 set( SERVICE_ID "00012")
-set( CFLAGS "-O0 -g  -Wno-overlength-strings -Wno-packed")
+set( CFLAGS "-O0 -g -Werror -Wno-overlength-strings -Wno-packed -fno-builtin ")
 set( NO_STRIP "1")
 set( POLLS_RELEASE_SEED "388550987")
 set( POLLS_TESTING_SEED "-803034210")

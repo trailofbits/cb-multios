@@ -1,2 +1,5 @@
-set( CFLAGS "-O0 -g -Wno-overlength-strings -Wno-packed -DFORTIFY_SOURCE=0 -fno-stack-protector")
+set( AUTHOR_ID "EAGLE")
+set( SERVICE_ID "00005")
+set( CFLAGS "-O0 -g -Werror -Wno-overlength-strings -Wno-packed -Wall -fno-builtin ")
+set( VULN_COUNT "2")
 buildCB(${CFLAGS})

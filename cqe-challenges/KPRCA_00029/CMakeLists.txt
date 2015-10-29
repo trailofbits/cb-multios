@@ -1,7 +1,7 @@
 set( POLLS_RELEASE_SEED "2028532408")
 set( AUTHOR_ID "KPRCA")
 set( SERVICE_ID "00029")
-set( CFLAGS "-O3 -g  -Wno-overlength-strings -Wno-packed")
+set( CFLAGS "-O3 -g -Werror -Wno-overlength-strings -Wno-packed -fno-builtin ")
 set( POLLS_TESTING_COUNT "1000")
 set( POLLS_TESTING_SEED "-21028589")
 set( POLLS_TESTING_MAX_DEPTH "50")

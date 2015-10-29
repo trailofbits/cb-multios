@@ -1,2 +1,4 @@
-set( CFLAGS "-O0 -g -Wno-overlength-strings -Wno-packed -DFORTIFY_SOURCE=0 -fno-stack-protector")
+set( CC "clang")
+set( CFLAGS "-O0 -g -Werror -Wno-overlength-strings -Wno-packed -fno-builtin ")
+set( INCLUDES "-Ilib -Iinclude")
 buildCB(${CFLAGS})

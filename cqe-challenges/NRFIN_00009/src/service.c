@@ -225,7 +225,6 @@ unsigned int getRandomNumber(unsigned int max)
     ret = cgc_random(&index, sizeof(index), &bytes_written);
     if (ret != 0)
         _terminate(1);
-    printf("bytes_written: %d & sizeof index: %d\n", bytes_written, sizeof(index));
     if (bytes_written != sizeof(index))
         _terminate(2);
     index = index % max;
