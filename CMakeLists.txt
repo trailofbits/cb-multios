@@ -43,7 +43,7 @@ function(buildCB flags)
 	
 endfunction(buildCB)
 
-function(buildCB2 flags ldflags)
+function(buildCB_LD flags ldflags)
 	MESSAGE("building ${cb_id}")
   	aux_source_directory(${cb_path}/src cb_src) 								#get all source files
 	aux_source_directory(${cb_path}/lib cb_lib)  
@@ -67,7 +67,7 @@ function(buildCB2 flags ldflags)
 	target_link_libraries (${cb_id} LINK_PUBLIC libcgc)
 	target_link_libraries (${cb_id}_patched LINK_PUBLIC libcgc)
 
-endfunction(buildCB2)
+endfunction(buildCB_LD)
 
 
 FOREACH(cb_path ${challenge_binaries})										#iterate through cbs
