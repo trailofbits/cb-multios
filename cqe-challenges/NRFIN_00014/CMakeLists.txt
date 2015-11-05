@@ -4,4 +4,12 @@ set( AUTHOR_ID "NRFIN")
 set( SERVICE_ID "00014")
 set( POLLS_RELEASE_MAX_DEPTH "750")
 set( CFLAGS "-Wno-overlength-strings -Wno-packed -Wno-trigraphs -Wno-switch -g -fno-builtin -Wno-int-to-pointer-cast ")
+
+if (APPLE)
 buildCB(${CFLAGS})
+endif()
+
+if (LINUX)
+set( LDFLAGS " -lm ")
+buildCB_LD( ${CFLAGS} ${LDFLAGS} )
+endif()

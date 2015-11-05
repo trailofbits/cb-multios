@@ -6,4 +6,11 @@ set( CFLAGS "-O0 -g -Werror -Wno-overlength-strings -Wno-packed -fno-builtin -Wn
 set( POLLS_TESTING_COUNT "1000")
 set( POLLS_TESTING_MAX_DEPTH "20")
 set( POLLS_RELEASE_COUNT "0")
+if (APPLE)
 buildCB(${CFLAGS})
+endif()
+
+if (LINUX)
+set( LDFLAGS " -lm ")
+buildCB_LD( ${CFLAGS} ${LDFLAGS} )
+endif()

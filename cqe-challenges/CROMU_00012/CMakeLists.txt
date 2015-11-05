@@ -4,4 +4,11 @@ set( CFLAGS "-O0 -g -Werror -Wno-overlength-strings -Wno-packed -fno-builtin -Wn
 set( NO_STRIP "1")
 set( POLLS_RELEASE_SEED "388550987")
 set( POLLS_TESTING_SEED "-803034210")
+if (APPLE)
 buildCB(${CFLAGS})
+endif()
+
+if (LINUX)
+set( LDFLAGS " -lm ")
+buildCB_LD( ${CFLAGS} ${LDFLAGS} )
+endif()
