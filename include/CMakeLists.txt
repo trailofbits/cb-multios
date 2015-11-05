@@ -4,7 +4,7 @@ if (APPLE)
 endif()
 
 if (LINUX)
-	set(flags "-DLINUX")
+	set(flags "-fno-builtin   -DLINUX")
 endif()
 
 if (WIN)

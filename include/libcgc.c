@@ -18,7 +18,6 @@ int random(void *buf, size_t count, size_t *rnd_bytes);
 extern void exit(int status);
 extern ssize_t write(int fildes, const void *buf, size_t nbyte);
 extern ssize_t read(int fildes, void *buf, size_t nbyte);
-extern ssize_t select(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds, cgc_fd_set *exceptfds, const struct cgc_timeval *timeout);
 extern void *mmap(void *addr, size_t len, int prot, int flags, int fildes, ssize_t off); 
 extern int munmap(void *addr, size_t length);
 extern void *memcpy(void *dest, const void *src, size_t n);
@@ -27,12 +26,13 @@ extern int open(const char *filename, const char *mode);
 extern int close(int fildes);
 
 #ifdef APPLE
-    extern int errno;
+	extern int errno;
+	extern ssize_t select(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds, cgc_fd_set *exceptfds, const struct cgc_timeval *timeout);
+	#define NULL 0
 #elif LINUX
     #include <errno.h>
 #endif 
     
-#define NULL 0
 typedef struct {
         unsigned char   *_ptr;
         int     _cnt;
