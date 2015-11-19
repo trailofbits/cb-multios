@@ -67,6 +67,7 @@ void initialize()
     else
       g_password[i] = 'a' + (rand % 26);
   }
+
   g_password[i] = '\0';
 
   for (i = 0; i < sizeof(default_movies)/sizeof(default_movies[0]); ++i)

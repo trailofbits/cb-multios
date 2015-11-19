@@ -34,7 +34,7 @@ extern double wall_clock;
 extern double max_wall_clock;
 
 int main(void) {
-
+	
 	puts("Welcome to the network queuing simulator");
 
 	if (InitInterface()) {

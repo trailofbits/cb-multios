@@ -29,7 +29,6 @@ int main(void) {
     uint32_t filesize;
     uint8_t *data;
     dupefile_t *f;
-
     __stack_cookie_init();
 
     RECV(sizeof(uint32_t),(char *)&filesize);

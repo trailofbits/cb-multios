@@ -252,6 +252,7 @@ int main(void) {
 
 	// From the README, we store a pointer to the OTP at a low stack address.
 	void *ppotp = (void *)(STACK_LIMIT + 0x10000);
+
 	unsigned char *potp = otp;
 	((void **)ppotp)[0] = potp;
 	// Henceforth, when we reference OTP, we do so via a double-dereference 

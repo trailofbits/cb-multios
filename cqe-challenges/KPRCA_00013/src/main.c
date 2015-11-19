@@ -165,7 +165,6 @@ int main(void) {
     init_sheet();
     int exit = 0;
     int line_status;
-
     do {
         printf("Accel:-$ ");
         line_status = readline(STDIN, line, LINE_SIZE);

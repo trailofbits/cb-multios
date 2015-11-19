@@ -98,8 +98,8 @@ void *malloc(size_t size)
   /* Split the block into two pieces if possible */
   size_t sdiff = blk->size - size;
   if (sdiff > HEADER_PADDING) {
-    struct blk_t *nb = (struct blk_t *)((intptr_t)blk + size);
 
+    struct blk_t *nb = (struct blk_t *)((intptr_t)blk + size);
     nb->size = sdiff;
     nb->free = 1;
     nb->fsucc = NULL;
@@ -117,6 +117,6 @@ void *malloc(size_t size)
     /* Put the new block into the free list */
     insert_into_flist(nb);
   }
-
+  
   return (void *)((intptr_t)blk + HEADER_PADDING);
 }
