@@ -1,6 +1,5 @@
 #include <libcgc.h>
 #include <stdlib.h>
-
 /*
 
 Author: John Berry <john.n.berry@gmail.com>

@@ -111,7 +111,14 @@ int allocate(size_t length, int is_X, void **addr)
     unsigned int prot = PROT_READ | PROT_WRITE;
     if (is_X)
         prot |= PROT_EXEC;
+#ifdef APPLE
     mem_return = mmap(NULL, length, prot, MAP_ANON | MAP_PRIVATE, 0, 0);
+#endif
+
+#ifdef LINUX
+	int fd = open("/dev/zero", 0x0002);
+	mem_return = mmap(NULL, length, prot, MAP_ANON | MAP_PRIVATE, fd, 0);
+#endif
     if (mem_return == MAP_FAILED)
         return errno;
     *addr = mem_return;
