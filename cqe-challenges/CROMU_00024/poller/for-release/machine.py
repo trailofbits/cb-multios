@@ -21,13 +21,13 @@ class StringSearch(Actions):
 
     def exit(self):
 
-        self.write('x\n')
+        self.cgc_write('x\n')
 
     def add_string(self):
 
         string_to_add = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(random.randint(10, 1028)))
 
-        self.write('a/' + string_to_add + '\n')
+        self.cgc_write('a/' + string_to_add + '\n')
 
         # trunc string to max size in the service
         string_to_add=string_to_add[:1023]
@@ -51,7 +51,7 @@ class StringSearch(Actions):
         string_choice = self.string_entries[choice_number]
 
         # send the command to do a find
-        self.write('f/'+ string_choice + '\n')
+        self.cgc_write('f/'+ string_choice + '\n')
 
         expect_string = '{}\n'.format(self.string_entries[choice_number])
         self.read(delim='\n', expect=expect_string) 
@@ -67,7 +67,7 @@ class StringSearch(Actions):
         string_choice = self.string_entries[choice_number]
 
         # send the delete command to the service
-        self.write('d/'+ string_choice + '\n')
+        self.cgc_write('d/'+ string_choice + '\n')
 
         # delete it from the poller's version of the BST
         key=self.root.calc_token(string_choice)
@@ -86,7 +86,7 @@ class StringSearch(Actions):
         my_results = self.root.walk_tree(my_results)
 
         #send the command to the service
-        self.write('w\n')
+        self.cgc_write('w\n')
     
         # results should match the internal BST
         for item in my_results:
@@ -107,7 +107,7 @@ class StringSearch(Actions):
             left_percent = 0
             right_percent = 0
 
-        self.write('s\n')
+        self.cgc_write('s\n')
 
         expect_string = '# of Nodes: ' + '{}'.format(total_nodes)
         self.read(delim='\n', expect = expect_string)

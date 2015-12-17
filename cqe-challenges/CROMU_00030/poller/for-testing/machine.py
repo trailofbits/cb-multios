@@ -124,7 +124,7 @@ class Wifi_game(Actions):
 		pkt = "cw" + str(self.packet_num_sent) + str(self.current_connection) + str(len(str(filler))) + str(filler) + '0'
 		pkt += self.getChecksum(pkt)
 		pkt += '\n'
-		self.write(pkt)
+		self.cgc_write(pkt)
 
 		self._listen_for_ack()
 
@@ -151,7 +151,7 @@ class Wifi_game(Actions):
 		
 		# provide PRNG seed for this game
 		data = ''.join(chr(random.randint(ord('!'),ord('~'))) for _ in range(random.randint(5,5)))
-		self.write(data + '\n')
+		self.cgc_write(data + '\n')
 
 		# seed the PRNG with this random string
 		self.rand = Prng()
@@ -162,7 +162,7 @@ class Wifi_game(Actions):
 
 	def send_packet(self):
 		self.read(delim="\n", expect="ready for next packet")
-		self.write("as6fqwetyr\n");
+		self.cgc_write("as6fqwetyr\n");
 		self.read(delim="finished\n", expect=".*", expect_format="pcre")
 
 	# This is the first step of the game, association
@@ -173,7 +173,7 @@ class Wifi_game(Actions):
 		pkt = "bd001" + str(self.current_connection) + "123456789"
 		pkt += self.getChecksum(pkt)
 		pkt += '\n'
-		self.write(pkt)
+		self.cgc_write(pkt)
 
 		matcher = "be0"+ str(self.current_connection) +"11000000000" #+ str(self.packet_num_sent) + str(self.current_connection) + "11b" + '\n'
 		matcher += self.getChecksum(matcher)
@@ -196,7 +196,7 @@ class Wifi_game(Actions):
 		pkt = "bf0" + str(self.current_connection) + str(len(enc_type)) + enc_type + '0099000'
 		pkt += self.getChecksum(pkt)
 		pkt += '\n'
-		self.write(pkt)
+		self.cgc_write(pkt)
 
 		# create random string we expect to see in this string
 		substr = ""
@@ -218,7 +218,7 @@ class Wifi_game(Actions):
 		pkt = "bh0" + str(self.current_connection) + str(len(str(answer))) + str(answer) + '00000'
 		pkt += self.getChecksum(pkt)
 		pkt += '\n'
-		self.write(pkt)
+		self.cgc_write(pkt)
 
 		# handle the final auth response here
 		matcher = "bi0"+ str(self.current_connection) +"11000000000"
@@ -283,7 +283,7 @@ class Wifi_game(Actions):
 			pkt = "cz" + str(self.packet_num_sent) + str(self.current_connection) + str(len(str(enc_placement))) + str(enc_placement) + '00034'
 			pkt += self.getChecksum(pkt)
 			pkt += '\n'
-			self.write(pkt)
+			self.cgc_write(pkt)
 
 			self.handle_receive_place_success()
 		except Exception, e:
@@ -401,7 +401,7 @@ class Wifi_game(Actions):
 
 		# send a random name
 		name = ''.join(random.choice(string.letters) for _ in range(random.randint(1,12)))
-		self.write(name + '\n');
+		self.cgc_write(name + '\n');
 
 		matcher = "Well done,"
 		self.read(delim="\n", expect=matcher, expect_format="pcre")
@@ -412,7 +412,7 @@ class Wifi_game(Actions):
 		pkt = "bl" + '0' + str(self.current_connection) + '9' + '7122334455'
 		pkt += self.getChecksum(pkt)
 		pkt += '\n'
-		self.write(pkt)
+		self.cgc_write(pkt)
 
 		matcher = "bm" + '0' + str(self.current_connection) + '1' + '1000000000'
 		matcher += self.getChecksum(matcher)
@@ -424,7 +424,7 @@ class Wifi_game(Actions):
 		pkt = "bj" + '0' + str(self.current_connection) + '9' + '3122334455'
 		pkt += self.getChecksum(pkt)
 		pkt += '\n'
-		self.write(pkt)
+		self.cgc_write(pkt)
 
 		matcher = "bk" + '0' + str(self.current_connection) + '1' + '1000000000'
 		matcher += self.getChecksum(matcher)
@@ -437,7 +437,7 @@ class Wifi_game(Actions):
 		pkt = "cv" + str(self.packet_num_sent) + str(self.current_connection) + '9' + '1122334455'
 		pkt += self.getChecksum(pkt)
 		pkt += '\n'
-		self.write(pkt)
+		self.cgc_write(pkt)
 
 		self._listen_for_ack()
 
@@ -456,7 +456,7 @@ class Wifi_game(Actions):
 		pkt = "cx" + str(self.packet_num_sent) + str(self.current_connection) + '9' + '1122334455'
 		pkt += self.getChecksum(pkt)
 		pkt += '\n'
-		self.write(pkt)
+		self.cgc_write(pkt)
 
 		self._listen_for_ack()
 
@@ -474,7 +474,7 @@ class Wifi_game(Actions):
 		self._listen_for_next_packet()
 
 	def endgame(self):
-		self.write("1212\n")
+		self.cgc_write("1212\n")
 		self.read(delim="good bye\n", expect="good bye")
 
 

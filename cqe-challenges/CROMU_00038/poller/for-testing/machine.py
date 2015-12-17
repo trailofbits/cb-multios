@@ -42,7 +42,7 @@ class StringSearch(Actions):
     def SOM(self):
 
         som=pack('H',0xffF8)
-        self.write(som)
+        self.cgc_write(som)
 
         self.read(delim='\n', expect = 'SOM marker found\n')
 
@@ -53,7 +53,7 @@ class StringSearch(Actions):
     def random1(self):
 
         data = pack('H', random.randint(400, 1000))
-        self.write(data)
+        self.cgc_write(data)
 
         self.read(delim='\n', expect = 'Did not find SOM marker\n')
 
@@ -61,18 +61,18 @@ class StringSearch(Actions):
     def random2(self):
 
         data = pack('H', random.randint(400, 1000))
-        self.write(data)
+        self.cgc_write(data)
 
     def SAP0(self):
 
         data = pack('H', 0xfff0)
-        self.write(data)
+        self.cgc_write(data)
 
         self.read(delim='\n', expect = 'SAP0 marker found\n')
 
-        self.write(pack('H', 0x10))
-        self.write('SAP0')
-        self.write(pack('5H', 0,0,0,0,0))
+        self.cgc_write(pack('H', 0x10))
+        self.cgc_write('SAP0')
+        self.cgc_write(pack('5H', 0,0,0,0,0))
 
     def build_SAP1(self):
 
@@ -318,13 +318,13 @@ class StringSearch(Actions):
     def SAP1(self):
 
         data = pack('H', 0xfff1)
-        self.write(data)
+        self.cgc_write(data)
 
         self.read(delim='\n', expect='SAP1 marker found\n')
 
         sap1_data, expect_list = self.build_SAP1()
 
-        self.write(sap1_data)
+        self.cgc_write(sap1_data)
 
         for expect_string in expect_list:
 

@@ -21,7 +21,7 @@ class TemplateGenerator(Actions):
 		self.read(delim="\n",
 				  expect=r'ID=[A-z]{32}\n',
 				  expect_format='pcre')
-		self.write("BALANCE=" + str(self.balance) + "\x07")
+		self.cgc_write("BALANCE=" + str(self.balance) + "\x07")
 
 	def get_search(self):
 		self.results = random.randint(10,100)
@@ -61,7 +61,7 @@ class TemplateGenerator(Actions):
                             range(song_len))
 		song = ''.join(['&song=',song,'\x07'])  	
 
-		self.write(sid, price, '&artist=', self.term, album, song)
+		self.cgc_write(sid, price, '&artist=', self.term, album, song)
 		
 		self.results-=1
 
@@ -90,7 +90,7 @@ class TemplateGenerator(Actions):
                             range(song_len))
 		song = ''.join(['&song=',song,'\x07'])  	
 
-		self.write(sid, price, artist, '&album=', self.term, song)
+		self.cgc_write(sid, price, artist, '&album=', self.term, song)
 
 		self.results-=1
 
@@ -117,7 +117,7 @@ class TemplateGenerator(Actions):
                             range(album_len))
 		album = ''.join(['&album=',album])	
 
-		self.write(sid, price, artist, album, '&song=', self.term, '\x07')
+		self.cgc_write(sid, price, artist, album, '&song=', self.term, '\x07')
 
 		self.results-=1
 
@@ -126,7 +126,7 @@ class TemplateGenerator(Actions):
 			self.create_artist_result()
 
 	def send_number(self):
-		self.write("NUMBER="+str(self.results)+"\x07")
+		self.cgc_write("NUMBER="+str(self.results)+"\x07")
 
 	def purchase_song(self):
 		if self.songsLeft == 0:
@@ -134,7 +134,7 @@ class TemplateGenerator(Actions):
 		self.read(delim="\n", expect=self.purchase_song_sid)
 		self.balance-=self.price
 		self.songsLeft-=1
-		self.write("BALANCE=" + str(self.balance) + "\x07")
+		self.cgc_write("BALANCE=" + str(self.balance) + "\x07")
 		if self.balance == 0:
 			self.quit()
 

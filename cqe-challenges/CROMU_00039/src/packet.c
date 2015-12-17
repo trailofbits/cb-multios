@@ -114,7 +114,7 @@ int SendError(uint8_t request_id, uint8_t error) {
 
 	pkt[4] = error;
 
-	if (write(pkt, 5) != 5) {
+	if (cgc_write(pkt, 5) != 5) {
 		return(0);
 	}
 
@@ -144,7 +144,7 @@ int SendResponse(uint8_t request_id, vars_t *pm) {
 		return(SendError(request_id, ERROR_NOTFOUND));
 	}
 
-	if (write(pkt, pkt[1]+2) != pkt[1]+2) {
+	if (cgc_write(pkt, pkt[1]+2) != pkt[1]+2) {
 		return(0);
 	}
 

@@ -128,7 +128,7 @@ class CasinoPollGenerator(Actions):
 		self.read(delim=':', expect="Enter your name:")
 		name = data = ''.join(chr(random.randint(ord('!'),ord('~'))) for _ in range(random.randint(1,64)))
 		
-		self.write(name + '\n')
+		self.cgc_write(name + '\n')
 		self.read(delim='\n', expect="Hello, {}!\n".format(name))
 
 		self.prng = Prng()
@@ -157,7 +157,7 @@ class CasinoPollGenerator(Actions):
 		
 
 	def blackjack(self):
-		self.write("1\n")
+		self.cgc_write("1\n")
 		self.read(delim='\n', expect="Play Blackjack\n")
 
 		player = {"name":"", "number":0, "wallet":0, "b_score":0, "p_score":0, "s_score":0}
@@ -195,14 +195,14 @@ class CasinoPollGenerator(Actions):
 			# Play Player Hand
 			while (self.deck.blackjack_total(playerhand) < 17):
 				self.read(delim=':', expect="Enter h for hit or s for stand:")
-				self.write("h\n")	
+				self.cgc_write("h\n")	
 				playerhand.append(self.deck.draw())
 				self.read(delim='\n', expect="P: " + self.deck.get_names(playerhand))
 			if (self.deck.blackjack_total(playerhand)>21):
 				self.read(delim='\n', expect="Bust")
 			else:
 				self.read(delim=':', expect="Enter h for hit or s for stand:")
-				self.write("s\n")
+				self.cgc_write("s\n")
 
 			# Play Dealer Hand			
 			self.read(delim='\n', expect="D: " + self.deck.get_names(dealerhand))	
@@ -229,7 +229,7 @@ class CasinoPollGenerator(Actions):
 			self.state["players"][self.state["current_player"]] = player
 
 	def poker(self):
-		self.write("2\n")
+		self.cgc_write("2\n")
 		self.read(delim='\n', expect='Play Poker')
 		player = {"name":"", "number":0, "wallet":0, "b_score":0, "p_score":0, "s_score":0}
 		
@@ -250,7 +250,7 @@ class CasinoPollGenerator(Actions):
 		# Hold none
 		self.read(delim='\n', expect="Enter cards to hold by number (ex: 13 or 12345). Others will be replaced.")
 
-		self.write("\n")
+		self.cgc_write("\n")
 		# Draw new hand
 		hand = []
 		for i in range(5):
@@ -330,13 +330,13 @@ class CasinoPollGenerator(Actions):
 		self.deck.shuffle()
 		self.read(delim='\n', expect=".*\n", expect_format="pcre")
 		self.read(delim='\n', expect="Enter cards to hold by number (ex: 13 or 12345). Others will be replaced.")
-		self.write('q\n')
+		self.cgc_write('q\n')
 
 		if (self.state["current_player"] != None):
 			self.state["players"][self.state["current_player"]] = player
 
 	def slots(self):
-		self.write('3\n')
+		self.cgc_write('3\n')
 		rows = random.randint(2, 5)
 		self.read(delim='\n', expect="Play Slots")
 		player = {"name":"", "number":0, "wallet":0, "b_score":0, "p_score":0, "s_score":0}
@@ -348,7 +348,7 @@ class CasinoPollGenerator(Actions):
 		player["s_score"]+= 1
 
 		self.read(delim=':', expect="Enter number of rows (2 to 5):")
-		self.write(str(rows) + '\n')
+		self.cgc_write(str(rows) + '\n')
 		max_char = ord('/')
 		if (rows == 3):
 			max_char = ord('!') + 6
@@ -387,7 +387,7 @@ class CasinoPollGenerator(Actions):
 					player["wallet"] += 4
 						
 		self.read(delim=':', expect="Enter q to quit, any other key to play again:")
-		self.write('q\n')
+		self.cgc_write('q\n')
 		if (self.state["current_player"] != None):
 			self.state["players"][self.state["current_player"]] = player
 
@@ -399,19 +399,19 @@ class CasinoPollGenerator(Actions):
 		return None
 
 	def enter_players_club(self):
-		self.write("4\n")
+		self.cgc_write("4\n")
 		self.read(delim=":", expect="Enter Player Number")
 		if ((len(self.state["players"]) == 0) or self.chance(0.2)):
 			rand = random.randint(0, 0xffffffff)
 			while (self.lookup_player(rand)!= None):
 				rand = random.randint(0, 0xffffffff)
-			self.write(str(rand) + '\n')
+			self.cgc_write(str(rand) + '\n')
 			self.read(delim='\n', expect="Player not found")
 			self.state["current_player"] = None
 		else:
 			self.state["current_player"] = random.randint(0, len(self.state["players"])-1)
 			player =self.state["players"][self.state["current_player"]] 
-			self.write(str(player["number"]) + '\n')
+			self.cgc_write(str(player["number"]) + '\n')
 			self.read(delim='\n', expect="Hello, {}!".format(player["name"]))
 
 
@@ -424,15 +424,15 @@ class CasinoPollGenerator(Actions):
 		self.read(delim='\n\n', expect="Player Wallet Balance: " + str(player["wallet"]))
 
 	def register_player(self):
-		self.write("5\n")
+		self.cgc_write("5\n")
 		self.read(delim=':', expect="Register a new Player\nEnter your name")
 		names = ["Aragorn son of Arathorn", "Arwen Undomiel", "Bilbo Baggins", "Boromir", "Denethor", "Elrond, Lord of Rivendell", "Eomer", "Eowyn", "Faramir", "Frodo Baggins", "Galadriel",
 		"Gandalf", "Gimli", "Gollum", "Haldir", "Isildur", "Legolas", "Merry", "Pippin", "Sam", "Saruman", "Theoden", "Treebeard", "Wormtongue" ]
 		name = names[random.randint(0, len(names) - 1)]
-		self.write(name + '\n')
+		self.cgc_write(name + '\n')
 		self.read(delim=':', expect="How much cash do you want to spend?")
 		wallet = random.randint(0, 1000)
-		self.write(str(wallet) + '\n')
+		self.cgc_write(str(wallet) + '\n')
 		number = self.prng.prng() & 0x7fffffff
 		self.state["players"].insert(0, {"name":name, "number":number, "wallet":wallet, "b_score":0, "p_score":0, "s_score":0})
 		if self.state["current_player"] != None:
@@ -441,23 +441,23 @@ class CasinoPollGenerator(Actions):
 
 
 	def show_status(self):
-		self.write("6\n")
+		self.cgc_write("6\n")
 		if (self.state["current_player"] == None):
 			self.read(delim='\n', expect="Player does not exist")
 		else:
 			self.player_stats(self.state["players"][self.state["current_player"]])
 
 	def leaderboard(self):
-		self.write("7\n")
+		self.cgc_write("7\n")
 		self.read(delim='\n', expect="Show All Players")
 		for each in self.state["players"]:
 			self.player_stats(each)
 
 
 	def exit(self):
-		self.write("8\n")
+		self.cgc_write("8\n")
 		self.read(delim='\n')
-		self.write("y\n")
+		self.cgc_write("y\n")
 		self.read(delim='\n', expect=".*", expect_format="pcre")
 
 	def menu_exit(self):

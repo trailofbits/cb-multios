@@ -18,7 +18,7 @@ class MathGame(Actions):
 		self.read(delim="\n", expect="Enter some data")
 		#write up to 255 bytes of random data (not null)
 		data = ''.join(chr(random.randint(ord('!'),ord('~'))) for _ in range(random.randint(1,254)))
-		self.write(data)
+		self.cgc_write(data)
 	
 		self.rand = Prng()
 		seed = 0xffffffffffffffffL
@@ -202,7 +202,7 @@ class MathGame(Actions):
 		return (ret, self.num_stack.pop())
 
 	def solveEquation(self):
-		self.write("1")
+		self.cgc_write("1")
 
 		(equation, answer) = self.generate_one_equation()
 		self.read(delim="\n", expect="Equation: {}".format(equation))
@@ -212,13 +212,13 @@ class MathGame(Actions):
 		r = random.randint(1,10)
 		if r == 1:
 			rstr = ''.join(random.choice(string.digits) for _ in range(random.randint(1,14)))
-			self.write(rstr)
+			self.cgc_write(rstr)
 			self.read(delim="\n", expect="Incorrect answer")
 			self.state['solveEquation'] += 1
 			return
 		elif r == 2:
 			rstr = ''.join(random.choice(string.ascii_letters) for _ in range(random.randint(1,14)))
-			self.write(rstr)
+			self.cgc_write(rstr)
 			self.read(delim="\n", expect="incorrect item entered")
 			self.read(delim="\n", expect="Bad input")
 			self.state['solveEquation'] += 1
@@ -228,16 +228,16 @@ class MathGame(Actions):
 
 
 		if (self.chance(0.5)):
-			self.write(str(0))
+			self.cgc_write(str(0))
 			self.read(delim='\n', expect="Incorrect answer")
 		else:
-			self.write(str(answer));
+			self.cgc_write(str(answer));
 			self.read(delim='\n', expect="success!!")
 			self.state['solveEquation_correct'] += 1
 
 
 	def createEquation(self):
-		self.write("2")
+		self.cgc_write("2")
 
 
 		self.read(delim="\n", expect="Enter .*", expect_format="pcre")
@@ -273,31 +273,31 @@ class MathGame(Actions):
 		if r == 1:
 			# incorrect number
 			rstr = ''.join(random.choice(string.digits) for _ in range(random.randint(1,14)))
-			self.write(rstr)
+			self.cgc_write(rstr)
 			self.read(delim="\n", expect=".*", expect_format="pcre")
 			self.read(delim="\n", expect=".*", expect_format="pcre")
 			return
 		elif r == 2:
 			# incorrect string
 			rstr = ''.join(random.choice(string.ascii_letters) for _ in range(random.randint(1,14)))
-			self.write(rstr)
+			self.cgc_write(rstr)
 			self.read(delim="\n", expect=".*", expect_format="pcre")
 			self.read(delim="\n", expect=".*", expect_format="pcre")
 			return
 		if r == 3:
 			# slightly incorrect equation
-			self.write(equation)
+			self.cgc_write(equation)
 			self.read(delim='\n', expect=".*", expect_format="pcre")
 			self.read(delim='\n', expect=".*", expect_format="pcre") # error string
 		else:
-			self.write(equation)
+			self.cgc_write(equation)
 			self.state['createEquation_correct'] += 1
 			self.read(delim='\n', expect="string is formatted correct")
 			self.read(delim='\n', expect=equation + " does resolve to {}, good!".format(goal_answer))
 
 
 	def solveArea(self):
-		self.write("3")
+		self.cgc_write("3")
 		self.read(delim="\n", expect="find .*", expect_format="pcre")
 		
 		self.state['solveArea'] += 1
@@ -313,20 +313,20 @@ class MathGame(Actions):
 			if rnum == 0:
 				radius = self.rand.random_in_range(0,15000)
 				area = self.PI * radius * radius
-				self.write("{}".format(area))
+				self.cgc_write("{}".format(area))
 
 			# 1: rectangle
 			if rnum == 1:
 				side = self.rand.random_in_range(0,34567)
 				base = self.rand.random_in_range(0,34567)
 				area = side * base
-				self.write("{}".format(area))
+				self.cgc_write("{}".format(area))
 
 			# 2: square
 			if rnum == 2:
 				side = self.rand.random_in_range(0,34567)
 				area = side * side
-				self.write("{}".format(area))
+				self.cgc_write("{}".format(area))
 		else: # requesting either area or other dimension
 			# request_2d_area_dim()
 			rnum = self.rand.random_in_range(0,1)
@@ -335,9 +335,9 @@ class MathGame(Actions):
 				radius = self.rand.random_in_range(0,15000)
 				area = self.PI * radius * radius
 				if self.rand.random_in_range(0,1) == 0:
-					self.write("{}".format(area))
+					self.cgc_write("{}".format(area))
 				else:
-					self.write("{}".format(radius))
+					self.cgc_write("{}".format(radius))
 
 			# 1: rectangle
 			if rnum == 1:
@@ -346,17 +346,17 @@ class MathGame(Actions):
 				area = side * base
 				ran = self.rand.random_in_range(0,2)
 				if ran == 0:
-					self.write("{}".format(area))
+					self.cgc_write("{}".format(area))
 				elif ran == 1:
-					self.write("{}".format(side))
+					self.cgc_write("{}".format(side))
 				elif ran == 2:
-					self.write("{}".format(base))
+					self.cgc_write("{}".format(base))
 
 		self.read(delim="\n", expect="you got it", expect_format="pcre")
 
 
 	def solvePerimeter(self):
-		self.write("4")
+		self.cgc_write("4")
 		self.read(delim="\n", expect="find .*", expect_format="pcre")
 		
 		self.state['solvePerimeter'] += 1
@@ -374,21 +374,21 @@ class MathGame(Actions):
 				PI = 3
 				radius = self.rand.random_in_range(0,34567)
 				peri = 2 * PI * radius
-				self.write("{}".format(peri))
+				self.cgc_write("{}".format(peri))
 
 			# 1: rectangle
 			if rnum == 1:
 				side = self.rand.random_in_range(0,34567)
 				base = self.rand.random_in_range(0,34567)
 				peri = 2 * side + 2 * base
-				self.write("{}".format(peri))
+				self.cgc_write("{}".format(peri))
 
 			# 2: multi-side
 			if rnum == 2:
 				num_sides = self.rand.random_in_range(0,1234)
 				length_of_side = self.rand.random_in_range(0,34567)
 				peri = num_sides * length_of_side
-				self.write("{}".format(peri))
+				self.cgc_write("{}".format(peri))
 		else: # requesting either area or other dimension
 			# request_2d_peri_dim()
 			rnum = self.rand.random_in_range(0,2)
@@ -399,9 +399,9 @@ class MathGame(Actions):
 				radius = self.rand.random_in_range(0,34567)
 				peri = 2 * PI * radius
 				if self.rand.random_in_range(0,1) == 0:
-					self.write("{}".format(peri))
+					self.cgc_write("{}".format(peri))
 				else:
-					self.write("{}".format(radius))
+					self.cgc_write("{}".format(radius))
 
 			# 1: rectangle
 			elif rnum == 1:
@@ -410,11 +410,11 @@ class MathGame(Actions):
 				peri = 2 * side + 2 * base
 				ran = self.rand.random_in_range(0,2)
 				if ran == 0:
-					self.write("{}".format(peri))
+					self.cgc_write("{}".format(peri))
 				elif ran == 1:
-					self.write("{}".format(side))
+					self.cgc_write("{}".format(side))
 				elif ran == 2:
-					self.write("{}".format(base))
+					self.cgc_write("{}".format(base))
 
 			# 2: multi-sided
 			elif rnum == 2:
@@ -423,16 +423,16 @@ class MathGame(Actions):
 				peri = num_sides * length_of_side
 				ran = self.rand.random_in_range(0,2)
 				if ran == 0:
-					self.write("{}".format(peri))
+					self.cgc_write("{}".format(peri))
 				elif ran == 1:
-					self.write("{}".format(num_sides))
+					self.cgc_write("{}".format(num_sides))
 				elif ran == 2:
-					self.write("{}".format(length_of_side))
+					self.cgc_write("{}".format(length_of_side))
 
 		self.read(delim="\n", expect="you got it", expect_format="pcre")
 
 	def solveVolume(self):
-		self.write("5")
+		self.cgc_write("5")
 		self.read(delim="\n", expect="find .*", expect_format="pcre")
 		
 		self.state['solveVolume'] += 1
@@ -450,7 +450,7 @@ class MathGame(Actions):
 				radius = self.rand.random_in_range(0,430)
 				vol = 4 * self.PI * (radius * radius * radius / 3)
 				
-				self.write("{}".format(vol))
+				self.cgc_write("{}".format(vol))
 
 			# 1: rectangular prism
 			if rnum == 1:
@@ -458,13 +458,13 @@ class MathGame(Actions):
 				base = self.rand.random_in_range(0,1288)
 				height = self.rand.random_in_range(0,1288)
 				vol = side * base * height
-				self.write("{}".format(vol))
+				self.cgc_write("{}".format(vol))
 
 			# 2: cube
 			if rnum == 2:
 				side = self.rand.random_in_range(0,1288)
 				vol = side * side * side
-				self.write("{}".format(vol))
+				self.cgc_write("{}".format(vol))
 		else: # requesting either area or other dimension
 			# request_3d_dim_vol()
 			rnum = self.rand.random_in_range(0,2)
@@ -473,9 +473,9 @@ class MathGame(Actions):
 				radius = self.rand.random_in_range(0,430)
 				vol = 4 * self.PI * (radius * radius * radius / 3)
 				if self.rand.random_in_range(0,1) == 0:
-					self.write("{}".format(vol))
+					self.cgc_write("{}".format(vol))
 				else:
-					self.write("{}".format(radius))
+					self.cgc_write("{}".format(radius))
 
 			# 1: rectangular prism
 			if rnum == 1:
@@ -485,13 +485,13 @@ class MathGame(Actions):
 				vol = side * base * height
 				ran = self.rand.random_in_range(0,3)
 				if ran == 0:
-					self.write("{}".format(vol))
+					self.cgc_write("{}".format(vol))
 				elif ran == 1:
-					self.write("{}".format(side))
+					self.cgc_write("{}".format(side))
 				elif ran == 2:
-					self.write("{}".format(base))
+					self.cgc_write("{}".format(base))
 				elif ran == 3:
-					self.write("{}".format(height))
+					self.cgc_write("{}".format(height))
 
 			# 2: cube
 			if rnum == 2:
@@ -499,15 +499,15 @@ class MathGame(Actions):
 				vol = side * side * side
 				ran = self.rand.random_in_range(0,1)
 				if ran == 0:
-					self.write("{}".format(vol))
+					self.cgc_write("{}".format(vol))
 				elif ran == 1:
-					self.write("{}".format(side))
+					self.cgc_write("{}".format(side))
 
 		self.read(delim="\n", expect="you got it", expect_format="pcre")
 
 	def printStats(self):
 
-		self.write("6")
+		self.cgc_write("6")
 		total = Variable('totalwon')
 		total.set_re("Total won: (\d+)")
 		self.read(delim="\n", assign=total)
@@ -525,7 +525,7 @@ class MathGame(Actions):
 
 
 	def exit(self):
-		self.write("7")
+		self.cgc_write("7")
 
 
 class Prng():

@@ -227,7 +227,7 @@ int EchoHandler() {
 			puts("unable to write to file");
 			return(-1);
 		}
-		write(outstr, len);
+		cgc_write(outstr, len);
 		return(0);
 	}
 

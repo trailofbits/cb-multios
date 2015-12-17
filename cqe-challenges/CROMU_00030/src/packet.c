@@ -630,7 +630,7 @@ int handle_deauth_req(char reason)
 // len is the number of characters being used in the content field
 void send_packet(Packet *pkt)
 {
-	write((char*)pkt, sizeof(Packet));
+	cgc_write((char*)pkt, sizeof(Packet));
 	printf("\n");
 }
 
@@ -654,7 +654,7 @@ void send_packet_new(Packet *pkt, int len)
 	pkt->length = len + '0';
 
 	set_checksum(pkt);
-	write((char*)pkt, sizeof(Packet));
+	cgc_write((char*)pkt, sizeof(Packet));
 	printf("\n");
 }
 

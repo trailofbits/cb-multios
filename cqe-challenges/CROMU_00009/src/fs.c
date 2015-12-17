@@ -558,10 +558,10 @@ int ReadFile(char *full_name) {
 			return(0);
 		}
 		if (fsize >= DATA_BLOCK_SIZE) {
-			write(b, DATA_BLOCK_SIZE);
+			cgc_write(b, DATA_BLOCK_SIZE);
 			fsize -= DATA_BLOCK_SIZE;
 		} else {
-			write(b, fsize);
+			cgc_write(b, fsize);
 		}
 	}	
 	puts("");

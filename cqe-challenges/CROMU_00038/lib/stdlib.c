@@ -607,7 +607,7 @@ char *strtok(char *str, const char *delim) {
 	return(token);
 }
 
-size_t write( const void *buf, size_t count )
+size_t cgc_cgc_write( const void *buf, size_t count )
 {
 	size_t size;
 

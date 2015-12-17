@@ -88,7 +88,7 @@ size_t itoa( char *, size_t, size_t );
 void puts( char *t );
 char *strchr(const char *, int);
 char *strtok(char *, const char *);
-size_t write( const void *, size_t );
+size_t cgc_write( const void *, size_t );
 char *cgc_strdup( char * );
 
 #endif // __STDLIB_H__

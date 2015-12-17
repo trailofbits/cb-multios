@@ -92,7 +92,7 @@ void puts( char *t );
 char *strchr(const char *, int);
 char *strrchr(const char *s, int c);
 char *strtok(char *, const char *);
-ssize_t write( const void *, size_t );
+ssize_t cgc_write( const void *, size_t );
 char *strdup( char * );
 int flush_input(int fd);
 

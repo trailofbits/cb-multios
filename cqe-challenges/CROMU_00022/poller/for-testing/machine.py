@@ -56,7 +56,7 @@ class ProposalGenerator(Actions):
     def exit(self):
 
         self.read(delim=':', expect=':')
-        self.write(random.choice('xX') + '\n')
+        self.cgc_write(random.choice('xX') + '\n')
 
     def enter_a_dive(self):
 
@@ -64,7 +64,7 @@ class ProposalGenerator(Actions):
         mydate.set_datetime(1388534400 + random.randint(1, 86400*365))
 
         self.read(length=1, expect=':')
-        self.write(random.choice('lL') + '\n')
+        self.cgc_write(random.choice('lL') + '\n')
         self.read(delim='\n', expect='\n')
 
 
@@ -82,36 +82,36 @@ class ProposalGenerator(Actions):
 
 
         self.read(length=11, expect='Dive Site: ')
-        self.write(dive_site + '\n')
+        self.cgc_write(dive_site + '\n')
 
         self.read(length=6, expect='Date: ')
-        self.write(dive_date+'\n')
+        self.cgc_write(dive_date+'\n')
 
         self.read(length=6, expect='Time: ')
 
-        self.write(dive_time+'\n')
+        self.cgc_write(dive_time+'\n')
 
         self.read(length=22, expect='Location (area/city): ')
 
-        self.write(dive_location+ '\n')
+        self.cgc_write(dive_location+ '\n')
 
         self.read(length=17, expect='Max Depth in ft: ')
-        self.write('{}'.format(max_depth)+'\n')
+        self.cgc_write('{}'.format(max_depth)+'\n')
 
         self.read(length=17, expect='Avg Depth in ft: ')
-        self.write('{}'.format(avg_depth)+'\n')
+        self.cgc_write('{}'.format(avg_depth)+'\n')
 
         self.read(length=22, expect='Dive Duration (mins): ')
-        self.write('{}'.format(duration)+'\n')
+        self.cgc_write('{}'.format(duration)+'\n')
 
         self.read(length=15, expect='O2 Percentage: ')
-        self.write('{}'.format(dive_o2)+'\n')
+        self.cgc_write('{}'.format(dive_o2)+'\n')
 
         self.read(length=19, expect='Pressure In (psi): ')
-        self.write('{}'.format(psi_in)+'\n')
+        self.cgc_write('{}'.format(psi_in)+'\n')
 
         self.read(length=20, expect='Pressure Out (psi): ')
-        self.write('{}'.format(psi_out)+'\n')
+        self.cgc_write('{}'.format(psi_out)+'\n')
 
         self.dive_entries.append((dive_site, dive_date, dive_time, dive_location, max_depth, avg_depth, duration, dive_o2, psi_in, psi_out, 0))
         self.dive_entries_count+=1
@@ -144,7 +144,7 @@ class ProposalGenerator(Actions):
     def print_dives (self):
 
         self.read(length=1, expect=':')
-        self.write(random.choice('pP') + '\n')
+        self.cgc_write(random.choice('pP') + '\n')
         self.read(delim='\n', expect='\n')
 
         self.read_dive_list()
@@ -160,7 +160,7 @@ class ProposalGenerator(Actions):
 
         dive_to_show = random.randint(1, self.dive_entries_count)
 
-        self.write('{}'.format(dive_to_show) + '\n')
+        self.cgc_write('{}'.format(dive_to_show) + '\n')
 
         dive_to_show-=1
 
@@ -183,7 +183,7 @@ class ProposalGenerator(Actions):
     def remove_dive(self):
 
         self.read(length=1, expect=':')
-        self.write(random.choice('rR') + '\n')
+        self.cgc_write(random.choice('rR') + '\n')
         self.read(delim='\n', expect='\n')
 
         self.read_dive_list()
@@ -199,7 +199,7 @@ class ProposalGenerator(Actions):
 
         dive_to_edit = random.randint(1, self.dive_entries_count)
 
-        self.write('{}'.format(dive_to_edit) + '\n')
+        self.cgc_write('{}'.format(dive_to_edit) + '\n')
 
         del self.dive_entries[dive_to_edit-1]
 
@@ -228,7 +228,7 @@ class ProposalGenerator(Actions):
         psi_out = random.randint(400, 1000)
 
         self.read(length=1, expect=':')
-        self.write(random.choice('dD') + '\n')
+        self.cgc_write(random.choice('dD') + '\n')
         self.read(delim='\n', expect='\n')
 
         counter = 0
@@ -244,64 +244,64 @@ class ProposalGenerator(Actions):
             if depth > max_depth:
                 max_depth=depth
 
-            self.write(pack('<L', mydate.time_t))
+            self.cgc_write(pack('<L', mydate.time_t))
 
-            self.write(pack('<L', depth))
+            self.cgc_write(pack('<L', depth))
 
             rand_time_t+=60
             counter+=1
 
 
-        self.write(pack('<L', 0))
+        self.cgc_write(pack('<L', 0))
 
         avg_depth=sum_samples/count_samples
 
 
         self.read(length=11, expect='Dive Site: ')
-        self.write(dive_site + '\n')
+        self.cgc_write(dive_site + '\n')
 
 #        expect_string= 'Date: '
         expect_string= 'Date ('+ dive_date +'): '
         self.read(length=len(expect_string), expect=expect_string)
 
-        self.write(dive_date+'\n')
+        self.cgc_write(dive_date+'\n')
 
 #        expect_string= 'Time: '
         expect_string= 'Time ('+ dive_time +'): '
         self.read(length=len(expect_string), expect=expect_string)
 
-        self.write(dive_time+'\n')
+        self.cgc_write(dive_time+'\n')
 
         self.read(length=22, expect='Location (area/city): ')
 
-        self.write(dive_location+ '\n')
+        self.cgc_write(dive_location+ '\n')
 
         expect_string= 'Max Depth in ft ('+ '{}'.format(max_depth)+'): '
 
         self.read(length=len(expect_string), expect=expect_string)
 
-        self.write('\n')
+        self.cgc_write('\n')
 
         expect_string= 'Avg Depth in ft ('+ '{}'.format(avg_depth)+'): '
 
         self.read(length=len(expect_string), expect=expect_string)
 
-        self.write('\n')
+        self.cgc_write('\n')
 
         expect_string= 'Dive Duration (mins) ('+ '{}'.format(duration)+'): '
 
         self.read(length=len(expect_string), expect=expect_string)
 
-        self.write('\n')
+        self.cgc_write('\n')
 
         self.read(length=15, expect='O2 Percentage: ')
-        self.write('{}'.format(dive_o2)+'\n')
+        self.cgc_write('{}'.format(dive_o2)+'\n')
 
         self.read(length=19, expect='Pressure In (psi): ')
-        self.write('{}'.format(psi_in)+'\n')
+        self.cgc_write('{}'.format(psi_in)+'\n')
 
         self.read(length=20, expect='Pressure Out (psi): ')
-        self.write('{}'.format(psi_out)+'\n')
+        self.cgc_write('{}'.format(psi_out)+'\n')
 
         self.dive_entries.append((dive_site, dive_date, dive_time, dive_location, max_depth, avg_depth, duration, dive_o2, psi_in, psi_out, duration+1))
         self.dive_entries_count+=1
@@ -329,7 +329,7 @@ class ProposalGenerator(Actions):
         psi_out = random.randint(400, 1000)
 
         self.read(length=1, expect=':')
-        self.write(random.choice('eE') + '\n')
+        self.cgc_write(random.choice('eE') + '\n')
         self.read(delim='\n', expect='\n')
 
 
@@ -346,7 +346,7 @@ class ProposalGenerator(Actions):
 
         dive_to_edit = random.randint(1, self.dive_entries_count+1)
 
-        self.write('{}'.format(dive_to_edit) + '\n')
+        self.cgc_write('{}'.format(dive_to_edit) + '\n')
 
         if dive_to_edit > self.dive_entries_count:
             self.read(delim='\n', expect='Invalid dive number entered\n')
@@ -358,52 +358,52 @@ class ProposalGenerator(Actions):
             expect_string= 'Dive Site ('+self.dive_entries[dive_to_edit-1][0]+'): '
 
             self.read(length=len(expect_string), expect=expect_string)
-            self.write(dive_site+'\n')
+            self.cgc_write(dive_site+'\n')
 
             expect_string= 'Date ('+self.dive_entries[dive_to_edit-1][1]+'): '
 
             self.read(length=len(expect_string), expect=expect_string)
-            self.write(dive_date+'\n')
+            self.cgc_write(dive_date+'\n')
 
             expect_string= 'Time ('+self.dive_entries[dive_to_edit-1][2]+'): '
 
             self.read(length=len(expect_string), expect=expect_string)
-            self.write(dive_time+'\n')
+            self.cgc_write(dive_time+'\n')
 
             expect_string= 'Location (area/city) ('+self.dive_entries[dive_to_edit-1][3]+'): '
 
             self.read(length=len(expect_string), expect=expect_string)
-            self.write(dive_location+'\n')
+            self.cgc_write(dive_location+'\n')
 
             expect_string= 'Max Depth in ft ('+ '{}'.format(self.dive_entries[dive_to_edit-1][4])+'): '
 
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('{}'.format(max_depth)+'\n')
+            self.cgc_write('{}'.format(max_depth)+'\n')
 
             expect_string= 'Avg Depth in ft ('+ '{}'.format(self.dive_entries[dive_to_edit-1][5])+'): '
 
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('{}'.format(avg_depth)+'\n')
+            self.cgc_write('{}'.format(avg_depth)+'\n')
 
             expect_string= 'Dive Duration (mins) ('+ '{}'.format(self.dive_entries[dive_to_edit-1][6])+'): '
 
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('{}'.format(duration)+'\n')
+            self.cgc_write('{}'.format(duration)+'\n')
 
             expect_string= 'O2 Percentage ('+ '{}'.format(self.dive_entries[dive_to_edit-1][7])+'): '
 
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('{}'.format(dive_o2)+'\n')
+            self.cgc_write('{}'.format(dive_o2)+'\n')
 
             expect_string= 'Pressure In (psi) ('+ '{}'.format(self.dive_entries[dive_to_edit-1][8])+'): '
 
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('{}'.format(psi_in)+'\n')
+            self.cgc_write('{}'.format(psi_in)+'\n')
 
             expect_string= 'Pressure Out (psi) ('+ '{}'.format(self.dive_entries[dive_to_edit-1][9])+'): '
 
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('{}'.format(psi_out)+'\n')
+            self.cgc_write('{}'.format(psi_out)+'\n')
 
 
             self.dive_entries[dive_to_edit-1]=(dive_site, dive_date, dive_time, dive_location, max_depth, avg_depth, duration, dive_o2, psi_in, psi_out, self.dive_entries[dive_to_edit-1][10])
@@ -419,101 +419,101 @@ class ProposalGenerator(Actions):
 
 
         self.read(length=1, expect=':')
-        self.write(random.choice('cC') + '\n')
+        self.cgc_write(random.choice('cC') + '\n')
         self.read(delim='\n', expect='\n')
 
         if self.DiverFirstName == '':
             self.read(length=12, expect='First Name: ')
             self.DiverFirstName = ''.join(random.choice('abcdefghijklmnop') for _ in range(random.randint(1, 25)))
-            self.write(self.DiverFirstName+ '\n')
+            self.cgc_write(self.DiverFirstName+ '\n')
             self.DiverFirstName=self.DiverFirstName[:20]
         else:
             self.read(length=15+len(self.DiverFirstName), expect='First Name (' + self.DiverFirstName + '): ')
-            self.write('\n')
+            self.cgc_write('\n')
 
         if self.DiverLastName == '':
             self.read(length=11, expect='Last Name: ')
             self.DiverLastName = ''.join(random.choice('abcdefghijklmnop') for _ in range(random.randint(1,25)))
-            self.write(self.DiverLastName+ '\n')
+            self.cgc_write(self.DiverLastName+ '\n')
             self.DiverLastName=self.DiverLastName[:20]
         else:
             self.read(length=14+len(self.DiverLastName), expect='Last Name (' + self.DiverLastName + '): ')
-            self.write('\n')
+            self.cgc_write('\n')
 
         if self.DiverAddress == '':
             self.read(length=8, expect='Street: ')
             self.DiverAddress = ''.join(random.choice('abcdefghijklmnop') for _ in range(random.randint(10,35)))
-            self.write(self.DiverAddress+ '\n')
+            self.cgc_write(self.DiverAddress+ '\n')
             self.DiverAddress=self.DiverAddress[:29]
         else:
             self.read(length=11+len(self.DiverAddress), expect='Street (' + self.DiverAddress + '): ')
-            self.write('\n')
+            self.cgc_write('\n')
 
         if self.DiverCity== '':
             expect_string = 'City: '
             self.read(length=len(expect_string), expect=expect_string)
             self.DiverCity = ''.join(random.choice('abcdefghijklmnop') for _ in range(random.randint(5, 21)))
-            self.write(self.DiverCity+ '\n')
+            self.cgc_write(self.DiverCity+ '\n')
             self.DiverCity=self.DiverCity[:19]
         else:
             expect_string= 'City ('+self.DiverCity+'): '
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('\n')
+            self.cgc_write('\n')
 
         if self.DiverState== '':
             expect_string = 'State: '
             self.read(length=len(expect_string), expect=expect_string)
             self.DiverState = ''.join(random.choice('abcdefghijklmnop') for _ in range(random.randint(1,4)))
-            self.write(self.DiverState+ '\n')
+            self.cgc_write(self.DiverState+ '\n')
             self.DiverState=self.DiverState[:2]
         else:
             expect_string= 'State ('+self.DiverState+'): '
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('\n')
+            self.cgc_write('\n')
 
         if self.DiverZip== '':
             expect_string = 'Zip Code: '
             self.read(length=len(expect_string), expect=expect_string)
             self.DiverZip = ''.join(random.choice('1234567890') for _ in range(random.randint(5, 12)))
-            self.write(self.DiverZip + '\n')
+            self.cgc_write(self.DiverZip + '\n')
             self.DiverZip=self.DiverZip[:10]
         else:
             expect_string= 'Zip Code ('+self.DiverZip+'): '
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('\n')
+            self.cgc_write('\n')
 
         if self.DiverPhone== '':
             expect_string = 'Phone Number: '
             self.read(length=len(expect_string), expect=expect_string)
             self.DiverPhone = ''.join(random.choice('1234567890') for _ in range(random.randint(10, 17)))
-            self.write(self.DiverPhone + '\n')
+            self.cgc_write(self.DiverPhone + '\n')
             self.DiverPhone=self.DiverPhone[:15]
         else:
             expect_string= 'Phone Number ('+self.DiverPhone+'): '
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('\n')
+            self.cgc_write('\n')
 
         if self.DiverPadiNum== '':
             expect_string = 'PADI Diver Number: '
             self.read(length=len(expect_string), expect=expect_string)
             self.DiverPadiNum = ''.join(random.choice('1234567890') for _ in range(random.randint(15,22)))
-            self.write(self.DiverPadiNum + '\n')
+            self.cgc_write(self.DiverPadiNum + '\n')
             self.DiverPadiNum=self.DiverPadiNum[:19]
         else:
             expect_string= 'PADI Diver Number ('+self.DiverPadiNum+'): '
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('\n')
+            self.cgc_write('\n')
 
         if self.DiverPadiDate== '':
             expect_string = 'PADI Cert Date: '
             self.read(length=len(expect_string), expect=expect_string)
             self.DiverPadiDate = PADI_date
-            self.write(self.DiverPadiDate + '\n')
+            self.cgc_write(self.DiverPadiDate + '\n')
             self.DiverPadiDate=self.DiverPadiDate[:10]
         else:
             expect_string= 'PADI Cert Date ('+self.DiverPadiDate+'): '
             self.read(length=len(expect_string), expect=expect_string)
-            self.write('\n')
+            self.cgc_write('\n')
 
 
         self.read(delim='\n', expect='\n')
@@ -537,7 +537,7 @@ class ProposalGenerator(Actions):
         avg_length_count = 0
 
         self.read(length=1, expect=':')
-        self.write(random.choice('sS') + '\n')
+        self.cgc_write(random.choice('sS') + '\n')
         self.read(delim='\n', expect='\n')
 
         if self.dive_entries_count==0:

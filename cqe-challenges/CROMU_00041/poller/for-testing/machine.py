@@ -98,31 +98,31 @@ class Agent_message(Actions):
 			for x,y in self.user.users:
 				if x == self.user.name:
 					self.user.password = y
-		self.write("2\n") # login
+		self.cgc_write("2\n") # login
 
 		for x in self.user.users:
 			exp = "{} -- {}".format(x[0], x[1])
 			self.read(delim="\n", expect=exp)	
 
 		self.read(delim="\n", expect="Username: ")
-		self.write(self.user.name + '\n')
+		self.cgc_write(self.user.name + '\n')
 		self.read(delim="\n", expect="Password: ")
-		self.write(self.user.password + '\n')
+		self.cgc_write(self.user.password + '\n')
 		self.num_msg_login = 0
 
 	def add_user(self):
 		if len(self.user.users) == MAX_USERS:
 			return
-		self.write("1\n")
+		self.cgc_write("1\n")
 		n,p = self.user.CreateRandomUser()
 		self.messages[n] = [] # add user to messages
 		self.read(delim="\n", expect="Username: ")
-		self.write(n + '\n')
+		self.cgc_write(n + '\n')
 		self.read(delim="\n", expect="Password: ")
-		self.write(p + '\n')
+		self.cgc_write(p + '\n')
 
 	def delete_draft(self):
-		self.write("6\n")
+		self.cgc_write("6\n")
 
 		blah = self.messages[self.user.name]
 		my_msgs = []
@@ -141,7 +141,7 @@ class Agent_message(Actions):
 
 		pick = random.choice(my_msgs)
 		self.messages[self.user.name].remove(pick)
-		self.write(str(pick[0]) + '\n')
+		self.cgc_write(str(pick[0]) + '\n')
 
 	def find_lowest(self, name):
 		all_nums = []
@@ -159,7 +159,7 @@ class Agent_message(Actions):
 		return lowest
 
 	def create_message(self):
-		self.write("1\n")
+		self.cgc_write("1\n")
 
 		if self.num_msg_login == MAX_MSG_LOGIN:
 			self.read(delim="\n", expect="Reached maximum messages for this session.")
@@ -168,9 +168,9 @@ class Agent_message(Actions):
 		msg = ''.join(random.choice('mog') for _ in range(random.randint(4, MAX_MSG_LEN - 2)))
 		self.read(delim="\n", expect="To:")
 		usr = self.user.GetRandomUser()
-		self.write(usr + '\n')
+		self.cgc_write(usr + '\n')
 		self.read(delim="\n", expect="Message:")
-		self.write(msg + '\n')
+		self.cgc_write(msg + '\n')
 
 		lowest = self.find_lowest(self.user.name)
 		if lowest == -1:
@@ -185,7 +185,7 @@ class Agent_message(Actions):
 			if x[1] == True:
 				my_drafts.append(x)
 
-		self.write("2\n")
+		self.cgc_write("2\n")
 		# random msg from drafts, change to sent
 
 		if len(my_drafts) == 0:
@@ -199,7 +199,7 @@ class Agent_message(Actions):
 
 		pick = random.choice(my_drafts)
 
-		self.write(str(pick[0]) + '\n')
+		self.cgc_write(str(pick[0]) + '\n')
 
 		# move message to correct 'dest' list
 		pick_new = list(pick)
@@ -217,7 +217,7 @@ class Agent_message(Actions):
 
 
 	def list_all_messages(self):
-		self.write("3\n")
+		self.cgc_write("3\n")
 		found = False
 
 		# if there are no messages, look for error message
@@ -253,7 +253,7 @@ class Agent_message(Actions):
 			return
 
 	def list_inbox(self):
-		self.write("5\n")
+		self.cgc_write("5\n")
 		found = False
 
 		msgs = []
@@ -279,7 +279,7 @@ class Agent_message(Actions):
 
 	def list_drafts(self):
 		# list drafts for this user
-		self.write("4\n")
+		self.cgc_write("4\n")
 		found = False
 
 		msgs = []
@@ -309,11 +309,11 @@ class Agent_message(Actions):
 		self.messages = {}
 
 	def leave_A(self):
-		self.write("3\n")
+		self.cgc_write("3\n")
 		self.read(delim="\n", expect="The end.")
 
 	def leave_B(self):
-		self.write("8\n")
+		self.cgc_write("8\n")
 		self.read(delim="\n", expect="The end.")
 
 	def read_A(self):
@@ -363,22 +363,22 @@ class Agent_message(Actions):
 		self.read(delim="\n", expect=": ")
 
 	def logout(self):
-		self.write("7\n") # logout
+		self.cgc_write("7\n") # logout
 		exp = "Logging out of user {}".format(self.user.name)
 		self.read(delim="\n", expect=exp)
 
 	def bad_login(self, force_user=""):
 
-		self.write("2\n") # login
+		self.cgc_write("2\n") # login
 
 		for x in self.user.users:
 			exp = "{} -- {}".format(x[0], x[1])
 			self.read(delim="\n", expect=exp)
 
 		self.read(delim="\n", expect="Username: ")
-		self.write(force_user + '\n')
+		self.cgc_write(force_user + '\n')
 		self.read(delim="\n", expect="Password: ")
-		self.write('abcd990\n') # probably wrong
+		self.cgc_write('abcd990\n') # probably wrong
 		self.read(delim="\n", expect="Bad login.")
 
 	def valid_login2(self, force_user=""):
@@ -390,9 +390,9 @@ class Agent_message(Actions):
 				if x == self.user.name:
 					self.user.password = y
 		self.read(delim="\n", expect="Username: ")
-		self.write(self.user.name + '\n')
+		self.cgc_write(self.user.name + '\n')
 		self.read(delim="\n", expect="Password: ")
-		self.write(self.user.password + '\n')
+		self.cgc_write(self.user.password + '\n')
 		self.num_msg_login = 0
 
 	def read_B_fake(self):

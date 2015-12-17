@@ -336,7 +336,7 @@ class ACSPollGenerator(Actions):
 				data = struct.pack("<i", len(data)) + data
 				cmd.append('[%s:%s:%d:%s]' % (command, name, -1, data))
 
-		self.write(''.join(cmd))
+		self.cgc_write(''.join(cmd))
 		if len(name)>63:
 			self.read(delim='\n', expect='ERROR: Receive command failed\n')
 

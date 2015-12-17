@@ -77,20 +77,20 @@ class Carbonate(Actions):
     def hello(self):
         self.comment("hello")
         self.read(length=2, expect=self.p.empty_frame(0))
-        self.write(self.p.empty_frame(0))
+        self.cgc_write(self.p.empty_frame(0))
 
     def scramble(self):
         for i in xrange(8):
             idk = randint(0, 2**8 - 1)
             self.comment("scramble step %d sending %d", i, idk)
-            self.write(self.p.frame(1, pack('<H', idk)))
+            self.cgc_write(self.p.frame(1, pack('<H', idk)))
             self.read(length=2, expect=self.p.empty_frame(2))
 
     def scramble_evil(self):
         evils = self.s.find_evil()
         self.comment("using evils %s", str(evils))
         for i in evils:
-            self.write(self.p.frame(1, pack('<H', i)))
+            self.cgc_write(self.p.frame(1, pack('<H', i)))
             self.read(length=2, expect=self.p.empty_frame(2))
 
     def menu(self):
@@ -102,7 +102,7 @@ class Carbonate(Actions):
             return
         candidate = choice(list(self.set))
         self.comment("check_find for %d", candidate)
-        self.write(self.p.frame(16, pack('<H', candidate)))
+        self.cgc_write(self.p.frame(16, pack('<H', candidate)))
         self.read(length=2, expect=self.p.empty_frame(17))
 
     def check_missing(self):
@@ -110,7 +110,7 @@ class Carbonate(Actions):
         while candidate in self.set:
             candidate = randint(0, self.cell_count)
         self.comment("check_missing for %d", candidate)
-        self.write(self.p.frame(16, pack('<H', candidate)))
+        self.cgc_write(self.p.frame(16, pack('<H', candidate)))
         self.read(length=2, expect=self.p.empty_frame(18))
 
     def add_new(self):
@@ -119,7 +119,7 @@ class Carbonate(Actions):
             candidate = randint(0, self.cell_count)
         self.comment("add_new for %d", candidate)
         self.set.add(candidate)
-        self.write(self.p.frame(32, pack('<H', candidate)))
+        self.cgc_write(self.p.frame(32, pack('<H', candidate)))
         self.read(length=2, expect=self.p.empty_frame(33))
 
     def add_exists(self):
@@ -128,7 +128,7 @@ class Carbonate(Actions):
             return
         candidate = choice(list(self.set))
         self.comment("add_existing for %d", candidate)
-        self.write(self.p.frame(32, pack('<H', candidate)))
+        self.cgc_write(self.p.frame(32, pack('<H', candidate)))
         self.read(length=2, expect=self.p.empty_frame(33))
 
     def subtract_find(self):
@@ -138,7 +138,7 @@ class Carbonate(Actions):
         candidate = choice(list(self.set))
         self.comment("subtract_find for %d", candidate)
         self.set.remove(candidate)
-        self.write(self.p.frame(48, pack('<H', candidate)))
+        self.cgc_write(self.p.frame(48, pack('<H', candidate)))
         self.read(length=2, expect=self.p.empty_frame(49))
 
     def subtract_missing(self):
@@ -146,13 +146,13 @@ class Carbonate(Actions):
         while candidate in self.set:
             candidate = randint(0, self.cell_count)
         self.comment("subtract_missing for %d", candidate)
-        self.write(self.p.frame(48, pack('<H', candidate)))
+        self.cgc_write(self.p.frame(48, pack('<H', candidate)))
         self.read(length=2, expect=self.p.empty_frame(49))
 
     def clear(self):
         self.comment("clear")
         self.set = set()
-        self.write(self.p.empty_frame(64))
+        self.cgc_write(self.p.empty_frame(64))
         self.read(length=2, expect=self.p.empty_frame(65))
 
     def terminate(self):

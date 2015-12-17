@@ -40,8 +40,14 @@ def runInDirectory(path, replaceThis, withThis):
 				print "runnin in directory " + f
 				runInDirectory(f, replaceThis, withThis)
 			elif isfile(f):   #is file, replace the words
-				print "runnin on file " + f
-				replaceInFile(f, replaceThis, withThis)
+				f2 = open(f, "r")
+				if replaceThis in f2.read():
+					f2.close()
+					print "runnin on file " + f
+					replaceInFile(f, replaceThis, withThis)
+				else:
+					f2.close()
+
 			else:
 				print"Not file or directory: " + f
 				
@@ -60,16 +66,16 @@ def removeCache(here):
 		os.system("rm -r " + path + "/" + i + "/bin/CMakeFiles")
 
 
-replaceThese = []
+replaceThese = [' malloc(']
 
 
-numReplace = len(argv) - 1
-for i in range(numReplace):
-	i += 1
-	print i
-	replaceThese += [argv[i]]
+# numReplace = len(argv) - 1
+# for i in range(numReplace):
+# 	i += 1
+# 	print i
+# 	replaceThese += [argv[i]]
 
-path = "../cqe-challenges/NRFIN_00009/" 
+path = "../cqe-challenges/CROMU_00034/" 
 
 replaceList(replaceThese, path)
 #removeCache(path)
