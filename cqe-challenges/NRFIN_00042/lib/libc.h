@@ -25,6 +25,10 @@
 #include <libcgc.h>
 #include <stdint.h>
 
+typedef uint8_t bool;
+#define true ((bool) 1)
+#define false ((bool) 0)
+
 #define MAGICWORD "You didn't say the magic word."
 #define MEMERR "Clever girl."
 #define RNDERR "The essence of chaos."
@@ -136,7 +140,7 @@ typedef enum {
 
 extern uint32_t __hcookie[3];
 
-#define PAGE_SIZE 4096
+
 typedef struct heap_chunk heap_chunk_t;
 
 struct heap_chunk {

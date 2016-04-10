@@ -40,7 +40,7 @@ THE SOFTWARE.
 
 #define PI 3 // doesn't matter if it's correct. also, float math between python and c is dumb
 
-#define MAX_INT 2147483647
+#define MAX_INT INT_MAX
 
 #define TEST_LEN 12
 

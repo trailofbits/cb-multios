@@ -4,7 +4,7 @@
 typedef unsigned int uint32_t;
 typedef unsigned long long uint64_t;
 
-#define PAGE_SIZE 4096
+
 
 #define printfstr(_fd, _s) cgc_write(_fd, _s, myStrLen(_s))
 

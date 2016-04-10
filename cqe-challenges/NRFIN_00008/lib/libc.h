@@ -24,6 +24,10 @@
 #ifndef LIBC_H
 #define LIBC_H
 
+typedef uint8_t bool;
+#define true ((bool) 1)
+#define false ((bool) 0)
+
 #define MAGICWORD "You didn't say the magic word."
 #define MEMERR "Clever girl."
 #define RNDERR "The essence of chaos."

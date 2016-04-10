@@ -2,7 +2,6 @@
 #include <libcgc.h>
 
 /* from limits.h, but it doesn't include right */
-#define UINT32_MAX 4294967295U
 typedef unsigned int uint32;
 
 typedef struct {

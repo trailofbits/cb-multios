@@ -3,7 +3,7 @@
 #include "words.h"
 
 typedef unsigned int uint32_t;
-#define PAGE_SIZE 4096
+
 
 char gValidChars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 #define VALID_CHARS_LEN (sizeof(gValidChars) - 1)

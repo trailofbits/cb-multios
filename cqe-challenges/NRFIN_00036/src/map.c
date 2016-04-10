@@ -79,7 +79,7 @@ int setMap(Map **map, char* key, int value)
 int getValue(Map* map, char* key) {
 	Map* map_ptr;
 	for(map_ptr=map; map_ptr!=NULL; map_ptr=map_ptr->next) {
-		if(map_ptr->key && !cgc_strcmp(key, map_ptr->key)) { // Possible vuln: remove map->key check
+		if(map_ptr->key[0] && !cgc_strcmp(key, map_ptr->key)) { // Possible vuln: remove map->key check
 			return map_ptr->value;
 		} 
 	}

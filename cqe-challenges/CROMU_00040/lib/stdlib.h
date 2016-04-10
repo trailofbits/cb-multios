@@ -31,8 +31,6 @@ THE SOFTWARE.
 
 #include <libcgc.h>
 
-//typedef unsigned long size_t;
-
 typedef struct _heap_block_header {
 	size_t remaining_size;
 	struct _heap_block_header *next;

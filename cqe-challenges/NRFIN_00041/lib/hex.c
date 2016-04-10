@@ -25,13 +25,13 @@
 
 int is_hex_digit(char digit) {
 	if (('A' <= digit) && ('F' >= digit)) {
-		return TRUE;
+		return 1;
 	} else if (('a' <= digit) && ('f' >= digit)) {
-		return TRUE;
+		return 1;
 	} else if (('0' <= digit) && ('9' >= digit)) {
-		return TRUE;
+		return 1;
 	} else {
-		return FALSE;
+		return 0;
 	}
 }
 

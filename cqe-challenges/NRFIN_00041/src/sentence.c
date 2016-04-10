@@ -44,7 +44,7 @@ int parse_sentence(const char *buf, struct sentence_struct *ss) {
 		return ERR_INVALID_SENTENCE;
 	}
 
-	if (TRUE != is_checksum_correct(p_buf)) {
+	if (1 != is_checksum_correct(p_buf)) {
 		return ERR_INVALID_SENTENCE;
 	}
 
@@ -169,15 +169,15 @@ int is_checksum_correct(const char *str) {
 		return ERR_INVALID_SENTENCE;
 	}
 
-	if ((FALSE == is_hex_digit(*(ptr+1))) || (FALSE == is_hex_digit(*(ptr+2)))) {
+	if ((0 == is_hex_digit(*(ptr+1))) || (0 == is_hex_digit(*(ptr+2)))) {
 		return ERR_INVALID_SENTENCE;
 	}
 
 	if (calcsum == ((ascii_hex_to_bin(*(ptr+1)) << 4) + ascii_hex_to_bin(*(ptr+2)))) {
-		return TRUE;
+		return 1;
 	}
 
-	return FALSE;
+	return 0;
 }
 
 int field_to_uint(const char *str, unsigned int *int_val) {

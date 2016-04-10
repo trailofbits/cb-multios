@@ -42,5 +42,5 @@ int sendall(int fd, const char *buf, const size_t size) {
         sent += sent_now;
     }
 
-    return SUCCESS;
+    return 0;
 }

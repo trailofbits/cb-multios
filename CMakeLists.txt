@@ -2,8 +2,8 @@ project (cb_porting)
 include_directories ("include") 											#nessecary libraries shared by all challenge binaries
 
 if(UNIX AND NOT APPLE)
-    set(LINUX TRUE)
-    set(CMAKE_C_COMPILER clang)
+	set(LINUX TRUE)
+	set(CMAKE_C_COMPILER clang-3.6)
 endif()
 if(APPLE)
 	set(APPLE TRUE)  ##accurate on my mac
@@ -19,9 +19,7 @@ add_subdirectory(include)
 
 function(buildCB flags)
 	MESSAGE("building ${cb_id}")
-#	file(GLOB cb_src "${cb_path}/src/*.h" "${cb_path}/src/*.c")
-#	file(GLOB cb_lib "${cb_path}/lib/*.h" "${cb_path}/lib/*.c")
-  	aux_source_directory(${cb_path}/src cb_src) 								#get all source files
+	aux_source_directory(${cb_path}/src cb_src) 								#get all source files
 	aux_source_directory(${cb_path}/lib cb_lib)  
 	aux_source_directory(${cb_path}/include cb_inc)  
 	set(cb_all_src ${cb_lib} ${cb_src} ${cb_inc}  )
@@ -30,12 +28,19 @@ function(buildCB flags)
 	include_directories(${cb_path}/src)
 	include_directories(${cb_path}/include)
 
-	set(CFLAGS ${flags})
+	set(CFLAGS "${flags} ${CFLAGS}")
+	set(CFLAGS "-Derrno=__cgc_errno ${CFLAGS}")
+	set(CFLAGS "-isystem include ${CFLAGS}")
+
+	if(LINUX)
+		set(LINUX TRUE)
+		set(CFLAGS "-m32 ${CFLAGS}")
+	endif()
 
 	add_executable(${cb_id} ${cb_all_src}   ) 
 	add_executable(${cb_id}_patched ${cb_all_src}   ) 
 
-	set_target_properties(${cb_id}  PROPERTIES COMPILE_FLAGS "${CFLAGS}")
+	set_target_properties(${cb_id} PROPERTIES COMPILE_FLAGS "${CFLAGS}")
 	set_target_properties(${cb_id}_patched  PROPERTIES COMPILE_FLAGS "${CFLAGS} -DPATCHED")	
 
 	target_link_libraries (${cb_id} LINK_PUBLIC libcgc)
@@ -45,7 +50,7 @@ endfunction(buildCB)
 
 function(buildCB_LD flags ldflags)
 	MESSAGE("building ${cb_id}")
-  	aux_source_directory(${cb_path}/src cb_src) 								#get all source files
+	aux_source_directory(${cb_path}/src cb_src) 								#get all source files
 	aux_source_directory(${cb_path}/lib cb_lib)  
 	aux_source_directory(${cb_path}/include cb_inc)  
 	set(cb_all_src ${cb_lib} ${cb_src} ${cb_inc}  )
@@ -55,6 +60,10 @@ function(buildCB_LD flags ldflags)
 	include_directories(${cb_path}/include)
 
 	set(CFLAGS ${flags})
+	if(LINUX)
+		set(LINUX TRUE)
+		set(CFLAGS "-m32 ${CFLAGS}")
+	endif()
 
 	add_executable(${cb_id} ${cb_all_src}   ) 
 	add_executable(${cb_id}_patched ${cb_all_src}  ) 

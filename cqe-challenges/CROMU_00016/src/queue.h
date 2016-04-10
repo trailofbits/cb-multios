@@ -24,7 +24,7 @@ THE SOFTWARE.
 
 */
 
-#define PAGE_SIZE 4096
+
 
 #define MIN_PKT_SIZE 64
 #define MAX_PKT_SIZE 1500

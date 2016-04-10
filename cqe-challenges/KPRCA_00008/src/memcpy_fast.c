@@ -25,7 +25,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef unsigned int intptr_t;
 typedef unsigned int uint128_t __attribute__((__vector_size__(16)));
 
 void *cgc_memcpy_fast(void *dst, void *src, size_t length)

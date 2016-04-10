@@ -1,52 +1,94 @@
 #ifndef _LIBCGC_H
 #define _LIBCGC_H
 
+#include <stdint.h>
+
+#ifndef LIBCGC_IMPL
+# include <stddef.h>
+# include <limits.h>
+#endif
+
 #define STDIN 0
 #define STDOUT 1
 #define STDERR 2
-#define NULL 0
 
-//#define	NULL ((void *)0)
+#ifdef NULL
+# undef NULL
+#endif
+#define NULL ((void *)0)
 
-typedef long unsigned int size_t;
-typedef long signed int ssize_t;
+typedef uintptr_t size_t;
+typedef intptr_t ssize_t;
 
-#define SSIZE_MAX	2147483647
-#define SIZE_MAX	4294967295
-#define	FD_SETSIZE	1024
+#ifndef PAGE_SIZE
+# define PAGE_SIZE 4096
+#endif
+
+#ifndef offsetof
+# define offsetof(TYPE, MEMBER) __builtin_offsetof (TYPE, MEMBER)
+#endif
+
+#ifndef SSIZE_MAX
+# define SSIZE_MAX ((ssize_t)((~((size_t)0ULL))>>1))
+#endif
+
+#ifndef SIZE_MAX
+# define SIZE_MAX (~((size_t)0ULL))
+#endif
+
+#define CGC_FD_SETSIZE 1024
 
 typedef long int _fd_mask;
 
-#define	_NFDBITS (8 * sizeof(_fd_mask))
+#define	CGC__NFDBITS (8 * sizeof(_fd_mask))
 
 typedef struct {
-	_fd_mask _fd_bits[FD_SETSIZE / _NFDBITS];
+	_fd_mask _fd_bits[CGC_FD_SETSIZE / CGC__NFDBITS];
 } cgc_fd_set;
 
-#define	FD_ZERO(set)							\
+#define	CGC_FD_ZERO(set)							\
 	do {								\
 		int __i;						\
-		for (__i = 0; __i < (FD_SETSIZE / _NFDBITS); __i++)	\
+		for (__i = 0; __i < (CGC_FD_SETSIZE / CGC__NFDBITS); __i++)	\
 			(set)->_fd_bits[__i] = 0;				\
 	} while (0)
-#define	FD_SET(b, set) \
-	((set)->_fd_bits[b / _NFDBITS] |= (1 << (b & (_NFDBITS - 1))))
-#define	FD_CLR(b, set) \
-	((set)->_fd_bits[b / _NFDBITS] &= ~(1 << (b & (_NFDBITS - 1))))
-#define	FD_ISSET(b, set) \
-	((set)->_fd_bits[b / _NFDBITS] & (1 << (b & (_NFDBITS - 1))))
+
+#define	CGC_FD_SET(b, set) \
+	((set)->_fd_bits[b / CGC__NFDBITS] |= (1 << (b & (CGC__NFDBITS - 1))))
+
+#define	CGC_FD_CLR(b, set) \
+	((set)->_fd_bits[b / CGC__NFDBITS] &= ~(1 << (b & (CGC__NFDBITS - 1))))
+
+#define	CGC_FD_ISSET(b, set) \
+	((set)->_fd_bits[b / CGC__NFDBITS] & (1 << (b & (CGC__NFDBITS - 1))))
 
 struct cgc_timeval {
 	int tv_sec;
 	int tv_usec;
 };
 
-#define	EBADF		1
-#define	EFAULT		2
-#define	EINVAL		3
-#define	ENOMEM		4
-#define	ENOSYS		5
-#define	EPIPE		6
+#define	CGC_EBADF 1
+#define	CGC_EFAULT 2
+#define	CGC_EINVAL 3
+#define	CGC_ENOMEM 4
+#define	CGC_ENOSYS 5
+#define	CGC_EPIPE 6
+
+#ifndef LIBCGC_IMPL
+# define FD_SETSIZE CGC_FD_SETSIZE
+# define _NFDBITS CGC__NFDBITS
+# define FD_ZERO CGC_FD_ZERO
+# define FD_SET CGC_FD_SET
+# define FD_CLR CGC_FD_CLR
+# define FD_ISSET CGC_FD_ISSET
+
+# define EBADF CGC_EBADF
+# define EFAULT CGC_EFAULT
+# define EINVAL CGC_EINVAL
+# define ENOMEM CGC_ENOMEM
+# define ENOSYS CGC_ENOSYS
+# define EPIPE CGC_EPIPE
+#endif
 
 void _terminate(unsigned int status) __attribute__((__noreturn__));
 int transmit(int fd, const void *buf, size_t count, size_t *tx_bytes);
@@ -90,6 +132,5 @@ long double scalblnl(long double, long int);
 float significandf(float);
 double significand(double);
 long double significandl(long double);
-
 
 #endif /* _LIBCGC_H */

@@ -29,7 +29,6 @@
 #include "strdup.h"
 
 #define MAGIC_PRIME 0x9e370001UL
-#define UINT_MAX 4294967295
 
 htbl_t* htbl_create(int size, free_value_fn *fptr)
 {

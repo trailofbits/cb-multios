@@ -88,7 +88,7 @@ value of 0x80.
                  -------------
 
 */
-#define PAGE_SIZE 4096
+
 #define MAX_CMD 256
 
 // block

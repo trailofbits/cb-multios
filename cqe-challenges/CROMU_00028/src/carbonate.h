@@ -28,8 +28,6 @@ THE SOFTWARE.
 #include <libcgc.h>
 #include "libc.h"
 
-#define UINT16_MAX 65535U
-#define UINT32_MAX 4294967295U
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;

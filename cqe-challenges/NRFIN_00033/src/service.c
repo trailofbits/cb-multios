@@ -162,7 +162,7 @@ unsigned long getResourceToken(Resource* resourceList, char* resource) {
 
 	Resource* resource_ptr;
 	for(resource_ptr=resourceList; resource_ptr!= NULL; resource_ptr=resource_ptr->next) {
-		if(resource_ptr->name && strncmp(resource_ptr->name, resource, RESOURCE_SIZE) == 0)
+		if(resource_ptr->name[0] && strncmp(resource_ptr->name, resource, RESOURCE_SIZE) == 0)
 			return resource_ptr->token;
 	}
 
@@ -173,7 +173,7 @@ void addResource(User** user, unsigned long token, char* resource) {
 
 	Resource* resource_ptr;
 	for(resource_ptr=(*user)->resourceList; resource_ptr!= NULL; resource_ptr=resource_ptr->next) {
-		if(resource_ptr->name && strncmp(resource_ptr->name, resource, RESOURCE_SIZE) == 0) {
+		if(resource_ptr->name[0] && strncmp(resource_ptr->name, resource, RESOURCE_SIZE) == 0) {
 			resource_ptr->token = token;
 			return;
 		}
@@ -219,7 +219,7 @@ User* getUser(User* userList, unsigned long id) {
 void revokeResource(User** user, unsigned long resourceToken, char* resourceName) {
 	Resource* resource_ptr;
 	for(resource_ptr=(*user)->resourceList; resource_ptr!= NULL; resource_ptr=resource_ptr->next) {
-		if(resource_ptr->name && (strncmp(resource_ptr->name, resourceName, RESOURCE_SIZE) == 0)) {
+		if(resource_ptr->name[0] && (strncmp(resource_ptr->name, resourceName, RESOURCE_SIZE) == 0)) {
 			if(resource_ptr->token == resourceToken){
 				resource_ptr->token = ACCESS_REVOKED;		
 				reportMessage(RES_REVOKED_STR, sizeof(RES_REVOKED_STR)-1);
