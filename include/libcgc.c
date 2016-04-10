@@ -430,7 +430,7 @@ int deallocate(void *addr, size_t length) {
 
   errno = 0;
   void *mmap_addr = mmap(addr, length, PROT_NONE,
-                         MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+                         MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0);
   const int errno_val = errno;
   errno = 0;
 
