@@ -15,10 +15,73 @@
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) < (b)) ? (b) : (a))
 
+
+enum {
+  k2GiB = 2147483648
+};
+
+static uintptr_t gMemBegin = 0;
+static uintptr_t gMemEnd = 0;
+static uint8_t gMappedPages[(k2GiB / PAGE_SIZE) / 8] = {0};
+
+/* Reserve a large slab of memory that we'll use for doling out allocations.
+ * The CGC allocator, for the most part, is a bump pointer allocator, returning
+ * pages from a contiguous range. There are some edge cases, e.g. the stack,
+ * high memory pressure, etc.
+ */
+static void init_memory(void) {
+  errno = 0;
+  size_t alloc_size = k2GiB;
+  int errno_val = ENOMEM;
+  void *mem = NULL;
+  for (; errno_val && alloc_size; alloc_size /= 2) {
+    mem = mmap(NULL, alloc_size, PROT_NONE,
+               MAP_PRIVATE | MAP_ANONYMOUS,  /* TODO(pag): MAP_32BIT? */
+               -1, 0);
+    errno_val = errno;
+    errno = 0;
+  }
+
+  if (!mem || !alloc_size || errno_val) {
+    exit(EXIT_FAILURE);
+  }
+
+  gMemBegin = (uintptr_t) mem;
+  gMemEnd = gMemBegin + alloc_size;
+}
+
+static int test_page(uintptr_t addr) {
+  const size_t page = (addr - gMemBegin) / PAGE_SIZE;
+  const size_t byte = page / 8;
+  const size_t bit = page % 8;
+  return 0 != (gMappedPages[byte] & (1U << bit));
+}
+
+static void set_page(uintptr_t addr) {
+  const size_t page = (addr - gMemBegin) / PAGE_SIZE;
+  const size_t byte = page / 8;
+  const size_t bit = page % 8;
+  gMappedPages[byte] |= 1U << bit;
+}
+
+static void clear_page(uintptr_t addr) {
+  const size_t page = (addr - gMemBegin) / PAGE_SIZE;
+  const size_t byte = page / 8;
+  const size_t bit = page % 8;
+  gMappedPages[byte] &= ~(1U << bit);
+}
+
+
 /* Returns `1` if a page is readable, otherwise `0`.
  *
  * TODO(pag): Use `select` instead for portability? */
 static int page_is_readable(const void *ptr) {
+  const uintptr_t addr = (uintptr_t) ptr;
+  if (!addr) return 0;
+  if (gMemBegin <= addr && addr < gMemEnd) {
+    return test_page(addr);
+  }
+
   errno = 0;
   sigaction(SIGPWR, ptr, NULL);  /* SIGPWR is rarely used. */
   const int errno_val = errno;
@@ -30,6 +93,11 @@ static int page_is_readable(const void *ptr) {
  *
  * TODO(pag): Use `fstat` instead for portability? */
 static int page_is_writable(void *ptr) {
+  const uintptr_t addr = (uintptr_t) ptr;
+  if (!addr) return 0;
+  if (gMemBegin <= addr && addr < gMemEnd) {
+    return test_page(addr);
+  }
   uint8_t mem[sizeof(struct sigaction)];
   memcpy(&(mem[0]), ptr, sizeof(struct sigaction));
   errno = 0;
@@ -292,65 +360,10 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
   return 0;
 }
 
-enum {
-  k2GiB = 2147483648
-};
-
-static uintptr_t gMemBegin = 0;
-static uintptr_t gMemEnd = 0;
-static uint8_t gMappedPages[(k2GiB / PAGE_SIZE) / 8] = {0};
-
-/* Reserve a large slab of memory that we'll use for doling out allocations.
- * The CGC allocator, for the most part, is a bump pointer allocator, returning
- * pages from a contiguous range. There are some edge cases, e.g. the stack,
- * high memory pressure, etc.
- */
-static void init_memory(void) {
-  errno = 0;
-  size_t alloc_size = k2GiB * 2;
-  int errno_val = ENOMEM;
-  void *mem = NULL;
-  do {
-    alloc_size /= 2;
-    mem = mmap(NULL, alloc_size, PROT_NONE,
-               MAP_PRIVATE | MAP_ANONYMOUS,  /* TODO(pag): MAP_32BIT? */
-               -1, 0);
-    errno_val = errno;
-    errno = 0;
-  } while(errno_val);
-
-  if (!mem) {
-    exit(EXIT_FAILURE);
-  }
-
-  gMemBegin = (uintptr_t) gMemBegin;
-  gMemEnd = gMemBegin + alloc_size;
-}
-
-static int test_page(uintptr_t addr) {
-  const size_t page = (addr - gMemBegin) / PAGE_SIZE;
-  const size_t byte = page / 8;
-  const size_t bit = page % 8;
-  return 0 != (gMappedPages[byte] & (1U << bit));
-}
-
-static void set_page(uintptr_t addr) {
-  const size_t page = (addr - gMemBegin) / PAGE_SIZE;
-  const size_t byte = page / 8;
-  const size_t bit = page % 8;
-  gMappedPages[byte] |= 1U << bit;
-}
-
-static void clear_page(uintptr_t addr) {
-  const size_t page = (addr - gMemBegin) / PAGE_SIZE;
-  const size_t byte = page / 8;
-  const size_t bit = page % 8;
-  gMappedPages[byte] &= ~(1U << bit);
-}
-
 /* Perform a backing memory allocation. */
 static int do_allocate(uintptr_t start, size_t size, void **addr) {
   void *ret_addr = (void *) start;
+  printf("do_allocate: size=%x\n", size);
   errno = 0;
   void *mmap_addr = mmap(ret_addr, size, PROT_READ | PROT_WRITE,
                          MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
@@ -379,19 +392,23 @@ static int do_allocate(uintptr_t start, size_t size, void **addr) {
   return 0;
 }
 
-#define PAGE_ALIGN(x) (((x) + PAGE_SIZE) & ~(PAGE_SIZE - 1))
+#define PAGE_ALIGN(x) (((x) + (PAGE_SIZE - 1)) & ~(PAGE_SIZE - 1))
 
 /* Going to ignore `is_executable`. It's not really used in the official CGC
  * challenges, and if it were used, then JITed code would likely be 32-bit, and
  * ideally, this code will also work on 64-bit.
  */
 int allocate(size_t length, int is_executable, void **addr) {
-  if (!gMemBegin) {
+  if (!length) {
+    return CGC_EINVAL;
+  } else if (!gMemBegin) {
     init_memory();
   }
-  length = PAGE_ALIGN(length);
 
-  if (length >= (gMemEnd - gMemBegin)) {
+  printf("do_allocate: length=%x\n", length);
+  length = PAGE_ALIGN(length);  /* Might overflow. */
+
+  if (!length || length >= (gMemEnd - gMemBegin)) {
     return CGC_EINVAL;  /* Too big of a request! */
   }
 
@@ -416,6 +433,10 @@ int deallocate(void *addr, size_t length) {
   uintptr_t base = (uintptr_t) addr;
   if (!length || base != PAGE_ALIGN(base)) {
     return CGC_EINVAL;
+  }
+
+  if (!gMemBegin) {
+    init_memory();
   }
 
   length = PAGE_ALIGN(length);

@@ -28,7 +28,7 @@ function(buildCB flags)
 	include_directories(${cb_path}/src)
 	include_directories(${cb_path}/include)
 
-	set(CFLAGS "${flags} ${CFLAGS}")
+	set(CFLAGS "${flags} -g3 ${CFLAGS}")
 	set(CFLAGS "-Derrno=__cgc_errno ${CFLAGS}")
 	set(CFLAGS "-isystem include ${CFLAGS}")
 
@@ -59,7 +59,7 @@ function(buildCB_LD flags ldflags)
 	include_directories(${cb_path}/src)
 	include_directories(${cb_path}/include)
 
-	set(CFLAGS ${flags})
+	set(CFLAGS "${flags} -g3 ${CFLAGS}")
 	if(LINUX)
 		set(LINUX TRUE)
 		set(CFLAGS "-m32 ${CFLAGS}")
