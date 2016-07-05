@@ -109,7 +109,7 @@ class Mapper(Actions):
 				elif roadnum > roadCount:
 					self.read(delim='\n', expect='Invalid number. (out of range)\n')
 				else:
-					#return the cgc_index of the road selected
+					#return the index of the road selected
 					return (roadnum-1)
 			if choice == 1:
 				#list

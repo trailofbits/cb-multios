@@ -14,7 +14,7 @@ This service implements a storage device over a USB-like network protocol. Basic
 Protocol based on proven technology used everyday by millions of people. Storage device emulates a 128 blocks with a 512-byte block size. This gives the user an impressive 64KB (!) of disk space. Large enough to hold one picture (maybe?). Privacy guaranteed because your data will never be stored on disk, and is lost as soon as you disconnect.
 
 ## Vulnerability
-Buffer overflow in the _WRITE_ command allows an attacker to overflow the _memory_ buffer and overwrite the function pointers in the __usb_t__ structure. The _cgc_memcpy_fast_ function, used by the _WRITE_ command, assumes that the length of a data packet will be greater than zero, which leads to a 16-byte overflow. If the length is set to zero, then the block address can be set to _NUM_BLOCKS_, which is the end of the _memory_ buffer. This gives 16-byte overwrite of the data after the _memory_ buffer, which is the __usb_t__ structure.
+Buffer overflow in the _WRITE_ command allows an attacker to overflow the _memory_ buffer and overwrite the function pointers in the __usb_t__ structure. The _memcpy_fast_ function, used by the _WRITE_ command, assumes that the length of a data packet will be greater than zero, which leads to a 16-byte overflow. If the length is set to zero, then the block address can be set to _NUM_BLOCKS_, which is the end of the _memory_ buffer. This gives 16-byte overwrite of the data after the _memory_ buffer, which is the __usb_t__ structure.
 
 ### Generic class of vulnerability
 Buffer Overflow

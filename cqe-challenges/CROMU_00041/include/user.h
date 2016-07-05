@@ -31,7 +31,7 @@ typedef struct
 {
 	char name[MAX_NAME_LEN];
 	char password[MAX_PASS_LEN];
-	int cgc_index; // cgc_index into the listOfMessages
+	int index; // index into the listOfMessages
 	int first_login;
 	int msg_count;
 } User;
@@ -46,4 +46,4 @@ int login();
 int logout();
 void create_user();
 void list_users();
-int get_user_cgc_index(char *);
+int get_user_index(char *);

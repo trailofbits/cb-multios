@@ -18,7 +18,7 @@ The mice have a solution: build a botnet!
 
 ### Feature List
 
-The CB requests an HTML-like cgc_index page from the CRS.  The CRS responds to this request with a document that links to further resources necessary to render the complete document.  These further resources are specified as paths.  If certain constraints on the paths are satisfied, a vulnerable path canonicalization function is called.
+The CB requests an HTML-like index page from the CRS.  The CRS responds to this request with a document that links to further resources necessary to render the complete document.  These further resources are specified as paths.  If certain constraints on the paths are satisfied, a vulnerable path canonicalization function is called.
 
 ## Vulnerability
 

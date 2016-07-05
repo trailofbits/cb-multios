@@ -19,18 +19,18 @@ This service features the ability to render lines, triangles, circles or rectang
 
 There are two vulnerabilities in this service. The first vulnerability is easily reached and occurs in the file receiving routines of the service. The service accepts a 16-bit signed integer for the file size of the incoming VGF file. It is compared against a maximum input file size. It is possible by using negative numbers to craft an input number that passes the maximum file size check and allows more than the maximum number of bytes allocated off the heap for the file to be written to the incoming file buffer. This ultimately leads to a write past the allocation memory region and depending on certain conditions leads to heap corruption.
 
-The next vulnerability is in the circle rendering code. It is possible to specify a circle with a radius that causes an integer wrap-acgc_round when the radius is subtracted from the x and y coordinates of the circle. This wrap-acgc_round results in a large value for X or Y and ultimately leads to heap corruption or a page fault depending on the size and location of the wrap-acgc_round in the render buffer.
+The next vulnerability is in the circle rendering code. It is possible to specify a circle with a radius that causes an integer wrap-around when the radius is subtracted from the x and y coordinates of the circle. This wrap-around results in a large value for X or Y and ultimately leads to heap corruption or a page fault depending on the size and location of the wrap-around in the render buffer.
 
 ### Generic class of vulnerability
 
 Out of bounds write
 Signed to Unsigned Conversion Error
-Integer Underflow (Wrap or Wrapacgc_round)
+Integer Underflow (Wrap or Wraparound)
 
 ### CWE classification
 CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer
 CWE-196: Unsigned to Signed Conversion Error
-CWE-191: Integer Underflow (Wrap or Wrapacgc_round)
+CWE-191: Integer Underflow (Wrap or Wraparound)
 
 ## Challenges
 

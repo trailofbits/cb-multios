@@ -1,6 +1,0 @@
-set( POLLS_RELEASE_SEED "1395246589")
-set( POLLS_TESTING_SEED "507740670")
-set( AUTHOR_ID "CROMU")
-set( SERVICE_ID "00037")
-set( CFLAGS "-O0 -g -Werror -Wno-overlength-strings -Wno-packed -fno-builtin -Wno-int-to-pointer-cast ")
-buildCB(${CFLAGS})

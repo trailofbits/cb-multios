@@ -35,7 +35,7 @@ THE SOFTWARE.
 #define DELIM 0x0A 	//\n
 
 int strict_atoi(char *a){
-	for(int i = 0;i<cgc_strlen(a);i++){
+	for(int i = 0;i<strlen(a);i++){
 		if ( ( a[i] > 0x39 ) || ( a[i] < 0x30 ) ){
 			return 0x0;
 		}
@@ -89,7 +89,7 @@ int parse_arg(char arg[16][MAXCOMMAND], char *command){
 		int lpos = 0;
 		int lspace = 1; //last position was space
 		int i;
-		int cmdSize = cgc_strlen(command);
+		int cmdSize = strlen(command);
 		//tokenize command 
 		for (i = 0;i < cmdSize;i++){
 			if (command[i] == 32){
@@ -171,7 +171,7 @@ void print_users_in_group( pGroup group ){
 pGroup find_group(char *nameNum, pDataStruct workingData){
 	pGroup tempGroup = NULL;
 	int tempNum = strict_atoi(nameNum);
-	if ( ( cgc_strcmp(nameNum,"root") == 0 ) || ( cgc_strcmp(nameNum,"0") == 0 )){
+	if ( ( strcmp(nameNum,"root") == 0 ) || ( strcmp(nameNum,"0") == 0 )){
 		return workingData->group;
 	}
 	if ( tempNum != 0 ){
@@ -188,7 +188,7 @@ pGroup find_group(char *nameNum, pDataStruct workingData){
 pUser find_user(char *nameNum, pDataStruct workingData){
 	pUser tempUser = NULL;
 	int tempNum = strict_atoi(nameNum);
-	if (    (  ( cgc_strcmp(nameNum,"root") ) && ( cgc_strcmp(nameNum,"0") )  ) == 0    ){
+	if (    (  ( strcmp(nameNum,"root") ) && ( strcmp(nameNum,"0") )  ) == 0    ){
 		return workingData->user;
 	}
 	if ( tempNum != 0 ){
@@ -265,8 +265,8 @@ void main_loop(pDataStruct workingData){
 		tempNum = 0;
 		cmd = 100;
 
-		for (i=0;i<sizeof(commandList)/sizeof(char *);i++){
-			if (cgc_strcmp(commandList[i],arg[0]) == 0 ){
+		for (i=0;i<sizeof(commandList)/4;i++){
+			if (strcmp(commandList[i],arg[0]) == 0 ){
 				cmd = i;
 			}
 		}
@@ -274,8 +274,8 @@ void main_loop(pDataStruct workingData){
 		{
 			case 0x0 : //set
 				cmd = 100;
-				for (i=0;i<sizeof(setList)/sizeof(char *);i++){
-					if (cgc_strcmp(setList[i],arg[1]) == 0){
+				for (i=0;i<sizeof(setList)/4;i++){
+					if (strcmp(setList[i],arg[1]) == 0){
 						cmd = i;
 					}
 				}
@@ -288,7 +288,7 @@ void main_loop(pDataStruct workingData){
 
 					case 1 : //set user
 
-						if ( cgc_strcmp(arg[2],"") == 0){
+						if ( strcmp(arg[2],"") == 0){
 							puts("missing user name or number");
 							break;
 						}
@@ -302,7 +302,7 @@ void main_loop(pDataStruct workingData){
 
 					case 2 : //set group
 
-						if ( cgc_strcmp(arg[2], "") == 0){
+						if ( strcmp(arg[2], "") == 0){
 							puts("missing group name or number");
 							break;
 						}
@@ -315,7 +315,7 @@ void main_loop(pDataStruct workingData){
 						break;
 
 					case 3 : //set help
-						print_help(setList,(sizeof(setList)/sizeof(char *)));
+						print_help(setList,(sizeof(setList)/4));
 						break;//end set help
 
 					default :
@@ -327,8 +327,8 @@ void main_loop(pDataStruct workingData){
 
 			case 1 ://get
 				cmd = 100;
-				for (i=0;i<sizeof(getList)/sizeof(char *);i++){
-					if (cgc_strcmp(getList[i],arg[1]) == 0){
+				for (i=0;i<sizeof(getList)/4;i++){
+					if (strcmp(getList[i],arg[1]) == 0){
 						cmd = i;
 					}
 				}
@@ -354,7 +354,7 @@ void main_loop(pDataStruct workingData){
 						break;//end get workingDir
 
 					case 4 : //get help
-						print_help(getList,(sizeof(getList)/sizeof(char *)));
+						print_help(getList,(sizeof(getList)/4));
 						break;//end get help
 
 					case 5 : //get userlist
@@ -367,7 +367,7 @@ void main_loop(pDataStruct workingData){
 						break;//end get grouplist
 
 					case 7 : //get usersingroup
-						if ( cgc_strcmp(arg[2], "") == 0){
+						if ( strcmp(arg[2], "") == 0){
 							puts("missing group name or number");
 							break;
 						}
@@ -387,8 +387,8 @@ void main_loop(pDataStruct workingData){
 
 			case 2 ://add
 				cmd = 100;
-				for (i=0;i<sizeof(addList)/sizeof(char *);i++){
-					if ( cgc_strcmp(addList[i],arg[1]) == 0 ){
+				for (i=0;i<sizeof(addList)/4;i++){
+					if ( strcmp(addList[i],arg[1]) == 0 ){
 						cmd = i;
 					}
 				}
@@ -396,10 +396,10 @@ void main_loop(pDataStruct workingData){
 				{
 					case 0 : //add user
 
-						if ( cgc_strcmp(arg[2],"") == 0 ){
+						if ( strcmp(arg[2],"") == 0 ){
 							bzero(temp,MAXPATH);
 							get_string(temp, 128, "UserName");
-							cgc_strcpy(arg[2],temp);
+							strcpy(arg[2],temp);
 						}
 						tempUser = find_user( arg[2], workingData);
 						if ( tempUser == NULL ){
@@ -410,10 +410,10 @@ void main_loop(pDataStruct workingData){
 						break;//end add user
 
 					case 1 : //add group
-						if ( cgc_strcmp(arg[2],"") == 0 ){
+						if ( strcmp(arg[2],"") == 0 ){
 							bzero(temp,MAXPATH);
 							get_string(temp, 128, "GroupName");
-							cgc_strcpy(arg[2], temp);
+							strcpy(arg[2], temp);
 						}
 						tempGroup = find_group( arg[2], workingData);
 						if ( tempGroup == NULL ){
@@ -426,7 +426,7 @@ void main_loop(pDataStruct workingData){
 					case 2 : //add file
 						//add file name size
 						tempNum = atoi(arg[3]);
-						if (cgc_strcmp(arg[2],"") == 0){
+						if (strcmp(arg[2],"") == 0){
 							puts("Filename required");
 							break;
 						}
@@ -451,7 +451,7 @@ void main_loop(pDataStruct workingData){
 
 					case 3 : //add directory
 
-						if (cgc_strcmp(arg[2],"") == 0){
+						if (strcmp(arg[2],"") == 0){
 							puts("Directory name required");
 							break;
 						}
@@ -463,7 +463,7 @@ void main_loop(pDataStruct workingData){
 						break;//end add directory
 
 					case 4 : //add useringroup
-						if (cgc_strcmp(arg[2],"") == 0){
+						if (strcmp(arg[2],"") == 0){
 							puts("username or number required");
 							break;
 						}
@@ -480,15 +480,15 @@ void main_loop(pDataStruct workingData){
 						break;//end add useringroup
 						
 					case 5 : //add perm
-						if (  ( cgc_strcmp(arg[2],"") == 0 )||( cgc_strcmp(arg[2]," ") == 0 )  ){//arg[2] name of file or dir
+						if (  ( strcmp(arg[2],"") == 0 )||( strcmp(arg[2]," ") == 0 )  ){//arg[2] name of file or dir
 							puts("name of file or directory required");
 							break;
 						}
-						if (!(  (cgc_strcmp(arg[3],"user") == 0) ^ (cgc_strcmp(arg[3],"group") == 0) )) {//arg[3] user, group
+						if (!(  (strcmp(arg[3],"user") == 0) ^ (strcmp(arg[3],"group") == 0) )) {//arg[3] user, group
 							puts("'user' or 'group'");
 							break;
 						}
-						if (cgc_strcmp(arg[4],"") == 0){
+						if (strcmp(arg[4],"") == 0){
 							puts("user name, group name, or number required");//arg[4] name or number of user or group
 							break;
 						}
@@ -501,7 +501,7 @@ void main_loop(pDataStruct workingData){
 							tempNode = tempNode->directoryHeadNode;
 							break;
 						}
-						if (cgc_strcmp(arg[3],"user") == 0){
+						if (strcmp(arg[3],"user") == 0){
 							tempUser = find_user(arg[4],workingData);
 							tempGroup = NULL;
 							if (tempUser == NULL){
@@ -523,7 +523,7 @@ void main_loop(pDataStruct workingData){
 
 					case 6 : //add appendfile
 						tempNum = atoi(arg[3]);
-						if (cgc_strcmp(arg[2],"") == 0){
+						if (strcmp(arg[2],"") == 0){
 							puts("Filename required");
 							break;
 						}
@@ -552,7 +552,7 @@ void main_loop(pDataStruct workingData){
 						break;//end add appendfile
 
 					case 7 : //add help
-						print_help(addList, (sizeof(addList)/sizeof(char *)));	
+						print_help(addList, (sizeof(addList)/4));	
 						break;//end add help
 
 					default :
@@ -562,8 +562,8 @@ void main_loop(pDataStruct workingData){
 				break;//end add
 			case 3 ://delete 	
 				cmd = 100;
-				for (i=0;i<sizeof(deleteList)/sizeof(char *);i++){
-					if ( cgc_strcmp(deleteList[i],arg[1]) == 0 ){
+				for (i=0;i<sizeof(deleteList)/4;i++){
+					if ( strcmp(deleteList[i],arg[1]) == 0 ){
 						cmd = i;
 					}
 				}
@@ -572,9 +572,9 @@ void main_loop(pDataStruct workingData){
 
 					case 0 : //delete user
 						bzero(temp,MAXPATH);
-						if ( cgc_strcmp(arg[2],"") == 0 ){
+						if ( strcmp(arg[2],"") == 0 ){
 							get_string(temp, 128, "User Name or number");
-							cgc_strcpy(arg[2],temp);
+							strcpy(arg[2],temp);
 						}
 						tempUser = find_user( arg[2], workingData);
 						if ( tempUser != NULL ){
@@ -586,9 +586,9 @@ void main_loop(pDataStruct workingData){
 
 					case 1 : //delete group
 						bzero(temp,MAXPATH);
-						if ( cgc_strcmp(arg[2],"") == 0 ){
+						if ( strcmp(arg[2],"") == 0 ){
 							get_string(temp, 128, "Group Name or number");
-							cgc_strcpy(arg[2],temp);
+							strcpy(arg[2],temp);
 						}
 						tempGroup = find_group( arg[2], workingData);
 						if ( tempGroup != NULL ){
@@ -599,7 +599,7 @@ void main_loop(pDataStruct workingData){
 						break;//end delete group 
 
 					case 2 : //delete file 
-						if (cgc_strcmp(arg[2],"") == 0){
+						if (strcmp(arg[2],"") == 0){
 							puts("Filename required");
 							break;
 						}
@@ -612,7 +612,7 @@ void main_loop(pDataStruct workingData){
 						break;//end delete file 
 
 					case 3 : //delete directory
-						if (cgc_strcmp(arg[2],"") == 0){
+						if (strcmp(arg[2],"") == 0){
 							puts("Directory name required");
 							break;
 						}
@@ -625,11 +625,11 @@ void main_loop(pDataStruct workingData){
 						break;//end delete directory
 
 					case 4 : //delete usertogroup
-						if (cgc_strcmp(arg[2],"") == 0){
+						if (strcmp(arg[2],"") == 0){
 							puts("User name required");
 							break;
 						}
-						if (cgc_strcmp(arg[3],"") == 0){
+						if (strcmp(arg[3],"") == 0){
 							puts("group name required");
 							break;
 						}
@@ -652,11 +652,11 @@ void main_loop(pDataStruct workingData){
 						break;//end delete usertogroup
 
 					case 5 : //delete perm
-						if (cgc_strcmp(arg[3],"") == 0){
+						if (strcmp(arg[3],"") == 0){
 							puts("User or group name required");
 							break;
 						}
-						if (cgc_strcmp(arg[2],"") == 0){
+						if (strcmp(arg[2],"") == 0){
 							puts("file name required");
 							break;
 						}
@@ -674,7 +674,7 @@ void main_loop(pDataStruct workingData){
 						break;//end delete perm
 
 					case 6 : //delete filebytes [file] [numbytes]
-						if (cgc_strcmp(arg[2],"") == 0){
+						if (strcmp(arg[2],"") == 0){
 							puts("Filename required");
 							break;
 						}
@@ -701,11 +701,11 @@ void main_loop(pDataStruct workingData){
 						break;//end delete file 
 
 					case 7 : //delete help
-						print_help(deleteList, (sizeof(deleteList)/sizeof(char *)));	
+						print_help(deleteList, (sizeof(deleteList)/4));	
 						break;//end delete help
 
 					default:
-						print_help(deleteList, (sizeof(deleteList)/sizeof(char *)));	
+						print_help(deleteList, (sizeof(deleteList)/4));	
 						//break;//end delete help
 
 				}
@@ -718,13 +718,13 @@ void main_loop(pDataStruct workingData){
 				break;
 
 			case 5 ://help
-				print_help(commandList, (sizeof(commandList)/sizeof(char *)));
+				print_help(commandList, (sizeof(commandList)/4));
 				break;
 			case 6 ://ls
 				print_working_dir(workingData);
 				break;
 			case 7 ://cat
-				if (cgc_strcmp(arg[1],"") == 0){
+				if (strcmp(arg[1],"") == 0){
 					puts("Filename required");
 					break;
 				}
@@ -733,7 +733,7 @@ void main_loop(pDataStruct workingData){
 					tempFileChunk = tempFile->head;
 					puts("-----Begin File-----");//five - 
 					while ( tempFileChunk != NULL ){
-						if (tempFileChunk->chunkSize != cgc_write(tempFileChunk,tempFileChunk->chunkSize)){
+						if (tempFileChunk->chunkSize != write(tempFileChunk,tempFileChunk->chunkSize)){
 							puts("file write failed");
 						}
 /*
@@ -749,11 +749,11 @@ void main_loop(pDataStruct workingData){
 				}
 				break;
 			case 8 ://cd
-				if (cgc_strcmp(arg[1],"") == 0){
+				if (strcmp(arg[1],"") == 0){
 					puts("directory required");
 					break;
 				}
-				if (cgc_strcmp(arg[1],"..") == 0){
+				if (strcmp(arg[1],"..") == 0){
 					if (workingData->workingDir->parent != NULL){
 						workingData->workingDir = workingData->workingDir->parent;
 					}
@@ -769,7 +769,7 @@ void main_loop(pDataStruct workingData){
 
 			default :
 				printf("Invalid command @s\n",arg[0]);
-				print_help(commandList, (sizeof(commandList)/sizeof(char *)));
+				print_help(commandList, (sizeof(commandList)/4));
 				
 		}
 	}

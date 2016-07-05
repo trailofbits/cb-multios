@@ -24,7 +24,7 @@
 #include "libc.h"
 
 // overwrites the first n chars of str with unsigned char ch.
-void * cgc_memset(void* str, int ch, size_t n) {
+void * memset(void* str, int ch, size_t n) {
     unsigned char *ch_ptr = str;
     while (n > 0) {
         *ch_ptr = (unsigned char)ch;
@@ -139,7 +139,7 @@ int strn2int(const char* str_buf, size_t max_chars) {
 }
 
 // copy cnt bytes from src into dst; src and dst cannot overlap!
-void * cgc_memcpy(void* dst, const void* src, size_t cnt) {
+void * memcpy(void* dst, const void* src, size_t cnt) {
 
     uint8_t *dst_ptr = (uint8_t *) dst;
     uint8_t *src_ptr = (uint8_t *) src;
@@ -165,7 +165,7 @@ size_t strnlen(const char *string, size_t max_len) {
     return max_len;
 }
 
-size_t cgc_strlen(const char *string) {
+size_t strlen(const char *string) {
     size_t size = 0;
     
     while(1) {
@@ -192,7 +192,7 @@ char * itoaB10(int value){
     int tmp = value;
     
     if(value == 0){
-        cgc_memcpy(s, "0\x00", 2);
+        memcpy(s, "0\x00", 2);
         return s;
     }
     int neg = 0;

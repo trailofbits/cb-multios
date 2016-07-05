@@ -155,7 +155,7 @@ int get_all_of_rank_from_hand(struct hand *h, uint8_t rank, struct card *cards[]
 		return 0;
 	}
 	// rm_card_from_hand() runs consolidate, so need to use cnt
-	// instead of idx to cgc_index into the hand and allow the idx variable
+	// instead of idx to index into the hand and allow the idx variable
 	// to just count through the original number of cards. also need to
 	// use hand_size for the upper bound because h->count will change
 	// when consolidate is run.

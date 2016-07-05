@@ -24,7 +24,7 @@ This service prints out the section and symbol information for a given CGC exect
 
 ## Vulnerability
 
-- The parser does not correctly validate the value of cgc_index to the section headers when calculating the offset to the section header data.
+- The parser does not correctly validate the value of index to the section headers when calculating the offset to the section header data.
 - The *idx* value can be negative passing the check of *idx < shnum* in cgcf.c:125.
 - Also, there's an integer overflow bug which can be caused by supplying large (yet valid) field values.
 - This may yield an access violation on invalid memory, given a carefully crafted input.
@@ -37,7 +37,7 @@ Integer Overflow
 ### CWE classification
 
 CWE-839: Numeric Range Comparison Without Minimum Check
-CWE-190: Integer Overflow or Wrapacgc_round
+CWE-190: Integer Overflow or Wraparound
 
 ## Challenges
 

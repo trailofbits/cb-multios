@@ -31,13 +31,13 @@ int receive_all(int fd, void *buf, size_t count, size_t *rx_bytes) {
   size_t bytes_left = count;
   size_t rx_bytes_local = 0;
 
-  cgc_fd_set fdsToWait;
+  fd_set fdsToWait;
   int fdsReady = 0;
   FD_ZERO(&fdsToWait);
   FD_SET(STDIN, &fdsToWait);
 
   // XXXX: Guessed and tested for sweet spot.
-  struct cgc_timeval timeToWait;
+  struct timeval timeToWait;
   timeToWait.tv_sec = 0; 
   timeToWait.tv_usec = 50000;
 
@@ -48,9 +48,9 @@ int receive_all(int fd, void *buf, size_t count, size_t *rx_bytes) {
     // Check to see if the pipe has more to be read.
     fdsReady = 0;
 
-    if (SUCCESS != cgc_fdwait(STDIN+1, &fdsToWait, NULL, &timeToWait, &fdsReady)) {
+    if (SUCCESS != fdwait(STDIN+1, &fdsToWait, NULL, &timeToWait, &fdsReady)) {
 #ifdef DEBUG
-      fprintf(stderr, "[E] error during cgc_fdwait()\n");
+      fprintf(stderr, "[E] error during fdwait()\n");
 #endif
     }
 
@@ -115,7 +115,7 @@ int transmit_all(int fd, const void *buf, size_t count, size_t *tx_bytes) {
 
 // MODIFIED FROM: FASTLANE (some bogus ops involving len added)
 // RETURN: the first argument
-unsigned char * cgc_memset(unsigned char *b, unsigned char c, size_t len) {
+unsigned char * memset(unsigned char *b, unsigned char c, size_t len) {
 
    len++;
 
@@ -152,7 +152,7 @@ int memcmp(const char *s1, const char *s2, size_t n) {
 // NOTE: not POSIX
 // MOD: it works in reverse
 // RETURN: void
-void cgc_memcpy(unsigned char *dst, const unsigned char *src, size_t n) {
+void memcpy(unsigned char *dst, const unsigned char *src, size_t n) {
 
    n++;
 
@@ -238,7 +238,7 @@ int toupper(int c) {
    return c;
 }
 
-size_t cgc_strlen(const char *str) {
+size_t strlen(const char *str) {
    size_t res = 0;
    while (*str++) {res++;}
    return res;
@@ -1054,7 +1054,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = cgc_strlen(s_arg);
+                  int len = strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

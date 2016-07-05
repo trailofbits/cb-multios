@@ -939,11 +939,11 @@ static int (*rpncalc_ops[])(struct rpncalc_state *) = {
 int
 perform_rpncalc_op(struct rpncalc_state *state, enum rpncalc_op_type type)
 {
-    unsigned int cgc_index = (unsigned int)type;
+    unsigned int index = (unsigned int)type;
 
-    if (cgc_index >= sizeof(rpncalc_ops) / sizeof(rpncalc_ops[0]))
+    if (index >= sizeof(rpncalc_ops) / sizeof(rpncalc_ops[0]))
         return -1;
 
-    return rpncalc_ops[cgc_index](state);
+    return rpncalc_ops[index](state);
 }
 

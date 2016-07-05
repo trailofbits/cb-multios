@@ -44,7 +44,7 @@ int CreateCanvas(Canvas **can, uint16_t y_size, uint16_t x_size, uint8_t layers)
   if (allocate(sizeof(Canvas), 0, (void **)&c) != 0) {
     _terminate(-1);
   }
-  cgc_memset(c, 0, sizeof(Canvas));
+  memset(c, 0, sizeof(Canvas));
   c->y_size = y_size;
   c->x_size = x_size;
 
@@ -54,7 +54,7 @@ int CreateCanvas(Canvas **can, uint16_t y_size, uint16_t x_size, uint8_t layers)
       _terminate(-1);
     }
     // Initialize with default color
-    cgc_memset(c->layers[i], CANVAS_DEFAULT_COLOR, y_size * x_size);
+    memset(c->layers[i], CANVAS_DEFAULT_COLOR, y_size * x_size);
   }
   c->num_layers = layers;
   *can = c;

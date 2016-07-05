@@ -67,7 +67,7 @@ int32_t GetSimLength(void) {
 double L(uint32_t x, uint32_t y, uint32_t z) {
 	double temp;
 	double Lxyz;
-	int cgc_index;
+	int index;
 
 	// error handling
 	if (x >= X || y >= Y || z >= Z) {
@@ -78,7 +78,7 @@ double L(uint32_t x, uint32_t y, uint32_t z) {
 	temp = *pGRID(TGrid,x,y,z);
 
 	// calculate the thermal conductivity for that temperature	
-	cgc_index = temp/80.77;
+	index = temp/80.77;
 	Lxyz = TC[(int)(temp/80.77)];
 	
 	return(Lxyz);
@@ -89,7 +89,7 @@ double L(uint32_t x, uint32_t y, uint32_t z) {
 double C(uint32_t x, uint32_t y, uint32_t z) {
 	double temp;
 	double Cxyz;
-	int cgc_index;
+	int index;
 
 	// error handling
 	if (x >= X || y >= Y || z >= Z) {
@@ -100,7 +100,7 @@ double C(uint32_t x, uint32_t y, uint32_t z) {
 	temp = *pGRID(TGrid,x,y,z);
 
 	// calculate the thermal conductivity for that temperature	
-	cgc_index = temp/80.77;
+	index = temp/80.77;
 	Cxyz = HC[(int)(temp/80.77)];
 	
 	return(Cxyz);
@@ -226,7 +226,7 @@ void CalcTimeStep(void) {
 	double Ksum;
 
 	// minimum, stable timestamp is calculated using
-	// deltaTime < (Cxyz*deltax*deltay*deltaz)/(Sum surcgc_rounding cell K's)
+	// deltaTime < (Cxyz*deltax*deltay*deltaz)/(Sum surrounding cell K's)
 	//  Cxyz = Volumetric Heat Capacity of cell x,y,z
 	//  in this simulation deltax, deltay, and deltaz are all 1 meter
 	for (z = 0; z < Z; z++) {

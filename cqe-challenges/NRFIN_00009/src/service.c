@@ -222,11 +222,14 @@ unsigned int getRandomNumber(unsigned int max)
     size_t bytes_written =0;
     unsigned int index =0;
     int ret =0;
-    ret = cgc_random(&index, sizeof(index), &bytes_written);
+
+    ret = random(&index, sizeof(index), &bytes_written);
     if (ret != 0)
         _terminate(1);
+
     if (bytes_written != sizeof(index))
         _terminate(2);
+
     index = index % max;
 
     return index;
@@ -271,20 +274,26 @@ void createRandomRequest(Request *request) {
 }
 
 size_t getRandomGiftCard(char** gift_card) {
+
     unsigned int charset_size =0;
     int index =0;
     int section =0;
     int ret =0;
+
     ret = allocate(GIFT_CARD_LEN+1, 0, (void **) gift_card);
     if (ret != 0)
         _terminate(3);
+
     memset(*gift_card, 0, GIFT_CARD_LEN);
     charset_size = strlen(charset);
+
     for(index = 0; index < GIFT_CARD_LEN; index++) {
         int letter = getRandomNumber(charset_size);
         (*gift_card)[index] =  charset[letter];
     }
+
     (*gift_card)[GIFT_CARD_LEN] = '\0';
+
     return GIFT_CARD_LEN+1;
 }
 
@@ -398,7 +407,6 @@ int main(void) {
     Song songs[RESULT_LIMIT] ={0};
     Song* selectedSong =NULL;
     results.songs = songs;
-
 
     getBalance(&mySongList);
 

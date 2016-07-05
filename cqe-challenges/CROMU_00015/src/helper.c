@@ -36,7 +36,7 @@ char *pullNextElementName( pstring str )
 {
         char * elementId = NULL;
         int reset = 0;
-        int cgc_index = 0;
+        int index = 0;
         unsigned int length = 0;
 
         if ( str == NULL ) {
@@ -44,13 +44,13 @@ char *pullNextElementName( pstring str )
         }
 
         /// This will be used to reset the buffer at the end
-        reset = str->cgc_index;
+        reset = str->index;
 
         /// This shouldn't be necessary but just in case
         skipWhiteSpace( str );
 
         /// The first character should be an open curly brace
-        if (str->buffer[ str->cgc_index ] != '{' ) {
+        if (str->buffer[ str->index ] != '{' ) {
                 printf("!!Invalid opening element: @s\n", str->buffer );
                 goto end;
         }
@@ -63,22 +63,22 @@ char *pullNextElementName( pstring str )
         /// Skip past any whitespace
         skipWhiteSpace(str);
 
-        /// Store the cgc_index to the start of the element name
-        cgc_index = str->cgc_index;
+        /// Store the index to the start of the element name
+        index = str->index;
 
         /// Loop until the end of the buffer, a null, or a non-alpha, white space, or  '}' character is encountered
-        while ( cgc_index < str->maxlength ) {
+        while ( index < str->maxlength ) {
 
                 /// If we hit a NULL then it is improperly formatted.
                 /// Just skip to the end
-                if ( str->buffer[cgc_index] == '\x00' ) {
+                if ( str->buffer[index] == '\x00' ) {
                         printf("!!Null character hit. Improperly formatted element\n");
                         goto end;
                 }
 
                 /// If it is a closing brace or a white space then the name is passed
-                if ( str->buffer[ cgc_index ]  == '}' || isspace( str->buffer[cgc_index] ) ) {
-                        length = cgc_index-str->cgc_index;
+                if ( str->buffer[ index ]  == '}' || isspace( str->buffer[index] ) ) {
+                        length = index-str->index;
 
                         /// Copy the name for the return
                         if ( allocate( length + 1, 0, (void*)&elementId ) != 0 ) {
@@ -88,18 +88,18 @@ char *pullNextElementName( pstring str )
 
                         bzero( elementId, length + 1 );
 
-                        strncpy( elementId, str->buffer + str->cgc_index, length );
+                        strncpy( elementId, str->buffer + str->index, length );
 
                         /// Check for a properly formatted name. Start by updating
-			///	the string cgc_index to the end of the string
+			///	the string index to the end of the string
 			///	Then skip any proceeding whitespace
-                        str->cgc_index = cgc_index;
+                        str->index = index;
                         skipWhiteSpace(str);
 
                         /// If the current character is not '}' then it invalid is
 			///	invalid since only whitespace is allowed between the
 			///	element id and the closing brace
-                        if (str->buffer[ str->cgc_index ] != '}' ) {
+                        if (str->buffer[ str->index ] != '}' ) {
                                 printf("!!Improperly formatted element name\n");
                                 deallocate( elementId, length + 1 );
                                 elementId = NULL;
@@ -110,16 +110,16 @@ char *pullNextElementName( pstring str )
                 }
 
                 /// Non alpha characters are not allowed as element names
-                if ( !isalpha( str->buffer[cgc_index] ) ) {
+                if ( !isalpha( str->buffer[index] ) ) {
                         goto end;
                 }
 
-                cgc_index++;
+                index++;
         }
 
 end:
 	/// Revert the string to the beginning
-        str->cgc_index = reset;
+        str->index = reset;
 
         return elementId;
 }
@@ -138,92 +138,92 @@ element elementNameToEnum( char * elementId )
                 goto end;
         }
 
-        length = cgc_strlen(elementId);
+        length = strlen(elementId);
 
         switch ( length ) {
 		case 3:
-			if ( cgc_strcmp( elementId, "Url") == 0 ) {
+			if ( strcmp( elementId, "Url") == 0 ) {
 				retval = url;
 			}
 
 			break;
                 case 4:
-                        if ( cgc_strcmp( elementId, "Name") == 0 ) {
+                        if ( strcmp( elementId, "Name") == 0 ) {
                                 retval = name;
-                        } else if ( cgc_strcmp( elementId, "Mass" ) == 0 ) {
+                        } else if ( strcmp( elementId, "Mass" ) == 0 ) {
                                 retval = mass;
-                        } else if ( cgc_strcmp( elementId, "Area" ) == 0 ) {
+                        } else if ( strcmp( elementId, "Area" ) == 0 ) {
 				retval = area;
-			} else if ( cgc_strcmp( elementId, "Seat" ) == 0 ) {
+			} else if ( strcmp( elementId, "Seat" ) == 0 ) {
 				retval = seat;
-			} else if ( cgc_strcmp( elementId, "City" ) == 0 ) {
+			} else if ( strcmp( elementId, "City" ) == 0 ) {
 				retval = city;
 			}
 
                         break;
 
 		case 5:
-			if ( cgc_strcmp( elementId, "Mayor" ) == 0 ) {
+			if ( strcmp( elementId, "Mayor" ) == 0 ) {
 				retval = mayor;
 			}
 
 			break;
                 case 6:
-                        if ( cgc_strcmp( elementId, "Planet") == 0 ) {
+                        if ( strcmp( elementId, "Planet") == 0 ) {
                                 retval = planet;
-                        } else if ( cgc_strcmp( elementId, "Period") == 0 ) {
+                        } else if ( strcmp( elementId, "Period") == 0 ) {
                                 retval = period;
-                        } else if ( cgc_strcmp( elementId, "Radius" ) == 0 ) {
+                        } else if ( strcmp( elementId, "Radius" ) == 0 ) {
                                 retval = radius;
-                        } else if ( cgc_strcmp( elementId, "Border" ) == 0 ) {
+                        } else if ( strcmp( elementId, "Border" ) == 0 ) {
 				retval = border;
-			} else if ( cgc_strcmp( elementId, "County" ) == 0 ) {
+			} else if ( strcmp( elementId, "County" ) == 0 ) {
 				retval = county;
 			}
 
                         break;
                 case 7:
-                        if ( cgc_strcmp( elementId, "ERadius" ) == 0 ) {
+                        if ( strcmp( elementId, "ERadius" ) == 0 ) {
                                 retval = eradius;
-                        } else if ( cgc_strcmp( elementId, "Gravity" ) == 0 ) {
+                        } else if ( strcmp( elementId, "Gravity" ) == 0 ) {
                                 retval = gravity;
-                        } else if ( cgc_strcmp( elementId, "Country" ) == 0 ) {
+                        } else if ( strcmp( elementId, "Country" ) == 0 ) {
                                 retval = country;
-                        } else if ( cgc_strcmp( elementId, "Capitol" ) == 0 ) {
+                        } else if ( strcmp( elementId, "Capitol" ) == 0 ) {
 				retval = capitol;
-			} else if ( cgc_strcmp( elementId, "Founder" ) == 0 ) {
+			} else if ( strcmp( elementId, "Founder" ) == 0 ) {
 				retval = founder;
-			} else if ( cgc_strcmp( elementId, "Density" ) == 0 ) {
+			} else if ( strcmp( elementId, "Density" ) == 0 ) {
 				retval = density;
 			}
 
                         break;
 
                 case 8:
-                        if ( cgc_strcmp( elementId, "Aphelion") == 0 ) {
+                        if ( strcmp( elementId, "Aphelion") == 0 ) {
                                 retval = aphelion;
-                        } else if ( cgc_strcmp( elementId, "Language") == 0 ) {
+                        } else if ( strcmp( elementId, "Language") == 0 ) {
 				retval = language;
 			}
 
                         break;
 		case 9:
-			if ( cgc_strcmp( elementId, "Territory") == 0 ) {
+			if ( strcmp( elementId, "Territory") == 0 ) {
 				retval = territory;
 			}
 			break;
                 case 10:
-                        if ( cgc_strcmp( elementId, "OrbitSpeed") == 0 ) {
+                        if ( strcmp( elementId, "OrbitSpeed") == 0 ) {
                                 retval = orbitspeed;
-                        } else if ( cgc_strcmp( elementId, "Perihelion") == 0 ) {
+                        } else if ( strcmp( elementId, "Perihelion") == 0 ) {
                                 retval = perihelion;
-                        } else if ( cgc_strcmp( elementId, "Population") == 0 ) {
+                        } else if ( strcmp( elementId, "Population") == 0 ) {
                                 retval = population;
                         }
 
                         break;
 		case 11:
-			if (cgc_strcmp( elementId, "Established") == 0 ) {
+			if (strcmp( elementId, "Established") == 0 ) {
 				retval = established;
 			}
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>auth password\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>auth ok\x0a</data></match></read>
+
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>set aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>1\x0a</data></match></read>
+
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>set aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab a\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>1\x0a</data></match></read>
+
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>set aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac a\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>1\x0a</data></match></read>
+
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>keys\x0a</data></write>
+    <read><delim>\x0a</delim><match><pcre>.*
+</pcre></match></read>
+
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>set jjjjjjjjjjjjjjjjjjjjjjjjjjjjpppppppppppppppppppppppp jjjj\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>1\x0a</data></match></read>
+
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>set 0x0003ee80a a\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>1\x0a</data></match></read>
+
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>est c d\x0a</data></write>
+
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>keys\x0a</data></write>
+    <read><delim>\x0a</delim><match><pcre>.*
+</pcre></match></read>
+
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>keys\x0a</data></write>
+    <read><delim>\x0a</delim><match><pcre>.*
+</pcre></match></read>
+    <write><data>quit\x0a</data></write>
+
+</replay>
+</pov>

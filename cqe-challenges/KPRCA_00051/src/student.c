@@ -97,7 +97,7 @@ int _remove_course(student_t *student, size_t idx)
         student->num_major_courses--;
 
     if (idx < student->num_courses - 1) {
-        cgc_memcpy(&student->courses[idx], &student->courses[idx+1],
+        memcpy(&student->courses[idx], &student->courses[idx+1],
                 sizeof(void *) * (student->num_courses - idx - 1));
     }
 

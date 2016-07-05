@@ -25,7 +25,7 @@
 
 #include <string.h>
 
-char *cgc_strcpy(char *dest, const char *src)
+char *strcpy(char *dest, const char *src)
 {
     size_t i = 0;
     while (*src)

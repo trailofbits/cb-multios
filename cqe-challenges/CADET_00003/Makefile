@@ -1,7 +1,6 @@
-CC = clang
+AUTHOR_ID  = CADET
+SERVICE_ID = 00003
 CFLAGS     = -O0 -g -Werror -Wno-overlength-strings -Wno-packed
-INCLUDES = -Ilib
+VULN_COUNT = 1
 
-ALL:
-	-mkdir bin
-	$(CC) $(CFLAGS) $(INCLUDES) src/*.c lib/libc.c lib/libcgc.c  -o bin/CADET_00003
+include /usr/share/cb-testing/cgc-cb.mk

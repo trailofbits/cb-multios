@@ -12,7 +12,7 @@
 #include <Python.h>
 
 #define ESCAPED_CHARS_TABLE_SIZE 63
-#define UNICHR(x) (PyUnicode_AS_UNICODE((PyUnicodeObject*)PyUnicode_DecodeASCII(x, cgc_strlen(x), NULL)));
+#define UNICHR(x) (PyUnicode_AS_UNICODE((PyUnicodeObject*)PyUnicode_DecodeASCII(x, strlen(x), NULL)));
 
 #if PY_VERSION_HEX < 0x02050000 && !defined(PY_SSIZE_T_MIN)
 typedef int Py_ssize_t;
@@ -37,7 +37,7 @@ init_constants(void)
 	escaped_chars_repl['>'] = UNICHR("&gt;");
 
 	/* lengths of those characters when replaced - 1 */
-	cgc_memset(escaped_chars_delta_len, 0, sizeof (escaped_chars_delta_len));
+	memset(escaped_chars_delta_len, 0, sizeof (escaped_chars_delta_len));
 	escaped_chars_delta_len['"'] = escaped_chars_delta_len['\''] = \
 		escaped_chars_delta_len['&'] = 4;
 	escaped_chars_delta_len['<'] = escaped_chars_delta_len['>'] = 3;

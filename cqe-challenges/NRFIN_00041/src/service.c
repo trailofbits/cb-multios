@@ -43,7 +43,7 @@ int main(void) {
         char *english = calloc(MAX_ENGLISH_LEN*sizeof(char));
 
         char *outmsg = NULL;
-        char reset = 1;
+        char reset = TRUE;
 
         bytes_received = recv_until_delim(STDIN, buf, MAX_SENTENCE_LEN, '\x07');
         if ((0 >= bytes_received) || ('\x07' != buf[bytes_received - 1])) {
@@ -62,15 +62,15 @@ int main(void) {
                 }
             } else { // PARTIAL == ss->msg_status
                 outmsg = PARTIAL_MSG;
-                reset = 0;
+                reset = FALSE;
             }
         } else {
             outmsg = INVALID_SENTENCE;
         }
 
-        send(outmsg, cgc_strlen(outmsg));
+        send(outmsg, strlen(outmsg));
 
-        if (1 == reset) {
+        if (TRUE == reset) {
             reset_sentence_struct(&ss);
         }
 

@@ -114,11 +114,11 @@ o        o         o      o     +\n\
   {
     kty_item_t *item = array_get(parser->nyan_says, i);
 #if PATCHED
-    int sz = (buf + sizeof(buf) - c) - cgc_strlen(item->item.i_string.s);
-    sz = sz > 0 ? cgc_strlen(item->item.i_string.s) : (buf + sizeof(buf) - c - 1);
-    cgc_memcpy(c, item->item.i_string.s, sz);
+    int sz = (buf + sizeof(buf) - c) - strlen(item->item.i_string.s);
+    sz = sz > 0 ? strlen(item->item.i_string.s) : (buf + sizeof(buf) - c - 1);
+    memcpy(c, item->item.i_string.s, sz);
 #else
-    cgc_strcpy(c, item->item.i_string.s);
+    strcpy(c, item->item.i_string.s);
 #endif
     c += item->item.i_string.len;
   }

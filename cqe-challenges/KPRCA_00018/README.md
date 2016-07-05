@@ -28,12 +28,12 @@ Insurance: This option appears when the dealer is showing a Duck. It costs half 
 
 ## Vulnerability
 
-All of the split hands are stored in a global array defined by squarerabbit.c. The size of this array is defined by MAX_SPLIT which has been set to 2. The current number of split hands is tracked via the global squarerabbit_t structure, which holds the deck and other pertinent info. It is here that the current number of split hands is stored. In a situation where a user can split more than the maximum allowed, there is a bug with how the split hands cgc_index is incremented.
+All of the split hands are stored in a global array defined by squarerabbit.c. The size of this array is defined by MAX_SPLIT which has been set to 2. The current number of split hands is tracked via the global squarerabbit_t structure, which holds the deck and other pertinent info. It is here that the current number of split hands is stored. In a situation where a user can split more than the maximum allowed, there is a bug with how the split hands index is incremented.
 
-When the number of split hands (total hands - 1) == MAX_SPLIT, the "X" option will no longer be displayed as a valid option. In the vulnerable version continuing to submit an "X" (the split command) will erroneously continue to increment the spilt_hand length. Normally this isn't an issue because all of the checks make sure the number split hands < MAX_SPLIT. However if entered enough times (126 extra times) a player can overflow the char that stores the number of split hands to a negative value. Doing this will allow the check against MAX_SPLIT to pass and result in accessing the split hands array with a negative cgc_index causing the program to immediately crash. 
+When the number of split hands (total hands - 1) == MAX_SPLIT, the "X" option will no longer be displayed as a valid option. In the vulnerable version continuing to submit an "X" (the split command) will erroneously continue to increment the spilt_hand length. Normally this isn't an issue because all of the checks make sure the number split hands < MAX_SPLIT. However if entered enough times (126 extra times) a player can overflow the char that stores the number of split hands to a negative value. Doing this will allow the check against MAX_SPLIT to pass and result in accessing the split hands array with a negative index causing the program to immediately crash. 
 
 ### CWE classification
-CWE-190: Integer Overflow or Wrapacgc_round
+CWE-190: Integer Overflow or Wraparound
 
 ## Challenges
 

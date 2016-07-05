@@ -1,0 +1,55 @@
+---
+nodes:
+- name: start
+  continue: 1.0
+- name: doSomething
+  continue: 1.0
+- name: doAdd
+  continue: 1.0
+- name: doSub
+  continue: 1.0
+- name: doDiv
+  continue: 1.0
+- name: doInt
+  continue: 1.0
+- name: doType
+  continue: 1.0
+- name: doLen
+  continue: 1.0
+- name: doEquals
+  continue: 1.0
+- name: doMod
+  continue: 1.0
+- name: doVar
+  continue: 1.0
+- name: doNot
+  continue: 1.0
+- name: doMul
+  continue: 1.0
+- name: end
+
+edges:
+- start: doSomething
+- start: end
+- doSomething: doAdd
+- doSomething: doSub
+- doSomething: doDiv
+- doSomething: doInt
+- doSomething: doType
+- doSomething: doLen
+- doSomething: doEquals
+- doSomething: doMod
+- doSomething: doVar
+- doSomething: doNot
+- doSomething: doMul
+- doMul: start
+- doAdd: start
+- doSub: start
+- doDiv: start
+- doInt: start
+- doType: start
+- doLen: start
+- doVar: start
+- doEquals: start
+- doMod: start
+- doNot: start

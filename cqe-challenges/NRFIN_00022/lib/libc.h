@@ -81,9 +81,9 @@ unsigned int read_all(int fd, char *buf, unsigned int size);
 int recvline(int fd, char *buf, size_t size);
 
 // stdlib
-unsigned int cgc_strlen(const char * str);
-void * cgc_memset(void * str, int ch, unsigned int n);
-void * cgc_memcpy(void * dst, const void * src, size_t cnt);
+unsigned int strlen(const char * str);
+void * memset(void * str, int ch, unsigned int n);
+void * memcpy(void * dst, const void * src, size_t cnt);
 int rand(char *res, size_t len);
 int vsnprintf(char * buf, size_t buf_size, const char * fmt, va_list args);
 int snprintf(char * buf, size_t buf_size, const char * fmt, ...);

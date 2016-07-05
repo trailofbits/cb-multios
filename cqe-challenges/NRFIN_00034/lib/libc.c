@@ -58,7 +58,7 @@ write_all(int fd, void *buf, size_t n)
 }
 
 void *
-cgc_memset(void *ptr_, int val, size_t n)
+memset(void *ptr_, int val, size_t n)
 {
     unsigned char *ptr = ptr_;
     while (n--)
@@ -67,7 +67,7 @@ cgc_memset(void *ptr_, int val, size_t n)
 }
 
 void *
-cgc_memcpy(void *dst_, const void *src_, size_t n)
+memcpy(void *dst_, const void *src_, size_t n)
 {
     unsigned char *dst = dst_;
     const unsigned char *src = src_;
@@ -95,7 +95,7 @@ memmove(void *dst_, const void *src_, size_t n)
 }
 
 size_t
-cgc_strlen(const char *s) {
+strlen(const char *s) {
     size_t ret = 0;
     while (*s++)
         ret++;
@@ -112,7 +112,7 @@ strnlen(const char *s, size_t n)
 }
 
 int
-cgc_strcmp(const char *a, const char *b)
+strcmp(const char *a, const char *b)
 {
     for (; *a && *a == *b; a++, b++)
         ;
@@ -128,7 +128,7 @@ strncmp(const char *a, const char *b, size_t n)
 }
 
 char *
-cgc_strcpy(char *dst, const char *src)
+strcpy(char *dst, const char *src)
 {
     size_t i = 0;
     for (; src[i]; i++)
@@ -150,11 +150,11 @@ strncpy(char *dst, const char *src, size_t n)
 }
 
 char *
-cgc_strcat(char *dst, const char *src)
+strcat(char *dst, const char *src)
 {
     char *ret = dst;
-    dst += cgc_strlen(dst);
-    cgc_strcpy(dst, src);
+    dst += strlen(dst);
+    strcpy(dst, src);
     return ret;
 }
 
@@ -162,7 +162,7 @@ char *
 strncat(char *dst, const char *src, size_t n)
 {
     char *ret = dst;
-    dst += cgc_strlen(dst);
+    dst += strlen(dst);
     strncpy(dst, src, n);
     dst[n] = '\0';
     return ret;
@@ -195,16 +195,16 @@ strtok(char *s, char d)
     static char *prev = NULL;
     char *token, *ret;
     
-    if (s == NULL && (prev == NULL || cgc_strlen(prev) == 0))
+    if (s == NULL && (prev == NULL || strlen(prev) == 0))
         return NULL;
 
-    if (prev == NULL || cgc_strlen(prev) == 0)
+    if (prev == NULL || strlen(prev) == 0)
         prev = s;
 
     while (*prev == d)
         prev++;
 
-    if (cgc_strlen(prev) == 0)
+    if (strlen(prev) == 0)
         return NULL;
 
     ret = prev;
@@ -1107,7 +1107,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = cgc_strlen(s_arg);
+                  int len = strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

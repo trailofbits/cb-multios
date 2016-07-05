@@ -60,14 +60,13 @@ void initialize()
 
   for (i = 0; i <= sizeof(g_password)/sizeof(g_password[0]); ++i)
   {
-    cgc_random(&c, sizeof(c), NULL);
-    cgc_random(&rand, sizeof(rand), NULL);
+    random(&c, sizeof(c), NULL);
+    random(&rand, sizeof(rand), NULL);
     if (c & 1)
       g_password[i] = 'A' + (rand % 26);
     else
       g_password[i] = 'a' + (rand % 26);
   }
-
   g_password[i] = '\0';
 
   for (i = 0; i < sizeof(default_movies)/sizeof(default_movies[0]); ++i)
@@ -75,13 +74,13 @@ void initialize()
     movie = (movie_t *) malloc(sizeof(movie_t));
     if (movie == NULL)
       goto fail;
-    cgc_memset(movie, '\0', sizeof(movie_t));
-    movie->title = (char *) malloc(cgc_strlen(default_movies[i].title) + 1);
-    movie->desc = (char *) malloc(cgc_strlen(default_movies[i].desc) + 1);
+    memset(movie, '\0', sizeof(movie_t));
+    movie->title = (char *) malloc(strlen(default_movies[i].title) + 1);
+    movie->desc = (char *) malloc(strlen(default_movies[i].desc) + 1);
     if (movie->title == NULL || movie->desc == NULL)
       goto fail;
-    cgc_strcpy(movie->title, default_movies[i].title);
-    cgc_strcpy(movie->desc, default_movies[i].desc);
+    strcpy(movie->title, default_movies[i].title);
+    strcpy(movie->desc, default_movies[i].desc);
     movie->year = default_movies[i].year;
     movie->score = default_movies[i].score;
     movie->genre = default_movies[i].genre;
@@ -183,7 +182,7 @@ void rent_movie()
   unsigned int movie_id, num_movies = 0;
   char buf[256];
 
-  /* Present the full movie list with cgc_index */
+  /* Present the full movie list with index */
   printf("\nMovies (Full)\n--------------\n");
   for (node = movies_full; node != NULL; node = node->next)
   {
@@ -198,7 +197,7 @@ void rent_movie()
     return;
   }
 
-  /* Get and validate the cgc_index */
+  /* Get and validate the index */
   while (1)
   {
     printf("Enter movie id: ");
@@ -234,7 +233,7 @@ void return_movie()
   unsigned int movie_id, num_movies = 0;
   movie_node_t *node;
 
-  /* Present the list of rented movies with cgc_index */
+  /* Present the list of rented movies with index */
   printf("\nMovies (Rented)\n--------------\n");
   for (node = movies_rented; node != NULL; node = node->next)
   {
@@ -248,7 +247,7 @@ void return_movie()
     return;
   }
 
-  /* Get and validate the cgc_index */
+  /* Get and validate the index */
   while (1)
   {
     printf("Enter movie id: ");
@@ -289,7 +288,7 @@ int login()
 
   printf("username: ");
   readuntil(STDIN, buf, sizeof(buf), '\n');
-  if (cgc_strcmp(username, buf) != 0)
+  if (strcmp(username, buf) != 0)
   {
     printf("[ERROR] Permission Denied: Wrong credentials\n");
     return admin;
@@ -301,7 +300,7 @@ int login()
 #else
   readuntil(STDIN, buf, sizeof(buf) + 4, '\n');
 #endif
-  if (cgc_strcmp(g_password, buf) != 0)
+  if (strcmp(g_password, buf) != 0)
   {
     printf("[ERROR] Permission Denied: Wrong credentials\n");
     return admin;
@@ -325,18 +324,18 @@ void add_movie()
   printf("Enter Title: ");
   if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
     goto fail;
-  movie->title = (char *) malloc(cgc_strlen(buf) + 1);
+  movie->title = (char *) malloc(strlen(buf) + 1);
   if (movie->title == NULL)
     goto fail;
-  cgc_strcpy(movie->title, buf);
+  strcpy(movie->title, buf);
 
   printf("Enter Description: ");
   if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
     goto fail;
-  movie->desc = (char *) malloc(cgc_strlen(buf) + 1);
+  movie->desc = (char *) malloc(strlen(buf) + 1);
   if (movie->desc == NULL)
     goto fail;
-  cgc_strcpy(movie->desc, buf);
+  strcpy(movie->desc, buf);
 
   while (1)
   {
@@ -455,7 +454,7 @@ void remove_movie()
     return;
   }
 
-  /* Get and validate the cgc_index */
+  /* Get and validate the index */
   while (1)
   {
     printf("Enter movie id: ");
@@ -492,7 +491,7 @@ void update_movie()
   movie_node_t *node;
   movie_t *movie;
 
-  /* Present the full list with cgc_index */
+  /* Present the full list with index */
   printf("\nMovies (Full)\n--------------\n");
   for (node = movies_full; node != NULL; node = node->next)
   {
@@ -506,7 +505,7 @@ void update_movie()
     return;
   }
 
-  /* Get and validate the cgc_index */
+  /* Get and validate the index */
   while (1)
   {
     printf("Enter movie id: ");
@@ -525,24 +524,24 @@ void update_movie()
   printf("Enter new title (current: [%s]): ", movie->title);
   if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
     return;
-  if (cgc_strlen(buf) != 0)
+  if (strlen(buf) != 0)
   {
-    new_title = (char *) malloc(cgc_strlen(buf) + 1);
+    new_title = (char *) malloc(strlen(buf) + 1);
     if (new_title == NULL)
       goto fail;
-    cgc_strcpy(new_title, buf);
+    strcpy(new_title, buf);
     free(movie->title);
     movie->title = new_title;
   }
   printf("Enter new description (current: [%s]): ", movie->desc);
   if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
     return;
-  if (cgc_strlen(buf) != 0)
+  if (strlen(buf) != 0)
   {
-    new_desc = (char *) malloc(cgc_strlen(buf) + 1);
+    new_desc = (char *) malloc(strlen(buf) + 1);
     if (new_desc == NULL)
       goto fail;
-    cgc_strcpy(new_desc, buf);
+    strcpy(new_desc, buf);
     free(movie->desc);
     movie->desc = new_desc;
   }
@@ -551,7 +550,7 @@ void update_movie()
     printf("Enter new year (1800-2015) (current: [%d]): ", movie->year);
     if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
       goto fail;
-    if (cgc_strlen(buf) != 0)
+    if (strlen(buf) != 0)
     {
       int new_year = strtoul(buf, NULL, 10);
       if (new_year >= 1800 && new_year <= 2015)
@@ -570,7 +569,7 @@ void update_movie()
     printf("Enter new review score (0-100) (current: [%d/100]: ", movie->score);
     if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
       goto fail;
-    if (cgc_strlen(buf) != 0)
+    if (strlen(buf) != 0)
     {
       int new_score = strtoul(buf, NULL, 10);
       if (new_score >= 0 && new_score <= 100)
@@ -590,7 +589,7 @@ void update_movie()
     printf("Select a genre (current: [%s])\n 1. Action\n 2. Romance\n 3. Comeda\n 4. Horror\n 5. Other\nChoice: ", movie_g2s(movie->genre));
     if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
       goto fail;
-    if (cgc_strlen(buf) != 0)
+    if (strlen(buf) != 0)
     {
       unsigned int genre = strtoul(buf, NULL, 10);
       finish = 1;
@@ -622,7 +621,7 @@ void update_movie()
     printf("Select a film rating (current: [%s]\n 1. G\n 2. PG\n 3. PG-13\n 4. R\n 5. Unknown\nChoice: ", movie_r2s(movie->rating));
     if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
       goto fail;
-    if (cgc_strlen(buf) != 0)
+    if (strlen(buf) != 0)
     {
       unsigned int rating = strtoul(buf, NULL, 10);
       finish = 1;

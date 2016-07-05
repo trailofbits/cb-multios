@@ -105,7 +105,7 @@ class WordCompletion(Actions):
         elif self.wincount < 10 :
             prompt += NEXT_WORD_MSG
         elif self.wincount == NUM_ROUNDS :
-            #this is the final cgc_round
+            #this is the final round
             prompt += FINAL_RND_MSG
             self.read(length=len(prompt), expect=prompt)
 

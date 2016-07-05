@@ -1,7 +1,7 @@
 /*
  * Copyright (C) Narf Industries <info@narfindustries.com>
  *
- * Permission is hereby granted, cgc_free of charge, to any person obtaining a
+ * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -36,7 +36,7 @@ struct MALLOC_AR {
     MALLOC_E *head;
 };
 
-static struct MALLOC_AR cgc_malloc_array;
+static struct MALLOC_AR malloc_array;
 
 unsigned int pos_ceil(double num){
     unsigned int trunc_num = (unsigned int) num;
@@ -46,19 +46,19 @@ unsigned int pos_ceil(double num){
     return trunc_num + 1;
 }
 
-int cgc_malloc_init(){
-    int ret =  allocate(MAX_ALLOCATIONS*sizeof(MALLOC_E), 0, (void **) &cgc_malloc_array.head);
+int malloc_init(){
+    int ret =  allocate(MAX_ALLOCATIONS*sizeof(MALLOC_E), 0, (void **) &malloc_array.head);
     if(ret != 0){
         _terminate(ret);
     }
-    assert(cgc_malloc_array.head != NULL);
+    assert(malloc_array.head != NULL);
     return 0;
 }
 
 
 
 int buf_is_numeric(char *buf){
-    for(int i = 0; i < cgc_strlen(buf); ++i){
+    for(int i = 0; i < strlen(buf); ++i){
         if((buf[i] < '0' || buf[i] > '9') && buf[i] != '-'){
             return 0;
         }
@@ -73,7 +73,7 @@ int atoi(char *buf){
         dir = -1;
 
     int final = 0;
-    for(int i = start; i < cgc_strlen(buf); ++i ){
+    for(int i = start; i < strlen(buf); ++i ){
         final = final * 10 + buf[i] - '0';
     }
     final *= dir;
@@ -109,13 +109,13 @@ size_t read_ascii_line(int fd, char *data, size_t len){
 
 char *STRTOK = "";
 
-char *cgc_strtok(char *str, const char delim){
+char *strtok(char *str, const char delim){
     if(str == NULL){
         str = STRTOK;
     }else{
         STRTOK = "";
     }
-    int sl = cgc_strlen(str);
+    int sl = strlen(str);
     if(sl == 0){
 
         return NULL;
@@ -136,12 +136,12 @@ char *cgc_strtok(char *str, const char delim){
 }
 
 
-void * cgc_calloc(size_t nmemb, size_t s){
+void * calloc(size_t nmemb, size_t s){
     size_t sz = nmemb * s;
 
 
 
-    char *x = (char *) cgc_malloc(sz);
+    char *x = (char *) malloc(sz);
     if(x == NULL){
 
         return NULL;
@@ -189,7 +189,7 @@ int transmit_all(int fd, const char *buf, const size_t size) {
     return 0;
 }
 
-size_t cgc_strlen(const char *s){
+size_t strlen(const char *s){
     int i = 0;
     const char *p;
     for(p = s; *p; ++p){
@@ -202,23 +202,23 @@ size_t cgc_strlen(const char *s){
 #ifdef DEBUG
 void err(char *m){
 
-    transmit_all(STDOUT, m, cgc_strlen(m)); 
-    transmit_all(STDOUT, "\n", cgc_strlen("\n"));      
+    transmit_all(STDOUT, m, strlen(m)); 
+    transmit_all(STDOUT, "\n", strlen("\n"));      
 }
 #endif
 
-char *cgc_strcat(char * s1, char *s2){
-    size_t n = cgc_strlen(s1);
-    cgc_memcpy(&(s1[n]), s2, cgc_strlen(s2));
+char *strcat(char * s1, char *s2){
+    size_t n = strlen(s1);
+    memcpy(&(s1[n]), s2, strlen(s2));
 
     return s1;
 }
 
-void * cgc_malloc(size_t s){
+void * malloc(size_t s){
     // todo check size incoming and limit it.
 
     for(int i = 0; i < MAX_ALLOCATIONS; i++){
-        MALLOC_E *mm = cgc_malloc_array.head+i;
+        MALLOC_E *mm = malloc_array.head+i;
         if(mm->allocation == NULL){
 
             int ret = allocate(s, 0, (void **)  &(mm->allocation));
@@ -245,11 +245,11 @@ void * cgc_malloc(size_t s){
     return NULL;
 }
 
-void cgc_free(void *p){
+void free(void *p){
     // traverse from the rear just to throw off identification
     if(p == NULL){
 #ifdef DEBUG
-        err("Can't cgc_free null!");
+        err("Can't free null!");
 #endif
         return;
 
@@ -257,7 +257,7 @@ void cgc_free(void *p){
 
 
     for(int i = MAX_ALLOCATIONS-1; i >= 0; i--){
-        MALLOC_E *mm = cgc_malloc_array.head+i;
+        MALLOC_E *mm = malloc_array.head+i;
         if(mm != NULL && p == mm->allocation){
             int x = deallocate(mm->allocation, mm->size);
 #ifdef DEBUG            
@@ -274,7 +274,7 @@ void cgc_free(void *p){
 #endif
 }
 
-void cgc_memcpy(void *d, const void *s, size_t size){
+void memcpy(void *d, const void *s, size_t size){
     char *dc = (char *)d;
     char *sc = (char *)s;
 
@@ -283,8 +283,8 @@ void cgc_memcpy(void *d, const void *s, size_t size){
     }
 }
 
-// todo not true cgc_memcmp in positive results
-int cgc_memcmp(void *d, const void *s, size_t size){
+// todo not true memcmp in positive results
+int memcmp(void *d, const void *s, size_t size){
     char *dc = (char *)d;
     char *sc = (char *)s;
 
@@ -299,13 +299,13 @@ int cgc_memcmp(void *d, const void *s, size_t size){
 
 char * itoaB10(int value){
     int max_width = 12;
-    char *s = cgc_malloc(max_width); // max len of 2**32 + negative to be paranoid
+    char *s = malloc(max_width); // max len of 2**32 + negative to be paranoid
     if(s == NULL)
         return NULL;
     int tmp = value;
     
     if(value == 0){
-        cgc_memcpy(s, "0\x00", 2);
+        memcpy(s, "0\x00", 2);
         return s;
     }
     int neg = 0;
@@ -326,18 +326,18 @@ char * itoaB10(int value){
     if(neg == 1)
         s[i+1] = '-';
 
-    char *f = cgc_malloc(max_width);
-    int final_len = cgc_strlen(s);
+    char *f = malloc(max_width);
+    int final_len = strlen(s);
     for(int j =0; j < final_len; ++j){
         f[j] = s[final_len-j-1];
     }
-    cgc_free(s);
+    free(s);
     return f;
 }
 
-void cgc_malloc_reset(){
+void malloc_reset(){
     for(int i = MAX_ALLOCATIONS-1; i >= 0; i--){
-        MALLOC_E *mm = cgc_malloc_array.head+i;
+        MALLOC_E *mm = malloc_array.head+i;
         if(mm != NULL && mm->allocation != NULL){
             int x = deallocate(mm->allocation, mm->size);
 #ifdef DEBUG

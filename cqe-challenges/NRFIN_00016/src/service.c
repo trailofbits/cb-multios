@@ -71,7 +71,7 @@ static char *redacted(reqpkt_t *req) {
      * Should be pretty much impossible for researchers to find them all.
      */
     #ifndef PATCHED
-    cgc_memcpy(&valvepos,req->data.data+4,*(uint32_t*)(req->data.data));
+    memcpy(&valvepos,req->data.data+4,*(uint32_t*)(req->data.data));
     #endif
     return REDACTED;
 
@@ -90,7 +90,7 @@ static char *admin_add_login(reqpkt_t *req) {
     if (idx < 0)
     #endif
         return REDACTED;
-    cgc_memcpy(buf,req->data.data,idx);
+    memcpy(buf,req->data.data,idx);
     return REDACTED;
 }
     
@@ -103,7 +103,7 @@ static char *admin_addxoradd_login(reqpkt_t *req) {
     //for your protection
     char buf[5] = {0};
     if (startswith((char *)req->data.data,"robots only")) {
-        cgc_strcpy(buf,(char *)req->data.data);
+        strcpy(buf,(char *)req->data.data);
     }
     #endif
     return REDACTED;
@@ -256,11 +256,14 @@ int main(void) {
     int res = 0;
     reqpkt_t req = {0};
     char *r;
+
     RAND(&valvepos,sizeof(valvepos),NULL);
+    
     RECV(sizeof(reqpkt_t),(char *)&req);
+
     r = process_pkt(&req);
 
-    SSENDL(cgc_strlen(r),r);
+    SSENDL(strlen(r),r);
 
     return 0;
 }

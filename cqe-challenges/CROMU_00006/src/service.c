@@ -13,7 +13,7 @@ void read_data(uint32);
 int main(void) {
   uint32 datum_count;
 
-  cgc_read(&datum_count, sizeof(datum_count));
+  read(&datum_count, sizeof(datum_count));
   if ((datum_count < 1) || (datum_count > MAX_STACK_SIZE)) return -1;
 
   read_data(datum_count);
@@ -27,7 +27,7 @@ void read_data(uint32 datum_count) {
 
   for (uint32 cur = 0; cur < datum_count; cur++) {
     uint32 datum;
-    cgc_read(&datum, sizeof(datum));
+    read(&datum, sizeof(datum));
     data[cur] = datum;
   }
 
@@ -36,7 +36,7 @@ void read_data(uint32 datum_count) {
     transmit_all(STDOUT, (char*)(&datum_count), 4);
 
     uint32 choice;
-    cgc_read(&choice, sizeof(choice));
+    read(&choice, sizeof(choice));
     
     switch(choice) {
     case 1:
@@ -68,7 +68,7 @@ void draw_echo(uint32 count) {
 
   for (uint32 cur = 0; cur < count; cur++) {
     uint32 chr;
-    cgc_read(&chr, sizeof(chr));
+    read(&chr, sizeof(chr));
     body[cur] = chr;
   }
 
@@ -77,14 +77,14 @@ void draw_echo(uint32 count) {
 
 void echo() {
   uint32 count;
-  cgc_read(&count, sizeof(count));
+  read(&count, sizeof(count));
 
   if ((count < 1) || (count > MAX_STACK_SIZE)) _terminate(-1);
 
   draw_echo(count);
 }
 
-size_t cgc_read(void* buf, size_t expected_size) {
+size_t read(void* buf, size_t expected_size) {
   size_t actual_size;
   int status;
 

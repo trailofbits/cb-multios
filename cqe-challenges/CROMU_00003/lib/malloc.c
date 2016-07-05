@@ -37,19 +37,19 @@ THE SOFTWARE.
 
 tMallocManager g_memManager;
 
-void *cgc_calloc( size_t count, size_t obj_size )
+void *calloc( size_t count, size_t obj_size )
 {
     size_t allocation_size = (count * obj_size);
     void *pMemBuffer;
 
-    pMemBuffer = cgc_malloc( allocation_size );
+    pMemBuffer = malloc( allocation_size );
 
-    cgc_memset( pMemBuffer, 0, allocation_size );
+    memset( pMemBuffer, 0, allocation_size );
 
     return (pMemBuffer);
 }
 
-void *cgc_add_free_list( size_t request_size )
+void *add_free_list( size_t request_size )
 {
     // Include header
     size_t grow_size = (request_size + 4);
@@ -83,7 +83,7 @@ void *cgc_add_free_list( size_t request_size )
     return (void*)pNewAllocHdr;
 }
 
-void *cgc_malloc( size_t alloc_size )
+void *malloc( size_t alloc_size )
 {
     // Allocate
     if ( alloc_size < 8 )
@@ -104,7 +104,7 @@ void *cgc_malloc( size_t alloc_size )
         if ( pFreeCur == NULL )
         {
             // End of list -- no suitable allocations available
-            pFreeCur = cgc_add_free_list( alloc_size );
+            pFreeCur = add_free_list( alloc_size );
         }
 
         tMallocAllocHdr *pFreeCurHeader = ((tMallocAllocHdr *)pFreeCur);
@@ -137,7 +137,7 @@ void *cgc_malloc( size_t alloc_size )
 
                 if ( ((void *)pNewChunkHeader + (pNewChunkHeader->alloc_size & ~0x3)-sizeof(tMallocAllocHdr)) != pFreeCurFooter )
                 {
-                    cgc_printf( "Footer != in malloc" );
+                    printf( "Footer != in malloc" );
                     _terminate( -3 );
                 }
 
@@ -174,7 +174,7 @@ void *cgc_malloc( size_t alloc_size )
                 }
                 else
                 {
-                    // Link acgc_round
+                    // Link around
                     if ( pFreeCurFooter->pPrev )
                         FREE_BLOCK_NEXT( pFreeCurFooter->pPrev ) = pFreeCurFooter->pNext;
 
@@ -185,7 +185,7 @@ void *cgc_malloc( size_t alloc_size )
 
 
             // Clear the allocation
-            cgc_memset( (void *)(pFreeCur + sizeof(tMallocAllocHdr)), 0, alloc_size );
+            memset( (void *)(pFreeCur + sizeof(tMallocAllocHdr)), 0, alloc_size );
 
             // Return the allocated memory
             return (pFreeCur+sizeof(tMallocAllocHdr));
@@ -196,7 +196,7 @@ void *cgc_malloc( size_t alloc_size )
     }
 }
 
-void cgc_free( void *pItem )
+void free( void *pItem )
 {
     // Free an object and coalesce to neighboring block if available
 

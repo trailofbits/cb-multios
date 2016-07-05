@@ -3,7 +3,7 @@
 #include "words.h"
 
 typedef unsigned int uint32_t;
-
+#define PAGE_SIZE 4096
 
 char gValidChars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 #define VALID_CHARS_LEN (sizeof(gValidChars) - 1)
@@ -18,7 +18,7 @@ char gValidChars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 #define NEXT_WORD_MSG "Next Word: "
 #define FINAL_RND_MSG "Final Round. Chose another 2 digit number\n"
 
-size_t cgc_strlen(char* str)
+size_t strlen(char* str)
 {
   size_t ret = 0; 
   if (str == NULL)
@@ -57,7 +57,7 @@ size_t transmit_all(char* buf, size_t size)
 
 size_t transmit_str(char* buf)
 {
-  size_t len = cgc_strlen(buf);
+  size_t len = strlen(buf);
   return (transmit_all(buf, len));
 }
 
@@ -174,7 +174,7 @@ int init(int rot)
   int i = 0;
   for (i = 0; i < numWords; i++)
   {
-    total += cgc_strlen(gSeedWords[i]);
+    total += strlen(gSeedWords[i]);
     total += 1; //for the NULL character
   }
  
@@ -251,7 +251,7 @@ uint32_t RANDOM()
   return (gRandRegister);
 }
 
-int cgc_strcmp(char* s1, char* s2)
+int strcmp(char* s1, char* s2)
 {
   if (s1 == NULL)
   {
@@ -380,7 +380,7 @@ int main(void)
   
     buf[sret-1] = '\0';
 
-    if (cgc_strcmp(buf, gWords[temp]) != 0)
+    if (strcmp(buf, gWords[temp]) != 0)
     {
       transmit_str(LOSE_MSG);
       return (0);
@@ -404,7 +404,7 @@ int main(void)
   
   buf[sret-1] = '\0';
 
-  if (cgc_strcmp(buf, gWords[i]) != 0)
+  if (strcmp(buf, gWords[i]) != 0)
   {
     transmit_str(LOSE_MSG);
   }

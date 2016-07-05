@@ -40,7 +40,7 @@
 int receive_all(int fd, void *buf, size_t count, size_t *rx_bytes);
 int transmit_all(int fd, const void *buf, size_t count, size_t *tx_bytes);
 
-unsigned char * cgc_memset(unsigned char *b, unsigned char c, size_t len);
+unsigned char * memset(unsigned char *b, unsigned char c, size_t len);
 
 ////
 // The following is verbatim from EAGLE_00004, but isn't included in the 

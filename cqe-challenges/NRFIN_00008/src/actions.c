@@ -52,9 +52,9 @@ void list(char *buf){
 
     while(cur) {
         int2str(tmp,sizeof(tmp),i++);
-        SSEND(cgc_strlen(tmp),tmp);
+        SSEND(strlen(tmp),tmp);
         SSEND(3,".) ")
-        SSENDL(cgc_strlen(cur->name),cur->name);
+        SSENDL(strlen(cur->name),cur->name);
         cur = cur->next;
     }
 }
@@ -122,7 +122,7 @@ void add(char *buf){
     cur = vhead;
     size_t total, rndbytes;
 
-    if(cgc_strlen(buf) > MAX_NAME_SIZE || cgc_strlen(buf) == 0) {
+    if(strlen(buf) > MAX_NAME_SIZE || strlen(buf) == 0) {
         SSENDL(sizeof(MAGICWORD)-1,MAGICWORD);
         _terminate(14);
     }
@@ -158,7 +158,7 @@ void add(char *buf){
 
     
     new->can_delete = 1;
-    cgc_strcpy(new->name,buf);
+    strcpy(new->name,buf);
     
     RECV(total,((char*)new)+sizeof(video));
     new->elen = total-4;

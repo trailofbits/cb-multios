@@ -112,7 +112,6 @@ void print_statistics()
 
 int main()
 {
-	
 	int ret;
 
 	// zero out structs

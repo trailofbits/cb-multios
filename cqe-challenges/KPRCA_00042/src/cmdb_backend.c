@@ -61,7 +61,7 @@ static char *check_genre(char *genre)
 {
     size_t i = 0;
     for (i = 0; i < g_num_genres; i++) {
-        if(cgc_strcmp(genre, g_all_genres[i]) == 0)
+        if(strcmp(genre, g_all_genres[i]) == 0)
             return g_all_genres[i];
     }
 
@@ -72,7 +72,7 @@ static char *check_rating(char *rating)
 {
     size_t i = 0;
     for (i = 0; i < g_num_mpaa_ratings; i++) {
-        if(cgc_strcmp(rating, g_all_mpaa_ratings[i]) == 0)
+        if(strcmp(rating, g_all_mpaa_ratings[i]) == 0)
             return g_all_mpaa_ratings[i];
     }
 
@@ -150,13 +150,13 @@ int add_entry(cmdb_entry_t *entry)
             g_cmdb = temp_db;
             return -1;
         }
-        cgc_memcpy(g_cmdb, temp_db, (sizeof(cmdb_entry_t) * g_list_size));
+        memcpy(g_cmdb, temp_db, (sizeof(cmdb_entry_t) * g_list_size));
 
         g_list_size <<= 1;
         free(temp_db);
     }
 
-    cgc_memcpy(&g_cmdb[g_list_length++], entry, sizeof(cmdb_entry_t));
+    memcpy(&g_cmdb[g_list_length++], entry, sizeof(cmdb_entry_t));
     return 0;
 }
 
@@ -173,7 +173,7 @@ int delete_entry(int id)
     free(g_cmdb[id].desc);
 
     if (id+1 < g_list_length)
-        cgc_memcpy(&g_cmdb[id], &g_cmdb[id+1], sizeof(cmdb_entry_t) * (g_list_length - (id+1)));
+        memcpy(&g_cmdb[id], &g_cmdb[id+1], sizeof(cmdb_entry_t) * (g_list_length - (id+1)));
 
     g_list_length--;
     printf("Successfully removed the movie!\n");
@@ -225,7 +225,7 @@ cmdb_entry_t *find_entry(char *name)
 {
     int i;
     for (i = 0; i < g_list_length; i++) {
-        if (cgc_strcmp(g_cmdb[i].name, name) == 0)
+        if (strcmp(g_cmdb[i].name, name) == 0)
             return &g_cmdb[i];
     }
 

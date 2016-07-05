@@ -101,8 +101,8 @@ complex_t *dft(double *real_coeff, unsigned int samples, int *len) {
             return NULL;
         }
 
-        cgc_memset(real_coeff_padded, 0, sizeof(double) * samples);
-        cgc_memcpy(real_coeff_padded, real_coeff, sizeof(double) * orig_samples);
+        memset(real_coeff_padded, 0, sizeof(double) * samples);
+        memcpy(real_coeff_padded, real_coeff, sizeof(double) * orig_samples);
 
         Xk = fft(real_coeff_padded, samples);
         free(real_coeff_padded);
@@ -138,8 +138,8 @@ double *idft(complex_t *coeff, unsigned int samples, int *len) {
             return NULL;
         }
 
-        cgc_memset(coeff_padded, 0, sizeof(complex_t) * samples);
-        cgc_memcpy(coeff_padded, coeff, sizeof(complex_t) * orig_samples);
+        memset(coeff_padded, 0, sizeof(complex_t) * samples);
+        memcpy(coeff_padded, coeff, sizeof(complex_t) * orig_samples);
 
         xt = cfft(coeff_padded, samples);
         free(coeff_padded);

@@ -24,7 +24,7 @@
  */
 #include <string.h>
 
-char *cgc_strcpy(char *dest, const char *src)
+char *strcpy(char *dest, const char *src)
 {
     size_t i;
     for (i = 0; src[i] != '\0'; i++)

@@ -43,7 +43,7 @@ void find_matches(bst_node_type *head, int arg_count, char **args)  {
 
         while (item!= 0) {
 
-            if (cgc_strcmp(args[1], item->name)==0 ) {
+            if (strcmp(args[1], item->name)==0 ) {
                 printf("@s\n", item->name);
                 break;
             }

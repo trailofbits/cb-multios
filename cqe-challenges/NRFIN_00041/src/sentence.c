@@ -44,7 +44,7 @@ int parse_sentence(const char *buf, struct sentence_struct *ss) {
 		return ERR_INVALID_SENTENCE;
 	}
 
-	if (1 != is_checksum_correct(p_buf)) {
+	if (TRUE != is_checksum_correct(p_buf)) {
 		return ERR_INVALID_SENTENCE;
 	}
 
@@ -94,7 +94,7 @@ int parse_sentence(const char *buf, struct sentence_struct *ss) {
 	end = get_next_field(p_buf) - 1;
 
 #if PATCHED
-	if (MAX_SENTENCE_LEN < (end-p_buf+cgc_strlen(ss->ais_msg))) {
+	if (MAX_SENTENCE_LEN < (end-p_buf+strlen(ss->ais_msg))) {
 		return ERR_INVALID_SENTENCE;
 	}
 #endif
@@ -121,7 +121,7 @@ void reset_sentence_struct(struct sentence_struct *ss) {
  	ss->session_id = 0;
 	ss->msg_status = EMPTY;
 	ss->msg_type = 0;
-	cgc_memset((void *)ss->ais_msg, 0, MAX_SENTENCE_LEN);
+	memset((void *)ss->ais_msg, 0, MAX_SENTENCE_LEN);
  	ss->p_ais_msg_idx = ss->ais_msg;
  }
 
@@ -169,15 +169,15 @@ int is_checksum_correct(const char *str) {
 		return ERR_INVALID_SENTENCE;
 	}
 
-	if ((0 == is_hex_digit(*(ptr+1))) || (0 == is_hex_digit(*(ptr+2)))) {
+	if ((FALSE == is_hex_digit(*(ptr+1))) || (FALSE == is_hex_digit(*(ptr+2)))) {
 		return ERR_INVALID_SENTENCE;
 	}
 
 	if (calcsum == ((ascii_hex_to_bin(*(ptr+1)) << 4) + ascii_hex_to_bin(*(ptr+2)))) {
-		return 1;
+		return TRUE;
 	}
 
-	return 0;
+	return FALSE;
 }
 
 int field_to_uint(const char *str, unsigned int *int_val) {

@@ -38,7 +38,7 @@ ppermit_t* permit_new(char *license_number, int num_entrances, int spot_number)
   if ((permit = (ppermit_t *) malloc(sizeof(ppermit_t))) != NULL)
   {
     int i, cs;
-    cgc_random(permit->permit_token, sizeof(permit->permit_token), NULL);
+    random(permit->permit_token, sizeof(permit->permit_token), NULL);
     permit->permit_token[4] = 0x55;
     for (i = 0; i < sizeof(permit->permit_token) - 1; ++i)
       cs += ((int) permit->permit_token[i]) & 0xFF;
@@ -57,9 +57,9 @@ ppring_t* pring_new(int num_permits, ppermit_t permits[])
   {
     int i;
     ppermit_t *permit;
-    cgc_memset(pring, 0, sizeof(ppring_t));
+    memset(pring, 0, sizeof(ppring_t));
     for (i = 0; i < num_permits; ++i)
-      cgc_memcpy(&pring->permits[i], &permits[i], sizeof(ppermit_t));
+      memcpy(&pring->permits[i], &permits[i], sizeof(ppermit_t));
     pring->num_permits = num_permits;
   }
   return pring;
@@ -83,7 +83,7 @@ ppring_t* pring_refactor(ppring_t *pring)
           count++;
           for (j = i; j < pring->num_permits - 1; ++j)
           {
-            cgc_memcpy(&pring->permits[j], &pring->permits[j + 1], sizeof(ppermit_t));
+            memcpy(&pring->permits[j], &pring->permits[j + 1], sizeof(ppermit_t));
           }
           pring->num_permits--;
           break;
@@ -91,7 +91,7 @@ ppring_t* pring_refactor(ppring_t *pring)
       }
     }
     if (count > 0)
-      cgc_memset(&pring->permits[n - count], 0, count * sizeof(ppermit_t));
+      memset(&pring->permits[n - count], 0, count * sizeof(ppermit_t));
   }
   return pring;
 }
@@ -111,9 +111,9 @@ int _validate_permit_token(char *token)
 int _validate_license_number(char *license_number)
 {
   int i, count = 0;
-  if (cgc_strlen(license_number) > 9)
+  if (strlen(license_number) > 9)
     return -1;
-  for (i = 0; i < cgc_strlen(license_number); ++i)
+  for (i = 0; i < strlen(license_number); ++i)
   {
     if (!isalnum(license_number[i] & 0xFF))
       return -1;
@@ -132,7 +132,7 @@ int permit_test(ppermit_t *permit, int spot_number, char *license_number)
     if (_validate_permit_token(permit->permit_token) != 0)
       return PRES_INVALID_TOKEN;
     if (_validate_license_number(permit->license_number) != 0 ||
-        cgc_strcmp(permit->license_number, license_number) != 0)
+        strcmp(permit->license_number, license_number) != 0)
       return PRES_INVALID_LICENSE;
     if (permit->num_entrances <= 0)
       return PRES_EXPIRED;

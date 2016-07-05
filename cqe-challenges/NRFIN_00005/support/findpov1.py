@@ -62,9 +62,9 @@ def run_single_game(game):
 	# game is done, update scores
 	game.update_score()
 
-def run_game_sequence(cgc_index, player_char):
+def run_game_sequence(index, player_char):
 	from tickatack import TickATackGame
-	t = TickATackGame(cgc_index)
+	t = TickATackGame(index)
 	replay = 0
 
 	while(not is_stopping_score(t.get_scores())):
@@ -77,7 +77,7 @@ def run_game_sequence(cgc_index, player_char):
 		# set replay to keep score in follow-on games
 		replay = 1
 
-	return {'cgc_index': cgc_index, 'player_char': player_char, 'scores': t.get_scores()}
+	return {'index': index, 'player_char': player_char, 'scores': t.get_scores()}
 
 def main():
 	# loop through 800 indices of PI from PI_PRNG
@@ -86,14 +86,14 @@ def main():
 
 	for i in range(0, PI_INDICES):
 		# run a series of games where in each sequence the player starts at
-		# a different pi cgc_index. The computer always starts at the 0 cgc_index.
+		# a different pi index. The computer always starts at the 0 index.
 
 		# The player is always P.
 		game_result = run_game_sequence(i, 'P')
 		if is_goal_score(game_result['scores']):
-			print("SUCCESS: player_char: {0}, pi_cgc_index: {1}, scores: p={2}/c={3}".format(
+			print("SUCCESS: player_char: {0}, pi_index: {1}, scores: p={2}/c={3}".format(
 				game_result['player_char'],
-				game_result['cgc_index'],
+				game_result['index'],
 				game_result['scores']['player'],
 				game_result['scores']['computer']))
 			return
@@ -101,9 +101,9 @@ def main():
 		# The player is always Q.
 		game_result = run_game_sequence(i, 'Q')
 		if is_goal_score(game_result['scores']):
-			print("SUCCESS: player_char: {0}, pi_cgc_index: {1}, scores: p={2}/c={3}".format(
+			print("SUCCESS: player_char: {0}, pi_index: {1}, scores: p={2}/c={3}".format(
 				game_result['player_char'],
-				game_result['cgc_index'],
+				game_result['index'],
 				game_result['scores']['player'],
 				game_result['scores']['computer']))
 			return

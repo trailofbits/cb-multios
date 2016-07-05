@@ -164,7 +164,7 @@ movie_node_t* movie_find(movie_list_t list, char *title)
     movie_node_t *cur = list;
     while (cur != NULL)
     {
-      if (cgc_strcmp(cur->movie->title, title) == 0)
+      if (strcmp(cur->movie->title, title) == 0)
         return cur;
       cur = cur->next;
     }

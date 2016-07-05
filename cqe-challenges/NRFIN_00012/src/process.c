@@ -49,11 +49,11 @@ tfttp_pkt* do_put() {
     }
     
     key  = (char *)curpkt->data;
-    if(cgc_strlen(key) >= 128) {
+    if(strlen(key) >= 128) {
         return NULL;
     }
-    data = key+cgc_strlen(key)+1;
-    if(cgc_strlen(data) >= 256){
+    data = key+strlen(key)+1;
+    if(strlen(data) >= 256){
         return NULL;
     }
 
@@ -65,8 +65,8 @@ tfttp_pkt* do_put() {
         }
     }
 
-    cgc_strcpy(qss[numentries].key,key);
-    cgc_strcpy(qss[numentries].data,data);
+    strcpy(qss[numentries].key,key);
+    strcpy(qss[numentries].data,data);
     numentries++;
 
 
@@ -111,7 +111,7 @@ tfttp_pkt* easteregg() {
 
     while(*(i++) == '\x42');
 
-    cgc_strcpy(i, "If you do things right, people won't be sure that you've done anything at all...");
+    strcpy(i, "If you do things right, people won't be sure that you've done anything at all...");
     
     return curpkt;
 }

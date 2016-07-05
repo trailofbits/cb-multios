@@ -39,7 +39,7 @@ This vulnerability is meant to be easy to both find and patch.
 Vulnerability 2:
 Similarly to vulnerability 1, the CRS must add 20 messages to the message queue of the last user. The CRS must log out, then intentionally fail the log in three times (by entering the incorrect password). This will allow the user to re-enter the same user name, and any password. The CRS must then log in with that user name and create one more message. This will cause a similar overwrite to the 'printer' function pointer and cause a dereference of invalid memory and crash.
 
-This vulnerability comes acgc_round because when the CRS reset the password, their 'first_login' variable was reset (user.c, line 98). This variable is then used when adding a message (message.c, line 81) to circumvent the length check on line 100 (even if vulnerability 1 was patched).
+This vulnerability comes around because when the CRS reset the password, their 'first_login' variable was reset (user.c, line 98). This variable is then used when adding a message (message.c, line 81) to circumvent the length check on line 100 (even if vulnerability 1 was patched).
 
 This vulnerability is meant to frustrate brute forcing and cause intelligent path analysis.
 

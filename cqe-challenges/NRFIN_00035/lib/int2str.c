@@ -47,7 +47,7 @@ int int2str(char* str_buf, int buf_size, int i) {
     // i is always 0 or negative at this point.
     tmp = i;
 
-    // increment cgc_index in str_buf to where rightmost digit goes
+    // increment index in str_buf to where rightmost digit goes
     do {
         idx++;
         tmp = tmp/10;

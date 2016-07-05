@@ -15,7 +15,7 @@ The virtual machine implements basic arithmetic such as addition, subtraction, d
 
 ## Vulnerability
 
-The 8-bit opcode that is parsed from the instruction is used to cgc_index into an array of label values, and the result is the target of the computed goto statement (main.c:110). There is a check to make sure the opcode is not greater than the number of elements in the array (main.c:109), but the opcode is a signed integer which can lead to an underflow. By specifying a negative 8-bit opcode, an attacker can force the program to execute invalid memory.
+The 8-bit opcode that is parsed from the instruction is used to index into an array of label values, and the result is the target of the computed goto statement (main.c:110). There is a check to make sure the opcode is not greater than the number of elements in the array (main.c:109), but the opcode is a signed integer which can lead to an underflow. By specifying a negative 8-bit opcode, an attacker can force the program to execute invalid memory.
 
 ### CWE classification
 CWE-127: Buffer Under-read

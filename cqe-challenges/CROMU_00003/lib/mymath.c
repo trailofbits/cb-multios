@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <mymath.h>
 #include <stdint.h>
 
-double cgc_floor( double val )
+double floor( double val )
 {
     if ( val > 0.0 )
         return rint( val + 0.5 ) - 1.0;
@@ -37,7 +37,7 @@ double cgc_floor( double val )
         return 0.0;
 }
 
-double cgc_round_away_from_zero( double val )
+double round_away_from_zero( double val )
 {
     if ( val > 0.0 )
         return rint( val + 0.5 );
@@ -47,7 +47,7 @@ double cgc_round_away_from_zero( double val )
         return 0.0;
 }
 
-double cgc_round( double val, double n )
+double round( double val, double n )
 {
     // Round to n digits
     n = rint( n );
@@ -55,5 +55,5 @@ double cgc_round( double val, double n )
     double high_pow10 = pow( 10, n );
     double low_pow10 = pow( 10, -n );
 
-    return (cgc_round_away_from_zero( val * high_pow10 ) * low_pow10);
+    return (round_away_from_zero( val * high_pow10 ) * low_pow10);
 }

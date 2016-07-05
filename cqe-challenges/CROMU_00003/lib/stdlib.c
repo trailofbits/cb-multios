@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <stdlib.h>
 #include <stdint.h>
 
-int cgc_isspace( int c )
+int isspace( int c )
 {
     if ( c == ' ' ||
          c == '\t' ||
@@ -40,7 +40,7 @@ int cgc_isspace( int c )
         return 0;
 }
 
-int cgc_isdigit( int c )
+int isdigit( int c )
 {
     if ( c >= '0' && c <= '9' )
         return 1;
@@ -48,17 +48,17 @@ int cgc_isdigit( int c )
         return 0;
 }
 
-int cgc_isnan( double val )
+int isnan( double val )
 {
     return __builtin_isnan( val );
 }
 
-int cgc_isinf( double val )
+int isinf( double val )
 {
     return __builtin_isinf( val );
 }
 
-double cgc_atof(const char* str)
+double atof(const char* str)
 {
     if ( str == NULL )
         return 0.0;
@@ -69,7 +69,7 @@ double cgc_atof(const char* str)
     int part;
 
     // Skip whitespace
-    while ( cgc_isspace( str[0] ) )
+    while ( isspace( str[0] ) )
         str++;
 
     part = 0; // First part (+/-/./number is acceptable)
@@ -98,7 +98,7 @@ double cgc_atof(const char* str)
             else
                 return 0.0;
         }
-        else if ( cgc_isdigit( *str ) )
+        else if ( isdigit( *str ) )
         {
             if ( part == 0 || part == 1 )
             {
@@ -138,7 +138,7 @@ int atoi(const char* str)
     int digit_count = 0;
 
     // Skip whitespace
-    while ( cgc_isspace( str[0] ) )
+    while ( isspace( str[0] ) )
         str++;
 
     part = 0; // First part (+/-/number is acceptable)
@@ -160,7 +160,7 @@ int atoi(const char* str)
 
             part++;
         }
-        else if ( cgc_isdigit( *str ) )
+        else if ( isdigit( *str ) )
         {
             if ( part == 0 || part == 1 )
             {
@@ -188,7 +188,7 @@ int atoi(const char* str)
     return (sign * integer_part);
 }
 
-char *cgc_strcpy( char *dest, char *src )
+char *strcpy( char *dest, char *src )
 {
     size_t i;
 
@@ -204,7 +204,7 @@ char *cgc_strcpy( char *dest, char *src )
     return (dest);
 }
 
-void cgc_bzero( void *buff, size_t len )
+void bzero( void *buff, size_t len )
 {
     size_t index = 0;
     unsigned char *c = buff;
@@ -225,7 +225,7 @@ end:
     return;
 }
 
-int cgc_strcmp( const char *s1, const char *s2 ) 
+int strcmp( const char *s1, const char *s2 ) 
 {
     while ( *s1 && (*s1 == *s2) ) 
     {
@@ -234,9 +234,9 @@ int cgc_strcmp( const char *s1, const char *s2 )
     return (*(const unsigned char *)s1 - *(const unsigned char *)s2);
 }
 
-char *cgc_strncat ( char *dest, const char *src, size_t n ) 
+char *strncat ( char *dest, const char *src, size_t n ) 
 {
-    size_t dest_len = cgc_strlen(dest);
+    size_t dest_len = strlen(dest);
     size_t i;
 
     if (dest == NULL || src == NULL) 
@@ -252,7 +252,7 @@ char *cgc_strncat ( char *dest, const char *src, size_t n )
     return(dest);
 }
 
-size_t cgc_receive_until( char *dst, char delim, size_t max )
+size_t receive_until( char *dst, char delim, size_t max )
 {
     size_t len = 0;
     size_t rx = 0;
@@ -277,7 +277,7 @@ end:
     return len;
 }
 
-size_t cgc_strcat( char *dest, char*src )
+size_t strcat( char *dest, char*src )
 {
     size_t length = 0;
     size_t start = 0;
@@ -286,7 +286,7 @@ size_t cgc_strcat( char *dest, char*src )
         goto end;
     }
 
-    start = cgc_strlen( dest );
+    start = strlen( dest );
 
     for ( ; src[length] != 0x00 ; start++, length++ ) {
         dest[start] = src[length];
@@ -297,7 +297,7 @@ end:
     return length;
 }
 
-size_t cgc_strlen( char * str )
+size_t strlen( char * str )
 {
     size_t length = 0;
 
@@ -311,7 +311,7 @@ end:
     return length;
 }
 
-size_t cgc_itoa( char *out, size_t val, size_t max )
+size_t itoa( char *out, size_t val, size_t max )
 {
     size_t length = 0;
     size_t end = 0;
@@ -349,14 +349,14 @@ end:
     return length;
 }
 
-void cgc_puts( char *t )
+void puts( char *t )
 {
     size_t size;
-    transmit(STDOUT, t, cgc_strlen(t), &size);
+    transmit(STDOUT, t, strlen(t), &size);
     transmit(STDOUT, "\n", 1, &size);
 }
 
-void *cgc_memcpy(void *dest, void*src, unsigned int len) {
+void *memcpy(void *dest, void*src, unsigned int len) {
     void *ret;
     ret = dest;
     while(len) {
@@ -366,7 +366,7 @@ void *cgc_memcpy(void *dest, void*src, unsigned int len) {
     return ret;
 }
 
-void *cgc_memset(void *dest, char c, unsigned int len) {
+void *memset(void *dest, char c, unsigned int len) {
     void *ret = dest;
     while(len--) {
         *(char *)dest++=c;
@@ -374,7 +374,7 @@ void *cgc_memset(void *dest, char c, unsigned int len) {
     return ret;
 }
 
-char *cgc_strchr(char *str, char c)
+char *strchr(char *str, char c)
 {
     char *ret;
     ret = str;

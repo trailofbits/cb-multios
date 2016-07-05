@@ -162,7 +162,7 @@ def modifies_known_mutable(obj, attr):
     False
     >>> modifies_known_mutable([], "append")
     True
-    >>> modifies_known_mutable([], "cgc_index")
+    >>> modifies_known_mutable([], "index")
     False
 
     If called with an unsupported object (such as unicode) `False` is

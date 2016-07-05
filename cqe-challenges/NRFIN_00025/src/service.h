@@ -53,7 +53,7 @@ size_t depth = 0;
 
 unsigned char rx_buf[BUF_RX_SZ];
 size_t rx_bytes = 0;
-size_t rx_cgc_index = 0;
+size_t rx_index = 0;
 
 size_t tx_bytes = 0;
 
@@ -62,7 +62,7 @@ unsigned char otp[OTP_SZ] = { 0 };
 // Reconstituted ciphertext will always be smaller in length than the total 
 // received because overhead bytes are stripped (not appended).
 unsigned char ct[BUF_RX_SZ];
-size_t ct_cgc_index = 0;
+size_t ct_index = 0;
 
 unsigned char PKT_INVALID_SZ[] = 
 	"\xFF\xDD\xDD\xDD\xDD\xDD\xDD\xDD\xDD\xDD\xDD\xDD\xDD\xDD\xDD\xDD"

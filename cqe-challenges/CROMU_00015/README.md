@@ -96,7 +96,7 @@ However, in the countryMenu() function it is possible to overflow this buffer wi
 
 The second vulnerability is also very straight forward but it is much deeper in the PML
 parsing code. The City structure is able to store the name of the Mayor in a 20 byte
-buffer but the function cgc_strcpy() is used without bounds checking to copy the value
+buffer but the function strcpy() is used without bounds checking to copy the value
 from the PML element into the field. This results in a basic heap based buffer
 overflow.
 

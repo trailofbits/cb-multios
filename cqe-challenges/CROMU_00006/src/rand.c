@@ -3,16 +3,16 @@
 #include "charter.h"
 #include "data.h"
 
-uint32 cgc_index = 0;
+uint32 index = 0;
 uint32 mt[624];
 uint32 seeded = 0;
 
 void seed() {
   uint32 seed_value;
-  cgc_read(&seed_value, sizeof(seed_value));
+  read(&seed_value, sizeof(seed_value));
 
-  cgc_index = 0;
-  mt[cgc_index] = seed_value;
+  index = 0;
+  mt[index] = seed_value;
   for (uint32 i = 1; i < 624; i++) {
     mt[i] = 0xffffffff & (1812433253 * 
                           (mt[i - 1] ^ (mt[i - 1] >> 30)) + 1);
@@ -26,7 +26,7 @@ void seed() {
 
 void noise() {
   uint32 noise_qty;
-  cgc_read(&noise_qty, sizeof(noise_qty));
+  read(&noise_qty, sizeof(noise_qty));
 
   uint32 noise_words = noise_qty / 4;
 
@@ -57,15 +57,15 @@ void generate_numbers();
 uint32 rand() {
   if (seeded == 0) return 0;
 
-  if (cgc_index == 0) generate_numbers();
+  if (index == 0) generate_numbers();
 
-  uint32 y = mt[cgc_index];
+  uint32 y = mt[index];
   y = y ^ (y >> 11);
   y = y ^ ((y << 7) & 0x9d2c5680);
   y = y ^ ((y << 15) & 0xefc60000);
   y = y ^ (y >> 18);
 
-  cgc_index = (cgc_index + 1) % 624;
+  index = (index + 1) % 624;
 
   return y;
 }

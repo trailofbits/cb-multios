@@ -22,7 +22,7 @@ The final ouptut is a list of lines that differ from one another, as well as the
 The vulnerability is based on an "easter egg" embedded in the program. If a user has two files that are identical on every line except the 1^2, 2^2, 3^2......18^2 line, the program outputs an additional output of 
 ":D=<line contents>"
 
-However. The easter egg does an unsafe cgc_strcpy, and potentially allows a user to overflow onto the stack. From here it would be possible to take advantage of the system by overwriting stack variables.
+However. The easter egg does an unsafe strcpy, and potentially allows a user to overflow onto the stack. From here it would be possible to take advantage of the system by overwriting stack variables.
 
 ### Generic class of vulnerability
 

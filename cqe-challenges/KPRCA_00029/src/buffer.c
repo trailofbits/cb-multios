@@ -152,7 +152,7 @@ void buffer_write_seek(buffer_t *buf, uint64_t pos)
 
 void buffer_init(buffer_t *buf, uint8_t *data, size_t data_size)
 {
-    cgc_memset(buf, 0, sizeof(buffer_t));
+    memset(buf, 0, sizeof(buffer_t));
     buf->buffer = data;
     buf->length = data_size;
 }

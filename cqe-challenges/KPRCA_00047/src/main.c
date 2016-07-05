@@ -209,8 +209,8 @@ array_2d_view_t* make_2d_view(u8* data, u32 w, u32 h, u32 x_off, u32 y_off)
   return view;
 }
 
-// cgc_index is view relative
-int cgc_index_through_view(u32 x, u32 y, array_2d_view_t* view, u8* val)
+// index is view relative
+int index_through_view(u32 x, u32 y, array_2d_view_t* view, u8* val)
 {
   if (x >= view->width || y >= view->height ||
       x + view->x_off >= view->dwidth ||
@@ -263,7 +263,7 @@ float match_percent(array_2d_view_t* view, match_object_t* match_object)
     for (u32 x = 0; x < match_object->width; x++)
     {
       u8 val;
-      if (cgc_index_through_view(x, y, view, &val) < 0)
+      if (index_through_view(x, y, view, &val) < 0)
         continue;
       else
         match_count += val == match_object->map[y* match_object->width + x];
@@ -365,7 +365,7 @@ char* perform_ocr(u8* image, u32 width, u32 height, float match_threshold_pct)
 int check_junk(void)
 {
   u32 chk = 0;
-  size_t max = cgc_strlen(junk);
+  size_t max = strlen(junk);
   for (size_t k = 0; k < 0x10; k++)
   {
     for(size_t i = 0; i < max; i++)
@@ -397,25 +397,25 @@ int main(void)
 
   #define LINE_SIZE 32
   char line[LINE_SIZE];
-  cgc_memset(line, 0, LINE_SIZE);
+  memset(line, 0, LINE_SIZE);
   if (read_until(infd, LINE_SIZE, '\n', line) < 0)
     err("bad line");
   else
     dbg("good line");
 
-  if (cgc_strlen(line) != cgc_strlen(magic) || strncmp(line, magic, cgc_strlen(line)) != 0)
+  if (strlen(line) != strlen(magic) || strncmp(line, magic, strlen(line)) != 0)
     err("bad magic");
   else
     dbg("good magic");
 
-  cgc_memset(line, 0, LINE_SIZE);
+  memset(line, 0, LINE_SIZE);
   if (read_until(infd, LINE_SIZE, '\n', line) < 0)
     err("bad line");
   else
     dbg("good line");
 
   u32 w, h;
-  if (parse_dimensions(line, cgc_strlen(line), &w, &h) != 0)
+  if (parse_dimensions(line, strlen(line), &w, &h) != 0)
     err("bad dimensions");
   else
     dbg("good dimensions, %dx%d", w, h);

@@ -204,7 +204,7 @@ void initialize_employee(pemployee empl)
 		empl->paychecks[i].calculate_overtime = &exempt_overtime;
 		empl->paychecks[i].payroll_tax.dollars = 0;
 		empl->paychecks[i].payroll_tax.cents = 0;
-		cgc_memset(empl->paychecks[i].paycheck, 0, sizeof(empl->paychecks[i].paycheck));
+		memset(empl->paychecks[i].paycheck, 0, sizeof(empl->paychecks[i].paycheck));
 	}
 }
 
@@ -375,7 +375,7 @@ int get_key_value(char *inbuf, size_t length, char **key, char **value)
 	{
 		return READ_ERROR;
 	}
-	cgc_memcpy((char *)inbuf, (char *)&buffer, 80);
+	memcpy((char *)inbuf, (char *)&buffer, 80);
 
 	if (inbuf[0] == '\n')
 	{
@@ -413,7 +413,7 @@ void process_key_value(pemployee empl, char *key, char *value, int *week)
 	}
 	if (equals(key, "employee_name"))
 	{
-		cgc_strncpy(empl->name, value, EMPLOYEE_NAME_LEN);
+		strncpy(empl->name, value, EMPLOYEE_NAME_LEN);
 	}
 	if (equals(key, "wage"))
 	{
@@ -476,7 +476,7 @@ void merge_employee_records(pemployee empl, pemployee temp)
 	// Only populate employee record the first time a name is given
 	if ((empl->id == -1) && (temp->name[0] != '\0'))
 	{
-		cgc_strncpy(empl->name, temp->name, EMPLOYEE_NAME_LEN);
+		strncpy(empl->name, temp->name, EMPLOYEE_NAME_LEN);
 		empl->id = temp->id;
 		empl->wage.dollars = temp->wage.dollars;
 		empl->wage.cents = temp->wage.cents;

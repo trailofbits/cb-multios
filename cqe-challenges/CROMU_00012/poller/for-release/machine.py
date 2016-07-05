@@ -87,36 +87,36 @@ class TIACA(Actions):
 		pass
 
 	def carOff(self):
-		self.cgc_write("%c\n" % self.CAR_OFF)
+		self.write("%c\n" % self.CAR_OFF)
 		if(self.carstate.gear == self.GEARS_PARK):
 			self.carstate.setPowerState(self.CAR_OFF)
 
 	def carOn(self):
-		self.cgc_write("%c\n" % self.CAR_ON)
+		self.write("%c\n" % self.CAR_ON)
 		self.carstate.setPowerState(self.CAR_ON)
 
 	def carAcc(self):
-		self.cgc_write("%c\n" % self.CAR_ACC)
+		self.write("%c\n" % self.CAR_ACC)
 		if(self.carstate.car_power == self.CAR_OFF or (self.carstate.car_power == self.CAR_ON and self.carstate.gear == self.GEARS_PARK)):
 			self.carstate.setPowerState(self.CAR_ACC)
 
 	def end(self):
 		if(self.carstate.boom == True):
 			return
-		self.cgc_write("%c\n" % self.CAR_END)
+		self.write("%c\n" % self.CAR_END)
 		self.read(length=len(str(self.carstate)), expect=str(self.carstate))
 
 	def windowsUp(self):
-		self.cgc_write("%c\n" % self.WINDOWS_UP)
+		self.write("%c\n" % self.WINDOWS_UP)
 		self.carstate.window_state = self.WINDOWS_UP
 
 	def windowsDown(self):
-		self.cgc_write("%c\n" % self.WINDOWS_DOWN)
+		self.write("%c\n" % self.WINDOWS_DOWN)
 		self.carstate.window_state = self.WINDOWS_DOWN
 
 	def changeInfo(self):
 		state = random.choice([self.INFO_OFF, self.INFO_AM, self.INFO_FM, self.INFO_XM, self.INFO_AUX])
-		self.cgc_write("%c\n" % state)
+		self.write("%c\n" % state)
 		if(self.carstate.gear > self.GEARS_THIRD and self.carstate.speed > 30):
 			self.carstate.info_state = state
 		if(state == self.INFO_OFF):
@@ -125,7 +125,7 @@ class TIACA(Actions):
 	def btInfo(self):
 		metadata = "".join(random.choice(string.ascii_letters + string.digits) for _ in range(31))
 		tosend = struct.pack("<BB31s", int(self.INFO_BT), 31, metadata)
-		self.cgc_write(tosend + "\n")
+		self.write(tosend + "\n")
 		if(self.carstate.gear > self.GEARS_THIRD and self.carstate.speed > 30):
 			self.carstate.bt_metadata = metadata
 			self.carstate.info_state = self.INFO_BT
@@ -144,34 +144,34 @@ class TIACA(Actions):
 					self.carstate.rpm += 25
 
 	def openTrunk(self):
-		self.cgc_write("%c\n" % self.TRUNK_OPEN)
+		self.write("%c\n" % self.TRUNK_OPEN)
 		self.carstate.trunk_state = self.TRUNK_OPEN
 
 	def closeTrunk(self):
-		self.cgc_write("%c\n" % self.TRUNK_CLOSED)
+		self.write("%c\n" % self.TRUNK_CLOSED)
 		self.carstate.trunk_state = self.TRUNK_CLOSED
 
 	def loadTrunk(self):
 		weight = random.choice(range(11,100))
 		tosend = struct.pack("<BB", int(self.TRUNK_LOAD), weight)
-		self.cgc_write(tosend + "\n")
+		self.write(tosend + "\n")
 		self.carstate.trunk_load += weight
 
 	def unloadTrunk(self):
 		weight = random.choice(range(11,100))
 		tosend = struct.pack("<BB", int(self.TRUNK_UNLOAD), weight)
-		self.cgc_write(tosend + "\n")
+		self.write(tosend + "\n")
 		if(self.carstate.trunk_load < weight):
 			self.carstate.trunk_load = 0
 		else:
 			self.carstate.trunk_load -= weight
 
 	def setAlarm(self):
-		self.cgc_write("%c\n" % self.ALARM_SET)
+		self.write("%c\n" % self.ALARM_SET)
 		self.carstate.alarm_state = self.ALARM_SET
 
 	def unsetAlarm(self):
-		self.cgc_write("%c\n" % self.ALARM_UNSET)
+		self.write("%c\n" % self.ALARM_UNSET)
 		self.carstate.alarm_state = self.ALARM_UNSET
 
 	def changeVolume(self):
@@ -179,7 +179,7 @@ class TIACA(Actions):
 			adjustDirection = random.choice([self.INFO_VOLUP, self.INFO_VOLDOWN])
 			amount = random.choice(range(10))
 			tosend = struct.pack("<BB", int(adjustDirection), amount)
-			self.cgc_write(tosend + "\n")
+			self.write(tosend + "\n")
 			if(adjustDirection == self.INFO_VOLDOWN):
 				if(self.carstate.info_volume < amount):
 					self.carstate.info_volume = 0
@@ -188,11 +188,11 @@ class TIACA(Actions):
 			else:
 				self.carstate.info_volume += amount
 		else:
-			self.cgc_write("???\n")
+			self.write("???\n")
 
 
 	def alarmTrunk(self):
-		self.cgc_write("%c%c\n" % (self.ALARM_SET, self.TRUNK_OPEN))
+		self.write("%c%c\n" % (self.ALARM_SET, self.TRUNK_OPEN))
 		self.read(expect="***** STACK SMASHING DETECTED! *****", delim="\n")
 		self.carstate.boom = True
 
@@ -209,20 +209,20 @@ class TIACA(Actions):
 					tosend+= "%c" % self.GEARS_ACCEL
 					self.carstate.speed+=1
 				tosend+="\n"
-				self.cgc_write(tosend)
+				self.write(tosend)
 				self.carstate.rpm -= 750
 				self.carstate.gear += 0x10
 				self.carstate.gear_state = self.GEARS_UNCLUTCH
 		else:
-			self.cgc_write("@@@@@@@@@@@\n")
+			self.write("@@@@@@@@@@@\n")
 
 	def shiftDown(self):
 		if(self.carstate.gear > self.GEARS_PARK):
-			self.cgc_write("%c" % self.GEARS_CLUTCH)
+			self.write("%c" % self.GEARS_CLUTCH)
 			while(self.carstate.rpm > 5250):
-				self.cgc_write("%c" % self.GEARS_SLOWDOWN)
+				self.write("%c" % self.GEARS_SLOWDOWN)
 				self.carstate.rpm-=25
-			self.cgc_write("%c%c\n" % (self.GEARS_SHIFTDOWN, self.GEARS_UNCLUTCH))
+			self.write("%c%c\n" % (self.GEARS_SHIFTDOWN, self.GEARS_UNCLUTCH))
 			self.carstate.rpm+= 750
 			self.carstate.gear -= 0x10
 			self.carstate.gear_state = self.GEARS_UNCLUTCH
@@ -236,10 +236,10 @@ class TIACA(Actions):
 				self.carstate.speed+=1
 			else:
 				self.carstate.rpm+=50
-		self.cgc_write(tosend + "\n")
+		self.write(tosend + "\n")
 
 	def speedUp(self):
-		self.cgc_write("%c\n" % self.GEARS_ACCEL)
+		self.write("%c\n" % self.GEARS_ACCEL)
 		if(self.carstate.gear_state == self.GEARS_UNCLUTCH):
 			self.carstate.speed+=1
 			self.carstate.rpm+=25

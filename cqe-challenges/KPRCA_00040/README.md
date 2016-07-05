@@ -33,7 +33,7 @@ large of an uncompressed blob then a buffer overflow occurs.
 
 ### Generic class of vulnerability
 Buffer overflow
-Unchecked array cgc_index
+Unchecked array index
 
 ### CWE classification
 CWE-121: Stack-based Buffer Overflow

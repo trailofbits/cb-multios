@@ -155,7 +155,7 @@ static void draw_screen(gb_t *gb)
         for (x = 0; x < 160; x += 2)
         {
             char *ch = block_6px_char(&gb->screen[y * 160 + x], 160);
-            transmit(STDOUT, ch, cgc_strlen(ch), &bytes);
+            transmit(STDOUT, ch, strlen(ch), &bytes);
         }
         transmit(STDOUT, "\n", 1, &bytes);
     }
@@ -235,16 +235,16 @@ int process_input(gb_t *gb)
 
 int check_input(gb_t *gb)
 {
-    cgc_fd_set fds;
+    fd_set fds;
     int readyfds = 0;
-    struct cgc_timeval tv;
+    struct timeval tv;
 
     FD_ZERO(&fds);
     FD_SET(STDIN, &fds);
     tv.tv_sec = 0;
     tv.tv_usec = SLEEP_US;
 
-    if (cgc_fdwait(STDIN+1, &fds, NULL, &tv, &readyfds) != 0)
+    if (fdwait(STDIN+1, &fds, NULL, &tv, &readyfds) != 0)
         return 0;
 
     if (readyfds)

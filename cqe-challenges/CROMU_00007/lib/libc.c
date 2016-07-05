@@ -52,7 +52,7 @@ int receive_until(char *dest, size_t length, char end, size_t *bytes_read)
 	return 0;
 }
 
-size_t cgc_strlen(char *buf)
+size_t strlen(char *buf)
 {
 	size_t length = 0;
 	while(buf[length]!='\0') length++;
@@ -61,7 +61,7 @@ size_t cgc_strlen(char *buf)
 
 void print(char *buf)
 {
-   size_t len = cgc_strlen(buf);
+   size_t len = strlen(buf);
    size_t tx = 0;
    size_t nbytes;
    while (tx < len) {
@@ -83,7 +83,7 @@ int equals(char *one, char *two)
 
 // Copy a string from src to dst. Copy ends when null byte reached
 // in src string OR when length bytes have been copied to dst.
-void cgc_strncpy(char *dst, char *src, size_t length)
+void strncpy(char *dst, char *src, size_t length)
 {
 	size_t pos;
 	for(pos = 0; pos<length && src[pos]!='\0'; pos++)
@@ -167,7 +167,7 @@ void itoa(char *str, int i)
 	str[outpos] = '\0';
 }
 
-void cgc_memcpy(char *dst, char *src, size_t size)
+void memcpy(char *dst, char *src, size_t size)
 {
 	char *end = dst + size;
 	while(dst != end)
@@ -176,7 +176,7 @@ void cgc_memcpy(char *dst, char *src, size_t size)
 	}
 }
 
-void cgc_memset(char *dst, char c, size_t size)
+void memset(char *dst, char c, size_t size)
 {
 	char *end = dst + size;
 	while(dst < end)

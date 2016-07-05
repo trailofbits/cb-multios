@@ -56,9 +56,9 @@ int readline(int fd, char *buf, size_t max, size_t *nrx)
         n = max - *nrx;
 
       *nrx += n;
-      cgc_memcpy(buf, tmp, n);
+      memcpy(buf, tmp, n);
       buf += n;
-      cgc_memset(tmp, '\0', READ_SIZE + 1);
+      memset(tmp, '\0', READ_SIZE + 1);
 
       if (nl)
         break;

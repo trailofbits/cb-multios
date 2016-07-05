@@ -63,7 +63,7 @@ static void _session_send(unsigned short dest_channel, unsigned short length, un
     size_t full_length = length + 4, offset = 0;
     g_temp_packet.hdr.length = length;
     g_temp_packet.hdr.channel = dest_channel;
-    cgc_memcpy(g_temp_packet.hdr.payload, data, length);
+    memcpy(g_temp_packet.hdr.payload, data, length);
 
     while (offset < full_length)
     {
@@ -283,7 +283,7 @@ static void session_configuration_request(command_t *cmd)
             resp->result = 3;
             resp->config[resp_offset] = type;
             resp->config[resp_offset+1] = length;
-            cgc_memcpy(&resp->config[resp_offset+2], &req->config[req_offset+2], length);
+            memcpy(&resp->config[resp_offset+2], &req->config[req_offset+2], length);
         }
 
         req_offset += 2 + length;
@@ -502,7 +502,7 @@ void session_loop()
         if (channel == LINK_CH_START)
         {
             offset = 0;
-            cgc_memset(g_current_packet.rawdata, 0, SESSION_MAX_PACKET_SIZE);
+            memset(g_current_packet.rawdata, 0, SESSION_MAX_PACKET_SIZE);
         }
         else if (channel == LINK_CH_CONTINUE)
         {
@@ -524,7 +524,7 @@ void session_loop()
             continue;
         }
 
-        cgc_memcpy(g_current_packet.rawdata + offset, link_packet, length);
+        memcpy(g_current_packet.rawdata + offset, link_packet, length);
         offset += length;
 
         if (offset >= sizeof(g_current_packet.hdr))

@@ -103,13 +103,13 @@ md5_chunk(unsigned char *X_, struct md5_ctx *ctx)
     unsigned int D = ctx->DD;
     unsigned int x, tmp;
 
-    unsigned int (*cgc_round_ops[])(unsigned int, unsigned int, unsigned int) =
+    unsigned int (*round_ops[])(unsigned int, unsigned int, unsigned int) =
             { F, G, H, I };
 
     size_t i;
 
     for (i = 0; i < 64; i++) {
-        x = cgc_round_ops[i / 16](B, C, D);
+        x = round_ops[i / 16](B, C, D);
 
         tmp = D;
         D = C;
@@ -131,12 +131,12 @@ md5_pad(unsigned char *dst, const unsigned char *src, size_t n,
     size_t to_pad;
 
     if (n >= 64) {
-        cgc_memcpy(dst, src, 64);
+        memcpy(dst, src, 64);
         return n == 64;
     } else {
         to_pad = 64 - n;
 
-        cgc_memcpy(dst, src, n);
+        memcpy(dst, src, n);
         dst += n;
 
 #ifndef PATCHED
@@ -144,7 +144,7 @@ md5_pad(unsigned char *dst, const unsigned char *src, size_t n,
         (void)(total);
         (void)(is_extra);
 
-        cgc_memset(dst, '\x80', to_pad);
+        memset(dst, '\x80', to_pad);
         return 0;
 #else
         if (!is_extra) {
@@ -152,7 +152,7 @@ md5_pad(unsigned char *dst, const unsigned char *src, size_t n,
             to_pad--;
         }
 
-        cgc_memset(dst, '\x00', to_pad >= 8 ? to_pad - 8 : to_pad);
+        memset(dst, '\x00', to_pad >= 8 ? to_pad - 8 : to_pad);
         if (to_pad < 8)
             return 1;
 
@@ -188,7 +188,7 @@ md5_update(const unsigned char *msg, size_t n, unsigned int total, struct md5_ct
     }
 
     // This may be optimized out but make a token effort to c=ear this info
-    cgc_memset(block, '\x00', sizeof(block));
+    memset(block, '\x00', sizeof(block));
     total = extra_block_needed = 0;
 }
 
@@ -210,7 +210,7 @@ md5(const unsigned char *msg, size_t n, unsigned char *digest)
     *(unsigned int *)(digest + 12) = ctx.DD;
 
     // This may be optimized out but make a token effort to clear this info
-    cgc_memset(&ctx, '\x00', sizeof(ctx));
+    memset(&ctx, '\x00', sizeof(ctx));
 }
 
 void
@@ -221,13 +221,13 @@ md5_hmac(const unsigned char *key, size_t key_len, const unsigned char *msg,
     unsigned char key_block[64], o_key_pad[64], i_key_pad[64];
     size_t i;
 
-    cgc_memset(key_block, '\x00', 64);
+    memset(key_block, '\x00', 64);
 
     if (key_len > 64)
         md5(key, key_len, key_block);
 
     if (key_len < 64)
-        cgc_memcpy(key_block, key, key_len);
+        memcpy(key_block, key, key_len);
 
     for (i = 0; i < 64; i++) {
         o_key_pad[i] = 0x5c ^ key_block[i];
@@ -251,10 +251,10 @@ md5_hmac(const unsigned char *key, size_t key_len, const unsigned char *msg,
     *(unsigned int *)(mac + 12) = o_ctx.DD;
 
     // This may be optimized out but make a token effort to clear this info
-    cgc_memset(&o_ctx, '\x00', sizeof(o_ctx));
-    cgc_memset(&i_ctx, '\x00', sizeof(i_ctx));
-    cgc_memset(key_block, '\x00', sizeof(key_block));
-    cgc_memset(o_key_pad, '\x00', sizeof(o_key_pad));
-    cgc_memset(i_key_pad, '\x00', sizeof(i_key_pad));
+    memset(&o_ctx, '\x00', sizeof(o_ctx));
+    memset(&i_ctx, '\x00', sizeof(i_ctx));
+    memset(key_block, '\x00', sizeof(key_block));
+    memset(o_key_pad, '\x00', sizeof(o_key_pad));
+    memset(i_key_pad, '\x00', sizeof(i_key_pad));
 }
 

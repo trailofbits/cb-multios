@@ -37,13 +37,13 @@ bloomy_t* bloomy_new(size_t size, hash_t hash1, hash_t hash2, hash_t hash3)
   bloomy = (bloomy_t *) malloc(sizeof(bloomy_t));
   if (bloomy == NULL)
     goto fail;
-  cgc_memset(bloomy, 0, sizeof(bloomy_t));
+  memset(bloomy, 0, sizeof(bloomy_t));
   bloomy->size = size;
 
   bloomy->bits = (uint8_t *) malloc(size);
   if (bloomy->bits == NULL)
     goto fail;
-  cgc_memset(bloomy->bits, 0, size);
+  memset(bloomy->bits, 0, size);
 
   bloomy->hashes[0] = hash1;
   bloomy->hashes[1] = hash2;
@@ -76,7 +76,7 @@ int bloomy_check(bloomy_t *bloomy, const char *buf)
   {
     if (bloomy->hashes[i])
     {
-      n = (bloomy->hashes[i](buf, cgc_strlen(buf)) % bloomy->size);
+      n = (bloomy->hashes[i](buf, strlen(buf)) % bloomy->size);
       bit = (bloomy->bits[n/8] & (1 << (n%8)));
       if (!bit)
         return 0;
@@ -94,7 +94,7 @@ void bloomy_add(bloomy_t *bloomy, const char *buf)
   {
     if (bloomy->hashes[i])
     {
-      n = (bloomy->hashes[i](buf, cgc_strlen(buf)) % bloomy->size);
+      n = (bloomy->hashes[i](buf, strlen(buf)) % bloomy->size);
       bloomy->bits[n/8] |= (1 << (n%8));
     }
   }

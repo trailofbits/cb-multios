@@ -58,7 +58,7 @@ int entanglement_razzmatazz(void) {
                         rx_buf[ALLOC_OFF+1] << 8);
     if (MAX_ALLOC < sz_alloc || MIN_ALLOC > sz_alloc ) { sz_alloc = MAX_ALLOC; }
 
-    // Calculate how much space will actually be alloc'ed (cgc_round up).
+    // Calculate how much space will actually be alloc'ed (round up).
     size_t sz_alloc_align = (sz_alloc + SZ_PAGE-1) & 0xFFFFF000;
 
     // Do the allocation.
@@ -167,7 +167,7 @@ int causality_poppycock(void) {
 
         // Do complex, seemingly dangerous operations with the sanitized input 
         // - things that would be dangerous if it weren't sanitized.
-        // vuln_buf, cgc_indexed at rx_buf[i], is assigned rx_buf[i] XORed with 
+        // vuln_buf, indexed at rx_buf[i], is assigned rx_buf[i] XORed with 
         // the next modulo element in vuln_buf, modulo SZ_VULN_BUF 
         unsigned char tmp1, tmp2;
         tmp1 = rx_buf[i];
@@ -227,7 +227,7 @@ int causality_poppycock(void) {
                     vuln_buf[i+3] << 24;
 
 #ifdef DEBUG
-        fprintf(stderr, "[D] poppycock | output, cgc_round %d = 0x%08x\n", i, output);
+        fprintf(stderr, "[D] poppycock | output, round %d = 0x%08x\n", i, output);
 #endif 
     }
 
@@ -281,7 +281,7 @@ int heisenberg_hooey(void) {
     // XOR, Easy: Constify via taint XORed with itself.
     rx_buf[XOR_CONST_OFF] = rx_buf[XOR_CONST_OFF] ^ rx_buf[XOR_CONST_OFF];
 
-    // XOR, Medium: now the constified cgc_index is symbolic.
+    // XOR, Medium: now the constified index is symbolic.
     // The taint engine must properly alias memory in the trivial case.
     rx_buf[1+rx_buf[XOR_CONST_OFF_PTR]] = 
         rx_buf[1+rx_buf[XOR_CONST_OFF_PTR]] ^ 
@@ -322,7 +322,7 @@ int heisenberg_hooey(void) {
     // be written into a garbage buffer and ignored, but rnd_bytes will take on 
     // the same value as count.
     size_t rnd_bytes = 0;
-    if (SUCCESS != (ret = cgc_random(&garbage, rx_buf[SYSCALL_PROP_OFF], &rnd_bytes))) {
+    if (SUCCESS != (ret = random(&garbage, rx_buf[SYSCALL_PROP_OFF], &rnd_bytes))) {
 #ifdef DEBUG
         fprintf(stderr, "[E] hooey | error during random() call\n");
 #endif
@@ -348,13 +348,13 @@ int heisenberg_hooey(void) {
 
     // The following rx_buf indices should be CONSTIFIED:
     //      XOR_CONST_OFF
-    //          - cgc_index is always: 101
+    //          - index is always: 101
     //          - value is always 0
     //      1+rx_buf[XOR_CONST_OFF_PTR]
-    //          - cgc_index in range, stride 1: [1, 256]
+    //          - index in range, stride 1: [1, 256]
     //          - value is always 0
     //      1+rx_buf[XOR_CONST_OFF_PTR*2]
-    //          - cgc_index in range, stride 2: [1, 511]
+    //          - index in range, stride 2: [1, 511]
     //          - value is always 0
     //      FLOAT_CONST_OFF
     //          - value is always 0 (NOTE: BEHAVIOR IS UNDEFINED)
@@ -649,7 +649,7 @@ int main(void) {
     while(1) {
 
         rx_bytes = 0;
-        cgc_memset(rx_buf, 0, BUF_RX_SZ);
+        memset(rx_buf, 0, BUF_RX_SZ);
 
         if (SUCCESS != (ret = receive_all(STDIN, (void *)&rx_buf, BUF_RX_SZ, &rx_bytes))) { 
 #ifdef DEBUG

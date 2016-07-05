@@ -1,6 +1,0 @@
-set( AUTHOR_ID "YAN01")
-set( SERVICE_ID "00002")
-set( CFLAGS "-O0 -g -Wall -fno-builtin -Wno-int-to-pointer-cast -fno-stack-protector -D_FORTIFY_SOURCE=0")
-set( POLLS_RELEASE_SEED "0")
-set( POLLS_TESTING_COUNT "0")
-buildCB(${CFLAGS})

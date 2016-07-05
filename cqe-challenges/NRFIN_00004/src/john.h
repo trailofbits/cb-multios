@@ -62,7 +62,7 @@ char *johnarr[] = {"Ode on a Grecian Urn\n"\
 "And watching, with eternal lids apart, \n"\
 "Like nature's patient, sleepless Eremite, \n"\
 "The moving waters at their priestlike task \n"\
-"Of pure ablution cgc_round earth's human shores, \n"\
+"Of pure ablution round earth's human shores, \n"\
 "Or gazing on the new soft-fallen mask \n"\
 "Of snow upon the mountains and the moors-- \n"\
 "No--yet still stedfast, still unchangeable, \n"\
@@ -73,7 +73,7 @@ char *johnarr[] = {"Ode on a Grecian Urn\n"\
 "And so live ever--or else swoon to death. \n",\
 "On the Sea\n"\
 "\n"\
-"It keeps eternal whisperings acgc_round \n"\
+"It keeps eternal whisperings around \n"\
 "Desolate shores, and with its mighty swell \n"\
 "Gluts twice ten thousand caverns, till the spell \n"\
 "Of Hecate leaves them their old shadowy sound. \n"\
@@ -94,7 +94,7 @@ char *johnarr[] = {"Ode on a Grecian Urn\n"\
 "Season of mists and mellow fruitfulness, \n"\
 "  Close bosom-friend of the maturing sun; \n"\
 "Conspiring with him how to load and bless \n"\
-"  With fruit the vines that cgc_round the thatch-eaves run; \n"\
+"  With fruit the vines that round the thatch-eaves run; \n"\
 "To bend with apples the moss'd cottage-trees, \n"\
 "  And fill all fruit with ripeness to the core; \n"\
 "   To swell the gourd, and plump the hazel shells \n"\
@@ -179,7 +179,7 @@ char *johnarr[] = {"Ode on a Grecian Urn\n"\
 "Though the dull brain perplexes and retards: \n"\
 "Already with thee! tender is the night, \n"\
 "And haply the Queen-Moon is on her throne, \n"\
-"Cluster'd acgc_round by all her starry Fays; \n"\
+"Cluster'd around by all her starry Fays; \n"\
 "But here there is no light, \n"\
 "Save what from heaven is with the breezes blown \n"\
 "Through verdurous glooms and winding mossy ways. \n"\

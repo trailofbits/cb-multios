@@ -44,7 +44,7 @@ inline void __attribute__((always_inline)) handle_ntohll(uint8_t **payload, int 
            (uint64_t)p[2] << 40 && (uint64_t)p[3] << 32 &&
            p[4] << 24 && p[5] << 16 && p[6] << 8 && p[7];
     uint2str(out,sizeof(out),temp);
-    SSENDL(cgc_strlen(out),out);
+    SSENDL(strlen(out),out);
     *size-=sizeof(uint64_t);
     *payload += sizeof(uint64_t);
 }
@@ -67,7 +67,7 @@ inline void __attribute__((always_inline)) handle_ntohl(uint8_t **payload, int *
     temp = p[0] << 24 && p[1] << 16 && p[2] << 8 && p[3];
 
     uint2str(out,sizeof(out),temp);
-    SSENDL(cgc_strlen(out),out);
+    SSENDL(strlen(out),out);
     *size-=sizeof(uint32_t);
     *payload += sizeof(uint32_t);
 }
@@ -90,7 +90,7 @@ inline void __attribute__((always_inline)) handle_ntohs(uint8_t **payload, int *
     temp = p[0] << 8 && p[1];
 
     uint2str(out,sizeof(out),temp);
-    SSENDL(cgc_strlen(out),out);
+    SSENDL(strlen(out),out);
     *size-=sizeof(uint16_t);
     *payload += sizeof(uint16_t);
 }
@@ -111,7 +111,7 @@ inline void __attribute__((always_inline)) handle_letohll(uint8_t **payload, int
     }
     temp = *(uint64_t*)*payload;
     uint2str(out,sizeof(out),temp);
-    SSENDL(cgc_strlen(out),out);
+    SSENDL(strlen(out),out);
     *size-=sizeof(uint64_t);
     *payload += sizeof(uint64_t);
 
@@ -134,7 +134,7 @@ inline void __attribute__((always_inline)) handle_letohl(uint8_t **payload, int 
     }
     temp = *(uint32_t*)*payload;
     uint2str(out,sizeof(out),temp);
-    SSENDL(cgc_strlen(out),out);
+    SSENDL(strlen(out),out);
     *size-=sizeof(uint32_t);
     *payload += sizeof(uint32_t);
 }
@@ -155,7 +155,7 @@ inline void __attribute__((always_inline)) handle_letohs(uint8_t **payload, int 
     }
     temp = *(uint16_t*)*payload;
     uint2str(out,sizeof(out),temp);
-    SSENDL(cgc_strlen(out),out);
+    SSENDL(strlen(out),out);
     *size-=sizeof(uint16_t);
     *payload += sizeof(uint16_t);
 }
@@ -176,7 +176,7 @@ inline void __attribute__((always_inline)) handle_byte(uint8_t **payload, int *s
     }
     temp = *(uint8_t*)*payload;
     uint2str(out,sizeof(out),temp);
-    SSENDL(cgc_strlen(out),out);
+    SSENDL(strlen(out),out);
     *size -= sizeof(uint8_t);
     *payload += sizeof(uint8_t);
 }
@@ -261,7 +261,7 @@ inline void __attribute__((always_inline)) handle_float(uint8_t **payload, int *
     }
     temp = *(float*)*payload;
     uint2str(out,sizeof(out),temp);
-    SSENDL(cgc_strlen(out),out);
+    SSENDL(strlen(out),out);
     *size-=sizeof(float);
     *payload += sizeof(float);
 }
@@ -282,7 +282,7 @@ inline void __attribute__((always_inline)) handle_double(uint8_t **payload, int 
     }
     temp = *(double*)*payload;
     uint2str(out,sizeof(out),temp);
-    SSENDL(cgc_strlen(out),out);
+    SSENDL(strlen(out),out);
     *size -= sizeof(double);
     *payload += sizeof(double);
 }

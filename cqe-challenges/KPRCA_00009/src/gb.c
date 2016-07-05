@@ -120,7 +120,7 @@ gb_t *gb_new()
 
 int gb_load(gb_t *gb, uint8_t *cartridge)
 {
-    cgc_memcpy(gb->rom, cartridge, ROM_SIZE);
+    memcpy(gb->rom, cartridge, ROM_SIZE);
 
     hdr_t *hdr = (hdr_t *)&gb->rom[0x100];
     copy_title(gb->title, hdr);
@@ -155,7 +155,7 @@ int gb_tick(gb_t *gb)
     if (gb->mem[IO_DMA] != 0xFF)
     {
         // XXX instant DMA?
-        cgc_memcpy(&gb->mem[0xFE00], &gb->mem[gb->mem[IO_DMA] << 8], 0xA0);
+        memcpy(&gb->mem[0xFE00], &gb->mem[gb->mem[IO_DMA] << 8], 0xA0);
         gb->mem[IO_DMA] = 0xFF;
     }
 

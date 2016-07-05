@@ -59,7 +59,7 @@ int tbir_read_pixels( ptbir_image_data tid )
 	int sum = 0;
 
 	int pixel_count;
-	int cgc_index = 0;
+	int index = 0;
 	int pixel;
 	int bits_to_consume;
 
@@ -97,9 +97,9 @@ int tbir_read_pixels( ptbir_image_data tid )
 
 	dwords = (int*)(tid->buffer + tid->cbyte);
 
-	while ( cgc_index < dword_count ) {
-		sum = sum ^ dwords[cgc_index];
-		cgc_index++;
+	while ( index < dword_count ) {
+		sum = sum ^ dwords[index];
+		index++;
 	}
 
 	/// If the checksum has already been set then check it
@@ -117,7 +117,7 @@ int tbir_read_pixels( ptbir_image_data tid )
 		return 0;
 	}
 
-	cgc_memset( tid->image, ' ', tid->image_length);
+	memset( tid->image, ' ', tid->image_length);
 	tid->image[ tid->image_length ] = '\x00';
 
 	count = 0;
@@ -171,7 +171,7 @@ int tbir_read_pixels( ptbir_image_data tid )
                                 return 0;
 		};
 
-		cgc_index = (row * tid->width ) + column;
+		index = (row * tid->width ) + column;
 
 		switch ( tid->pixel_type ) {
 			case 1:
@@ -182,14 +182,14 @@ int tbir_read_pixels( ptbir_image_data tid )
 					return tid->image_length;
 				}
 
-				if ( cgc_index > tid->image_length + 1 || cgc_index < 0 ) {
+				if ( index > tid->image_length + 1 || index < 0 ) {
 					deallocate( tid->image, tid->image_length +1);
 					tid->image = NULL;
 					tid->image_length = 0;
 					return tid->image_length;
 				}
 					
-				tid->image[cgc_index] = one[pixel];
+				tid->image[index] = one[pixel];
 				break;
 			case 2:
 				if ( pixel > 3 ) {
@@ -199,14 +199,14 @@ int tbir_read_pixels( ptbir_image_data tid )
 					return tid->image_length;
 				}
 
-				if ( cgc_index > tid->image_length + 1 || cgc_index < 0) {
+				if ( index > tid->image_length + 1 || index < 0) {
 					deallocate( tid->image, tid->image_length +1);
 					tid->image = NULL;
 					tid->image_length = 0;
 					return tid->image_length;
 				}
 
-				tid->image[cgc_index] = two[pixel];
+				tid->image[index] = two[pixel];
 				break;
 			case 6:
 				if ( pixel > 61 ) {
@@ -219,14 +219,14 @@ int tbir_read_pixels( ptbir_image_data tid )
 					return tid->image_length;
 				}
 
-				if ( cgc_index > tid->image_length + 1 || cgc_index < 0) {
+				if ( index > tid->image_length + 1 || index < 0) {
 					deallocate( tid->image, tid->image_length +1);
 					tid->image = NULL;
 					tid->image_length = 0;
 					return tid->image_length;
 				}
 
-				tid->image[cgc_index] = six[pixel];
+				tid->image[index] = six[pixel];
 				break;
 			case 7:
 				if ( pixel > 0x5e ) {
@@ -236,14 +236,14 @@ int tbir_read_pixels( ptbir_image_data tid )
 					return tid->image_length;
 				}
 
-				if ( cgc_index > tid->image_length + 1 || cgc_index < 0) {
+				if ( index > tid->image_length + 1 || index < 0) {
 					deallocate( tid->image, tid->image_length +1);
 					tid->image = NULL;
 					tid->image_length = 0;
 					return tid->image_length;
 				}
 
-				tid->image[cgc_index] = seven[pixel];
+				tid->image[index] = seven[pixel];
 				break;
 			default:
 				printf("[ERROR] Invalid pixel type\n");
@@ -254,13 +254,13 @@ int tbir_read_pixels( ptbir_image_data tid )
 				break;
 		};
 
-		//printf("Added @c at row @d column: @d type: @d direction: @d\n", tid->image[cgc_index], row, column, tid->pixel_type, tid->load_direction);
+		//printf("Added @c at row @d column: @d type: @d direction: @d\n", tid->image[index], row, column, tid->pixel_type, tid->load_direction);
 
 		count++;
 	}
 
 	/// Consume the remainder bits to align to 32 bits
-	if ( tbir_read_nbits( tid, bits_to_consume, &cgc_index) == 0 ) {
+	if ( tbir_read_nbits( tid, bits_to_consume, &index) == 0 ) {
 		deallocate( tid->image, tid->image_length +1);
 		tid->image = NULL;
 		tid->image_length = 0;

@@ -28,7 +28,7 @@ VGF_MAX_COLOR = 200
 
 VGF_DEFAULT_COLOR_INDEX = 0xFFFF
 
-# Do integer division and cgc_round (truncate) like C does
+# Do integer division and round (truncate) like C does
 def c_divide_int( v1, v2 ):
     result = v1 / v2
 
@@ -65,8 +65,8 @@ class VGFLayerRender:
     def set_current_layer( self, current_layer ):
         self.current_layer = current_layer
 
-    def draw_pixel( self, x, y, color_cgc_index ):
-        self.render_layers[self.current_layer][ get_xy( x, y, self.width ) ] = color_cgc_index
+    def draw_pixel( self, x, y, color_index ):
+        self.render_layers[self.current_layer][ get_xy( x, y, self.width ) ] = color_index
 
     def get_width( self ):
         return self.width
@@ -84,7 +84,7 @@ class VGFLayerRender:
 
         return single_layer
 
-def vline_helper( x0, y0, line_len, render_obj, color_cgc_index ):
+def vline_helper( x0, y0, line_len, render_obj, color_index ):
     if ( x0 >= render_obj.get_width() ):
         return
 
@@ -96,11 +96,11 @@ def vline_helper( x0, y0, line_len, render_obj, color_cgc_index ):
         if ( y0 + cur >= render_obj.get_height() ):
             break
 
-        render_obj.draw_pixel( x0, (y0+cur), color_cgc_index )
-        #layer_data[ get_xy( x0, (y0+cur), width ) ] = color_cgc_index
+        render_obj.draw_pixel( x0, (y0+cur), color_index )
+        #layer_data[ get_xy( x0, (y0+cur), width ) ] = color_index
         cur += 1
 
-def hline_helper( x0, y0, line_len, render_obj, color_cgc_index ):
+def hline_helper( x0, y0, line_len, render_obj, color_index ):
     if ( x0 >= render_obj.get_width() ):
         return
 
@@ -112,10 +112,10 @@ def hline_helper( x0, y0, line_len, render_obj, color_cgc_index ):
         if ( x0 + cur >= render_obj.get_width() ):
             break
 
-        render_obj.draw_pixel( (x0+cur), y0, color_cgc_index )
+        render_obj.draw_pixel( (x0+cur), y0, color_index )
         cur += 1
 
-def line_helper( x0, y0, x1, y1, render_obj, color_cgc_index ):
+def line_helper( x0, y0, x1, y1, render_obj, color_index ):
     dx = abs( x1 - x0 )
     dy = abs( y1 - y0 )
 
@@ -142,7 +142,7 @@ def line_helper( x0, y0, x1, y1, render_obj, color_cgc_index ):
 
     count = 0
     while ( count <= dist+1 ):
-        render_obj.draw_pixel( x_pos, y_pos, color_cgc_index )
+        render_obj.draw_pixel( x_pos, y_pos, color_index )
 
         errx += dx
         erry += dy
@@ -200,7 +200,7 @@ class VGFObjLine():
 
         return file_data
 
-    def render(self, render_obj, color_cgc_index, do_fill ):
+    def render(self, render_obj, color_index, do_fill ):
         if ( self.x_start >= render_obj.get_width() or
              self.y_start >= render_obj.get_height() or
              self.x_end >= render_obj.get_width() or
@@ -213,7 +213,7 @@ class VGFObjLine():
         if ( self.y_start > self.y_end ):
             return
 
-        line_helper( self.x_start, self.y_start, self.x_end, self.y_end, render_obj, color_cgc_index )
+        line_helper( self.x_start, self.y_start, self.x_end, self.y_end, render_obj, color_index )
 
 
 class VGFObjRect():
@@ -264,7 +264,7 @@ class VGFObjRect():
 
         return file_data
 
-    def render(self, render_obj, color_cgc_index, do_fill ):
+    def render(self, render_obj, color_index, do_fill ):
         # Render rectangle
         x_pos = self.x_start
         y_pos = self.y_start
@@ -280,19 +280,19 @@ class VGFObjRect():
             return
 
         while ( x_pos < x_end ):
-            render_obj.draw_pixel( x_pos, y_pos, color_cgc_index )
+            render_obj.draw_pixel( x_pos, y_pos, color_index )
             x_pos += 1
 
         while ( y_pos < y_end ):
-            render_obj.draw_pixel( x_pos, y_pos, color_cgc_index )
+            render_obj.draw_pixel( x_pos, y_pos, color_index )
             y_pos += 1
 
         while ( x_pos > x_start ):
-            render_obj.draw_pixel( x_pos, y_pos, color_cgc_index )
+            render_obj.draw_pixel( x_pos, y_pos, color_index )
             x_pos -= 1
 
         while ( y_pos > y_start ):
-            render_obj.draw_pixel( x_pos, y_pos, color_cgc_index )
+            render_obj.draw_pixel( x_pos, y_pos, color_index )
             y_pos -= 1
 
         if ( do_fill == True ):
@@ -302,7 +302,7 @@ class VGFObjRect():
                 y_pos = y_start + 1
 
                 while ( y_pos < y_end ):
-                    render_obj.draw_pixel( x_pos, y_pos, color_cgc_index )
+                    render_obj.draw_pixel( x_pos, y_pos, color_index )
 
                     y_pos += 1
 
@@ -344,7 +344,7 @@ class VGFObjCircle():
 
         return file_data
 
-    def render(self, render_obj, color_cgc_index, do_fill ):
+    def render(self, render_obj, color_index, do_fill ):
         # Render circle (use line helper)
         x_pos = self.x_start
         y_pos = self.y_start
@@ -365,7 +365,7 @@ class VGFObjCircle():
             ddF_x = 1
             ddF_y = -2 * self.radius
 
-            vline_helper( x_pos, y_pos-y, 2*y, render_obj, color_cgc_index )
+            vline_helper( x_pos, y_pos-y, 2*y, render_obj, color_index )
 
             while ( x < y ):
                 if ( radius_error >= 0 ):
@@ -377,10 +377,10 @@ class VGFObjCircle():
                 ddF_x += 2
                 radius_error += ddF_x
 
-                vline_helper( x_pos+x, y_pos-y, 2*y, render_obj, color_cgc_index )
-                vline_helper( x_pos+y, y_pos-x, 2*x, render_obj, color_cgc_index )
-                vline_helper( x_pos-x, y_pos-y, 2*y, render_obj, color_cgc_index )
-                vline_helper( x_pos-y, y_pos-x, 2*x, render_obj, color_cgc_index )
+                vline_helper( x_pos+x, y_pos-y, 2*y, render_obj, color_index )
+                vline_helper( x_pos+y, y_pos-x, 2*x, render_obj, color_index )
+                vline_helper( x_pos-x, y_pos-y, 2*y, render_obj, color_index )
+                vline_helper( x_pos-y, y_pos-x, 2*x, render_obj, color_index )
 
         else:
             x_pos = self.x_start
@@ -392,10 +392,10 @@ class VGFObjCircle():
             ddF_x = 1
             ddF_y = -2 * self.radius
 
-            render_obj.draw_pixel( x_pos, y_pos+radius, color_cgc_index )
-            render_obj.draw_pixel( x_pos, y_pos-radius, color_cgc_index )
-            render_obj.draw_pixel( x_pos+radius, y_pos, color_cgc_index )
-            render_obj.draw_pixel( x_pos-radius, y_pos, color_cgc_index )
+            render_obj.draw_pixel( x_pos, y_pos+radius, color_index )
+            render_obj.draw_pixel( x_pos, y_pos-radius, color_index )
+            render_obj.draw_pixel( x_pos+radius, y_pos, color_index )
+            render_obj.draw_pixel( x_pos-radius, y_pos, color_index )
 
             while ( x < y ):
                 if ( radius_error >= 0 ):
@@ -407,15 +407,15 @@ class VGFObjCircle():
                 ddF_x += 2
                 radius_error += ddF_x
 
-                render_obj.draw_pixel( x_pos + x, y_pos + y, color_cgc_index )
-                render_obj.draw_pixel( x_pos - x, y_pos + y, color_cgc_index )
-                render_obj.draw_pixel( x_pos + x, y_pos - y, color_cgc_index )
-                render_obj.draw_pixel( x_pos - x, y_pos - y, color_cgc_index )
+                render_obj.draw_pixel( x_pos + x, y_pos + y, color_index )
+                render_obj.draw_pixel( x_pos - x, y_pos + y, color_index )
+                render_obj.draw_pixel( x_pos + x, y_pos - y, color_index )
+                render_obj.draw_pixel( x_pos - x, y_pos - y, color_index )
 
-                render_obj.draw_pixel( x_pos + y, y_pos + x, color_cgc_index )
-                render_obj.draw_pixel( x_pos - y, y_pos + x, color_cgc_index )
-                render_obj.draw_pixel( x_pos + y, y_pos - x, color_cgc_index )
-                render_obj.draw_pixel( x_pos - y, y_pos - x, color_cgc_index )
+                render_obj.draw_pixel( x_pos + y, y_pos + x, color_index )
+                render_obj.draw_pixel( x_pos - y, y_pos + x, color_index )
+                render_obj.draw_pixel( x_pos + y, y_pos - x, color_index )
+                render_obj.draw_pixel( x_pos - y, y_pos - x, color_index )
 
 class VGFObjTriangle():
     x0 = 0
@@ -476,7 +476,7 @@ class VGFObjTriangle():
 
         return file_data
 
-    def render(self, render_obj, color_cgc_index, do_fill ):
+    def render(self, render_obj, color_index, do_fill ):
         # Render triangle
         if ( self.x0 >= render_obj.get_width() or
              self.y0 >= render_obj.get_height() or
@@ -522,7 +522,7 @@ class VGFObjTriangle():
                 elif ( x_pos3 > xh ):
                     xh = x_pos3
 
-                hline_helper( xl, y_pos1, (xh-xl), render_obj, color_cgc_index )
+                hline_helper( xl, y_pos1, (xh-xl), render_obj, color_index )
 
             else:
                 dx31 = (x_pos3 - x_pos1)
@@ -547,7 +547,7 @@ class VGFObjTriangle():
                     if ( xl > xh ):
                         xl,xh = xh,xl
 
-                    hline_helper( xl, y_pos1, (xh-xl), render_obj, color_cgc_index )
+                    hline_helper( xl, y_pos1, (xh-xl), render_obj, color_index )
 
                     y = y_pos2
                 else:
@@ -562,7 +562,7 @@ class VGFObjTriangle():
                         if ( xl > xh ):
                             xh,xl = xl,xh
 
-                        hline_helper( xl, y, (xh-xl), render_obj, color_cgc_index )
+                        hline_helper( xl, y, (xh-xl), render_obj, color_index )
 
                         y += 1
 
@@ -579,21 +579,21 @@ class VGFObjTriangle():
                     if ( xl > xh ):
                         xh,xl = xl,xh
 
-                    hline_helper( xl, y, (xh-xl), render_obj, color_cgc_index )
+                    hline_helper( xl, y, (xh-xl), render_obj, color_index )
 
                     y += 1
 
         else:
             # Do not fill triangle
-            line_helper( self.x0, self.y0, self.x1, self.y1, render_obj, color_cgc_index )
-            line_helper( self.x1, self.y1, self.x2, self.y2, render_obj, color_cgc_index )
-            line_helper( self.x2, self.y2, self.x0, self.y0, render_obj, color_cgc_index )
+            line_helper( self.x0, self.y0, self.x1, self.y1, render_obj, color_index )
+            line_helper( self.x1, self.y1, self.x2, self.y2, render_obj, color_index )
+            line_helper( self.x2, self.y2, self.x0, self.y0, render_obj, color_index )
 
 class VGFObject():
 
-    def __init__( self, layer, color_cgc_index, settings ):
+    def __init__( self, layer, color_index, settings ):
         self.object_layer = layer
-        self.object_color_cgc_index = color_cgc_index
+        self.object_color_index = color_index
         self.object_settings = settings
 
     def generate_random(self, max_x, max_y, bad_data = False):
@@ -614,7 +614,7 @@ class VGFObject():
         # Output data structure
         file_data = struct.pack( 'B', self.object_type )
         file_data += struct.pack( 'B', self.object_layer )
-        file_data += struct.pack( 'B', self.object_color_cgc_index )
+        file_data += struct.pack( 'B', self.object_color_index )
         file_data += struct.pack( 'B', self.object_settings )
 
         file_data += self.object_data.generate_file_data()
@@ -624,9 +624,9 @@ class VGFObject():
     def render(self, render_obj):
         render_obj.set_current_layer( self.object_layer )
         if ( self.object_settings == VGF_OBJECT_SETTINGS_FILL ):
-            self.object_data.render( render_obj, self.object_color_cgc_index, True )
+            self.object_data.render( render_obj, self.object_color_index, True )
         else:
-            self.object_data.render( render_obj, self.object_color_cgc_index, False )
+            self.object_data.render( render_obj, self.object_color_index, False )
 
 class VGFColor():
 
@@ -792,14 +792,14 @@ class VGFSimulator(Actions):
 
         for cur_obj in self.vgf_file.object_list:
 
-            layer_cgc_index = cur_obj.object_layer
-            color_cgc_index = cur_obj.object_color_cgc_index
+            layer_index = cur_obj.object_layer
+            color_index = cur_obj.object_color_index
             settings = cur_obj.object_settings
 
-            if ( color_cgc_index >= len( self.vgf_file.color_list ) ):
+            if ( color_index >= len( self.vgf_file.color_list ) ):
                 return
 
-            if ( layer_cgc_index >= self.vgf_file.layer_count ):
+            if ( layer_index >= self.vgf_file.layer_count ):
                 return
 
             cur_obj.render( render_layers )

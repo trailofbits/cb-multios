@@ -40,7 +40,7 @@ void zero(char *buf, unsigned int len) {
 	return;
 }
 
-size_t cgc_strlen(char *buf) {
+size_t strlen(char *buf) {
 	size_t i = 0;
 
 	if (!buf) {
@@ -63,7 +63,7 @@ void print(char *buf) {
 		return;
 	}
 
-	len = cgc_strlen(buf);
+	len = strlen(buf);
 	while (total_sent < len) {
 		if (transmit(STDOUT, buf+total_sent, len-total_sent, &tx_bytes) != 0) {
 			_terminate(-1);
@@ -106,8 +106,8 @@ int strmatch(char *buf1, char *buf2) {
 		return(0);
 	}
 
-	len1 = cgc_strlen(buf1);
-	if (len1 != cgc_strlen(buf2)) {
+	len1 = strlen(buf1);
+	if (len1 != strlen(buf2)) {
 		return(0);
 	}
 
@@ -127,7 +127,7 @@ void strcopy(char *dst, char *src) {
 		return;
 	}
 
-	for (i = 0; i < cgc_strlen(src); i++) {
+	for (i = 0; i < strlen(src); i++) {
 		dst[i] = src[i];
 	}
 
@@ -155,7 +155,7 @@ int isdigits(char *buf) {
 		return(0);
 	}
 
-	for (i = 0; i < cgc_strlen(buf); i++) {
+	for (i = 0; i < strlen(buf); i++) {
 		if (buf[i] < '0' || buf[i] > '9') {
 			return(0);
 		}
@@ -172,7 +172,7 @@ int atoi(char *buf) {
 		return(0);
 	}
 
-	i = cgc_strlen(buf);
+	i = strlen(buf);
 	if (!i) {
 		return(0);
 	}
@@ -202,7 +202,7 @@ void print_uint(unsigned int val) {
 	}
 	buf[i] = '\0';
 
-	for (i = cgc_strlen(buf)-1; i >= 0; i--) {
+	for (i = strlen(buf)-1; i >= 0; i--) {
 		buf2[j++] = buf[i];
 	}
 	buf2[j] = '\0';

@@ -42,7 +42,7 @@ All commands begin with '**' and may be entered at any time during the CB
 When an entry is updated with the **update function a compare is made using
 `strncmp` between the existing entry data and the data the entry is to be
 updated with. If this check passes, the new data is copied over the old data
-using `cgc_strcpy`. The logical flaw is that the length argument to `strncmp` is
+using `strcpy`. The logical flaw is that the length argument to `strncmp` is
 the length of the old data, not the new data. Since entries are stored on the
 heap, if the newer data is significantly bigger than the old data, a heap based
 buffer overflow can occur.

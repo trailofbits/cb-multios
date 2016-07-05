@@ -25,7 +25,7 @@
 #include <libcgc.h>
 #include <string.h>
 
-size_t cgc_strlen(const char *s)
+size_t strlen(const char *s)
 {
     const char *p = s;
     while (*p)

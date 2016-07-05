@@ -53,7 +53,7 @@ void name_map(pmap map){
 	if (result > 0){
 		mapName[result] = 0;
 		printf("Map @s is now named @s.\n",map->name, mapName);
-		cgc_strcpy(map->name,mapName);
+		strcpy(map->name,mapName);
 	}else{
 		puts("Name not set.");
 	}
@@ -87,12 +87,12 @@ int get_positive_int(){
 
 void get_char32(char *char32){
 	char retChar[32];
-	cgc_memset(retChar, 0, 32);
+	memset(retChar, 0, 32);
 	int result = receive_until(retChar, DELIM, 31);
 	retChar[result] = 0;
-	cgc_memset(char32, 0, 32);
-	if (cgc_strlen(retChar)>0){
-		cgc_strcpy (char32, retChar);
+	memset(char32, 0, 32);
+	if (strlen(retChar)>0){
+		strcpy (char32, retChar);
 	}
 	return;
 } 
@@ -136,7 +136,7 @@ void add_new_road(pmap map){
 	name[result] = 0;
 	printf("Road Length:\n");
 	flength = get_positive_float();
-	if ( (flength > 0.0)&&(cgc_strlen(name)!=0) ){
+	if ( (flength > 0.0)&&(strlen(name)!=0) ){
 		thisRoad = add_road(map, name, flength);
 	}else {
 		puts("Invalid Road.");
@@ -157,7 +157,7 @@ proad select_road(pmap thisMap){
 		return NULL;
 	}
 	while (loop){
-		cgc_memset (choice, 0, 3);
+		memset (choice, 0, 3);
 		puts("Select Road by (N)umber, or (L)ist or (0)Exit.");
 		printf("choice:\n");
 		int result = receive_until(choice, DELIM, 2);
@@ -209,7 +209,7 @@ paddress select_address(proad thisRoad){
 		return NULL;
 	}
 	while (loop){
-		cgc_memset(choice, 0, 3);
+		memset(choice, 0, 3);
 		puts("Select address (N)umber (L)ist or (0)Exit: ");
 		int result = receive_until(choice, DELIM, 2);
 		switch (choice[0]){
@@ -255,7 +255,7 @@ pintersection select_intersection(proad thisRoad){
 		return NULL;
 	}
 	while (loop){
-		cgc_memset (choice, 0, 3);
+		memset (choice, 0, 3);
 		puts("Select intersection by (N)umber, (L)ist, or set to N(O)TDEFINED.");
 		printf("choice:\n");
 		int result = receive_until(choice, DELIM, 2);
@@ -312,7 +312,7 @@ void add_new_address(pmap map){
 	}
 	printf("Resident: \n");
 	get_char32(resident);
-	if (cgc_strlen(resident) == 0) {
+	if (strlen(resident) == 0) {
 		puts("Invalid resident.");
 		return;
 	}
@@ -461,7 +461,7 @@ void prompt_loop(pmap thisMap, psList turnList){
 	char choice[3];
 	int loop = 1;
 	while(loop){
-		cgc_memset (choice, 0, 3);
+		memset (choice, 0, 3);
 		printf("choice:\n");
 		int result = receive_until(choice, DELIM, 2);
 		switch (choice[0]){

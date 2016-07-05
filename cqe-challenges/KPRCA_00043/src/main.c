@@ -45,12 +45,12 @@ uint8_t submit_lyrics(char *lyrics, size_t len)
   int i, nl = 0, n = 0;
   size_t olen = len;
   char line[128], *s = lyrics;
-  cgc_memset(lyrics, 0, len);
+  memset(lyrics, 0, len);
   while (1)
   {
     if (read_until(STDIN, line, sizeof(line), '\n') < 0)
       return 0;
-    if (cgc_strcmp(line, "EOF") == 0)
+    if (strcmp(line, "EOF") == 0)
       break;
 
     nl = 1;
@@ -65,25 +65,25 @@ uint8_t submit_lyrics(char *lyrics, size_t len)
       {
         for (i = 0; i < sizeof(depressing_words) / sizeof(char*); ++i)
         {
-          if (cgc_strcmp(depressing_words[i], word) == 0)
+          if (strcmp(depressing_words[i], word) == 0)
           {
             printf("depressing word detected.\n");
             return 0;
           }
         }
 #if PATCHED
-        if (cgc_strlen(word) < len - 1)
+        if (strlen(word) < len - 1)
         {
 #endif
         if (!nl)
         {
-          cgc_strcat(s, " ");
+          strcat(s, " ");
           s++;
           len--;
         }
-        cgc_strcat(s, word);
-        s += cgc_strlen(word);
-        len -= cgc_strlen(word);
+        strcat(s, word);
+        s += strlen(word);
+        len -= strlen(word);
 #if PATCHED
         }
         else
@@ -95,17 +95,17 @@ uint8_t submit_lyrics(char *lyrics, size_t len)
       }
       else if (n == 0)
       {
-        if (cgc_strlen(word) < len - 1)
+        if (strlen(word) < len - 1)
         {
           if (!nl)
           {
-            cgc_strcat(s, " ");
+            strcat(s, " ");
             s++;
             len--;
           }
-          cgc_strcat(s, word);
-          s += cgc_strlen(word);
-          len -= cgc_strlen(word);
+          strcat(s, word);
+          s += strlen(word);
+          len -= strlen(word);
         }
         else
         {
@@ -118,12 +118,12 @@ uint8_t submit_lyrics(char *lyrics, size_t len)
       nl = 0;
     }
 #ifdef PATCHED
-    if (cgc_strlen(lyrics) < olen - 1)
+    if (strlen(lyrics) < olen - 1)
 #else
-    if (cgc_strlen(lyrics) < olen)
+    if (strlen(lyrics) < olen)
 #endif
     {
-      cgc_strcat(s, "\n");
+      strcat(s, "\n");
       s++;
       len--;
     }

@@ -24,10 +24,6 @@
 #ifndef LIBC_H
 #define LIBC_H
 
-typedef uint8_t bool;
-#define true ((bool) 1)
-#define false ((bool) 0)
-
 #define MAGICWORD "You didn't say the magic word."
 #define MEMERR "Clever girl."
 #define RNDERR "The essence of chaos."
@@ -37,7 +33,7 @@ typedef uint8_t bool;
 #define RECV(s,b) if(recv(STDIN,b,s)<0){SSENDL(sizeof(MAGICWORD)-1,MAGICWORD); _terminate(4);}
 #define ALLOC(x,a,s) if(allocate(s,x,a)!=0){ SSENDL(sizeof(MEMERR)-1,MEMERR); _terminate(9);}
 #define DEALLOC(a,s) if(deallocate(a,s)!=0){ SSENDL(sizeof(MEMERR)-1,MEMERR); _terminate(18);}
-#define RAND(b,s,r) if (cgc_random(b,s,r)){ SSENDL(sizeof(RNDERR)-1,RNDERR); _terminate(19);}
+#define RAND(b,s,r) if (random(b,s,r)){ SSENDL(sizeof(RNDERR)-1,RNDERR); _terminate(19);}
 
 void promptc(char *buf, uint16_t  size, char *prompt);
 int int2str(char* str_buf, int buf_size, int i);
@@ -46,14 +42,14 @@ int sendall(int fd, const char *buf, size_t size);
 int sendline(int fd, const char *buf, size_t size);
 int recvline(int fd, char *buf, size_t size);
 int recv(int fd, char *buf, size_t size); 
-size_t cgc_strcpy(char *s1, char *s2);
+size_t strcpy(char *s1, char *s2);
 size_t strncpy(char *s1, char *s2, size_t n);
-char * cgc_strcat(char *s1, char *s2);
-size_t cgc_strlen(char *s);
+char * strcat(char *s1, char *s2);
+size_t strlen(char *s);
 int streq(char *s1, char *s2);
 int startswith(char *s1, char *s2);
-void * cgc_memset(void *dst, char c, size_t n); 
-void * cgc_memcpy(void *dst, void *src, size_t n); 
+void * memset(void *dst, char c, size_t n); 
+void * memcpy(void *dst, void *src, size_t n); 
 char * b2hex(uint8_t b, char *h);
 char * strchr(char *str, char c); 
 

@@ -88,7 +88,7 @@ value of 0x80.
                  -------------
 
 */
-
+#define PAGE_SIZE 4096
 #define MAX_CMD 256
 
 // block
@@ -150,8 +150,8 @@ typedef struct _FILE {
 	uint32_t pos;
 	uint32_t mode;
 	inode *curr_pos_inode;
-	uint32_t cgc_index;
-	uint32_t b_cgc_index;
+	uint32_t index;
+	uint32_t b_index;
 } FILE;
 
 int InitFS(uint32_t);

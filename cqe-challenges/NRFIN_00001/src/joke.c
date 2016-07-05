@@ -83,7 +83,7 @@ int insert_joke(jokedb_struct *jokedb, const char *joke_str) {
 		return -1;
 	
 	// return error (-2) if the joke_str is too long.
-	} else if (cgc_strlen(joke_str) >= MAX_JOKE_STRING_LEN - 1) {
+	} else if (strlen(joke_str) >= MAX_JOKE_STRING_LEN - 1) {
 		if (LOGLEVEL >= LOG_INFO) {
 			syslog(LOG_ERROR, "Joke was too long -->\n");
 
@@ -98,7 +98,7 @@ int insert_joke(jokedb_struct *jokedb, const char *joke_str) {
 	} else {
 		int idx = jokedb->count;
 		// copy joke_str into next slot in joke db
-		strncpy(jokedb->jokes[idx].joke_string, joke_str, cgc_strlen(joke_str));
+		strncpy(jokedb->jokes[idx].joke_string, joke_str, strlen(joke_str));
 		// assign id to that joke
 		jokedb->jokes[idx].joke_id = idx;
 		// update joke count

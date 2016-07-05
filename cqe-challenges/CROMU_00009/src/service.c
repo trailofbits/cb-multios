@@ -37,7 +37,7 @@ int FreeArgs() {
 	int i = 0;
 
 	while (ARGV[i]) {
-		deallocate(ARGV[i], cgc_strlen(ARGV[i]));
+		deallocate(ARGV[i], strlen(ARGV[i]));
 		ARGV[i] = NULL;
 		i++;
 	}
@@ -60,52 +60,52 @@ int ParseArgs(char *cmd) {
 		ARGC = 0;
 		return(0);
 	}
-	ARGV[ARGC++] = cgc_strdup(tok);
+	ARGV[ARGC++] = strdup(tok);
 
 	while ((tok = strtok(NULL, " ")) != NULL && ARGC < MAX_ARGS-1) {
 		// handle closing quote made up of multiple " "-separated tokens
-		if (open_quote && tok[cgc_strlen(tok)-1] == '"') {
-			new_len = cgc_strlen(ARGV[ARGC]) + cgc_strlen(tok) + 1;
+		if (open_quote && tok[strlen(tok)-1] == '"') {
+			new_len = strlen(ARGV[ARGC]) + strlen(tok) + 1;
 			if (allocate(new_len, 0, (void *)&t)) {
 				FreeArgs();
 				ARGC = 0;
 				return(0);
 			}
-			cgc_strcpy(t, ARGV[ARGC]+1);
-			cgc_strcat(t, " ");
-			tok[cgc_strlen(tok)-1] = '\0';
-			cgc_strcat(t, tok);
-			deallocate(ARGV[ARGC], cgc_strlen(ARGV[ARGC]));
+			strcpy(t, ARGV[ARGC]+1);
+			strcat(t, " ");
+			tok[strlen(tok)-1] = '\0';
+			strcat(t, tok);
+			deallocate(ARGV[ARGC], strlen(ARGV[ARGC]));
 			ARGV[ARGC++] = t;
 			open_quote = 0;
 
 		// handle middle tokens for quoted string
 		} else if (open_quote) {
-			new_len = cgc_strlen(ARGV[ARGC]) + cgc_strlen(tok) + 2;
+			new_len = strlen(ARGV[ARGC]) + strlen(tok) + 2;
 			if (allocate(new_len, 0, (void *)&t)) {
 				FreeArgs();
 				ARGC = 0;
 				return(0);
 			}
-			cgc_strcpy(t, ARGV[ARGC]);
-			cgc_strcat(t, " ");
-			cgc_strcat(t, tok);
-			deallocate(ARGV[ARGC], cgc_strlen(ARGV[ARGC]));
+			strcpy(t, ARGV[ARGC]);
+			strcat(t, " ");
+			strcat(t, tok);
+			deallocate(ARGV[ARGC], strlen(ARGV[ARGC]));
 			ARGV[ARGC] = t;
 
 		// handle token delimited by quotes
-		} else if (tok[0] == '"' & tok[cgc_strlen(tok)-1] == '"') {
-			tok[cgc_strlen(tok)-1] = '\0';
-			ARGV[ARGC++] = cgc_strdup(tok+1);
+		} else if (tok[0] == '"' & tok[strlen(tok)-1] == '"') {
+			tok[strlen(tok)-1] = '\0';
+			ARGV[ARGC++] = strdup(tok+1);
 
 		// handle starting quote 
 		} else if (tok[0] == '"') {
 			open_quote = 1;
-			ARGV[ARGC] = cgc_strdup(tok);
+			ARGV[ARGC] = strdup(tok);
 
 		// not a quoted token
 		} else {
-			ARGV[ARGC++] = cgc_strdup(tok);
+			ARGV[ARGC++] = strdup(tok);
 		}
 	}
 
@@ -134,7 +134,7 @@ int main(void) {
 	ShellCmds *c;
 
 	bzero(CWD, MAX_CMD);
-	cgc_strcpy(CWD, "/");
+	strcpy(CWD, "/");
 
 	if (InitFS(512*1024)) {
 		puts("Failed to initialize the RAM file system\n");
@@ -160,7 +160,7 @@ int main(void) {
 		if (ARGV[0] != NULL) {
 			c = cmds;
 			while (c->command != NULL) {
-				if (!cgc_strcmp(c->command, ARGV[0])) {
+				if (!strcmp(c->command, ARGV[0])) {
 					// run the command
 					c->handler();
 

@@ -73,7 +73,7 @@ vars_t *SearchVARS(char *target_name) {
 	// walk the VARS and find the target	
 	pm = pVARS;
 	while (pm) {
-		if (cgc_strcmp(pm->name, target_name) == 0) {
+		if (strcmp(pm->name, target_name) == 0) {
 			return(pm);
 		}	
 
@@ -106,7 +106,7 @@ vars_t *CreateVARSObject(char *name, uint8_t type, void *value) {
 	if (type == STRING) {
 		strncpy((char *)pm->value, value, MAX_VALUE_LEN-1);
 	} else if (type == INT32) {
-		cgc_memcpy(pm->value, value, 4);
+		memcpy(pm->value, value, 4);
 	}
 
 	return(pm);
@@ -138,7 +138,7 @@ int32_t DeleteVARSObject(vars_t *target) {
 
 	pm = pVARS;
 	while (pm) {
-		if (cgc_strcmp(pm->name, target->name) != 0) {
+		if (strcmp(pm->name, target->name) != 0) {
 			continue;
 		}
 
@@ -193,7 +193,7 @@ vars_t *UpdateVARSObject(char *name, uint8_t type, void *value) {
 		strncpy((char *)pm->value, value, MAX_VALUE_LEN-1);
 
 	} else if (type == INT32) {
-		cgc_memcpy(pm->value, value, 4);
+		memcpy(pm->value, value, 4);
 	}
 
 	return(pm);

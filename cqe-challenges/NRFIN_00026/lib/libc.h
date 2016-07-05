@@ -25,10 +25,6 @@
 #include <libcgc.h>
 #include <stdint.h>
 
-typedef uint8_t bool;
-#define true ((bool) 1)
-#define false ((bool) 0)
-
 #define MAGICWORD "You didn't say the magic word."
 #define MEMERR "Clever girl."
 #define RNDERR "The essence of chaos."
@@ -117,13 +113,13 @@ typedef uint8_t bool;
  * @param r Location to store number of bytes read
  * @return Random data in b
  */
-#define RAND(b,s,r) if (cgc_random(b,s,r)){ SSENDL(sizeof(RNDERR)-1,RNDERR); _terminate(19);}
+#define RAND(b,s,r) if (random(b,s,r)){ SSENDL(sizeof(RNDERR)-1,RNDERR); _terminate(19);}
 
 #define STACKPROTECTINIT extern uint32_t __cookie;
 #define STACKPROTECTADD  uint32_t __wat = __cookie;
 #define STACKPROTECTCHK  if ( (__wat = __wat ^ __cookie) != 0 ) __stack_cookie_fail();
 
-
+#define PAGE_SIZE 4096
 typedef struct heap_chunk heap_chunk_t;
 
 struct heap_chunk {
@@ -218,7 +214,7 @@ int recv(int fd, char *buf, size_t size);
  * @param s2 Source buffer
  * @return Number of bytes copied
  */
-size_t cgc_strcpy(char *s1, char *s2);
+size_t strcpy(char *s1, char *s2);
 
 /**
  * Copy a string with bounds checking
@@ -237,7 +233,7 @@ size_t strncpy(char *s1, char *s2, size_t n);
  * @param s2 String to be concatenated
  * @return s1
  */
-char * cgc_strcat(char *s1, char *s2);
+char * strcat(char *s1, char *s2);
 
 /**
  * Find length of string
@@ -245,7 +241,7 @@ char * cgc_strcat(char *s1, char *s2);
  * @param s String
  * @return length of s
  */
-size_t cgc_strlen(char *s);
+size_t strlen(char *s);
 
 /**
  * Check if two strings are identical
@@ -273,7 +269,7 @@ int startswith(char *s1, char *s2);
  * @param n Number of times to copy character
  * @return dst
  */
-void * cgc_memset(void *dst, char c, size_t n); 
+void * memset(void *dst, char c, size_t n); 
 
 /**
  * Copy bytes from one buffer to another
@@ -283,7 +279,7 @@ void * cgc_memset(void *dst, char c, size_t n);
  * @param n Number of bytes to copy
  * @return dst
  */
-void * cgc_memcpy(void *dst, void *src, size_t n); 
+void * memcpy(void *dst, void *src, size_t n); 
 
 /**
  * Convert byte to hex character string

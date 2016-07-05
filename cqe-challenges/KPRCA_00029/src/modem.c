@@ -51,7 +51,7 @@ static uint8_t g_frames_data[8192];
 static void filter(int16_t *samples, int16_t *coeffs, size_t ncoeffs, int16_t *history)
 {
     size_t i, j;
-    cgc_memcpy(&history[ncoeffs - 1], samples, SAMPLES_PER_ITER * sizeof(int16_t));
+    memcpy(&history[ncoeffs - 1], samples, SAMPLES_PER_ITER * sizeof(int16_t));
     for (i = 0; i < SAMPLES_PER_ITER; i++)
     {
         int16_t sum = 0;
@@ -79,7 +79,7 @@ static void convolution(int16_t *samples)
     static int16_t buf[CONVOLUTION_DELAY + SAMPLES_PER_ITER];
     size_t i;
 
-    cgc_memcpy(&buf[CONVOLUTION_DELAY], samples, SAMPLES_PER_ITER * sizeof(int16_t));
+    memcpy(&buf[CONVOLUTION_DELAY], samples, SAMPLES_PER_ITER * sizeof(int16_t));
     for (i = 0; i < SAMPLES_PER_ITER; i++)
         samples[i] = (buf[i] * buf[i + CONVOLUTION_DELAY]) >> 16;
     memmove(&buf[0], &buf[SAMPLES_PER_ITER], CONVOLUTION_DELAY * sizeof(int16_t));
@@ -227,10 +227,10 @@ int get_byte(uint8_t *byte) {
 }
 
 int ready_to_read(void) {
-    cgc_fd_set read_fds;
+    fd_set read_fds;
     int ret;
     int ready_fd;
-    struct cgc_timeval tv;
+    struct timeval tv;
 
     if (buf_offset < buf_read) {
         return 1;
@@ -242,7 +242,7 @@ int ready_to_read(void) {
     tv.tv_sec = 0;
     tv.tv_usec = 1;
 
-    ret = cgc_fdwait(STDIN + 1, &read_fds, NULL, &tv, &ready_fd);
+    ret = fdwait(STDIN + 1, &read_fds, NULL, &tv, &ready_fd);
 
     if (ret != 0) {
         _terminate(1);

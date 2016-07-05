@@ -95,7 +95,7 @@ int32_t vgf_parse_data( uint8_t *pData, uint32_t dataLen, tVGFParsedFile **pPars
     pParsedData->pColorTable = NULL;
 
     // Load file header
-    cgc_memcpy( &(pParsedData->file_header), pFileHeader, sizeof(tVGFHeader) );
+    memcpy( &(pParsedData->file_header), pFileHeader, sizeof(tVGFHeader) );
 
     // Remember last object to order list
     tVGFObjectTable *pLastObjEntry = NULL;
@@ -203,7 +203,7 @@ int32_t vgf_parse_data( uint8_t *pData, uint32_t dataLen, tVGFParsedFile **pPars
             break;
     }
 
-    // Load color cgc_index
+    // Load color index
     if ( (readPos+sizeof(tVGFColorTable)) > dataLen )
     {
         exitResults = VGF_ERROR_INVALID_FILE;
@@ -227,7 +227,7 @@ int32_t vgf_parse_data( uint8_t *pData, uint32_t dataLen, tVGFParsedFile **pPars
                 goto exit_cleanup;
             }
 
-            cgc_memcpy( &(pParsedData->pColorTable[idx]), (pData+readPos), sizeof(tVGFColorHeader) );
+            memcpy( &(pParsedData->pColorTable[idx]), (pData+readPos), sizeof(tVGFColorHeader) );
 
             readPos += sizeof(tVGFColorHeader);
         }
@@ -340,21 +340,21 @@ int32_t vgf_render_file( tVGFParsedFile *pFile, uint8_t *pDest, uint32_t *pDestL
     {
         // Parse object information
         uint8_t obj_layer;
-        uint8_t obj_color_cgc_index;
+        uint8_t obj_color_index;
         uint16_t obj_settings;
 
         obj_layer = pCur->obj_header.object_layer;
-        obj_color_cgc_index = pCur->obj_header.object_color_cgc_index;
+        obj_color_index = pCur->obj_header.object_color_index;
         obj_settings = pCur->obj_header.object_settings;
 
-        // Verify layer cgc_index
+        // Verify layer index
         if ( obj_layer >= layer_count )
         {
             exitResults = -1;
             goto exit_cleanup;
         }
 
-        if ( obj_color_cgc_index >= pFile->color_count )
+        if ( obj_color_index >= pFile->color_count )
         {
             exitResults = -1;
             goto exit_cleanup;
@@ -364,19 +364,19 @@ int32_t vgf_render_file( tVGFParsedFile *pFile, uint8_t *pDest, uint32_t *pDestL
         switch( pCur->obj_header.object_type )
         {
         case VGF_OBJECT_RECT:
-            vgf_render_rect( &(pCur->obj_data.obj_rect), layer_data[obj_layer], obj_settings, obj_color_cgc_index, pixel_width, pixel_height );
+            vgf_render_rect( &(pCur->obj_data.obj_rect), layer_data[obj_layer], obj_settings, obj_color_index, pixel_width, pixel_height );
             break;
 
         case VGF_OBJECT_TRIANGLE:
-            vgf_render_triangle( &(pCur->obj_data.obj_triangle), layer_data[obj_layer], obj_settings, obj_color_cgc_index, pixel_width, pixel_height );
+            vgf_render_triangle( &(pCur->obj_data.obj_triangle), layer_data[obj_layer], obj_settings, obj_color_index, pixel_width, pixel_height );
             break;
 
         case VGF_OBJECT_LINE:
-            vgf_render_line( &(pCur->obj_data.obj_line), layer_data[obj_layer], obj_settings, obj_color_cgc_index, pixel_width, pixel_height );
+            vgf_render_line( &(pCur->obj_data.obj_line), layer_data[obj_layer], obj_settings, obj_color_index, pixel_width, pixel_height );
             break;
 
         case VGF_OBJECT_CIRCLE:
-            vgf_render_circle( &(pCur->obj_data.obj_circle), layer_data[obj_layer], obj_settings, obj_color_cgc_index, pixel_width, pixel_height );
+            vgf_render_circle( &(pCur->obj_data.obj_circle), layer_data[obj_layer], obj_settings, obj_color_index, pixel_width, pixel_height );
             break;
 
         case VGF_OBJECT_END:
@@ -423,7 +423,7 @@ int32_t vgf_render_file( tVGFParsedFile *pFile, uint8_t *pDest, uint32_t *pDestL
     {
         if ( final_data[pixel_idx] == PIXEL_DEFAULT_COLOR_INDEX )
         {
-            // Default black backgcgc_round
+            // Default black background
             *(pDest+destPixel+0) = 0x00;
             *(pDest+destPixel+1) = 0x00;
             *(pDest+destPixel+2) = 0x00;
@@ -459,7 +459,7 @@ exit_cleanup:
     return (exitResults);
 }
 
-void vgf_hline_helper( uint16_t x0, uint16_t y0, uint16_t len, uint16_t *layer_data, uint8_t color_cgc_index, uint16_t width, uint16_t height )
+void vgf_hline_helper( uint16_t x0, uint16_t y0, uint16_t len, uint16_t *layer_data, uint8_t color_index, uint16_t width, uint16_t height )
 {
     if ( x0 >= width )
         return;
@@ -475,11 +475,11 @@ void vgf_hline_helper( uint16_t x0, uint16_t y0, uint16_t len, uint16_t *layer_d
         if ( x0 + cur >= width )
             break;
 
-        layer_data[ GET_XY( x0+cur, y0, width ) ] = color_cgc_index;
+        layer_data[ GET_XY( x0+cur, y0, width ) ] = color_index;
     }
 }
 
-void vgf_vline_helper( uint16_t x0, uint16_t y0, uint16_t len, uint16_t *layer_data, uint8_t color_cgc_index, uint16_t width, uint16_t height )
+void vgf_vline_helper( uint16_t x0, uint16_t y0, uint16_t len, uint16_t *layer_data, uint8_t color_index, uint16_t width, uint16_t height )
 {
     if ( x0 >= width )
         return;
@@ -495,11 +495,11 @@ void vgf_vline_helper( uint16_t x0, uint16_t y0, uint16_t len, uint16_t *layer_d
         if ( y0 + cur >= height )
             break;
 
-        layer_data[ GET_XY( x0, y0+cur, width ) ] = color_cgc_index;
+        layer_data[ GET_XY( x0, y0+cur, width ) ] = color_index;
     }
 }
 
-void vgf_line_helper( uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t *layer_data, uint8_t color_cgc_index, uint16_t width, uint16_t height )
+void vgf_line_helper( uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t *layer_data, uint8_t color_index, uint16_t width, uint16_t height )
 {
     // Use Bresenham's algorithm
     int16_t dx, dy;
@@ -533,7 +533,7 @@ void vgf_line_helper( uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16
 
     for ( count = 0; count <= dist+1; count++ )
     {
-        layer_data[ x_pos + (y_pos * width) ] = color_cgc_index;
+        layer_data[ x_pos + (y_pos * width) ] = color_index;
 
         errx += dx;
         erry += dy;
@@ -552,7 +552,7 @@ void vgf_line_helper( uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16
     }
 }
 
-void vgf_render_rect( tVGFDrawRect *pRectData, uint16_t *layer_data, uint8_t settings, uint8_t color_cgc_index, uint16_t width, uint16_t height )
+void vgf_render_rect( tVGFDrawRect *pRectData, uint16_t *layer_data, uint8_t settings, uint8_t color_index, uint16_t width, uint16_t height )
 {
     uint16_t x_pos, y_pos;
     uint16_t x_start, y_start;
@@ -583,16 +583,16 @@ void vgf_render_rect( tVGFDrawRect *pRectData, uint16_t *layer_data, uint8_t set
     x_pos = x_start;
     y_pos = y_start;
     for ( ; x_pos < x_end; x_pos++ )
-        layer_data[ x_pos + (y_pos*width) ] = color_cgc_index;
+        layer_data[ x_pos + (y_pos*width) ] = color_index;
 
     for ( ; y_pos < y_end; y_pos++ )
-        layer_data[ x_pos + (y_pos*width) ] = color_cgc_index;
+        layer_data[ x_pos + (y_pos*width) ] = color_index;
 
     for ( ; x_pos > x_start; x_pos-- )
-        layer_data[ x_pos + (y_pos*width) ] = color_cgc_index;
+        layer_data[ x_pos + (y_pos*width) ] = color_index;
 
     for ( ; y_pos > y_start; y_pos-- )
-        layer_data[ x_pos + (y_pos*width) ] = color_cgc_index;
+        layer_data[ x_pos + (y_pos*width) ] = color_index;
 
     if ( settings & VGF_OBJECT_SETTINGS_FILL )
     {
@@ -603,13 +603,13 @@ void vgf_render_rect( tVGFDrawRect *pRectData, uint16_t *layer_data, uint8_t set
         {
             y_pos = y_start+1;
             for ( ; y_pos < y_end; y_pos++ )
-                layer_data[ x_pos + (y_pos*width) ] = color_cgc_index;
+                layer_data[ x_pos + (y_pos*width) ] = color_index;
         }
     }
 }
 
 
-void vgf_render_circle( tVGFDrawCircle *pCircleData, uint16_t *layer_data, uint8_t settings, uint8_t color_cgc_index, uint16_t width, uint16_t height )
+void vgf_render_circle( tVGFDrawCircle *pCircleData, uint16_t *layer_data, uint8_t settings, uint8_t color_index, uint16_t width, uint16_t height )
 {
     if ( pCircleData == NULL )
         return;
@@ -641,7 +641,7 @@ void vgf_render_circle( tVGFDrawCircle *pCircleData, uint16_t *layer_data, uint8
         int16_t ddF_x = 1;
         int16_t ddF_y = -2 * pCircleData->radius;
 
-        vgf_vline_helper( x_pos, y_pos-y, 2*y, layer_data, color_cgc_index, width, height );
+        vgf_vline_helper( x_pos, y_pos-y, 2*y, layer_data, color_index, width, height );
 
         while ( x < y )
         {
@@ -657,10 +657,10 @@ void vgf_render_circle( tVGFDrawCircle *pCircleData, uint16_t *layer_data, uint8
             radius_error += ddF_x;
 
             // Draw lines vertically ||| across the circle points using Bresenham's algorithm, use the fast vline helper
-            vgf_vline_helper( x_pos+x, y_pos-y, 2*y, layer_data, color_cgc_index, width, height );
-            vgf_vline_helper( x_pos+y, y_pos-x, 2*x, layer_data, color_cgc_index, width, height );
-            vgf_vline_helper( x_pos-x, y_pos-y, 2*y, layer_data, color_cgc_index, width, height );
-            vgf_vline_helper( x_pos-y, y_pos-x, 2*x, layer_data, color_cgc_index, width, height );
+            vgf_vline_helper( x_pos+x, y_pos-y, 2*y, layer_data, color_index, width, height );
+            vgf_vline_helper( x_pos+y, y_pos-x, 2*x, layer_data, color_index, width, height );
+            vgf_vline_helper( x_pos-x, y_pos-y, 2*y, layer_data, color_index, width, height );
+            vgf_vline_helper( x_pos-y, y_pos-x, 2*x, layer_data, color_index, width, height );
         }
     }
     else
@@ -676,10 +676,10 @@ void vgf_render_circle( tVGFDrawCircle *pCircleData, uint16_t *layer_data, uint8
         uint16_t radius = pCircleData->radius;
 
         // Draw points
-        layer_data[ GET_XY( x_pos, y_pos+radius, width ) ] = color_cgc_index;
-        layer_data[ GET_XY( x_pos, y_pos-radius, width ) ] = color_cgc_index;
-        layer_data[ GET_XY( x_pos+radius, y_pos, width ) ] = color_cgc_index;
-        layer_data[ GET_XY( x_pos-radius, y_pos, width ) ] = color_cgc_index;
+        layer_data[ GET_XY( x_pos, y_pos+radius, width ) ] = color_index;
+        layer_data[ GET_XY( x_pos, y_pos-radius, width ) ] = color_index;
+        layer_data[ GET_XY( x_pos+radius, y_pos, width ) ] = color_index;
+        layer_data[ GET_XY( x_pos-radius, y_pos, width ) ] = color_index;
 
         while ( x < y )
         {
@@ -694,21 +694,21 @@ void vgf_render_circle( tVGFDrawCircle *pCircleData, uint16_t *layer_data, uint8
             ddF_x += 2;
             radius_error += ddF_x;
 
-            layer_data[ GET_XY( x_pos + x, y_pos + y, width ) ] = color_cgc_index;
-            layer_data[ GET_XY( x_pos - x, y_pos + y, width ) ] = color_cgc_index;
-            layer_data[ GET_XY( x_pos + x, y_pos - y, width ) ] = color_cgc_index;
-            layer_data[ GET_XY( x_pos - x, y_pos - y, width ) ] = color_cgc_index;
-            layer_data[ GET_XY( x_pos + y, y_pos + x, width ) ] = color_cgc_index;
-            layer_data[ GET_XY( x_pos - y, y_pos + x, width ) ] = color_cgc_index;
-            layer_data[ GET_XY( x_pos + y, y_pos - x, width ) ] = color_cgc_index;
-            layer_data[ GET_XY( x_pos - y, y_pos - x, width ) ] = color_cgc_index;
+            layer_data[ GET_XY( x_pos + x, y_pos + y, width ) ] = color_index;
+            layer_data[ GET_XY( x_pos - x, y_pos + y, width ) ] = color_index;
+            layer_data[ GET_XY( x_pos + x, y_pos - y, width ) ] = color_index;
+            layer_data[ GET_XY( x_pos - x, y_pos - y, width ) ] = color_index;
+            layer_data[ GET_XY( x_pos + y, y_pos + x, width ) ] = color_index;
+            layer_data[ GET_XY( x_pos - y, y_pos + x, width ) ] = color_index;
+            layer_data[ GET_XY( x_pos + y, y_pos - x, width ) ] = color_index;
+            layer_data[ GET_XY( x_pos - y, y_pos - x, width ) ] = color_index;
         }
     }
 
 
 }
 
-void vgf_render_triangle( tVGFDrawTriangle *pTriangleData, uint16_t *layer_data, uint8_t settings, uint8_t color_cgc_index, uint16_t width, uint16_t height )
+void vgf_render_triangle( tVGFDrawTriangle *pTriangleData, uint16_t *layer_data, uint8_t settings, uint8_t color_index, uint16_t width, uint16_t height )
 {
     uint16_t x_pos1, y_pos1;
     uint16_t x_pos2, y_pos2;
@@ -778,7 +778,7 @@ void vgf_render_triangle( tVGFDrawTriangle *pTriangleData, uint16_t *layer_data,
                 xh = x_pos3;
 
             // DRAW horizontal line -- use a specific horizontal line helper here to improve performance.
-            vgf_hline_helper( xl, y_pos1, (xh-xl), layer_data, color_cgc_index, width, height );
+            vgf_hline_helper( xl, y_pos1, (xh-xl), layer_data, color_index, width, height );
         }
         else
         {
@@ -816,7 +816,7 @@ void vgf_render_triangle( tVGFDrawTriangle *pTriangleData, uint16_t *layer_data,
                 if ( xl > xh )
                     SWAP( xl, xh );
 
-                vgf_hline_helper( xl, y_pos1, (xh-xl), layer_data, color_cgc_index, width, height );
+                vgf_hline_helper( xl, y_pos1, (xh-xl), layer_data, color_index, width, height );
 
                 y = y_pos2;
             }
@@ -834,7 +834,7 @@ void vgf_render_triangle( tVGFDrawTriangle *pTriangleData, uint16_t *layer_data,
                         SWAP( xl, xh );
 
                     // DRAW scan line between bresenham lines
-                    vgf_hline_helper( xl, y, (xh-xl), layer_data, color_cgc_index, width, height );
+                    vgf_hline_helper( xl, y, (xh-xl), layer_data, color_index, width, height );
                 }
             }
 
@@ -853,20 +853,20 @@ void vgf_render_triangle( tVGFDrawTriangle *pTriangleData, uint16_t *layer_data,
                     SWAP( xl, xh );
 
                 // DRAW scan line between bresenham lines
-                vgf_hline_helper( xl, y, (xh-xl), layer_data, color_cgc_index, width, height );
+                vgf_hline_helper( xl, y, (xh-xl), layer_data, color_index, width, height );
             }
         }
     }
     else
     {
-        vgf_line_helper( x_pos1, y_pos1, x_pos2, y_pos2, layer_data, color_cgc_index, width, height );
-        vgf_line_helper( x_pos2, y_pos2, x_pos3, y_pos3, layer_data, color_cgc_index, width, height );
-        vgf_line_helper( x_pos3, y_pos3, x_pos1, y_pos1, layer_data, color_cgc_index, width, height );
+        vgf_line_helper( x_pos1, y_pos1, x_pos2, y_pos2, layer_data, color_index, width, height );
+        vgf_line_helper( x_pos2, y_pos2, x_pos3, y_pos3, layer_data, color_index, width, height );
+        vgf_line_helper( x_pos3, y_pos3, x_pos1, y_pos1, layer_data, color_index, width, height );
     }
 }
 
 
-void vgf_render_line( tVGFDrawLine *pLineData, uint16_t *layer_data, uint8_t settings, uint8_t color_cgc_index, uint16_t width, uint16_t height )
+void vgf_render_line( tVGFDrawLine *pLineData, uint16_t *layer_data, uint8_t settings, uint8_t color_index, uint16_t width, uint16_t height )
 {
     uint16_t x_start, y_start;
     uint16_t x_end, y_end;
@@ -891,7 +891,7 @@ void vgf_render_line( tVGFDrawLine *pLineData, uint16_t *layer_data, uint8_t set
     if ( y_start > y_end )
         return;
 
-    vgf_line_helper( x_start, y_start, x_end, y_end, layer_data, color_cgc_index, width, height );
+    vgf_line_helper( x_start, y_start, x_end, y_end, layer_data, color_index, width, height );
 
     if ( settings & VGF_OBJECT_SETTINGS_FILL )
     {

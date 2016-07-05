@@ -92,7 +92,7 @@ static unsigned int _atree_find_word(atree_node_t *node, const char *word)
     while (min + 1 < max)
     {
         unsigned int mid = (max - min) / 2 + min;
-        int cmp = cgc_strcmp(node->words[mid], word);
+        int cmp = strcmp(node->words[mid], word);
         if (cmp == 0)
             return mid;
         else if (cmp > 0)
@@ -101,7 +101,7 @@ static unsigned int _atree_find_word(atree_node_t *node, const char *word)
             min = mid;
     }
 
-    if (cgc_strcmp(node->words[max], word) <= 0)
+    if (strcmp(node->words[max], word) <= 0)
         return max;
     else
         return min;
@@ -235,7 +235,7 @@ int atree_add(atree_t *tree, const char *word)
     }
     else
     {
-        cmp = cgc_strcmp(node->words[i], word);
+        cmp = strcmp(node->words[i], word);
         if (cmp == 0)
             return 0;
         else if (cmp < 0)
@@ -292,7 +292,7 @@ int atree_remove(atree_t *tree, const char *word)
     node = *pnode;
 
     for (i = 0; i < node->degree; i++)
-        if (cgc_strcmp(word, node->words[i]) == 0)
+        if (strcmp(word, node->words[i]) == 0)
             break;
 
     if (i < node->degree)
@@ -328,7 +328,7 @@ char **atree_query(atree_t *tree, const char *word)
     if (result == NULL)
         return NULL;
 
-    cgc_memcpy(result, node->words, sizeof(const char *) * node->degree);
+    memcpy(result, node->words, sizeof(const char *) * node->degree);
     result[node->degree] = NULL;
     return result;
 }
@@ -350,7 +350,7 @@ static void _atree_gather_subset(atree_t *tree, freqtab_t *ftab, atree_node_t *n
         if (r == NULL)
             return;
         
-        cgc_memcpy(&r[*count], node->words, node->degree * sizeof(char *));
+        memcpy(&r[*count], node->words, node->degree * sizeof(char *));
         *results = r;
         *count += node->degree;
         return;

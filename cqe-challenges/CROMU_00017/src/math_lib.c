@@ -51,7 +51,7 @@ int get_user_answer(int *answer)
 		// Error on receive
 		return FAIL;
 	}
-	int str_len = cgc_strlen(buf);
+	int str_len = strlen(buf);
 	if (buf[str_len-1] == '\n')
 	{
 		str_len -= 1;
@@ -81,13 +81,13 @@ int get_user_equation(char *equation)
 		return FAIL;
 	}
 
-	if (buf[cgc_strlen(buf)-1]=='\n')
+	if (buf[strlen(buf)-1]=='\n')
 	{
-		strncpy(equation, buf, cgc_strlen(buf) - 1);
+		strncpy(equation, buf, strlen(buf) - 1);
 	}
 	else
 	{
-		strncpy(equation, buf, cgc_strlen(buf));
+		strncpy(equation, buf, strlen(buf));
 	}
 	return SUCCESS;
 
@@ -326,7 +326,7 @@ int prompt_for_equation()
 	printf("string is formatted @s\n", (ret == 1 ? "correct":"incorrect"));
 
 	// scan the user's string and check for each requirement
-	for (int i = 0; i < cgc_strlen(str); i++)
+	for (int i = 0; i < strlen(str); i++)
 	{
 		if (str[i] == '(')
 			num_parens_found++;

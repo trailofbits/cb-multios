@@ -49,7 +49,7 @@ void append_list(list **l, const DATA d, int dups)
   list *i = *l;
   if (!dups) {
     while (i) {
-      if (!cgc_strcmp((char *)d, (char *)i->d))
+      if (!strcmp((char *)d, (char *)i->d))
         return;
       i = i->n;
     }
@@ -99,7 +99,7 @@ size_t len_list(const list *l)
   return s;
 }
 
-const DATA lcgc_index(const list *l, ssize_t i)
+const DATA lindex(const list *l, ssize_t i)
 {
   if (!l)
     return NULL;
@@ -175,11 +175,11 @@ void free_list_of_lists(const list *l, int leave_data)
 const void *random_element(list *l)
 {
   size_t i, x, len = len_list(l);
-  if (cgc_random(&i, sizeof(size_t), &x) < 0)
+  if (random(&i, sizeof(size_t), &x) < 0)
     error(ERAND);
 
   if (x != sizeof(size_t))
     return NULL;
   i %= len;
-  return lcgc_index(l, i);
+  return lindex(l, i);
 }

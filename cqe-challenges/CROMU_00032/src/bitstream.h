@@ -38,11 +38,11 @@ typedef struct BitStream {
 	/// Total length of the stream in bytes
 	unsigned int streamLength;
 
-	/// Current byte being read from in the stream cgc_index. This should
+	/// Current byte being read from in the stream index. This should
 	///	never be greater than streamLength
 	unsigned int byteIndex;
 
-	/// Current bit cgc_index within the current byte to be read. This will
+	/// Current bit index within the current byte to be read. This will
 	///	never be greater than 7
 	unsigned int bitIndex;
 } BitStream, *pBitStream;

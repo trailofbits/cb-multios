@@ -2,6 +2,7 @@
 #include <libcgc.h>
 
 /* from limits.h, but it doesn't include right */
+#define UINT32_MAX 4294967295U
 typedef unsigned int uint32;
 
 typedef struct {
@@ -9,7 +10,7 @@ typedef struct {
   uint32* contents;
 } data_package;
 
-size_t cgc_read(void* buf, size_t expected_size);
+size_t read(void* buf, size_t expected_size);
 
 /* took the limit from `ulimit -a` and chopped it in half */
 //#define MAX_STACK_SIZE (8388608 / 2)

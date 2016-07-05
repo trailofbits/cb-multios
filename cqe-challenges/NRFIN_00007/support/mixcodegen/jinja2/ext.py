@@ -46,7 +46,7 @@ class Extension(with_metaclass(ExtensionRegistry, object)):
     overlays) by creating a copy and reassigning the `environment` attribute.
 
     As extensions are created by the environment they cannot accept any
-    arguments for configuration.  One may want to work acgc_round that by using
+    arguments for configuration.  One may want to work around that by using
     a factory function, but that is not possible as extensions are identified
     by their import name.  The correct way to configure the extension is
     storing the configuration values on the environment.  Because this way the
@@ -287,7 +287,7 @@ class InternationalizationExtension(Extension):
         else:
             next(parser.stream)
 
-        # register cgc_free names as simple name expressions
+        # register free names as simple name expressions
         for var in referenced:
             if var not in variables:
                 variables[var] = nodes.Name(var, 'load')

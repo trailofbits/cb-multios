@@ -40,7 +40,7 @@ int main(void)
     exit(1);
 
   for (;;) {
-    cgc_memset(buf, '\0', MAX_EXPRESSION_LENGTH + 1);
+    memset(buf, '\0', MAX_EXPRESSION_LENGTH + 1);
 
     printf("> ");
     if (read_balanced_expression(STDIN, buf, MAX_EXPRESSION_LENGTH) != 0) {

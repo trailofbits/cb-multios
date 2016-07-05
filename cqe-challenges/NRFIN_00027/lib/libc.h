@@ -33,7 +33,9 @@
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE -1
 
+#define INT_MIN ((int)(0x80000000))
 
+#define PAGE_SIZE (1 << 12)
 
 /**
  * Return the lesser of a and b
@@ -138,7 +140,7 @@ void *realloc(void *ptr, size_t size);
  * @param n The number of bytes to set
  * @return ptr
  */
-void *cgc_memset(void *ptr_, int val, size_t n);
+void *memset(void *ptr_, int val, size_t n);
 
 /**
  * Copy n bytes from src to dst.
@@ -148,7 +150,7 @@ void *cgc_memset(void *ptr_, int val, size_t n);
  * @param n The number of bytes to copy
  * @return dst
  */
-void *cgc_memcpy(void *dst_, const void *src_, size_t n);
+void *memcpy(void *dst_, const void *src_, size_t n);
 
 /**
  * Return the length of a null-terminated string.
@@ -156,7 +158,7 @@ void *cgc_memcpy(void *dst_, const void *src_, size_t n);
  * @param s The string
  * @return The length of s
  */
-size_t cgc_strlen(const char *s);
+size_t strlen(const char *s);
 
 /* The following is verbatim from EAGLE_00004, but isn't included in the 
  * released binary (DEBUG is not defined), so this reuse shouldn't be a concern.

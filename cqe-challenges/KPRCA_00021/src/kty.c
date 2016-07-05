@@ -126,7 +126,7 @@ void kty_object_to_string(kty_item_t *item, int depth)
       count++;
       print_indent(depth + 1);
       fdprintf(STDOUT, "\"");
-      print_escaped(entry->key, cgc_strlen(entry->key));
+      print_escaped(entry->key, strlen(entry->key));
       fdprintf(STDOUT, "\": ");
       kty_print_item(entry->val, depth + 1);
     }
@@ -402,7 +402,7 @@ char* parse_object(kty_item_t *item, char *str)
   if (str == NULL)
     goto fail;
   htbl_put(item->item.i_object, key, new);
-  if (cgc_strcmp("nyan_says", key) == 0 && new->type == KTY_STRING)
+  if (strcmp("nyan_says", key) == 0 && new->type == KTY_STRING)
   {
     dup = (kty_item_t *) malloc(sizeof(kty_item_t));
     if (dup == NULL)
@@ -434,7 +434,7 @@ char* parse_object(kty_item_t *item, char *str)
     if (str == NULL)
       goto fail;
     htbl_put(item->item.i_object, key, new);
-    if (cgc_strcmp("nyan_says", key) == 0 && new->type == KTY_STRING)
+    if (strcmp("nyan_says", key) == 0 && new->type == KTY_STRING)
     {
       dup = (kty_item_t *) malloc(sizeof(kty_item_t));
       if (dup == NULL)

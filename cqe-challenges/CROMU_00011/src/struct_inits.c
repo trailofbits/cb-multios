@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 void print_set( psetArray psa )
 {
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( psa == NULL ) {
 		goto end;
@@ -36,14 +36,14 @@ void print_set( psetArray psa )
 
 	printf("@s = |", psa->varName);
 
-	while ( cgc_index < psa->varCount ) {
-		if (psa->sElems[cgc_index]->type == SET ) {
-			printf("@s", psa->sElems[cgc_index]->value);
+	while ( index < psa->varCount ) {
+		if (psa->sElems[index]->type == SET ) {
+			printf("@s", psa->sElems[index]->value);
 		} else {
-			printf("\"@s\"", psa->sElems[cgc_index]->value);
+			printf("\"@s\"", psa->sElems[index]->value);
 		}
-		cgc_index++;
-		if ( cgc_index != psa->varCount ) {
+		index++;
+		if ( index != psa->varCount ) {
 			printf(",");
 		}
 	}
@@ -63,7 +63,7 @@ void free_element( psetElement element )
 		goto end;
 	}
 
-	deallocate( element->value, cgc_strlen( element->value) + 1 );
+	deallocate( element->value, strlen( element->value) + 1 );
 	deallocate( element, sizeof(setElement) );
 
 end:
@@ -78,7 +78,7 @@ end:
 psetArray copy_set( psetArray set )
 {
 	psetArray copy = NULL;
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( set == NULL ) {
 		goto end;
@@ -91,13 +91,13 @@ psetArray copy_set( psetArray set )
 
 	bzero( copy, sizeof(setArray));
 
-	while ( cgc_index < set->varCount ) {
-		if (add_element_to_set( copy, copy_element( set->sElems[cgc_index]) ) != 0 ) {
+	while ( index < set->varCount ) {
+		if (add_element_to_set( copy, copy_element( set->sElems[index]) ) != 0 ) {
 			free_set_array( copy );
 			copy = NULL;
 			goto end;
 		}
-		cgc_index++;
+		index++;
 	}
 
 end:
@@ -111,16 +111,16 @@ end:
  **/
 void free_set_array( psetArray psa )
 {
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( psa == NULL ) {
 		goto end;
 	}
 
-	for ( cgc_index = 0; cgc_index < psa->varCount; cgc_index++){
-		deallocate( psa->sElems[cgc_index]->value, cgc_strlen(psa->sElems[cgc_index]->value) + 1 );
-		deallocate( psa->sElems[cgc_index], sizeof( setElement) );
-		psa->sElems[cgc_index] = NULL;
+	for ( index = 0; index < psa->varCount; index++){
+		deallocate( psa->sElems[index]->value, strlen(psa->sElems[index]->value) + 1 );
+		deallocate( psa->sElems[index], sizeof( setElement) );
+		psa->sElems[index] = NULL;
 	}
 
 	deallocate( psa, sizeof(setArray));
@@ -149,7 +149,7 @@ psetElement copy_element( psetElement element )
 		goto end;
 	}
 
-	vlen = cgc_strlen( element->value ) + 1;
+	vlen = strlen( element->value ) + 1;
 
 	if ( allocate( vlen, 0, (void**)&copy->value) != 0 ) {
 		deallocate( copy, sizeof(psetElement) );
@@ -158,7 +158,7 @@ psetElement copy_element( psetElement element )
 	}
 
 	bzero( copy->value, vlen );
-	cgc_memcpy( copy->value, element->value, vlen-1 );
+	memcpy( copy->value, element->value, vlen-1 );
 	copy->type = element->type;
 
 end:
@@ -176,7 +176,7 @@ int element_in_set( psetArray set, psetElement element )
 	int retval = -1;
 	int vlen = 0;
 	int nlen = 0;
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( set == NULL ) {
 		goto end;
@@ -186,14 +186,14 @@ int element_in_set( psetArray set, psetElement element )
 		goto end;
 	}
 
-	while ( cgc_index < set->varCount ) {
-		if ( cgc_strcmp( element->value, set->sElems[cgc_index]->value) == 0 ) {
-			if ( element->type == set->sElems[cgc_index]->type ) {
+	while ( index < set->varCount ) {
+		if ( strcmp( element->value, set->sElems[index]->value) == 0 ) {
+			if ( element->type == set->sElems[index]->type ) {
 				retval = 1;
 				goto end;
 			}
 		}
-		cgc_index++;
+		index++;
 	}
 
 	retval = 0;
@@ -252,7 +252,7 @@ psetElement create_element( char* value, int type )
                 goto end;
         }
 
-        vlen = cgc_strlen(value);
+        vlen = strlen(value);
 
         if ( allocate( vlen + 1, 0, (void**)&(pse->value)) != 0 ) {
                 deallocate( pse, sizeof(setElement) );
@@ -260,7 +260,7 @@ psetElement create_element( char* value, int type )
                 goto end;
         }
 
-        cgc_memcpy( pse->value, value, vlen );
+        memcpy( pse->value, value, vlen );
 
         pse->value[vlen] = 0x00;
         pse->type = type;

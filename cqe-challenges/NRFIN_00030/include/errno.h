@@ -28,8 +28,4 @@
 #define ERRNO_RECV -9
 #define ERRNO_RAND -12
 
-#define SUCCESS 0
-#define TRUE 1
-#define FALSE 0
-
 #endif

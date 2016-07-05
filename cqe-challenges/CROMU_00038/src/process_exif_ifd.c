@@ -90,7 +90,7 @@ unsigned int remaining_size;
 
         if (type == 2) {
 #ifdef PATCHED
-	    if ( cgc_strlen( (char*)(ifd_ptr) + value ) > 2048 ) {
+	    if ( strlen( (char*)(ifd_ptr) + value ) > 2048 ) {
 		((char*)(ifd_ptr))[value+2048] = '\x00';
 	    }
 #endif

@@ -22,12 +22,16 @@
 
 #define ERROR_FAILED_RECV 4
 #define ERROR_FAILED_SEND 5
+#define CHAR_BIT 8
 #define NUM_VALS 5
 #define PERM_FIELD 0
 #define LENGTH_FIELD 1
 #define WIDTH_FIELD 2
 #define X_FIELD 3
 #define Y_FIELD 4
+
+#define SHRT_MIN -32768
+#define SHRT_MAX 32767
 
 typedef struct {
 	short value[NUM_VALS];

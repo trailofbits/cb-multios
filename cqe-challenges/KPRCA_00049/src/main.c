@@ -44,9 +44,9 @@ typedef long int _fd_mask;
 
 typedef struct {
  _fd_mask _fd_bits[1024 / (8 * sizeof(_fd_mask))];
-} cgc_fd_set;
+} fd_set;
 # 38 "lib/libcgc.h"
-struct cgc_timeval {
+struct timeval {
  int tv_sec;
  int tv_usec;
 };
@@ -54,8 +54,8 @@ struct cgc_timeval {
 void _terminate(unsigned int status) __attribute__((__noreturn__));
 int transmit(int fd, const void *buf, size_t count, size_t *tx_bytes);
 int receive(int fd, void *buf, size_t count, size_t *rx_bytes);
-int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
-    const struct cgc_timeval *timeout, int *readyfds);
+int fdwait(int nfds, fd_set *readfds, fd_set *writefds,
+    const struct timeval *timeout, int *readyfds);
 int allocate(size_t length, int is_X, void **addr);
 int deallocate(void *addr, size_t length);
 int random(void *buf, size_t count, size_t *rnd_bytes);
@@ -161,22 +161,22 @@ static void exit(int ret)
 
 
 
-extern void *cgc_memcpy(void *dest, const void *src, size_t n);
+extern void *memcpy(void *dest, const void *src, size_t n);
 extern void *memmove(void *dest, const void *src, size_t n);
-extern void *cgc_memset(void *dest, int c, size_t n);
+extern void *memset(void *dest, int c, size_t n);
 extern int memcmp(void *s1, const void *s2, size_t n);
 extern void *memchr(const void *s, int c, size_t n);
 
-extern size_t cgc_strlen(const char *s);
-extern char *cgc_strcpy(char *dest, const char *src);
+extern size_t strlen(const char *s);
+extern char *strcpy(char *dest, const char *src);
 extern char *strncpy(char *dest, const char *src, size_t n);
 extern char *strchr(const char *s, int c);
 extern char *strsep(char **stringp, const char *delim);
-extern int cgc_strcmp(const char *s1, const char *s2);
+extern int strcmp(const char *s1, const char *s2);
 extern int strncmp(const char *s1, const char *s2, size_t n);
 extern int strcasecmp(const char *s1, const char *s2);
 extern int strncasecmp(const char *s1, const char *s2, size_t n);
-extern char *cgc_strcat(char *dest, const char *src);
+extern char *strcat(char *dest, const char *src);
 extern char *strdup(const char *src);
 # 28 "src/main.c" 2
 
@@ -218,7 +218,7 @@ note_t* note_store[(512)] = {0};
 note_t* get_note(char* title)
 {
   for(size_t i = 0; i < (512); i++)
-    if (note_store[i] && cgc_strcmp(title, note_store[i]->title) == 0)
+    if (note_store[i] && strcmp(title, note_store[i]->title) == 0)
       return note_store[i];
   return ((void *)0);
 }
@@ -234,14 +234,14 @@ note_t* new_note(char* title, char* data)
   note_t* note = calloc(sizeof(note_t), 1);
   ({ if (note == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 75); exit(1); }); });
 
-  size_t data_size = cgc_strlen(data);
+  size_t data_size = strlen(data);
 
   if (data_size + 1 > (1024))
   {
     note->buf = calloc(sizeof(char), data_size + 1);
     ({ if (note->buf == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 82); exit(1); }); });
     note->size = note->cap = data_size;
-    cgc_strcpy(note->buf, data);
+    strcpy(note->buf, data);
   }
   else
   {
@@ -249,12 +249,12 @@ note_t* new_note(char* title, char* data)
     ({ if (note->buf == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 89); exit(1); }); });
     note->size = data_size;
     note->cap = (1024);
-    cgc_strcpy(note->buf, data);
+    strcpy(note->buf, data);
   }
 
-  note->title = calloc(sizeof(char), cgc_strlen(title) + 1);
+  note->title = calloc(sizeof(char), strlen(title) + 1);
   ({ if (note->title == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 96); exit(1); }); });
-  cgc_strcpy(note->title, title);
+  strcpy(note->title, title);
 
   size_t i;
   for (i = 0; i < (512); i++)
@@ -277,10 +277,10 @@ note_t* append_note(note_t* note, char* data)
   if (!note || !data)
     return ((void *)0);
 
-  if (cgc_strlen(data) + note->size + 1 > note->cap)
+  if (strlen(data) + note->size + 1 > note->cap)
   {
 #ifdef PATCHED
-    note->cap = (cgc_strlen(data) + note->size + 1) * 2;
+    note->cap = (strlen(data) + note->size + 1) * 2;
 #else
     note->cap *= 2;
 #endif
@@ -288,8 +288,8 @@ note_t* append_note(note_t* note, char* data)
     ({ if (note->buf == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 124); exit(1); }); });
   }
 
-  cgc_strcat(note->buf, data);
-  note->size += cgc_strlen(data);
+  strcat(note->buf, data);
+  note->size += strlen(data);
   return note;
 }
 
@@ -353,10 +353,10 @@ thunk_t* new_thunk(thunk_fp_t fp, unsigned arity, char** argv)
     if (!argv[i])
       goto error;
 
-    thunk->argv[i] = calloc(sizeof(char), cgc_strlen(argv[i]) + 1);
+    thunk->argv[i] = calloc(sizeof(char), strlen(argv[i]) + 1);
     ({ if (thunk->argv[i] == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 193); exit(1); }); });
 
-    cgc_strcpy(thunk->argv[i], argv[i]);
+    strcpy(thunk->argv[i], argv[i]);
   }
 
   return thunk;
@@ -391,24 +391,24 @@ int append_thunk(char **argv, list_t** list)
 
   strncpy(tmp, content, (8192));
   tmp[(8192)] = '\0';
-  size_t rep_len = cgc_strlen("cloud");
+  size_t rep_len = strlen("cloud");
 
   size_t idx = 0;
   while (idx < (8192) - rep_len)
   {
     if (strncmp(tmp + idx, "cloud", rep_len) == 0)
     {
-      cgc_memcpy(tmp + idx, "butt ", rep_len);
+      memcpy(tmp + idx, "butt ", rep_len);
       idx += rep_len;
     }
     idx++;
   }
 
-  if (cgc_strcmp(content, tmp))
+  if (strcmp(content, tmp))
   {
-    content = realloc(content, cgc_strlen(tmp) + 1);
+    content = realloc(content, strlen(tmp) + 1);
     ({ if (content == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 246); exit(1); }); });
-    cgc_strcpy(content, tmp);
+    strcpy(content, tmp);
   }
 
   note_t* note = get_note(note_title);
@@ -521,10 +521,10 @@ void yell(int fd)
 char* nth_word(unsigned n, char* input, int to_end)
 {
 
-  size_t len = cgc_strlen(input);
+  size_t len = strlen(input);
   char* word_start[128];
   char* p = input;
-  cgc_memset(word_start, '\0', 128 * sizeof(char *));
+  memset(word_start, '\0', 128 * sizeof(char *));
 
   for (size_t i = 0; i < 128; i++)
   {
@@ -608,7 +608,7 @@ int main(void)
   for (;;)
   {
     prompt(1);
-    cgc_memset(input_buf, '\0', (16 * 1024));
+    memset(input_buf, '\0', (16 * 1024));
     if (read_until(0, (16 * 1024), '\n', input_buf) < 0)
       break;
 
@@ -626,7 +626,7 @@ int main(void)
       run_thunk(&thunks);
 #endif
 
-    if (strncmp(command, "new-note", cgc_strlen("new-note")) == 0)
+    if (strncmp(command, "new-note", strlen("new-note")) == 0)
     {
       run_thunk(&thunks);
       argv = make_argv(input_buf, 2);
@@ -639,7 +639,7 @@ int main(void)
         free_argv(argv, 2);
       }
     }
-    else if (strncmp(command, "append-note", cgc_strlen("append-note")) == 0)
+    else if (strncmp(command, "append-note", strlen("append-note")) == 0)
     {
       argv = make_argv(input_buf, 2);
       if (argv)
@@ -652,7 +652,7 @@ int main(void)
     }
 
 
-    else if (strncmp(command, "delete-note", cgc_strlen("delete-note")) == 0)
+    else if (strncmp(command, "delete-note", strlen("delete-note")) == 0)
     {
       argv = make_argv(input_buf, 1);
       if (argv)
@@ -663,7 +663,7 @@ int main(void)
         free_argv(argv, 1);
       }
     }
-    else if (strncmp(command, "get-note", cgc_strlen("get-note")) == 0)
+    else if (strncmp(command, "get-note", strlen("get-note")) == 0)
     {
       run_thunk(&thunks);
       argv = make_argv(input_buf, 1);

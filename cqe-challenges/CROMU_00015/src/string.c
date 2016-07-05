@@ -51,35 +51,35 @@ void freeString( pstring str )
  * Skips any characters associated with a url:
  *	alphanumeric, '.', '/', and ':'
  * @param str Pointer to the string structure
- * @return Returns the final cgc_index after the URL or -1 on failure
+ * @return Returns the final index after the URL or -1 on failure
  **/
 int skipUrl( pstring str )
 {
 	int retval = -1;
-	int cgc_index = 0;
+	int index = 0;
 	char c = '\x00';
 
 	if ( str == NULL ) {
 		goto end;
 	}
 
-	/// Save the starting cgc_index
-	cgc_index = str->cgc_index;
+	/// Save the starting index
+	index = str->index;
 
 	/// Loop until the end of the buffer or an invalid character is encountered
-	while ( cgc_index < str->maxlength ) {
-		c = str->buffer[cgc_index];
+	while ( index < str->maxlength ) {
+		c = str->buffer[index];
 
 		if ( !isalnum(c) && c != '.' && c != '/' && c != ':' ) {
-			/// Set the new cgc_index past to the invalid character
-			str->cgc_index = cgc_index;
+			/// Set the new index past to the invalid character
+			str->index = index;
 
-			/// Set the return value to the new cgc_index
-			retval = cgc_index;
+			/// Set the return value to the new index
+			retval = index;
 			break;
 		}
 
-		cgc_index++;
+		index++;
 	}
 
 end:
@@ -87,10 +87,10 @@ end:
 }
 
 /**
- * Returns the current cgc_index
+ * Returns the current index
  * @param str Pointer to the string structure
  * @param outIndex Pointer to an integer to store the value
- * @return Returns the current cgc_index into the string
+ * @return Returns the current index into the string
  **/
 int getIndex( pstring str, int *outIndex )
 {
@@ -98,37 +98,37 @@ int getIndex( pstring str, int *outIndex )
 		return -1;
 	}
 
-	*outIndex = str->cgc_index;
+	*outIndex = str->index;
 
-	return str->cgc_index;
+	return str->index;
 }
 
 /**
  * Skip digits, '+' or '-'
  * @param str Pointer to the string structure
- * @return The final cgc_index after any integer data or -1 on error
+ * @return The final index after any integer data or -1 on error
  **/
 int skipInt( pstring str ) 
 {
 	int retval = -1;
-	int cgc_index = 0;
+	int index = 0;
 	char c = '\x00';
 
 	if ( str == NULL ) {
 		return -1;
 	}
 
-	cgc_index = str->cgc_index;
+	index = str->index;
 
-	while( cgc_index < str->maxlength ) {
-		c = str->buffer[cgc_index];
+	while( index < str->maxlength ) {
+		c = str->buffer[index];
 
 		if ( c == '+' || c == '-' || isdigit(c) ) {
-			cgc_index++;
+			index++;
 			continue;
 		} else {
-			str->cgc_index = cgc_index;
-			retval = str->cgc_index;
+			str->index = index;
+			retval = str->index;
 			break;
 		}
 	}
@@ -139,28 +139,28 @@ int skipInt( pstring str )
 /**
  * Skip digits, '+', '-', or '.'
  * @param str Pointer to the string structure
- * @return The final cgc_index after any float data or -1 on error
+ * @return The final index after any float data or -1 on error
  **/
 int skipFloat( pstring str ) 
 {
 	int retval = -1;
-	int cgc_index = 0;
+	int index = 0;
 	char c = '\x00';
 
 	if ( str == NULL ) {
 		return -1;
 	}
 
-	cgc_index = str->cgc_index;
+	index = str->index;
 
-	while( cgc_index < str->maxlength ) {
-		c = str->buffer[cgc_index];
+	while( index < str->maxlength ) {
+		c = str->buffer[index];
 
 		if ( c == '.' || c == '+' || c == '-' || isdigit(c) ) {
-			cgc_index++;
+			index++;
 		} else {
-			str->cgc_index = cgc_index;
-			retval = str->cgc_index;
+			str->index = index;
+			retval = str->index;
 			break;
 		}
 	}
@@ -171,8 +171,8 @@ int skipFloat( pstring str )
 /**
  * Copy a segment of the string out
  * @param str Pointer to the string structure
- * @param start Start cgc_index for the copy
- * @param end End cgc_index for the copy
+ * @param start Start index for the copy
+ * @param end End index for the copy
  * @return Returns a pointer to the requested data or NULL on failure.
  *	This buffer needs to be freed by the caller.
  **/
@@ -215,7 +215,7 @@ char *copyData( pstring str, int start, int end )
 
 	bzero( data, length + 1 );
 
-	cgc_memcpy( data, str->buffer + start, length );
+	memcpy( data, str->buffer + start, length );
 
 	return data;
 }
@@ -223,27 +223,27 @@ char *copyData( pstring str, int start, int end )
 /**
  * Skip to non-alpha characters
  * @param str Pointer to the string structure
- * @param Returns the final cgc_index or -1 on failure
+ * @param Returns the final index or -1 on failure
  **/
 int skipAlpha( pstring str )
 {
 	int retval = -1;
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( str == NULL ) {
 		return retval;
 	}
 
-	cgc_index = str->cgc_index;
+	index = str->index;
 
-	while ( cgc_index < str->maxlength ) {
-		if ( !isalpha( str->buffer[cgc_index] ) ) {
-			str->cgc_index = cgc_index;
-			retval = str->cgc_index;
+	while ( index < str->maxlength ) {
+		if ( !isalpha( str->buffer[index] ) ) {
+			str->index = index;
+			retval = str->index;
 			return retval;
 		}
 
-		cgc_index++;
+		index++;
 	}
 
 	return retval;
@@ -252,26 +252,26 @@ int skipAlpha( pstring str )
 /**
  * Skip to non alphanumeric or spacecharacters
  * @param str Pointer to the string structure
- * @param Returns the final cgc_index or -1 on failure
+ * @param Returns the final index or -1 on failure
  **/
 int skipToNonAlphaNumSpace( pstring str )
 {
 	int retval = -1;
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( str == NULL ) {
 		return retval;
 	}
 
-	cgc_index = str->cgc_index;
-	while ( cgc_index < str->maxlength ) {
-		if ( !isalnum( str->buffer[cgc_index] ) && str->buffer[cgc_index] != ' ') {
-			str->cgc_index = cgc_index;
-			retval = str->cgc_index;
+	index = str->index;
+	while ( index < str->maxlength ) {
+		if ( !isalnum( str->buffer[index] ) && str->buffer[index] != ' ') {
+			str->index = index;
+			retval = str->index;
 			return retval;
 		}
 
-		cgc_index++;
+		index++;
 	}
 
 	return retval;
@@ -280,26 +280,26 @@ int skipToNonAlphaNumSpace( pstring str )
 /**
  * Skip to non alphanumeric characters
  * @param str Pointer to the string structure
- * @param Returns the final cgc_index or -1 on failure
+ * @param Returns the final index or -1 on failure
  **/
 int skipToNonAlphaNum( pstring str )
 {
 	int retval = -1;
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( str == NULL ) {
 		return retval;
 	}
 
-	cgc_index = str->cgc_index;
-	while ( cgc_index < str->maxlength ) {
-		if ( !isalnum( str->buffer[cgc_index] ) ) {
-			str->cgc_index = cgc_index;
-			retval = str->cgc_index;
+	index = str->index;
+	while ( index < str->maxlength ) {
+		if ( !isalnum( str->buffer[index] ) ) {
+			str->index = index;
+			retval = str->index;
 			return retval;
 		}
 
-		cgc_index++;
+		index++;
 	}
 
 	return retval;
@@ -308,7 +308,7 @@ int skipToNonAlphaNum( pstring str )
 /**
  * Increment the string by a one 
  * @param str Pointer to the string structure
- * @return Returns the cgc_index skipped to or -1 on failure
+ * @return Returns the index skipped to or -1 on failure
  **/
 int incChar( pstring str )
 {
@@ -318,9 +318,9 @@ int incChar( pstring str )
 		goto end;
 	}
 
-	if ( str->cgc_index + 1 < str->maxlength ) {
-		str->cgc_index += 1;
-		retval = str->cgc_index;
+	if ( str->index + 1 < str->maxlength ) {
+		str->index += 1;
+		retval = str->index;
 	}
 
 
@@ -331,8 +331,8 @@ end:
 /**
  * Increment the string by a certain length
  * @param str Pointer to the string structure
- * @param count Amount by which to increase the cgc_index
- * @return Returns the cgc_index skipped to or -1 on failure
+ * @param count Amount by which to increase the index
+ * @return Returns the index skipped to or -1 on failure
  **/
 int skipLength( pstring str, int count )
 {
@@ -342,9 +342,9 @@ int skipLength( pstring str, int count )
 		goto end;
 	}
 
-	if ( str->cgc_index + count < str->maxlength ) {
-		str->cgc_index += count;
-		retval = str->cgc_index;
+	if ( str->index + count < str->maxlength ) {
+		str->index += count;
+		retval = str->index;
 	}
 
 
@@ -364,7 +364,7 @@ int atChar( pstring str, char c )
 		return 0;
 	}
 
-	if ( str->buffer[ str->cgc_index ] == c ) {
+	if ( str->buffer[ str->index ] == c ) {
 		return 1;
 	}
 
@@ -375,27 +375,27 @@ int atChar( pstring str, char c )
  * Skip to the next character as specified by the argument
  * @param str Pointer to the string structure
  * @param c Character to locate
- * @return Returns the cgc_index of the next instance or -1 on failure
+ * @return Returns the index of the next instance or -1 on failure
  **/
 int skipTo( pstring str, char c )
 {
-	int cgc_index = 0;
+	int index = 0;
 	int retval = -1;
 
 	if ( str == NULL ) {
 		goto end;
 	}
 
-	cgc_index = str->cgc_index;
+	index = str->index;
 
-	while ( cgc_index < str->maxlength ) {
-		if ( str->buffer[cgc_index] == c ) {
-			str->cgc_index = cgc_index;
-			retval = cgc_index;
+	while ( index < str->maxlength ) {
+		if ( str->buffer[index] == c ) {
+			str->index = index;
+			retval = index;
 			goto end;
 		}
 
-		cgc_index++;
+		index++;
 	}
 
 end:
@@ -416,7 +416,7 @@ pstring initString( char *data )
 		goto end;
 	}	
 
-	length = cgc_strlen(data)+1;
+	length = strlen(data)+1;
 
 	if ( allocate( sizeof(string), 0, (void**)&newString) != 0 ) {
 		newString = NULL;
@@ -429,10 +429,10 @@ pstring initString( char *data )
 	}
 
 	bzero( newString->buffer, length );
-	cgc_memcpy( newString->buffer, data, length-1 );
+	memcpy( newString->buffer, data, length-1 );
 
 	newString->maxlength = length;
-	newString->cgc_index = 0;
+	newString->index = 0;
 
 end:
 	return newString;
@@ -441,7 +441,7 @@ end:
 /**
  * Skip any whitespace at the start of the buffer
  * @param st String structure containing the data to skip
- * @return Returns the new cgc_index
+ * @return Returns the new index
  **/
 int skipWhiteSpace( pstring st )
 {
@@ -454,18 +454,18 @@ int skipWhiteSpace( pstring st )
                 goto end;
         }
 
-	if ( st->maxlength <= st->cgc_index ) {
+	if ( st->maxlength <= st->index ) {
 		return -1;
 	}
 
-        si = st->cgc_index;
+        si = st->index;
 
         while ( si < st->maxlength && (st->buffer[ si ] == '\n' || st->buffer[si] == '\t' || st->buffer[si] == ' ' || st->buffer[si] == '\r') ) {
                 si++;
         }
 
         retval = si;
-        st->cgc_index = si;
+        st->index = si;
 
 end:
         return retval;

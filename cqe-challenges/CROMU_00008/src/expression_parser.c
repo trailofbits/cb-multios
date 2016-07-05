@@ -149,7 +149,7 @@ eParserSymbol parse_get_symbol( char *pszString, uint32_t *new_offset )
 
         if ( strbeg( pszString+offset, g_parseTable[symIndex].text ) == 0 )
         {
-            offset += cgc_strlen( g_parseTable[symIndex].text );
+            offset += strlen( g_parseTable[symIndex].text );
             (*new_offset) = offset;
 
             return g_parseTable[symIndex].symbol;
@@ -235,16 +235,16 @@ int32_t is_symbol_birthdate( eParserSymbol symbol )
 
 void do_date_search( eParserSymbol comparison_symbol, tDateTime dateCompare )
 {
-    uint32_t cgc_index;
+    uint32_t index;
     uint32_t record_total = db_get_record_count();
     tItemStack results;
 
     results.type = ITEM_TYPE_RESULT;
     results.result_list_size = 0;
 
-    for ( cgc_index = 0; cgc_index < record_total; cgc_index++ )
+    for ( index = 0; index < record_total; index++ )
     {
-        tDDAPRecord *pCur = db_search_cgc_index( cgc_index );
+        tDDAPRecord *pCur = db_search_index( index );
         int32_t comparison_result = date_compare( pCur->birthDate, dateCompare );
         int32_t add_item = 0;
 
@@ -277,7 +277,7 @@ void do_date_search( eParserSymbol comparison_symbol, tDateTime dateCompare )
 
         // Add the result to the result list
         if ( add_item )
-            results.data.result_list[results.result_list_size++] = cgc_index;
+            results.data.result_list[results.result_list_size++] = index;
     }
 
     // Add results
@@ -286,31 +286,31 @@ void do_date_search( eParserSymbol comparison_symbol, tDateTime dateCompare )
 
 void do_string_search( eParserSymbol object_type, eParserSymbol comparison_symbol, char *pszSearchString )
 {
-    uint32_t cgc_index;
+    uint32_t index;
     uint32_t record_total = db_get_record_count();
     tItemStack results;
 
     results.type = ITEM_TYPE_RESULT;
     results.result_list_size = 0;
 
-    for ( cgc_index = 0; cgc_index < record_total; cgc_index++ )
+    for ( index = 0; index < record_total; index++ )
     {
-        tDDAPRecord *pCur = db_search_cgc_index( cgc_index );
+        tDDAPRecord *pCur = db_search_index( index );
         int32_t comparison_result;
         int32_t add_item = 0;
 
         switch( object_type )
         {
         case SYM_USERNAME:
-            comparison_result = cgc_strcmp( pCur->szUserName, pszSearchString );
+            comparison_result = strcmp( pCur->szUserName, pszSearchString );
             break;
 
         case SYM_FIRSTNAME:
-            comparison_result = cgc_strcmp( pCur->szFirstName, pszSearchString );
+            comparison_result = strcmp( pCur->szFirstName, pszSearchString );
             break;
 
         case SYM_LASTNAME:
-            comparison_result = cgc_strcmp( pCur->szLastName, pszSearchString );
+            comparison_result = strcmp( pCur->szLastName, pszSearchString );
             break;
 
         default:
@@ -347,7 +347,7 @@ void do_string_search( eParserSymbol object_type, eParserSymbol comparison_symbo
 
         // Add the result to the result list
         if ( add_item )
-            results.data.result_list[results.result_list_size++] = cgc_index;
+            results.data.result_list[results.result_list_size++] = index;
     }
 
     // Add results
@@ -664,7 +664,7 @@ void parse_search_expression( char *pszTemp )
         printf( "Search results, $d items found:\n", result_count );
 
         for ( idx = 0; idx < result_count; idx++ )
-            print_record_helper( db_search_cgc_index( results.data.result_list[idx] ) );
+            print_record_helper( db_search_index( results.data.result_list[idx] ) );
     }
 }
 

@@ -150,15 +150,15 @@ void float_to_str( double val, char *buf, int precision )
 
     if ( isnan( val ) )
     {
-        cgc_strcpy( buf, "nan" );
+        strcpy( buf, "nan" );
     }
     else if ( isinf( val ) )
     {
-        cgc_strcpy( buf, "inf" );
+        strcpy( buf, "inf" );
     }
     else if ( val == 0.0 )
     {
-        cgc_strcpy( buf, "0.00000" );
+        strcpy( buf, "0.00000" );
     }
     else
     {
@@ -341,7 +341,7 @@ int vprintf( const char *fmt, va_list arg )
                 int_to_str( int_arg, temp_buf );
 
                 // is the output string shorter than the desired width?
-                pad_len = width - cgc_strlen(temp_buf);
+                pad_len = width - strlen(temp_buf);
 
                 // right justification
                 if (!left_justification) {
@@ -390,7 +390,7 @@ int vprintf( const char *fmt, va_list arg )
                 uint_to_str( int_arg, temp_buf );
 
                 // is the output string shorter than the desired width?
-                pad_len = width - cgc_strlen(temp_buf);
+                pad_len = width - strlen(temp_buf);
 
                 // right justification
                 if (!left_justification) {
@@ -441,7 +441,7 @@ int vprintf( const char *fmt, va_list arg )
                 int_to_hex( int_arg, temp_buf );
 
                 // is the output string shorter than the desired width?
-                pad_len = width - cgc_strlen(temp_buf);
+                pad_len = width - strlen(temp_buf);
 
                 // right justification
                 if (!left_justification) {
@@ -483,7 +483,7 @@ int vprintf( const char *fmt, va_list arg )
             if (*fmt =='f' ) {
 
                     // currently does not support precision specification for float type
-                    // need the float_to_str() updated to support the cgc_rounding necessary
+                    // need the float_to_str() updated to support the rounding necessary
 
                 double float_arg = va_arg( arg, double );
                 char *c;
@@ -491,7 +491,7 @@ int vprintf( const char *fmt, va_list arg )
                 float_to_str( float_arg, temp_buf, precision);
 
                 // is the output string shorter than the desired width?
-                pad_len = width - cgc_strlen(temp_buf);
+                pad_len = width - strlen(temp_buf);
 
                 // pad the output with spaces or zeros
                 if (!left_justification) {
@@ -521,16 +521,16 @@ int vprintf( const char *fmt, va_list arg )
             if (*fmt== 's' )  {
                 // String
                 char *string_arg = va_arg( arg, char * );
-                int output_cgc_strlen;
+                int output_strlen;
 
-                if (precision > 0 && precision < cgc_strlen(string_arg))
+                if (precision > 0 && precision < strlen(string_arg))
 
-                    output_cgc_strlen = precision;
+                    output_strlen = precision;
                 else
-                    output_cgc_strlen = cgc_strlen(string_arg);
+                    output_strlen = strlen(string_arg);
 
 
-                pad_len = width - output_cgc_strlen;
+                pad_len = width - output_strlen;
 
                 // pad the output with spaces or zeros
                 // right justification
@@ -546,12 +546,12 @@ int vprintf( const char *fmt, va_list arg )
                     }
                 }
 
-                while ( *string_arg && output_cgc_strlen > 0 )
+                while ( *string_arg && output_strlen > 0 )
                 {
                     putc( *string_arg );
                     character_count++;
                     string_arg++;
-                    --output_cgc_strlen;
+                    --output_strlen;
                 }
 
                 // left justification
@@ -699,7 +699,7 @@ int vsprintf( char *str, const char *fmt, va_list arg )
                 int_to_str( int_arg, temp_buf );
 
                 // is the output string shorter than the desired width?
-                pad_len = width - cgc_strlen(temp_buf);
+                pad_len = width - strlen(temp_buf);
 
                 // right justification
                 if (!left_justification) {
@@ -747,7 +747,7 @@ int vsprintf( char *str, const char *fmt, va_list arg )
                 uint_to_str( int_arg, temp_buf );
 
                 // is the output string shorter than the desired width?
-                pad_len = width - cgc_strlen(temp_buf);
+                pad_len = width - strlen(temp_buf);
 
                 // right justification
                 if (!left_justification) {
@@ -798,7 +798,7 @@ int vsprintf( char *str, const char *fmt, va_list arg )
                 int_to_hex( int_arg, temp_buf );
 
                 // is the output string shorter than the desired width?
-                pad_len = width - cgc_strlen(temp_buf);
+                pad_len = width - strlen(temp_buf);
 
                 // right justification
                 if (!left_justification) {
@@ -846,7 +846,7 @@ int vsprintf( char *str, const char *fmt, va_list arg )
                 float_to_str( float_arg, temp_buf, precision);
 
                 // is the output string shorter than the desired width?
-                pad_len = width - cgc_strlen(temp_buf);
+                pad_len = width - strlen(temp_buf);
 
                 // pad the output with spaces or zeros
                 if (!left_justification) {
@@ -876,16 +876,16 @@ int vsprintf( char *str, const char *fmt, va_list arg )
             if (*fmt== 's' )  {
                 // String
                 char *string_arg = va_arg( arg, char * );
-                int output_cgc_strlen;
+                int output_strlen;
 
-                if (precision > 0 && precision < cgc_strlen(string_arg))
+                if (precision > 0 && precision < strlen(string_arg))
 
-                    output_cgc_strlen = precision;
+                    output_strlen = precision;
                 else
-                    output_cgc_strlen = cgc_strlen(string_arg);
+                    output_strlen = strlen(string_arg);
 
 
-                pad_len = width - output_cgc_strlen;
+                pad_len = width - output_strlen;
 
                 // pad the output with spaces or zeros
                 // right justification
@@ -900,12 +900,12 @@ int vsprintf( char *str, const char *fmt, va_list arg )
                     }
                 }
 
-                while ( *string_arg && output_cgc_strlen > 0 )
+                while ( *string_arg && output_strlen > 0 )
                 {
                     str[character_count]= *string_arg;
                     character_count++;
                     string_arg++;
-                    --output_cgc_strlen;
+                    --output_strlen;
                 }
 
                 // left justification

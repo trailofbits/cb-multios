@@ -38,7 +38,7 @@ int recv(char *res_buf, size_t res_buf_size) {
     int bytes_read;
     bytes_read = recvline(STDIN, res_buf, res_buf_size);
     if (bytes_read < 0) {
-        send(BADSTRERROR, cgc_strlen(BADSTRERROR));
+        send(BADSTRERROR, strlen(BADSTRERROR));
         _terminate(2);
     }
 
@@ -48,7 +48,7 @@ int recv(char *res_buf, size_t res_buf_size) {
 // res_buf_size should be the number of byes to read from the user + 1 for '\0'.
 int prompt_user(char* prompt_str, char* res_buf, size_t res_buf_size) {
     // send prompt
-    send(prompt_str, cgc_strlen(prompt_str));
+    send(prompt_str, strlen(prompt_str));
 
     // receive user input
     recv(res_buf, res_buf_size);
@@ -75,10 +75,10 @@ int send_random_joke(jokedb_struct *jokedb) {
 // transmit one joke
 int send_joke(joke_struct *joke) {
 
-    int return_buf_len = cgc_strlen(joke->joke_string) + 40;
+    int return_buf_len = strlen(joke->joke_string) + 40;
     char return_buf[return_buf_len];
     snprintf(return_buf, return_buf_len, "~n: ~c\n", joke->joke_id, joke->joke_string);
-    send(return_buf, cgc_strlen(return_buf));
+    send(return_buf, strlen(return_buf));
 
     return 0;
 }
@@ -109,7 +109,7 @@ int do_add(jokedb_struct *jokedb) {
     int ret;
 
     // send ADDJOKE msg
-    send(ADDJOKE, cgc_strlen(ADDJOKE));
+    send(ADDJOKE, strlen(ADDJOKE));
 
     // send ADDPROMPT
     // get JOKE_STR from user
@@ -119,10 +119,10 @@ int do_add(jokedb_struct *jokedb) {
     ret = insert_joke(jokedb, joke_str);
     if (ret == -1) {
         // jokedb is full
-        send(JOKEDBFULL, cgc_strlen(JOKEDBFULL));
+        send(JOKEDBFULL, strlen(JOKEDBFULL));
     } else if (ret <= -2) {
         // joke too long
-        send(BADJOKEERROR, cgc_strlen(BADJOKEERROR));
+        send(BADJOKEERROR, strlen(BADJOKEERROR));
     } else if (ret >= 0) {
 
         // joke is good
@@ -130,10 +130,10 @@ int do_add(jokedb_struct *jokedb) {
         int joke_id = ret;
 
         // the joke_id is up to 32bits, plus extra padding for \n and \0.
-        int return_buf_len = cgc_strlen(JOKESTORED) + 40;
+        int return_buf_len = strlen(JOKESTORED) + 40;
         char return_buf[return_buf_len];
         snprintf(return_buf, return_buf_len, JOKESTORED, joke_id);
-        send(return_buf, cgc_strlen(return_buf));
+        send(return_buf, strlen(return_buf));
     }
 
     return 0;
@@ -149,11 +149,11 @@ int do_show(jokedb_struct *jokedb) {
     int id_type;
     
     // send SHOWWHICHID msg
-    send(SHOWWHICHID, cgc_strlen(SHOWWHICHID));
+    send(SHOWWHICHID, strlen(SHOWWHICHID));
 
 provide_joke_id:
     // send LISTPROMPT and handle user input
-    cgc_memset(joke_id_buf, '\0', joke_id_buf_sz);
+    memset(joke_id_buf, '\0', joke_id_buf_sz);
     prompt_user(SHOWPROMPT, joke_id_buf, joke_id_buf_sz);
 
     // is joke_id_buf a number?
@@ -163,11 +163,11 @@ provide_joke_id:
     if (id_type == 0) {
         joke_id = str2uint32(joke_id_buf);
         if (joke_id == 1337) {
-            send(EASTEREGG, cgc_strlen(EASTEREGG));           
+            send(EASTEREGG, strlen(EASTEREGG));           
         } else if (joke_id < joke_count(jokedb)) {
             send_joke(&jokedb->jokes[joke_id]);
         } else {
-            send(BADIDERROR, cgc_strlen(BADIDERROR));
+            send(BADIDERROR, strlen(BADIDERROR));
             goto provide_joke_id;
         }
     // not numeric
@@ -175,7 +175,7 @@ provide_joke_id:
         send_random_joke(jokedb);
     // either numeric < 0, or not numeric that is not "RANDOM"
     } else {
-        send(BADIDERROR, cgc_strlen(BADIDERROR));
+        send(BADIDERROR, strlen(BADIDERROR));
         goto provide_joke_id;
     }
     
@@ -184,29 +184,29 @@ provide_joke_id:
 
 int do_count(jokedb_struct *jokedb) {
 
-    int return_buf_len = cgc_strlen(JOKECOUNT) + 40;
+    int return_buf_len = strlen(JOKECOUNT) + 40;
     char return_buf[return_buf_len];
     snprintf(return_buf, return_buf_len, JOKECOUNT, joke_count(jokedb));
-    send(return_buf, cgc_strlen(return_buf));
+    send(return_buf, strlen(return_buf));
 
     return 0;
 }
 
 int do_menu() {
-    send(CHOICES, cgc_strlen(CHOICES));
+    send(CHOICES, strlen(CHOICES));
     
     return 0;
 }
 
 int do_help() {
-    send(INSULT, cgc_strlen(INSULT));
+    send(INSULT, strlen(INSULT));
     do_menu();
 
     return 0;
 }
 
 int do_quit() {
-    send(BYEBYE, cgc_strlen(BYEBYE));
+    send(BYEBYE, strlen(BYEBYE));
 
     return 0;
 }
@@ -220,14 +220,14 @@ int main(void) {
     load_default_jokes(&jokedb);
 
     // send INITMSG
-    send(INITMSG, cgc_strlen(INITMSG));
+    send(INITMSG, strlen(INITMSG));
     
     // send MENU
     do_menu();
     
     while (1) {
         // send ROOTPROMPT
-        cgc_memset(buf, '\0', cmd_buf_sz);
+        memset(buf, '\0', cmd_buf_sz);
         prompt_user(ROOTPROMPT, buf, cmd_buf_sz);
 
         // receive user input and check for COMMAND

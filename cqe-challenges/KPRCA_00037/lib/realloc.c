@@ -46,9 +46,9 @@ void *realloc(void *ptr, size_t size)
   struct blk_t *blk = (struct blk_t *)((intptr_t)ptr - HEADER_PADDING);
 
   if (size < blk->size - HEADER_PADDING)
-    cgc_memcpy(new, ptr, size);
+    memcpy(new, ptr, size);
   else
-    cgc_memcpy(new, ptr, blk->size - HEADER_PADDING);
+    memcpy(new, ptr, blk->size - HEADER_PADDING);
 
   free(ptr);
   return new;

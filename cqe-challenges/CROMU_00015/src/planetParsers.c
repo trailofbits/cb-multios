@@ -206,23 +206,23 @@ end:
  **/
 void freePlanet( pPlanet pl )
 {
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( pl == NULL ) {
 		return;
 	}
 
 	/// Free all of the associated countries
-	while ( cgc_index < COUNTRYMAX ) {
-		if ( pl->countries[ cgc_index] != NULL ) {
+	while ( index < COUNTRYMAX ) {
+		if ( pl->countries[ index] != NULL ) {
 
 			/// This function also frees the pointer so freePlanet does not have to.
-			freeCountry( pl->countries[cgc_index] );
-			pl->countries[cgc_index] = NULL;
+			freeCountry( pl->countries[index] );
+			pl->countries[index] = NULL;
 
 		}
 
-		cgc_index++;
+		index++;
 	}
 	
 	deallocate( pl, sizeof(Planet) );
@@ -237,7 +237,7 @@ void freePlanet( pPlanet pl )
  **/
 void printPlanetInfo( pPlanet pl )
 {
-        int cgc_index = 0;
+        int index = 0;
 
         if ( pl == NULL ) {
                 return;
@@ -285,12 +285,12 @@ void printPlanetInfo( pPlanet pl )
 	}
 
 	/// Print each country's information
-        while ( cgc_index < COUNTRYMAX ) {
-                if ( pl->countries[ cgc_index ] != NULL ) {
-                        printCountryInfo( pl->countries[cgc_index] );
+        while ( index < COUNTRYMAX ) {
+                if ( pl->countries[ index ] != NULL ) {
+                        printCountryInfo( pl->countries[index] );
                 }
 
-                cgc_index++;
+                index++;
         }
 
         return;
@@ -303,7 +303,7 @@ void printPlanetInfo( pPlanet pl )
  **/
 void initPlanet( pPlanet pl )
 {
-        register int cgc_index = 0;
+        register int index = 0;
 
         if ( pl == NULL ) {
                 return;
@@ -322,9 +322,9 @@ void initPlanet( pPlanet pl )
 
         pl->country_count = 0;
 
-        while ( cgc_index < COUNTRYMAX ) {
-                pl->countries[cgc_index] = NULL;
-                cgc_index++;
+        while ( index < COUNTRYMAX ) {
+                pl->countries[index] = NULL;
+                index++;
         }
 
         return;
@@ -338,7 +338,7 @@ void initPlanet( pPlanet pl )
 pPlanet planetTopLevel( pstring topLevel )
 {
 	int endIndex = 0;
-        int temp_cgc_index = 0;
+        int temp_index = 0;
         pPlanet newPlanet = NULL;
         element el;
         char *fl = NULL;
@@ -351,7 +351,7 @@ pPlanet planetTopLevel( pstring topLevel )
         /// Skip any leading spaces
         skipWhiteSpace( topLevel );
 
-	lastGood = topLevel->cgc_index;
+	lastGood = topLevel->index;
 
 	if ( topLevel->maxlength < 9 ) {
 		goto end;
@@ -360,13 +360,13 @@ pPlanet planetTopLevel( pstring topLevel )
 	char *c = "{Planet}";
 
 	for ( int i = 0; i < 8; i++ ) {
-		if ( topLevel->buffer[ topLevel->cgc_index + i ] != c[i] ) {
+		if ( topLevel->buffer[ topLevel->index + i ] != c[i] ) {
 			goto end;
 		}
 	}
 
         /// Skip 8 bytes of top level then any whitespace
-        topLevel->cgc_index += 8;
+        topLevel->index += 8;
 
 	skipWhiteSpace( topLevel );
 
@@ -387,7 +387,7 @@ pPlanet planetTopLevel( pstring topLevel )
                 el = elementNameToEnum( fl );
 
                 /// The name is no longer needed so free it
-                deallocate( fl, cgc_strlen(fl) + 1 );
+                deallocate( fl, strlen(fl) + 1 );
 
                 switch (el) {
                         case name:
@@ -400,7 +400,7 @@ pPlanet planetTopLevel( pstring topLevel )
 				bzero( newPlanet->name, 20 );
                                 strncpy( newPlanet->name, fl, 19 );
 
-                                deallocate(fl, cgc_strlen(fl) + 1 );
+                                deallocate(fl, strlen(fl) + 1 );
                                 fl = NULL;
 
                                 break;
@@ -526,7 +526,7 @@ pPlanet planetTopLevel( pstring topLevel )
                 goto error;
         }
 
-        getIndex( topLevel, &temp_cgc_index );
+        getIndex( topLevel, &temp_index );
 
         endIndex = skipAlpha( topLevel );
 
@@ -535,23 +535,23 @@ pPlanet planetTopLevel( pstring topLevel )
                 goto error;
         }
 
-        if ( temp_cgc_index == endIndex ) {
+        if ( temp_index == endIndex ) {
                 goto error;
         }
 
-        fl = copyData( topLevel, temp_cgc_index, endIndex );
+        fl = copyData( topLevel, temp_index, endIndex );
 
         if ( fl == NULL ) {
                 goto error;
         }
 
-        if ( cgc_strcmp( fl, "Planet") != 0 ) {
+        if ( strcmp( fl, "Planet") != 0 ) {
                 printf("!!Closing element malformed\n");
-                deallocate( fl, (endIndex-temp_cgc_index) + 1 );
+                deallocate( fl, (endIndex-temp_index) + 1 );
                 goto error;
         }
 
-        deallocate(fl, (endIndex-temp_cgc_index) + 1 );
+        deallocate(fl, (endIndex-temp_index) + 1 );
 
         skipWhiteSpace( topLevel );
 
@@ -565,9 +565,9 @@ pPlanet planetTopLevel( pstring topLevel )
         goto end;
 
 error:
-        topLevel->cgc_index = lastGood;
+        topLevel->index = lastGood;
 
-        printf("!!Error at: @s\n", topLevel->buffer + topLevel->cgc_index);
+        printf("!!Error at: @s\n", topLevel->buffer + topLevel->index);
 
 	if ( newPlanet != NULL ) {
 		freePlanet( newPlanet );
@@ -632,15 +632,15 @@ double extractPeriod( pstring str )
 	}
 
 	/// If the element id is not "Period" then this is the wrong function
-	if ( cgc_strcmp( temp, "Period") != 0 ) {
+	if ( strcmp( temp, "Period") != 0 ) {
 		printf("!!Element id is not \"Period\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return period;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -659,7 +659,7 @@ double extractPeriod( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
+	/// Copy the start index to store the data
 	getIndex( str, &ps );
 
 	/// The period data must be a float
@@ -715,13 +715,13 @@ double extractPeriod( pstring str )
 	}
 #endif
 
-	if ( cgc_strcmp( temp, "Period") != 0 ) {
+	if ( strcmp( temp, "Period") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		return period;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -744,7 +744,7 @@ double extractPeriod( pstring str )
 
 	period = atof( temp );
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 
 	return period;
 }
@@ -800,17 +800,17 @@ double extractOrbitSpeed( pstring str )
 	}
 
 	/// If the element id is not "OrbitSpeed" then this is the wrong function
-	if ( cgc_strcmp( temp, "OrbitSpeed") != 0 ) {
+	if ( strcmp( temp, "OrbitSpeed") != 0 ) {
 		printf("!!Element id is not \"OrbitSpeed\"\n");
-		bzero( temp, cgc_strlen(temp) );
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		bzero( temp, strlen(temp) );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		goto reterrvalue;
 	}
 
 	/// The buffer is no longer needed so free it
-	bzero( temp, cgc_strlen(temp) + 1 );
-	deallocate(temp, cgc_strlen(temp) + 1);
+	bzero( temp, strlen(temp) + 1 );
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -829,8 +829,8 @@ double extractOrbitSpeed( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
-	ss = str->cgc_index;
+	/// Copy the start index to store the data
+	ss = str->index;
 
 	/// The period data must be a float
 	se = skipFloat( str );
@@ -886,15 +886,15 @@ double extractOrbitSpeed( pstring str )
 	}
 #endif
 
-	if ( cgc_strcmp( temp, "OrbitSpeed") != 0 ) {
+	if ( strcmp( temp, "OrbitSpeed") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		bzero(temp, cgc_strlen(temp) + 1 );
-		deallocate(temp, cgc_strlen(temp)+1);
+		bzero(temp, strlen(temp) + 1 );
+		deallocate(temp, strlen(temp)+1);
 		return -1.0;
 	}
 
-	bzero( temp, cgc_strlen(temp) + 1 );
-	deallocate(temp, cgc_strlen(temp)+1);
+	bzero( temp, strlen(temp) + 1 );
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -917,7 +917,7 @@ double extractOrbitSpeed( pstring str )
 
 	speed = atof( temp );
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 
 	goto retspeed;
 
@@ -985,15 +985,15 @@ double extractAphelion( pstring str )
 	}
 
 	/// If the element id is not "Aphelion" then this is the wrong function
-	if ( cgc_strcmp( temp, "Aphelion") != 0 ) {
+	if ( strcmp( temp, "Aphelion") != 0 ) {
 		printf("!!Element id is not \"Aphelion\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return aphelion;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -1012,7 +1012,7 @@ double extractAphelion( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
+	/// Copy the start index to store the data
 	getIndex( str, &ps );
 
 	/// The period data must be a float
@@ -1069,13 +1069,13 @@ double extractAphelion( pstring str )
 	}
 #endif
 
-	if ( cgc_strcmp( temp, "Aphelion") != 0 ) {
+	if ( strcmp( temp, "Aphelion") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		return aphelion;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -1098,7 +1098,7 @@ double extractAphelion( pstring str )
 
 	aphelion = atof( temp );
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 
 	return aphelion;
 }
@@ -1156,15 +1156,15 @@ double extractPerihelion( pstring str )
 	}
 
 	/// If the element id is not "Perihelion" then this is the wrong function
-	if ( cgc_strcmp( temp, "Perihelion") != 0 ) {
+	if ( strcmp( temp, "Perihelion") != 0 ) {
 		printf("!!Element id is not \"Perihelion\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return perihelion;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -1183,7 +1183,7 @@ double extractPerihelion( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
+	/// Copy the start index to store the data
 	getIndex( str, &ps );
 
 	/// The period data must be a float
@@ -1234,13 +1234,13 @@ double extractPerihelion( pstring str )
 	
 	temp = copyData( str, start, end );
 
-	if ( cgc_strcmp( temp, "Perihelion") != 0 ) {
+	if ( strcmp( temp, "Perihelion") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		return perihelion;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -1263,7 +1263,7 @@ double extractPerihelion( pstring str )
 
 	perihelion = atof( temp );
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 
 	return perihelion;
 }
@@ -1321,15 +1321,15 @@ double extractRadius( pstring str )
 	}
 
 	/// If the element id is not "Radius" then this is the wrong function
-	if ( cgc_strcmp( temp, "Radius") != 0 ) {
+	if ( strcmp( temp, "Radius") != 0 ) {
 		printf("!!Element id is not \"Radius\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return radius;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -1348,7 +1348,7 @@ double extractRadius( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
+	/// Copy the start index to store the data
 	getIndex( str, &rs );
 
 	/// The radius data must be a float
@@ -1399,13 +1399,13 @@ double extractRadius( pstring str )
 	
 	temp = copyData( str, start, end );
 
-	if ( cgc_strcmp( temp, "Radius") != 0 ) {
+	if ( strcmp( temp, "Radius") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		return radius;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -1428,7 +1428,7 @@ double extractRadius( pstring str )
 
 	radius = atof( temp );
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 
 	return radius;
 }
@@ -1486,15 +1486,15 @@ double extractERadius( pstring str )
 	}
 
 	/// If the element id is not "ERadius" then this is the wrong function
-	if ( cgc_strcmp( temp, "ERadius") != 0 ) {
+	if ( strcmp( temp, "ERadius") != 0 ) {
 		printf("!!Element id is not \"ERadius\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return eradius;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -1513,7 +1513,7 @@ double extractERadius( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
+	/// Copy the start index to store the data
 	getIndex( str, &es );
 
 	/// The eradius data must be a float
@@ -1564,13 +1564,13 @@ double extractERadius( pstring str )
 	
 	temp = copyData( str, start, end );
 
-	if ( cgc_strcmp( temp, "ERadius") != 0 ) {
+	if ( strcmp( temp, "ERadius") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		return eradius;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -1593,7 +1593,7 @@ double extractERadius( pstring str )
 
 	eradius = atof( temp );
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 
 	return eradius;
 }
@@ -1651,15 +1651,15 @@ double extractMass( pstring str )
 	}
 
 	/// If the element id is not "Mass" then this is the wrong function
-	if ( cgc_strcmp( temp, "Mass") != 0 ) {
+	if ( strcmp( temp, "Mass") != 0 ) {
 		printf("!!Element id is not \"Mass\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return mass;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -1678,7 +1678,7 @@ double extractMass( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
+	/// Copy the start index to store the data
 	getIndex( str, &es );
 
 	/// The mass data must be a float
@@ -1735,13 +1735,13 @@ double extractMass( pstring str )
 	}
 #endif
 
-	if ( cgc_strcmp( temp, "Mass") != 0 ) {
+	if ( strcmp( temp, "Mass") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		return mass;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -1764,7 +1764,7 @@ double extractMass( pstring str )
 
 	mass = atof( temp );
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 
 	return mass;
 }
@@ -1822,15 +1822,15 @@ double extractGravity( pstring str )
 	}
 
 	/// If the element id is not "Gravity" then this is the wrong function
-	if ( cgc_strcmp( temp, "Gravity") != 0 ) {
+	if ( strcmp( temp, "Gravity") != 0 ) {
 		printf("!!Element id is not \"Gravity\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return gravity;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -1849,7 +1849,7 @@ double extractGravity( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
+	/// Copy the start index to store the data
 	getIndex( str, &es );
 
 	/// The gravity data must be a float
@@ -1900,13 +1900,13 @@ double extractGravity( pstring str )
 	
 	temp = copyData( str, start, end );
 
-	if ( cgc_strcmp( temp, "Gravity") != 0 ) {
+	if ( strcmp( temp, "Gravity") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		return gravity;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -1929,7 +1929,7 @@ double extractGravity( pstring str )
 
 	gravity = atof( temp );
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 
 	return gravity;
 }

@@ -33,7 +33,7 @@
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE -1
 
-
+#define PAGE_SIZE (1 << 12)
 
 /**
  * Return the lesser of a and b
@@ -147,7 +147,7 @@ void *realloc(void *ptr, size_t size);
  * @param n The number of bytes to set
  * @return ptr
  */
-void *cgc_memset(void *ptr_, int val, size_t n);
+void *memset(void *ptr_, int val, size_t n);
 
 /**
  * Copy n bytes from src to dst.
@@ -157,7 +157,7 @@ void *cgc_memset(void *ptr_, int val, size_t n);
  * @param n The number of bytes to copy
  * @return dst
  */
-void *cgc_memcpy(void *dst_, const void *src_, size_t n);
+void *memcpy(void *dst_, const void *src_, size_t n);
 
 /**
  * Move n bytes from src to dst.
@@ -186,7 +186,7 @@ int memcmp(const void *a_, const void *b_, size_t n);
  * @param src The source buffer
  * @return dst
  */
-char *cgc_strcpy(char *dst, const char *src);
+char *strcpy(char *dst, const char *src);
 
 /**
  * Copy at most the first n characters of a null-terminated string from src to
@@ -205,7 +205,7 @@ char *strncpy(char *dst, const char *src, size_t n);
  * @param s The string
  * @return The length of s
  */
-size_t cgc_strlen(const char *s);
+size_t strlen(const char *s);
 
 /**
  * Return the length of a null-terminated string, checking at most n bytes.
@@ -223,7 +223,7 @@ size_t strnlen(const char *s, size_t n);
  * @param b The second string
  * @return negative if a < b, 0 if a == b, positive if a > b
  */
-int cgc_strcmp(const char *a, const char *b);
+int strcmp(const char *a, const char *b);
 
 /**
  * Compare the first n bytes of two null-terminated strings
@@ -242,7 +242,7 @@ int strncmp(const char *a, const char *b, size_t n);
  * @param src The source buffer
  * @return dst
  */
-char *cgc_strcat(char *dst, const char *src);
+char *strcat(char *dst, const char *src);
 
 /**
  * Append at most the first n bytes of a null-terminated string to another.

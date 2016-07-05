@@ -36,7 +36,7 @@ THE SOFTWARE.
 
 typedef struct __DDAP_RECORD_ENTRY
 {
-    uint32_t cgc_index;
+    uint32_t index;
     char szFirstName[MAX_STRING_LENGTH+1];
     char szLastName[MAX_STRING_LENGTH+1];
     char szUserName[MAX_STRING_LENGTH+1];
@@ -48,13 +48,13 @@ typedef struct __DDAP_RECORD_ENTRY
 void init_database( void );
 
 uint32_t db_add_record( char *pszUserName, char *pszFirstName, char *pszLastName, tDateTime birthDate );
-uint32_t db_update_record( uint32_t cgc_index, char *pszUserName, char *pszFirstName, char *pszLastName, tDateTime birthDate );
-uint32_t db_remove_record( uint32_t cgc_index );
+uint32_t db_update_record( uint32_t index, char *pszUserName, char *pszFirstName, char *pszLastName, tDateTime birthDate );
+uint32_t db_remove_record( uint32_t index );
 uint32_t db_get_record_count( void );
 
 tDDAPRecord *db_search_first_name( char *pszFirstName );
 tDDAPRecord *db_search_last_name( char *pszLastName );
-tDDAPRecord *db_search_cgc_index( uint32_t cgc_index );
+tDDAPRecord *db_search_index( uint32_t index );
 tDDAPRecord *db_search_user_name( char *pszUserName );
 tDDAPRecord *db_search_birth_date( tDateTime date  );
 

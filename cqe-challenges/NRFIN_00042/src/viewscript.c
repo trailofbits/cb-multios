@@ -233,7 +233,7 @@ static int delvar(char *name) {
                     free(((viewvar_t*)cur)->arr);
             }
 
-            //we keep arrays acgc_round until all outstanding refs are gone
+            //we keep arrays around until all outstanding refs are gone
             if (cur->refcount <= 0) //should be 0
                 free(cur);
 
@@ -249,10 +249,10 @@ static int delvar(char *name) {
 
 static int addvar(var_t *var, char *name, varenum type) {
 
-    if (!(var->name = calloc(cgc_strlen(name)+1)))
+    if (!(var->name = calloc(strlen(name)+1)))
         return ERRNOMEM;
 
-    cgc_strcpy(var->name, name);
+    strcpy(var->name, name);
 
     var->type = type;
     if (global_nspace.last)
@@ -286,16 +286,16 @@ static uint32_t calc_bytesize(char *varlist) {
     var_t *var = NULL;
     uint32_t val = 0;
 
-    if (!(varlistcpy = calloc(cgc_strlen(varlist)+1)))
+    if (!(varlistcpy = calloc(strlen(varlist)+1)))
         return 0;
 
-    cgc_strcpy(varlistcpy,varlist);
+    strcpy(varlistcpy,varlist);
     varlistcpy_strtok = varlistcpy;
 
     //we allow this to overflow, but result is checked for size elsewhere
     while ((varname = strtok(varlistcpy_strtok,','))) {
         varlistcpy_strtok = NULL; //for strtok
-        if (cgc_strlen(varname) == 0)
+        if (strlen(varname) == 0)
             break;
         if (!(var = getvar(varname))) {
             val = 0;
@@ -358,7 +358,7 @@ static int newview(char *name, char *arg) {
 
     char *type = strtok(NULL,' ');
 
-    if (!type || cgc_strlen(type) == 0)
+    if (!type || strlen(type) == 0)
         return ERRNOTYPE;
 
     if (!(a = (arrvar_t*)getvar(arg))) 
@@ -400,7 +400,7 @@ static int handlenew() {
 
     type = strtok(NULL,' ');
 
-    if (!type || cgc_strlen(type) == 0)
+    if (!type || strlen(type) == 0)
         return ERRNOTYPE;
 
     name = strtok(NULL,' ');
@@ -413,7 +413,7 @@ static int handlenew() {
 
     arg = strtok(NULL, ' ');
 
-    if (!arg || cgc_strlen(arg) == 0)
+    if (!arg || strlen(arg) == 0)
         return ERRNOARG;
 
     for (i = 0; i < sizeof(types)/sizeof(types[0]); i+=1) {
@@ -437,7 +437,7 @@ static int handleget() {
     int idx = 0;
     int i = 0;
 
-    if (!name || cgc_strlen(name) == 0)
+    if (!name || strlen(name) == 0)
         return ERRNONAME;
 
     if (!(var = getvar(name)))
@@ -498,7 +498,7 @@ static int handleget() {
             return ERRNOSUCHTYPE;
     }
 
-    SSENDL(cgc_strlen(out),out);
+    SSENDL(strlen(out),out);
     return 0;
 }
 
@@ -509,7 +509,7 @@ static int handleset() {
     uint32_t idx = 0;
     uint32_t val = 0;
 
-    if (!name || cgc_strlen(name) == 0)
+    if (!name || strlen(name) == 0)
         return ERRNONAME;
 
     if (!(var = getvar(name)))
@@ -538,10 +538,10 @@ static int handleset() {
             if (!(arg2 = strtok(NULL, ' ')))
                 return ERRNOARG;
 
-            if (!(varlist = calloc(cgc_strlen(arg2)+1)))
+            if (!(varlist = calloc(strlen(arg2)+1)))
                 return ERRNOMEM;
 
-            cgc_strcpy(varlist,arg2);
+            strcpy(varlist,arg2);
 
             if (!streq(arg,"byteSize")) {
                 free(varlist);
@@ -575,7 +575,7 @@ static int handleset() {
 static int handledel() {
     char *name = strtok(NULL,' ');
 
-    if (!name || cgc_strlen(name)==0)
+    if (!name || strlen(name)==0)
         return ERRNONAME;
 
     return delvar(name);
@@ -586,7 +586,7 @@ static int runcmd(char *cmd) {
 
     cmd = strtok(cmd,' ');
 
-    if (!cmd || cgc_strlen(cmd) == 0)
+    if (!cmd || strlen(cmd) == 0)
         return ERRSHORT;
 
     for (i = 0; i < sizeof(cmds)/sizeof(cmds[0]); i+=1) {
@@ -605,7 +605,7 @@ int run_viewscript(char *script) {
     int idx = 0;
     int count = 0;
     //this is properly null-terminated by main()
-    int len = cgc_strlen(script);
+    int len = strlen(script);
 
     if (len > MAXSCRIPTSIZE)
         return ERRTOOBIG;

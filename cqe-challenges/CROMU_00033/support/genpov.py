@@ -26,7 +26,7 @@ def delfile( dirs ):
 			continue
 
 		f = random.choice(z[1])
-		i = z[1].cgc_index(f)
+		i = z[1].index(f)
 		del z[1][i]
 
 		fl = f[0]

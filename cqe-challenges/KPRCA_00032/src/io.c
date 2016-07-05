@@ -96,7 +96,7 @@ int read_int()
 
 void write_string(const char *str)
 {
-    unsigned int length = cgc_strlen(str);
+    unsigned int length = strlen(str);
     write_int(length);
     write_bytes(str, length);
 }

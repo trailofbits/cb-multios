@@ -53,7 +53,7 @@ void init_sixer(struct sixer *s, const char *ais_msg);
  * @param s Pointer to sixer struct.
  * @return Number of bits
  */
-unsigned int sixer_cgc_strlen(struct sixer *s);
+unsigned int sixer_strlen(struct sixer *s);
 
 /**
  * Get the type value of the ais message.

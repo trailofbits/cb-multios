@@ -67,7 +67,7 @@ int read_initial_words(main_t *state)
         if (words[i] == NULL)
             goto error;
 
-        if (cgc_strlen(words[i]) == 0)
+        if (strlen(words[i]) == 0)
             goto error;
     }
 
@@ -142,7 +142,7 @@ static void sort_results(char **results, int count)
         char *a = results[i];
         for (j = i; j > 0; j--)
         {
-            if (cgc_strcmp(results[j-1], a) <= 0)
+            if (strcmp(results[j-1], a) <= 0)
                 break;
             results[j] = results[j-1];
         }
@@ -259,7 +259,7 @@ void cmd_play_game(main_t *state)
 int main()
 {
     main_t state;
-    cgc_memset(&state, 0, sizeof(main_t));
+    memset(&state, 0, sizeof(main_t));
 
     while (!read_initial_words(&state))
     {

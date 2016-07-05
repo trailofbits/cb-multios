@@ -25,12 +25,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef unsigned int intptr_t;
 typedef unsigned int uint128_t __attribute__((__vector_size__(16)));
 
-void *cgc_memcpy_fast(void *dst, void *src, size_t length)
+void *memcpy_fast(void *dst, void *src, size_t length)
 {
     if ((length % 16) || ((intptr_t)dst % 16) || ((intptr_t)src % 16))
-        return cgc_memcpy(dst, src, length);
+        return memcpy(dst, src, length);
 
 #if PATCHED
     if (length == 0)

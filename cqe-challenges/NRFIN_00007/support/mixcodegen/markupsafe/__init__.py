@@ -224,12 +224,12 @@ class _MagicFormatMapping(Mapping):
     def __init__(self, args, kwargs):
         self._args = args
         self._kwargs = kwargs
-        self._last_cgc_index = 0
+        self._last_index = 0
 
     def __getitem__(self, key):
         if key == '':
-            idx = self._last_cgc_index
-            self._last_cgc_index += 1
+            idx = self._last_index
+            self._last_index += 1
             try:
                 return self._args[idx]
             except LookupError:

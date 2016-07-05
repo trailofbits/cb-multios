@@ -83,7 +83,7 @@ int main()
 			break;
 
 		int len = receive_until(packet_str, '\n', 255);
-		if (cgc_strcmp(packet_str, "1212") == 0)
+		if (strcmp(packet_str, "1212") == 0)
 		{
 			printf("good bye\n");
 			return 1;

@@ -25,7 +25,7 @@ THE SOFTWARE.
 
 int fpti_add_pixel( pfpti_image_data fid, int x, int y, char *image, int xlen, int ylen, int at)
 {
-	int pixel_cgc_index = 0;
+	int pixel_index = 0;
 	char c = 0;
 	
 	if ( fid == NULL ) {
@@ -37,19 +37,19 @@ int fpti_add_pixel( pfpti_image_data fid, int x, int y, char *image, int xlen, i
 	}
 
 	if ( at == 1 ) {
-		pixel_cgc_index = ((-y)*xlen) + x;
+		pixel_index = ((-y)*xlen) + x;
 	} else if ( at == 2 ) {
-		pixel_cgc_index = ((-y)*xlen) + ( (xlen-1) + x );
+		pixel_index = ((-y)*xlen) + ( (xlen-1) + x );
 	} else if ( at == 3 ) {
-		pixel_cgc_index = (((ylen-1)-y)*xlen) + x;
+		pixel_index = (((ylen-1)-y)*xlen) + x;
 	} else if ( at == 4 ) {
-		pixel_cgc_index = (((ylen-1)-y)*xlen) + ( (xlen-1) + x );
+		pixel_index = (((ylen-1)-y)*xlen) + ( (xlen-1) + x );
 	} else if ( at == 7 ) {
 		int midx = xlen/2;
 		int midy = ylen/2;
 
 		int base = (midy*xlen) + midx;
-		pixel_cgc_index = base + (-y * xlen) + x;
+		pixel_index = base + (-y * xlen) + x;
 	} else {
 		return 0;
 	}
@@ -64,12 +64,12 @@ int fpti_add_pixel( pfpti_image_data fid, int x, int y, char *image, int xlen, i
 		c = '+';
 	}
 
-	if ( pixel_cgc_index > xlen * ylen ) {
-		printf("[ERROR] Pixel beyond image: @d > @d\n", pixel_cgc_index, xlen*ylen);
+	if ( pixel_index > xlen * ylen ) {
+		printf("[ERROR] Pixel beyond image: @d > @d\n", pixel_index, xlen*ylen);
 		return 0;
 	}
 
-	image[ pixel_cgc_index ] = c;
+	image[ pixel_index ] = c;
 
 	return 1;
 }
@@ -182,7 +182,7 @@ int fpti_display_img( pfpti_image_data fid )
 		return 0;
 	}
 
-	cgc_memset( image, ' ', image_length);
+	memset( image, ' ', image_length);
 	image[image_length] = '\x00';
 
 	while ( fpti_read_pixel( fid, &x, &y) ) {
@@ -418,7 +418,7 @@ int fpti_read_check( pfpti_image_data fid, int bitcount)
 
 int fpti_read_nbits( pfpti_image_data fid, int bitcount, int *value)
 {
-	int cgc_index = 0;
+	int index = 0;
 	int data = 0;
 	int tcb = 0;
 
@@ -449,7 +449,7 @@ int fpti_read_nbits( pfpti_image_data fid, int bitcount, int *value)
 		return 1;
 	}
 
-	while ( cgc_index < bitcount ) {
+	while ( index < bitcount ) {
 		tcb = fid->buffer[ fid->cbyte ];
 
 		tcb = (tcb>>(7-fid->cbit)) & 1;
@@ -461,7 +461,7 @@ int fpti_read_nbits( pfpti_image_data fid, int bitcount, int *value)
 			fid->cbyte++;
 		}
 
-		cgc_index++;
+		index++;
 	}
 
 	*value = data;

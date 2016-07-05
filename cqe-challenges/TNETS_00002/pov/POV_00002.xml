@@ -1,0 +1,63 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+	<read echo="ascii">
+	  <delim>\x0a</delim>
+	  <match><data>ctors called...</data></match>
+	</read>
+
+	<read echo="ascii">
+	  <delim>\x0a</delim>
+	  <match><data>list init...</data></match>
+	</read>
+
+
+	<write echo="ascii">
+	  <data>1397282646 create cat\n</data>
+	</write>
+
+	<read echo="no">
+	  <delim>\x0a</delim>
+	  <match><data>init..</data></match>
+	</read>
+
+	<write echo="ascii"><data>1397282647 create hotdog\n</data></write>
+	<read echo="no">
+	  <delim>\x0a</delim>
+	  <match><data>init..</data></match>
+	</read>
+
+	<write echo="ascii">
+          <data>1397282648 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>1397282649 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>1397282650 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>1397282651 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>1397282652 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>1397282653 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>1397282654 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii"><data>1397282655 delete 1\n</data></write>
+    <read><length>1</length></read>
+    </replay>
+</pov>

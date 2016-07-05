@@ -30,9 +30,9 @@ typedef unsigned char uint8_t;
 typedef unsigned short int uint16_t;
 typedef unsigned int uint32_t;
 
-int cgc_strlen(char *s);
+int strlen(char *s);
 void bzero(char *s, size_t length);
-void cgc_memcpy(char *d, char *s, size_t num);
+void memcpy(char *d, char *s, size_t num);
 int count_strings(char *s);
 char *next_string(char *s);
 int atoi(char *s);

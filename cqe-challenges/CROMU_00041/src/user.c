@@ -42,7 +42,7 @@ int login(char *name, char *passwd)
 	// compare username and password with users
 	for (int i = 0; i < user_count; i++)
 	{
-		if ((cgc_strcmp(name, listOfUsers[i]->name) == 0) && (!cgc_strcmp(passwd, listOfUsers[i]->password)))
+		if ((strcmp(name, listOfUsers[i]->name) == 0) && (!strcmp(passwd, listOfUsers[i]->password)))
 		{
 			current_user = listOfUsers[i];
 			return 1;
@@ -57,11 +57,11 @@ int logout()
 	return 1;
 }
 
-int get_user_cgc_index(char *name)
+int get_user_index(char *name)
 {
 	for (int i = 0; i < user_count; i++)
 	{
-		if (cgc_strcmp(name, listOfUsers[i]->name) == 0)
+		if (strcmp(name, listOfUsers[i]->name) == 0)
 		{
 			return i;
 		}
@@ -79,13 +79,13 @@ void create_user(int tries)
 
 	int found = -1;
 	// does this user already exist?
-	if (cgc_strlen(buf) < 1) 
+	if (strlen(buf) < 1) 
 	{
 		return;
 	}
 	for (int j = 0; j < user_count; j++)
 	{
-		if (!cgc_strcmp(buf, listOfUsers[j]->name))
+		if (!strcmp(buf, listOfUsers[j]->name))
 		{
 			found = j;
 			break;
@@ -127,7 +127,7 @@ void create_user(int tries)
 			listOfUsers[user_count] = (User*)malloc(sizeof(User));
 			strncpy(listOfUsers[user_count]->name, buf, len);
 
-			listOfUsers[user_count]->cgc_index = user_count;
+			listOfUsers[user_count]->index = user_count;
 			listOfUsers[user_count]->first_login = 1;
 			listOfUsers[user_count]->msg_count = 0;
 			

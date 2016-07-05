@@ -74,7 +74,7 @@ ssize_t write_all(int fd, void *buf, size_t n);
  * @param n The number of bytes to set
  * @return ptr
  */
-void *cgc_memset(void *ptr, int val, size_t n);
+void *memset(void *ptr, int val, size_t n);
 
 /**
  * Copy a null-terminated string from src to dst.
@@ -83,7 +83,7 @@ void *cgc_memset(void *ptr, int val, size_t n);
  * @param src The source buffer
  * @return dst
  */
-char *cgc_strcpy(char *dst, const char *src);
+char *strcpy(char *dst, const char *src);
 
 /**
  * Copy at most the first n characters of a null-terminated string from src to
@@ -103,7 +103,7 @@ char *strncpy(char *dst, const char *src, size_t n);
  * @param src The source buffer
  * @return dst
  */
-char *cgc_strcat(char *dst, const char *src);
+char *strcat(char *dst, const char *src);
 
 /**
  * Append at most the first n bytes of a null-terminated string to another.
@@ -121,7 +121,7 @@ char *strncat(char *dst, const char *src, size_t n);
  * @param s The string
  * @return The length of s
  */
-size_t cgc_strlen(const char *s);
+size_t strlen(const char *s);
 
 /**
  * Return the length of a null-terminated string, checking at most n bytes.

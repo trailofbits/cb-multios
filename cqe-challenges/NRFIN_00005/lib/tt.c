@@ -62,9 +62,9 @@ void make_board(tt_data * data, char * board) {
 
 // initialize game data
 void init_game_data(tt_data * data) {
-	cgc_memset(data->top, EMPTY, 3);
-	cgc_memset(data->middle, EMPTY, 3);
-	cgc_memset(data->bottom, EMPTY, 3);
+	memset(data->top, EMPTY, 3);
+	memset(data->middle, EMPTY, 3);
+	memset(data->bottom, EMPTY, 3);
 	data->moves = 0;
 	data->winner = EMPTY;
 }

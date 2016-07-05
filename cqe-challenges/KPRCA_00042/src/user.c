@@ -120,14 +120,14 @@ static int admin_login()
     char line[LINE_SIZE];
     printf("username: ");
     readline(STDIN, line, LINE_SIZE);
-    if (cgc_strcmp(line, admin_username) != 0) {
+    if (strcmp(line, admin_username) != 0) {
         printf("[ERROR] Permission Denied: Wrong credentials\n");
         return -1;
     }
 
     printf("password: ");
     readline(STDIN, line, LINE_SIZE);
-    if (cgc_strcmp(line, admin_password) != 0) {
+    if (strcmp(line, admin_password) != 0) {
         printf("[ERROR] Permission Denied: Wrong credentials\n");
         return -1;
     }

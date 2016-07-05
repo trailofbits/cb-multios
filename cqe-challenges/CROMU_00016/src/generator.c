@@ -249,7 +249,7 @@ int InitManual(void) {
 
 		// sanity check the inputs
 		// timestamp
-		for (i = 0; i < cgc_strlen(timestamp_s); i++) {
+		for (i = 0; i < strlen(timestamp_s); i++) {
 			if (!strchr("0123456789.", timestamp_s[i])) {
 				puts("Invalid timestamp");
 				return(-1);
@@ -261,7 +261,7 @@ int InitManual(void) {
 			return(-1);
 		}
 		// bytes
-		for (i = 0; i < cgc_strlen(bytes_s); i++) {
+		for (i = 0; i < strlen(bytes_s); i++) {
 			if (!strchr("0123456789", bytes_s[i])) {
 				puts("Invalid bytes");
 				return(-1);
@@ -273,7 +273,7 @@ int InitManual(void) {
 			return(-1);
 		}
 		// priority
-		for (i = 0; i < cgc_strlen(priority_s); i++) {
+		for (i = 0; i < strlen(priority_s); i++) {
 			if (!strchr("0123456789", priority_s[i])) {
 				puts("Invalid priority");
 				return(-1);
@@ -303,7 +303,7 @@ int ManualGenerator(void) {
 		return(1);
 	}
 
-	// see if we've looped acgc_round to the top of the ring buffer
+	// see if we've looped around to the top of the ring buffer
 	if (ManualCurrPkt != NULL) {
 		if (ManualCurrPkt == ManualRingBuffer) {
 			// were we told to repeat?

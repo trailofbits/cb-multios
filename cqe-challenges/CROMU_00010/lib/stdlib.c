@@ -188,7 +188,7 @@ int atoi(const char* str)
     return (sign * integer_part);
 }
 
-char *cgc_strcpy( char *dest, char *src )
+char *strcpy( char *dest, char *src )
 {
     size_t i;
 
@@ -206,7 +206,7 @@ char *cgc_strcpy( char *dest, char *src )
 
 void bzero( void *buff, size_t len )
 {
-    size_t cgc_index = 0;
+    size_t index = 0;
     unsigned char *c = buff;
 
     if ( buff == NULL ) {
@@ -217,15 +217,15 @@ void bzero( void *buff, size_t len )
         goto end;
     }
 
-    for ( cgc_index = 0; cgc_index < len; cgc_index++ ) {
-        c[cgc_index] = 0x00;
+    for ( index = 0; index < len; index++ ) {
+        c[index] = 0x00;
     }
 
 end:
     return;
 }
 
-int cgc_strcmp( const char *s1, const char *s2 ) 
+int strcmp( const char *s1, const char *s2 ) 
 {
     while ( *s1 && (*s1 == *s2) ) 
     {
@@ -236,7 +236,7 @@ int cgc_strcmp( const char *s1, const char *s2 )
 
 char *strncat ( char *dest, const char *src, size_t n ) 
 {
-    size_t dest_len = cgc_strlen(dest);
+    size_t dest_len = strlen(dest);
     size_t i;
 
     if (dest == NULL || src == NULL) 
@@ -277,7 +277,7 @@ end:
     return len;
 }
 
-size_t cgc_strcat( char *dest, char*src )
+size_t strcat( char *dest, char*src )
 {
     size_t length = 0;
     size_t start = 0;
@@ -286,7 +286,7 @@ size_t cgc_strcat( char *dest, char*src )
         goto end;
     }
 
-    start = cgc_strlen( dest );
+    start = strlen( dest );
 
     for ( ; src[length] != 0x00 ; start++, length++ ) {
         dest[start] = src[length];
@@ -297,7 +297,7 @@ end:
     return length;
 }
 
-size_t cgc_strlen( char * str )
+size_t strlen( char * str )
 {
     size_t length = 0;
 
@@ -352,11 +352,11 @@ end:
 void puts( char *t )
 {
     size_t size;
-    transmit(STDOUT, t, cgc_strlen(t), &size);
+    transmit(STDOUT, t, strlen(t), &size);
     transmit(STDOUT, "\n", 1, &size);
 }
 
-void *cgc_memcpy(void *dest, void*src, unsigned int len) {
+void *memcpy(void *dest, void*src, unsigned int len) {
     void *ret;
     ret = dest;
     while(len) {
@@ -366,7 +366,7 @@ void *cgc_memcpy(void *dest, void*src, unsigned int len) {
     return ret;
 }
 
-void *cgc_memset(void *dest, char c, unsigned int len) {
+void *memset(void *dest, char c, unsigned int len) {
     void *ret = dest;
     while(len--) {
         *(char *)dest++=c;
@@ -395,7 +395,7 @@ heap_metadata *heap_manager = NULL;
 void *calloc(size_t count, size_t size) {
     void *ret;
     ret = malloc(size * count);
-    cgc_memset(ret, 0, size * count);
+    memset(ret, 0, size * count);
     return ret;
 }
 
@@ -421,7 +421,7 @@ void *malloc(size_t size) {
         heap_manager->mem_inuse = sizeof(heap_manager);
         heap_manager->mem_free = 4096-heap_manager->mem_inuse;
         allocate(4096, 0, (void *)&heap_manager->blocks);
-        cgc_memset(heap_manager->blocks, 0, 4096);
+        memset(heap_manager->blocks, 0, 4096);
         blockHead = (heap_block_header *)heap_manager->blocks;
         blockHead->remaining_size = 4096-sizeof(heap_block_header);
         blockHead->next = NULL;

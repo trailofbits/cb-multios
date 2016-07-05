@@ -43,7 +43,7 @@ GLOBALS globs;
 
 void print_message(int user_offset, int msg_offset)
 {
-	if (!cgc_strcmp(globs.listOfMessages[user_offset][msg_offset].to, ""))
+	if (!strcmp(globs.listOfMessages[user_offset][msg_offset].to, ""))
 		return;
 	printf("******************\n");
 	printf("To: @s\nFrom: @s \nMsg: @s\n", globs.listOfMessages[user_offset][msg_offset].to, globs.listOfMessages[user_offset][msg_offset].from, globs.listOfMessages[user_offset][msg_offset].msg);		
@@ -54,12 +54,12 @@ int add_message(char *dest, char *src, char *msg, char draft)
 {
 	globs.printer = print_message; // easy init
 
-	char found = -1; // this will have the user's cgc_index if it is found
+	char found = -1; // this will have the user's index if it is found
 
 	// does the dest exist?
 	for (int j = 0; j < user_count; j++)
 	{
-		if (!cgc_strcmp(dest, listOfUsers[j]->name))
+		if (!strcmp(dest, listOfUsers[j]->name))
 		{
 			found = j;
 			break;
@@ -72,11 +72,11 @@ int add_message(char *dest, char *src, char *msg, char draft)
 	}
 
 	int target = -1;
-	int cgc_index = -1;
+	int index = -1;
 	if (draft == 1)
-		cgc_index = get_user_cgc_index(src);
+		index = get_user_index(src);
 	else
-		cgc_index = get_user_cgc_index(dest);
+		index = get_user_index(dest);
 
 	if (current_user->first_login == 1)
 	{
@@ -100,7 +100,7 @@ int add_message(char *dest, char *src, char *msg, char draft)
 	for (int i = 0; i < MAX_MESSAGES+1; i++) 
 	#endif
 	{
-		if (globs.listOfMessages[cgc_index][i].match != 0xbeef)
+		if (globs.listOfMessages[index][i].match != 0xbeef)
 		{
 			// this message is not valid, replace it
 			target = i;
@@ -117,12 +117,12 @@ label:
 			return 0;
 		}
 
-		Message *cur = &(globs.listOfMessages[cgc_index][target]);
+		Message *cur = &(globs.listOfMessages[index][target]);
 
 		cur->match = 0xbeef;
-		cgc_strcpy(cur->from, src);
-		cgc_strcpy(cur->to, dest);
-		cgc_strcpy(cur->msg, msg);
+		strcpy(cur->from, src);
+		strcpy(cur->to, dest);
+		strcpy(cur->msg, msg);
 		cur->is_draft = draft;
 
 		msg_count_login++;
@@ -134,18 +134,18 @@ label:
 
 void list_drafts(char *name)
 {
-	int cgc_index = get_user_cgc_index(name);
+	int index = get_user_index(name);
 	int found = 0;
 	for (int i = 0; i < MAX_MESSAGES; i++)
 	{
-		if (globs.listOfMessages[cgc_index][i].match != 0xbeef) 
+		if (globs.listOfMessages[index][i].match != 0xbeef) 
 		{
 			continue;
 		}
-		if (!cgc_strcmp(name, globs.listOfMessages[cgc_index][i].from) && (globs.listOfMessages[cgc_index][i].is_draft == 1))
+		if (!strcmp(name, globs.listOfMessages[index][i].from) && (globs.listOfMessages[index][i].is_draft == 1))
 		{
 			found = 1;
-			globs.printer(cgc_index, i);
+			globs.printer(index, i);
 		}
 	}
 	if (found == 0)
@@ -155,18 +155,18 @@ void list_drafts(char *name)
 void list_inbox(char *name)
 {
 	// print all messages to the current user
-	int cgc_index = get_user_cgc_index(name);
+	int index = get_user_index(name);
 	int found = 0;
 	for (int i = 0; i < MAX_MESSAGES; i++)
 	{
-		if (globs.listOfMessages[cgc_index][i].match != 0xbeef) 
+		if (globs.listOfMessages[index][i].match != 0xbeef) 
 		{
 			continue;
 		}
-		if (!cgc_strcmp(name, globs.listOfMessages[cgc_index][i].to) && (globs.listOfMessages[cgc_index][i].is_draft == 0))
+		if (!strcmp(name, globs.listOfMessages[index][i].to) && (globs.listOfMessages[index][i].is_draft == 0))
 		{
 			found = 1;
-			globs.printer(cgc_index, i);
+			globs.printer(index, i);
 		}
 	}
 	if (found == 0)
@@ -191,11 +191,11 @@ void list_all_messages()
 
 int get_draft_count(char *name)
 {
-	int cgc_index = get_user_cgc_index(name);
+	int index = get_user_index(name);
 	int count = 0;
 	for (int i = 0; i < MAX_MESSAGES; i++)
 	{
-		if ((!cgc_strcmp(name, globs.listOfMessages[cgc_index][i].from)) && (globs.listOfMessages[cgc_index][i].is_draft == 1))
+		if ((!strcmp(name, globs.listOfMessages[index][i].from)) && (globs.listOfMessages[index][i].is_draft == 1))
 		{
 			count += 1;
 		}
@@ -207,10 +207,10 @@ int get_inbox_count(char *name)
 {
 	int count = 0;
 	// print all messages to the current user
-	int cgc_index = get_user_cgc_index(name);
+	int index = get_user_index(name);
 	for (int i = 0; i < MAX_MESSAGES; i++)
 	{
-		if ((!cgc_strcmp(name, globs.listOfMessages[cgc_index][i].to)) && (globs.listOfMessages[cgc_index][i].is_draft == 0))
+		if ((!strcmp(name, globs.listOfMessages[index][i].to)) && (globs.listOfMessages[index][i].is_draft == 0))
 		{
 			count++;
 		}
@@ -233,16 +233,16 @@ int get_total_count()
 
 void print_draft_for_send(char *name)
 {
-	int my_cgc_index = get_user_cgc_index(name);
+	int my_index = get_user_index(name);
 	int i = 0;
 	for (i = 0; i < MAX_MESSAGES; i++)
 	{
-		if (globs.listOfMessages[my_cgc_index][i].match == 0xbeef)
+		if (globs.listOfMessages[my_index][i].match == 0xbeef)
 		{
 			// list all of this user's drafts
-			if (!cgc_strcmp(name, globs.listOfMessages[my_cgc_index][i].from) && (globs.listOfMessages[my_cgc_index][i].is_draft == 1))
+			if (!strcmp(name, globs.listOfMessages[my_index][i].from) && (globs.listOfMessages[my_index][i].is_draft == 1))
 			{
-				printf("@d: To: @s Msg: @s\n", i, globs.listOfMessages[my_cgc_index][i].to, globs.listOfMessages[my_cgc_index][i].msg);
+				printf("@d: To: @s Msg: @s\n", i, globs.listOfMessages[my_index][i].to, globs.listOfMessages[my_index][i].msg);
 			}
 		}
 	}
@@ -259,22 +259,22 @@ void print_draft_for_send(char *name)
 		return;
 	}
 
-	if (cgc_strcmp(name, globs.listOfMessages[my_cgc_index][choice].from) || (globs.listOfMessages[my_cgc_index][choice].is_draft != 1))
+	if (strcmp(name, globs.listOfMessages[my_index][choice].from) || (globs.listOfMessages[my_index][choice].is_draft != 1))
 	{
 		printf("Not a valid selection.\n");
 		return;
 	}
 
 	// pointer to the current draft message
-	Message *cur = &(globs.listOfMessages[my_cgc_index][choice]);
+	Message *cur = &(globs.listOfMessages[my_index][choice]);
 
-	// get the dest user's cgc_index
-	int dst_cgc_index = get_user_cgc_index(globs.listOfMessages[my_cgc_index][choice].to);
+	// get the dest user's index
+	int dst_index = get_user_index(globs.listOfMessages[my_index][choice].to);
 
 	int target = -1;
 	for (int i = 0; i < MAX_MESSAGES; i++)
 	{
-		if (globs.listOfMessages[dst_cgc_index][i].match != 0xbeef)
+		if (globs.listOfMessages[dst_index][i].match != 0xbeef)
 		{
 			// this message is not valid, replace it
 			target = i;
@@ -287,11 +287,11 @@ void print_draft_for_send(char *name)
 		return;
 	}
 	// pointer to destination message 
-	Message *dst_msg = &(globs.listOfMessages[dst_cgc_index][target]);
+	Message *dst_msg = &(globs.listOfMessages[dst_index][target]);
 
-	cgc_strcpy(dst_msg->from, cur->from);
-	cgc_strcpy(dst_msg->to, cur->to);
-	cgc_strcpy(dst_msg->msg, cur->msg);
+	strcpy(dst_msg->from, cur->from);
+	strcpy(dst_msg->to, cur->to);
+	strcpy(dst_msg->msg, cur->msg);
 	dst_msg->is_draft = 0;
 	dst_msg->match = 0xbeef;
 
@@ -304,14 +304,14 @@ void print_draft_for_send(char *name)
 
 void print_draft_for_del(char *name)
 {
-	int cgc_index = get_user_cgc_index(name);
+	int index = get_user_index(name);
 	int i = 0;
 	for (i = 0; i < MAX_MESSAGES; i++)
 	{
 		// for each message that is FROM this user, list it with a number
-		if (!cgc_strcmp(name, globs.listOfMessages[cgc_index][i].from) && (globs.listOfMessages[cgc_index][i].is_draft == 1))
+		if (!strcmp(name, globs.listOfMessages[index][i].from) && (globs.listOfMessages[index][i].is_draft == 1))
 		{
-			printf("@d: To: @s Msg: @s\n", i, globs.listOfMessages[cgc_index][i].to, globs.listOfMessages[cgc_index][i].msg);
+			printf("@d: To: @s Msg: @s\n", i, globs.listOfMessages[index][i].to, globs.listOfMessages[index][i].msg);
 		}
 	}
 
@@ -327,16 +327,16 @@ void print_draft_for_del(char *name)
 		return;
 	}
 
-	if (cgc_strcmp(name, globs.listOfMessages[cgc_index][choice].from) || (globs.listOfMessages[cgc_index][choice].is_draft != 1))
+	if (strcmp(name, globs.listOfMessages[index][choice].from) || (globs.listOfMessages[index][choice].is_draft != 1))
 	{
 		printf("Not a valid selection.\n");
 		return;
 	}
 
-	bzero(globs.listOfMessages[cgc_index][choice].to, MAX_NAME_LEN);
-	bzero(globs.listOfMessages[cgc_index][choice].from, MAX_NAME_LEN);
-	bzero(globs.listOfMessages[cgc_index][choice].msg, MAX_MSG_LEN);
-	globs.listOfMessages[cgc_index][choice].match = 0;
+	bzero(globs.listOfMessages[index][choice].to, MAX_NAME_LEN);
+	bzero(globs.listOfMessages[index][choice].from, MAX_NAME_LEN);
+	bzero(globs.listOfMessages[index][choice].msg, MAX_MSG_LEN);
+	globs.listOfMessages[index][choice].match = 0;
 	current_user->msg_count--;
 }
 

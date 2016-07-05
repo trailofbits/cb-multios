@@ -241,7 +241,7 @@ int32_t parse_date( const char *str, tDateTime *pDate )
         return 0;
 
     // Copy the parsed temporary date into the passed in argument
-    cgc_memcpy( (void *)pDate, &tTempDate, sizeof(tDateTime) );
+    memcpy( (void *)pDate, &tTempDate, sizeof(tDateTime) );
 
     // Success
     return (str - start);

@@ -98,12 +98,12 @@ int countryMenu( pCountry co )
 			bzero(selection, BSIZE );
 			receive(0, selection, 19, &length);
 
-			if ( allocate( cgc_strlen(selection)+1, 0, (void**)&(t)) != 0 ) {
+			if ( allocate( strlen(selection)+1, 0, (void**)&(t)) != 0 ) {
 				t = NULL;
 				continue;
 			}
 
-			bzero( t, cgc_strlen(selection)+1);
+			bzero( t, strlen(selection)+1);
 
 			choice = 0;
 			while ( isalpha( selection[choice] ) ) {
@@ -227,7 +227,7 @@ end:
  */
 void printCountryInfo( pCountry co )
 {
-	int cgc_index = 0;
+	int index = 0;
 	pBorder b = NULL;
 
 	if ( co == NULL ) {
@@ -253,30 +253,30 @@ void printCountryInfo( pCountry co )
 		printf("\t\tPopulation: @d\n", co->population);
 	}
 
-	while ( cgc_index < co->language_count ) {
-		if ( co->languages[cgc_index] != NULL ) {
-			printf("\t\tLanguage: @s\n", co->languages[cgc_index]);
+	while ( index < co->language_count ) {
+		if ( co->languages[index] != NULL ) {
+			printf("\t\tLanguage: @s\n", co->languages[index]);
 		}
-		cgc_index++;
+		index++;
 	}
 
-	cgc_index = 0;
+	index = 0;
 
-	while ( cgc_index < co->border_count ) {
-		b = co->borders[cgc_index];
+	while ( index < co->border_count ) {
+		b = co->borders[index];
 		if ( b != NULL ) {
 			printf("\t\tBorder: @f @f @f @f\n", b->latStart, b->lngStart, b->latEnd, b->lngEnd);
 		}
-		cgc_index++;
+		index++;
 	}
 
-	cgc_index = 0;
+	index = 0;
 
-	while ( cgc_index < COUNTRYTERRITORYMAX ) {
-		if ( co->territories[cgc_index] != NULL ) {
-			printTerritoryInfo( co->territories[cgc_index] );
+	while ( index < COUNTRYTERRITORYMAX ) {
+		if ( co->territories[index] != NULL ) {
+			printTerritoryInfo( co->territories[index] );
 		}
-		cgc_index++;
+		index++;
 	}
 
 	return;	
@@ -289,36 +289,36 @@ void printCountryInfo( pCountry co )
  **/
 void freeCountry( pCountry co )
 {
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( co == NULL ) {
 		return;
 	}
 
-	while (cgc_index < co->border_count) {
-		if ( co->borders[cgc_index] != NULL ) {
-			deallocate( co->borders[cgc_index], sizeof( Border ) );
-			co->borders[cgc_index] = NULL;
+	while (index < co->border_count) {
+		if ( co->borders[index] != NULL ) {
+			deallocate( co->borders[index], sizeof( Border ) );
+			co->borders[index] = NULL;
 		}
-		cgc_index++;
+		index++;
 	}
 
-	cgc_index = 0;
-	while ( cgc_index < co->language_count) {
-		if ( co->languages[cgc_index] != NULL ) {
-			deallocate( co->languages[cgc_index], cgc_strlen(co->languages[cgc_index]) + 1 );
-			co->languages[cgc_index] = NULL;
+	index = 0;
+	while ( index < co->language_count) {
+		if ( co->languages[index] != NULL ) {
+			deallocate( co->languages[index], strlen(co->languages[index]) + 1 );
+			co->languages[index] = NULL;
 		}
-		cgc_index++;
+		index++;
 	}
 
-	cgc_index = 0;
-	while ( cgc_index < COUNTRYTERRITORYMAX) {
-		if ( co->territories[cgc_index] != NULL ) {
-			freeTerritory( co->territories[cgc_index] );
-			co->territories[cgc_index] = NULL;
+	index = 0;
+	while ( index < COUNTRYTERRITORYMAX) {
+		if ( co->territories[index] != NULL ) {
+			freeTerritory( co->territories[index] );
+			co->territories[index] = NULL;
 		}
-		cgc_index++;
+		index++;
 	}
 
 	deallocate( co, sizeof(Country) );
@@ -333,7 +333,7 @@ void freeCountry( pCountry co )
  **/
 void initCountry( pCountry co )
 {
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( co == NULL ) {
 		return;
@@ -393,7 +393,7 @@ pCountry countryTopLevel( pstring str )
 
 	skipWhiteSpace(str);
 
-	startIndex = str->cgc_index;
+	startIndex = str->index;
 
 	endIndex = skipAlpha( str );
 
@@ -408,30 +408,30 @@ pCountry countryTopLevel( pstring str )
 		goto error;
 	}
 
-	if ( cgc_strcmp( temp_name, "Country" ) != 0 ) {
+	if ( strcmp( temp_name, "Country" ) != 0 ) {
 		printf("!!Country: Invalid opening element id\n");
-		deallocate( temp_name, cgc_strlen(temp_name) + 1 );
+		deallocate( temp_name, strlen(temp_name) + 1 );
 		goto error;
 	}
 
-	deallocate(temp_name, cgc_strlen(temp_name) + 1 );
+	deallocate(temp_name, strlen(temp_name) + 1 );
 
 	skipWhiteSpace(str);
 
-	if ( str->buffer[ str->cgc_index ] != '}' ) {
+	if ( str->buffer[ str->index ] != '}' ) {
 		goto error;
 	}
 
 	incChar( str );
 
-	lastGood = str->cgc_index;
+	lastGood = str->index;
 
 	temp_name = pullNextElementName( str );
 
 	while ( temp_name != NULL ) {
 		el = elementNameToEnum( temp_name );
 
-		deallocate( temp_name, cgc_strlen(temp_name) + 1 );
+		deallocate( temp_name, strlen(temp_name) + 1 );
 
 		switch (el) {
 			case name:
@@ -444,7 +444,7 @@ pCountry countryTopLevel( pstring str )
 				bzero( newCountry->name, 20);
 				strncpy( newCountry->name, temp_name, 19 );
 
-				deallocate( temp_name, cgc_strlen(temp_name)+1);
+				deallocate( temp_name, strlen(temp_name)+1);
 				temp_name = NULL;
 				break;
 			case capitol:
@@ -458,7 +458,7 @@ pCountry countryTopLevel( pstring str )
 				bzero( newCountry->capitol, 20 );
 				strncpy( newCountry->capitol, temp_name, 19 );
 
-				deallocate( temp_name, cgc_strlen(temp_name)+1);
+				deallocate( temp_name, strlen(temp_name)+1);
 				temp_name = NULL;
 				break;
 			case population:
@@ -521,7 +521,7 @@ pCountry countryTopLevel( pstring str )
 				break;
 		};
 
-		lastGood = str->cgc_index;
+		lastGood = str->index;
 
 		temp_name = pullNextElementName( str );
 	}
@@ -546,7 +546,7 @@ pCountry countryTopLevel( pstring str )
 		goto error;
 	}
 
-	startIndex = str->cgc_index;
+	startIndex = str->index;
 
 	endIndex = skipAlpha( str );
 
@@ -564,12 +564,12 @@ pCountry countryTopLevel( pstring str )
 		goto error;
 	}
 
-	if ( cgc_strcmp( temp_name, "Country" ) != 0 ) {
-		deallocate(temp_name, cgc_strlen(temp_name) + 1 );
+	if ( strcmp( temp_name, "Country" ) != 0 ) {
+		deallocate(temp_name, strlen(temp_name) + 1 );
 		goto error;
 	}
 
-	deallocate( temp_name, cgc_strlen(temp_name) + 1 );
+	deallocate( temp_name, strlen(temp_name) + 1 );
 
 	skipWhiteSpace(str);
 
@@ -586,9 +586,9 @@ error:
 		newCountry = NULL;
 	}
 
-	str->cgc_index = lastGood;
+	str->index = lastGood;
 
-	printf("Error at: @s\n", str->buffer + str->cgc_index);
+	printf("Error at: @s\n", str->buffer + str->index);
 
 end:
 	return newCountry;
@@ -643,15 +643,15 @@ char* extractLanguage( pstring str )
 	}
 
 	/// If the element id is not "Language" then this is the wrong function
-	if ( cgc_strcmp( temp, "Language") != 0 ) {
+	if ( strcmp( temp, "Language") != 0 ) {
 		printf("!!Element id is not \"Language\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return language;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -730,13 +730,13 @@ char* extractLanguage( pstring str )
 	}
 #endif
 
-	if ( cgc_strcmp( temp, "Language") != 0 ) {
+	if ( strcmp( temp, "Language") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		goto error;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -754,7 +754,7 @@ char* extractLanguage( pstring str )
 
 error:
 	if (language != NULL) {
-		deallocate( language, cgc_strlen(language) + 1 );
+		deallocate( language, strlen(language) + 1 );
 		language = NULL;
 	}
 
@@ -809,7 +809,7 @@ char* extractCapitol( pstring str )
 	}
 
 	/// If the element id is not "Capitol" then this is the wrong function
-	if ( cgc_strcmp( temp, "Capitol") != 0 ) {
+	if ( strcmp( temp, "Capitol") != 0 ) {
 		deallocate( temp, (end-start) + 1 );
 		temp = NULL;
 		return temp;
@@ -893,13 +893,13 @@ char* extractCapitol( pstring str )
 	}
 #endif
 
-	if ( cgc_strcmp( temp, "Capitol") != 0 ) {
+	if ( strcmp( temp, "Capitol") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		goto error;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -917,7 +917,7 @@ char* extractCapitol( pstring str )
 
 error:
 	if (capitol != NULL) {
-		deallocate( capitol, cgc_strlen(capitol) + 1 );
+		deallocate( capitol, strlen(capitol) + 1 );
 		capitol = NULL;
 	}
 

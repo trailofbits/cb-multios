@@ -143,16 +143,16 @@ void md5(uint8_t *data, size_t s, uint32_t* out) {
     //alloc our temp buffer
     len = (((s+8)/64)+1)*64;
     ALLOC(0, (void**)&d, len);
-    cgc_memset(d, '\x00', len);
-    cgc_memcpy(d, data, s);
+    memset(d, '\x00', len);
+    memcpy(d, data, s);
 
     //pad appropriately
     d[s] = 0x80;
     i = 8*s;
-    cgc_memcpy(&d[len-8], &i, 4);
+    memcpy(&d[len-8], &i, 4);
 
     for (b=0; b < len/64; b++) {
-        cgc_memcpy(curb, d+(b*64), 64);
+        memcpy(curb, d+(b*64), 64);
         for (i=0; i< 4; i++) {
             k = rot[4][i];
             l = rot[5][i];
@@ -171,5 +171,5 @@ void md5(uint8_t *data, size_t s, uint32_t* out) {
             block[i] = final[i];
         }
     }
-    cgc_memcpy(out,final,16);
+    memcpy(out,final,16);
 }

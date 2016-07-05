@@ -89,7 +89,7 @@ unsigned int bitsNeeded( unsigned int length );
 int parseCVFFrame( pBitStream pbs, pcvf pNewImage );
 void displayCVFFrame( pcvf pNewImage );
 
-int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int cgc_index );
+int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int index );
 
 /// Parses the description section
 int parseCVFDescription( pBitStream pbs, pcvf pNewImage );

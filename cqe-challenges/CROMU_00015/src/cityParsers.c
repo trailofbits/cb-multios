@@ -154,7 +154,7 @@ void freeCharPtr( char**buffer )
 		return;
 	}
 
-	deallocate(*buffer, cgc_strlen(*buffer) + 1 );
+	deallocate(*buffer, strlen(*buffer) + 1 );
 
 	*buffer = NULL;
 
@@ -169,12 +169,12 @@ void freeCharPtr( char**buffer )
  **/
 void freeCity( pCity ci )
 {
-	int cgc_index = 0;
+	int index = 0;
 	if ( ci == NULL ) {
 		return;
 	}
 
-	for ( cgc_index = 0; cgc_index < ci->border_count; cgc_index++ ) {
+	for ( index = 0; index < ci->border_count; index++ ) {
 		deallocate( ci->borders, sizeof(Border) );
 	}
 
@@ -190,20 +190,20 @@ void freeCity( pCity ci )
  **/
 void initCity( pCity ci )
 {
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( ci == NULL ) {
 		return;
 	}
 
-	for (cgc_index = 0; cgc_index < CITYBORDERMAX; cgc_index++ ) {
-		ci->name[cgc_index] = 0x00;
-		ci->borders[cgc_index] = NULL;
+	for (index = 0; index < CITYBORDERMAX; index++ ) {
+		ci->name[index] = 0x00;
+		ci->borders[index] = NULL;
 	}
 
-	for (cgc_index = 0; cgc_index < 30; cgc_index++ ) {
-		ci->mayor[cgc_index] = 0;
-		ci->url[cgc_index] = 0;
+	for (index = 0; index < 30; index++ ) {
+		ci->mayor[index] = 0;
+		ci->url[index] = 0;
 	}
 
 	ci->population = -1;
@@ -219,7 +219,7 @@ void initCity( pCity ci )
  **/
 void printCityInfo( pCity ci )
 {
-	int cgc_index = 0;
+	int index = 0;
 	pBorder b = NULL;
 
 	if ( ci == NULL ) {
@@ -246,8 +246,8 @@ void printCityInfo( pCity ci )
 		printf("\t\t\t\t\tUrl: @s\n", ci->url);
 	}
 
-	for ( cgc_index = 0; cgc_index < ci->border_count; cgc_index++ ) {
-		b = ci->borders[cgc_index];
+	for ( index = 0; index < ci->border_count; index++ ) {
+		b = ci->borders[index];
 
 		if ( b!= NULL ) {
 			printf("\t\t\t\t\tBorder: @f @f @f @f\n", b->latStart, b->lngStart, b->latEnd, b->lngEnd);
@@ -320,7 +320,7 @@ pCity cityTopLevel( pstring str )
 		goto end;
 	}
 
-	/// Get the start and end cgc_index of the element id
+	/// Get the start and end index of the element id
 	getIndex( str, &startIndex);
 	endIndex = skipAlpha(str);
 
@@ -338,12 +338,12 @@ pCity cityTopLevel( pstring str )
 		goto end;
 	}
 
-	if ( cgc_strcmp( temp, "City") != 0 ) {
-		deallocate(temp, cgc_strlen(temp) + 1 );
+	if ( strcmp( temp, "City") != 0 ) {
+		deallocate(temp, strlen(temp) + 1 );
 		goto end;
 	}
 
-	deallocate(temp, cgc_strlen(temp) + 1 );
+	deallocate(temp, strlen(temp) + 1 );
 
 	skipWhiteSpace( str );
 	if ( !atChar( str, '}') ) {
@@ -353,7 +353,7 @@ pCity cityTopLevel( pstring str )
 	incChar( str );
 	skipWhiteSpace(str);
 
-	lastGood = str->cgc_index;
+	lastGood = str->index;
 
 	if ( allocate( sizeof(City), 0, (void**)&newCity) != 0 ) {
 		newCity = NULL;
@@ -367,7 +367,7 @@ pCity cityTopLevel( pstring str )
 	while ( temp != NULL ) {
 		el = elementNameToEnum( temp );
 
-		deallocate(temp, cgc_strlen(temp) + 1 );
+		deallocate(temp, strlen(temp) + 1 );
 
 		switch (el) {
 			case name:
@@ -385,7 +385,7 @@ pCity cityTopLevel( pstring str )
 				strncpy( newCity->name, temp, 19);
 
 				/// Free the buffer
-				deallocate( temp, cgc_strlen(temp) + 1 );
+				deallocate( temp, strlen(temp) + 1 );
 				temp = NULL;
 				break;
 			case mayor:
@@ -399,7 +399,7 @@ pCity cityTopLevel( pstring str )
 #ifdef PATCHED
 				strncpy( newCity->mayor, temp, 29 );
 #else
-				cgc_strcpy( newCity->mayor, temp );
+				strcpy( newCity->mayor, temp );
 #endif
 				freeCharPtr( &temp );
 
@@ -445,7 +445,7 @@ pCity cityTopLevel( pstring str )
 				break;
 		};
 
-		lastGood = str->cgc_index;
+		lastGood = str->index;
 		temp = pullNextElementName(str);
 	}
 
@@ -468,12 +468,12 @@ pCity cityTopLevel( pstring str )
 		goto error;
 	}
 
-	if ( cgc_strcmp( temp, "City") != 0 ) {
-		deallocate(temp, cgc_strlen(temp) + 1 );
+	if ( strcmp( temp, "City") != 0 ) {
+		deallocate(temp, strlen(temp) + 1 );
 		goto error;
 	}
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 	skipWhiteSpace(str);
 	if ( !atChar( str, '}') ) {
 		goto error;
@@ -488,7 +488,7 @@ error:
 	}
 
 	printf("!!Error at: @s\n", str->buffer + lastGood);
-	str->cgc_index = lastGood;
+	str->index = lastGood;
 
 end:
 	return newCity;
@@ -516,7 +516,7 @@ char *extractMayor( pstring str )
 		return NULL;
 	}
 
-	startIndex = str->cgc_index;
+	startIndex = str->index;
 	endIndex = skipAlpha(str);
 
 	if ( endIndex == -1 || startIndex == endIndex ) {
@@ -529,7 +529,7 @@ char *extractMayor( pstring str )
 		return NULL;
 	}
 
-	if ( cgc_strcmp( mayor, "Mayor") != 0 ) {
+	if ( strcmp( mayor, "Mayor") != 0 ) {
 		freeCharPtr( &mayor );
 		return NULL;
 	}
@@ -571,7 +571,7 @@ char *extractMayor( pstring str )
 		goto error;
 	}
 
-	startIndex = str->cgc_index;
+	startIndex = str->index;
 	endIndex = skipAlpha( str );
 
 	if ( endIndex == -1 || startIndex == endIndex ) {
@@ -584,7 +584,7 @@ char *extractMayor( pstring str )
 		goto error;
 	}
 
-	if ( cgc_strcmp( temp, "Mayor") != 0 ) {
+	if ( strcmp( temp, "Mayor") != 0 ) {
 		freeCharPtr( &temp );
 		goto error;
 	}
@@ -629,13 +629,13 @@ char *extractUrl( pstring str )
 
 	skipAlpha(str);
 
-	url = copyData( str, startIndex, str->cgc_index);
+	url = copyData( str, startIndex, str->index);
 
 	if ( url == NULL ) {
 		goto end;
 	}
 
-	if ( cgc_strcmp( url, "Url" ) ) {
+	if ( strcmp( url, "Url" ) ) {
 		freeCharPtr( &url );
 		goto end;
 	}
@@ -652,7 +652,7 @@ char *extractUrl( pstring str )
 
 	skipUrl( str );
 
-	url = copyData( str, startIndex, str->cgc_index );
+	url = copyData( str, startIndex, str->index );
 
 	if ( url == NULL ) {
 		goto end;
@@ -665,13 +665,13 @@ char *extractUrl( pstring str )
 
 	getIndex( str, &startIndex );
 	skipAlpha(str);
-	temp = copyData( str, startIndex, str->cgc_index);
+	temp = copyData( str, startIndex, str->index);
 
 	if ( temp == NULL ) {
 		goto error;
 	}
 
-	if ( cgc_strcmp( temp, "Url") != 0 ) {
+	if ( strcmp( temp, "Url") != 0 ) {
 		freeCharPtr( &temp );
 		goto error;
 	}

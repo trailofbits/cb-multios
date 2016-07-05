@@ -37,13 +37,13 @@ RGB_Color *GetColor(Canvas *c, uint16_t y, uint16_t x, uint8_t layer) {
   return &c->colors[color];
 }
 
-// Get the color cgc_index at a particular location in the canvas
+// Get the color index at a particular location in the canvas
 int GetColorIndex(Canvas *c, uint16_t y, uint16_t x, uint8_t layer) {
   uint8_t *current_layer = c->layers[layer];
   return current_layer[y * c->x_size + x];
 }
 
-// Set the color cgc_index at a particular location in the canvas
+// Set the color index at a particular location in the canvas
 void SetColor(Canvas *c, uint16_t y, uint16_t x, uint8_t layer, uint8_t color) {
 
   uint8_t *current_layer = c->layers[layer];

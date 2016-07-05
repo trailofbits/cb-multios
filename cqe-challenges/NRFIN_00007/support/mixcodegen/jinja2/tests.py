@@ -54,7 +54,7 @@ def test_defined(value):
 
 
 def test_undefined(value):
-    """Like :func:`defined` but the other way cgc_round."""
+    """Like :func:`defined` but the other way round."""
     return isinstance(value, Undefined)
 
 

@@ -27,16 +27,16 @@ THE SOFTWARE.
 #include <stdlib.h>
 #include <stdint.h>
 
-int cgc_memcpy( void *dest, void *src, size_t n )
+int memcpy( void *dest, void *src, size_t n )
 {
-	size_t cgc_index = 0;
+	size_t index = 0;
 
-	while ( cgc_index < n ) {
-		((char*)dest)[cgc_index] = ((char*)src)[cgc_index];
-		cgc_index++;
+	while ( index < n ) {
+		((char*)dest)[index] = ((char*)src)[index];
+		index++;
 	}
 
-	return cgc_index;
+	return index;
 }
 
 int islower( int c )
@@ -242,7 +242,7 @@ char *strncpy( char *dest, char *src, size_t n )
     return (dest);
 }
 
-char *cgc_strcpy( char *dest, char *src )
+char *strcpy( char *dest, char *src )
 {
     size_t i;
 
@@ -258,9 +258,9 @@ char *cgc_strcpy( char *dest, char *src )
     return (dest);
 }
 
-void cgc_memset( void *buff, char ch, size_t len )
+void memset( void *buff, char ch, size_t len )
 {
-    size_t cgc_index = 0;
+    size_t index = 0;
     unsigned char *c = buff;
 
     if ( buff == NULL ) {
@@ -271,8 +271,8 @@ void cgc_memset( void *buff, char ch, size_t len )
         goto end;
     }
 
-    for ( cgc_index = 0; cgc_index < len; cgc_index++ ) {
-        c[cgc_index] = ch;
+    for ( index = 0; index < len; index++ ) {
+        c[index] = ch;
     }
 
 end:
@@ -281,7 +281,7 @@ end:
 
 void bzero( void *buff, size_t len )
 {
-    size_t cgc_index = 0;
+    size_t index = 0;
     unsigned char *c = buff;
 
     if ( buff == NULL ) {
@@ -292,8 +292,8 @@ void bzero( void *buff, size_t len )
         goto end;
     }
 
-    for ( cgc_index = 0; cgc_index < len; cgc_index++ ) {
-        c[cgc_index] = 0x00;
+    for ( index = 0; index < len; index++ ) {
+        c[index] = 0x00;
     }
 
 end:
@@ -320,7 +320,7 @@ int memcmp( void *s1, void *s2, size_t n )
     return (*(const unsigned char *)c1 - *(const unsigned char *)c2);
 }
 
-int cgc_strcmp( const char *s1, const char *s2 ) 
+int strcmp( const char *s1, const char *s2 ) 
 {
     while ( *s1 && (*s1 == *s2) ) 
     {
@@ -331,7 +331,7 @@ int cgc_strcmp( const char *s1, const char *s2 )
 
 char *strncat ( char *dest, const char *src, size_t n ) 
 {
-    size_t dest_len = cgc_strlen(dest);
+    size_t dest_len = strlen(dest);
     size_t i;
 
     if (dest == NULL || src == NULL) 
@@ -372,7 +372,7 @@ end:
     return len;
 }
 
-size_t cgc_strcat( char *dest, char*src )
+size_t strcat( char *dest, char*src )
 {
     size_t length = 0;
     size_t start = 0;
@@ -381,7 +381,7 @@ size_t cgc_strcat( char *dest, char*src )
         goto end;
     }
 
-    start = cgc_strlen( dest );
+    start = strlen( dest );
 
     for ( ; src[length] != 0x00 ; start++, length++ ) {
         dest[start] = src[length];
@@ -392,7 +392,7 @@ end:
     return length;
 }
 
-size_t cgc_strlen( char * str )
+size_t strlen( char * str )
 {
     size_t length = 0;
 
@@ -447,5 +447,5 @@ end:
 void puts( char *t )
 {
     size_t size;
-    transmit(STDOUT, t, cgc_strlen(t), &size);
+    transmit(STDOUT, t, strlen(t), &size);
 }

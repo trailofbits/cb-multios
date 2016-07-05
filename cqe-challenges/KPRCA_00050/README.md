@@ -12,6 +12,7 @@ TVS is a vault service with a time lock. Unless the current time is in the allow
  * Fast O(1) retrieval of vault items
  * Time and Vault Services are multiplexed for performance
  * Protection to prevent attackers from changing time
+ * Software attestation via fixed addresses
 
 ## Vulnerability
 There are two vulnerabilities, but both are due to vault IDs being used a locker_t pointers. This gives an attacker the ability to access or modify to arbitrary memory locations. Patching the vulnerability requires verifying that the pointer the attacker provides is proper, e.g. points to an allocated element in the contents array and is properly aligned.

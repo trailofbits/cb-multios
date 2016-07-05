@@ -26,7 +26,7 @@ Header
 	0001 - 1 bit for a ' ' or a '.'
 	0010 - 2 bits for a ' ', '#', '*', '@'
 	0110 - 6 bits for a ' a-zA-Z0-9'
-	0111 - 7 bits for ascii 0x20-0x7e 0 cgc_indexed
+	0111 - 7 bits for ascii 0x20-0x7e 0 indexed
 4 bits load direction
 	0000 Start top row left to right then continue down
 	0001 Start top row right to left then continue down
@@ -118,7 +118,7 @@ Image Header
 	010 - 0,0 upper right
 	011 - 0,0 lower left
 	100 - 0,0 lower right
-	111 - 0,0 at midpoint cgc_rounded down
+	111 - 0,0 at midpoint rounded down
 15 bits reserved
 	Should be 0
 
@@ -142,7 +142,7 @@ The first bit of the initial position is the sign bit
 010 - 0,0 upper right
 011 - 0,0 lower left
 100 - 0,0 lower right
-111 - 0,0 at midpoint cgc_rounded down
+111 - 0,0 at midpoint rounded down
 
 3 bit reserved. Should be 0
 
@@ -181,7 +181,7 @@ The first vulnerability is an out of bounds write due to an invalid bounds check
 The second class of vulnerability is a use after free.
 
 ### CWE classification
-The first is CWE-129: Improper Validation of Array Index. The product uses untrusted input when calculating or using an array cgc_index, but the product does not validate or incorrectly validates the cgc_index to ensure the cgc_index references a valid position within the array. Also known as out-of-bounds array cgc_index.
+The first is CWE-129: Improper Validation of Array Index. The product uses untrusted input when calculating or using an array index, but the product does not validate or incorrectly validates the index to ensure the index references a valid position within the array. Also known as out-of-bounds array index.
 
 The second is CWE-416: Use after free. Referencing memory after it has been freed.
 

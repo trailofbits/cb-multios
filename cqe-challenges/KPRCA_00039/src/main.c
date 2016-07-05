@@ -218,7 +218,7 @@ game_t* copy_game(game_t* game)
   game_t* copy = calloc(1, sizeof(game_t));
   if (!copy)
     error(1);
-  cgc_memcpy(copy, game, sizeof(game_t));
+  memcpy(copy, game, sizeof(game_t));
   return copy;
 }
 
@@ -261,7 +261,7 @@ int has_liberty(game_t* game, sboard_t sboard, u8 x, u8 y, color_t color)
   return 0;
 }
 
-u8 surcgc_rounded_by(game_t* game, sboard_t sboard, u8 x, u8 y, color_t color)
+u8 surrounded_by(game_t* game, sboard_t sboard, u8 x, u8 y, color_t color)
 {
   if (!game || !sboard)
     error(1);
@@ -280,10 +280,10 @@ u8 surcgc_rounded_by(game_t* game, sboard_t sboard, u8 x, u8 y, color_t color)
       sboard[y][x] = 1;
   }
 
-  u8 u = surcgc_rounded_by(game, sboard, x, y + 1, color);
-  u8 d = surcgc_rounded_by(game, sboard, x, y - 1, color);
-  u8 l = surcgc_rounded_by(game, sboard, x + 1, y, color);
-  u8 r = surcgc_rounded_by(game, sboard, x - 1, y, color);
+  u8 u = surrounded_by(game, sboard, x, y + 1, color);
+  u8 d = surrounded_by(game, sboard, x, y - 1, color);
+  u8 l = surrounded_by(game, sboard, x + 1, y, color);
+  u8 r = surrounded_by(game, sboard, x - 1, y, color);
 
   if (u + d + l + r > 4) {
     return 2;
@@ -300,7 +300,7 @@ int remove_captures(game_t* game, color_t color)
   game_t* frozen = copy_game(game);
   for (u8 y = 0; y < BOARD_DIM; y++) {
     for (u8 x = 0; x < BOARD_DIM; x++) {
-      cgc_memset(sboard, 0, sizeof(sboard));
+      memset(sboard, 0, sizeof(sboard));
       if (get_color(frozen->board, x, y) == color && !has_liberty(frozen, sboard, x, y, color)) {
         cnt++;
         SET_BOARD(game->board, x, y, EMPTY);
@@ -328,7 +328,7 @@ int score(game_t* game, u32* black, u32* white)
 
   for (u8 y = 0; y < BOARD_DIM; y++) {
     for (u8 x = 0; x < BOARD_DIM; x++) {
-      cgc_memset(sboard, 0, sizeof(sboard));
+      memset(sboard, 0, sizeof(sboard));
       color_t cur = get_color(game->board, x, y);
       if (cur == WHITE) {
         *white += 1;
@@ -338,13 +338,13 @@ int score(game_t* game, u32* black, u32* white)
         continue;
       }
 
-      u8 s = surcgc_rounded_by(game, sboard, x, y, BLACK);
+      u8 s = surrounded_by(game, sboard, x, y, BLACK);
       if (s > 1) {
         *black += 1;
         continue;
       }
 
-      s = surcgc_rounded_by(game, sboard, x, y, WHITE);
+      s = surrounded_by(game, sboard, x, y, WHITE);
       if (s > 1) {
         *white += 1;
         continue;
@@ -460,10 +460,10 @@ void draw_game(game_t* game)
 
 void sleep(int s, int us)
 {
-  struct cgc_timeval t;
+  struct timeval t;
   t.tv_sec = s;
   t.tv_usec = us;
-  cgc_fdwait(0, NULL, NULL, &t, NULL);
+  fdwait(0, NULL, NULL, &t, NULL);
 }
 
 int read_n_bytes(int fd, size_t n, char *buf, int has_terminator, char terminator)
@@ -496,13 +496,13 @@ int read_move(u8* x, u8* y, u8* pass)
   int ret = -1;
   char buf[INPUT_MAX + 1];
   *pass = 0;
-  cgc_memset(buf, 0, INPUT_MAX);
+  memset(buf, 0, INPUT_MAX);
   read_n_bytes(STDIN, INPUT_MAX, buf, 1, '\n');
   buf[INPUT_MAX] = '\0';
 
   char* p = NULL;
 
-  if (!strncmp("pass", buf, cgc_strlen("pass"))) {
+  if (!strncmp("pass", buf, strlen("pass"))) {
     *pass = 1;
     ret = 0; goto out;
   }
@@ -625,7 +625,7 @@ action_t calculate_move(game_t** game, u8* ox, u8* oy, color_t color)
   for (u8 y = 0; y < BOARD_DIM; y++) {
     for (u8 x = 0; x < BOARD_DIM; x++) {
       vote = 0;
-      cgc_memset(sboard, 0, sizeof(sboard));
+      memset(sboard, 0, sizeof(sboard));
 
       u8 neigh_cnt = 0;
       neigh_cnt += (get_color((*game)->board, x + 1, y) == color);

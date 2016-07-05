@@ -9,7 +9,7 @@
 
 #define MAX_BUCKETS    10
 
-
+#define PAGE_SIZE 0x1000
 
 #define PAGE_ALIGN(ptr) ((long int)(ptr) & -PAGE_SIZE);
 

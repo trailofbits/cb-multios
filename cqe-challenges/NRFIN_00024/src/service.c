@@ -156,7 +156,7 @@ uint8_t *add_msg(lms_msg_t *msg, lms_sess_t *sess) {
             cur = sess->head;
             while (cur) {
                 if (cur->msg->mid == i) {
-                    cgc_memcpy(res+idx,cur->msg->data,cur->msg->size);
+                    memcpy(res+idx,cur->msg->data,cur->msg->size);
                     idx += cur->msg->size;
                     break;
                 }

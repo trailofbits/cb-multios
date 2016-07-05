@@ -128,7 +128,7 @@ data_item_type *next_ptr;
 		else   {  
 		
 			// if the strings don't match, its a key collision
-			if (cgc_strcmp(tmp_node->data->name, data->name)!=0) {
+			if (strcmp(tmp_node->data->name, data->name)!=0) {
 
 				// so move to the end of the linked list and add the new data
 				next_ptr=tmp_node->data;
@@ -196,7 +196,7 @@ data_item_type *prev_ptr, *next_ptr;
 		next_ptr=prev_ptr->next;
 
 		// check the first entry because if its the match we need to update the pointer stored in the BST node
-		if (cgc_strcmp(tmp_node->data->name, str)==0) {
+		if (strcmp(tmp_node->data->name, str)==0) {
 
 			free(prev_ptr);
 			tmp_node->data=next_ptr;
@@ -209,7 +209,7 @@ data_item_type *prev_ptr, *next_ptr;
 		while (next_ptr!= 0) {
 
 			//	printf("looking for appended element\n");
-			if (cgc_strcmp(next_ptr->name, str)==0) {
+			if (strcmp(next_ptr->name, str)==0) {
 
 				prev_ptr->next = next_ptr->next;
 				tmp_node->data_count--;

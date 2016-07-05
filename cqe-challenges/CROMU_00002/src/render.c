@@ -121,7 +121,7 @@ void display_render_grid( void )
         {
             uint32_t grid_position = (grid_x * RENDER_GRID_X_SIZE) + (grid_y-1);
 
-            printf( "d", g_renderGrid[grid_position].particles_in_grid );
+            printf( "@d", g_renderGrid[grid_position].particles_in_grid );
         }
 
         printf( "\n" );

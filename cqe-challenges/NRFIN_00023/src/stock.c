@@ -27,7 +27,7 @@
 #include "pool.h"
 #include "stock.h"
 
-// Improper validation of array cgc_index
+// Improper validation of array index
 #ifdef PATCHED
 static unsigned int
 #else
@@ -123,7 +123,7 @@ insert_stock(struct stock_state *state, const char *name)
 #ifdef PATCHED
     strncpy(new->name, name, STOCK_NAME_MAX_LEN);
 #else
-    cgc_strcpy(new->name, name);
+    strcpy(new->name, name);
 #endif
 
     return 0;
@@ -338,7 +338,7 @@ static void
 order_to_str(const struct order *order, char *s)
 {
     char intbuf[80] = {};
-    cgc_strcpy(s, itoa(order->id, intbuf));
+    strcpy(s, itoa(order->id, intbuf));
 
 // Type confusion
 #ifdef PATCHED
@@ -347,17 +347,17 @@ order_to_str(const struct order *order, char *s)
 #endif
 
     if (order->type == BUY) {
-        cgc_strcat(s, "\tBUY\t");
-        cgc_strcat(s, itoa(order->quantity, intbuf));
-        cgc_strcat(s, "\t");
-        cgc_strcat(s, itoa(order->price, intbuf));
-        cgc_strcat(s, "\t\t\t\n");
+        strcat(s, "\tBUY\t");
+        strcat(s, itoa(order->quantity, intbuf));
+        strcat(s, "\t");
+        strcat(s, itoa(order->price, intbuf));
+        strcat(s, "\t\t\t\n");
     } else {
-        cgc_strcat(s, "\t\t\t");
-        cgc_strcat(s, itoa(order->price, intbuf));
-        cgc_strcat(s, "\t");
-        cgc_strcat(s, itoa(order->quantity, intbuf));
-        cgc_strcat(s, "\tSELL\n");
+        strcat(s, "\t\t\t");
+        strcat(s, itoa(order->price, intbuf));
+        strcat(s, "\t");
+        strcat(s, itoa(order->quantity, intbuf));
+        strcat(s, "\tSELL\n");
     }
 }
 
@@ -418,11 +418,11 @@ cmd_list_orders(const struct stock_state *state, const char *name)
     if ((stock = lookup_stock(state, name)) == NULL)
         return -1;
 
-    cgc_strcpy(buf, "Order book for ");
+    strcpy(buf, "Order book for ");
     strncat(buf, stock->name, STOCK_NAME_MAX_LEN);
-    cgc_strcat(buf, "\nID\tSIDE\tQTY\tPRICE\tQTY\tSIDE\n"); 
+    strcat(buf, "\nID\tSIDE\tQTY\tPRICE\tQTY\tSIDE\n"); 
 
-    len = cgc_strlen(buf);
+    len = strlen(buf);
     if (write_all(STDOUT, buf, len) != len)
         return -1;
 
@@ -435,7 +435,7 @@ cmd_list_orders(const struct stock_state *state, const char *name)
 
         order_to_str(cur, buf);
 
-        len = cgc_strlen(buf);
+        len = strlen(buf);
         if (write_all(STDOUT, buf, len) != len)
             return -1;
     }
@@ -449,7 +449,7 @@ cmd_list_orders(const struct stock_state *state, const char *name)
 
         order_to_str(cur, buf);
 
-        len = cgc_strlen(buf);
+        len = strlen(buf);
         if (write_all(STDOUT, buf, len) != len)
             return -1;
     }
@@ -480,7 +480,7 @@ cmd_check_order(const struct stock_state *state, unsigned int id)
 
     order_to_str(order, buf);
 
-    len = cgc_strlen(buf);
+    len = strlen(buf);
     if (write_all(STDOUT, buf, len) != len)
         return -1;
 

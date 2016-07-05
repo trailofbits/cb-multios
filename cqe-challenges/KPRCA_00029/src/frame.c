@@ -44,7 +44,7 @@ int frame_decode(buffer_t *input, buffer_t *output)
     uint8_t tmp[FRAME_SIZE / 8];
     buffer_t tmpbuf;
 
-    cgc_memset(bits, 0, sizeof(bits));
+    memset(bits, 0, sizeof(bits));
     for (i = 0; i < FRAME_SIZE; i++)
         bits[i] = buffer_read_bit(input);
 
@@ -120,7 +120,7 @@ void frame_encode(buffer_t *input, buffer_t *output)
     buffer_write_bits(&tmpbuf, hdr, 4);
     buffer_write_bits(&tmpbuf, checksum, 8);
 
-    cgc_memset(bits, 0, sizeof(bits));
+    memset(bits, 0, sizeof(bits));
     i = ECC_PARITY_SIZE;
     for (j = 0; j < 4; j++)
         bits[i++] = buffer_read_bit(&tmpbuf);

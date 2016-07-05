@@ -85,15 +85,15 @@ void float_to_str( double val, char *buf )
 
     if ( isnan( val ) )
     {
-        cgc_strcpy( buf, "nan" );
+        strcpy( buf, "nan" );
     }
     else if ( isinf( val ) )
     {
-        cgc_strcpy( buf, "inf" );
+        strcpy( buf, "inf" );
     }
     else if ( val == 0.0 )
     {
-        cgc_strcpy( buf, "0.00000" );
+        strcpy( buf, "0.00000" );
     }
     else
     {
@@ -119,22 +119,22 @@ void float_to_str( double val, char *buf )
 
         if ( isnan( val ) )
         {
-            cgc_strcpy( buf, "nan" );
+            strcpy( buf, "nan" );
             return;
         }
         else if ( isinf( val ) )
         {
-            cgc_strcpy( buf, "inf" );
+            strcpy( buf, "inf" );
             return;
         }
         else if ( fabs(val) < F32_PRECISION )
         {
-            cgc_strcpy( buf, "0.00000" );
+            strcpy( buf, "0.00000" );
             return;
         }
         else if ( val > 10e9 )
         {
-            cgc_strcpy( buf, "fmax" );
+            strcpy( buf, "fmax" );
             return;
         }
 

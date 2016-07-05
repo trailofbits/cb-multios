@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include <stdlib.h>
 
 /**
- * Structure to maintain the buffer and cgc_index
+ * Structure to maintain the buffer and index
  **/
 typedef struct string {
         /// Pointer to the data
@@ -40,8 +40,8 @@ typedef struct string {
         /// Total length of the string
         int maxlength;
 
-        /// Current cgc_index being examined
-        int cgc_index;
+        /// Current index being examined
+        int index;
 } string, *pstring;
 
 void freeString(pstring str );

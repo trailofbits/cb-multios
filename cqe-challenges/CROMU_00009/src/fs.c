@@ -34,7 +34,7 @@ THE SOFTWARE.
 int InitFS(uint32_t fs_size) {
 	inode *n;
 
-	// cgc_round up to the nearest convenient page size
+	// round up to the nearest convenient page size
 	if ((fs_size % PAGE_SIZE) != 0) {
 		fs_size -= (fs_size % PAGE_SIZE);
 		fs_size += PAGE_SIZE; 
@@ -77,7 +77,7 @@ int InitFS(uint32_t fs_size) {
 
 	// populate the top-level root directory inode
 	n = fs.inode_pages[0];
-	cgc_strcpy(n[0].fname, "/");
+	strcpy(n[0].fname, "/");
 	n[0].type = INODE_DIRECTORY;
 	n[0].fsize = 0;
 	n[0].num_blocks = 1;
@@ -133,7 +133,7 @@ inode *FindInode(char *fname) {
 		t = fs.inode_pages[i];
 		for (j = 0; j < INODES_PER_PAGE; j++) {
 			if ((t[j].type == INODE_FILE || t[j].type == INODE_DIRECTORY) 
-				&& !cgc_strcmp(t[j].fname, fname)) {
+				&& !strcmp(t[j].fname, fname)) {
 				return(&(t[j]));
 			}
 		}
@@ -176,7 +176,7 @@ inode *FindDirEntry(inode *dir, char *fname) {
 			if (!file) {
 				continue;
 			}
-			if (!cgc_strcmp(file->fname, fname)) {
+			if (!strcmp(file->fname, fname)) {
 				return(file);
 			}
 		}
@@ -216,7 +216,7 @@ int CheckFileExists(char *fname, inode **file_inode) {
 	}
 
 	// handle special case of the root directory
-	if (!cgc_strcmp(fname, "/")) {
+	if (!strcmp(fname, "/")) {
 		*file_inode = i;
 		return(2);
 	}
@@ -343,11 +343,11 @@ int SplitPath(char *full_name, char *path, char *fname) {
 		return(0);
 	}
 
-	cgc_strcpy(path, full_name);
-	for (i = cgc_strlen(path); i > 0; i--) {
+	strcpy(path, full_name);
+	for (i = strlen(path); i > 0; i--) {
 		if (path[i] == '/') {
 			// grab the file name portion while we're here
-			cgc_strcpy(fname, path+i+1);
+			strcpy(fname, path+i+1);
 
 			// null term the path and we're done
 			path[i] = '\0';
@@ -357,7 +357,7 @@ int SplitPath(char *full_name, char *path, char *fname) {
 	// path only has one / at the beginning
 	// so path is "/"
 	if (i == 0) {
-		cgc_strcpy(fname, full_name+1);
+		strcpy(fname, full_name+1);
 		path[i+1] = '\0';
 	}
 
@@ -370,7 +370,7 @@ int SplitPath(char *full_name, char *path, char *fname) {
 */ 
 inode *CreateFile(char *full_name, char *contents) {
 	int i;
-	int cgc_index;
+	int index;
 	uint32_t block_count;
 	uint32_t inode_count;
 	inode *in;
@@ -392,7 +392,7 @@ inode *CreateFile(char *full_name, char *contents) {
 	bzero(path, MAX_CMD);
 	bzero(fname, MAX_CMD);
 
-	if (cgc_strlen(fname) > MAX_FILE_NAME_LEN-1) {
+	if (strlen(fname) > MAX_FILE_NAME_LEN-1) {
 		puts("file name too large");
 		return(NULL);
 	}
@@ -416,8 +416,8 @@ inode *CreateFile(char *full_name, char *contents) {
 	}
 
 	// how many blocks will this content require
-	block_count = cgc_strlen(contents)/fs.blocksize;
-	if (cgc_strlen(contents) % fs.blocksize != 0) {
+	block_count = strlen(contents)/fs.blocksize;
+	if (strlen(contents) % fs.blocksize != 0) {
 		block_count++;
 	}
 	// in case someone is creating an empty file
@@ -442,7 +442,7 @@ inode *CreateFile(char *full_name, char *contents) {
 			inode_head = in;
 		}
 		in->type = INODE_FILE;
-		in->fsize = cgc_strlen(contents);
+		in->fsize = strlen(contents);
 		in->num_blocks = block_count;
 		if (last_inode) {
 			last_inode->indirect_inode = in;
@@ -453,8 +453,8 @@ inode *CreateFile(char *full_name, char *contents) {
 
 	// locate available data blocks
 	in2 = inode_head;
-	cgc_index = 0;
-	for (i = 0; i < block_count; i++, cgc_index++) {
+	index = 0;
+	for (i = 0; i < block_count; i++, index++) {
 		if ((b = FindFreeDataBlock()) == NULL) {
 			puts("out of space");
 			// free allocated inodes
@@ -469,15 +469,15 @@ inode *CreateFile(char *full_name, char *contents) {
 		// see if we've filled up the current inode
 		if (i && (i % INODE_DATA_BLOCKS == 0)) {
 			in2 = in2->indirect_inode;
-			cgc_index = 0;
+			index = 0;
 		}
 
 		// populate the inodes
-		in2->blocks[cgc_index] = b;
+		in2->blocks[index] = b;
 
 		// copy the data into each block
-		len = cgc_strlen(contents+(DATA_BLOCK_SIZE*i));
-		cgc_memcpy(b, contents+(DATA_BLOCK_SIZE*i), (len > DATA_BLOCK_SIZE) ? 512 : len);
+		len = strlen(contents+(DATA_BLOCK_SIZE*i));
+		memcpy(b, contents+(DATA_BLOCK_SIZE*i), (len > DATA_BLOCK_SIZE) ? 512 : len);
 
 	}
 
@@ -501,8 +501,8 @@ inode *CreateFile(char *full_name, char *contents) {
 		while (in2) {
 			last_inode = in2;
 			in2 = in2->indirect_inode;
-			for (cgc_index = 0; cgc_index < INODE_DATA_BLOCKS; cgc_index++) {
-				FreeDataBlock(last_inode->blocks[cgc_index]);
+			for (index = 0; index < INODE_DATA_BLOCKS; index++) {
+				FreeDataBlock(last_inode->blocks[index]);
 			}
 			bzero(last_inode, sizeof(inode));
 		}
@@ -520,7 +520,7 @@ inode *CreateFile(char *full_name, char *contents) {
  */
 int ReadFile(char *full_name) {
 	int i,k;
-	int cgc_index;
+	int index;
 	inode *file_inode = NULL;
 	block *b;
 	unsigned char t[DATA_BLOCK_SIZE+1];
@@ -542,26 +542,26 @@ int ReadFile(char *full_name) {
 	}
 
 
-	cgc_index = 0;
+	index = 0;
 	fsize = file_inode->fsize;
-	for (i = 0; i < file_inode->num_blocks; i++, cgc_index++) {
+	for (i = 0; i < file_inode->num_blocks; i++, index++) {
 		if (i && (i % INODE_DATA_BLOCKS == 0)) {
 			// move on to the indirect inode
 			file_inode = file_inode->indirect_inode;
 			if (!file_inode) {
 				return(0);;
 			}
-			cgc_index = 0;
+			index = 0;
 		}
-		b = file_inode->blocks[cgc_index];
+		b = file_inode->blocks[index];
 		if (!b) {
 			return(0);
 		}
 		if (fsize >= DATA_BLOCK_SIZE) {
-			cgc_write(b, DATA_BLOCK_SIZE);
+			write(b, DATA_BLOCK_SIZE);
 			fsize -= DATA_BLOCK_SIZE;
 		} else {
-			cgc_write(b, fsize);
+			write(b, fsize);
 		}
 	}	
 	puts("");
@@ -582,7 +582,7 @@ int mkdir(char *pathname) {
 	directory *dir;
 	char path[MAX_CMD];
 	char fname[MAX_CMD];
-	int cgc_index;
+	int index;
 
 	if (!pathname) {
 		return(-1);
@@ -607,7 +607,7 @@ int mkdir(char *pathname) {
 
 	// make sure the parent directory exists
 	SplitPath(pathname, path, fname);
-	if (cgc_strlen(fname) > MAX_FILE_NAME_LEN-1) {
+	if (strlen(fname) > MAX_FILE_NAME_LEN-1) {
 		puts("file name too large");
 		return(-1);
 	}
@@ -663,8 +663,8 @@ int mkdir(char *pathname) {
 		while (in) {
 			last_inode = in;
 			in = in->indirect_inode;
-			for (cgc_index = 0; cgc_index < INODE_DATA_BLOCKS; cgc_index++) {
-				FreeDataBlock(last_inode->blocks[cgc_index]);
+			for (index = 0; index < INODE_DATA_BLOCKS; index++) {
+				FreeDataBlock(last_inode->blocks[index]);
 			}
 			bzero(last_inode, sizeof(inode));
 		}
@@ -686,7 +686,7 @@ int rmdir(char *pathname) {
 	char path[MAX_CMD];
 	char fname[MAX_CMD];
 	directory *dir;
-	int cgc_index;
+	int index;
 	inode *in2;
 	inode *tmp_inode;
 
@@ -711,7 +711,7 @@ int rmdir(char *pathname) {
 	}
 
 	// make sure it isn't the top level dir
-	if (!cgc_strcmp(pathname, "/")) {
+	if (!strcmp(pathname, "/")) {
 		puts("unable to remove /");	
 		return(-1);
 	}
@@ -750,9 +750,9 @@ int rmdir(char *pathname) {
 	}
 	
 	// free the data blocks associated with the directory
-	cgc_index = 0;
+	index = 0;
 	in2 = file_inode;
-	for (i = 0; i < in2->num_blocks; i++, cgc_index++) {
+	for (i = 0; i < in2->num_blocks; i++, index++) {
 		if (i && (i % INODE_DATA_BLOCKS == 0)) {
 			// get a pointer to the next inode (if there is one)
 			tmp_inode = in2->indirect_inode;
@@ -762,14 +762,14 @@ int rmdir(char *pathname) {
 
 			// move on to the next one
 			in2 = tmp_inode;
-			cgc_index = 0;
+			index = 0;
 			if (!in2) {
 				break;
 			}
 		}
 
-		if (in2->blocks[cgc_index]) {
-			FreeDataBlock(in2->blocks[cgc_index]);
+		if (in2->blocks[index]) {
+			FreeDataBlock(in2->blocks[index]);
 		}
 	}
 
@@ -825,7 +825,7 @@ int FreeDataBlock(block *b) {
  */
 int unlink(char *full_name) {
 	int i;
-	int cgc_index;
+	int index;
 	inode *file_inode;
 	inode *dir_inode;
 	inode *tmp_inode;
@@ -859,9 +859,9 @@ int unlink(char *full_name) {
 	}
 
 	// free the data block(s) pointed to by the inode
-	cgc_index = 0;
+	index = 0;
 	in2 = file_inode;
-	for (i = 0; i < in2->num_blocks; i++, cgc_index++) {
+	for (i = 0; i < in2->num_blocks; i++, index++) {
 		if (i && (i % INODE_DATA_BLOCKS == 0)) {
 			// get a pointer to the next inode (if there is one)
 			tmp_inode = in2->indirect_inode;
@@ -871,14 +871,14 @@ int unlink(char *full_name) {
 
 			// move on to the next one
 			in2 = tmp_inode;
-			cgc_index = 0;
+			index = 0;
 			if (!in2) {
 				break;
 			}
 		}
 
-		if (in2->blocks[cgc_index]) {
-			FreeDataBlock(in2->blocks[cgc_index]);
+		if (in2->blocks[index]) {
+			FreeDataBlock(in2->blocks[index]);
 		}
 	}
 
@@ -924,7 +924,7 @@ FILE *fopen(char *path, const char *mode) {
 		return(NULL);
 	} else if (i == 0) {
 		// file doesn't exist
-		if (!cgc_strcmp(mode, "w")) {
+		if (!strcmp(mode, "w")) {
 			// but this is a 'w' call, so create the file
 			if (!(file_inode = CreateFile(path, ""))) {
 				puts("file creation failed\n");
@@ -947,11 +947,11 @@ FILE *fopen(char *path, const char *mode) {
 	}
 	bzero(f, sizeof(FILE));
 	f->i = file_inode;
-	if (!cgc_strcmp(mode, "r")) {
+	if (!strcmp(mode, "r")) {
 		f->pos = 0;
 		f->mode = READ;
 		f->curr_pos_inode = file_inode;
-	} else if (!cgc_strcmp(mode, "w"))  {
+	} else if (!strcmp(mode, "w"))  {
 		// delete the current file contents
 		// all except block[0]
 		for (i = 1; i < INODE_DATA_BLOCKS; i++) {
@@ -978,15 +978,15 @@ FILE *fopen(char *path, const char *mode) {
 		f->pos = 0;
 		f->mode = WRITE;
 		f->curr_pos_inode = file_inode;
-	} else if (!cgc_strcmp(mode, "a")) {
+	} else if (!strcmp(mode, "a")) {
 		f->pos = file_inode->fsize;
 		f->mode = APPEND;
 		// calculate the inode, block, and offset in that block 
 		// where we should start appending
 		f->curr_pos_inode = file_inode;
 		inode_depth = file_inode->fsize/(INODE_DATA_BLOCKS*DATA_BLOCK_SIZE);
-		f->cgc_index = (file_inode->fsize % (INODE_DATA_BLOCKS*DATA_BLOCK_SIZE)) / DATA_BLOCK_SIZE;
-		f->b_cgc_index = (file_inode->fsize % (INODE_DATA_BLOCKS*DATA_BLOCK_SIZE)) % DATA_BLOCK_SIZE;
+		f->index = (file_inode->fsize % (INODE_DATA_BLOCKS*DATA_BLOCK_SIZE)) / DATA_BLOCK_SIZE;
+		f->b_index = (file_inode->fsize % (INODE_DATA_BLOCKS*DATA_BLOCK_SIZE)) % DATA_BLOCK_SIZE;
 		while (inode_depth--) {
 			f->curr_pos_inode = f->curr_pos_inode->indirect_inode;
 		}
@@ -1003,8 +1003,8 @@ FILE *fopen(char *path, const char *mode) {
 */
 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	uint32_t i;
-	int cgc_index;
-	int b_cgc_index;
+	int index;
+	int b_index;
 	block *b;
 	inode *in2;
 	unsigned char *p = (unsigned char *)ptr;
@@ -1018,44 +1018,44 @@ size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	}
 
 	in2 = stream->curr_pos_inode;
-	cgc_index = stream->cgc_index;
-	b = in2->blocks[cgc_index];
-	b_cgc_index = stream->b_cgc_index;
+	index = stream->index;
+	b = in2->blocks[index];
+	b_index = stream->b_index;
 
 	// try to read in the specified number of bytes
 	for (i = 0; i < size*nmemb && stream->pos < stream->i->fsize; i++) {
-		if (b_cgc_index && (b_cgc_index % DATA_BLOCK_SIZE == 0)) {
+		if (b_index && (b_index % DATA_BLOCK_SIZE == 0)) {
 			// move on to the next block
-			if (cgc_index && (cgc_index % INODE_DATA_BLOCKS == 0)) {
+			if (index && (index % INODE_DATA_BLOCKS == 0)) {
 				// move on to the next inode
 				if (!(in2 = in2->indirect_inode)) {
 					// indirect_inode is null, that's bad
 					// return what has been read so far
 					stream->curr_pos_inode = in2;
-					stream->cgc_index = cgc_index;
-					stream->b_cgc_index = b_cgc_index;
+					stream->index = index;
+					stream->b_index = b_index;
 					return(i);
 				}
-				cgc_index = -1;
+				index = -1;
 			}
-			cgc_index++;
-			b = in2->blocks[cgc_index];
+			index++;
+			b = in2->blocks[index];
 			if (!b) {
 				// block is empty, that's bad
 				// return what has been read so far
 				stream->curr_pos_inode = in2;
-				stream->cgc_index = cgc_index;
-				stream->b_cgc_index = b_cgc_index;
+				stream->index = index;
+				stream->b_index = b_index;
 				return(i);
 			}
-			b_cgc_index = 0;
+			b_index = 0;
 		}
-		p[i] = ((unsigned char *)b)[b_cgc_index++];
+		p[i] = ((unsigned char *)b)[b_index++];
 		stream->pos++;
 	}	
 	stream->curr_pos_inode = in2;
-	stream->cgc_index = cgc_index;
-	stream->b_cgc_index = b_cgc_index;
+	stream->index = index;
+	stream->b_index = b_index;
 	return(i);
 }
 
@@ -1068,8 +1068,8 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	inode *in;
 	inode *in2;
 	inode *last_inode;
-	int cgc_index;
-	int b_cgc_index;
+	int index;
+	int b_index;
 	block *b;
 
 	// check inputs
@@ -1084,28 +1084,28 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream) {
 
 	// write size*nmemb bytes from ptr to the file
 	in2 = stream->curr_pos_inode;
-	cgc_index = stream->cgc_index;
-	b = in2->blocks[cgc_index];
+	index = stream->index;
+	b = in2->blocks[index];
 #ifdef PATCHED
 	if ( b == NULL) {
 		return (0);
 	}
 #endif
 
-	b_cgc_index = stream->b_cgc_index;
+	b_index = stream->b_index;
 	for (i = 0; i < size*nmemb; i++) {
-		if (b_cgc_index && (b_cgc_index % DATA_BLOCK_SIZE == 0)) {
-			cgc_index++;
+		if (b_index && (b_index % DATA_BLOCK_SIZE == 0)) {
+			index++;
 			// allocate a new block
-			if (cgc_index && (cgc_index % INODE_DATA_BLOCKS == 0)) {
+			if (index && (index % INODE_DATA_BLOCKS == 0)) {
 				// since we're writing to the end of the file,
 				// the indirect_inode shouldn't be set
 				if (in2->indirect_inode) {
 					// indirect_inode already set, that's bad
 					// return what was written so far
 					stream->curr_pos_inode = in2;
-					stream->cgc_index = cgc_index;
-					stream->b_cgc_index = b_cgc_index;
+					stream->index = index;
+					stream->b_index = b_index;
 					return(i);
 				}
 
@@ -1120,14 +1120,14 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream) {
 				strncpy(in->fname, stream->i->fname, MAX_FILE_NAME_LEN-1);
 
 				in2->indirect_inode = in;
-				cgc_index = 0;
+				index = 0;
 			}
 
 			if ((b = FindFreeDataBlock()) == NULL) {
 				puts("out of space");
 				stream->curr_pos_inode = in2;
-				stream->cgc_index = cgc_index;
-				stream->b_cgc_index = b_cgc_index;
+				stream->index = index;
+				stream->b_index = b_index;
 				// free the just allocated inode
 				while (in2) {
 					last_inode = in2;
@@ -1136,17 +1136,17 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream) {
 				}
 				return(i);
 			}
-			in2->blocks[cgc_index] = b;
-			b_cgc_index = 0;
+			in2->blocks[index] = b;
+			b_index = 0;
 			stream->i->num_blocks++;
 		}
-		((unsigned char *)b)[b_cgc_index++] = p[i];
+		((unsigned char *)b)[b_index++] = p[i];
 		stream->i->fsize++;
 		stream->pos++;
 	}	
 	stream->curr_pos_inode = in2;
-	stream->cgc_index = cgc_index;
-	stream->b_cgc_index = b_cgc_index;
+	stream->index = index;
+	stream->b_index = b_index;
 	return(i);
 		
 
@@ -1259,7 +1259,7 @@ int ls(char *pathname) {
 		}
 
 		printf("@s", in->fname);
-		len = cgc_strlen(in->fname);
+		len = strlen(in->fname);
 		len = 50-len;
 		while (len-- > 0) {
 			printf(" ");

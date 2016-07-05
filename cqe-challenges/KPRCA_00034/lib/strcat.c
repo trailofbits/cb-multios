@@ -25,8 +25,8 @@
 
 #include <string.h>
 
-char *cgc_strcat(char *dest, const char *src)
+char *strcat(char *dest, const char *src)
 {
-  cgc_strcpy(dest + cgc_strlen(dest), src);
+  strcpy(dest + strlen(dest), src);
   return dest;
 }

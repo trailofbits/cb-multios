@@ -9,17 +9,17 @@
 
         <!-- declare var(s) -->
         <decl>
-            <var>cgc_index_filename</var>
+            <var>index_filename</var>
             <value>
                 <data>FFFFFFFFF</data>
             </value>
         </decl>
 
-        <!-- get the name of the cgc_index document -->
+        <!-- get the name of the index document -->
         <read echo="yes">
             <delim>\x06</delim>
             <assign>
-                <var>cgc_index_filename</var>
+                <var>index_filename</var>
                 
                 <!-- chop off our custom STRING_TERMINATOR -->
                 <slice end="-1"></slice> 
@@ -30,7 +30,7 @@
         test the vulnerable flow. -->
         <write echo="yes">
             <data>\xb3\x01</data>
-            <var>cgc_index_filename</var>
+            <var>index_filename</var>
             <data>\x06</data>
             <data>
 $SRC$

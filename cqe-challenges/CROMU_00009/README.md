@@ -28,7 +28,7 @@ block of data, it is possible to craft a proof of vulnerability to gain control 
 an inode definition and the data blocks to which that inode points.  With control 
 over those data block pointers, arbitrary writes are possible.
 
-The second vulnerability is due to a NULL pointer dref when cgc_indexing file system blocks.
+The second vulnerability is due to a NULL pointer dref when indexing file system blocks.
 
 ### Generic class of vulnerability
 Incorrect array bounds check leading to buffer overflow and arbitrary writes.

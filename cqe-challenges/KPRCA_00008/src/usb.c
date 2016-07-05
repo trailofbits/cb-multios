@@ -133,15 +133,15 @@ static void fill_submit_reply(submit_rep_t *rep, urb_t *urb, uint32_t status, ui
     rep->start_frame = htobe32(0);
     rep->number_of_packets = htobe32(0);
     rep->error_length = htobe32(0);
-    cgc_memset(rep->setup, 0, sizeof(rep->setup));
+    memset(rep->setup, 0, sizeof(rep->setup));
 }
 
 static void send_config_rep(usb_t *self, urb_t *urb)
 {
     uint8_t data[config_desc.wTotalLength];
-    cgc_memcpy(&data[0], &config_desc, sizeof(config_desc));
-    cgc_memcpy(&data[sizeof(config_desc)], &intf_desc, sizeof(intf_desc));
-    cgc_memcpy(&data[sizeof(config_desc)+sizeof(intf_desc)], &ep_desc, sizeof(ep_desc));
+    memcpy(&data[0], &config_desc, sizeof(config_desc));
+    memcpy(&data[sizeof(config_desc)], &intf_desc, sizeof(intf_desc));
+    memcpy(&data[sizeof(config_desc)+sizeof(intf_desc)], &ep_desc, sizeof(ep_desc));
 
     uint32_t length = urb->length;
     if (config_desc.wTotalLength < length)
@@ -199,7 +199,7 @@ static int handle_ep0(usb_t *self, urb_t *urb)
 static int handle_devlist(usb_t *self, metadata_hdr_t *hdr)
 {
     devlist_rep_t rep;
-    cgc_memset(&rep, 0, sizeof(rep));
+    memset(&rep, 0, sizeof(rep));
 
     rep.hdr.version = htobe16(VERSION_CODE);
     rep.hdr.command = htobe16(DEVLIST_REP);
@@ -273,7 +273,7 @@ static int handle_submit(usb_t *self, data_hdr_t *hdr)
     urb->flags = be32toh(req.flags);
     urb->length = be32toh(req.length);
     urb->interval = be32toh(req.interval);
-    cgc_memcpy(urb->setup, req.setup, sizeof(urb->setup));
+    memcpy(urb->setup, req.setup, sizeof(urb->setup));
     if (urb->direction == DIR_OUT && self->recv(urb->data, urb->length) != urb->length)
     {
         free(urb);
@@ -357,14 +357,14 @@ int usb_init(usb_t *self)
     /* randomly generate a busid for the device */
     uint8_t id;
     size_t bytes;
-    cgc_random(&id, 1, &bytes);
+    random(&id, 1, &bytes);
     id = id % 100;
 
     int busnum = id / 10;
     int devnum = id % 10;
     device_info.busnum = htobe32(busnum);
     device_info.devnum = htobe32(devnum);
-    cgc_memset(device_info.busid, 0, sizeof(device_info.busid));
+    memset(device_info.busid, 0, sizeof(device_info.busid));
     device_info.busid[0] = busnum + '0';
     device_info.busid[1] = '-';
     device_info.busid[2] = devnum + '0';

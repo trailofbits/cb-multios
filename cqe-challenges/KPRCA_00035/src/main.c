@@ -90,7 +90,7 @@ state *init_state(int fd, uint32_t flags)
   return new;
 
 err:
-  free(new);
+  if (free) free(new);
   return NULL;
 }
 

@@ -84,7 +84,7 @@ void handle_auth(char *buf, int buf_len)
     if (memcmp(g_mkey, buf, MASTER_KEY_LEN) == 0)
     {
       g_auth = 3;
-      cgc_random(g_session_key, MASTER_KEY_LEN, NULL);
+      random(g_session_key, MASTER_KEY_LEN, NULL);
       _send_response(RES_OK, g_session_key, MASTER_KEY_LEN);
       return;
     }
@@ -120,8 +120,8 @@ void handle_new_permit_ring(char *buf, int buf_len)
   ppring_t pring;
   if (buf_len >= MASTER_KEY_LEN + sizeof(ppring_t))
   {
-    cgc_memset(&pring, 0, sizeof(ppring_t));
-    cgc_memcpy(key, g_session_key, MASTER_KEY_LEN);
+    memset(&pring, 0, sizeof(ppring_t));
+    memcpy(key, g_session_key, MASTER_KEY_LEN);
     if (g_auth && memcmp(key, buf, MASTER_KEY_LEN) == 0)
     {
       count = *(int *)&buf[MASTER_KEY_LEN];
@@ -138,7 +138,7 @@ void handle_new_permit_ring(char *buf, int buf_len)
           c = MASTER_KEY_LEN + sizeof(int) + i * sizeof(ppermit_t);
           if (permit_test((ppermit_t *)&buf[c], *(int *)&buf[c + 22], &buf[c + 8]) == PRES_OK)
           {
-            cgc_memcpy(&pring.permits[i], &buf[c], sizeof(ppermit_t));
+            memcpy(&pring.permits[i], &buf[c], sizeof(ppermit_t));
             pring.num_permits++;
           }
           else

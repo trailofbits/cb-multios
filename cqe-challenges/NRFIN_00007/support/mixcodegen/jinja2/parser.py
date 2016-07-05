@@ -102,8 +102,8 @@ class Parser(object):
             return self.stream.current.test_any(extra_end_rules)
         return False
 
-    def cgc_free_identifier(self, lineno=None):
-        """Return a new cgc_free identifier as :class:`~jinja2.nodes.InternalName`."""
+    def free_identifier(self, lineno=None):
+        """Return a new free identifier as :class:`~jinja2.nodes.InternalName`."""
         self._last_identifier += 1
         rv = object.__new__(nodes.InternalName)
         nodes.Node.__init__(rv, 'fi%d' % self._last_identifier, lineno=lineno)

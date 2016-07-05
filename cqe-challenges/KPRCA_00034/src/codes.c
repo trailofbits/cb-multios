@@ -84,7 +84,7 @@ int codes_self_test()
         if (def->init(&code, test_k) != SUCCESS)
             goto fail;
 
-        cgc_memcpy(b, test_b, sizeof(b));
+        memcpy(b, test_b, sizeof(b));
         def->encode(&code, b);
         def->decode(&code, b);
         def->destroy(&code);

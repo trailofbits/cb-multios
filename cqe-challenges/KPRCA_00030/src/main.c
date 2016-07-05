@@ -121,7 +121,7 @@ static coord_t parse_coordinate(char *line, size_t line_size)
     if (line != NULL)
         ycoord = line;
 
-    if(!xcoord || !ycoord || !cgc_strlen(xcoord) || !cgc_strlen(ycoord))
+    if(!xcoord || !ycoord || !strlen(xcoord) || !strlen(ycoord))
         return coord;
 
     char *temp = xcoord;

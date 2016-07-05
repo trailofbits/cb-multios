@@ -31,6 +31,6 @@
  * @param src Source buffer
  * @param cnt Number of bytes to copy
  */
-void *cgc_memcpy(void *dst, const void *src, size_t cnt);
+void *memcpy(void *dst, const void *src, size_t cnt);
 
 #endif

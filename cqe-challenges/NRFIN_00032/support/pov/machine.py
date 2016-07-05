@@ -72,7 +72,7 @@ def makevuln(ctype=0):
     cur = pollinfo[curname]
 
     #need to make a llama header in a bit
-    layers = [urand(20)+pack("<I",llama.cgc_index("process_"+curname))]
+    layers = [urand(20)+pack("<I",llama.index("process_"+curname))]
     names = ["llama"]
         
     #cur = pollinfo[curname]

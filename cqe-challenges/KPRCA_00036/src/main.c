@@ -43,7 +43,7 @@ static int resize_buf(void **buf, size_t old_size)
     int new_size = old_size * 2;
     char *new_buf = malloc(new_size);
     if (*buf) {
-        cgc_memcpy(new_buf, *buf, old_size);
+        memcpy(new_buf, *buf, old_size);
         free(*buf);
     }
     *buf = new_buf;
@@ -137,7 +137,7 @@ void print_menu(match_type_e match_type, unsigned char *text, unsigned char *tre
     printf("7. Search Text\n");
     printf("8. Quit\n\n");
     if (text) {
-        if (cgc_strlen(text) > 15) {
+        if (strlen(text) > 15) {
             temp = text[15];
             text[15] = '\0';
             printf("[Text=%s...]\n", text);
@@ -146,8 +146,8 @@ void print_menu(match_type_e match_type, unsigned char *text, unsigned char *tre
             printf("[Text=%s]\n", text);
         }
     }
-    if (cgc_strlen(trex)) {
-        if (cgc_strlen(trex) > 15) {
+    if (strlen(trex)) {
+        if (strlen(trex) > 15) {
             temp = trex[15];
             trex[15] = '\0';
             printf("[SearchString=%s...]\n", trex);
@@ -170,8 +170,8 @@ static void test()
     unsigned char *rpn = NULL;
     unsigned char *test_string = "aaaaaaaa";
     unsigned char *trex = "a";
-    int retcode = retorpn(trex, cgc_strlen(trex) + 1, &rpn);
-    retcode = retorpn(trex, cgc_strlen(trex) + 1, &rpn);
+    int retcode = retorpn(trex, strlen(trex) + 1, &rpn);
+    retcode = retorpn(trex, strlen(trex) + 1, &rpn);
     if (retcode >= 0)
         nfa = evalrpn(rpn);
     else
@@ -238,7 +238,7 @@ int main(void)
                     printf("--Text--\n\n", text);
                 break;
             case '6':
-                if (cgc_strlen(trex))
+                if (strlen(trex))
                     printf("--Search String--\n%s\n", trex);
                 else
                     printf("--Search String--\n\n", trex);
@@ -251,7 +251,7 @@ int main(void)
                     printf("Search text has not been received\n");
                     break;
                 }
-                retcode = retorpn(trex, cgc_strlen(trex) + 1, &rpn);
+                retcode = retorpn(trex, strlen(trex) + 1, &rpn);
                 if (retcode >= 0) {
                     nfa = evalrpn(rpn);
                 } else {

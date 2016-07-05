@@ -44,7 +44,7 @@ First, a tank needs to be filled beyond capacity. Due to the tank level being an
 
 Second, after both the combined fill and drain operation, the level of the tank must be in the range [0-5]. This will ensure the test for critically low level at operation.c:88 returns TRUE. Note, the update\_water\_levels function (drain and fill operations) is run before the low level tests are run. Thus, it is required for the drain + fill to cause a net int overflow. Also, it is possible for the int overflow to overflow to a level greater than 5, resulting in a value that is not in the range [0-5], and thus will not trigger the critical low level alert.
 
-When the syslog function is called in operation.c:93, the tank number variable access has a coding mistake where the array cgc_index is the TANK\_QTY, instead of idx, which causes an out of bounds access and a null pointer dereference. This will trigger SIGSEGV.
+When the syslog function is called in operation.c:93, the tank number variable access has a coding mistake where the array index is the TANK\_QTY, instead of idx, which causes an out of bounds access and a null pointer dereference. This will trigger SIGSEGV.
 
 ### Generic class of vulnerability
 
@@ -63,13 +63,13 @@ Access memory beyond buffer
 Improper Input Validation
 CWE-20
 
-Wrap-acgc_round Error
+Wrap-around Error
 CWE-128
 
 Improper Validation of Array Index
 CWE-129
 
-Integer Overflow or Wrapacgc_round
+Integer Overflow or Wraparound
 CWE-190
 
 Access of Memory Location After End of Buffer

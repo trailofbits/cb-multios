@@ -42,12 +42,12 @@ class ProposalGenerator(Actions):
             num_to_find = random.randint(0, num_of_recipes-1)
             recipe_to_find = self.recipe_book[num_to_find][0]
 
-        self.cgc_write('2\n')
+        self.write('2\n')
 
         expect_string= 'Enter search term: '
         self.read(length = len(expect_string), expect=expect_string)
 
-        self.cgc_write(recipe_to_find + '\n')
+        self.write(recipe_to_find + '\n')
 
         self.read(delim='\n', expect='\n')
 
@@ -90,7 +90,7 @@ class ProposalGenerator(Actions):
             expect_string= 'Would you like to tag this recipe? '
             self.read(length = len(expect_string), expect=expect_string)
 
-            self.cgc_write('y\n')
+            self.write('y\n')
 
             self.recipe_book[num_to_find][4] = 'Y'
 
@@ -100,7 +100,7 @@ class ProposalGenerator(Actions):
     def print_tagged(self):
 
         # pass
-        self.cgc_write('3\n')
+        self.write('3\n')
 
         self.read(delim='\n', expect='\n')
 
@@ -146,7 +146,7 @@ class ProposalGenerator(Actions):
 
     def exit(self):
 
-        self.cgc_write('5\n')
+        self.write('5\n')
 
 
     def enter_recipe(self):
@@ -156,7 +156,7 @@ class ProposalGenerator(Actions):
         measures = []
         steps = []
 
-        self.cgc_write('1\n')
+        self.write('1\n')
 
 
         expect_string = 'Enter Title: '
@@ -171,7 +171,7 @@ class ProposalGenerator(Actions):
         else:
             self.prop_name=title
 
-        self.cgc_write(title + '\n')
+        self.write(title + '\n')
 
 
         # enter the ingredients for the recipe
@@ -198,9 +198,9 @@ class ProposalGenerator(Actions):
             ingredients.append(ingredient)
             measures.append(temp_str)
 
-            self.cgc_write(temp_str + '\n')
+            self.write(temp_str + '\n')
 
-        self.cgc_write('\n')
+        self.write('\n')
 
 
         # enter the instructions for the recipe
@@ -220,13 +220,13 @@ class ProposalGenerator(Actions):
 
             steps.append(temp_str)
 
-            self.cgc_write(temp_str + '\n')
+            self.write(temp_str + '\n')
 
         expect_string = 'Step {}: '.format(x+2)
 
         self.read(length=len(expect_string), expect=expect_string)
 
-        self.cgc_write('\n')
+        self.write('\n')
 
         self.recipe_book.append([title, measures, ingredients, steps, 'N'])
 
@@ -239,7 +239,7 @@ class ProposalGenerator(Actions):
 
         my_list = []
 
-        self.cgc_write('4\n')
+        self.write('4\n')
 
         self.read(delim='\n', expect='\n')
 

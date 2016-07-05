@@ -90,10 +90,10 @@ Power equation:
 
 First vuln:
 
-assemble.c:get_breaker_by_id acgc_round line 390, doesn't check the upper bound on breaker_id, which is used as an cgc_index into the breakers array. breaker_id is unsigned, so negative isn't a concern, but bounding on the high end is. There are multiple ways to approach this vuln and not all will cause a POV.
+assemble.c:get_breaker_by_id around line 390, doesn't check the upper bound on breaker_id, which is used as an index into the breakers array. breaker_id is unsigned, so negative isn't a concern, but bounding on the high end is. There are multiple ways to approach this vuln and not all will cause a POV.
 - add_outlet_to_breaker() with breaker_id out of range: If the breaker id is associated with an empty breaker space, it will return an error unrelated to the invalid breaker id (outlet amps exceed breaker amps). However, if the breaker_id is greater than the set of valid spaces, it returns error with breaker id up to 340; segfaults with breaker id >= 341. 
 
-assemble.c:add_outlet_to_breaker() calls get_breaker_by_id which returns a pointer. As long as the load center has been created and at least one breaker has been installed, get_breaker_by_id will return a pointer to an cgc_index in the breakers array. For any breaker_id greater than 340, the pointer is beyond the end of the allocated page. So, at assemble.c:975 the contents of the breaker are de-referenced causing a segfault.
+assemble.c:add_outlet_to_breaker() calls get_breaker_by_id which returns a pointer. As long as the load center has been created and at least one breaker has been installed, get_breaker_by_id will return a pointer to an index in the breakers array. For any breaker_id greater than 340, the pointer is beyond the end of the allocated page. So, at assemble.c:975 the contents of the breaker are de-referenced causing a segfault.
 
 - is_breaker_overloaded() with breaker_id out of range: If the breaker id is greater than the set of installed breaker ids, a de-reference of the breaker's outlets list count will cause segfault.
 
@@ -108,7 +108,7 @@ Second vuln:
 
 This vulnerability is a giant glowing flashing strobing light string decorating a freshly allocated page that is trivial to trigger through many paths. BOOM!
 
-assemble.c:search_splitter_for_receptacle_id acgc_round line 170, has <= in the loop test instead of <. So, it will go one receptacle beyond the end of the splitter's receptacles array. The idx starts at 0, so negative isn't a concern, but bounding the high end is.
+assemble.c:search_splitter_for_receptacle_id around line 170, has <= in the loop test instead of <. So, it will go one receptacle beyond the end of the splitter's receptacles array. The idx starts at 0, so negative isn't a concern, but bounding the high end is.
 
 Anytime that the receptacles of a splitter are searched and one of the valid receptacles on that splitter do not match the search, the search will go one beyond the end of the receptacle array and lead to a segfault. There are several ways to make this happen:
 

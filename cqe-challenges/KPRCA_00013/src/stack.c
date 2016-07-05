@@ -57,13 +57,13 @@ int push_copy(stack_t **stack, char *data, size_t size)
     if (data == NULL)
         return -1;
 
-    int data_len = cgc_strlen(data) + 1;
+    int data_len = strlen(data) + 1;
     if (data_len > size)
         return -1;
 
     stack_t *top = malloc(sizeof(stack_t));
     top->data = malloc(data_len);
-    cgc_memcpy(top->data, data, data_len);
+    memcpy(top->data, data, data_len);
 
     if(*stack == NULL) {
         top->next = NULL;

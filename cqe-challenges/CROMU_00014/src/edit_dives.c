@@ -127,7 +127,7 @@ size_t count;
 		strncpy(dive->dive_time, buf2, sizeof(dive->dive_time));
 
 	strncat(buffer, " ", 1);
-	strncat(buffer, buf2, cgc_strlen(buf2));
+	strncat(buffer, buf2, strlen(buf2));
 
 	datetime_struct_type tm;
 	dive->timestamp =  str2datetime(buffer, &tm);

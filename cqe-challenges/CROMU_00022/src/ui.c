@@ -68,7 +68,7 @@ char GetChar(){
 
 long int GetInt(){
 	char ctemp[32];
-	cgc_memset(ctemp, 0, 32);
+	memset(ctemp, 0, 32);
 
 	int retval = 0;
 	int len = receive_until_flush(ctemp, DELIM, 10);
@@ -202,7 +202,7 @@ void MainMenu (pDiverInfo DiverInfo) {
 void SetParam(char paramName[64], char *param, int len) {
 	char temp[64];
 	int result;
-	if (!(cgc_strcmp(param, ""))) {
+	if (!(strcmp(param, ""))) {
 		printf("@s: ",paramName);
 	}else {
 		printf("@s (@s): ",paramName, param);
@@ -211,7 +211,7 @@ void SetParam(char paramName[64], char *param, int len) {
 	result = GetLongString(temp);
 	if (result > 0){
 		temp[len] = 0x00;
-		cgc_strcpy(param, temp);
+		strcpy(param, temp);
 	}
 	return;
 }
@@ -345,7 +345,7 @@ void SanitizeDate(char date[32]){
 	}else {
 		sprintf( tempDate, "1/1/1900");
 	}
-	cgc_strcpy(date, tempDate);
+	strcpy(date, tempDate);
 	return;
 }
 

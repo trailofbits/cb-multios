@@ -34,7 +34,7 @@ import os
 def random_bytes(min, max, mod=255):
     return ''.join(chr(choice(range(mod))) for _ in range(randint(min,max)))
 
-def cgc_round_up_to_align(sz_alloc):
+def round_up_to_align(sz_alloc):
     SZ_PAGE = 0x1000
     return (sz_alloc + SZ_PAGE-1) & ~(SZ_PAGE-1)
 
@@ -80,11 +80,11 @@ class TaintedLove(Actions):
         # will return EINVAL and terminate the calculation anyway.
         sz_alloc = randint(1, 0x2000) # Play nice for testing
         if gate_satisfy:
-            sz_alloc = cgc_round_up_to_align(sz_alloc)
+            sz_alloc = round_up_to_align(sz_alloc)
             if POV:
                 sz_alloc -= 1
         if DEBUG:
-            print "sz_alloc (after cgc_rounding): %d" % sz_alloc
+            print "sz_alloc (after rounding): %d" % sz_alloc
         ALLOC = struct.pack("<H", sz_alloc)
 
         # Pick a random 2-byte OOB loop initializer. 
@@ -93,13 +93,13 @@ class TaintedLove(Actions):
         OOB = struct.pack("<H", oob)
 
         # Construct input.
-        buf  = [ID] # next cgc_index: 1
-        buf += random_bytes(200-1, 200-1) # next cgc_index: 200
-        buf += GATE # size_t GATE_OFF = 200; (4 bytes); next cgc_index: 204
-        buf += random_bytes(100-4, 100-4) # next cgc_index: 300
-        buf += ALLOC # size_t ALLOC_OFF = 300; (2 bytes); next cgc_index: 302
-        buf += random_bytes(100-2, 100-2) # next cgc_index: 400
-        buf += OOB # size_t OOB_OFF = 400; (2 bytes); next cgc_index: 402
+        buf  = [ID] # next index: 1
+        buf += random_bytes(200-1, 200-1) # next index: 200
+        buf += GATE # size_t GATE_OFF = 200; (4 bytes); next index: 204
+        buf += random_bytes(100-4, 100-4) # next index: 300
+        buf += ALLOC # size_t ALLOC_OFF = 300; (2 bytes); next index: 302
+        buf += random_bytes(100-2, 100-2) # next index: 400
+        buf += OOB # size_t OOB_OFF = 400; (2 bytes); next index: 402
         buf += random_bytes(MIN_RX_BYTES-len(buf), self.MAX_RX_BYTES-len(buf))
 
         # Compute output.
@@ -471,7 +471,7 @@ class TaintedLove(Actions):
 
         # Calculate expected output
         if gate_satisfy:
-            # NOTE: the first item will always be cgc_index 1000 because we don't 
+            # NOTE: the first item will always be index 1000 because we don't 
             # want to trip vuln.
             output =    (   ord(buf[1000])                      <<  0 | \
                             ord(buf[SYM_CONST_PTR_1])           <<  8 | \

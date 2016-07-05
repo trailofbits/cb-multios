@@ -44,14 +44,14 @@ append_to_path(char *path, const char *toappend)
     char *tmp;
     size_t len;
 
-    len = cgc_strlen(path);
+    len = strlen(path);
     if ((tmp = realloc(path, len + MAX_FILE_NAME_LENGTH + 2)) == NULL) {
         free(path);
         return NULL;
     }
     path = tmp;
 
-    cgc_strcat(path, "/");
+    strcat(path, "/");
     strncat(path, toappend, MAX_FILE_NAME_LENGTH);
     path[len + MAX_FILE_NAME_LENGTH + 1] = '\0';
 
@@ -77,7 +77,7 @@ do_cron(void)
         if (allocate(target->size, 1, &buf) != 0)
             continue;
 
-        cgc_memcpy(buf, target->contents, target->size);
+        memcpy(buf, target->contents, target->size);
         job = buf;
 
         job();

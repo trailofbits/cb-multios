@@ -9,7 +9,7 @@ Kaprica Security (KPRCA)
 
 ## Description:
 
-This service implements a simple text-based protocol that mimics the basic functionality of a router interface. The user is provided with the ability to setup routes and routers, and ask which router should be the next hop for a specific IP. The router information is stored in an array cgc_indexed by its 16-bit ASN; and the route information is stored in a trie for faster lookups.
+This service implements a simple text-based protocol that mimics the basic functionality of a router interface. The user is provided with the ability to setup routes and routers, and ask which router should be the next hop for a specific IP. The router information is stored in an array indexed by its 16-bit ASN; and the route information is stored in a trie for faster lookups.
 
 ### Feature List
 
@@ -17,7 +17,7 @@ The server has two modes: normal and enable. In normal mode, the user is able to
 
 ## Vulnerability
 
-The edit router function (main.c:607) does not verify that the router ASN is greater than 0. Since the router ASN is used to cgc_index into an one-based array, this allows an attacker to modify the global variables that come before the array, which include the input buffer, its length, pointer to route memory, and the default route. The ASN member of the router structure is verified (i.e. must be greater than 0 and less than 65535), so the attacker must craft their input such that the correct part of the input buffer is in that range. Causing a crash is trivial with the arbitrary control of a pointer.
+The edit router function (main.c:607) does not verify that the router ASN is greater than 0. Since the router ASN is used to index into an one-based array, this allows an attacker to modify the global variables that come before the array, which include the input buffer, its length, pointer to route memory, and the default route. The ASN member of the router structure is verified (i.e. must be greater than 0 and less than 65535), so the attacker must craft their input such that the correct part of the input buffer is in that range. Causing a crash is trivial with the arbitrary control of a pointer.
 
 ### Generic class of vulnerability
 Out-of-bounds array access

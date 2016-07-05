@@ -139,7 +139,7 @@ char *show_cell(char *cell_id, int is_repr, char* val_str, size_t size)
 
 int set_cell(char *cell_id, char *cell_str, size_t size)
 {
-    if (cell_str == NULL || cgc_strlen(cell_str) == 0 || cgc_strlen(cell_str) >= size)
+    if (cell_str == NULL || strlen(cell_str) == 0 || strlen(cell_str) >= size)
         return -1;
 
     cell_t *cell = get_cell(cell_id);
@@ -153,12 +153,12 @@ int set_cell(char *cell_id, char *cell_str, size_t size)
         cell->formula = NULL;
     }
 
-    cell->str = malloc(cgc_strlen(cell_str) + 1);
+    cell->str = malloc(strlen(cell_str) + 1);
     if(cell->str == NULL)
         return -1;
 
-    cgc_strcpy(cell->str, cell_str);
-    if (cgc_strlen(cell_str) >= 2 && cell_str[0] == '=') {
+    strcpy(cell->str, cell_str);
+    if (strlen(cell_str) >= 2 && cell_str[0] == '=') {
         cell->formula = &cell->str[1];
         cell->cell_type = FORMULA;
     } else {
@@ -216,15 +216,15 @@ static operator_t *get_op(char *name)
     if(name == NULL)
         return NULL;
 
-    char *upper_name = (char *) malloc(cgc_strlen(name) + 1);
-    cgc_strcpy(upper_name, name);
-    size_t i, len = cgc_strlen(upper_name);
+    char *upper_name = (char *) malloc(strlen(name) + 1);
+    strcpy(upper_name, name);
+    size_t i, len = strlen(upper_name);
     for (i = 0; i < len; i++)
         upper_name[i] = toupper(upper_name[i]);
 
     operator_t *op = NULL;
     for (op = &operators[0]; op->name != NULL; op++) {
-        if (cgc_strcmp(op->name, upper_name) == 0)
+        if (strcmp(op->name, upper_name) == 0)
             break;
     }
 
@@ -312,7 +312,7 @@ static cell_t *get_cell(char *cell_id)
     if (get_rowcol(cell_id, row_str, col_str, '\0') == -1)
         return NULL;
 
-    len = cgc_strlen(row_str);
+    len = strlen(row_str);
     for (i = 0; i < len; i++)
         row_idx += ((row_str[i] - 64) * pow(26, len - i - 1));
 
@@ -390,8 +390,8 @@ static double eval_formula(char *formula, int *is_bad_formula, stack_t **cir_ref
     if(itoa(id, tmp_id_str, size) == NULL)
         goto error;
 
-    push_copy(cir_ref, tmp_id_str, cgc_strlen(tmp_id_str) + 1);
-    queue_t *rpn = infixtorpn(formula, cgc_strlen(formula) + 1);
+    push_copy(cir_ref, tmp_id_str, strlen(tmp_id_str) + 1);
+    queue_t *rpn = infixtorpn(formula, strlen(formula) + 1);
 
     queue_t *args = NULL;
     stack_t *values = NULL;
@@ -424,7 +424,7 @@ static double eval_formula(char *formula, int *is_bad_formula, stack_t **cir_ref
                     if(itoa(cell->id, tmp_id_str, size) == NULL)
                         goto error;
 
-                    if (memcmp(tmp->data, tmp_id_str, cgc_strlen(tmp->data) + 1) == 0)
+                    if (memcmp(tmp->data, tmp_id_str, strlen(tmp->data) + 1) == 0)
                         goto error; //Circular reference
                     tmp = tmp->next;
                 }
@@ -432,7 +432,7 @@ static double eval_formula(char *formula, int *is_bad_formula, stack_t **cir_ref
                 if (cell->cell_type == UNUSED) {
                     push_copy(&values, "0", sizeof("0"));
                 } else if (cell->cell_type == DOUBLE) {
-                    push_copy(&values, cell->str, cgc_strlen(cell->str) + 1);
+                    push_copy(&values, cell->str, strlen(cell->str) + 1);
                 } else if(cell->cell_type == FORMULA) {
                     val = eval_formula(cell->formula, is_bad_formula, cir_ref, cell->id);
                     if(*is_bad_formula)
@@ -490,7 +490,7 @@ static queue_t *infixtorpn(char *infix, size_t size)
     stack_t *operators = NULL;
     queue_t *output_q = NULL;
 
-    cgc_memcpy(formula, infix, size);
+    memcpy(formula, infix, size);
     if (sanitize_formula(formula, size) != 0)
         goto cleanup;
 
@@ -519,7 +519,7 @@ static queue_t *infixtorpn(char *infix, size_t size)
         switch (arg_type) {
             case DOUBLE:
             case CELL_ID:
-                enqueue_copy(&output_q, arg, cgc_strlen(arg) + 1);
+                enqueue_copy(&output_q, arg, strlen(arg) + 1);
                 break;
             case FUNCTION:
 #ifdef PATCHED
@@ -535,7 +535,7 @@ static queue_t *infixtorpn(char *infix, size_t size)
                 }
 
                 func_args[++func_idx] = 0;
-                push_copy(&operators, arg, cgc_strlen(arg) + 1);
+                push_copy(&operators, arg, strlen(arg) + 1);
                 break;
             case BAD_CELL:
                 break;
@@ -546,12 +546,12 @@ static queue_t *infixtorpn(char *infix, size_t size)
         is_mismatched = 0;
         switch(delim) {
             case '(':
-                push_copy(&operators, "(", cgc_strlen("(") + 1);
+                push_copy(&operators, "(", strlen("(") + 1);
                 break;
             case ')':
                 is_mismatched = 1;
                 while (operators != NULL) {
-                    if (cgc_strcmp(peek_top(operators), "(") == 0) {
+                    if (strcmp(peek_top(operators), "(") == 0) {
                         value = pop_copy(&operators);
                         free(value);
                         is_mismatched = 0;
@@ -578,7 +578,7 @@ static queue_t *infixtorpn(char *infix, size_t size)
             case ',':
                 is_mismatched = 1;
                 while (operators != NULL) {
-                    if (cgc_strcmp(peek_top(operators), "(") == 0) {
+                    if (strcmp(peek_top(operators), "(") == 0) {
                         if (func_idx >= 0)
                             func_args[func_idx]++;
                         is_mismatched = 0;
@@ -595,28 +595,28 @@ static queue_t *infixtorpn(char *infix, size_t size)
                 // 4/5-5
                 arith_op[0] = delim;
                 while (operators != NULL) {
-                    if (cgc_strcmp(peek_top(operators), "-") == 0 || cgc_strcmp(peek_top(operators), "+") == 0 ||
-                        cgc_strcmp(peek_top(operators), "+") == 0 || cgc_strcmp(peek_top(operators), "/") == 0)
+                    if (strcmp(peek_top(operators), "-") == 0 || strcmp(peek_top(operators), "+") == 0 ||
+                        strcmp(peek_top(operators), "+") == 0 || strcmp(peek_top(operators), "/") == 0)
                         enqueue(&output_q, pop_copy(&operators));
                     else
                         break;
                 }
 
-                push_copy(&operators, arith_op, cgc_strlen(arith_op)+1);
+                push_copy(&operators, arith_op, strlen(arith_op)+1);
                 break;
             case '*':
             case '/':
                 //TODO - FIXME - precedence is broken
                 arith_op[0] = delim;
                 while (operators != NULL) {
-                    if (cgc_strcmp(peek_top(operators), "/") == 0 || cgc_strcmp(peek_top(operators), "*") == 0)
+                    if (strcmp(peek_top(operators), "/") == 0 || strcmp(peek_top(operators), "*") == 0)
                         enqueue(&output_q, pop_copy(&operators));
                     else
                         break;
 
                 }
 
-                push_copy(&operators, arith_op, cgc_strlen(arith_op)+1);
+                push_copy(&operators, arith_op, strlen(arith_op)+1);
                 break;
 
             case '\0':
@@ -633,7 +633,7 @@ static queue_t *infixtorpn(char *infix, size_t size)
 finish:
 
     while (operators != NULL) {
-        if (cgc_strcmp(peek_top(operators), "(") == 0 || cgc_strcmp(peek_top(operators), ")") == 0)
+        if (strcmp(peek_top(operators), "(") == 0 || strcmp(peek_top(operators), ")") == 0)
             goto error;
 
         enqueue(&output_q, pop_copy(&operators));

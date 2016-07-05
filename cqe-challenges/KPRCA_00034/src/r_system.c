@@ -33,7 +33,7 @@ static int system_init(rng_t *rng)
 static int system_get_bytes(rng_t *rng, unsigned char *out, unsigned int cnt)
 {
     size_t bytes;
-    if (cgc_random(out, cnt, &bytes) != 0 || bytes != cnt)
+    if (random(out, cnt, &bytes) != 0 || bytes != cnt)
         return FAILURE;
     return SUCCESS;
 }

@@ -145,7 +145,7 @@ char *strncpy(char *dest, const char *src, size_t n)
 }
 
 // From the docs:
-// The cgc_strcat() and strncat() functions append a copy of the null-terminated 
+// The strcat() and strncat() functions append a copy of the null-terminated 
 // string s2 to the end of the null-terminated string s1, then add a 
 // terminating `\0'.  
 // The strncat() function appends not more than n characters from s2, and then 
@@ -154,7 +154,7 @@ char *strncpy(char *dest, const char *src, size_t n)
 char * strncat(char *s1, const char *s2, size_t n) {
 
    // Find the end of s1.
-   char *cat_begin = s1 + cgc_strlen(s1);
+   char *cat_begin = s1 + strlen(s1);
 
    // Copy the specified amount to the end of s1.
    strncpy(cat_begin, s2, n);
@@ -167,7 +167,7 @@ char * strncat(char *s1, const char *s2, size_t n) {
 }
 
 // IDENTICAL TO: REDPILL
-unsigned char * cgc_memset(void *b, char c, size_t len) {
+unsigned char * memset(void *b, char c, size_t len) {
 
   char *ptr = (char *)b; 
   while (len) {
@@ -185,8 +185,8 @@ unsigned char * cgc_memset(void *b, char c, size_t len) {
 char * strpos(char * haystack, char * needle) {
 
    char * pos = NULL;
-   size_t sz_haystack = cgc_strlen(haystack);
-   size_t sz_needle = cgc_strlen(needle);
+   size_t sz_haystack = strlen(haystack);
+   size_t sz_needle = strlen(needle);
 
    // If the substring is longer than the string, then we're not finding it.
    if (sz_haystack < sz_needle) { return NULL; }
@@ -260,7 +260,7 @@ int strncmp(const char *s1, const char *s2, size_t len) {
 
 // BASED ON: EAGLE_00004
 // MOD: changed delimeter
-int cgc_strcmp(const char *s1, const char *s2) {
+int strcmp(const char *s1, const char *s2) {
 
    while (*s1 != STRING_TERMINATOR && *s2 != STRING_TERMINATOR && *s1 == *s2) {
       s1++;
@@ -271,7 +271,7 @@ int cgc_strcmp(const char *s1, const char *s2) {
 
 // BASED ON: EAGLE_00004
 // MOD: changed delimeter
-size_t cgc_strlen(const char *str) {
+size_t strlen(const char *str) {
    size_t res = 0;
    while (STRING_TERMINATOR != *str++) {res++;}
    return res;
@@ -1164,7 +1164,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = cgc_strlen(s_arg);
+                  int len = strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

@@ -50,7 +50,7 @@ void TransmitOptionHeader(OptionHeader *header) {
   switch(header->type) {
     case OPTION_TYPE_STRING: {
 #ifdef PATCHED
-      TransmitBytes(header->value, cgc_strlen(header->value));
+      TransmitBytes(header->value, strlen(header->value));
 #else
       TransmitFormattedBytes(header->value);
 #endif
@@ -374,7 +374,7 @@ int AnalyzeApplicationLayer(SystemState *state, Packet *packet) {
         DisplayFormatted(state, DISPLAY_APPLICATION, "Application layer too short\n");
         return -1;
       }
-      cgc_memcpy(buffer, (char *)packet->data, length);
+      memcpy(buffer, (char *)packet->data, length);
       DisplayFormatted(state, DISPLAY_APPLICATION, "\t+s\n", buffer);
       packet->data += length;
       packet->size -= length;
@@ -388,9 +388,9 @@ int AnalyzeApplicationLayer(SystemState *state, Packet *packet) {
     }
     char namebuf[33];
     bzero(namebuf, sizeof(namebuf));
-    cgc_memcpy(namebuf, (char *)(packet->data + 6), 32);
+    memcpy(namebuf, (char *)(packet->data + 6), 32);
     DisplayFormatted(state, DISPLAY_APPLICATION, "Filename: +s\n", namebuf);
-    cgc_memcpy(namebuf, (char *)(packet->data + 6 + 32), 32);
+    memcpy(namebuf, (char *)(packet->data + 6 + 32), 32);
     DisplayFormatted(state, DISPLAY_APPLICATION, "File type: +s\n", namebuf);
     packet->data += 70;
     packet->size -= 70;
@@ -412,7 +412,7 @@ int AnalyzeApplicationLayer(SystemState *state, Packet *packet) {
     } 
     char buffer[256];
     bzero(buffer, sizeof(buffer));
-    cgc_memcpy(buffer, (char *)packet->data, length);
+    memcpy(buffer, (char *)packet->data, length);
     DisplayFormatted(state, DISPLAY_APPLICATION, "From: +s\n", buffer);
     packet->data += length;
     packet->size -= length;
@@ -431,7 +431,7 @@ int AnalyzeApplicationLayer(SystemState *state, Packet *packet) {
     } 
     #endif 
     bzero(buffer, sizeof(buffer));
-    cgc_memcpy(buffer, (char *)packet->data, length);
+    memcpy(buffer, (char *)packet->data, length);
     DisplayFormatted(state, DISPLAY_APPLICATION, "To: +s\n", buffer);
     packet->data += length;
     packet->size -= length;
@@ -449,7 +449,7 @@ int AnalyzeApplicationLayer(SystemState *state, Packet *packet) {
     } 
     #endif 
     bzero(buffer, sizeof(buffer));
-    cgc_memcpy(buffer, (char *)packet->data, length);
+    memcpy(buffer, (char *)packet->data, length);
     DisplayFormatted(state, DISPLAY_APPLICATION, "Subject: +s\n", buffer);
     packet->data += length;
     packet->size -= length;
@@ -478,7 +478,7 @@ int AnalyzeApplicationLayer(SystemState *state, Packet *packet) {
       _terminate(-1);
     }
     bzero(url, url_length + 1);
-    cgc_memcpy(url, (char *)(packet->data), url_length);
+    memcpy(url, (char *)(packet->data), url_length);
     DisplayFormatted(state, DISPLAY_APPLICATION, "URL: +s\n", url);
     packet->data += url_length;
     packet->size -= url_length;
@@ -504,7 +504,7 @@ int AnalyzeApplicationLayer(SystemState *state, Packet *packet) {
       _terminate(-1);
     }
     bzero(header, header_length + 1);
-    cgc_memcpy(header, (char *)(packet->data), header_length);
+    memcpy(header, (char *)(packet->data), header_length);
     DisplayFormatted(state, DISPLAY_APPLICATION, "Headers: +s\n", header);
     packet->data += header_length;
     packet->size -= header_length;

@@ -47,7 +47,7 @@ int rpti_read_inity( prpti_image_data rid, int *out_data );
 int rpti_read_axist( prpti_image_data );
 int rpti_read_pixel( prpti_image_data rid, int *out_data  );
 int rpti_read_check( prpti_image_data, int bit_count );
-int rpti_inc_cgc_index( prpti_image_data, int bit_count );
+int rpti_inc_index( prpti_image_data, int bit_count );
 int rpti_read_bits( prpti_image_data, int bit_count, int *out_data );
 
 #endif

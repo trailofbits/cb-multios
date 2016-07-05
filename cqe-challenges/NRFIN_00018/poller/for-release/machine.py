@@ -93,14 +93,14 @@ class TemplateGenerator(Actions):
 		
 		message_list = []
 		for i in range(1, 40):
-			cgc_index = random.randint(1,24)
-			message_vals = [cgc_index, random.randint(1,100), random.randint(1,100), random.randint(1,1000), random.randint(1,1000)]
+			index = random.randint(1,24)
+			message_vals = [index, random.randint(1,100), random.randint(1,100), random.randint(1,1000), random.randint(1,1000)]
 			#message_vals = [2, 18000, 18000, 17000, 17000]
 			message_str = pack('hhhhh', message_vals[0], message_vals[1], message_vals[2], message_vals[3], message_vals[4])
 			self.write(message_str)
 
-			for y in range(0, len(perm_list[cgc_index-1])):
-				message_vals = perm_list[cgc_index-1][y](message_vals)
+			for y in range(0, len(perm_list[index-1])):
+				message_vals = perm_list[index-1][y](message_vals)
 		
 			message_str = pack('hhhhh', message_vals[0], message_vals[1], message_vals[2], message_vals[3], message_vals[4])
 			message_list.append(message_str)

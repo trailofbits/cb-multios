@@ -31,4 +31,4 @@ This service is very difficult due to the processing done on the input before it
 
 Additionally, the low baudrate of the modem results in a significant amount of audio data as input and output. After the error-correcting, for about every 200 bits of input the attacker needs to generate 64 kbits of audio input. Even a small POV is still over 100 kBytes.
 
-The bug should be easy to patch because it is the canonical example of a buffer overflow: Unbounded cgc_memcpy into a stack buffer of fixed size. Even without fuzzing or symbolic execution, static analysis should be able to find this bug.
+The bug should be easy to patch because it is the canonical example of a buffer overflow: Unbounded memcpy into a stack buffer of fixed size. Even without fuzzing or symbolic execution, static analysis should be able to find this bug.

@@ -40,7 +40,7 @@ void print_gps_tag_text(unsigned short tag) {
 
 	if (tag >= 0 && tag <31)
 #ifdef PATCHED
-	if ( cgc_strlen( gps_tags[tag]) > 2048 ) {
+	if ( strlen( gps_tags[tag]) > 2048 ) {
 		gps_tags[tag][2048] = '\x00';
 	}
 #endif

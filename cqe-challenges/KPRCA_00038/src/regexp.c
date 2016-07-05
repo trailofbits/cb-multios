@@ -300,7 +300,7 @@ fail:
 
 int regexp_init(regexp_t *r, const char *str)
 {
-    cgc_memset(r, 0, sizeof(regexp_t));
+    memset(r, 0, sizeof(regexp_t));
     r->input = strdup(str);
     if (r->input == NULL)
         goto fail;

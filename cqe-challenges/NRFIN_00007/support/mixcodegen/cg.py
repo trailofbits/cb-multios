@@ -4,7 +4,7 @@
 #   Brian Caswell <bmc@lungetech.com>
 #   Narf Industries <info@narfindustries.com>
 #
-# Permission is hereby granted, cgc_free of charge, to any person obtaining a
+# Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
 # to deal in the Software without restriction, including without limitation
 # the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -30,7 +30,7 @@ import random
 import sys
 import math
 
-# this is lame, I cant cgc_free out zoombuf
+# this is lame, I cant free out zoombuf
 import datetime
 
 
@@ -50,7 +50,7 @@ H_TMPL = """
 /*
  * Copyright (C) Narf Industries <info@narfindustries.com>
  *
- * Permission is hereby granted, cgc_free of charge, to any person obtaining a
+ * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -163,7 +163,7 @@ class MixologyCodeGen(object):
 		x = self.sample_compounds(sample_seed, sample_sz)
 		b = self.zoom_buf(x)
 		assert(b is not None)
-		self.mix.cgc_free_sample_st(x)
+		self.mix.free_sample_st(x)
 
 		del x
 
@@ -196,12 +196,12 @@ class MixologyCodeGen(object):
 				ii = final_idx.pop()
 			except IndexError:
 				pass
-			# we just fill the sample up with the last cgc_index so that multiple is only done once
+			# we just fill the sample up with the last index so that multiple is only done once
 			set_sample_at_idx(samp, i, ii)
 
 
 		b = self.zoom_buf(samp)
-		self.mix.cgc_free_sample_st(samp)
+		self.mix.free_sample_st(samp)
 
 		assert(b is not None)
 		# need 20 idxs at

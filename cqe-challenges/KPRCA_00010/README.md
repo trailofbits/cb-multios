@@ -44,7 +44,7 @@ but the header validation function fails to check this in the unpatched version.
 
 The formula for chunk size = 4 + (8 + sub chunk1 size) + (8 + sub chunk2 size)
 Since the unpatched version assumes sub chunk1's size will always be 16, this allows for an overflow because
-of how the track is malloc'd vs how it is cgc_indexed.
+of how the track is malloc'd vs how it is indexed.
 
 The header validation function returns the file size of the audio file, and by using this the program mallocs
 (file size - header size) bytes. This value should be exactly equal to sub chunk2's size, but the programmer's
@@ -53,11 +53,11 @@ value is >= 0 before calling malloc. The program does not support allocating ver
 the programmer thought to enforce this limitation.
 
 Throughout the rest of the program since (file size - header size) is assumed to be exactly equal to 
-sub chunk2's size, the programmer cgc_indexes the malloc'd buffer via sub chunk2's size. 
+sub chunk2's size, the programmer indexes the malloc'd buffer via sub chunk2's size. 
 
-If sub chunk1's size > 16, the program will allocate a buffer larger than it will be able to cgc_index, which 
+If sub chunk1's size > 16, the program will allocate a buffer larger than it will be able to index, which 
 wouldn't cause any problems, besides probably getting some unintended results.
-If sub chunk1's size < 16, the program will allocate a buffer smaller than its intended cgc_indexed size, and will
+If sub chunk1's size < 16, the program will allocate a buffer smaller than its intended indexed size, and will
 allow the user to arbitrarily write data into the heap. 
 
 The math works out to be something like this:
@@ -87,5 +87,5 @@ The challenge is meant to show that even when doing file processing, a programme
 bias his or her functions. What a programmer may assume to be trivially obvious, may end up being
 the difference between a vulnerable and properly functioning program.
 
-The vulnerability is meant to test a system's ability to reason through the values allocating vs cgc_indexing
+The vulnerability is meant to test a system's ability to reason through the values allocating vs indexing
 a buffer.

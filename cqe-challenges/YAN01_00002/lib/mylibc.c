@@ -19,9 +19,9 @@ ssize_t readLine(int fd, char* buf, size_t len)
   int ret = 0;
   size_t i = 0;
   size_t numRead;
-  cgc_fd_set fdsToWait;
+  fd_set fdsToWait;
   size_t temp = len;
-  struct cgc_timeval timeToWait;
+  struct timeval timeToWait;
 
   if (buf == NULL)
   {
@@ -47,7 +47,7 @@ ssize_t readLine(int fd, char* buf, size_t len)
     FD_SET(fd, &fdsToWait);
 
     //wait forever to see if there is another character available
-    ret = cgc_fdwait(1, &fdsToWait, NULL, &timeToWait, NULL);
+    ret = fdwait(1, &fdsToWait, NULL, &timeToWait, NULL);
 
     //check to see if there is an error
     if (ret != 0)
@@ -103,7 +103,7 @@ size_t myStrLen(const char* str)
   return (i);
 }
 
-void cgc_write(int fd, const void* buf, size_t len) {
+void write(int fd, const void* buf, size_t len) {
    const void *end = buf + len;
    size_t n;
    while (buf < end) {

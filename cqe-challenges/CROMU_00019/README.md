@@ -13,15 +13,15 @@ This is a casino game service. It runs poker, blackjack, and slots. It offers re
 
 ### Feature List
 
-In order to simulate randomness while still having a deterministic game the casino service implements an xorshift pseudo random number generator (PRNG) and seeds it with a string taken from the player at game start. This PRNG is used to shuffle the deck before each cgc_round of poker or blackjack and to generate the symbols for the slot machine. 
+In order to simulate randomness while still having a deterministic game the casino service implements an xorshift pseudo random number generator (PRNG) and seeds it with a string taken from the player at game start. This PRNG is used to shuffle the deck before each round of poker or blackjack and to generate the symbols for the slot machine. 
 
-The casino game service runs poker in the style of a 5 card draw video poker machine. The player is dealt a 5 card hand and allowed to keep or discard each of the cards. Replacement cards are drawn for any discarded and then the new hand is scored. The scoring system pays out anything that is a pair of jacks or better using standard poker hand rankings. To play a cgc_round of poker costs the player $10 and the default payouts range from $10 for a pair to $500 for a royal flush. 
+The casino game service runs poker in the style of a 5 card draw video poker machine. The player is dealt a 5 card hand and allowed to keep or discard each of the cards. Replacement cards are drawn for any discarded and then the new hand is scored. The scoring system pays out anything that is a pair of jacks or better using standard poker hand rankings. To play a round of poker costs the player $10 and the default payouts range from $10 for a pair to $500 for a royal flush. 
 
 The service runs a blackjack game where the goal is to reach closest to 21 points without going over. The player hand is scored against a dealer hand. The player receives a 2 card hand and then may choose to hit (recieve an additional card) or stand (receive no more cards and play moves to the dealer). The dealer will hit until reaching a hand value of 17 or greater (dealer stands on soft 17). A hand of blackjack costs the player $10 and pays out 2 to 1 for a win, and 2.5 to 1 for a 'blackjack' (an initial hand value of 21). 
 
-The casino service slots game can generate a slot machine with 2, 3, 4, or 5 rows/columns. A symbol match in all positions of a row or column is considered a win. Each size slot machine has slightly different odds of winning. The cost to play is $2 and the default payout is $4. Multiple matches in one cgc_round will all pay out. 
+The casino service slots game can generate a slot machine with 2, 3, 4, or 5 rows/columns. A symbol match in all positions of a row or column is considered a win. Each size slot machine has slightly different odds of winning. The cost to play is $2 and the default payout is $4. Multiple matches in one round will all pay out. 
 
-The players club is used to track how many cgc_rounds of each game have been played as well as the player's wallet balance. The service does not begin tracking a player until they have been registered and logged in. 
+The players club is used to track how many rounds of each game have been played as well as the player's wallet balance. The service does not begin tracking a player until they have been registered and logged in. 
 
 When a secret password is entered at game start, the service enters a programming mode where it will accept an encoded blob of data. The data is decoded and used to program new payouts for slots, blackjack, and poker. 	
 
@@ -38,7 +38,7 @@ Stack Buffer Overflow
 CWE-121: Stack-based Buffer Overflow
 
 ## Challenges
-The first vulnerability is a classic buffer overflow that should be straightforward to detect and patch. The challenge in proving it is that the CRS must determine the correct sequence of events to reach the end of the main function and return. This involves exploring most of the functionality of the program including registering a player, logging in as that player, playing a cgc_round of blackjack, poker, and slots, and then exiting. Attempting to exit the program before exploring those code paths results in a call to _terminate and the overflow thus has no provability. 
+The first vulnerability is a classic buffer overflow that should be straightforward to detect and patch. The challenge in proving it is that the CRS must determine the correct sequence of events to reach the end of the main function and return. This involves exploring most of the functionality of the program including registering a player, logging in as that player, playing a round of blackjack, poker, and slots, and then exiting. Attempting to exit the program before exploring those code paths results in a call to _terminate and the overflow thus has no provability. 
 
 An alternate path to reach the end of the main function is to amass enough winnings through gambling to exceed $5000 in which case the program exits normally; however, the odds and payouts of the casino games make it very unlikely that this could be achived through standard fuzzing. 
 

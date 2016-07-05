@@ -42,7 +42,7 @@ class StringSearch(Actions):
     def SOM(self):
 
         som=pack('H',0xffF8)
-        self.cgc_write(som)
+        self.write(som)
 
         self.read(delim='\n', expect = 'SOM marker found\n')
 
@@ -53,7 +53,7 @@ class StringSearch(Actions):
     def random1(self):
 
         data = pack('H', random.randint(400, 1000))
-        self.cgc_write(data)
+        self.write(data)
 
         self.read(delim='\n', expect = 'Did not find SOM marker\n')
 
@@ -61,18 +61,18 @@ class StringSearch(Actions):
     def random2(self):
 
         data = pack('H', random.randint(400, 1000))
-        self.cgc_write(data)
+        self.write(data)
 
     def SAP0(self):
 
         data = pack('H', 0xfff0)
-        self.cgc_write(data)
+        self.write(data)
 
         self.read(delim='\n', expect = 'SAP0 marker found\n')
 
-        self.cgc_write(pack('H', 0x10))
-        self.cgc_write('SAP0')
-        self.cgc_write(pack('5H', 0,0,0,0,0))
+        self.write(pack('H', 0x10))
+        self.write('SAP0')
+        self.write(pack('5H', 0,0,0,0,0))
 
     def build_SAP1(self):
 
@@ -97,7 +97,7 @@ class StringSearch(Actions):
 
         sap1 = sap1 + pack('H', num_ifds)
 
-        # values_offset will be used to cgc_index to data pointed to from IFDs
+        # values_offset will be used to index to data pointed to from IFDs
         values_offset = tff0_length + ifd_length
 
         # build a list of expect strings to parse once this SAP1 is transmitted
@@ -215,7 +215,7 @@ class StringSearch(Actions):
 
         sap1 = pack('H', num_ifds)
 
-        # values_offset will be used to cgc_index to data pointed to from IFDs
+        # values_offset will be used to index to data pointed to from IFDs
         values_offset = ifd_length
 
         # build a list of expect strings to parse once this SAP1 is transmitted
@@ -263,7 +263,7 @@ class StringSearch(Actions):
 
         sap1 = pack('H', num_ifds)
 
-        # values_offset will be used to cgc_index to data pointed to from IFDs
+        # values_offset will be used to index to data pointed to from IFDs
         values_offset = ifd_length
 
         # build a list of expect strings to parse once this SAP1 is transmitted
@@ -318,13 +318,13 @@ class StringSearch(Actions):
     def SAP1(self):
 
         data = pack('H', 0xfff1)
-        self.cgc_write(data)
+        self.write(data)
 
         self.read(delim='\n', expect='SAP1 marker found\n')
 
         sap1_data, expect_list = self.build_SAP1()
 
-        self.cgc_write(sap1_data)
+        self.write(sap1_data)
 
         for expect_string in expect_list:
 

@@ -25,7 +25,7 @@ THE SOFTWARE.
 
 int fpai_add_pixel( pfpai_image_data fid, char *image, int x, int y, char pixel)
 {
-	int cgc_index = 0;
+	int index = 0;
 	int midx;
 	int midy;
 	int base;
@@ -38,38 +38,38 @@ int fpai_add_pixel( pfpai_image_data fid, char *image, int x, int y, char pixel)
 		return 0;
 	}
 
-	/// Calculate the cgc_index based upon the origin location
+	/// Calculate the index based upon the origin location
 	switch( fid->axist ) {
 		case 1:
-			cgc_index = ((-y)*fid->xlen) + x;
+			index = ((-y)*fid->xlen) + x;
 			break;
 		case 2:
-                	cgc_index = ((-y)*fid->xlen) + ( (fid->xlen-1) + x );
+                	index = ((-y)*fid->xlen) + ( (fid->xlen-1) + x );
 			break;
 		case 3:
-                	cgc_index = (((fid->ylen-1)-y)*fid->xlen) + x;
+                	index = (((fid->ylen-1)-y)*fid->xlen) + x;
 			break;
 		case 4:
-                	cgc_index = (((fid->ylen-1)-y)*fid->xlen) + ( (fid->xlen-1) + x );
+                	index = (((fid->ylen-1)-y)*fid->xlen) + ( (fid->xlen-1) + x );
 			break;
 		case 7:
                 	midx = fid->xlen/2;
                 	midy = fid->ylen/2;
 
                 	base = (midy*fid->xlen) + midx;
-                	cgc_index = base + (-y * fid->xlen) + x;
+                	index = base + (-y * fid->xlen) + x;
 			break;
 		default:
 			return 0;
 	};
 
-	/// The cgc_index should not go beyond width * height	
-	if ( cgc_index > fid->xlen * fid->ylen ) {
+	/// The index should not go beyond width * height	
+	if ( index > fid->xlen * fid->ylen ) {
 		return 0;
 	}
 
-	image[cgc_index] = pixel;
-	//printf("cgc_index: @d\n", cgc_index);
+	image[index] = pixel;
+	//printf("index: @d\n", index);
 	return 1;
 }
 
@@ -86,7 +86,7 @@ int fpai_display_img( pfpai_image_data fid )
         int maxy = 0;
         int maxx = 0;
 
-	char ascii_cgc_index[] = {' ','!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~'};
+	char ascii_index[] = {' ','!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~'};
 
 	if ( fid == NULL ) {
 		return 0;
@@ -165,7 +165,7 @@ int fpai_display_img( pfpai_image_data fid )
 		return 0;
 	}
 
-	cgc_memset( image, ' ', image_length );
+	memset( image, ' ', image_length );
 	image[image_length] = '\x00';
 
 	//printf("minx: @d maxx: @d miny: @d maxy: @d\n", minx, maxx, miny, maxy);
@@ -381,13 +381,13 @@ int fpai_calc_cksum( pfpai_image_data fid )
 	short *items = NULL;
 	short cksum = 0;
 	int total = 0;
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( fid == NULL ) {
 		return 0;
 	}
 
-	/// The bit cgc_index must start at 0
+	/// The bit index must start at 0
 	if ( fid->cbit ) {
 		return 0;
 	}
@@ -404,9 +404,9 @@ int fpai_calc_cksum( pfpai_image_data fid )
 
 	total /= 2;
 
-	while ( cgc_index < total ) {
-		cksum += items[cgc_index];
-		cgc_index++;
+	while ( index < total ) {
+		cksum += items[index];
+		index++;
 	}
 
 	if ( cksum != fid->checksum ) {

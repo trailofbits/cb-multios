@@ -69,7 +69,7 @@ struct VGF_OBJECT_HEADER
 {
     uint8_t     object_type;
     uint8_t     object_layer;
-    uint8_t     object_color_cgc_index;     // Index to the objects color
+    uint8_t     object_color_index;     // Index to the objects color
     uint8_t     object_settings;
 } __attribute__ ((__packed__));
 
@@ -83,7 +83,7 @@ struct VGF_COLOR_TABLE
 
 typedef struct VGF_COLOR_TABLE tVGFColorTable;
 
-// A single color reference in the color cgc_index table
+// A single color reference in the color index table
 struct VGF_COLOR_HEADER
 {
     uint8_t    red;
@@ -171,9 +171,9 @@ void vgf_destroy_file( tVGFParsedFile *pFile );
 int32_t vgf_get_render_size( tVGFParsedFile *pFile );
 int32_t vgf_render_file( tVGFParsedFile *pFile, uint8_t *pDest, uint32_t *pDestLen );
 
-void vgf_render_rect( tVGFDrawRect *pRectData, uint16_t *layer_data, uint8_t settings, uint8_t color_cgc_index, uint16_t pixel_width, uint16_t pixel_height );
-void vgf_render_line( tVGFDrawLine *pLineData, uint16_t *layer_data, uint8_t settings, uint8_t color_cgc_index, uint16_t pixel_width, uint16_t pixel_height );
-void vgf_render_triangle( tVGFDrawTriangle *pTriangleData, uint16_t *layer_data, uint8_t settings, uint8_t color_cgc_index, uint16_t pixel_width, uint16_t pixel_height );
-void vgf_render_circle( tVGFDrawCircle *pCircleData, uint16_t *layer_data, uint8_t settings, uint8_t color_cgc_index, uint16_t pixel_wieth, uint16_t pixel_height );
+void vgf_render_rect( tVGFDrawRect *pRectData, uint16_t *layer_data, uint8_t settings, uint8_t color_index, uint16_t pixel_width, uint16_t pixel_height );
+void vgf_render_line( tVGFDrawLine *pLineData, uint16_t *layer_data, uint8_t settings, uint8_t color_index, uint16_t pixel_width, uint16_t pixel_height );
+void vgf_render_triangle( tVGFDrawTriangle *pTriangleData, uint16_t *layer_data, uint8_t settings, uint8_t color_index, uint16_t pixel_width, uint16_t pixel_height );
+void vgf_render_circle( tVGFDrawCircle *pCircleData, uint16_t *layer_data, uint8_t settings, uint8_t color_index, uint16_t pixel_wieth, uint16_t pixel_height );
 
 #endif // __VGF_H___

@@ -33,14 +33,14 @@ int isinf( double val );
 double atof(const char *str);
 int atoi(const char *str);
 
-char *cgc_strcpy( char *dest, char *src );
+char *strcpy( char *dest, char *src );
 int printf( const char *fmt, ... );
 void bzero( void *, size_t );
-int cgc_strcmp( const char *, const char * );
+int strcmp( const char *, const char * );
 char *strncat( char *dest, const char *src, size_t n );
 size_t receive_until( char *, char, size_t );
-size_t cgc_strcat( char *, char* );
-size_t cgc_strlen( char * );
+size_t strcat( char *, char* );
+size_t strlen( char * );
 size_t itoa( char *, size_t, size_t );
 void puts( char *t );
 

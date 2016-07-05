@@ -37,7 +37,7 @@ list *init_list(const DATA d);
 void append_list(list **l, const DATA d, int dups);
 size_t len_list(const list *l);
 list *copy_list(const list *l, size_t start, size_t stop);
-const DATA lcgc_index(const list *l, ssize_t i);
+const DATA lindex(const list *l, ssize_t i);
 const void *random_element(list *l);
 void free_list(const list *l, int ld);
 void free_list_of_lists(const list *l, int ld);

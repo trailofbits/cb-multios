@@ -99,7 +99,7 @@ void HexDump(uint8_t *data, size_t size) {
       one_line[line_pos++] = ' ';
     }
     one_line[line_pos] = '\n';
-    TransmitBytes(one_line, cgc_strlen(one_line));
+    TransmitBytes(one_line, strlen(one_line));
     count = count + byte;
   }
 }
@@ -170,7 +170,7 @@ void vTransmitFormattedBytes(char *format, va_list arg_list) {
             buf[num_digits--] = '0' + temp_int % 10;
             temp_int /= 10;
           }
-          TransmitBytes(buf, cgc_strlen(buf)); 
+          TransmitBytes(buf, strlen(buf)); 
           break;
         }
         case 'u': {
@@ -195,13 +195,13 @@ void vTransmitFormattedBytes(char *format, va_list arg_list) {
             buf[num_digits--] = '0' + temp_int % 10;
             temp_int /= 10;
           }
-          TransmitBytes(buf, cgc_strlen(buf)); 
+          TransmitBytes(buf, strlen(buf)); 
           break;
         }
         case 's': {
           // Print string
           char *s = va_arg(arg_list, char *);
-          TransmitBytes(s, cgc_strlen(s));
+          TransmitBytes(s, strlen(s));
           break;
         }
         case 'x': {

@@ -95,7 +95,7 @@ class Support(object):
 		'''
 		Pack the sequence of notes that corresponds to each id in the id_list.
 
-		id_list is a list of cgc_indexes in the notes list.
+		id_list is a list of indexes in the notes list.
 		'''
 		r = ''
 		for note_id in id_list:
@@ -107,7 +107,7 @@ class Support(object):
 		'''
 		Pack the sequence of syllables that corresponds to each id in the id_list.
 
-		id_list is a list of cgc_indexes in the syllables list.
+		id_list is a list of indexes in the syllables list.
 		'''
 		r = ''
 		for syllable_id in id_list:

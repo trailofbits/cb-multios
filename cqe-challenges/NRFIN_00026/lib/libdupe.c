@@ -54,7 +54,7 @@ dupepkt_t *dupe_next(dupefile_t *f) {
     }
 
     pkt->parent = f;
-    cgc_memcpy(&pkt->hdr, f->data+f->idx, sizeof(dupepkt_hdr_t));
+    memcpy(&pkt->hdr, f->data+f->idx, sizeof(dupepkt_hdr_t));
     f->idx += sizeof(dupepkt_hdr_t);
 
     if (pkt->hdr.size <= 0 || f->idx+pkt->hdr.size > f->caplen || pkt->hdr.size > f->framelen) {
@@ -62,7 +62,7 @@ dupepkt_t *dupe_next(dupefile_t *f) {
         return NULL;
     }
 
-    cgc_memcpy(pkt->payload, f->data+f->idx, pkt->hdr.size);
+    memcpy(pkt->payload, f->data+f->idx, pkt->hdr.size);
 
     f->idx += pkt->hdr.size;
 

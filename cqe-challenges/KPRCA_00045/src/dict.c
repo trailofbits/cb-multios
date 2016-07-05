@@ -46,7 +46,7 @@ void* dict_find(dict_t **dict, const char *name)
   dict_t *cur = dict[_hash(name)];
   while (cur)
   {
-    if (cgc_strcmp(cur->name, name) == 0)
+    if (strcmp(cur->name, name) == 0)
       return cur->value;
     cur = cur->next;
   }
@@ -88,7 +88,7 @@ void* dict_remove(dict_t **dict, const char *name)
   dict_t *cur = dict[hash], *prev = NULL;
   while (cur)
   {
-    if (cgc_strcmp(cur->name, name) == 0)
+    if (strcmp(cur->name, name) == 0)
     {
       if (prev == NULL)
         dict[hash] = cur->next;

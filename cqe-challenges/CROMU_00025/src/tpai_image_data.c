@@ -25,7 +25,7 @@ THE SOFTWARE.
 
 int tpai_read_pixel( ptpai_image_data tid, unsigned int *pixel )
 {
-	char ascii_cgc_index[] = {' ','!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~'};
+	char ascii_index[] = {' ','!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~'};
 	int value = 0;
 
 	if (pixel == NULL ) {
@@ -42,7 +42,7 @@ int tpai_read_pixel( ptpai_image_data tid, unsigned int *pixel )
 
 	value -= 1;
 
-	*pixel = ascii_cgc_index[value];
+	*pixel = ascii_index[value];
 
 	return 1;	
 }
@@ -52,7 +52,7 @@ int tpai_display_image( ptpai_image_data tid )
 	char *image = NULL;
 	unsigned int image_length = 0;
 	unsigned int pixel = 0;
-	unsigned int cgc_index = 0;
+	unsigned int index = 0;
 	unsigned int count = 0;
 	unsigned int column = 0;
 	unsigned int row = 0;
@@ -91,7 +91,7 @@ int tpai_display_image( ptpai_image_data tid )
 		return 0;
 	}
 
-	cgc_memset( image, ' ', image_length);
+	memset( image, ' ', image_length);
 	image[image_length] = '\x00';
 
 	while ( tpai_read_pixel( tid, &pixel) != 0 ) {
@@ -133,24 +133,24 @@ int tpai_display_image( ptpai_image_data tid )
 				return 0;
 		};
 
-		cgc_index = (row * tid->width) + column;
+		index = (row * tid->width) + column;
 
-		if ( cgc_index > image_length ) {
+		if ( index > image_length ) {
 			printf("[ERROR] Pixel out of bounds\n");
 			deallocate( image, image_length + 1 );
 			return 0;
 		}
 
-		image[cgc_index] = pixel;
+		image[index] = pixel;
 		count++;
 	}
 
-	for (cgc_index = 0; cgc_index < image_length; cgc_index++) {
-		if ( cgc_index % tid->width == 0 && cgc_index != 0 ) {
+	for (index = 0; index < image_length; index++) {
+		if ( index % tid->width == 0 && index != 0 ) {
 			printf("\n");
 		}
 
-		printf("@c", image[cgc_index]);
+		printf("@c", image[index]);
 	}
 
 	printf("\n");
@@ -164,7 +164,7 @@ int tpai_calc_checksum( ptpai_image_data tid )
 	int shorts = 0;
 	short *pixels = NULL;
 	short sum = 0;
-	int cgc_index = 0;
+	int index = 0;
 	int tid_sum = 0;
 
 	if ( tid == NULL ) {
@@ -192,9 +192,9 @@ int tpai_calc_checksum( ptpai_image_data tid )
 
 	pixels = (short*)(tid->buffer + tid->cbyte);
 
-	while ( cgc_index < shorts ) {
-		sum = sum ^ pixels[cgc_index];
-		cgc_index++;
+	while ( index < shorts ) {
+		sum = sum ^ pixels[index];
+		index++;
 	}
 
 	if ( pixels[shorts] != sum ) {

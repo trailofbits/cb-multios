@@ -253,7 +253,7 @@ class StringOfBits(object):
 	def __setitem__(self, idx, bit):
 		l = len(self)
 		if idx >= l:
-			raise IndexError("StringOfBits.set_bit(idx, bit): bit cgc_index out of range.")
+			raise IndexError("StringOfBits.set_bit(idx, bit): bit index out of range.")
 		if bit not in ['0', '1']:
 			raise ValueError("StringOfBits.set_bit(idx, bit): invalid bit value.")
 		if 0 > idx:
@@ -302,7 +302,7 @@ class MsgType1(object):
 			  3: 'restricted maneuverability',
 			  4: 'constrained by draught',
 			  5: 'moored',
-			  6: 'agcgc_round',
+			  6: 'aground',
 			  7: 'fishing',
 			  8: 'underway using sail'}
 

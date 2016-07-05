@@ -1,5 +1,6 @@
 #include <libcgc.h>
 #include <stdlib.h>
+
 /*
 
 Author: John Berry <john.n.berry@gmail.com>
@@ -141,7 +142,7 @@ size_t create_user( puser_manager pum, char *username )
 		goto end;
 	}
 
-	if ( cgc_strlen(username) > USERNAME_LENGTH - 1 ) {
+	if ( strlen(username) > USERNAME_LENGTH - 1 ) {
 		puts("[-] Error username too long\n");
 		goto end;
 	}
@@ -150,7 +151,7 @@ size_t create_user( puser_manager pum, char *username )
 	walker = pum->root;
 
 	while ( walker ) {
-		if ( cgc_strcmp( walker->name, username ) == 0) {
+		if ( strcmp( walker->name, username ) == 0) {
 			puts("[-] Error user exists\n");
 			goto end;
 		}
@@ -265,7 +266,7 @@ pmessage create_message( char * msg_string )
 		goto end;
 	}
 
-	if ( cgc_strlen( msg_string ) > MESSAGE_LENGTH - 1 ) {
+	if ( strlen( msg_string ) > MESSAGE_LENGTH - 1 ) {
 		puts("[-] Error Message too long\n");
 		goto end;
 	}
@@ -281,7 +282,7 @@ pmessage create_message( char * msg_string )
 
 	bzero( pmsg->message, MESSAGE_LENGTH );
 
-	for ( counter = 0; counter < cgc_strlen( msg_string ); counter++ ) {
+	for ( counter = 0; counter < strlen( msg_string ); counter++ ) {
 		pmsg->message[counter] = msg_string[counter];
 	}
 
@@ -363,7 +364,7 @@ void read_message( pmessage_manager pmm, size_t message_id )
 
 	while ( walker ) {
 		if ( walker->message_id == message_id ) {
-			retval = cgc_strlen(buffer);
+			retval = strlen(buffer);
 			itoa( buffer + retval, message_id, 0x100-retval );
 			strncat(buffer, ":  ", 0x100 );
 			strncat(buffer, walker->message, 0x100 );
@@ -441,12 +442,12 @@ void list_unread_messages( pmessage_manager pmm )
 
 			// Mark the message as read
 			walker->read = 1;
-			cgc_strcat( data, "***********************************\n");
-			itoa( data + cgc_strlen(data), walker->message_id, 4 );
-			cgc_strcat( data, ":  " );
-			cgc_strcat( data, walker->message );
-			cgc_strcat( data, "\n");
-			cgc_strcat( data, "***********************************\n");
+			strcat( data, "***********************************\n");
+			itoa( data + strlen(data), walker->message_id, 4 );
+			strcat( data, ":  " );
+			strcat( data, walker->message );
+			strcat( data, "\n");
+			strcat( data, "***********************************\n");
 		}
 		walker = walker->next;
 	}
@@ -495,7 +496,7 @@ puser get_user( puser_manager pum, char *username )
 	pu = pum->root;
 
 	while ( pu ) {
-		if ( cgc_strcmp( pu->name, username ) == 0 ) {
+		if ( strcmp( pu->name, username ) == 0 ) {
 			goto end;
 		}
 		pu = pu->next;

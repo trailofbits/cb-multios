@@ -58,7 +58,7 @@ write_all(int fd, void *buf, size_t n)
 }
 
 void *
-cgc_memset(void *ptr_, int val, size_t n)
+memset(void *ptr_, int val, size_t n)
 {
     unsigned char *ptr = ptr_;
     while (n--)
@@ -67,7 +67,7 @@ cgc_memset(void *ptr_, int val, size_t n)
 }
 
 void *
-cgc_memcpy(void *dst_, const void *src_, size_t n)
+memcpy(void *dst_, const void *src_, size_t n)
 {
     unsigned char *dst = dst_;
     const unsigned char *src = src_;
@@ -77,7 +77,7 @@ cgc_memcpy(void *dst_, const void *src_, size_t n)
 }
 
 size_t
-cgc_strlen(const char *s) {
+strlen(const char *s) {
     size_t ret = 0;
     while (*s++)
         ret++;
@@ -973,7 +973,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = cgc_strlen(s_arg);
+                  int len = strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

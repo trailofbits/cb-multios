@@ -25,7 +25,7 @@ THE SOFTWARE.
 
 int rpti_add_pixel( char *image, int nextx, int nexty, int axis_type, int xlen, int ylen )
 {
-	int actual_cgc_index = 0;
+	int actual_index = 0;
 	int midx = xlen/2;
 	int midy = ylen/2;
 
@@ -37,31 +37,31 @@ int rpti_add_pixel( char *image, int nextx, int nexty, int axis_type, int xlen, 
 
 	switch (axis_type) {
 		case 1:	/// upper left
-			actual_cgc_index = ((nexty*-1)*xlen) + nextx;
+			actual_index = ((nexty*-1)*xlen) + nextx;
 			break;
 		case 2: /// upper right
-			actual_cgc_index = ((nexty*-1)*xlen) + ( (xlen-1) + nextx );
+			actual_index = ((nexty*-1)*xlen) + ( (xlen-1) + nextx );
 			break;
 		case 3: /// lower left
-			actual_cgc_index = (((ylen-1)-nexty)*xlen) + nextx;
+			actual_index = (((ylen-1)-nexty)*xlen) + nextx;
 			break;
 		case 4: /// lower right
-			actual_cgc_index = (((ylen-1)-nexty)*xlen) + ( (xlen-1) + nextx);
+			actual_index = (((ylen-1)-nexty)*xlen) + ( (xlen-1) + nextx);
 			break;
 		case 7: /// midpoint
 			base = (midy*xlen) + midx;
-			actual_cgc_index = base + (-nexty * xlen ) + nextx;
+			actual_index = base + (-nexty * xlen ) + nextx;
 			break;
 		default:
 			return 0;
 	};
 
-	if ( actual_cgc_index > xlen * ylen ) {
+	if ( actual_index > xlen * ylen ) {
 		printf("[ERROR] Pixel beyond image border\n");
 		return 0;
 	}
 
-	image[actual_cgc_index] = '.';
+	image[actual_index] = '.';
 	
 	return 1;
 }
@@ -137,7 +137,7 @@ int rpti_display_img( prpti_image_data rid)
 	}
 
 	/// Skip the reserved bits
-	if ( rpti_inc_cgc_index( rid, 3 ) == 0 ) {
+	if ( rpti_inc_index( rid, 3 ) == 0 ) {
 		return 0;
 	}
 
@@ -190,7 +190,7 @@ int rpti_display_img( prpti_image_data rid)
 	}
 
 	/// Set all empty pixels to spaces
-	cgc_memset( image, ' ', image_length );
+	memset( image, ' ', image_length );
 	
 	/// End the image with a NULL byte
 	image[image_length] = '\x00';
@@ -298,14 +298,14 @@ int rpti_read_bits( prpti_image_data rid, int bit_count, int *out_data )
 }
 
 /**
- * Increments the cgc_index bits
+ * Increments the index bits
  * @param rid Pointer to an rpti image structure
  * @param bit_count Number of bits to be incremented
  * @return Returns 0 if the increment goes beyond the bounds 1 on success
  **/
-int rpti_inc_cgc_index( prpti_image_data rid, int bit_count )
+int rpti_inc_index( prpti_image_data rid, int bit_count )
 {
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( rid == NULL ) {
 		return 0;
@@ -320,10 +320,10 @@ int rpti_inc_cgc_index( prpti_image_data rid, int bit_count )
 	}
 
 	/// First add the bytes
-	cgc_index = (rid->cbit + bit_count) / 8;
+	index = (rid->cbit + bit_count) / 8;
 
-	if ( cgc_index > 0 ) {
-		rid->cbyte += cgc_index;
+	if ( index > 0 ) {
+		rid->cbyte += index;
 	}
 
 	/// Now add the bits
@@ -383,14 +383,14 @@ int rpti_read_magic( prpti_image_data rid )
 		return 0;
 	}
 
-	cgc_memcpy( &magic, rid->buffer, 4 );
+	memcpy( &magic, rid->buffer, 4 );
 
 	if ( magic != RPTI_MAGIC ) {
 		return 0;
 	}
 
 	/// Skip the 4 byte magic
-	if ( rpti_inc_cgc_index( rid, 32 ) == 0 ) {
+	if ( rpti_inc_index( rid, 32 ) == 0 ) {
 		return 0;
 	}
 

@@ -209,7 +209,7 @@ int territoryMenu( pTerritory ty )
  */
 void printTerritoryInfo( pTerritory ty )
 {
-	int cgc_index = 0;
+	int index = 0;
 	pBorder b = NULL;
 
 	if ( ty == NULL ) {
@@ -237,21 +237,21 @@ void printTerritoryInfo( pTerritory ty )
 		printf("@s\n", ty->founder);
 	}
 
-	cgc_index = 0;
+	index = 0;
 
-	while ( cgc_index < ty->border_count ) {
-		b = ty->borders[cgc_index];
+	while ( index < ty->border_count ) {
+		b = ty->borders[index];
 		if ( b != NULL ) {
 			printf("\t\t\tBorder: @f @f @f @f\n", b->latStart, b->lngStart, b->latEnd, b->lngEnd);
 		}
-		cgc_index++;
+		index++;
 	}
 
-	cgc_index = 0;
+	index = 0;
 
-	for ( cgc_index = 0; cgc_index < TERRITORYCOUNTYMAX; cgc_index++ ) {
-		if ( ty->counties[cgc_index] != NULL ) {
-			printCountyInfo( ty->counties[cgc_index]);
+	for ( index = 0; index < TERRITORYCOUNTYMAX; index++ ) {
+		if ( ty->counties[index] != NULL ) {
+			printCountyInfo( ty->counties[index]);
 		}
 	}
 
@@ -265,23 +265,23 @@ void printTerritoryInfo( pTerritory ty )
  **/
 void freeTerritory( pTerritory ty )
 {
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( ty == NULL ) {
 		return;
 	}
 
-	while (cgc_index < ty->border_count) {
-		if ( ty->borders[cgc_index] != NULL ) {
-			deallocate( ty->borders[cgc_index], sizeof( Border ) );
-			ty->borders[cgc_index] = NULL;
+	while (index < ty->border_count) {
+		if ( ty->borders[index] != NULL ) {
+			deallocate( ty->borders[index], sizeof( Border ) );
+			ty->borders[index] = NULL;
 		}
-		cgc_index++;
+		index++;
 	}
 
-	for ( cgc_index = 0; cgc_index < ty->county_count; cgc_index++ ) {
-		freeCounty( ty->counties[cgc_index]);
-		ty->counties[cgc_index] = NULL;
+	for ( index = 0; index < ty->county_count; index++ ) {
+		freeCounty( ty->counties[index]);
+		ty->counties[index] = NULL;
 	}
 
 	deallocate( ty, sizeof(Territory) );
@@ -296,7 +296,7 @@ void freeTerritory( pTerritory ty )
  **/
 void initTerritory( pTerritory ty )
 {
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( ty == NULL ) {
 		return;
@@ -371,13 +371,13 @@ pTerritory territoryTopLevel( pstring str )
 		goto error;
 	}
 
-	if ( cgc_strcmp( temp_name, "Territory" ) != 0 ) {
+	if ( strcmp( temp_name, "Territory" ) != 0 ) {
 		printf("!!Territory: Invalid opening element id\n");
-		deallocate( temp_name, cgc_strlen(temp_name) + 1 );
+		deallocate( temp_name, strlen(temp_name) + 1 );
 		goto error;
 	}
 
-	deallocate(temp_name, cgc_strlen(temp_name) + 1 );
+	deallocate(temp_name, strlen(temp_name) + 1 );
 
 	skipWhiteSpace(str);
 
@@ -387,14 +387,14 @@ pTerritory territoryTopLevel( pstring str )
 
 	incChar( str );
 
-	lastGood = str->cgc_index;
+	lastGood = str->index;
 
 	temp_name = pullNextElementName( str );
 
 	while ( temp_name != NULL ) {
 		el = elementNameToEnum( temp_name );
 
-		deallocate( temp_name, cgc_strlen(temp_name) + 1 );
+		deallocate( temp_name, strlen(temp_name) + 1 );
 
 		switch (el) {
 			case name:
@@ -407,7 +407,7 @@ pTerritory territoryTopLevel( pstring str )
 				bzero( newTerritory->name, 20 );
 				strncpy( newTerritory->name, temp_name, 19 );
 
-				deallocate( temp_name, cgc_strlen(temp_name)+1);
+				deallocate( temp_name, strlen(temp_name)+1);
 				temp_name = NULL;
 				break;
 			case founder:
@@ -420,7 +420,7 @@ pTerritory territoryTopLevel( pstring str )
 				bzero( newTerritory->founder, 30 );
 				strncpy( newTerritory->founder, temp_name, 29 );
 
-				deallocate(temp_name, cgc_strlen(temp_name)+1);
+				deallocate(temp_name, strlen(temp_name)+1);
 				temp_name = NULL;
 				break;
 			case population:
@@ -471,7 +471,7 @@ pTerritory territoryTopLevel( pstring str )
 				break;
 		};
 
-		lastGood = str->cgc_index;
+		lastGood = str->index;
 
 		temp_name = pullNextElementName( str );
 	}
@@ -496,7 +496,7 @@ pTerritory territoryTopLevel( pstring str )
 		goto error;
 	}
 
-	startIndex = str->cgc_index;
+	startIndex = str->index;
 
 	endIndex = skipAlpha( str );
 
@@ -514,12 +514,12 @@ pTerritory territoryTopLevel( pstring str )
 		goto error;
 	}
 
-	if ( cgc_strcmp( temp_name, "Territory" ) != 0 ) {
-		deallocate(temp_name, cgc_strlen(temp_name) + 1 );
+	if ( strcmp( temp_name, "Territory" ) != 0 ) {
+		deallocate(temp_name, strlen(temp_name) + 1 );
 		goto error;
 	}
 
-	deallocate( temp_name, cgc_strlen(temp_name) + 1 );
+	deallocate( temp_name, strlen(temp_name) + 1 );
 
 	skipWhiteSpace( str );
 
@@ -536,9 +536,9 @@ error:
 		newTerritory = NULL;
 	}
 
-	str->cgc_index = lastGood;
+	str->index = lastGood;
 
-	printf("Error at: @s\n", str->buffer + str->cgc_index);
+	printf("Error at: @s\n", str->buffer + str->index);
 
 end:
 	return newTerritory;
@@ -592,13 +592,13 @@ char* extractFounder( pstring str )
 		return NULL;
 	}
 
-	if ( cgc_strcmp( temp, "Founder") != 0 ) {
-		deallocate( temp, cgc_strlen(temp) + 1 );
+	if ( strcmp( temp, "Founder") != 0 ) {
+		deallocate( temp, strlen(temp) + 1 );
 		return NULL;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -673,12 +673,12 @@ char* extractFounder( pstring str )
 	
 	temp = copyData( str, start, end );
 
-	if ( cgc_strcmp( temp, "Founder") != 0 ) {
-		deallocate(temp, cgc_strlen(temp)+1);
+	if ( strcmp( temp, "Founder") != 0 ) {
+		deallocate(temp, strlen(temp)+1);
 		goto error;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -696,7 +696,7 @@ char* extractFounder( pstring str )
 
 error:
 	if (founder != NULL) {
-		deallocate( founder, cgc_strlen(founder) + 1 );
+		deallocate( founder, strlen(founder) + 1 );
 		founder = NULL;
 	}
 
@@ -757,15 +757,15 @@ int extractEstablished( pstring str )
 	}
 
 	/// If the element id is not "Established" then this is the wrong function
-	if ( cgc_strcmp( temp, "Established") != 0 ) {
+	if ( strcmp( temp, "Established") != 0 ) {
 		printf("!!Element id is not \"Established\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return established;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -784,7 +784,7 @@ int extractEstablished( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
+	/// Copy the start index to store the data
 	getIndex( str, &es );
 
 	/// The established data must be an integer
@@ -835,12 +835,12 @@ int extractEstablished( pstring str )
 	
 	temp = copyData( str, start, end );
 
-	if ( cgc_strcmp( temp, "Established") != 0 ) {
-		deallocate(temp, cgc_strlen(temp)+1);
+	if ( strcmp( temp, "Established") != 0 ) {
+		deallocate(temp, strlen(temp)+1);
 		return established;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -863,7 +863,7 @@ int extractEstablished( pstring str )
 
 	established = atoi( temp );
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 
 	return established;
 

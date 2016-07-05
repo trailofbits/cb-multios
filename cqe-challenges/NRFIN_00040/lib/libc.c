@@ -23,7 +23,7 @@
 #include "libc.h"
 
 // VERBATIM from GREATVIEW
-void * cgc_memset(void *dst, char c, size_t n) {
+void * memset(void *dst, char c, size_t n) {
     size_t i;
     for (i=0; i<n; i++) {
         *((uint8_t*)dst+i) = c;
@@ -46,7 +46,7 @@ int uint2str32(char* str_buf, int buf_size, uint32_t i) {
 
     tmp = i;
 
-    // increment cgc_index in str_buf to where rightmost digit goes
+    // increment index in str_buf to where rightmost digit goes
     do {
         idx++;
         tmp = tmp/10;
@@ -295,7 +295,7 @@ int toupper(int c) {
    return c;
 }
 
-size_t cgc_strlen(const char *str) {
+size_t strlen(const char *str) {
    size_t res = 0;
    while (*str++) {res++;}
    return res;
@@ -1111,7 +1111,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = cgc_strlen(s_arg);
+                  int len = strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

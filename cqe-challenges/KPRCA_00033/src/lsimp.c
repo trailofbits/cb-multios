@@ -67,7 +67,7 @@ lsimp_msg_t* parse_msg(char *buf, unsigned int buf_len)
   msg = (lsimp_msg_t *)malloc(sizeof(lsimp_msg_t));
   if (msg == NULL)
     goto fail;
-  cgc_memset(msg, 0, sizeof(lsimp_msg_t));
+  memset(msg, 0, sizeof(lsimp_msg_t));
 
   while (buf_len >= 4)
   {
@@ -147,7 +147,7 @@ lsimp_msg_t* parse_msg(char *buf, unsigned int buf_len)
           msg->data.data = malloc(msg->data.data_len + 1);
           if (msg->data.data == NULL)
             goto fail;
-          cgc_memset(msg->data.data, 0, msg->data.data_len + 1);
+          memset(msg->data.data, 0, msg->data.data_len + 1);
           memmove(msg->data.data, pos, msg->data.data_len);
           pos += msg->data.data_len;
           buf_len -= msg->data.data_len;
@@ -168,7 +168,7 @@ lsimp_msg_t* parse_msg(char *buf, unsigned int buf_len)
           msg->text.msg = malloc(msg->text.msg_len + 1);
           if (msg->text.msg == NULL)
             goto fail;
-          cgc_memset(msg->text.msg, 0, msg->text.msg_len + 1);
+          memset(msg->text.msg, 0, msg->text.msg_len + 1);
           memmove(msg->text.msg, pos, msg->text.msg_len);
           pos += msg->text.msg_len;
           buf_len -= msg->text.msg_len;

@@ -47,7 +47,7 @@ class SampleShipGame(Actions):
             n = self.p2curship
             l = self.p2shiplife
 
-        self.cgc_write("P"+locchoices[row][col]+direction+str(c[n])+"\n")
+        self.write("P"+locchoices[row][col]+direction+str(c[n])+"\n")
         if (self.gameEnded) :
             self.read(delim='\n', expect="Game ended already. Try a new one\n")
             return
@@ -91,14 +91,14 @@ class SampleShipGame(Actions):
                 self.p2curship %= len(self.p2shipchoices)
         
     def setup_new(self):
-        self.cgc_write("N\n")
+        self.write("N\n")
 
     def setup_map(self):
         m = self.p1map
         if (self.curplayer == '2') :
             m = self.p2map
 
-        self.cgc_write("M\n")
+        self.write("M\n")
         if (self.gameEnded) :
             self.read(delim='\n', expect="Game ended already. Try a new one\n")
             return
@@ -109,19 +109,19 @@ class SampleShipGame(Actions):
             self.read(delim='\n', expect="   {:d}:\t".format(i) + "".join(m[i]) + "\n")
 
     def setup_help(self):
-        self.cgc_write("H\n")
+        self.write("H\n")
         self.read(delim='\n', expect="Sorry, I am not very helpful\n")
 
     def setup_unknown(self):
-        self.cgc_write(random.choice(unknownCommands) + "\n")
+        self.write(random.choice(unknownCommands) + "\n")
         self.read(delim='\n', expect="Bad Command - Try again\n")
 
     def setup_exit(self):
-        self.cgc_write("E\n")
+        self.write("E\n")
         self.read(delim='\n', expect="You are stuck...\n")
 
     def begin(self):
-        self.cgc_write("S\n")
+        self.write("S\n")
         if (self.gameEnded) :
             self.read(delim='\n', expect="Game ended already. Try a new one\n")
             return
@@ -141,7 +141,7 @@ class SampleShipGame(Actions):
             c = self.p1shipchoices
             l = self.p1shiplife
 
-        self.cgc_write("T"+locchoices[row][col] + "\n")
+        self.write("T"+locchoices[row][col] + "\n")
         if (self.gameEnded) :
             self.read(delim='\n', expect="Game ended already. Try a new one\n")
             return

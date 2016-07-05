@@ -110,7 +110,7 @@ int bomb_collisions(pixel_list_t *bombs, pixel_list_t *living_cells)
 
         coord_t *adj_cells = create_adjacent_coords(bombs->px.point);
         coord_t *bomb_cells = malloc(sizeof(coord_t) * 9);
-        cgc_memcpy(bomb_cells, adj_cells, sizeof(coord_t) * 8);
+        memcpy(bomb_cells, adj_cells, sizeof(coord_t) * 8);
         bomb_cells[8] = bombs->px.point;
         free(adj_cells);
 

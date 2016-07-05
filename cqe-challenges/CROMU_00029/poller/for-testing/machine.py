@@ -114,26 +114,26 @@ class MyClass(Actions):
 		# set the thermal conductivities
 		self.read(delim='\n', expect='Enter the thermal conductivities in W/(m*K) for your material at the following temperatures (Celcius):\n')
 		rnd = random.uniform(1.0,1000.0);
-		cgc_index = 0
+		index = 0
 		for temp in temps:
 			self.read(delim=': ', expect=temp+': ')
 			rnd = rnd * random.uniform(.75,1.25)
 			rnd_text = "%0.5f" % rnd
-			self.cgc_write(rnd_text+'\n')
-			self.Sim.SetTC(cgc_index, rnd_text)
-			cgc_index += 1
+			self.write(rnd_text+'\n')
+			self.Sim.SetTC(index, rnd_text)
+			index += 1
 
 		# set the heat capacities
 		self.read(delim='\n', expect='Enter the heat capacity in J/(m^3*K) for your material when it is at the following temperatures (Celcius):\n')
 		rnd = random.uniform(1.0,2000000.0);
-		cgc_index = 0
+		index = 0
 		for temp in temps:
 			self.read(delim=': ', expect=temp+': ')
 			rnd = rnd * random.uniform(.75,1.25)
 			rnd_text = "%0.5f" % rnd
-			self.cgc_write(rnd_text+'\n')
-			self.Sim.SetHC(cgc_index, rnd_text)
-			cgc_index += 1
+			self.write(rnd_text+'\n')
+			self.Sim.SetHC(index, rnd_text)
+			index += 1
 
 
 	def InitMaterial(self):
@@ -145,7 +145,7 @@ class MyClass(Actions):
 		self.read(delim=': ', expect='Selection: ')
 
 		material = random.randint(1,4)
-		self.cgc_write("%d\n" % material)
+		self.write("%d\n" % material)
 		if (material == 1):
 			self.Sim.InitAir();
 		elif (material == 2):
@@ -160,17 +160,17 @@ class MyClass(Actions):
 		X = random.randint(1,15)
 		Y = random.randint(1,15)
 		Z = random.randint(1,15)
-		self.cgc_write('%d,%d,%d\n' % (X,Y,Z))
+		self.write('%d,%d,%d\n' % (X,Y,Z))
 		self.Sim.SetDimensions(X,Y,Z)
 
 		# set up temperature grid
 		self.read(delim=': ', expect='Should the material be isothermic? (y,n): ')
 		if (random.randint(0,1) == 1):
 			# isothermic
-			self.cgc_write('y\n')
+			self.write('y\n')
 			self.read(delim=': ', expect='  What temperature? (-173.15000 - 373.00000 degrees C): ')
 			temp = random.uniform(-173.15, 373.00)
-			self.cgc_write("%0.5f\n" % temp)
+			self.write("%0.5f\n" % temp)
 			for z in range(0, Z):
 				for y in range(0, Y):
 					for x in range(0, X):
@@ -178,7 +178,7 @@ class MyClass(Actions):
 						self.Sim.SetTemp(x, y, z, temp_text)
 		else:
 			# not isothermic 
-			self.cgc_write('n\n')
+			self.write('n\n')
 
 			# manually defined
 			self.read(delim='\n', expect='  Send the grid temperatures as a comma separated list of Celcius decimal values.\n')
@@ -187,18 +187,18 @@ class MyClass(Actions):
 				for y in range(0, Y):
 					for x in range(0, X):
 						temp = random.uniform(-173.15, 373.00)
-						self.cgc_write('%0.5f' % temp)
+						self.write('%0.5f' % temp)
 						if (z != Z-1 or y != Y-1 or x != X-1):
-							self.cgc_write(',')
+							self.write(',')
 						temp_text = "%0.5f" % temp
 						self.Sim.SetTemp(x, y, z, temp_text)
-			self.cgc_write('\n')
+			self.write('\n')
 		
 		# setup energy sources
 		self.read(delim=': ', expect='Are there any constant energy sources in the room? (y,n): ')
 		if (random.randint(0,1) == 1):
 			# there are energy sources
-			self.cgc_write('y\n')
+			self.write('y\n')
 			self.read(delim='\n', expect='  Send the heat sources as temperatures in a comma separated list of Celcius decimal values.\n')
 			self.read(delim='\n', expect='  The program will populate the X, then Y, then Z dimensions of the room.\n')
 			self.read(delim='\n', expect="  Send -174.00000 for any grid location which doesn't have a heat source.\n")
@@ -208,22 +208,22 @@ class MyClass(Actions):
 						if (random.randint(0,10) == 0):
 							# this cell has a source
 							temp = random.uniform(-173.15, 373.00)
-							self.cgc_write('%0.5f' % temp)
+							self.write('%0.5f' % temp)
 							if (z != Z-1 or y != Y-1 or x != X-1):
-								self.cgc_write(',')
+								self.write(',')
 							temp_text = "%0.5f" % temp
 							self.Sim.SetHeat(x, y, z, temp_text)
 						else:
 							# no source
-							self.cgc_write('-174.0000')
+							self.write('-174.0000')
 							if (z != Z-1 or y != Y-1 or x != X-1):
-								self.cgc_write(',')
+								self.write(',')
 							temp_text = "%0.5f" % (-174.00000)
 							self.Sim.SetHeat(x, y, z, temp_text)
-			self.cgc_write('\n')
+			self.write('\n')
 		else:
 			# no energy sources
-			self.cgc_write('n\n')
+			self.write('n\n')
 			temp_text = "%0.5f" % (-174.00000)
 			for z in range(0, Z):
 				for y in range(0, Y):
@@ -233,9 +233,9 @@ class MyClass(Actions):
 		# setup simulation length
 		self.Sim.CalcTimeStep()
 		self.read(delim=': ', expect='For how long would you like to run the simulation? (s): ')
-		# run for somewhere between 1 and 25 cgc_rounds of calculations
+		# run for somewhere between 1 and 25 rounds of calculations
 		simlength = random.uniform(1.0,25.0)*self.Sim.TimeStep.value
-		self.cgc_write("%0.5f\n" % simlength)
+		self.write("%0.5f\n" % simlength)
 		self.Sim.SetSimLength(simlength)
 
 	def ReadGraphTemps2(self):
@@ -280,7 +280,7 @@ class MyClass(Actions):
 
 		self.ReadGraphTemps2()
 		self.read(delim='\n', expect='At 0.00000 seconds\n')
-		self.cgc_write('\n')
+		self.write('\n')
 
 		CurrTime = ct.c_double(0.0)
 		while CurrTime.value < self.Sim.SIM_TIME:
@@ -288,4 +288,4 @@ class MyClass(Actions):
 			self.Sim.IncrementTimestep(ct.pointer(CurrTime))
 			self.ReadGraphTemps2()
 			self.read(delim='\n', expect='At %0.5f seconds\n' % CurrTime.value)
-			self.cgc_write('\n')
+			self.write('\n')

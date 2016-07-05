@@ -24,10 +24,10 @@ static int verify_choice(char **valid_choices, char *choice, size_t num_elements
     size_t i;
     for (i = 0; i < num_elements; i++) {
 #ifdef PATCHED
-        if (cgc_strlen(valid_choices[i]) == cgc_strlen(choice) &&
-                memcmp(valid_choices[i], choice, cgc_strlen(valid_choices[i])) == 0)
+        if (strlen(valid_choices[i]) == strlen(choice) &&
+                memcmp(valid_choices[i], choice, strlen(valid_choices[i])) == 0)
 #else
-        if (memcmp(valid_choices[i], choice, cgc_strlen(valid_choices[i])) == 0)
+        if (memcmp(valid_choices[i], choice, strlen(valid_choices[i])) == 0)
 #endif
             return 0;
     }
@@ -57,7 +57,7 @@ int verify_education(char *str, size_t size) {
 }
 
 int verify_month(char *str, size_t size) {
-    int len = cgc_strlen(str) + 1;
+    int len = strlen(str) + 1;
     if (len != size)
         return -1;
 
@@ -70,7 +70,7 @@ int verify_month(char *str, size_t size) {
 }
 
 int verify_day(char *str, size_t size) {
-    int len = cgc_strlen(str) + 1;
+    int len = strlen(str) + 1;
     if (len != size)
         return -1;
 
@@ -82,7 +82,7 @@ int verify_day(char *str, size_t size) {
 }
 
 int verify_year(char *str, size_t size) {
-    int len = cgc_strlen(str) + 1;
+    int len = strlen(str) + 1;
     if (len != size)
         return -1;
 
@@ -94,7 +94,7 @@ int verify_year(char *str, size_t size) {
 }
 
 int verify_height_feet(char *str, size_t size) {
-    int len = cgc_strlen(str) + 1;
+    int len = strlen(str) + 1;
     if (len > size)
         return -1;
 
@@ -106,7 +106,7 @@ int verify_height_feet(char *str, size_t size) {
 }
 
 int verify_height_inches(char *str, size_t size) {
-    int len = cgc_strlen(str) + 1;
+    int len = strlen(str) + 1;
     if (len > size)
         return -1;
 
@@ -118,7 +118,7 @@ int verify_height_inches(char *str, size_t size) {
 }
 
 int verify_weight(char *str, size_t size) {
-    int len = cgc_strlen(str) + 1;
+    int len = strlen(str) + 1;
     if (len > size)
         return -1;
 
@@ -130,7 +130,7 @@ int verify_weight(char *str, size_t size) {
 }
 
 int verify_sex(char *str, size_t size) {
-    int len = cgc_strlen(str) + 1;
+    int len = strlen(str) + 1;
     if (len != size)
         return -1;
 
@@ -141,7 +141,7 @@ int verify_sex(char *str, size_t size) {
 }
 
 int verify_yes_no(char *str, size_t size) {
-    int len = cgc_strlen(str) + 1;
+    int len = strlen(str) + 1;
     if (len != size)
         return -1;
 
@@ -153,7 +153,7 @@ int verify_yes_no(char *str, size_t size) {
 
 int verify_name(char *str, size_t size)
 {
-    int i, len = cgc_strlen(str) + 1;
+    int i, len = strlen(str) + 1;
     if (len > size || len < 2)
         return -1;
     len--;
@@ -167,7 +167,7 @@ int verify_name(char *str, size_t size)
 
 int verify_street(char *str, size_t size)
 {
-    int i, len = cgc_strlen(str) + 1;
+    int i, len = strlen(str) + 1;
     if (len > size || len < 5)
         return -1;
     len--;
@@ -183,7 +183,7 @@ int verify_street(char *str, size_t size)
 
 int verify_city(char *str, size_t size)
 {
-    int i, len = cgc_strlen(str) + 1;
+    int i, len = strlen(str) + 1;
     if (len > size || len < 5)
         return -1;
     len--;
@@ -199,7 +199,7 @@ int verify_city(char *str, size_t size)
 
 int verify_zip_code(char *str, size_t size)
 {
-    int i, len = cgc_strlen(str) + 1;
+    int i, len = strlen(str) + 1;
     if (len != size)
         return -1;
     len--;
@@ -219,7 +219,7 @@ int verify_zip_code(char *str, size_t size)
 
 int verify_gpa(char *str, size_t size)
 {
-    int i, len = cgc_strlen(str) + 1;
+    int i, len = strlen(str) + 1;
     if (len > size)
         return -1;
     len--;
@@ -242,7 +242,7 @@ int verify_gpa(char *str, size_t size)
 
 int verify_email(char *str, size_t size)
 {
-    int i, len = cgc_strlen(str) + 1, at_count = 0;
+    int i, len = strlen(str) + 1, at_count = 0;
     if (len > size || len < 3)
         return -1;
     len--;
@@ -263,7 +263,7 @@ int verify_email(char *str, size_t size)
 
 int verify_phone(char *str, size_t size)
 {
-    int i, len = cgc_strlen(str) + 1, at_count = 0;
+    int i, len = strlen(str) + 1, at_count = 0;
     if (len != size)
         return -1;
     len--;
@@ -286,7 +286,7 @@ int verify_phone(char *str, size_t size)
 
 int verify_number(char *str, size_t size)
 {
-    int i, len = cgc_strlen(str) + 1;
+    int i, len = strlen(str) + 1;
     if (len > size)
         return -1;
     len--;
@@ -300,7 +300,7 @@ int verify_number(char *str, size_t size)
 
 int verify_text(char *str, size_t size)
 {
-    int i, len = cgc_strlen(str) + 1;
+    int i, len = strlen(str) + 1;
     if (len > size)
         return -1;
     len--;

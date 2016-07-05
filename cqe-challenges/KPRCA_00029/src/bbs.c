@@ -69,7 +69,7 @@ static void send_string(const char *str)
 #ifdef DEBUG
     fdprintf(STDERR, "%s\n", str);
 #endif
-    modem_output((void *)str, cgc_strlen(str));
+    modem_output((void *)str, strlen(str));
 }
 
 void bbs_help()
@@ -256,7 +256,7 @@ void handle_post(const char *str)
             if (t == NULL)
                 goto fail;
 
-            cgc_strcpy(t->topic, g_state.post.topic);
+            strcpy(t->topic, g_state.post.topic);
             t->id = g_next_id++;
             t->next = g_threads;
             t->messages = NULL;
@@ -267,7 +267,7 @@ void handle_post(const char *str)
         if (m)
         {
             m->id = g_next_id++;
-            cgc_strcpy(m->topic, g_state.post.topic);
+            strcpy(m->topic, g_state.post.topic);
             m->body = strdup(str);
             if (m->body == NULL)
                 goto fail;
@@ -346,10 +346,10 @@ void bbs_rx(const uint8_t *data, size_t count)
         count = sizeof(str)-1;
 #endif
 
-    cgc_memcpy(str, data, count);
+    memcpy(str, data, count);
     str[count] = 0; // make sure string is NULL-terminated
 
-    if (cgc_strlen(str) == 0)
+    if (strlen(str) == 0)
         return;
 
 #ifdef DEBUG

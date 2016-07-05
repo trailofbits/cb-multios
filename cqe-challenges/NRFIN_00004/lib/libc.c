@@ -91,7 +91,7 @@ int recvline(int fd, char *buf, size_t size) {
 }
 
 //non-standard convention, returns num bytes copied instead of s1
-size_t cgc_strcpy(char *s1, char *s2) {
+size_t strcpy(char *s1, char *s2) {
     char *tmp = s1;
     while(*s2){
         *tmp = *s2;
@@ -114,14 +114,14 @@ size_t strncpy(char *s1, char *s2, size_t n) {
     return tmp-s1;
 }
 
-char * cgc_strcat(char *s1, char *s2) {
+char * strcat(char *s1, char *s2) {
     char *tmp = s1;
     while(*tmp) tmp++;
-    cgc_strcpy(tmp,s2);
+    strcpy(tmp,s2);
     return s1;
 }
 
-size_t cgc_strlen(char *s){
+size_t strlen(char *s){
     char *tmp = s;
     while(*tmp) tmp++;
     return (size_t)(tmp-s);

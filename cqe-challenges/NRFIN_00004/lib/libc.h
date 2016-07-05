@@ -26,10 +26,10 @@
 int sendall(int fd, const char *buf, size_t size);
 int sendline(int fd, const char *buf, size_t size);
 int recvline(int fd, char *buf, size_t size);
-size_t cgc_strcpy(char *s1, char *s2);
+size_t strcpy(char *s1, char *s2);
 size_t strncpy(char *s1, char *s2, size_t n);
-char * cgc_strcat(char *s1, char *s2);
-size_t cgc_strlen(char *s);
+char * strcat(char *s1, char *s2);
+size_t strlen(char *s);
 int streq(char *s1, char *s2);
 int startswith(char *s1, char *s2);
 

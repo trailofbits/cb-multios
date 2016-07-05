@@ -242,13 +242,13 @@ class DDAPSimulator(Actions):
 
 
         if ( len( self.db_items ) < MAX_DDAP_RECORDS ):
-            item_cgc_index = len( self.db_items )
+            item_index = len( self.db_items )
 
             # Add item
             self.db_items.append( DDAPRecord( firstname_added, lastname_added, username_added, birthdate_added ) )
 
             # Read
-            record_add_string = "Data added, record %d\n" % item_cgc_index
+            record_add_string = "Data added, record %d\n" % item_index
             self.read( delim='\n', expect=record_add_string )
         else:
             # Record update failed
@@ -544,7 +544,7 @@ class DDAPSimulator(Actions):
     def search_by_name( self, element_type, operator_type, rval ):
 
         result_list = list()
-        cgc_index = 0
+        index = 0
         for cur_item in self.db_items:
 
             if ( element_type == 0 ):
@@ -569,16 +569,16 @@ class DDAPSimulator(Actions):
                     add_item = 1
 
             if ( add_item == 1 ):
-                result_list.append( cgc_index )
+                result_list.append( index )
 
-            cgc_index += 1
+            index += 1
 
         # Return result list
         return result_list
 
     def search_by_birthdate( self, operator_type, rval ):
         result_list = list()
-        cgc_index = 0
+        index = 0
         for cur_item in self.db_items:
 
             lval = cur_item.birthdate
@@ -600,9 +600,9 @@ class DDAPSimulator(Actions):
                     add_item = 1
 
             if ( add_item == 1 ):
-                result_list.append( cgc_index )
+                result_list.append( index )
 
-            cgc_index += 1
+            index += 1
 
         # Return result list
         return result_list

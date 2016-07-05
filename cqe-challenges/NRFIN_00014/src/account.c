@@ -238,7 +238,7 @@ txn_entry_t * open_txn(account_entry_t * ae, packet_head_t * ph){
 	le->p = malloc(sizeof(packet_head_t));
 	if(le->p == NULL)
 		return NULL;
-	cgc_memcpy(le->p, ph, sizeof(packet_head_t));
+	memcpy(le->p, ph, sizeof(packet_head_t));
 	
 	add_node(ae->txn_log, an);
 	return le;
@@ -296,7 +296,7 @@ txn_entry_t * add_transaction_log_entry(account_entry_t * ae,  pack_and_data_t *
 
 
 	// copy in original packet header and packet data ...
-	cgc_memcpy(le->p, (void *) ph, sizeof(packet_head_t));
+	memcpy(le->p, (void *) ph, sizeof(packet_head_t));
 
 	size_t data_sz = pad->pay_data_l;
 	le->data_sz = data_sz;
@@ -306,7 +306,7 @@ txn_entry_t * add_transaction_log_entry(account_entry_t * ae,  pack_and_data_t *
 		le->data = malloc(data_sz);
 		if(txn_data == NULL)
 			return NULL;
-		cgc_memcpy(le->data, txn_data, data_sz);	
+		memcpy(le->data, txn_data, data_sz);	
 	}
 	
 	return le;

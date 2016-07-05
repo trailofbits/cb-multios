@@ -65,8 +65,8 @@ Border *extractBorder( pstring str )
 	/// Skip any additional whitespace
 	skipWhiteSpace(str);
 
-	/// Save the cgc_index
-	start = str->cgc_index;
+	/// Save the index
+	start = str->index;
 
 	/// This should skip any to either whitespace or a closing '}'
 	end = skipAlpha( str );
@@ -90,15 +90,15 @@ Border *extractBorder( pstring str )
 	}
 
 	/// If the element id is not "Border" then this is the wrong function
-	if ( cgc_strcmp( temp, "Border") != 0 ) {
+	if ( strcmp( temp, "Border") != 0 ) {
 		printf("!!Element id is not \"Border\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		goto error;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -268,13 +268,13 @@ Border *extractBorder( pstring str )
 	}
 #endif
 
-	if ( cgc_strcmp( temp, "Border") != 0 ) {
+	if ( strcmp( temp, "Border") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		goto error;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -334,8 +334,8 @@ int extractPopulation( pstring str )
 	/// Skip any additional whitespace
 	skipWhiteSpace(str);
 
-	/// Save the cgc_index
-	start = str->cgc_index;
+	/// Save the index
+	start = str->index;
 
 	/// This should skip any to either whitespace or a closing '}'
 	end = skipAlpha( str );
@@ -354,15 +354,15 @@ int extractPopulation( pstring str )
 	}
 
 	/// If the element id is not "Population" then this is the wrong function
-	if ( cgc_strcmp( temp, "Population") != 0 ) {
+	if ( strcmp( temp, "Population") != 0 ) {
 		printf("!!Element id is not \"Population\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return -1;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -381,8 +381,8 @@ int extractPopulation( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
-	ps = str->cgc_index;
+	/// Copy the start index to store the data
+	ps = str->index;
 
 	/// The population data must be an integer
 	pe = skipInt( str );
@@ -438,13 +438,13 @@ int extractPopulation( pstring str )
 	}
 #endif 
 
-	if ( cgc_strcmp( temp, "Population") != 0 ) {
+	if ( strcmp( temp, "Population") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		return -1;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -467,7 +467,7 @@ int extractPopulation( pstring str )
 
 	pop = atoi( temp );
 
-	deallocate( temp, cgc_strlen(temp) + 1 );
+	deallocate( temp, strlen(temp) + 1 );
 
 	return pop;
 }
@@ -509,8 +509,8 @@ char *extractName( pstring str )
 	/// Skip any additional whitespace
 	skipWhiteSpace(str);
 
-	/// Save the cgc_index
-	start = str->cgc_index;
+	/// Save the index
+	start = str->index;
 
 	/// This should skip any to either whitespace or a closing '}'
 	end = skipAlpha( str );
@@ -535,15 +535,15 @@ char *extractName( pstring str )
 	}
 
 	/// If the element id is not "Name" then this is the wrong function
-	if ( cgc_strcmp( temp, "Name") != 0 ) {
+	if ( strcmp( temp, "Name") != 0 ) {
 		printf("!!Element id is not \"Name\"\n");
-		deallocate( temp, cgc_strlen(temp) + 1 );
+		deallocate( temp, strlen(temp) + 1 );
 		temp = NULL;
 		return NULL;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, cgc_strlen(temp) + 1);
+	deallocate(temp, strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -562,8 +562,8 @@ char *extractName( pstring str )
 
 	skipWhiteSpace( str );
 
-	/// Copy the start cgc_index to store the data
-	ns = str->cgc_index;
+	/// Copy the start index to store the data
+	ns = str->index;
 
 	/// The name data must be alphanumeric
 	ne = skipToNonAlphaNum( str );
@@ -619,13 +619,13 @@ char *extractName( pstring str )
 	}
 #endif
 
-	if ( cgc_strcmp( temp, "Name") != 0 ) {
+	if ( strcmp( temp, "Name") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, cgc_strlen(temp)+1);
+		deallocate(temp, strlen(temp)+1);
 		return NULL;
 	}
 
-	deallocate(temp, cgc_strlen(temp)+1);
+	deallocate(temp, strlen(temp)+1);
 
 	skipWhiteSpace( str );
 

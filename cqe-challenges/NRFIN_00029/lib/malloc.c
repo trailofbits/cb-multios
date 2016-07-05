@@ -258,7 +258,7 @@ calloc(size_t size)
 {
     void *ret = malloc(size);
     if (ret)
-        cgc_memset(ret, '\0', size);
+        memset(ret, '\0', size);
     return ret;
 }
 
@@ -276,7 +276,7 @@ realloc(void *ptr, size_t size)
         return ptr;
    
     ret = malloc(size);
-    cgc_memcpy(ret, ptr, MIN(size, orig_size));
+    memcpy(ret, ptr, MIN(size, orig_size));
     free(ptr);
 
     return ret;

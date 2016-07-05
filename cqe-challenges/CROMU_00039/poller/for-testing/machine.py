@@ -109,7 +109,7 @@ class MyClass(Actions):
 			pkt += chr(10)		# name_len
 			pkt += "system.nam"	# name
 
-		self.cgc_write(pkt)
+		self.write(pkt)
 
 		# process response
 		pkt = ''
@@ -143,7 +143,7 @@ class MyClass(Actions):
 		pkt += chr(len(name))
 		pkt += name
 	
-		self.cgc_write(pkt)
+		self.write(pkt)
 
 		if name in self.var:
 			# read back the expected packet response
@@ -207,7 +207,7 @@ class MyClass(Actions):
 	
 		# update the local copy of the var
 		self.var[name] = (objtype, newval)
-		self.cgc_write(pkt)
+		self.write(pkt)
 
 		# read back the expected packet response
 		if objtype == 1:

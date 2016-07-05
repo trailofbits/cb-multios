@@ -8,12 +8,12 @@ char* strdup(char *s)
   int sz = 0;
   if (s)
   {
-    sz = cgc_strlen(s) + 1;
+    sz = strlen(s) + 1;
     char *d = malloc(sz);
     if (d)
     {
-      cgc_memset(d, 0, sz);
-      cgc_memcpy(d, s, sz);
+      memset(d, 0, sz);
+      memcpy(d, s, sz);
       return d;
     }
   }

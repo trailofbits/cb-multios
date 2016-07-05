@@ -93,10 +93,10 @@ int selectRenderer( pimage_meta img )
 	image = img->data;
 	image_length = img->len;
 
-	cgc_memcpy( &magic, image, 4 );
+	memcpy( &magic, image, 4 );
 
 	if ( magic == FPAI_MAGIC ) {
-		cgc_memset( &fpai, 0, sizeof(tpai_image_data) );
+		memset( &fpai, 0, sizeof(tpai_image_data) );
 		fpai.buffer = image;
 		fpai.max = image_length;
 
@@ -104,7 +104,7 @@ int selectRenderer( pimage_meta img )
 			return 0;
 		}
 	} else if ( magic == 0x85eec724 ) { /// FPTI 
-		cgc_memset( &fpti, 0, sizeof(fpti_image_data) );
+		memset( &fpti, 0, sizeof(fpti_image_data) );
 		fpti.buffer = image;
 		fpti.max = image_length;
 
@@ -112,7 +112,7 @@ int selectRenderer( pimage_meta img )
 			return 0;
 		}
 	} else if ( magic == RPTI_MAGIC ) {
-		cgc_memset( &rpti, 0, sizeof(rpti_image_data) );
+		memset( &rpti, 0, sizeof(rpti_image_data) );
 		rpti.buffer = image;
 		rpti.max = image_length;
 
@@ -120,7 +120,7 @@ int selectRenderer( pimage_meta img )
 			return 0;
 		}
 	} else if ( magic == 0x76dfc4b0 ) { /// TBIR_MAGIC
-		cgc_memset( &tbir, 0, sizeof(tbir_image_data) );
+		memset( &tbir, 0, sizeof(tbir_image_data) );
 		tbir.buffer = image;
 		tbir.max = image_length;
 
@@ -128,7 +128,7 @@ int selectRenderer( pimage_meta img )
 			return 0;
 		}
 	} else if ( magic == 0x310f59cb ) { /// TPAI_MAGIC
-		cgc_memset( &tpai, 0, sizeof(tpai_image_data) );
+		memset( &tpai, 0, sizeof(tpai_image_data) );
 		tpai.buffer = image;
 		tpai.max = image_length;
 
@@ -181,7 +181,7 @@ int menu( void )
 					return 0;
 				}
 
-				cgc_memset( newimage, 0x00, sizeof(image_meta) );
+				memset( newimage, 0x00, sizeof(image_meta) );
 
 				/// Receive the name
 				printf("Image Name: ");
@@ -247,7 +247,7 @@ int menu( void )
 				prev = &root;
 
 				while ( newimage ) {
-					if ( cgc_strcmp( newimage->name, name) == 0 ) {
+					if ( strcmp( newimage->name, name) == 0 ) {
 						deallocate(newimage->data, newimage->len + 1);
 						prev->next = newimage->next;
 						deallocate(newimage, sizeof(image_meta));
@@ -270,7 +270,7 @@ int menu( void )
 				newimage = root.next;
 
 				while ( newimage ) {
-					if ( cgc_strcmp( newimage->name, name) == 0 ) {
+					if ( strcmp( newimage->name, name) == 0 ) {
 						break;
 					} else {
 						newimage = newimage->next;

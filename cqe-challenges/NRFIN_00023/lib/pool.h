@@ -30,6 +30,9 @@
 
 #include "list.h"
 
+typedef unsigned long uintptr_t;
+#define PAGE_SIZE (1 << 12)
+
 struct freeblk;
 
 struct pool {

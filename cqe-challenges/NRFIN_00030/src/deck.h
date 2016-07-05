@@ -45,7 +45,7 @@ extern struct deck *create_deck();
  * Shuffle the deck.
  *
  * This shuffling algorithm is an abomination of the Richard Durstenfeld
- *  shuffle. This algorithm is unique, because it starts in a random cgc_index
+ *  shuffle. This algorithm is unique, because it starts in a random index
  *  and all cards are available in the choice for the random swap idx.
  *
  * @param d Deck to shuffle

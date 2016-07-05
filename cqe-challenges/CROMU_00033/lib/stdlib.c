@@ -110,7 +110,7 @@ int toupper( int c )
         return c;
 }
 
-int cgc_strcmp( char *str1, char *str2 )
+int strcmp( char *str1, char *str2 )
 {
     size_t i;
 
@@ -137,7 +137,7 @@ int cgc_strcmp( char *str1, char *str2 )
 
 char *strncat( char *dest, char *src, size_t n )
 {
-	size_t i = cgc_strlen(dest);
+	size_t i = strlen(dest);
 	size_t j;
 
 	for (j = 0; i < n; i++, j++ )
@@ -151,9 +151,9 @@ char *strncat( char *dest, char *src, size_t n )
 	return (dest);
 }
 
-char *cgc_strcat( char *dest, char *src )
+char *strcat( char *dest, char *src )
 {
-	size_t i = cgc_strlen(dest);
+	size_t i = strlen(dest);
 	size_t j;
 
 	for (j = 0; ; i++, j++ )
@@ -182,7 +182,7 @@ char *strchr( char *src, char c )
 	return result;
 }
 
-char *cgc_strcpy( char *dest, char *src )
+char *strcpy( char *dest, char *src )
 {
     size_t i;
 
@@ -214,7 +214,7 @@ char *strncpy( char *dest, const char *src, size_t num )
     return (dest);
 }
 
-void *cgc_memcpy( void *dest, void *src, size_t numbytes )
+void *memcpy( void *dest, void *src, size_t numbytes )
 {
     size_t bytes_copied = 0;
     if ( numbytes >= 4 )
@@ -229,7 +229,7 @@ void *cgc_memcpy( void *dest, void *src, size_t numbytes )
     return dest;
 }
 
-void *cgc_memset( void *dest, int value, size_t numbytes )
+void *memset( void *dest, int value, size_t numbytes )
 {
     size_t bytes_copied = 0;
     uint8_t byte_set_value = (uint8_t)value;
@@ -309,7 +309,7 @@ int atoi(const char* str)
     return (sign * integer_part);
 }
 
-size_t cgc_strlen( const char *str )
+size_t strlen( const char *str )
 {
     size_t length = 0;
 

@@ -33,7 +33,7 @@ int FindCode(char *s) {
     int i;
 
     for (i = 0; i < 91; i++) {
-      if (cgc_strcmp(l[i].code, s) == 0) {
+      if (strcmp(l[i].code, s) == 0) {
         return(i);
       }
     }
@@ -41,7 +41,7 @@ int FindCode(char *s) {
 }
 
 void InitLang(struct language *lp, char *old_code) {
-  int cgc_index;
+  int index;
   char new_code[MAX_CODE];
 
   // end of the tree
@@ -53,19 +53,19 @@ void InitLang(struct language *lp, char *old_code) {
   bzero(new_code, MAX_CODE);
   strncat(new_code, old_code, MAX_CODE);
   strncat(new_code, ".", MAX_CODE);
-  if ((cgc_index = FindCode(new_code)) == -1) {
+  if ((index = FindCode(new_code)) == -1) {
     return;
   }
-  lp->dit = &l[cgc_index];
-  InitLang(&l[cgc_index], new_code);
+  lp->dit = &l[index];
+  InitLang(&l[index], new_code);
 
   bzero(new_code, MAX_CODE);
   strncat(new_code, old_code, MAX_CODE);
   strncat(new_code, "-", MAX_CODE);
-  if ((cgc_index = FindCode(new_code)) == -1) {
+  if ((index = FindCode(new_code)) == -1) {
     return;
   }
-  lp->dah = &l[cgc_index];
-  InitLang(&l[cgc_index], new_code);
+  lp->dah = &l[index];
+  InitLang(&l[index], new_code);
 
 }

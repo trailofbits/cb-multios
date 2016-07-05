@@ -81,7 +81,7 @@ pBitStream readImageData( void )
 		return NULL;
 	}
 
-	cgc_memset( newData, 0, length );	
+	memset( newData, 0, length );	
 
 	bytes_read = receiveIt( newData, length );
 

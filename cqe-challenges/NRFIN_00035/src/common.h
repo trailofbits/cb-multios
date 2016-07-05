@@ -23,11 +23,11 @@
 #ifndef COMMON_H
 #define COMMON_H 1
 
-/* Number of seconds to sleep between each cgc_round */
+/* Number of seconds to sleep between each round */
 #define SLEEP_INT_SEC 0
 #define SLEEP_INT_USEC 577
 
-/* Units of H2O added to each tank in each cgc_round */
+/* Units of H2O added to each tank in each round */
 #define FILL_RATE 12
 
 /* Quantity of tanks */

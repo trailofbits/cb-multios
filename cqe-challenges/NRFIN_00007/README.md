@@ -33,10 +33,10 @@ typedef struct mixed_compound{
 The comoound_name char[] var, is off by 1 so the upper byte of the moles variable is acting as its null terminator. When the client manages to create a sample (by choosing the correct random seed, and rebuilding a smaller sample bloom filter) where moles > 2**24 then the following lines will segfault:
 
 (libmixology.c:225)
-size_t cpsz = cgc_strlen(mc->compound_name);
-cgc_memcpy(last_compound, mc->compound_name, cpsz);
+size_t cpsz = strlen(mc->compound_name);
+memcpy(last_compound, mc->compound_name, cpsz);
 
-This is because mc->compound_name is no longer null terminated and the last_compound is way too small for the size computed by cgc_strlen().
+This is because mc->compound_name is no longer null terminated and the last_compound is way too small for the size computed by strlen().
 
 
 ### Generic class of vulnerability

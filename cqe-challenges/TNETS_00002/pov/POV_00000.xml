@@ -1,0 +1,71 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+	<read echo="ascii">
+	  <delim>\x0a</delim>
+	  <match><data>ctors called...</data></match>
+	</read>
+
+	<read echo="ascii">
+	  <delim>\x0a</delim>
+	  <match><data>list init...</data></match>
+	</read>
+
+	<write echo="ascii"><data>-1583597904 create cat\n</data></write>
+
+	<read echo="no">
+	  <delim>\x0a</delim>
+	  <match><data>init..</data></match>
+	</read>
+
+	<write echo="ascii"><data>-1583597903 create hotdog\n</data></write>
+
+	<read echo="no">
+          <delim>\x0a</delim>
+          <match><data>init..</data></match>
+        </read>
+
+	<write echo="ascii">
+          <data>-1583597902 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>-1583597901 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>-1583597900 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>-1583597899 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>-1583597898 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>-1583597897 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>-1583597896 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii"><data>-1583597897 speak\n</data></write>
+
+	<read echo="no">
+          <delim>\x0a</delim>
+          <match><data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data>
+                 <data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data>
+                 <data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data>
+                 <data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data>
+                 <data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data>
+                 <data>AAAAAAAAAAAAAAAAAAA meows</data>
+          </match>
+        </read>
+    </replay>
+</pov>

@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <libcgc.h>
 #include "asan.h"
 
-void *cgc_memcpy(void *dst, void *src, unsigned int n) {
+void *memcpy(void *dst, void *src, unsigned int n) {
 	void *tmpDst;
 	void *tmpSrc;
 

@@ -76,7 +76,7 @@ route_mem_t **g_route_memory;
 static void print(const char *s)
 {
     size_t bytes;
-    transmit(STDOUT, s, cgc_strlen(s), &bytes);
+    transmit(STDOUT, s, strlen(s), &bytes);
 }
 
 static char *readline(const char *prompt)
@@ -234,7 +234,7 @@ static void prompt_edit_router(router_t *router)
         (router->ip >> 0) & 0xff);
 
     line = readline("Modify name? ");
-    if (line && cgc_strcmp(line, "y") == 0)
+    if (line && strcmp(line, "y") == 0)
     {
         line = readline("New name? ");
         if (line)
@@ -244,7 +244,7 @@ static void prompt_edit_router(router_t *router)
         }
     }
     line = readline("Modify IP? ");
-    if (line && cgc_strcmp(line, "y") == 0)
+    if (line && strcmp(line, "y") == 0)
     {
         unsigned int ip;
         line = readline("New IP? ");
@@ -290,7 +290,7 @@ static route_t *allocate_route()
     }
     route_t *route = &avail_mem->routes[avail_mem->free_head - 1];
     avail_mem->free_head = route->ip;
-    cgc_memset(route, 0, sizeof(route_t));
+    memset(route, 0, sizeof(route_t));
     return route;
 }
 
@@ -342,7 +342,7 @@ static void delete_route(route_t *route, route_t *parent)
 
     if (route->left && route->right)
     {
-        // keep this node acgc_round
+        // keep this node around
     }
     else if (route->left)
     {
@@ -373,7 +373,7 @@ static void delete_route(route_t *route, route_t *parent)
     }
     else
     {
-        // parent has a purpose, keep it acgc_round
+        // parent has a purpose, keep it around
         *slot = NULL;
         free_route(route);
     }
@@ -637,7 +637,7 @@ static void cmd_add_router(char *line)
     if (valid_router(router))
         goto bad_arguments;
 
-    cgc_memset(router, 0, sizeof(router_t));
+    memset(router, 0, sizeof(router_t));
     router->asn = asn;
     prompt_edit_router(router);
     return;
@@ -738,7 +738,7 @@ static void cmd_enable_mode(char *line)
     char *word = strsep(&line, " ");
     if (word == NULL)
         print("BAD ARGUMENTS\n");
-    else if (cgc_strcmp(word, ENABLE_PASSWORD) == 0)
+    else if (strcmp(word, ENABLE_PASSWORD) == 0)
         g_enable = 1;
     else
         print("BAD PASSWORD\n");
@@ -756,28 +756,28 @@ int main()
         char *word = strsep(&line, " ");
         if (g_enable == 0)
         {
-            if (cgc_strcmp(word, "add") == 0)
+            if (strcmp(word, "add") == 0)
                 cmd_add_route(line);
-            if (cgc_strcmp(word, "delete") == 0)
+            if (strcmp(word, "delete") == 0)
                 cmd_delete_route(line);
-            if (cgc_strcmp(word, "query") == 0)
+            if (strcmp(word, "query") == 0)
                 cmd_query_route(line);
-            if (cgc_strcmp(word, "enable") == 0)
+            if (strcmp(word, "enable") == 0)
                 cmd_enable_mode(line);
-            if (cgc_strcmp(word, "quit") == 0)
+            if (strcmp(word, "quit") == 0)
                 break;
         }
         else
         {
-            if (cgc_strcmp(word, "add") == 0)
+            if (strcmp(word, "add") == 0)
                 cmd_add_router(line);
-            if (cgc_strcmp(word, "delete") == 0)
+            if (strcmp(word, "delete") == 0)
                 cmd_delete_router(line);
-            if (cgc_strcmp(word, "edit") == 0)
+            if (strcmp(word, "edit") == 0)
                 cmd_edit_router(line);
-            if (cgc_strcmp(word, "list") == 0)
+            if (strcmp(word, "list") == 0)
                 cmd_list_router(line);
-            if (cgc_strcmp(word, "quit") == 0)
+            if (strcmp(word, "quit") == 0)
                 g_enable = 0;
         }
     }

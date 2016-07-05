@@ -63,7 +63,7 @@ int main(void) {
         if (args[0][0]=='a' && arg_count==2 ) {
 
             // if the string to add is less than 10 chars, ignore the add command
-            if (cgc_strlen(args[1]) < 10) {
+            if (strlen(args[1]) < 10) {
 
                 free(args);
                 continue;

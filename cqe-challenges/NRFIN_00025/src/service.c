@@ -25,7 +25,7 @@
 /* 	The FRAG Protocol:
 	---------------------------------------------------------------------------
 
-	Backgcgc_round:
+	Background:
 	----------
 	The point of this CB isn't to test understanding of a complex fragmentation 
 	routine, but rather test reasoning about excessive stack consumption and 
@@ -71,33 +71,33 @@
 	--------
 	example0 (no fragment):
 	0AAA AAAA | 0BBB BBBB | 0CCC CCCC | ...
-	- 0AAA AAAA: not fragmented, ct[ct_cgc_index++] = 0AAA AAAA; rx_cgc_index++
-	- 0BBB BBBB: not fragmented, ct[ct_cgc_index++] = 0BBB BBBB; rx_cgc_index++
-	- 0CCC CCCC: not fragmented, ct[ct_cgc_index++] = 0CCC CCCC; rx_cgc_index++ 
+	- 0AAA AAAA: not fragmented, ct[ct_index++] = 0AAA AAAA; rx_index++
+	- 0BBB BBBB: not fragmented, ct[ct_index++] = 0BBB BBBB; rx_index++
+	- 0CCC CCCC: not fragmented, ct[ct_index++] = 0CCC CCCC; rx_index++ 
 	end ct[] = 0AAA AAAA 0BBB BBBB 0CCC CCCC ...
 
 	example1 (empty fragment):
 	1000 0000 | 0AAA AAAA | 0BBB BBBB | ...
 	- 1000 0000: 0 frags, recurse defrag(0)
 		(return from defrag)
-	- 0AAA AAAA: not fragmented, ct[ct_cgc_index++] = 0AAA AAAA; rx_cgc_index++
-	- 0BBB BBBB: not fragmented, ct[ct_cgc_index++] = 0BBB BBBB; rx_cgc_index++
+	- 0AAA AAAA: not fragmented, ct[ct_index++] = 0AAA AAAA; rx_index++
+	- 0BBB BBBB: not fragmented, ct[ct_index++] = 0BBB BBBB; rx_index++
 	end ct[] = 0AAA AAAA 0BBB BBBB ...
 
 	example2 (single fragment):
 	1000 0001 | 0AAA AAAA | 0BBB BBBB | ...
 	- 1000 0001: 1 frags, recurse degrag(1)
-		1) 0AAA AAAA: not fragmented ct[ct_cgc_index++] = 0AAA AAAA; rx_cgc_index++
+		1) 0AAA AAAA: not fragmented ct[ct_index++] = 0AAA AAAA; rx_index++
 		(return from defrag)
-	- 0BBB BBBB: not fragmented, ct[ct_cgc_index++] = 0BBB BBBB; rx_cgc_index++
+	- 0BBB BBBB: not fragmented, ct[ct_index++] = 0BBB BBBB; rx_index++
 	end ct[] = 0AAA AAAA 0BBB BBBB ...
 
 	example3 (breadth fragment):
 	1000 0011 | 0AAA AAAA | 0BBB BBBB | 0CCC CCCC | ...
 	- 1000 0011: 3 frags, recurse into defrag(3)
-		1) 0AAA AAAA: not fragmented, ct[ct_cgc_index++] = 0AAA AAAA; rx_cgc_index++
-		2) 0BBB BBBB: not fragmented, ct[ct_cgc_index++] = 0BBB BBBB; rx_cgc_index++
-		3) 0CCC CCCC: not fragmented, ct[ct_cgc_index++] = 0CCC CCCC; rx_cgc_index++
+		1) 0AAA AAAA: not fragmented, ct[ct_index++] = 0AAA AAAA; rx_index++
+		2) 0BBB BBBB: not fragmented, ct[ct_index++] = 0BBB BBBB; rx_index++
+		3) 0CCC CCCC: not fragmented, ct[ct_index++] = 0CCC CCCC; rx_index++
 		(return from defrag)
 	end ct[]: 0AAA AAAA 0BBB BBBB 0CCC CCCC ...
 
@@ -105,19 +105,19 @@
 	1000 0010 | 1000 0001 | 0AAA AAAA | 0BBB BBBB
 	- 1000 0010: 2 frags, recurse into defrag(2)
 		1) 1000 0001: 1 frags, recurse into defrag(1) 
-			1) 0AAA AAAA: not fragmented, append 0AAA AAAA to ct[]; rx_cgc_index++
+			1) 0AAA AAAA: not fragmented, append 0AAA AAAA to ct[]; rx_index++
 			(return from defrag)
-		2) 0BBB BBBB: not fragmented, append 0BBB BBBB to ct[]; rx_cgc_index++
+		2) 0BBB BBBB: not fragmented, append 0BBB BBBB to ct[]; rx_index++
 		(return from defrag)
 	end ct[] = 0AAA AAAA 0BBB BBBB ...
 
 	example5 (nested, more complex):
 	1000 0010 | 0AAA AAAA | 1000 0001 | 1000 0001 | 0BBB BBBB
 	- 1000 0010: 2 frags, recurse into defrag(2)
-		1) 0AAA AAAA: not fragmented; append 0AAA AAAA to ct[]; rx_cgc_index++
+		1) 0AAA AAAA: not fragmented; append 0AAA AAAA to ct[]; rx_index++
 		2) 1000 0001: 1 frags, recurse defrag(1)
 			1) 1000 0001: 1 frags, recurse defrag(1)
-				1) 0BBB BBBB: not fragmented, append 0BBB BBBB to ct[]; rx_cgc_index++
+				1) 0BBB BBBB: not fragmented, append 0BBB BBBB to ct[]; rx_index++
 				(return from defrag)
 			(return from defrag)
 		(return from defrag)
@@ -174,15 +174,15 @@ int defrag(size_t fragments) {
 
 #ifdef DEBUG
     fprintf(stderr, 
-    	"[D] ENTER: defrag(%03d) | (depth, esp) = (%03d, 0x%08x) | rx_cgc_index = %03d; ct_cgc_index = %03d\n", 
-    	fragments, depth, esp, rx_cgc_index, ct_cgc_index);
+    	"[D] ENTER: defrag(%03d) | (depth, esp) = (%03d, 0x%08x) | rx_index = %03d; ct_index = %03d\n", 
+    	fragments, depth, esp, rx_index, ct_index);
 #endif
 
     // Loop over fragments.
     for (i = 0; i < fragments; i++) {
 
     	// Bail if we're about to go off the end of the RX buffer.
-		if (BUF_RX_SZ <= rx_cgc_index) {
+		if (BUF_RX_SZ <= rx_index) {
 #ifdef DEBUG
 	    	fprintf(stderr, 
 	    		"[D] defrag(%03d) | exhausted RX_BUF; bailing...\n", 
@@ -192,8 +192,8 @@ int defrag(size_t fragments) {
 			goto bail_defrag;
 		}
 
-    	byte = rx_buf[rx_cgc_index];
-    	rx_cgc_index++;
+    	byte = rx_buf[rx_index];
+    	rx_index++;
 
 		if (IS_FRAGMENTED(byte)) {
 
@@ -206,19 +206,19 @@ int defrag(size_t fragments) {
 		} else {	
 
 			// If it's not fragmented, we append the byte to ct[].
-			ct[ct_cgc_index] = byte;
+			ct[ct_index] = byte;
 
 #ifdef DEBUG
 		    fprintf(stderr, 
 		    	"[D] defrag(%03d) | not fragged; (before XOR) ct[%03d] = 0x%02x\n", 
-		    	fragments, ct_cgc_index, byte);
+		    	fragments, ct_index, byte);
 #endif
 
-		    ct_cgc_index++;
+		    ct_index++;
 			
-			// NOTE: We don't need to check ct_cgc_index bounds so long as 
-			// sizeof(ct) == sizeof(rx_buf) because ct_cgc_index is incremented a 
-			// subset of the times rx_cgc_index is incremented.  
+			// NOTE: We don't need to check ct_index bounds so long as 
+			// sizeof(ct) == sizeof(rx_buf) because ct_index is incremented a 
+			// subset of the times rx_index is incremented.  
 			// Revisit this if this assumption changes.
     	}
 
@@ -252,7 +252,6 @@ int main(void) {
 
 	// From the README, we store a pointer to the OTP at a low stack address.
 	void *ppotp = (void *)(STACK_LIMIT + 0x10000);
-
 	unsigned char *potp = otp;
 	((void **)ppotp)[0] = potp;
 	// Henceforth, when we reference OTP, we do so via a double-dereference 
@@ -266,7 +265,7 @@ int main(void) {
     	////
 
         rx_bytes = 0;
-        cgc_memset(rx_buf, 0, BUF_RX_SZ);
+        memset(rx_buf, 0, BUF_RX_SZ);
         if (SUCCESS != (ret = receive_all(STDIN, (void *)&rx_buf, BUF_RX_SZ, &rx_bytes))) { 
 #ifdef DEBUG
             fprintf(stderr, "[E] main | failed pkt receive\n");
@@ -387,13 +386,13 @@ int main(void) {
         	// STATE_OTP simply copies buffer into OTP, advances to STATE_MSG.
         	case STATE_OTP:
 
-	            cgc_memcpy(((unsigned char **)ppotp)[0], rx_buf, sizeof(otp));
+	            memcpy(((unsigned char **)ppotp)[0], rx_buf, sizeof(otp));
 	            state = STATE_MSG;
 	            expected_rx_bytes = MSG_SZ;
 
 #ifdef DEBUG
 	            fprintf(stderr, 
-	            	"[D] main | STATE_OTP: cgc_memcpy()ed into OTP; advanced to STATE_MSG\n");
+	            	"[D] main | STATE_OTP: memcpy()ed into OTP; advanced to STATE_MSG\n");
 #endif 
 
 				if (SUCCESS != (ret = transmit_all(STDOUT, &PKT_OTP_ACK, sizeof(PKT_OTP_ACK)-1, NULL))) { 
@@ -453,9 +452,9 @@ int main(void) {
 
         		// Okay, so we have a packet that is neither CONNTERM nor ERROR.
         		// We actually have to handle this one.
-	        	rx_cgc_index = 0;
-	        	ct_cgc_index = 0;
-	        	cgc_memset(ct, 0, sizeof(ct));
+	        	rx_index = 0;
+	        	ct_index = 0;
+	        	memset(ct, 0, sizeof(ct));
 	        	// Base condition: entire message is treated as fragments.
 	        	defrag(BUF_RX_SZ); 
 
@@ -464,12 +463,12 @@ int main(void) {
 	        	// algorithmic reduction can be found at the top of this file.
 
 	        	// Once they're dropped, we need to XOR with OTP (looped over).
-	        	for (i = 0; i < ct_cgc_index; i++) {
+	        	for (i = 0; i < ct_index; i++) {
 	        		ct[i] = ct[i] ^ (((unsigned char **)ppotp)[0])[i % OTP_SZ];
 	        	}
 
 	        	tx_bytes = 0;
-	            if (SUCCESS != (ret = transmit_all(STDOUT, &ct, ct_cgc_index, &tx_bytes))) { 
+	            if (SUCCESS != (ret = transmit_all(STDOUT, &ct, ct_index, &tx_bytes))) { 
 #ifdef DEBUG
                     fprintf(stderr, "[E] main | failed transmitting response to MSG\n");
 #endif

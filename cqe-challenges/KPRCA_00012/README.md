@@ -58,7 +58,7 @@ Integer Overflow
 
 Stack-based Buffer Overflow (CWE-121)
 
-Integer Overflow or Wrapacgc_round (CWE-190)
+Integer Overflow or Wraparound (CWE-190)
 
 ## Challenges
 

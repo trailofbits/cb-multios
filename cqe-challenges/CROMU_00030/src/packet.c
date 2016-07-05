@@ -37,7 +37,7 @@ int populate_packet(Packet *pkt, char* data, int len)
 		return FAIL;
 	}
 
-	cgc_memcpy(pkt, data, len);
+	memcpy(pkt, data, len);
 
 	int content_len = pkt->length - '0';
 	if (content_len > MAX_CONTENT || content_len < 0)
@@ -207,9 +207,9 @@ int packet_handler(Packet* pkt)//, Game *game)
 						// stack is full. game over
 						tmp_pkt.type = DATA;
 						tmp_pkt.subtype = NXTPCE;
-						strncpy(tmp_pkt.content, t, cgc_strlen(t));
+						strncpy(tmp_pkt.content, t, strlen(t));
 
-						send_packet_new(&tmp_pkt, cgc_strlen(t));
+						send_packet_new(&tmp_pkt, strlen(t));
 						return SUCCESS;
 					}
 					else if (rtn == 22)
@@ -244,7 +244,7 @@ int packet_handler(Packet* pkt)//, Game *game)
 
 					tmp_pkt.type = DATA;
 					tmp_pkt.subtype = NXTPCE;
-					cgc_memcpy(tmp_pkt.content, ss, 9);
+					memcpy(tmp_pkt.content, ss, 9);
 					tmp_pkt.content[9] = '0';
 
 					encrypt_data(tmp_pkt.content, 10, current_encryption);
@@ -285,7 +285,7 @@ int packet_handler(Packet* pkt)//, Game *game)
 					// error, must get another piece first
 					tmp_pkt.type = DATA;
 					tmp_pkt.subtype = PLCPCE;
-					cgc_memcpy(tmp_pkt.content, ss, 6);
+					memcpy(tmp_pkt.content, ss, 6);
 
 					send_packet_new(&tmp_pkt, 6);
 					return SUCCESS;
@@ -294,19 +294,19 @@ int packet_handler(Packet* pkt)//, Game *game)
 				char sideA = pkt->content[1];
 				// pkt->content[2] is a colon
 				char sideB = pkt->content[4];
-				int cgc_indexA = get_piece(pkt->content[0] - '0');
-				if (cgc_indexA == -1)
+				int indexA = get_piece(pkt->content[0] - '0');
+				if (indexA == -1)
 				{
 					printf("Out of bounds piece requested A: @d vs @d...\n", pkt->content[0] - '0', game_stack.top_element);
 					return FAIL;
 				}
-				int cgc_indexB = get_piece(pkt->content[3] - '0');
-				if (cgc_indexB == -1)
+				int indexB = get_piece(pkt->content[3] - '0');
+				if (indexB == -1)
 				{
 					printf("Out of bounds piece requested B: @d vs @d...\n", pkt->content[3] - '0', game_stack.top_element);
 					return FAIL;
 				}
-				if (connect_pieces(&game_stack.stack[cgc_indexA], sideA - '0', &game_stack.stack[cgc_indexB], sideB - '0') == FAIL)
+				if (connect_pieces(&game_stack.stack[indexA], sideA - '0', &game_stack.stack[indexB], sideB - '0') == FAIL)
 				{
 					// failed to connect pieces
 					char *ss = "NO,ERROR";
@@ -314,7 +314,7 @@ int packet_handler(Packet* pkt)//, Game *game)
 					Packet tmp;
 					tmp.type = DATA;
 					tmp.subtype = PLCPCE;
-					cgc_memcpy(tmp.content, ss, 8);
+					memcpy(tmp.content, ss, 8);
 
 					send_packet_new(&tmp, 8);
 					return SUCCESS;
@@ -469,12 +469,12 @@ void send_auth_challenge(int enc)
 	Packet tmp;
 	tmp.type = MGMT;
 	tmp.subtype = AUTHCHALREQ;
-	cgc_memcpy(tmp.content, chall_val, 5);
+	memcpy(tmp.content, chall_val, 5);
 	
 	send_packet_new(&tmp, 5);
 
 	encrypt_data(chall_val, 5, enc);
-	cgc_memcpy(enc_chal.answer, chall_val, 5);
+	memcpy(enc_chal.answer, chall_val, 5);
 }
 
 int handle_auth_challenge_resp(char *answer)
@@ -630,7 +630,7 @@ int handle_deauth_req(char reason)
 // len is the number of characters being used in the content field
 void send_packet(Packet *pkt)
 {
-	cgc_write((char*)pkt, sizeof(Packet));
+	write((char*)pkt, sizeof(Packet));
 	printf("\n");
 }
 
@@ -654,7 +654,7 @@ void send_packet_new(Packet *pkt, int len)
 	pkt->length = len + '0';
 
 	set_checksum(pkt);
-	cgc_write((char*)pkt, sizeof(Packet));
+	write((char*)pkt, sizeof(Packet));
 	printf("\n");
 }
 
@@ -679,7 +679,7 @@ char get_checksum(Packet *pkt)
 }
 
 char *VALID_CHARS = "0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz";
-int LAST_CHAR_POS = 74; // zero-based last char cgc_index
+int LAST_CHAR_POS = 74; // zero-based last char index
 
 // return offset into VALID_CHARS for character C
 // return -1 if not found
@@ -704,8 +704,8 @@ int encrypt_data(char *data, int len, int type)
 		int i = 0;
 		for (int i = 0; i < len; i++)
 		{
-			int char_cgc_index = locate_char(data[i]);
-			if (char_cgc_index == -1)
+			int char_index = locate_char(data[i]);
+			if (char_index == -1)
 			{
 				// out of bounds character found
 				return 0;
@@ -713,17 +713,17 @@ int encrypt_data(char *data, int len, int type)
 
 			if (i %2 == 0)
 			{
-				// add the offset (wrap acgc_round)
-				char x = VALID_CHARS[(char_cgc_index + offset) % (LAST_CHAR_POS)];
+				// add the offset (wrap around)
+				char x = VALID_CHARS[(char_index + offset) % (LAST_CHAR_POS)];
 				data[i] = x;
 			}
 			else
 			{
-				// subtract the offset (wrap acgc_round)
-				signed char x = char_cgc_index - offset;
+				// subtract the offset (wrap around)
+				signed char x = char_index - offset;
 				if (x < 0)
 				{
-					x = LAST_CHAR_POS - (offset-char_cgc_index);
+					x = LAST_CHAR_POS - (offset-char_index);
 				}
 				data[i] = VALID_CHARS[x];
 			}
@@ -734,8 +734,8 @@ int encrypt_data(char *data, int len, int type)
 		int i = 0;
 		for (int i = 0; i < len; i++)
 		{
-			int char_cgc_index = locate_char(data[i]);
-			if (char_cgc_index == -1)
+			int char_index = locate_char(data[i]);
+			if (char_index == -1)
 			{
 				// out of bounds character found
 				return 0;
@@ -743,19 +743,19 @@ int encrypt_data(char *data, int len, int type)
 
 			if (i %2 == 0)
 			{
-				// subtract the offset (wrap acgc_round)
-				signed char x = char_cgc_index - offset;
+				// subtract the offset (wrap around)
+				signed char x = char_index - offset;
 				if (x < 0)
 				{
-					x = LAST_CHAR_POS - (offset-char_cgc_index);
+					x = LAST_CHAR_POS - (offset-char_index);
 				}
 				data[i] = VALID_CHARS[x];
 				
 			}
 			else
 			{
-				// add the offset (wrap acgc_round)
-				char x = VALID_CHARS[(char_cgc_index + offset) % (LAST_CHAR_POS)];
+				// add the offset (wrap around)
+				char x = VALID_CHARS[(char_index + offset) % (LAST_CHAR_POS)];
 				data[i] = x;
 			}
 		}
@@ -771,8 +771,8 @@ int decrypt_packet(char *data, int len, int type)
 		int i = 0;
 		for (int i = 0; i < len; i++)
 		{
-			int char_cgc_index = locate_char(data[i]);
-			if (char_cgc_index == -1)
+			int char_index = locate_char(data[i]);
+			if (char_index == -1)
 			{
 				// out of bounds character found
 				return 0;
@@ -780,18 +780,18 @@ int decrypt_packet(char *data, int len, int type)
 
 			if (i %2 == 0)
 			{
-				// subtract the offset (wrap acgc_round)
-				signed char x = char_cgc_index - offset;
+				// subtract the offset (wrap around)
+				signed char x = char_index - offset;
 				if (x < 0)
 				{
-					x = LAST_CHAR_POS - (offset-char_cgc_index);
+					x = LAST_CHAR_POS - (offset-char_index);
 				}
 				data[i] = VALID_CHARS[x];
 			}
 			else
 			{
-				// add the offset (wrap acgc_round)
-				char x = VALID_CHARS[(char_cgc_index + offset) % (LAST_CHAR_POS)];
+				// add the offset (wrap around)
+				char x = VALID_CHARS[(char_index + offset) % (LAST_CHAR_POS)];
 				data[i] = x;
 			}
 		}
@@ -802,8 +802,8 @@ int decrypt_packet(char *data, int len, int type)
 		int i = 0;
 		for (int i = 0; i < len; i++)
 		{
-			int char_cgc_index = locate_char(data[i]);
-			if (char_cgc_index == -1)
+			int char_index = locate_char(data[i]);
+			if (char_index == -1)
 			{
 				// out of bounds character found
 				return 0;
@@ -811,17 +811,17 @@ int decrypt_packet(char *data, int len, int type)
 
 			if (i %2 == 0)
 			{
-				// add the offset (wrap acgc_round)
-				char x = VALID_CHARS[(char_cgc_index + offset) % (LAST_CHAR_POS)];
+				// add the offset (wrap around)
+				char x = VALID_CHARS[(char_index + offset) % (LAST_CHAR_POS)];
 				data[i] = x;
 			}
 			else
 			{
-				// subtract the offset (wrap acgc_round)
-				signed char x = char_cgc_index - offset;
+				// subtract the offset (wrap around)
+				signed char x = char_index - offset;
 				if (x < 0)
 				{
-					x = LAST_CHAR_POS - (offset-char_cgc_index);
+					x = LAST_CHAR_POS - (offset-char_index);
 				}
 				data[i] = VALID_CHARS[x];
 			}

@@ -27,7 +27,7 @@ THE SOFTWARE.
 #define __MYMATH_H__
 
 double floor( double );
-double cgc_round( double, double n );
+double round( double, double n );
 int expi( int base, int exponent );
 
 #endif // __MYMATH_H__

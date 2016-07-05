@@ -21,7 +21,7 @@ datetypes such as time and object identifiers.
 This service's vulnerability lies in the `print_oid` function. This function
 parsers and prints the `OID` element type according to the format defined in
 the ASL6 protocol. The function both fails to do a required bounds check on the
-cgc_index into the array containing the OID data after it is updated and to correctly
+index into the array containing the OID data after it is updated and to correctly
 pass an upper bounds on a slice into the data to a corresponding helper function.
 These flaws in conjuction result in an out of bounds read.
 

@@ -126,24 +126,24 @@ void swap (Worker *workerA, Worker *workerB)
 
 }
 
-void permute(Worker* list, int start, int end, int* cgc_index, int stop)
+void permute(Worker* list, int start, int end, int* index, int stop)
 {
 	int j;
 	
-	if((*cgc_index) == stop)
+	if((*index) == stop)
 		return;
 
 	if(start == end)
 	{
-		(*cgc_index)++;
+		(*index)++;
 	}
 	else 
 	{
 		for(j = start; j <= end; j++)
 		{
 			swap(&list[start], &list[j]);
-			permute(list, start+1, end, cgc_index, stop);
-			if((*cgc_index) != stop)
+			permute(list, start+1, end, index, stop);
+			if((*index) != stop)
 				swap(&list[start], &list[j]);
 			else
 				break;
@@ -206,7 +206,7 @@ int main(void) {
 	Message* message = NULL;
 	Worker worker[4] = {0};
 	int i;
-	int cgc_index;
+	int index;
 	int ret;
 
 	ret = allocate(sizeof(Message), 0, (void **) &message);
@@ -220,9 +220,9 @@ int main(void) {
 	worker[2].processMessage = absoluteValueMap;
 	worker[3].processMessage = modulusCoordinatesWithDimensions;
 
-	cgc_index = 0; 
+	index = 0; 
 
-	permute(worker, 0, 3, &cgc_index, message->value[PERM_FIELD]);
+	permute(worker, 0, 3, &index, message->value[PERM_FIELD]);
 
 	while(1) {
 

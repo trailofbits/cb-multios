@@ -28,5 +28,5 @@ int send(const char *buf, const size_t size) {
         _terminate(ERRNO_SEND);
     }
 
-    return 0;
+    return SUCCESS;
 }

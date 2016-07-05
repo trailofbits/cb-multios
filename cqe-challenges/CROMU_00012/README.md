@@ -30,7 +30,7 @@ CWE-787: Out-of-bounds Write
 
 ## Challenges
 
-This service has a poor man's "address sanitization" built in.  All pointers are validated as pointing to within the stack address range or program .text address range.  Return addresses are further validated to be pointing into the program .text, and *returnaddress-5 == 0xe8, the 5 byte version of a call.  The validateRet function emits a cmp eax, 0xe8, which is 0x3de8000000, allowing a system to return to the cmp plus 1 byte, which gets interpreted as a call into an invalid address.  Strengthened versions of cgc_memcpy, and a handful of other string functions have been written to take advantage of this pointer validation.
+This service has a poor man's "address sanitization" built in.  All pointers are validated as pointing to within the stack address range or program .text address range.  Return addresses are further validated to be pointing into the program .text, and *returnaddress-5 == 0xe8, the 5 byte version of a call.  The validateRet function emits a cmp eax, 0xe8, which is 0x3de8000000, allowing a system to return to the cmp plus 1 byte, which gets interpreted as a call into an invalid address.  Strengthened versions of memcpy, and a handful of other string functions have been written to take advantage of this pointer validation.
 
 The implementation of address sanitization may cause problems for CRS which attempt to introduce defenses without doing analysis on the application.  If they attempt to introduce ASLR in the .text section, all function calls will fall outside of the validateRet() safeguards, and cause all calls to fail.  If they attempt to move the stack in a similar manner, validatePtr() will fail.  Removing these checks will make the poller fail.
 

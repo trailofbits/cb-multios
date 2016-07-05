@@ -557,15 +557,15 @@ int getChar(reg_t r)
   char c;
   size_t rx_bytes;
   int ret = 0;
-  cgc_fd_set fdsToWait;
-  struct cgc_timeval timeToWait;
+  fd_set fdsToWait;
+  struct timeval timeToWait;
   timeToWait.tv_sec = 1;
   timeToWait.tv_usec = 0;
   int readyfds = 0;
 
   FD_ZERO(&fdsToWait);
   FD_SET(0, &fdsToWait);
-  ret = cgc_fdwait(1, &fdsToWait, NULL, &timeToWait, &readyfds);
+  ret = fdwait(1, &fdsToWait, NULL, &timeToWait, &readyfds);
   if ( (ret != 0) || (readyfds != 1) )
   {
     return (-1);

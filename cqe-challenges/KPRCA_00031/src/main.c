@@ -61,8 +61,8 @@ int int_cmd(const char *s)
 
 int rev_cmd(const char *s)
 {
-  char *r = calloc(1, cgc_strlen(s) + 1);
-  cgc_strcpy(r, s);
+  char *r = calloc(1, strlen(s) + 1);
+  strcpy(r, s);
   if (!strchr(r, '\0'))
     return -1;
 
@@ -170,12 +170,12 @@ int is_command(const char *s, list *cmds)
   if (!s)
     return 0;
 
-  if (!cgc_strlen(s))
+  if (!strlen(s))
     return 0;
 
   for (list *it = cmds; it; it = it->n) {
     cmd *x = (cmd *)it->d;
-    if (!strncmp(s, x->keyword, cgc_strlen(x->keyword)))
+    if (!strncmp(s, x->keyword, strlen(x->keyword)))
       return 1;
   }
 
@@ -189,7 +189,7 @@ cmd *get_command(const char *s, list *cmds)
 
   for (list *it = cmds; it; it = it->n) {
     cmd *x = (cmd *)it->d;
-    if (!strncmp(s, x->keyword, cgc_strlen(x->keyword)))
+    if (!strncmp(s, x->keyword, strlen(x->keyword)))
       return x;
   }
 
@@ -200,7 +200,7 @@ int will_chat(unsigned n)
 {
   unsigned p;
   size_t wrote;
-  if (cgc_random(&p, sizeof(unsigned), &wrote) < 0)
+  if (random(&p, sizeof(unsigned), &wrote) < 0)
     return 0;
 
   if (wrote == sizeof(unsigned) && (p % 100) <= n)
@@ -231,7 +231,7 @@ list *follow_chain(list *word_list, size_t times)
     list *t = copy_list(l, 0, 0);
     msg = NULL;
     for (size_t nw = 0; nw < MAX_WORDS; nw++) {
-      const void *first_word = lcgc_index(t, 0);
+      const void *first_word = lindex(t, 0);
       append_list(&msg, first_word, 1);
 
       list *list_for_key = get_tree(ct, k);
@@ -300,7 +300,7 @@ int tick_common(const char *s, list *cmds, const char *botname, unsigned ctyn)
     if (strchr(s, ' '))
         s = strchr(s, ' ') + 1;
     else
-        s = s + cgc_strlen(c->keyword);
+        s = s + strlen(c->keyword);
 
     c->fp(s);
     return 0;
@@ -389,7 +389,7 @@ int main(void)
 
     print_prompt();
 
-    cgc_memset(buf, '\0', BUF_SIZE + 1);
+    memset(buf, '\0', BUF_SIZE + 1);
     if ((readline(1, buf, BUF_SIZE, &rx) < 0) || rx == (size_t)NULL) {
       free(buf);
       continue;

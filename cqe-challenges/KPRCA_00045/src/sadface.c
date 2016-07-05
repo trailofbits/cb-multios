@@ -78,7 +78,7 @@ int sadface_init(sadface_ctx_t **ctx, faces_t *faces, char *content, dict_t **va
       sctx->content = strdup(content);
       if (sctx->content == NULL)
         goto fail;
-      sctx->content_len = cgc_strlen(content);
+      sctx->content_len = strlen(content);
 
       sctx->idx = 0;
       sctx->vars = vars;
@@ -129,9 +129,9 @@ char* sadface_var2str(sad_var_t *var)
       case SAD_VAR_BOOL:
         b = var->value.b;
         if (b)
-          cgc_strcpy(ret, "true");
+          strcpy(ret, "true");
         else
-          cgc_strcpy(ret, "false");
+          strcpy(ret, "false");
         break;
       default:
         break;
@@ -147,12 +147,12 @@ int _find_sadface(sadface_ctx_t *ctx, size_t *sf_start, size_t *sf_end)
   start = strstr(ctx->content + ctx->idx, ctx->faces.open_face);
   if (start == NULL)
     return 0;
-  end = strstr(start + cgc_strlen(ctx->faces.open_face), ctx->faces.close_face);
+  end = strstr(start + strlen(ctx->faces.open_face), ctx->faces.close_face);
   if (end == NULL)
     return -1;
 
   *sf_start = start - ctx->content;
-  *sf_end = end - ctx->content + cgc_strlen(ctx->faces.close_face);
+  *sf_end = end - ctx->content + strlen(ctx->faces.close_face);
   return 1;
 }
 
@@ -166,7 +166,7 @@ sad_node_t* parse_sadface(sadface_ctx_t *ctx)
   root = (sad_node_t *) malloc(sizeof(sad_node_t));
   if (stack == NULL || root == NULL)
     goto fail;
-  cgc_memset(root, 0, sizeof(sad_node_t));
+  memset(root, 0, sizeof(sad_node_t));
   root->type = SAD_NODE_ROOT;
   stack_push(stack, root);
 
@@ -177,7 +177,7 @@ sad_node_t* parse_sadface(sadface_ctx_t *ctx)
       sad_node_t *node = (sad_node_t *) malloc(sizeof(sad_node_t));
       if (node == NULL)
         goto fail;
-      cgc_memset(node, 0, sizeof(sad_node_t));
+      memset(node, 0, sizeof(sad_node_t));
       node->type = SAD_NODE_NORMAL;
       node->next = NULL;
       node->idx = ctx->idx;
@@ -196,7 +196,7 @@ sad_node_t* parse_sadface(sadface_ctx_t *ctx)
       sad_node_t *node = (sad_node_t *) malloc(sizeof(sad_node_t));
       if (node == NULL)
         goto fail;
-      cgc_memset(node, 0, sizeof(sad_node_t));
+      memset(node, 0, sizeof(sad_node_t));
       node->type = SAD_NODE_NORMAL;
       node->next = NULL;
       node->idx = ctx->idx;
@@ -209,8 +209,8 @@ sad_node_t* parse_sadface(sadface_ctx_t *ctx)
       ctx->idx = start;
     }
 
-    size_t var_len = (end - start) - cgc_strlen(ctx->faces.open_face) - cgc_strlen(ctx->faces.close_face);
-    char *var_name = &ctx->content[start + cgc_strlen(ctx->faces.open_face)];
+    size_t var_len = (end - start) - strlen(ctx->faces.open_face) - strlen(ctx->faces.close_face);
+    char *var_name = &ctx->content[start + strlen(ctx->faces.open_face)];
 
     switch (var_name[0])
     {
@@ -223,12 +223,12 @@ sad_node_t* parse_sadface(sadface_ctx_t *ctx)
           section = (sad_node_t *) malloc(sizeof(sad_node_t));
           if (child == NULL || section == NULL)
             goto fail;
-          cgc_memset(child, 0, sizeof(sad_node_t));
+          memset(child, 0, sizeof(sad_node_t));
           child->type = SAD_NODE_ROOT;
-          cgc_memset(section, 0, sizeof(sad_node_t));
+          memset(section, 0, sizeof(sad_node_t));
           section->type = SAD_NODE_SECTION;
 
-          section->idx = start + cgc_strlen(ctx->faces.open_face) + 1;
+          section->idx = start + strlen(ctx->faces.open_face) + 1;
           section->len = var_len - 1;
           section->child = child;
 
@@ -270,14 +270,14 @@ sad_node_t* parse_sadface(sadface_ctx_t *ctx)
           tmp_name = calloc(var_len + 1, sizeof(char));
           if (tmp_name == NULL)
             goto fail;
-          cgc_memset(tmp_name, 0, var_len + 1);
-          idx = start + cgc_strlen(ctx->faces.open_face);
+          memset(tmp_name, 0, var_len + 1);
+          idx = start + strlen(ctx->faces.open_face);
           strncpy(tmp_name, &ctx->content[idx], var_len);
 
           variable = (sad_node_t *) malloc(sizeof(sad_node_t));
           if (variable == NULL)
             goto fail;
-          cgc_memset(variable, 0, sizeof(sad_node_t));
+          memset(variable, 0, sizeof(sad_node_t));
           variable->type = SAD_NODE_VAR;
 
           variable->idx = idx;
@@ -333,7 +333,7 @@ int sadface_render(sadface_ctx_t *ctx, char *out, size_t *out_len)
         if (total_len + cur->len > *out_len)
           goto fail;
 #endif
-        cgc_memcpy(&out[total_len], &ctx->content[cur->idx], cur->len);
+        memcpy(&out[total_len], &ctx->content[cur->idx], cur->len);
         total_len += cur->len;
         break;
       case SAD_NODE_VAR:
@@ -345,11 +345,11 @@ int sadface_render(sadface_ctx_t *ctx, char *out, size_t *out_len)
           if (var_s)
           {
 #if PATCHED
-            if (total_len + cgc_strlen(var_s) > *out_len)
+            if (total_len + strlen(var_s) > *out_len)
               goto fail;
 #endif
-            cgc_memcpy(&out[total_len], var_s, cgc_strlen(var_s));
-            total_len += cgc_strlen(var_s);
+            memcpy(&out[total_len], var_s, strlen(var_s));
+            total_len += strlen(var_s);
             if (var->type != SAD_VAR_STR)
               free(var_s);
           }
@@ -363,7 +363,7 @@ int sadface_render(sadface_ctx_t *ctx, char *out, size_t *out_len)
           tmp_name = calloc(cur->len + 1, sizeof(char));
           if (tmp_name == NULL)
             goto fail;
-          cgc_memset(tmp_name, 0, cur->len + 1);
+          memset(tmp_name, 0, cur->len + 1);
           strncpy(tmp_name, &ctx->content[cur->idx], cur->len);
           var = (sad_var_t *) dict_find(ctx->vars, tmp_name);
           free(tmp_name);

@@ -334,7 +334,7 @@ char* alnumspc_filter(char* input)
   if (!input)
     return NULL;
 
-  size_t input_len = cgc_strlen(input);
+  size_t input_len = strlen(input);
 
   if (!input_len)
     return NULL;
@@ -351,14 +351,14 @@ char* alnumspc_filter(char* input)
 
 typedef struct suffix_t suffix;
 struct suffix_t {
-  size_t cgc_index;
+  size_t index;
   char* input;
 };
 
-suffix* make_suffix(size_t cgc_index, char* input)
+suffix* make_suffix(size_t index, char* input)
 {
   suffix* new = mcalloc(sizeof(suffix));
-  new->cgc_index = cgc_index;
+  new->index = index;
   new->input = input;
   return new;
 }
@@ -388,16 +388,16 @@ int append_suffix_list(suffix_list* list, suffix* suffix)
   return 0;
 }
 
-suffix* get_suffix(suffix_list* list, size_t cgc_index)
+suffix* get_suffix(suffix_list* list, size_t index)
 {
-  if (cgc_index >= list->size)
+  if (index >= list->size)
     err("Bad suffix list access");
-  return list->suffixes[cgc_index];
+  return list->suffixes[index];
 }
 
 int cmp_suffix(suffix* l, suffix* r)
 {
-  return cgc_strcmp(l->input, r->input);
+  return strcmp(l->input, r->input);
 }
 
 suffix_list* merge(suffix_list* l, suffix_list* r)
@@ -467,7 +467,7 @@ suffix_list* merge_sort(suffix_list* input)
 
 size_t* build_suffix_array(char* input)
 {
-  size_t length = cgc_strlen(input);
+  size_t length = strlen(input);
   size_t* sa = mcalloc(sizeof(size_t) * length);
 
   suffix_list* list = make_suffix_list(length);
@@ -477,7 +477,7 @@ size_t* build_suffix_array(char* input)
   list = merge_sort(list);
 
   for (size_t i = 0; i < length; i++) {
-    sa[i] = get_suffix(list, i)->cgc_index;
+    sa[i] = get_suffix(list, i)->index;
   }
   return sa;
 }
@@ -487,7 +487,7 @@ size_t* build_suffix_array(char* input)
  * input = string in which we want to find match
  * sa = suffix array
  */
-ssize_t search(char* match, size_t match_len, size_t* sa, char* input, size_t input_len, ssize_t max_cgc_index)
+ssize_t search(char* match, size_t match_len, size_t* sa, char* input, size_t input_len, ssize_t max_index)
 {
   if (!match || !match_len || !sa || !input || !input_len)
     return -1;
@@ -500,7 +500,7 @@ ssize_t search(char* match, size_t match_len, size_t* sa, char* input, size_t in
     int cmp = strncmp(match, input + sa[mid], match_len);
 
     if (cmp == 0) {
-      if (max_cgc_index >= 0 && sa[mid] + match_len >= max_cgc_index)
+      if (max_index >= 0 && sa[mid] + match_len >= max_index)
         return -1;
       return sa[mid];
     } else if (cmp < 0)
@@ -539,9 +539,9 @@ size_t prefix_len(const char* s1, const char* s2, const char* end)
 
 #define BLOCK_SIZE (8)
 
-  size_t cgc_rounded = max & ~(BLOCK_SIZE - 1);
+  size_t rounded = max & ~(BLOCK_SIZE - 1);
 
-  while (n < cgc_rounded &&
+  while (n < rounded &&
       *s1++ == *s2++ &&
       *s1++ == *s2++ &&
       *s1++ == *s2++ &&
@@ -681,7 +681,7 @@ int main(void)
     if (!action)
       return -1;
 
-    if (cgc_strcmp(action, "compress") == 0) {
+    if (strcmp(action, "compress") == 0) {
       char* input = readline(STDIN);
       char* filtered_input = alnumspc_filter(input);
       free(input);
@@ -689,31 +689,31 @@ int main(void)
       if (!filtered_input)
         return -1;
 
-      if (cgc_strlen(filtered_input) > DECOMPRESSED_SZ)
+      if (strlen(filtered_input) > DECOMPRESSED_SZ)
         return -1;
 
       size_t* sa = build_suffix_array(filtered_input);
       if (!sa)
         return -1;
 
-      size_t compressed_sz = compress(filtered_input, cgc_strlen(filtered_input), compressed, COMPRESSED_SZ, sa);
+      size_t compressed_sz = compress(filtered_input, strlen(filtered_input), compressed, COMPRESSED_SZ, sa);
       send_n_bytes(STDOUT, compressed_sz, compressed);
 
       free(filtered_input);
       free(sa);
 
-    } else if (cgc_strcmp(action, "decompress") == 0) {
+    } else if (strcmp(action, "decompress") == 0) {
       char* input = read_until_sequence(STDIN, (char*)&end_marker, 4);
       if (!input)
         return -1;
-      cgc_memset(decompressed, 0, DECOMPRESSED_SZ);
+      memset(decompressed, 0, DECOMPRESSED_SZ);
       size_t decompressed_sz = decompress(input, decompressed, DECOMPRESSED_SZ);
       send_n_bytes(STDOUT, decompressed_sz, decompressed);
 
       free(action);
       free(input);
 
-    } else if (cgc_strcmp(action, "quit") == 0) {
+    } else if (strcmp(action, "quit") == 0) {
       break;
     }
   }

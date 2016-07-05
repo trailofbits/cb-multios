@@ -38,7 +38,7 @@ void random_alpha_lower(char *buf, size_t len) {
     size_t rnd_bytes = 0;
     unsigned char rnd[len];
 
-    while ((0 != cgc_random(rnd, len, &rnd_bytes)) && (len != rnd_bytes)) {}
+    while ((0 != random(rnd, len, &rnd_bytes)) && (len != rnd_bytes)) {}
 
     for (int i = 0; i < len; i++) {
         buf[i] = (rnd[i] % NUM_CHARS_ALPHA) + 'a';
@@ -68,7 +68,7 @@ int canonicalize_path(char * cp, char * rp, size_t rp_len) {
     char * sec_start = NULL;
     char * sec_end = NULL;
     size_t sz_copy = 0;
-    char *pos = rp; // A parsing cgc_index into the rp.
+    char *pos = rp; // A parsing index into the rp.
 
 #ifdef PATCHED
     size_t sz_consumed = 0;
@@ -193,7 +193,7 @@ int request_document(char * path, size_t recusion_depth) {
 #endif    
 
     // Send request to the CRS
-    if (SUCCESS != (ret = transmit_with_term(STDOUT, path, cgc_strlen(path), NULL))) { 
+    if (SUCCESS != (ret = transmit_with_term(STDOUT, path, strlen(path), NULL))) { 
 #ifdef DEBUG
         fprintf(stderr, "[E] during request for '%s'\n", path);
 #endif
@@ -229,7 +229,7 @@ int request_document(char * path, size_t recusion_depth) {
     }
 
     // Check the name of the document against the expected name.
-    if (0 != cgc_strcmp(path, buf_recv_tmp)) {
+    if (0 != strcmp(path, buf_recv_tmp)) {
 #ifdef DEBUG
         fprintf(stderr, "[E] doc name mismatch: got: %s, expected: %s\n", buf_recv_tmp, path);
 #endif
@@ -283,7 +283,7 @@ int request_document(char * path, size_t recusion_depth) {
     while (NULL != (open = strpos(open, TAG_SRC_OPEN))) {
 
         // Advance open beyond the tag.
-        open += cgc_strlen(TAG_SRC_OPEN);
+        open += strlen(TAG_SRC_OPEN);
 
         // We found the opening tag, now find the closing tag.
         clse = strpos(open, TAG_SRC_CLSE);
@@ -320,16 +320,16 @@ int main(void) {
 
     int ret = SUCCESS;
 
-    // Request the "cgc_index" document from the CRS.
-    char cgc_index_path[SZ_INDEX_PATH];
-    random_alpha_lower(cgc_index_path, SZ_INDEX_PATH);
-    cgc_index_path[SZ_INDEX_PATH-1] = STRING_TERMINATOR;
+    // Request the "index" document from the CRS.
+    char index_path[SZ_INDEX_PATH];
+    random_alpha_lower(index_path, SZ_INDEX_PATH);
+    index_path[SZ_INDEX_PATH-1] = STRING_TERMINATOR;
 
 #ifdef DEBUG
-    fprintf(stderr, "\n\n\n\n[D] cgc_index_path: %s\n", cgc_index_path);
+    fprintf(stderr, "\n\n\n\n[D] index_path: %s\n", index_path);
 #endif
 
-    return request_document(cgc_index_path, 0);
+    return request_document(index_path, 0);
 }  
 
 

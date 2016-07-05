@@ -108,7 +108,7 @@ void define_vars(dict_t **vars)
           var->value.f = strtof(var_value, NULL);
           break;
         case SAD_VAR_BOOL:
-          var->value.b = cgc_strcmp(var_value, "false");
+          var->value.b = strcmp(var_value, "false");
           break;
       }
       dict_insert(vars, var_name, var);
@@ -146,7 +146,7 @@ void view_vars(dict_t **vars)
 
 void submit_text(char *inbuf, size_t len)
 {
-  cgc_memset(inbuf, 0, len);
+  memset(inbuf, 0, len);
   printf("-- Submit a null-terminated string\n");
   if (read_until(STDIN, inbuf, len, '\0') < 0)
     printf("error.\n");

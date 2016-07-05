@@ -35,11 +35,11 @@ extern uint32_t Y;
 extern uint32_t Z;
 
 ssize_t read_until(char *buf, char *delim, size_t max) {
-	size_t cgc_index = 0;
+	size_t index = 0;
 	size_t len;
 	char c;
 
-	while (cgc_index < max-1) {
+	while (index < max-1) {
 		if (receive(STDIN, &c, 1, &len) != 0) {
 			return(-1);
 		}
@@ -52,11 +52,11 @@ ssize_t read_until(char *buf, char *delim, size_t max) {
 			break;
 		}
 
-		buf[cgc_index++] = c;
+		buf[index++] = c;
 	}
-	buf[cgc_index] = '\0';
+	buf[index] = '\0';
 
-	return(cgc_index);
+	return(index);
 }
 
 // store the temp in grid[x][y][z] if valid
@@ -103,8 +103,8 @@ int8_t read_temps(double *grid) {
 }
 
 int flush_stdin(void) {
-	cgc_fd_set readfds;
-	struct cgc_timeval timeout;
+	fd_set readfds;
+	struct timeval timeout;
 	char c;
 	size_t len;
 
@@ -115,7 +115,7 @@ int flush_stdin(void) {
 		timeout.tv_sec = 0;
 		timeout.tv_usec = 0;
 
-		if (cgc_fdwait(STDIN+1, &readfds, NULL, &timeout, NULL)) {
+		if (fdwait(STDIN+1, &readfds, NULL, &timeout, NULL)) {
 			return(-1);
 		}
 
@@ -131,8 +131,8 @@ int flush_stdin(void) {
 }
 
 int32_t kbhit(void) {
-	cgc_fd_set readfds;
-	struct cgc_timeval timeout;
+	fd_set readfds;
+	struct timeval timeout;
 	char c;
 	size_t len;
 
@@ -143,7 +143,7 @@ int32_t kbhit(void) {
 		timeout.tv_sec = 1;
 		timeout.tv_usec = 0;
 
-		if (cgc_fdwait(STDIN+1, &readfds, NULL, &timeout, NULL)) {
+		if (fdwait(STDIN+1, &readfds, NULL, &timeout, NULL)) {
 			return(-1);
 		}
 

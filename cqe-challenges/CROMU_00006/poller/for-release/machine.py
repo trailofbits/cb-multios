@@ -21,9 +21,9 @@ class CharterMath():
         self.divisor.argtypes = [ctypes.c_uint, ctypes.c_uint, ctypes.c_uint]
         self.divisor.restype = ctypes.c_double
 
-        self.pick_cgc_index = self.dll.spark_pick_cgc_index
-        self.pick_cgc_index.argtypes = [ctypes.c_uint, ctypes.c_uint, ctypes.c_double]
-        self.pick_cgc_index.restype = ctypes.c_uint
+        self.pick_index = self.dll.spark_pick_index
+        self.pick_index.argtypes = [ctypes.c_uint, ctypes.c_uint, ctypes.c_double]
+        self.pick_index.restype = ctypes.c_uint
 
 class Grapher(Actions):
     def w(self, *data):
@@ -63,7 +63,7 @@ class Grapher(Actions):
         else:
             div = self.m.divisor(d_max, d_min, len(sparks))
             for datum in data:
-                  idx = self.m.pick_cgc_index(datum, d_min, div)
+                  idx = self.m.pick_index(datum, d_min, div)
                   if idx >= len(sparks):
                       idx = len(sparks) - 1
                   expectation += pack('<L', sparks[idx])

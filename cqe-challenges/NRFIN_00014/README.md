@@ -27,7 +27,7 @@ The following transactions are available:
 This multipass daemon has a few internal structures to track if a transaction is open/closed. Upon finalizing a transaction its open flag should be set to zero.
 The vulnerable version, however, decrements the is_open flag (account.c:205) such that it rolls over to +128 (char var). This offset is used directly as an ERRNO.
 The NULL dereference is not triggered immediately, the system waits until it has to generate an error message packet (multipass.c:generate_error). 
-In the error generation process, the ERRNO is used as an offset into a table of char * pointers (multipass.h:104). The cgc_index is out of bounds in this array of char pointers and causes a null dereference.
+In the error generation process, the ERRNO is used as an offset into a table of char * pointers (multipass.h:104). The index is out of bounds in this array of char pointers and causes a null dereference.
 
 Another simpler NULL dereference involves invoking refund operation against a non-refundable transaction. Specifically, all AUTH requests are logged to the MULTIPASS history. AUTH transaction histories do not contain a data section. One of the first steps in the refund operation is to lookup a transaction by ID and dereference the data section. Dereferencing the null data section of an AUTH transaction leads to another NULL pointer dereference. 
 

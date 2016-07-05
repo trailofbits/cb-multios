@@ -129,7 +129,7 @@ int syslog(int priority, const char *format, ...) {
 // return 0 if str1 == str2, else return -1
 int streq(const char* str1, const char* str2) {
 
-    if (cgc_strlen(str1) != cgc_strlen(str2))
+    if (strlen(str1) != strlen(str2))
         return -1;
 
     while(*str1 != '\0') {
@@ -141,7 +141,7 @@ int streq(const char* str1, const char* str2) {
 }
 
 // return number of chars in str, not counting the '\0'
-unsigned int cgc_strlen(const char *str) {
+unsigned int strlen(const char *str) {
     unsigned int count = 0;
     while(*str != '\0') {
         count++;
@@ -152,8 +152,8 @@ unsigned int cgc_strlen(const char *str) {
 }
 
 // size bytes of src are copied into dest.
-// if cgc_strlen(src) < size, dest is padded with '\0' bytes.
-// NOTE: if size <= cgc_strlen(src), the dest will not be null terminated.
+// if strlen(src) < size, dest is padded with '\0' bytes.
+// NOTE: if size <= strlen(src), the dest will not be null terminated.
 char * strncpy(char* dest, const char* src, size_t size) {
 
     int idx = 0;
@@ -169,7 +169,7 @@ char * strncpy(char* dest, const char* src, size_t size) {
 }
 
 // overwrites the first n chars of str with unsigned char ch.
-void * cgc_memset(void* str, int ch, size_t n) {
+void * memset(void* str, int ch, size_t n) {
     unsigned char *ch_ptr = str;
     while (n > 0) {
         *ch_ptr = (unsigned char)ch;
@@ -181,7 +181,7 @@ void * cgc_memset(void* str, int ch, size_t n) {
 }
 
 // copy cnt bytes from src into dst; src and dst cannot overlap!
-void * cgc_memcpy(void* dst, const void* src, size_t cnt) {
+void * memcpy(void* dst, const void* src, size_t cnt) {
 
     uint8_t *dst_ptr = (uint8_t *) dst;
     uint8_t *src_ptr = (uint8_t *) src;
@@ -194,8 +194,8 @@ void * cgc_memcpy(void* dst, const void* src, size_t cnt) {
     return dst;
 }
 
-// find cgc_index of char 'ch' in char buffer 'str'
-// return pointer to cgc_index of ch if found
+// find index of char 'ch' in char buffer 'str'
+// return pointer to index of ch if found
 // return NULL if ch is not found
 char * strchr(char *str, char ch) {
 
@@ -214,7 +214,7 @@ char * strchr(char *str, char ch) {
 // returns 0 on success, non-zero on failure.
 int rand(uint32_t * res) {
     size_t bytes = 0;
-    return cgc_random((char *)res, 4, &bytes);
+    return random((char *)res, 4, &bytes);
 }
 
 // simple vsnprintf with supported format specifiers
@@ -271,7 +271,7 @@ int vsnprintf(char* buf, size_t buf_size, const char* fmt, va_list args) {
                     int_arg = va_arg(args, int);
                     int2str(tmp, 32, int_arg);
                     next_arg = tmp;
-                    arg_len = cgc_strlen(next_arg);
+                    arg_len = strlen(next_arg);
 
                     break; 
                 case 'c': // deal with char buffer (i.e. string)
@@ -279,7 +279,7 @@ int vsnprintf(char* buf, size_t buf_size, const char* fmt, va_list args) {
                     if (!next_arg) {
                         arg_len = 0;
                     } else { 
-                        arg_len = cgc_strlen(next_arg);
+                        arg_len = strlen(next_arg);
                     } 
 
                     break; 
@@ -289,10 +289,10 @@ int vsnprintf(char* buf, size_t buf_size, const char* fmt, va_list args) {
             if (fmt_spec == 'n' || fmt_spec == 'c') {
                 remaining = buf_size - buf_len;
                 if (arg_len <= remaining) {
-                    cgc_memcpy(&buf[buf_len], next_arg, arg_len);
+                    memcpy(&buf[buf_len], next_arg, arg_len);
                     buf_len += arg_len;
                 } else {
-                    cgc_memcpy(&buf[buf_len], next_arg, remaining);
+                    memcpy(&buf[buf_len], next_arg, remaining);
                     buf_len += remaining;
                 }
             }
@@ -444,7 +444,7 @@ int int2str(char* str_buf, int buf_size, int i) {
     // i is always 0 or negative at this point.
     tmp = i;
 
-    // increment cgc_index in str_buf to where rightmost digit goes
+    // increment index in str_buf to where rightmost digit goes
     do {
         idx++;
         tmp = tmp/10;
@@ -477,7 +477,7 @@ int int2str(char* str_buf, int buf_size, int i) {
 int is_numeric(const char *str) {
     int sign = 0;
 
-    if (cgc_strlen(str) == 0)
+    if (strlen(str) == 0)
         return -1;
 
     if (*str == '-') {
@@ -495,7 +495,7 @@ int is_numeric(const char *str) {
 
 // remove \t, \r, \n, and space from end of string
 void strip(char *str) {
-    int len = cgc_strlen(str);
+    int len = strlen(str);
     for (int i = len - 1; i >= 0; i--) {
         if (str[i] == '\n' ||
             str[i] == '\t' ||

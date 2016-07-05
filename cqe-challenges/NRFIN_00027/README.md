@@ -54,7 +54,7 @@ Integer overflow
 
 ### CWE classification
 CWE-125 Out of bound read
-CWE-190 Integer overflow or wrapacgc_round
+CWE-190 Integer overflow or wraparound
 CWE-369 Divide by zero
 CWE-682 Incorrect calculation
 CWE-704 Incorrect type conversion or cast

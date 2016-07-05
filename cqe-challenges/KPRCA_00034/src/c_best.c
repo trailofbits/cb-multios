@@ -153,7 +153,7 @@ static int best_init(code_t *code, const unsigned char *k)
     if (priv == NULL)
         return FAILURE;
 
-    cgc_memcpy(tmp, &k[8], 8);
+    memcpy(tmp, &k[8], 8);
     tmp[8] = 0;
     for (i = 0; i < 8; i++)
         tmp[8] ^= tmp[i];
@@ -175,7 +175,7 @@ static int best_init(code_t *code, const unsigned char *k)
 #undef BYTE
     }
 
-    cgc_memcpy(tmp, &k[0], 8);
+    memcpy(tmp, &k[0], 8);
     tmp[8] = 0;
     for (i = 0; i < 8; i++)
         tmp[8] ^= tmp[i];

@@ -573,7 +573,7 @@ def do_slice(value, slices, fill_with=None):
 
         <div class="columwrapper">
           {%- for column in items|slice(3) %}
-            <ul class="column-{{ loop.cgc_index }}">
+            <ul class="column-{{ loop.index }}">
             {%- for item in column %}
               <li>{{ item }}</li>
             {%- endfor %}
@@ -603,7 +603,7 @@ def do_slice(value, slices, fill_with=None):
 def do_batch(value, linecount, fill_with=None):
     """
     A filter that batches items. It works pretty much like `slice`
-    just the other way cgc_round. It returns a list of lists with the
+    just the other way round. It returns a list of lists with the
     given number of items. If you provide a second parameter this
     is used to fill up missing items. See this example:
 
@@ -631,36 +631,36 @@ def do_batch(value, linecount, fill_with=None):
         yield tmp
 
 
-def do_cgc_round(value, precision=0, method='common'):
+def do_round(value, precision=0, method='common'):
     """Round the number to a given precision. The first
     parameter specifies the precision (default is ``0``), the
-    second the cgc_rounding method:
+    second the rounding method:
 
-    - ``'common'`` cgc_rounds either up or down
-    - ``'ceil'`` always cgc_rounds up
-    - ``'floor'`` always cgc_rounds down
+    - ``'common'`` rounds either up or down
+    - ``'ceil'`` always rounds up
+    - ``'floor'`` always rounds down
 
     If you don't specify a method ``'common'`` is used.
 
     .. sourcecode:: jinja
 
-        {{ 42.55|cgc_round }}
+        {{ 42.55|round }}
             -> 43.0
-        {{ 42.55|cgc_round(1, 'floor') }}
+        {{ 42.55|round(1, 'floor') }}
             -> 42.5
 
-    Note that even if cgc_rounded to 0 precision, a float is returned.  If
+    Note that even if rounded to 0 precision, a float is returned.  If
     you need a real integer, pipe it through `int`:
 
     .. sourcecode:: jinja
 
-        {{ 42.55|cgc_round|int }}
+        {{ 42.55|round|int }}
             -> 43
     """
     if not method in ('common', 'ceil', 'floor'):
         raise FilterArgumentError('method must be common, ceil or floor')
     if method == 'common':
-        return cgc_round(value, precision)
+        return round(value, precision)
     func = getattr(math, method)
     return func(value * (10 ** precision)) / (10 ** precision)
 
@@ -760,7 +760,7 @@ def do_mark_unsafe(value):
 
 def do_reverse(value):
     """Reverse the object or return an iterator the iterates over it the other
-    way cgc_round.
+    way round.
     """
     if isinstance(value, string_types):
         return value[::-1]
@@ -986,7 +986,7 @@ FILTERS = {
     'batch':                do_batch,
     'sum':                  do_sum,
     'abs':                  abs,
-    'cgc_round':                do_cgc_round,
+    'round':                do_round,
     'groupby':              do_groupby,
     'safe':                 do_mark_safe,
     'xmlattr':              do_xmlattr,

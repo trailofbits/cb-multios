@@ -183,7 +183,7 @@ int newRecord(Report *report) {
 	short second_field_size = 0;
 	char* receive_buf = NULL;
 	Field* nextField = NULL;
-	short field_cgc_index = 0;
+	short field_index = 0;
 
 	record = malloc(sizeof(Record));
 #ifdef PATCHED
@@ -202,14 +202,14 @@ int newRecord(Report *report) {
 		_terminate(ALLOCATE_ERROR);
 #endif
 
-	cgc_memset(record->data, 0, report->record_size);
+	memset(record->data, 0, report->record_size);
     
     for(nextField = report->fields; nextField != NULL; nextField = nextField->next) {
-    	cgc_memset(receive_buf, 0, report->record_size);
+    	memset(receive_buf, 0, report->record_size);
     	recv(STDIN, receive_buf, nextField->size);
 
-    	cgc_strcpy(&record->data[field_cgc_index], receive_buf);
-    	field_cgc_index += nextField->size;
+    	strcpy(&record->data[field_index], receive_buf);
+    	field_index += nextField->size;
     }
 
 	free(receive_buf);
@@ -224,15 +224,15 @@ int newRecord(Report *report) {
 		free(record);
 		return 1;
 	} else if(startswith(record->data, "SORT")) {
-		unsigned short field_cgc_index;
+		unsigned short field_index;
 		Field* key;
 
-		field_cgc_index = record->data[sizeof("SORT")-1];
+		field_index = record->data[sizeof("SORT")-1];
 		for(key = report->fields; key != NULL; key=key->next) {
-			if(field_cgc_index == 0) {
+			if(field_index == 0) {
 				break;
 			}
-			field_cgc_index--;
+			field_index--;
 		}
 
 		if(key)

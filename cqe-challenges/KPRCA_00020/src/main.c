@@ -50,7 +50,7 @@ int main(void)
   unsigned size = 0;
   size_t read = 0;
   uint8_t buf[MAX_SIZE];
-  cgc_memset(buf, 0, sizeof(buf));
+  memset(buf, 0, sizeof(buf));
 
   if (receive(STDIN, &size, sizeof(size), &read) != 0)
     exit(1);

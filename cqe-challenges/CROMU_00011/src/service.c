@@ -57,7 +57,7 @@ psetArray root = NULL;
 psplitCommand parse_command_line( char *cmd )
 {
     psplitCommand sc = NULL;
-    int cgc_index = 0;
+    int index = 0;
 
     if ( cmd == NULL ) {
         goto end;
@@ -70,48 +70,48 @@ psplitCommand parse_command_line( char *cmd )
 
     bzero( sc, sizeof(splitCommand) );
 
-    while (cmd[cgc_index] && cgc_index < 0x100) {
+    while (cmd[index] && index < 0x100) {
         /// The only valid middle are '=' to modfiy a set's value
         ///     or '@' to print the power set
-        if (cmd[cgc_index] == '=' || cmd[cgc_index] == '@') {
+        if (cmd[index] == '=' || cmd[index] == '@') {
             /// Ensure that the left has been set first
             ///  This is to prevent command like '= |"var"|'
             ///  without a variable
             if ( sc->left == NULL ) {
                 goto error;
             }
-            sc->mid = cmd[cgc_index];
-            cmd[cgc_index] = 0x00;
-        } else if ( cmd[cgc_index] == ' ' ) {
+            sc->mid = cmd[index];
+            cmd[index] = 0x00;
+        } else if ( cmd[index] == ' ' ) {
             if ( sc->right == NULL ) {
-                cmd[cgc_index] = 0x00;
+                cmd[index] = 0x00;
             }
-        } else if ( isalnum( cmd[cgc_index] ) ) {
+        } else if ( isalnum( cmd[index] ) ) {
             /// if left or right are not set then this is it
             if ( sc->left == NULL ) {
-                sc->left = cmd + cgc_index;
+                sc->left = cmd + index;
             } else if ( sc->right == NULL && sc->mid != 0 ) {
-                sc->right = cmd + cgc_index;
+                sc->right = cmd + index;
             }
             /// if both are set then just move on
-        } else if ( cmd[cgc_index] == '|' || cmd[cgc_index] == '-' ||
-                cmd[cgc_index] == '"' || cmd[cgc_index] == ',' ||
-                cmd[cgc_index] == '*' || cmd[cgc_index] == '^' ||
-                cmd[cgc_index] == '+' || cmd[cgc_index] == '~') {
+        } else if ( cmd[index] == '|' || cmd[index] == '-' ||
+                cmd[index] == '"' || cmd[index] == ',' ||
+                cmd[index] == '*' || cmd[index] == '^' ||
+                cmd[index] == '+' || cmd[index] == '~') {
             /// These chars are only allowed to the right
             if ( sc->left == NULL || sc->mid == 0x00 ) {
                 goto error;
             }
 
             if ( sc->right == NULL ) {
-                sc->right = cmd + cgc_index;
+                sc->right = cmd + index;
             }
         } else {
             /// If this is hit then the command line is invalid
             goto error;        
         }
 
-        cgc_index++;
+        index++;
     }
     
     /// Final parsing check. The right will be null for powerset
@@ -134,7 +134,7 @@ end:
 void print_sets( )
 {
     psetArray walker = root;
-    int cgc_index = 0;
+    int index = 0;
 
     while ( walker ) {
         print_set( walker );
@@ -149,12 +149,12 @@ void print_sets( )
 
 int copymem( char *dest, char*src, int start, int len )
 {
-	int cgc_index = 0;
+	int index = 0;
 
-	while ( cgc_index < len ) {
-		dest[start] = src[cgc_index];
+	while ( index < len ) {
+		dest[start] = src[index];
 		start++;
-		cgc_index++;
+		index++;
 	}
 
 	return start;
@@ -182,7 +182,7 @@ char * print_subsets( psetArray r, int addName )
 	char *outbuff = NULL;
 	char *t = NULL;
 	char data[DATAMAX];
-	int cgc_index = 0;
+	int index = 0;
 	int ei = 0;
 #ifdef PATCHED
     if (depth > 10) {
@@ -197,32 +197,32 @@ char * print_subsets( psetArray r, int addName )
 	bzero( data, DATAMAX);
 
 	if (addName != 0 ) {
-		cgc_index = copymem( data, r->varName, cgc_index, cgc_strlen(r->varName) );
-		cgc_index = copymem( data, " = ", cgc_index, 3 );
+		index = copymem( data, r->varName, index, strlen(r->varName) );
+		index = copymem( data, " = ", index, 3 );
 	}
 
-	data[cgc_index++] = '|';
+	data[index++] = '|';
 
 	for ( ei = 0; ei < r->varCount; ei++) {
 		if ( r->sElems[ei]->type == VALUE ) {
 #ifdef PATCHED
-			if ( cgc_index < DATAMAX-1 )
+			if ( index < DATAMAX-1 )
 #endif
-				data[cgc_index++] = '"';
+				data[index++] = '"';
 
 			t = r->sElems[ei]->value;
 
 #ifdef PATCHED
-			if ( cgc_index + cgc_strlen(t) >= DATAMAX-1 ) {
+			if ( index + strlen(t) >= DATAMAX-1 ) {
 				goto end;
 			}
 #endif
-			cgc_index = copymem( data, t, cgc_index, cgc_strlen(t));
+			index = copymem( data, t, index, strlen(t));
 
 #ifdef PATCHED
-			if ( cgc_index < DATAMAX-1 )
+			if ( index < DATAMAX-1 )
 #endif
-				data[cgc_index++] = '"';
+				data[index++] = '"';
 		} else {
 			psetArray tp = retrieve_set( r->sElems[ei]->value);
 #ifdef PATCHED
@@ -237,43 +237,43 @@ char * print_subsets( psetArray r, int addName )
 			}
 
 #ifdef PATCHED
-			if ( cgc_index + cgc_strlen(t) >= DATAMAX-1 ) {
-				deallocate(t, cgc_strlen(t) + 1 );
+			if ( index + strlen(t) >= DATAMAX-1 ) {
+				deallocate(t, strlen(t) + 1 );
 				goto end;
 			}
 #endif
 
-			cgc_index = copymem( data, t, cgc_index, cgc_strlen(t));
-			deallocate(t, cgc_strlen(t) + 1 );	
+			index = copymem( data, t, index, strlen(t));
+			deallocate(t, strlen(t) + 1 );	
 		}
 
 #ifdef PATCHED
-		if ( cgc_index < DATAMAX - 1 )
+		if ( index < DATAMAX - 1 )
 #endif
-			data[cgc_index++] = ',';
+			data[index++] = ',';
 	}
 
 #ifdef PATCHED
-	if ( cgc_index < DATAMAX-2 )
+	if ( index < DATAMAX-2 )
 #endif
 	{
-		if ( data[cgc_index-1] == ',' ) {
-			data[cgc_index-1] = '|';
-			data[cgc_index] = 0x00;
+		if ( data[index-1] == ',' ) {
+			data[index-1] = '|';
+			data[index] = 0x00;
 		} else {
-			data[cgc_index] = '|';
-			data[cgc_index+1] = 0x00;
+			data[index] = '|';
+			data[index+1] = 0x00;
 		}
 	}
 
-	if ( allocate( cgc_strlen(data) + 1, 0, (void*)&outbuff) != 0 ) {
+	if ( allocate( strlen(data) + 1, 0, (void*)&outbuff) != 0 ) {
 		outbuff = NULL;
 		goto end;
 	}
 
-	bzero( outbuff, cgc_strlen(data) + 1 );
+	bzero( outbuff, strlen(data) + 1 );
 
-	copymem( outbuff, data, 0, cgc_strlen(data) );
+	copymem( outbuff, data, 0, strlen(data) );
 
 end:
 	return outbuff;
@@ -281,13 +281,13 @@ end:
 
 int memcmp( const char *s1, const char *s2, int n )
 {
-	int cgc_index = 0;
+	int index = 0;
 
-	while ( cgc_index < n ) {
-		if ( (s1[cgc_index] != s2[cgc_index] ) ) {
-			return (s1[cgc_index] - s2[cgc_index]);
+	while ( index < n ) {
+		if ( (s1[index] != s2[index] ) ) {
+			return (s1[index] - s2[index]);
 		}
-		cgc_index++;
+		index++;
 	}
 
 	return 0;
@@ -301,16 +301,16 @@ int memcmp( const char *s1, const char *s2, int n )
 void exec_command( char *cmd )
 {
     char *ps = NULL;
-    int cgc_index = 0;
+    int index = 0;
     psetArray psa = NULL;
 
     if ( cmd == NULL ) {
         goto end;
     }
 
-    if ( cgc_strcmp( cmd, ".l") == 0 ) {
+    if ( strcmp( cmd, ".l") == 0 ) {
         _terminate(0);
-    } else if ( cgc_strcmp( cmd, ".h") == 0 ) {
+    } else if ( strcmp( cmd, ".h") == 0 ) {
         printf("setx = |\"data\", sety|\tInitialize a set\n");
 	printf("setx = seta+setb\tunion\n");
 	printf("setx = seta^setb\tintersect\n");
@@ -328,10 +328,10 @@ void exec_command( char *cmd )
 	while( *cmd == ' ' ) { ++cmd; }
 
         /// Skip to the end of the argument
-	while( isalnum(cmd[cgc_index]) ) { cgc_index++; }
+	while( isalnum(cmd[index]) ) { index++; }
 
         /// Add a null
-	cmd[cgc_index] = 0x00;
+	cmd[index] = 0x00;
 	
 	psa = retrieve_set( cmd );
 
@@ -346,9 +346,9 @@ void exec_command( char *cmd )
 #endif 
         if ( ps != NULL ) {
         	printf("@s\n", ps);
-		deallocate(ps, cgc_strlen(ps)+1);
+		deallocate(ps, strlen(ps)+1);
 	}
-    } else if ( cgc_strcmp( cmd, ".p") == 0 ) {
+    } else if ( strcmp( cmd, ".p") == 0 ) {
         print_sets();
     } else {
         printf("!!Unrecognized command: @s\n", cmd);
@@ -375,7 +375,7 @@ psetArray retrieve_set( char *varname )
     set = root;
 
     while ( set ) {
-        if (cgc_strcmp( varname, set->varName ) == 0 ) {
+        if (strcmp( varname, set->varName ) == 0 ) {
             goto end;
         }
 
@@ -473,7 +473,7 @@ psetArray parse_set( char *setstring)
                         goto end;
                     }
 
-                    cgc_memcpy( temp, var_start, right-var_start);
+                    memcpy( temp, var_start, right-var_start);
                     t = retrieve_set( temp );
 
                     if ( t == NULL ) {
@@ -522,7 +522,7 @@ psetArray parse_set( char *setstring)
                         goto end;
                     }
 
-                    cgc_memcpy( temp, var_start, right-var_start);
+                    memcpy( temp, var_start, right-var_start);
                     se = create_element( temp, VALUE );
 
                     if ( se == NULL ) {
@@ -571,7 +571,7 @@ psetArray parse_set( char *setstring)
                         goto end;
                     }
 
-                    cgc_memcpy( temp, var_start, right-var_start);
+                    memcpy( temp, var_start, right-var_start);
                     se = create_element( temp, SET );
 
                     if ( se == NULL ) {
@@ -616,7 +616,7 @@ psetArray parse_set( char *setstring)
                         goto end;
                     }
 
-                    cgc_memcpy( temp, var_start, right-var_start);
+                    memcpy( temp, var_start, right-var_start);
                     se = create_element( temp, SET );
 
                     if ( se == NULL ) {
@@ -693,7 +693,7 @@ psetArray symmetric_difference( psetArray setone, psetArray settwo )
 	psetArray final = NULL;
 	psetArray diffone = NULL;
 	psetArray difftwo = NULL;
-	int cgc_index = 0;
+	int index = 0;
 
 	if ( setone == NULL || settwo == NULL ) {
 		goto end;
@@ -734,7 +734,7 @@ end:
 psetArray set_difference( psetArray setone, psetArray settwo )
 {
     psetArray final = NULL;
-    int cgc_index = 0;
+    int index = 0;
     int res = 0;
 
     if ( setone == NULL || settwo == NULL ) {
@@ -748,8 +748,8 @@ psetArray set_difference( psetArray setone, psetArray settwo )
 
     bzero( final, sizeof(setArray) );
 
-    while ( cgc_index < setone->varCount ) {
-        res = element_in_set( settwo, setone->sElems[cgc_index] );
+    while ( index < setone->varCount ) {
+        res = element_in_set( settwo, setone->sElems[index] );
 
         if ( res == -1 ) {
             free_set_array( final );
@@ -758,14 +758,14 @@ psetArray set_difference( psetArray setone, psetArray settwo )
         }
 
         if ( res == 0 ) {
-            if ( add_element_to_set( final, copy_element( setone->sElems[cgc_index])) != 0 ) {
+            if ( add_element_to_set( final, copy_element( setone->sElems[index])) != 0 ) {
                 free_set_array(final);
                 final = NULL;
                 goto end;
             }
         }                
 
-        cgc_index++;
+        index++;
     }
 
 end:
@@ -781,7 +781,7 @@ end:
 psetArray intersect( psetArray setone, psetArray settwo )
 {
     psetArray newset = NULL;
-    int cgc_index = 0;
+    int index = 0;
     int res = 0;
 
     if ( setone == NULL || settwo == NULL ) {
@@ -797,8 +797,8 @@ psetArray intersect( psetArray setone, psetArray settwo )
     bzero( newset, sizeof(setArray) );
 
     /// Only those elements in both are put into the newset
-    while ( cgc_index < setone->varCount ) {
-        res = element_in_set( settwo, setone->sElems[cgc_index] );
+    while ( index < setone->varCount ) {
+        res = element_in_set( settwo, setone->sElems[index] );
 
         if ( res == -1 ) {
             printf("!!Unknown error\n");
@@ -806,7 +806,7 @@ psetArray intersect( psetArray setone, psetArray settwo )
             newset = NULL;
             goto end;
         } else if ( res == 1 ) {
-            if ( add_element_to_set( newset, copy_element(setone->sElems[cgc_index])) != 0 ) {
+            if ( add_element_to_set( newset, copy_element(setone->sElems[index])) != 0 ) {
                 printf("!!Error adding element in intersect\n");
                 free_set_array( newset);
                 newset = NULL;
@@ -814,7 +814,7 @@ psetArray intersect( psetArray setone, psetArray settwo )
             }
         }
 
-        cgc_index++;
+        index++;
     }    
 
 end:
@@ -830,7 +830,7 @@ end:
 psetArray unionset( psetArray setone, psetArray settwo )
 {
     psetArray newset = NULL;
-    int cgc_index = 0;
+    int index = 0;
     int res = 0;
 
     if ( setone == NULL || settwo == NULL ) {
@@ -846,21 +846,21 @@ psetArray unionset( psetArray setone, psetArray settwo )
     bzero( newset, sizeof(setArray) );
 
     /// All elements of the first set will be in the union
-    while ( cgc_index < setone->varCount ) {
-        if ( add_element_to_set( newset, copy_element( setone->sElems[cgc_index]) ) != 0 ) {
+    while ( index < setone->varCount ) {
+        if ( add_element_to_set( newset, copy_element( setone->sElems[index]) ) != 0 ) {
             printf("!!Failed to add element in union\n");
             free_set_array( newset );
             newset = NULL;
             goto end;
         }
-        cgc_index++;
+        index++;
     }
     
-    cgc_index = 0;
+    index = 0;
 
     /// Only elements from the second not already in the first will be copied
-    while ( cgc_index < settwo->varCount ) {
-        res = element_in_set( newset, settwo->sElems[cgc_index] );
+    while ( index < settwo->varCount ) {
+        res = element_in_set( newset, settwo->sElems[index] );
 
         if ( res == -1 ) {
             printf("!!!Error in intersect\n");
@@ -868,7 +868,7 @@ psetArray unionset( psetArray setone, psetArray settwo )
             newset = NULL;
             goto end;
         } else if ( res == 0 ) {
-            if ( add_element_to_set( newset, copy_element( settwo->sElems[cgc_index]) ) != 0 ) {
+            if ( add_element_to_set( newset, copy_element( settwo->sElems[index]) ) != 0 ) {
                 printf("!!!Failed to add element in intersect\n");
                 free_set_array( newset );
                 newset = NULL;
@@ -876,7 +876,7 @@ psetArray unionset( psetArray setone, psetArray settwo )
             }
         }
 
-        cgc_index++;
+        index++;
     }
 
 end:
@@ -968,7 +968,7 @@ psetArray parse_operations( char *setName, char *setData )
                 goto end;
             }
 
-            cgc_memcpy( setval, setstart, nlen );
+            memcpy( setval, setstart, nlen );
 
             if ( setone == NULL ) {
                 setone = retrieve_set( setval );
@@ -1024,10 +1024,10 @@ psetArray parse_operations( char *setName, char *setData )
     strncpy( final->varName, setName, 15 );
 
     // Ensure that final will not contain itself as a set
-    int cgc_index = 0;
-    for (cgc_index = 0; cgc_index < final->varCount; cgc_index++ ) {
-        if ( final->sElems[cgc_index]->type == SET ) {
-            if ( cgc_strcmp( final->sElems[cgc_index]->value, final->varName ) == 0 ) {
+    int index = 0;
+    for (index = 0; index < final->varCount; index++ ) {
+        if ( final->sElems[index]->type == SET ) {
+            if ( strcmp( final->sElems[index]->value, final->varName ) == 0 ) {
                 printf("!!A set cannot contain itself\n");
                 free_set_array(final);
                 final = NULL;
@@ -1113,7 +1113,7 @@ end:
 
 void issubset( char *left, char* right )
 {
-	int cgc_index = 0;
+	int index = 0;
 	psetArray sub = NULL;
 	psetArray super = NULL;
 	char * setone = NULL;
@@ -1130,10 +1130,10 @@ void issubset( char *left, char* right )
 	if ( left[0] == '|' ) {
 		sub = parse_set( left );
 	} else {
-		while ( left[cgc_index] != ' ' && left[cgc_index] != 0x00 ) {
-			cgc_index++;
+		while ( left[index] != ' ' && left[index] != 0x00 ) {
+			index++;
 		}
-		left[cgc_index] = 0x00;
+		left[index] = 0x00;
 		sub = retrieve_set( left );
 	}
 
@@ -1149,11 +1149,11 @@ void issubset( char *left, char* right )
 	if ( right[0] == '|' ) {
 		super = parse_set( right );
 	} else {
-		cgc_index = 0;
-		while ( right[cgc_index] != ' ' && right[cgc_index] != 0x00 ) {
-			cgc_index++;
+		index = 0;
+		while ( right[index] != ' ' && right[index] != 0x00 ) {
+			index++;
 		}
-		right[cgc_index] = 0x00;
+		right[index] = 0x00;
 		super = retrieve_set( right );
 	}
 
@@ -1162,13 +1162,13 @@ void issubset( char *left, char* right )
 		goto end;
 	}
 
-	cgc_index = 0;
-	while ( cgc_index < sub->varCount ) {
-		if ( !element_in_set( super, sub->sElems[cgc_index] ) ) {
+	index = 0;
+	while ( index < sub->varCount ) {
+		if ( !element_in_set( super, sub->sElems[index] ) ) {
 			printf("FALSE\n");
 			goto end;
 		}
-		cgc_index++;
+		index++;
 	}	
 	
 	printf("TRUE\n");

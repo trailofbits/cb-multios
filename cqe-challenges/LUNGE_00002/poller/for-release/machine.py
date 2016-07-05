@@ -243,7 +243,7 @@ class Dfars(Actions):
             new_dir = random.choice(self.state['books'].keys())
             # print "Changing to %s" % new_dir
 
-        self.cgc_write('ch_sec %s\n' % (new_dir))
+        self.write('ch_sec %s\n' % (new_dir))
 
         if new_dir[0] is not '|':
             new_dir = self.state['current_dir'] + new_dir
@@ -262,7 +262,7 @@ class Dfars(Actions):
 
     def compress(self):
         if self.chance(.001):
-            self.cgc_write('compress\n')
+            self.write('compress\n')
             self.read(delim='\n', expect='command failed: compress\n')
             return -1
 
@@ -270,17 +270,17 @@ class Dfars(Actions):
             book = random.choice(
                 self.state['books'][self.state['current_dir']].keys()
                 )[:39].rstrip()
-            self.cgc_write('compress %s\n' % book)
+            self.write('compress %s\n' % book)
             self.read(delim='\n\n', expect=r'%s\n.*\n\n' %
                       book.replace('(', '\\(').replace(')', '\\)'),
                       expect_format='pcre')
         else:
-            self.cgc_write('compress %s\n' % random_string(5, 25))
+            self.write('compress %s\n' % random_string(5, 25))
             self.read(delim='\n', expect='command failed: compress\n')
             return -1
 
     def cur_sec(self):
-        self.cgc_write('cur_sec\n')
+        self.write('cur_sec\n')
         self.read(delim='\n', expect=self.state['current_dir'] + '\n')
 
     def get(self):
@@ -288,20 +288,20 @@ class Dfars(Actions):
             book = random.choice(
                 self.state['books'][self.state['current_dir']].keys()
                 )[:39].rstrip()
-            self.cgc_write('get %s\n' % book)
+            self.write('get %s\n' % book)
             self.read(delim='\n\n', expect=r'%s\n.*\n\n' %
                       book.replace('(', '\\(').replace(')', '\\)'),
                       expect_format='pcre')
         elif self.chance(.01):
-            self.cgc_write('get\n')
+            self.write('get\n')
             self.read(delim='\n', expect='command failed: get\n')
             return -1
         else:
-            self.cgc_write('get %s\n' % random_string(3, random.randint(3, 30)))
+            self.write('get %s\n' % random_string(3, random.randint(3, 30)))
 
     def list(self):
         # print repr(self.state)
-        self.cgc_write('list\n')
+        self.write('list\n')
         self.read(delim='\n', expect='current section: %s\n' %
                   self.state['current_dir'])
         if self.state['current_dir'] == '|':
@@ -312,12 +312,12 @@ class Dfars(Actions):
 
     def make_sec(self):
         if self.chance(.01):
-            self.cgc_write('make_sec\n')
+            self.write('make_sec\n')
             self.read(delim='\n', expect='command failed: make_sec\n')
             return -1
 
         sec = random_string(3, 10)
-        self.cgc_write('make_sec %s\n' % sec)
+        self.write('make_sec %s\n' % sec)
 
         full_sec = self.state['current_dir'] + sec + '|'
         if full_sec not in self.state['books']:
@@ -327,24 +327,24 @@ class Dfars(Actions):
 
     def put(self):
         if self.chance(.001):
-            self.cgc_write('put\n')
+            self.write('put\n')
             return -1
 
         name = random_string(3, 10)
         data = random_string(10, 20)
-        self.cgc_write('put %s %s\n' % (name, data))
+        self.write('put %s %s\n' % (name, data))
         if self.state['current_dir'] not in self.state['books']:
             self.state['books'][self.state['current_dir']] = {}
         self.state['books'][self.state['current_dir']][name] = data
 
     def quit(self):
-        self.cgc_write('quit\n')
+        self.write('quit\n')
         return -1
 
     def search(self):
         # this command does not error without an argument, as the others do
         if self.chance(.001):
-            self.cgc_write('search\n')
+            self.write('search\n')
             return
 
         value = ''
@@ -355,4 +355,4 @@ class Dfars(Actions):
             # verify it
             pass
 
-        self.cgc_write('search %s\n' % value)
+        self.write('search %s\n' % value)

@@ -47,7 +47,7 @@ int setMap(Map **map, char* key, int value)
 	Map *map_ptr=NULL, *prev_map_ptr=NULL;
 
 	for(map_ptr=*map;map_ptr!=NULL;map_ptr=map_ptr->next) {
-		if(!cgc_strcmp(key, map_ptr->key)) {
+		if(!strcmp(key, map_ptr->key)) {
 			break;
 		}
 		prev_map_ptr = map_ptr;
@@ -68,7 +68,7 @@ int setMap(Map **map, char* key, int value)
 	}
 
 	if(*map_ptr->key == 0) {
-		cgc_strcpy(map_ptr->key, key); // Possible Vuln: key not null terminated
+		strcpy(map_ptr->key, key); // Possible Vuln: key not null terminated
 	}
 
 	map_ptr->value = value;
@@ -79,7 +79,7 @@ int setMap(Map **map, char* key, int value)
 int getValue(Map* map, char* key) {
 	Map* map_ptr;
 	for(map_ptr=map; map_ptr!=NULL; map_ptr=map_ptr->next) {
-		if(map_ptr->key[0] && !cgc_strcmp(key, map_ptr->key)) { // Possible vuln: remove map->key check
+		if(map_ptr->key && !strcmp(key, map_ptr->key)) { // Possible vuln: remove map->key check
 			return map_ptr->value;
 		} 
 	}
@@ -110,7 +110,7 @@ void removeMap(Map **map, char* key) {
 	Map *map_ptr=NULL, *prev_map_ptr=NULL;
 
 	for(map_ptr=*map;map_ptr!=NULL && *map_ptr->key != 0;map_ptr=map_ptr->next) {
-		if(!cgc_strcmp(key, map_ptr->key)) {
+		if(!strcmp(key, map_ptr->key)) {
 			break;
 		}
 		prev_map_ptr = map_ptr;
@@ -124,7 +124,7 @@ void removeMap(Map **map, char* key) {
 	else
 		prev_map_ptr->next = map_ptr->next;
 
-	cgc_memset(map_ptr->key, 0, MAX_KEY_SIZE+1);
+	memset(map_ptr->key, 0, MAX_KEY_SIZE+1);
 	map_ptr->value = 0;
 	map_ptr->next = 0;
 

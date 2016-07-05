@@ -86,7 +86,7 @@ class GreyMatter(Actions):
                 str_doc_path = doc_path
             print "Currently serving '%s'" % str_doc_path
 
-        # If we're not in the cgc_index document special case, we need to do a 
+        # If we're not in the index document special case, we need to do a 
         # read() and verify the requested document against the correctly 
         # canonicalized path.
         if type(doc_path) != Variable:
@@ -191,7 +191,7 @@ class GreyMatter(Actions):
         """
         Intialize state.
         """
-        # The CB will first request a randomly-named cgc_index file.  This is a 
+        # The CB will first request a randomly-named index file.  This is a 
         # unique case because this filename will be a Variable and its value, 
         # therefore, is inacccessible during poll generation.
         idx_path = Variable("idxpath")

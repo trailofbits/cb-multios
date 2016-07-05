@@ -1,0 +1,74 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+	<read echo="ascii">
+          <delim>\x0a</delim>
+	  <match><data>ctors called...</data></match>
+	</read>
+
+	<read echo="ascii">
+	  <delim>\x0a</delim>
+	  <match><data>list init...</data></match>
+	</read>
+
+	<write echo="ascii"><data>331509074 create cat\n</data></write>
+
+	<read echo="no">
+	  <delim>\x0a</delim>
+	  <match><data>init..</data></match>
+	</read>
+
+	<write echo="ascii"><data>331509075 create hotdog\n</data></write>
+
+	<read echo="no">
+	  <delim>\x0a</delim>
+	  <match><data>init..</data></match>
+	</read>
+
+	<write echo="ascii">
+          <data>331509076 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>331509077 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>331509078 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>331509079 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>331509080 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>331509081 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>331509082 name 0 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</data>
+        </write>
+
+	<write echo="ascii">
+          <data>331509083 rollover\n</data>
+	</write>
+
+	<read echo="no">
+          <delim>\x0a</delim>
+          <match><data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data>
+                 <data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data>
+                 <data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data>
+                 <data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data>
+                 <data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</data>
+                 <data>AAAAAAAAAAAAAAAAAAA will not rollover</data>
+          </match>
+        </read>
+
+    </replay>
+</pov>

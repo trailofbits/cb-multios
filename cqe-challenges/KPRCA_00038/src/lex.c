@@ -65,7 +65,7 @@ static int is_assignable(int op);
 
 void program_init(program_t *prog, io_t *io)
 {
-    cgc_memset(prog, 0, sizeof(program_t));
+    memset(prog, 0, sizeof(program_t));
     prog->io = io;
 }
 
@@ -258,7 +258,7 @@ static int parse_statements(program_t *prog, stmt_t **result)
 
     stmt = calloc(1, sizeof(stmt_t));
 
-    if (cgc_strcmp(kw, "if") == 0)
+    if (strcmp(kw, "if") == 0)
     {
         stmt->type = STMT_IF;
         if (io_getc(prog->io) != '(')
@@ -268,7 +268,7 @@ static int parse_statements(program_t *prog, stmt_t **result)
         if (!parse_statements(prog, &stmt->s_if.child))
             goto fail;
     }
-    else if (cgc_strcmp(kw, "while") == 0)
+    else if (strcmp(kw, "while") == 0)
     {
         stmt->type = STMT_WHILE;
         stmt->s_while.post = 0;
@@ -279,7 +279,7 @@ static int parse_statements(program_t *prog, stmt_t **result)
         if (!parse_statements(prog, &stmt->s_while.child))
             goto fail;
     }
-    else if (cgc_strcmp(kw, "do") == 0)
+    else if (strcmp(kw, "do") == 0)
     {
         stmt->type = STMT_WHILE;
         stmt->s_while.post = 1;
@@ -288,7 +288,7 @@ static int parse_statements(program_t *prog, stmt_t **result)
         free(kw);
         skip_whitespace(prog);
         kw = parse_var(prog);
-        if (kw == NULL || cgc_strcmp(kw, "while"))
+        if (kw == NULL || strcmp(kw, "while"))
             goto fail;
         skip_whitespace(prog);
         if (io_getc(prog->io) != '(')
@@ -299,7 +299,7 @@ static int parse_statements(program_t *prog, stmt_t **result)
         if (io_getc(prog->io) != ';')
             goto fail;
     }
-    else if (cgc_strcmp(kw, "for") == 0)
+    else if (strcmp(kw, "for") == 0)
     {
         stmt->type = STMT_FOR;
         if (io_getc(prog->io) != '(')
@@ -319,40 +319,40 @@ static int parse_statements(program_t *prog, stmt_t **result)
             goto fail;
         }
     }
-    else if (cgc_strcmp(kw, "continue") == 0)
+    else if (strcmp(kw, "continue") == 0)
     {
         stmt->type = STMT_CONTINUE;
         skip_whitespace(prog);
         if (io_getc(prog->io) != ';')
             goto fail;
     }
-    else if (cgc_strcmp(kw, "break") == 0)
+    else if (strcmp(kw, "break") == 0)
     {
         stmt->type = STMT_BREAK;
         skip_whitespace(prog);
         if (io_getc(prog->io) != ';')
             goto fail;
     }
-    else if (cgc_strcmp(kw, "next") == 0)
+    else if (strcmp(kw, "next") == 0)
     {
         stmt->type = STMT_NEXT;
         skip_whitespace(prog);
         if (io_getc(prog->io) != ';')
             goto fail;
     }
-    else if (cgc_strcmp(kw, "exit") == 0)
+    else if (strcmp(kw, "exit") == 0)
     {
         stmt->type = STMT_EXIT;
         skip_whitespace(prog);
         if (io_getc(prog->io) != ';')
             goto fail;
     }
-    else if (cgc_strcmp(kw, "printf") == 0 || cgc_strcmp(kw, "print") == 0)
+    else if (strcmp(kw, "printf") == 0 || strcmp(kw, "print") == 0)
     {
         expr_t *tail = NULL;
 
         stmt->type = STMT_PRINT;
-        if (cgc_strcmp(kw, "printf") == 0)
+        if (strcmp(kw, "printf") == 0)
         {
             if (!parse_expression(prog, &stmt->s_print.fmt, END_PRINT))
                 goto fail;
@@ -633,7 +633,7 @@ static int parse_variable(program_t *prog, expr_t **result)
     expr_t *expr = NULL;
 
     name = parse_var(prog);
-    if (name == NULL || cgc_strlen(name) == 0 || is_keyword(name))
+    if (name == NULL || strlen(name) == 0 || is_keyword(name))
         goto fail;
 
     expr = init_expression(OP_VAR);
@@ -849,16 +849,16 @@ static void skip_whitespace(program_t *prog)
 
 static int is_keyword(const char *s)
 {
-    if (cgc_strcmp(s, "if") == 0 ||
-        cgc_strcmp(s, "while") == 0 ||
-        cgc_strcmp(s, "continue") == 0 ||
-        cgc_strcmp(s, "do") == 0 ||
-        cgc_strcmp(s, "for") == 0 || 
-        cgc_strcmp(s, "break") == 0 ||
-        cgc_strcmp(s, "next") == 0 ||
-        cgc_strcmp(s, "exit") == 0 ||
-        cgc_strcmp(s, "print") == 0 ||
-        cgc_strcmp(s, "printf") == 0)
+    if (strcmp(s, "if") == 0 ||
+        strcmp(s, "while") == 0 ||
+        strcmp(s, "continue") == 0 ||
+        strcmp(s, "do") == 0 ||
+        strcmp(s, "for") == 0 || 
+        strcmp(s, "break") == 0 ||
+        strcmp(s, "next") == 0 ||
+        strcmp(s, "exit") == 0 ||
+        strcmp(s, "print") == 0 ||
+        strcmp(s, "printf") == 0)
     {
         return 1;
     }
@@ -1238,7 +1238,7 @@ static void print_expression(expr_t *expr, const char *prefix)
     if (expr == NULL)
         return;
 
-    cgc_strcpy(buf, prefix);
+    strcpy(buf, prefix);
     fdprintf(STDERR, "%s%s", prefix, op_to_name(expr->op));
     switch (expr->op)
     {
@@ -1262,8 +1262,8 @@ static void print_expression(expr_t *expr, const char *prefix)
 
     fdprintf(STDERR, "\n");
 
-    if (cgc_strlen(buf) < sizeof(buf)-1)
-        cgc_strcat(buf, "\t");
+    if (strlen(buf) < sizeof(buf)-1)
+        strcat(buf, "\t");
 
     if (expr->op == OP_CONDITIONAL)
     {
@@ -1319,9 +1319,9 @@ static void print_statement(stmt_t *stmt, const char *prefix)
 
     fdprintf(STDERR, "%s%s\n", prefix, stmt_to_name(stmt->type));
     
-    cgc_strcpy(buf, prefix);
-    if (cgc_strlen(buf) < sizeof(buf) - 1)
-        cgc_strcat(buf, "\t");
+    strcpy(buf, prefix);
+    if (strlen(buf) < sizeof(buf) - 1)
+        strcat(buf, "\t");
 
     switch(stmt->type)
     {

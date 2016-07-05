@@ -90,7 +90,7 @@ int main(void) {
 			if (read_until(buf, '\n', 100) == -1) {
 				_terminate(-1);
 			}
-			if (cgc_strlen(buf) > 1) {
+			if (strlen(buf) > 1) {
 				print("[-] Invalid choice\n");
 				continue;
 			}
@@ -117,7 +117,7 @@ int main(void) {
 			if (read_until(buf, '\n', 100) == -1) {
 				_terminate(-1);
 			}
-			if (cgc_strlen(buf) > 1) {
+			if (strlen(buf) > 1) {
 				print("[-] Invalid choice\n");
 				continue;
 			}
@@ -143,7 +143,7 @@ int main(void) {
 			if (read_until(buf, '\n', 100) == -1) {
 				_terminate(-1);
 			}
-			if (cgc_strlen(buf) > 1) {
+			if (strlen(buf) > 1) {
 				print("[-] Invalid choice\n");
 				continue;
 			}

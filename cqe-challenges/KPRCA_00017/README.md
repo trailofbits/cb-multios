@@ -23,7 +23,7 @@ When the game starts (*play_game* function), the internal state for the game (*h
 
 In general, those function pointers will be NULL due to the side-effect of *banner* function, where allocates a large stack space and initializes with NULL bytes. Initialized stack area coincides with where *h_state* is located on the stack.
 
-However, one can attack this uninitialized stack variable (struct) by leveraging *record_winner* function after winning a cgc_round of the game. Since *record_winner* also uses a large stack buffer, it is possible to control the contents of the stack  area that coincides with where *h_state* will be located. Note that *banner* does not get invoked when *record_winner* is executed, therefore **not** initializing the stack with NULL bytes. And since the function pointers in *h_state_* is not initialized if they are not NULL, the attacker can make the program to call an arbitrary address (EIP control).
+However, one can attack this uninitialized stack variable (struct) by leveraging *record_winner* function after winning a round of the game. Since *record_winner* also uses a large stack buffer, it is possible to control the contents of the stack  area that coincides with where *h_state* will be located. Note that *banner* does not get invoked when *record_winner* is executed, therefore **not** initializing the stack with NULL bytes. And since the function pointers in *h_state_* is not initialized if they are not NULL, the attacker can make the program to call an arbitrary address (EIP control).
 
 ### Generic class of vulnerability
 

@@ -207,8 +207,8 @@ int engine_init()
     engine = malloc(sizeof(engine_t));
     if (engine == NULL)
         return 0;
-    cgc_memset(engine, 0, sizeof(engine_t));
-    cgc_memset(engine->mailbox, EMPTY, 64);
+    memset(engine, 0, sizeof(engine_t));
+    memset(engine->mailbox, EMPTY, 64);
 
     for (r = 0; r < 8; r++)
     for (c = 0; c < 8; c++)
@@ -294,7 +294,7 @@ void engine_new()
     /* setup mailbox representation */
     engine->scores[WHITE] = 0;
     engine->scores[BLACK] = 0;
-    cgc_memset(engine->mailbox, EMPTY, 64);
+    memset(engine->mailbox, EMPTY, 64);
     for (r = 0; r < 8; r++)
     for (c = 0; c < 8; c++)
     {
@@ -317,7 +317,7 @@ void engine_new()
     }
 
     engine->last_move.op = EMPTY;
-    cgc_memset(engine->num_moves, 0, 64);
+    memset(engine->num_moves, 0, 64);
     engine->current_move = 0;
     engine->accept_draw = 0;
 }
@@ -1177,7 +1177,7 @@ static int randint(unsigned int max)
 {
     uint32_t x;
     size_t bytes;
-    cgc_random(&x, sizeof(x), &bytes);
+    random(&x, sizeof(x), &bytes);
     return x % max;
 }
 

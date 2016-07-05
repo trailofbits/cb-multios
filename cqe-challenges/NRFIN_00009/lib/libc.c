@@ -11,10 +11,10 @@ void bzero(char *buf, int n) {
 }
 
 int ready(int fd) {
-    cgc_fd_set write_fds;
+    fd_set write_fds;
     int err;
     int ready_fd;
-    struct cgc_timeval tv;
+    struct timeval tv;
 
     bzero((char *)&write_fds, sizeof(write_fds));
     FD_SET(fd, &write_fds);
@@ -22,7 +22,7 @@ int ready(int fd) {
     tv.tv_sec = 10;
     tv.tv_usec = 0;
 
-    err = cgc_fdwait(fd + 1, NULL, &write_fds, &tv, &ready_fd);
+    err = fdwait(fd + 1, NULL, &write_fds, &tv, &ready_fd);
     if (err != 0) {
         return err;
     }

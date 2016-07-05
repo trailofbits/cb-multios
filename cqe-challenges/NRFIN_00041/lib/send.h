@@ -26,7 +26,7 @@
 #include <libcgc.h>
 #include <errno.h>
 #include <stdint.h>
-
+ 
 /**
  * Send bytes from buffer to STDOUT.
  * Terminates with ERRNO_SEND on error.

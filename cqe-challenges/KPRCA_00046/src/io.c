@@ -59,7 +59,7 @@ static void move_to_str(move_t move, char *buf)
 void init_states()
 {
     int i,j;
-    cgc_memset(input_states, STATE_ERROR, sizeof(input_states));
+    memset(input_states, STATE_ERROR, sizeof(input_states));
 #define ADD_STATE(c1, c2, s) input_states[((c1) << 7) + (c2)] = STATE_##s##_START
     for (i = 'm'; i <= 't'; i++)
         for (j = '1'; j <= '8'; j++)
@@ -97,8 +97,8 @@ int read_all(char *buf, size_t n)
 void write_string(const char *str)
 {
     size_t bytes;
-    transmit(STDOUT, str, cgc_strlen(str), &bytes);
-//    write(1, str, cgc_strlen(str));
+    transmit(STDOUT, str, strlen(str), &bytes);
+//    write(1, str, strlen(str));
 }
 
 void send_move(move_t m)
@@ -107,9 +107,9 @@ void send_move(move_t m)
     if (buf == NULL)
         return;
 
-    cgc_strcpy(buf, "move ");
+    strcpy(buf, "move ");
     move_to_str(m, buf + 5);
-    cgc_strcat(buf, "\n");
+    strcat(buf, "\n");
 
     write_string(buf);
 
@@ -161,7 +161,7 @@ void send_error(const char *error, const char *command)
 int sink_error(const char *buf)
 {
     char tmp[2];
-    size_t n = cgc_strlen(buf);
+    size_t n = strlen(buf);
 
     write_string("Error (invalid command): ");
     write_string(buf);
@@ -182,7 +182,7 @@ int sink_error(const char *buf)
 int read_keyword(char *input, size_t n)
 {
     int i, state;
-    cgc_memset(input, 0, n);
+    memset(input, 0, n);
 
     if (!read_all(input, 2))
         return 0;

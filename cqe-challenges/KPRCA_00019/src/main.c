@@ -41,7 +41,7 @@ static void send_data(void *channel, unsigned int type, unsigned int length, uns
 {
     unsigned char *hdrdata = malloc(length + 1);
     hdrdata[0] = (10 << 4) | type;
-    cgc_memcpy(&hdrdata[1], data, length);
+    memcpy(&hdrdata[1], data, length);
     session_send(channel, length+1, hdrdata);
     free(hdrdata);
 }
@@ -56,7 +56,7 @@ static void send_report(void *channel)
 {
     unsigned char data[800];
     size_t bytes;
-    cgc_random(data, sizeof(data), &bytes);
+    random(data, sizeof(data), &bytes);
     send_data(channel, 1, g_protocol == 0 ? 200 : 700, data);
 }
 
@@ -107,7 +107,7 @@ static void handle_control_packet(void *channel, unsigned int length, unsigned c
         else
         {
             if (length > 1)
-                cgc_memcpy(g_incoming_report, data+1, length-1 > sizeof(g_incoming_report) ? sizeof(g_incoming_report) : length-1);
+                memcpy(g_incoming_report, data+1, length-1 > sizeof(g_incoming_report) ? sizeof(g_incoming_report) : length-1);
             send_handshake(channel, 0);
             g_incoming_report_type = -1;
         }

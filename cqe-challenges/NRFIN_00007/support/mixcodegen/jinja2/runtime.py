@@ -128,13 +128,13 @@ class Context(object):
         """Render a parent block."""
         try:
             blocks = self.blocks[name]
-            cgc_index = blocks.cgc_index(current) + 1
-            blocks[cgc_index]
+            index = blocks.index(current) + 1
+            blocks[index]
         except LookupError:
             return self.environment.undefined('there is no parent block '
                                               'called %r.' % name,
                                               name='super')
-        return BlockReference(name, self, blocks, cgc_index)
+        return BlockReference(name, self, blocks, index)
 
     def get(self, key, default=None):
         """Returns an item from the template context, if it doesn't exist
@@ -286,11 +286,11 @@ class LoopContext(object):
         self._iterator = iter(iterable)
         self._recurse = recurse
         self._after = self._safe_next()
-        self.cgc_index0 = -1
+        self.index0 = -1
         self.depth0 = depth0
 
         # try to get the length of the iterable early.  This must be done
-        # here because there are some broken iterators acgc_round where there
+        # here because there are some broken iterators around where there
         # __len__ is the number of iterations left (i'm looking at your
         # listreverseiterator!).
         try:
@@ -299,16 +299,16 @@ class LoopContext(object):
             self._length = None
 
     def cycle(self, *args):
-        """Cycles among the arguments with the current loop cgc_index."""
+        """Cycles among the arguments with the current loop index."""
         if not args:
             raise TypeError('no items for cycling given')
-        return args[self.cgc_index0 % len(args)]
+        return args[self.index0 % len(args)]
 
-    first = property(lambda x: x.cgc_index0 == 0)
+    first = property(lambda x: x.index0 == 0)
     last = property(lambda x: x._after is _last_iteration)
-    cgc_index = property(lambda x: x.cgc_index0 + 1)
-    revcgc_index = property(lambda x: x.length - x.cgc_index0)
-    revcgc_index0 = property(lambda x: x.length - x.cgc_index)
+    index = property(lambda x: x.index0 + 1)
+    revindex = property(lambda x: x.length - x.index0)
+    revindex0 = property(lambda x: x.length - x.index)
     depth = property(lambda x: x.depth0 + 1)
 
     def __len__(self):
@@ -344,14 +344,14 @@ class LoopContext(object):
             # length of that + the number of iterations so far.
             iterable = tuple(self._iterator)
             self._iterator = iter(iterable)
-            iterations_done = self.cgc_index0 + 2
+            iterations_done = self.index0 + 2
             self._length = len(iterable) + iterations_done
         return self._length
 
     def __repr__(self):
         return '<%s %r/%r>' % (
             self.__class__.__name__,
-            self.cgc_index,
+            self.index,
             self.length
         )
 
@@ -369,7 +369,7 @@ class LoopContextIterator(object):
 
     def __next__(self):
         ctx = self.context
-        ctx.cgc_index0 += 1
+        ctx.index0 += 1
         if ctx._after is _last_iteration:
             raise StopIteration()
         next_elem = ctx._after

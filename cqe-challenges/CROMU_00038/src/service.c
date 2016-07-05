@@ -256,7 +256,7 @@ int i;
             if (swap_word(IFD->Entry[i].Value) < segment_size - 8 && swap_word(IFD->Entry[i].Value) > 0)
 #ifdef PATCHED
 		{
-		if ( cgc_strlen( (char *)(tiff_hdr) + swap_word(IFD->Entry[i].Value)) > 2048) {
+		if ( strlen( (char *)(tiff_hdr) + swap_word(IFD->Entry[i].Value)) > 2048) {
 			((char *)(tiff_hdr))[swap_word(IFD->Entry[i].Value)+2048] = '\x00';
 		}
 #endif

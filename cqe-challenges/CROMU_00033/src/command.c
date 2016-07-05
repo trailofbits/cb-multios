@@ -32,7 +32,7 @@ int handle_repo( )
         return 0;
     }
    
-    cgc_memset(name, 0, 256);
+    memset(name, 0, 256);
     
     if ( recv(name, length) == 0 ) {
         return 0;
@@ -43,7 +43,7 @@ int handle_repo( )
 
 void handle_prnt( pfile base, char *st )
 {
-    int cgc_index = 0;
+    int index = 0;
     pfile *list = NULL;
     char nm[256];
     pfile t = NULL;
@@ -56,8 +56,8 @@ void handle_prnt( pfile base, char *st )
     
     list = (pfile*)base->data;
     
-    for ( cgc_index = 0; cgc_index < base->length; cgc_index ++ ) {
-        t = list[cgc_index];
+    for ( index = 0; index < base->length; index ++ ) {
+        t = list[index];
         
         printf("$s/$s     ", st, t->name  );
         if ( t->type == FILE ) {
@@ -65,7 +65,7 @@ void handle_prnt( pfile base, char *st )
         } else {
             printf("Dir\n");
             
-            cgc_memset(nm, 0, 256);
+            memset(nm, 0, 256);
             
             strncpy( nm, st, 255 );
             strncat( nm, "/", 255);
@@ -83,7 +83,7 @@ int handle_recv( void )
 	char name[256];
 	pfile fd = NULL;
     
-	cgc_memset(name, 0, 256);
+	memset(name, 0, 256);
     
 	if ( recv( (char*)&name_length, 1 ) == 0 ) {
 		/// Send an error
@@ -123,7 +123,7 @@ int handle_ndir( void )
 	char name[256];
 	pfile new_dir = NULL;
 	
-	cgc_memset(name, 0, 256);
+	memset(name, 0, 256);
     
 	if ( recv( (char*)&name_length, 1 ) == 0 ) {
 		/// Send an error
@@ -174,7 +174,7 @@ int handle_send( void )
 	char *data = NULL;
 	pfile new_file = NULL;
 	
-	cgc_memset(name, 0, 256);
+	memset(name, 0, 256);
 
 	if ( recv( (char*)&name_length, 1 ) == 0 ) {
 		/// Send an error
@@ -205,7 +205,7 @@ int handle_send( void )
         return 0;
     }
     
-    cgc_memset( data, 0, file_length + 1);
+    memset( data, 0, file_length + 1);
     
     if ( recv( data, file_length ) == 0 ) {
         printf("[ERROR] Failed to recv data\n");

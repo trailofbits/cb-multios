@@ -112,25 +112,25 @@ int32_t GraphTemps(double *grid) {
 				datapoint = output[out_x][out_y] - 273.15;
 	
 				// print out decimal point aligned
-				// the printf @f function cgc_rounds up or down by
+				// the printf @f function rounds up or down by
 				// by using .5*F32_PRECISION if the value is positive
 				// or negative.  So, we need to do the same to 
 				// make sure the resulting string is aligned properly
-				double cgc_round = 0.0;
+				double round = 0.0;
 				if (datapoint < 0.0) {
-					cgc_round = -0.000005;
+					round = -0.000005;
 				} else if (datapoint > 0.0) {
-					cgc_round = 0.000005;
+					round = 0.000005;
 				}
-				if (datapoint+cgc_round <= -100.0) {
+				if (datapoint+round <= -100.0) {
 					printf("@f ", datapoint);
-				} else if (datapoint+cgc_round <= -10.0) {
+				} else if (datapoint+round <= -10.0) {
 					printf(" @f ", datapoint);
-				} else if (datapoint+cgc_round < 0.0) {
+				} else if (datapoint+round < 0.0) {
 					printf("  @f ", datapoint);
-				} else if (datapoint+cgc_round < 10.0) {
+				} else if (datapoint+round < 10.0) {
 					printf("   @f ", datapoint);
-				} else if (datapoint+cgc_round < 100.0) {
+				} else if (datapoint+round < 100.0) {
 					printf("  @f ", datapoint);
 				} else {
 					printf(" @f ", datapoint);

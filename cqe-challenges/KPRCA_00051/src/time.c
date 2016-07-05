@@ -58,22 +58,22 @@ void daystostr(days_t days, char *output)
     if (!output)
         return;
 
-    cgc_memset(output, 0, 9);
+    memset(output, 0, 9);
     if(days & M)
-        cgc_strcat(output, "M");
+        strcat(output, "M");
     if(days & T)
-        cgc_strcat(output, "T");
+        strcat(output, "T");
     if(days & W)
-        cgc_strcat(output, "W");
+        strcat(output, "W");
     if(days & R)
-        cgc_strcat(output, "R");
+        strcat(output, "R");
     if(days & F)
-        cgc_strcat(output, "F");
+        strcat(output, "F");
     if(days & S)
-        cgc_strcat(output, "S");
+        strcat(output, "S");
     if(days & U)
-        cgc_strcat(output, "U");
+        strcat(output, "U");
     if(days & H)
-        cgc_strcat(output, "H");
+        strcat(output, "H");
 }
 

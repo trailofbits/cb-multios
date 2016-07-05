@@ -78,7 +78,7 @@ int read_n_bytes(int fd, size_t n, char* buf)
 
 int transmit_string(int fd, char* s)
 {
-  size_t len = cgc_strlen(s);
+  size_t len = strlen(s);
   if (len == 0)
     return 0;
   else if (send_n_bytes(fd, len, s) != len)

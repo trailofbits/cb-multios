@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include "stdlib.h"
 #include "math_lib.h"
 
-// cgc_strlen 
+// strlen 
 // return length of str (defined as '\n', or '\0')
 int get_str_end(char *str)
 {

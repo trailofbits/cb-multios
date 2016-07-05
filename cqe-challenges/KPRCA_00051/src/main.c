@@ -164,11 +164,11 @@ void add_class(student_t *student)
         case 1:
             answer = answer_question("Enter Class ID: ");
             pdept_name = strsep(&answer, " ");
-            if(!pdept_name || !answer || cgc_strlen(pdept_name) > 7) {
+            if(!pdept_name || !answer || strlen(pdept_name) > 7) {
                 printf("Bad Input\n");
                 break;
             }
-            cgc_strcpy(dept_name, pdept_name);
+            strcpy(dept_name, pdept_name);
             course_num = strtol(answer, NULL, 10);
             printf("0 - Go Back\n");
             list_courses_by_num(dept_name, course_num);

@@ -115,7 +115,7 @@ class ProcessedTraceback(object):
 
     @property
     def exc_info(self):
-        """Exception info tuple with a proxy acgc_round the frame objects."""
+        """Exception info tuple with a proxy around the frame objects."""
         return self.exc_type, self.exc_value, self.frames[0]
 
     @property
@@ -223,7 +223,7 @@ def fake_exc_info(exc_info, filename, lineno):
         '__file__':             filename,
         '__jinja_exception__':  exc_info[:2],
 
-        # we don't want to keep the reference to the template acgc_round
+        # we don't want to keep the reference to the template around
         # to not cause circular dependencies, but we mark it as Jinja
         # frame for the ProcessedTraceback
         '__jinja_template__':   None

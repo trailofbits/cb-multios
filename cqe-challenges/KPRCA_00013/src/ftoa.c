@@ -45,7 +45,7 @@ char *ftoa(double value, char *str, size_t size) {
     if (i == size)
         return NULL;
 
-    // apply cgc_rounding
+    // apply rounding
     double rem = remainder(value, 0.001) * pow(10, 4);
     if (rem > 5 || (rem < 0 && rem > -5))
         if (!negative)

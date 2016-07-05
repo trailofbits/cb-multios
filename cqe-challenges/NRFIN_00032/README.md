@@ -41,8 +41,8 @@ There are hundreds of vulnerable code paths, and describing each would be rather
 
 However, they fall into three general classes:
 Off-by-a-few heap overflow in a strncpy
-Off-by-a-few-more heap overflow in a cgc_memcpy
-Off-by-a-whole-lot heap overflow in a cgc_memcpy
+Off-by-a-few-more heap overflow in a memcpy
+Off-by-a-whole-lot heap overflow in a memcpy
 
 This vulnerable portions are located inside helpers.h, in the string\_vuln, lv\_vuln, slv\_vuln functions.
 They mimic their non-vulnerable companion functions, but allow for corruption of heap metadata via overflow.

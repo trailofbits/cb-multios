@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <libcgc.h>
 
 /* from limits.h, but it doesn't include right */
+#define UINT32_MAX 4294967295U
 typedef unsigned char uint8;
 typedef unsigned int uint32;
 typedef unsigned long long uint64;

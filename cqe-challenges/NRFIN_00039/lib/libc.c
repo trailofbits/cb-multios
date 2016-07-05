@@ -36,7 +36,7 @@ uint32_t __cookie = 0;
 
 void promptc(char *buf, uint16_t  size, char *prompt) {
 
-    SSEND(cgc_strlen(prompt), prompt);
+    SSEND(strlen(prompt), prompt);
 
     SRECV((uint32_t)size, buf);
 }
@@ -130,7 +130,7 @@ int recvline(int fd, char *buf, size_t size) {
 }
 
 //non-standard convention, returns num bytes copied instead of s1
-size_t cgc_strcpy(char *s1, char *s2) {
+size_t strcpy(char *s1, char *s2) {
     char *tmp = s1;
     while (*s2) {
         *tmp = *s2;
@@ -153,14 +153,14 @@ size_t strncpy(char *s1, char *s2, size_t n) {
     return tmp-s1-1;
 }
 
-char * cgc_strcat(char *s1, char *s2) {
+char * strcat(char *s1, char *s2) {
     char *tmp = s1;
     while (*tmp) tmp++;
-    cgc_strcpy(tmp,s2);
+    strcpy(tmp,s2);
     return s1;
 }
 
-size_t cgc_strlen(char *s) {
+size_t strlen(char *s) {
     char *tmp = s;
     while (*tmp) tmp++;
     return (size_t)(tmp-s);
@@ -202,7 +202,7 @@ int uint2str(char* str_buf, unsigned int buf_size, uint32_t i) {
 
     tmp = i;
 
-    // increment cgc_index in str_buf to where rightmost digit goes
+    // increment index in str_buf to where rightmost digit goes
     do {
         idx++;
         tmp = tmp/10;
@@ -254,7 +254,7 @@ int int2str(char* str_buf, unsigned int buf_size, int i) {
     // i is always 0 or negative at this point.
     tmp = i;
 
-    // increment cgc_index in str_buf to where rightmost digit goes
+    // increment index in str_buf to where rightmost digit goes
     do {
         idx++;
         tmp = tmp/10;
@@ -305,7 +305,7 @@ uint32_t str2uint(const char* str_buf) {
     return result;
 }
 
-void * cgc_memset(void *dst, char c, size_t n) {
+void * memset(void *dst, char c, size_t n) {
     size_t i;
     for (i=0; i<n; i++) {
         *((uint8_t*)dst+i) = c;
@@ -313,7 +313,7 @@ void * cgc_memset(void *dst, char c, size_t n) {
     return dst;
 }
 
-void * cgc_memcpy(void *dst, void *src, size_t n) {
+void * memcpy(void *dst, void *src, size_t n) {
     size_t i;
     for (i=0; i<n; i++) {
         *((uint8_t*)dst+i) = *((uint8_t*)src+i);
@@ -351,10 +351,10 @@ int __umoddi3(int a, int b) {
 }
 
 void sleep(int s) {
-    struct cgc_timeval tv;
+    struct timeval tv;
     tv.tv_sec = s;
     tv.tv_usec = 0;
-    cgc_fdwait(0, NULL, NULL, &tv, NULL);
+    fdwait(0, NULL, NULL, &tv, NULL);
 }
 
 int memcmp(void *a, void *b, size_t n) {
@@ -485,7 +485,7 @@ void *calloc(size_t size) {
     if (!(ptr = malloc(size)))
         return NULL;
 
-    cgc_memset(ptr,'\0',size);
+    memset(ptr,'\0',size);
     return ptr;
 }
 
@@ -552,7 +552,7 @@ size_t strnlen(const char *string, size_t max_len) {
 }
 
 // From JUKEBOX, modified for non-null-terminated string2
-int cgc_strcmp(const char* string1, const char* string2)
+int strcmp(const char* string1, const char* string2)
 {
     int pos;
 

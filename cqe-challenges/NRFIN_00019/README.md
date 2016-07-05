@@ -38,7 +38,7 @@ These functions implement same-numbered analysis challenges enumerated in Challe
 
 ## Vulnerabilities
 
-The vulnerabilities guarded by taint tracking challenges are designed to be difficult to identify via other means.  All the vulnerabilities amount to an OOB (Out Of Bounds) memory access.  The OOB access is symbolically cgc_indexed, cgc_indexed against a symbolically-sized allocation or both.  
+The vulnerabilities guarded by taint tracking challenges are designed to be difficult to identify via other means.  All the vulnerabilities amount to an OOB (Out Of Bounds) memory access.  The OOB access is symbolically indexed, indexed against a symbolically-sized allocation or both.  
 
 Symbolic indices / allocations are intended to deter purely static analyses.
 

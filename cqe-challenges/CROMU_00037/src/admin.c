@@ -86,7 +86,7 @@ void SendBroadcastMessage(void) {
 #endif
 		_terminate(-1);
 	}
-	if (cgc_strlen(message) == 0) {
+	if (strlen(message) == 0) {
 		return;
 	}
 

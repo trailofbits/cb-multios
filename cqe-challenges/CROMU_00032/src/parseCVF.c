@@ -49,35 +49,35 @@ size_t receiveWrapper( void *outdata, size_t length )
 }
 void freeCVF( pcvf cvf )
 {
-	unsigned int cgc_index = 0;
+	unsigned int index = 0;
 	if ( cvf == NULL ) {
 		return;
 	}
 
-	while ( cgc_index < 8 ) {
-		if ( cvf->pds[cgc_index].pixelArray != NULL ) {
-			free( cvf->pds[cgc_index].pixelArray);
-			cvf->pds[cgc_index].pixelArray = NULL;
-			cvf->pds[cgc_index].charCount = 0;
+	while ( index < 8 ) {
+		if ( cvf->pds[index].pixelArray != NULL ) {
+			free( cvf->pds[index].pixelArray);
+			cvf->pds[index].pixelArray = NULL;
+			cvf->pds[index].charCount = 0;
 		}	
-		cgc_index++;
+		index++;
 	}
 
 	if ( cvf->renderedFrames != NULL ) {
-		cgc_index = 0;
-		while ( cgc_index < cvf->rCount ) {
-			if ( cvf->renderedFrames[cgc_index] != NULL ) {
-				if ( cvf->renderedFrames[cgc_index]->image != NULL ) {
-					free( cvf->renderedFrames[cgc_index]->image);
-					cvf->renderedFrames[cgc_index]->image = NULL;
-					cvf->renderedFrames[cgc_index]->height = 0;
-					cvf->renderedFrames[cgc_index]->width = 0;
+		index = 0;
+		while ( index < cvf->rCount ) {
+			if ( cvf->renderedFrames[index] != NULL ) {
+				if ( cvf->renderedFrames[index]->image != NULL ) {
+					free( cvf->renderedFrames[index]->image);
+					cvf->renderedFrames[index]->image = NULL;
+					cvf->renderedFrames[index]->height = 0;
+					cvf->renderedFrames[index]->width = 0;
 				}
-				free(cvf->renderedFrames[cgc_index]);
-				cvf->renderedFrames[cgc_index] = NULL;
+				free(cvf->renderedFrames[index]);
+				cvf->renderedFrames[index] = NULL;
 
 			}
-			cgc_index++;
+			index++;
 		}
 		free(cvf->renderedFrames);
 		cvf->renderedFrames = NULL;
@@ -90,7 +90,7 @@ void freeCVF( pcvf cvf )
 
 int playVideo( pcvf cvf )
 {
-	int cgc_index = 0;
+	int index = 0;
 	int length = 0;
 	pframe rf = NULL;
 	int sleepi = 1;
@@ -121,8 +121,8 @@ int playVideo( pcvf cvf )
 		return 0;
 	}
 
-	while ( cgc_index < cvf->rCount ) {
-		rf = cvf->renderedFrames[cgc_index];
+	while ( index < cvf->rCount ) {
+		rf = cvf->renderedFrames[index];
 
 		if ( rf == NULL ) {
 			return 0;
@@ -135,7 +135,7 @@ int playVideo( pcvf cvf )
 			printf("$c", rf->image[i]);
 		}
 
-		cgc_index++;
+		index++;
 		printf("\n");
 
 		/// SLEPIE
@@ -169,7 +169,7 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 {
 	unsigned int flag = 0x00;
 	unsigned char frame_type = 0;
-	unsigned char cgc_index_type = 0;
+	unsigned char index_type = 0;
 	unsigned char pixel_dict = 0;
 	unsigned char custom_dict = 0;
 	pframe newFrame = NULL;
@@ -177,11 +177,11 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 	pixelDict standard_dictionary;
 
 	unsigned int length = 0;
-	unsigned int cgc_index = 0;
+	unsigned int index = 0;
 	
 	unsigned int xbits = 0;
 	unsigned int ybits = 0;
-	unsigned int pixel_cgc_index_length = 0;
+	unsigned int pixel_index_length = 0;
 	unsigned int pixel_count = 0;
 	unsigned int pixel_count_bits = 0;
 	unsigned int pixel_bits = 0;
@@ -216,9 +216,9 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 	/// Bit 7 indicates full frame or individual pixels
 	frame_type = (flag >> 7) & 0x1;
 
-	/// Bit 6 indicates x/y or cgc_index based
+	/// Bit 6 indicates x/y or index based
 	/// This has not been implemented and probably won't be
-	cgc_index_type = (flag>>6) & 0x1;
+	index_type = (flag>>6) & 0x1;
 	
 	/// Bits 5-3 indicate dictionary
 	pixel_dict = (flag>>3) & 0x7;
@@ -302,10 +302,10 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 
 		pixel_count = 0;
 
-		/// I do not subtract one here because it is not 0 cgc_indexed
-		pixel_cgc_index_length = bitsNeeded( length );
+		/// I do not subtract one here because it is not 0 indexed
+		pixel_index_length = bitsNeeded( length );
 
-		if ( readBits( pbs, pixel_cgc_index_length, (&pixel_count)) == 0 ) {
+		if ( readBits( pbs, pixel_index_length, (&pixel_count)) == 0 ) {
 			free(newFrame->image);
 			newFrame->image = NULL;
 			free(newFrame);
@@ -322,19 +322,19 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 			return 0;
 		}
 
-		/// calculate the cgc_index length
+		/// calculate the index length
 		pixel_count_bits = bitsNeeded( length - 1 );
 	} else {
 		/// For a full frame the number of pixels is height * width
 		pixel_count = length;
 	}
 
-	/// If frame type is 0 meaning a full frame then the cgc_index type does
+	/// If frame type is 0 meaning a full frame then the index type does
 	///	not matter since every pixel from left to right top to bottom
 	///	is required.
 	if ( frame_type == 0 ) {
 		/// Set the base image to all spaces
-		cgc_memset( newFrame->image, 0x20, length );
+		memset( newFrame->image, 0x20, length );
 
 		xbits = 0;
 		while ( xbits < pixel_count ) {
@@ -376,9 +376,9 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 			return 0;
 		}
 
-		cgc_memcpy( newFrame->image, pNewImage->renderedFrames[ pNewImage->rCount-1 ]->image, length );
+		memcpy( newFrame->image, pNewImage->renderedFrames[ pNewImage->rCount-1 ]->image, length );
 
-		/// Read cgc_index and then pixel
+		/// Read index and then pixel
 		for ( int i = 0; i < pixel_count; i++ ) {
 			xbits = 0;
 			ybits = 0;
@@ -388,7 +388,7 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 				newFrame->image = NULL;
 				free(newFrame);
 				newFrame = NULL;
-				printf("[ERROR] Failed to read pixel cgc_index\n");
+				printf("[ERROR] Failed to read pixel index\n");
 				return 0;
 			}
 
@@ -424,8 +424,8 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 		}
 
 		/// Calculate the remaining padding
-		/// Pixel cgc_index bits + (cgc_index+value)*count
-		xbits = pixel_cgc_index_length;
+		/// Pixel index bits + (index+value)*count
+		xbits = pixel_index_length;
 		xbits += ( pixel_count_bits + pixel_bits ) * pixel_count;
 		xbits %= 8;
 		xbits = (8 - xbits) % 8;
@@ -452,7 +452,7 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 	return 1;
 }
 
-int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int cgc_index )
+int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int index )
 {
 	unsigned int pixelCount = 0;
 	unsigned int t = 0;
@@ -466,12 +466,12 @@ int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int cgc_index )
 		return 0;
 	}
 
-	if ( cgc_index < 0 || cgc_index > 7 ) {
+	if ( index < 0 || index > 7 ) {
 		return 0;
 	}
 
 	/// If the pixel dictionary has already been specified then fail
-	if ( pNewImage->pds[cgc_index].charCount != 0 ) {
+	if ( pNewImage->pds[index].charCount != 0 ) {
 		printf("[ERROR] Only one type %d pixel allowed.\n");
 		return 0;
 	}
@@ -492,7 +492,7 @@ int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int cgc_index )
 		return 0;
 	}
 
-	cgc_memset( pixelArray, 0, pixelCount + 1 );
+	memset( pixelArray, 0, pixelCount + 1 );
 
 	/// Loop to read the specified number of pixels
 	for (unsigned int i = 0; i < pixelCount; i++) {
@@ -507,10 +507,10 @@ int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int cgc_index )
 		t = 0;
 	}
 
-	cgc_memset( &pNewImage->pds[cgc_index], 0, sizeof(pixelDict) );
+	memset( &pNewImage->pds[index], 0, sizeof(pixelDict) );
 
-	pNewImage->pds[cgc_index].charCount = pixelCount;
-	pNewImage->pds[cgc_index].pixelArray = pixelArray;
+	pNewImage->pds[index].charCount = pixelCount;
+	pNewImage->pds[index].pixelArray = pixelArray;
 
 	return 1;
 }
@@ -518,7 +518,7 @@ int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int cgc_index )
 int parseCVFDescription( pBitStream pbs, pcvf pNewImage )
 {
 	unsigned int descLength = 0;
-	unsigned int cgc_index = 0;
+	unsigned int index = 0;
 	unsigned char c;
 	unsigned int t;
 
@@ -546,18 +546,18 @@ int parseCVFDescription( pBitStream pbs, pcvf pNewImage )
 	}
 
 	/// Read the description data
-	for( cgc_index = 0; cgc_index < descLength; cgc_index++ ) {
+	for( index = 0; index < descLength; index++ ) {
 		if ( readBits( pbs, 8, &t) == 0 ) {
 			return 0;
 		}
 
-		pNewImage->desc[cgc_index] = (char)(t&0xff);
+		pNewImage->desc[index] = (char)(t&0xff);
 		t = 0;
 	}
 
 	/// Ensure that the data is valid
-	for( cgc_index = 0; cgc_index < descLength; cgc_index++ ) {
-		c = pNewImage->desc[cgc_index];
+	for( index = 0; index < descLength; index++ ) {
+		c = pNewImage->desc[index];
 
 		if ( !isalpha( c ) && !isdigit( c ) && !isspace( c ) ) {
 			printf("[ERROR] Invalid character in description\n");
@@ -686,7 +686,7 @@ int parseCVFHeader( pBitStream pbs, pcvf pNewImage )
 		return 0;
 	}
 
-	cgc_memset( pNewImage->renderedFrames, 0x00, sizeof(pframe) * pNewImage->frameCount); 
+	memset( pNewImage->renderedFrames, 0x00, sizeof(pframe) * pNewImage->frameCount); 
 
 	return 1;
 }
@@ -803,7 +803,7 @@ pcvf initCVF( void )
 		return nc;
 	}
 
-	cgc_memset( nc, 0, sizeof(cvf) );
+	memset( nc, 0, sizeof(cvf) );
 
 	return nc;
 }

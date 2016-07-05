@@ -48,11 +48,11 @@ int shuffle_deck(struct deck *d, uint8_t seed) {
 		return ERR_UNINITIALIZED_DECK;
 	}
 
-	uint8_t idx = 0; 	// loop cgc_index walks through the deck
-	uint8_t rand_idx = 0; 	// cgc_index of card to swap with card at the loop cgc_index
+	uint8_t idx = 0; 	// loop index walks through the deck
+	uint8_t rand_idx = 0; 	// index of card to swap with card at the loop index
 	struct card *temp_card = NULL;
 
-	idx = seed % 52; // cgc_index in deck where algorithm will start
+	idx = seed % 52; // index in deck where algorithm will start
 
 	for (int i = 0; i < 52; i++) {
 		idx = (idx + i) % 52;

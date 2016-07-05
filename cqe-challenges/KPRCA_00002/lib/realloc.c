@@ -51,7 +51,7 @@ void *realloc(void *ptr, size_t size)
     size_t tocopy = block->size-OVERHEAD_BYTES;
     if (tocopy > size)
         tocopy = size;
-    cgc_memcpy(newmem, ptr, tocopy);
+    memcpy(newmem, ptr, tocopy);
     free(ptr);
     //printf("realloc(%08X, %d) = %08X\n", ptr, size, newmem);
     return newmem;

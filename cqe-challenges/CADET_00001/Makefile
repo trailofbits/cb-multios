@@ -1,2 +1,5 @@
+AUTHOR_ID  = CADET
+SERVICE_ID = 00001
+CFLAGS     = -O0 -g -Werror -Wno-overlength-strings -Wno-packed
 
-CFLAGS     = -O0 -g -Wno-overlength-strings -Wno-packed -DFORTIFY_SOURCE=0 -fno-stack-protector
+include /usr/share/cb-testing/cgc-cb.mk

@@ -125,12 +125,12 @@ class Chesser(Actions):
 
 	def displayBoard(self):
 		#print('printer')
-		self.cgc_write("9\n")
+		self.write("9\n")
 		self.read(length =79, expect=r"^\x00?([.abcdefghijkl]{8}\n){8}", expect_format="pcre")
 
 	def leaveTheGame(self):
 		#print('exiting')
-		self.cgc_write("666\n")
+		self.write("666\n")
 		self.read(length=9, expect=r"good game")
 
 	def keepPlaying(self):
@@ -497,7 +497,7 @@ class Chesser(Actions):
 
 		str = "{},{} {},{}\n".format(src[0], src[1], dst[0], dst[1])
 		#print peece[0] + ' : ' + str
-		self.cgc_write(str)
+		self.write(str)
 
 		# keep track internally of where pieces are
 		self._movePieceOnBoard(src,dst)
@@ -551,7 +551,7 @@ class Chesser(Actions):
 
 		str = "{},{} {},{}\n".format(peece[2], peece[3], dst[0], dst[1])
 		#print "badmovevalidpieceONboard: " + str
-		self.cgc_write(str) # bad move with valid piece (on board)
+		self.write(str) # bad move with valid piece (on board)
 		exp = "NO\n" + self.current_turn.upper() + ": "
 		delimm = self.current_turn.upper() + ": "
 		self.read(delim=delimm, expect=exp)
@@ -571,6 +571,6 @@ class Chesser(Actions):
 		#   will be impacted. that is an illegal move format
 		if (len(str) > 7):
 			exp = "incorrect input\nNot a legal move format\n" + self.current_turn.upper() + ": "
-		self.cgc_write(str) # bad move with valid piece (on board)
+		self.write(str) # bad move with valid piece (on board)
 		
 		self.read(length=len(exp), expect=exp)

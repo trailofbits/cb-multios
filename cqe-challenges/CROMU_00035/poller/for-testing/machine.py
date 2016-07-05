@@ -578,11 +578,11 @@ class CROMU00035(Actions):
 	def cd(self):
 		self.add_directory()
 		self.read_prompt()
-		cgc_index = len(self.oState.workingDir[3])-1
+		index = len(self.oState.workingDir[3])-1
 		dirname = self.oState.workingDir[3][-1][0]
 		self.write('cd ' + dirname +'\n' )
 		self.oState.workingDir = self.oState.workingDir[3][-1]
-		self.oState.dirpath.append(cgc_index)
+		self.oState.dirpath.append(index)
 
 		#directory or ..
 

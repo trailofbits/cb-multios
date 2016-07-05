@@ -77,7 +77,7 @@ void pushElement(Stack *stack, void* element) {
         _terminate(19);
 	}
 	stack->top++;
-	cgc_memcpy(&stack->elements[stack->elementSize*stack->top], element, stack->elementSize);
+	memcpy(&stack->elements[stack->elementSize*stack->top], element, stack->elementSize);
 }
 
 void* popElement(Stack *stack) {

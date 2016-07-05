@@ -38,8 +38,8 @@ enum {
 
 struct tank {
 	uint8_t id;				// ID number of tank
-	uint8_t fill_rate; 		// amt of h2o added per cgc_round
-	uint8_t drain_rate; 	// amt of h2o drained per cgc_round
+	uint8_t fill_rate; 		// amt of h2o added per round
+	uint8_t drain_rate; 	// amt of h2o drained per round
 	uint8_t valve_position; // position of valve
 	uint8_t capacity; 		// qty of h2o tank can hold
 	uint8_t level; 			// qty of h2o in tank

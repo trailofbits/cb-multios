@@ -209,7 +209,7 @@ static void plot_mono_wave(uwfc_t *track, unsigned char *data) {
     int y = (w - 1) / 2;
     int x = (normalized * y) + y + .5;
     char line[w];
-    cgc_memset(line, ' ', w);
+    memset(line, ' ', w);
     line[w-1] = '\0';
     line[x] = '*';
     printf("%s\n", line);
@@ -235,7 +235,7 @@ static void plot_stereo_wave(uwfc_t *track, unsigned char *data) {
     int x_l = (normalized_l * y) + y + .5;
     int x_r = (normalized_r * y) + y + chan_w + 1.5;
     char line[w];
-    cgc_memset(line, ' ', w);
+    memset(line, ' ', w);
     line[w-1] = '\0';
     line[chan_w] = '|';
     line[x_l] = '*';
@@ -321,8 +321,8 @@ static void vis_buckets(eq_bucket_t *buckets, int vis_type) {
         // for each second (sample cycle) is best visualized taking the log of the
         // total power of all frequencies in frequency bucket
         bar_len = (int)(log(total_power + 1) * 3); // +1 to avoid log(0), log(1) is neglible
-        cgc_memset(line, 0, max_height + 1);
-        cgc_memset(line, '=', bar_len );
+        memset(line, 0, max_height + 1);
+        memset(line, '=', bar_len );
 
         line[bar_len] = ']';
         for(i = 0; i < bar_width; i++)

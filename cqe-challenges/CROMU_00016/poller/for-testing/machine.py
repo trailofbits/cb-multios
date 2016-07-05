@@ -216,12 +216,12 @@ class NetSim(Actions):
 		if random.randint(0,1):
 			# send an invalid input 
 			self.iface['speed'] = random.randint(4194305,9999999)
-			self.cgc_write("%d\n" % self.iface['speed'])
+			self.write("%d\n" % self.iface['speed'])
 			self.read(delim=': ', expect="What's the interface speed (in bps up to 4194304 bps): ")
 
 		# send valid input
 		self.iface['speed'] = random.randint(10000,4194304)
-		self.cgc_write("%d\n" % self.iface['speed'])
+		self.write("%d\n" % self.iface['speed'])
 
 		# init MT prng using the speed as the seed
 		self.MT = Mersenne(self.iface['speed'])
@@ -242,12 +242,12 @@ class NetSim(Actions):
 		if random.randint(0,1):
 			# send an invalid input 
 			mode = random.randint(4, 10)
-			self.cgc_write("%d\n" % self.generator)
+			self.write("%d\n" % self.generator)
 			self.read(delim=': ', expect="Which generator would you like to use? (1-3): ")
 		
 		# send valid input
 		mode = random.randint(1, 3)
-		self.cgc_write("%d\n" % mode)
+		self.write("%d\n" % mode)
 
 		# init the local MT PRNG
 		self.PktGen = Generator(self.MT)
@@ -265,7 +265,7 @@ class NetSim(Actions):
 
 		self.read(delim=': ', expect="For how long would you like the simulation to run? (1 - 10s): ")
 		self.max_wall_clock = random.randint(0, 10)
-		self.cgc_write("%d\n" % self.max_wall_clock)
+		self.write("%d\n" % self.max_wall_clock)
 
 		return 0
 
@@ -279,12 +279,12 @@ class NetSim(Actions):
 		if random.randint(0,1):
 			# send an invalid input 
 			gen_bps = random.randint(4194305, 9999999)
-			self.cgc_write("%d\n" % gen_bps)
+			self.write("%d\n" % gen_bps)
 			self.read(delim=': ', expect="What average bit rate do you want the random generator to produce? (1 - 4194304 bps): ")
 
 		# send valid input
 		gen_bps = random.randint(1, 4194304)
-		self.cgc_write("%d\n" % gen_bps)
+		self.write("%d\n" % gen_bps)
 
 		# calculate the actual packet rate from the bps and average packet size
 		self.gen_rate = ((1500-64)/2*8.0) / gen_bps * 2.0
@@ -299,12 +299,12 @@ class NetSim(Actions):
 		if random.randint(0,1):
 			# send an invalid input 
 			gen_bps = random.randint(4194305, 9999999)
-			self.cgc_write("%d\n" % gen_bps)
+			self.write("%d\n" % gen_bps)
 			self.read(delim=': ', expect="What average bit rate do you want the poisson generator to produce? (1 - 4194304 bps): ")
 
 		# send valid input
 		gen_bps = random.randint(1, 4194304)
-		self.cgc_write("%d\n" % gen_bps)
+		self.write("%d\n" % gen_bps)
 
 		# calculate the actual packet rate from the bps and average packet size
 		self.gen_rate = gen_bps / ((1500-64)/2.0*8.0)
@@ -318,12 +318,12 @@ class NetSim(Actions):
 		# randomly try sending an incorrect value
 		if random.randint(0,50) == 0:
 			# send an invalid input 
-			self.cgc_write('z' + '\n')
+			self.write('z' + '\n')
 			self.read(delim=': ', expect="Should the packet generator repeat the manually entered packets? (y,n): ")
 
 		# send valid input
 		choice = random.choice(['y','n'])
-		self.cgc_write(choice + '\n')
+		self.write(choice + '\n')
 		if (choice == 'y'):
 			self.PktGen.SetRepeat(1)
 
@@ -333,12 +333,12 @@ class NetSim(Actions):
 		if random.randint(0,50) == 0:
 			# send an invalid input 
 			pkt_count = random.choice([random.randint(-9999,0), random.randint(1001, 9999)])
-			self.cgc_write("%d\n" % pkt_count)
+			self.write("%d\n" % pkt_count)
 			self.read(delim=': ', expect="How many packets would you like to enter? (1 - 1000): ")
 		
 		# send valid input
 		pkt_count = random.randint(1, 1000)
-		self.cgc_write("%d\n" % pkt_count)
+		self.write("%d\n" % pkt_count)
 
 		self.read(delim='\n', expect="Enter the packets, one per line in this format:\n")
 		self.read(delim='\n', expect="time since last packet (s, ##.######),length (bytes 64-1500),priority (0-63)\n")
@@ -348,7 +348,7 @@ class NetSim(Actions):
 			# send incorrectly formatted timestamp
 			length = random.randint(64, 1500)
 			priority = random.randint(0, 63)
-			self.cgc_write("%0.6f,%d,%d\n" % (random.uniform(-10.0, -0.00001), length, priority))
+			self.write("%0.6f,%d,%d\n" % (random.uniform(-10.0, -0.00001), length, priority))
 			self.read(delim='\n', expect="Invalid timestamp\n")
 			self.read(delim='\n', expect="Unable to init packet generator\n")
 			return -1
@@ -356,7 +356,7 @@ class NetSim(Actions):
 			# send incorrect bytes
 			time = random.uniform(0.00001, 10.00000)
 			priority = random.randint(0, 63)
-			self.cgc_write("%0.6f,%d,%d\n" % (time, random.choice([random.randint(-10, 63), random.randint(1501, 9999)]), priority))
+			self.write("%0.6f,%d,%d\n" % (time, random.choice([random.randint(-10, 63), random.randint(1501, 9999)]), priority))
 			self.read(delim='\n', expect="Invalid bytes\n")
 			self.read(delim='\n', expect="Unable to init packet generator\n")
 			return -1
@@ -364,7 +364,7 @@ class NetSim(Actions):
 			# send incorrect priority
 			time = random.uniform(0.00001, 10.00000)
 			length = random.randint(64, 1500)
-			self.cgc_write("%0.6f,%d,%d\n" % (time, length, random.choice([random.randint(-10, -1), random.randint(64, 99)])))
+			self.write("%0.6f,%d,%d\n" % (time, length, random.choice([random.randint(-10, -1), random.randint(64, 99)])))
 			self.read(delim='\n', expect="Invalid priority\n")
 			self.read(delim='\n', expect="Unable to init packet generator\n")
 			return -1
@@ -373,7 +373,7 @@ class NetSim(Actions):
 			time = random.uniform(0.00001, 10.00000)
 			length = random.randint(64, 1500)
 			priority = random.randint(0, 63)
-			self.cgc_write("%0.6f,%d,,%d\n" % (time, length, priority))
+			self.write("%0.6f,%d,,%d\n" % (time, length, priority))
 			self.read(delim='\n', expect="Invalid priority\n")
 			self.read(delim='\n', expect="Unable to init packet generator\n")
 			return -1
@@ -383,7 +383,7 @@ class NetSim(Actions):
 			time = random.uniform(0.00001, 0.10000)
 			length = random.randint(64, 1500)
 			priority = random.randint(0, 63)
-			self.cgc_write("%0.6f,%d,%d\n" % (time, length, priority))
+			self.write("%0.6f,%d,%d\n" % (time, length, priority))
 			# append to the packet list
 			self.PktGen.ManualAppend(time, length, priority)
 
@@ -398,12 +398,12 @@ class NetSim(Actions):
 		# randomly try sending an incorrect value
 		if random.randint(0,1):
 			# send an invalid input 
-			self.cgc_write("%d\n" % random.choice([random.randint(-10, 0), random.randint(9, 20)]))
+			self.write("%d\n" % random.choice([random.randint(-10, 0), random.randint(9, 20)]))
 			self.read(delim=': ', expect="How many queues (1-8)?: ")
 
 		# send valid input
 		self.num_queues = random.randint(1, 8)
-		self.cgc_write("%d\n" % self.num_queues)
+		self.write("%d\n" % self.num_queues)
 
 		# setup each queue
 		max_pri = 63
@@ -415,24 +415,24 @@ class NetSim(Actions):
 				self.read(delim=': ', expect="  Is queue #0 a priority queue(y,n): ")
 				if random.randint(0,1):
 					self.iface['priority_queue_enable'] = 1
-					self.cgc_write('y' + '\n')
+					self.write('y' + '\n')
 				else: 
-					self.cgc_write('n' + '\n')
+					self.write('n' + '\n')
 
 			self.read(delim=': ', expect="  What's the minimum priority packet to place in queue #%d (0-63): " % q)
 			self.queue[q]['min_priority'] = max_pri - (64 // self.num_queues)
 			if q == self.num_queues-1:
 				self.queue[q]['min_priority'] = 0
-			self.cgc_write("%d\n" % self.queue[q]['min_priority'])
+			self.write("%d\n" % self.queue[q]['min_priority'])
 			
 			self.read(delim=': ', expect="  What's the maximum priority packet to place in queue #%d (0-63): " % q)
 			self.queue[q]['max_priority'] = max_pri
-			self.cgc_write("%d\n" % self.queue[q]['max_priority'])
+			self.write("%d\n" % self.queue[q]['max_priority'])
 			max_pri = max_pri - (64 // self.num_queues) - 1
 
 			self.read(delim=': ', expect="  What is the depth of queue #%d (1 - 1024 packets): " % q)
 			self.queue[q]['max_depth'] = random.randint(1, 1024)
-			self.cgc_write("%d\n" % self.queue[q]['max_depth'])
+			self.write("%d\n" % self.queue[q]['max_depth'])
 			
 			if q == 0 and self.iface['priority_queue_enable']:
 				self.queue[q]['weight'] = 100
@@ -441,7 +441,7 @@ class NetSim(Actions):
 				self.queue[q]['weight'] = 100 // self.num_queues
 				if q == self.num_queues-1:
 					self.queue[q]['weight'] = remaining_weight
-				self.cgc_write("%d\n" % self.queue[q]['weight'])
+				self.write("%d\n" % self.queue[q]['weight'])
 				remaining_weight -= self.queue[q]['weight']
 
 			if self.queue[q]['weight'] < lowest_weight:

@@ -92,7 +92,7 @@ void bookKeeping(carstate *drive)
 
 void raiseAlarm() {
 	char a;
-	cgc_memcpy(&a, "AAAAAAAAAAAAAAAA", 16);
+	memcpy(&a, "AAAAAAAAAAAAAAAA", 16);
 	validateRet();
 }
 
@@ -138,7 +138,7 @@ void updateBTMetadata(carstate *drive, char *userbuf) {
 	if(len > 31)
 		len = 31;
 	#endif
-	cgc_memcpy(drive->bt_metadata, tmp, len);
+	memcpy(drive->bt_metadata, tmp, len);
 	validateRet();
 }
 
@@ -193,12 +193,12 @@ void serviceLoop() {
 	drivestuff.drive = &drivestuff._drive;
 	char *ptr;
 	validatePtr(drivestuff.drive);
-	cgc_memset(drivestuff.drive, 0, sizeof(carstate));
+	memset(drivestuff.drive, 0, sizeof(carstate));
 	validatePtr(drivestuff.drive);
 	initCar(drivestuff.drive);
 
 	while(1) {
-		cgc_memset(drivestuff.ibuf, 0, sizeof(drivestuff.ibuf));
+		memset(drivestuff.ibuf, 0, sizeof(drivestuff.ibuf));
 		int got;
 		got = recvUntil(0, drivestuff.ibuf, 255, '\n');
 		if(got <= 0)

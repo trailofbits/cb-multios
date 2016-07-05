@@ -86,7 +86,7 @@ static int enlarge_tbl(dict_t *dict, unsigned int new_size)
     if (new_tbl == NULL)
         return 0;
 
-    cgc_memset(new_tbl, 0, new_size * sizeof(_record_t *));
+    memset(new_tbl, 0, new_size * sizeof(_record_t *));
     dict->tbl = new_tbl;
     dict->length = new_size;
 
@@ -135,7 +135,7 @@ void *dict_get(dict_t *dict, const char *name)
     _record_t *r = dict->tbl[do_hash(dict, name)];
 
     for (; r != NULL; r = r->next)
-        if (cgc_strcmp(r->name, name) == 0)
+        if (strcmp(r->name, name) == 0)
             return r;
 
     return NULL;

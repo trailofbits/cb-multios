@@ -68,11 +68,11 @@ static int match_helper(state_t *state, unsigned char *str, int match_len, match
         return 0;
 
 #ifdef PATCHED
-    if (g_epsilon_loop[state->id] > cgc_strlen(str))
+    if (g_epsilon_loop[state->id] > strlen(str))
 #else
-    if (g_epsilon_loop[state->id] >= cgc_strlen(str))
+    if (g_epsilon_loop[state->id] >= strlen(str))
 #endif
-        g_epsilon_loop[state->id] = cgc_strlen(str);
+        g_epsilon_loop[state->id] = strlen(str);
     else
         return 0;
 
@@ -121,8 +121,8 @@ void debug_state(state_t *state)
 void match(state_t *state, unsigned char *str, match_type_e match_type)
 {
     int i, match_len = 0, end_of_str = 0;
-    unsigned char *tstr = malloc(cgc_strlen(str) + 1), *line = tstr, *tline = tstr, *ptstr = tstr;
-    cgc_memcpy(tstr, str, cgc_strlen(str) + 1);
+    unsigned char *tstr = malloc(strlen(str) + 1), *line = tstr, *tline = tstr, *ptstr = tstr;
+    memcpy(tstr, str, strlen(str) + 1);
 
     if(g_epsilon_loop == NULL)
         g_epsilon_loop = malloc(sizeof(int) * MAX_STATES);

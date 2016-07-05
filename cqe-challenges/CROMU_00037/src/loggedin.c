@@ -44,7 +44,7 @@ void SendMessage(void) {
 		_terminate(-1);
 	}
 
-	if (cgc_strlen(user) == 0) {
+	if (strlen(user) == 0) {
 		return;
 	}
 
@@ -54,7 +54,7 @@ void SendMessage(void) {
 	if (read_until(message, '\n', MAX_MESSAGE_LEN) == -1) {
 		_terminate(-1);
 	}
-	if (cgc_strlen(message) == 0) {
+	if (strlen(message) == 0) {
 		return;
 	}
 
@@ -94,7 +94,7 @@ void ReadMessage(void) {
 	if (read_until(id, '\n', 4) == -1) {
 		_terminate(-1);
 	}
-	if (cgc_strlen(id) == 0) {
+	if (strlen(id) == 0) {
 		return;
 	}
 
@@ -155,7 +155,7 @@ void DeleteMessage(void) {
 	if (read_until(id, '\n', 4) == -1) {
 		_terminate(-1);
 	}
-	if (cgc_strlen(id) == 0) {
+	if (strlen(id) == 0) {
 		return;
 	}
 

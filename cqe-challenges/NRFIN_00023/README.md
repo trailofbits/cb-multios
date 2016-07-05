@@ -47,11 +47,11 @@ their hash values, and implementing guards to prevent invalid values from
 corrupting program state.
 
 The system does not validate the length of stock symbol names before performing
-an unbounded copy to a heap-allocated buffer. The fix is to not use cgc_strcpy
+an unbounded copy to a heap-allocated buffer. The fix is to not use strcpy
 unsafely on untrusted input, instead using strncpy. See src/stock.c:123-127.
 This is an unbounded copy into a fixed-size buffer, patching will require adding
 in length checks to remove the possiblity of overflowing the buffer on unsafe
-operations such as cgc_strcpy.
+operations such as strcpy.
 
 The system uses heap allocated variables after freeing them. The implemented fix
 ensures that all references to heap-allocated chunks are removed prior to
@@ -69,16 +69,16 @@ checks.
 
 ### Generic class of vulnerability
 Dereference of untrusted pointer
-Integer overflow or wrapacgc_round
-Improper validation of array cgc_index
+Integer overflow or wraparound
+Improper validation of array index
 Heap-based buffer overflow
 Use after free
 Access of resource using incompatible type
 
 ### CWE classification
 CWE-822 Dereference of untrusted pointer
-CWE-190 Integer overflow or wrapacgc_round
-CWE-129 Improper validation of array cgc_index
+CWE-190 Integer overflow or wraparound
+CWE-129 Improper validation of array index
 CWE-122 Heap-based buffer overflow
 CWE-416 Use after free
 CWE-843 Access of resource using incompatible type
@@ -92,7 +92,7 @@ order to effectively evaluate the strengths and weaknesses of a CRS.
 rudimentary fuzzing approaches and from the leakage of a "heap-like" address
 for order IDs.
 
-- The signed integer array cgc_index is slightly harder to detect, requiring fuzzing
+- The signed integer array index is slightly harder to detect, requiring fuzzing
 which does not limit names to ascii values in order to generate a hash value
 which will trigger the vulnerability.
 

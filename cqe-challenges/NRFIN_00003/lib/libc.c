@@ -76,15 +76,15 @@ size_t findchar(char *haystack, char needle) {
     return -1;
 }
 
-// Emulate sleep() via a timeout given to cgc_fdwait().
+// Emulate sleep() via a timeout given to fdwait().
 void pause(size_t usec) {
 
-    struct cgc_timeval tv;
+    struct timeval tv;
 
     tv.tv_sec = 0;
     tv.tv_usec = usec;
 
-    cgc_fdwait(0, NULL, NULL, &tv, NULL);
+    fdwait(0, NULL, NULL, &tv, NULL);
 }
 
 // hack because sizeof(MY_STRING) returns the length with NULL and that's messy

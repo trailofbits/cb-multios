@@ -26,13 +26,13 @@ Each, however, presents a different, unique challenge to competitors trying to d
 
 
 1.) Buffer overflow in admin\_add\_login due to a signed to unsigned conversion problem.
-The buffer is checked to see if it is greater than 127; however, if the number is negative it will be coerced into a value greater than 128 in the cgc_memcpy, leading to a stack buffer overflow.
+The buffer is checked to see if it is greater than 127; however, if the number is negative it will be coerced into a value greater than 128 in the memcpy, leading to a stack buffer overflow.
 To patch this vulnerability, a system needs to either properly restrict bounds or remove the vulnerable copy entirely.
 Mitigations like stack cookies would also likely prevent a crash.
 To prove this vulnerability, a CRS must be able to satisfy the relatively simple constraints of an additive checksum function.
 
-2.) Buffer overflow in admin\_addxoradd\_login due to a call to cgc_strcpy with unsanitized user input as the source.
-This vulnerability is a classic cgc_strcpy overflow; the bounds are not properly checked before copying user-provided data to the stack.
+2.) Buffer overflow in admin\_addxoradd\_login due to a call to strcpy with unsanitized user input as the source.
+This vulnerability is a classic strcpy overflow; the bounds are not properly checked before copying user-provided data to the stack.
 To patch this vulnerability, a system needs to either properly restrict bounds or remove the vulnerable copy entirely.
 Mitigations like stack cookies would also likely prevent a crash.
 To prove this vulnerability, a CRS must be able to satisfy the somewhat more complex constraints of a multi-step checksum function, as well as correctly calculate any previous checksums.
@@ -49,7 +49,7 @@ To patch this vulnerability, a system needs to either properly restrict bounds o
 Mitigations like stack cookies would also likely prevent a crash.
 To prove this vulnerability, a CRS must be able to formulate and satisfy somewhat simple constraints based on floating-point numbers, as well as correctly calculate any previous checksums.
 
-5.) Buffer overflow in admin\_md5\_login due to a call to cgc_strcpy with unsanitized user input as the source.
+5.) Buffer overflow in admin\_md5\_login due to a call to strcpy with unsanitized user input as the source.
 This vulnerability is a very simple stack overflow, as simply reaching the function for a CRS will be very difficult
 To patch this vulnerability, a system needs to either properly restrict bounds or remove the vulnerable copy entirely.
 Mitigations like stack cookies would also likely prevent a crash.

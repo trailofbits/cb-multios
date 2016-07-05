@@ -134,7 +134,7 @@ uint32_t get_next_haiku_id() {
 }
 
 /*
- * Get a random cgc_index in the list of haiku ids.
+ * Get a random index in the list of haiku ids.
  *
  * Returns:
  *  Success: SUCCESS
@@ -251,7 +251,7 @@ void send_easter_egg_haiku() {
 
 	uint32_t id = EGG_ID;
 	char *content = EGG_HAIKU;
-	uint16_t length = cgc_strlen(content);
+	uint16_t length = strlen(content);
 
 	send((char *)&id, sizeof(uint32_t));
 	send((char *)&length, sizeof(uint16_t));

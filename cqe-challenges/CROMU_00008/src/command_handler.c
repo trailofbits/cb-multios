@@ -49,15 +49,15 @@ tCommandHandlerTable g_cmdTable[] =
 
 int32_t stringbeg( uint8_t *pszInString, uint8_t *pszMatchString )
 {
-    int32_t cgc_index;
+    int32_t index;
 
-    cgc_index = 0;
+    index = 0;
     while ( *pszInString )
     {
         if ( isspace( *pszInString ) )
         {
             pszInString++;
-            cgc_index++;
+            index++;
             continue;
         }
 
@@ -71,10 +71,10 @@ int32_t stringbeg( uint8_t *pszInString, uint8_t *pszMatchString )
 
         pszInString++;
         pszMatchString++;
-        cgc_index++;
+        index++;
     }
 
-    return cgc_index;
+    return index;
 }
 
 void init_user( tUserState *pState )
@@ -85,7 +85,7 @@ void init_user( tUserState *pState )
 int8_t parse_command( uint8_t *pszCommandString, tUserState *pState )
 {
     uint32_t i;
-    int32_t cgc_index;
+    int32_t index;
     int8_t iRetVal = -1;
 
     // Find command!
@@ -94,7 +94,7 @@ int8_t parse_command( uint8_t *pszCommandString, tUserState *pState )
         if ( g_cmdTable[i].pCmdHandler == NULL )
             break;
 
-        if ( (cgc_index = stringbeg( pszCommandString, g_cmdTable[i].szCommand )) > 0 )
+        if ( (index = stringbeg( pszCommandString, g_cmdTable[i].szCommand )) > 0 )
         {
             if ( (g_cmdTable[i].flags & CMD_FLAG_AUTH) && pState->state == USER_STATE_NOAUTH )
             {
@@ -103,7 +103,7 @@ int8_t parse_command( uint8_t *pszCommandString, tUserState *pState )
             }
 
             // Call cmd fptr
-            return (*g_cmdTable[i].pCmdHandler)( pszCommandString+cgc_index, pState );
+            return (*g_cmdTable[i].pCmdHandler)( pszCommandString+index, pState );
         }
     }
 
@@ -171,17 +171,17 @@ int8_t command_insert( uint8_t *pszCommandString, tUserState *pState )
 int8_t command_remove( uint8_t *pszCommandString, tUserState *pState )
 {
     int32_t iRetVal;
-    uint32_t cgc_index;
+    uint32_t index;
     char szTemp[MAX_STRING_LENGTH+1];
 
     printf( "Enter record number to remove: " );
 
     iRetVal = readLine( STDIN, szTemp, MAX_STRING_LENGTH );
 
-    cgc_index = atoi( szTemp );
+    index = atoi( szTemp );
 
-    if ( db_remove_record( cgc_index ) )
-        printf( "Record $d removed.\n", cgc_index );
+    if ( db_remove_record( index ) )
+        printf( "Record $d removed.\n", index );
     else
         printf( "Record not found.\n" );
 
@@ -198,16 +198,16 @@ int8_t command_update( uint8_t *pszCommandString, tUserState *pState )
     char szTemp[MAX_STRING_LENGTH+1];
     uint32_t creationDate;
     uint32_t newRecordNumber;
-    uint32_t cgc_index;
+    uint32_t index;
     tDDAPRecord *pCurrentRecordInfo;
 
     printf( "Enter record number to update: " );
 
     iRetVal = readLine( STDIN, szTemp, MAX_STRING_LENGTH );
 
-    cgc_index = atoi( szTemp );
+    index = atoi( szTemp );
 
-    pCurrentRecordInfo = db_search_cgc_index( cgc_index );
+    pCurrentRecordInfo = db_search_index( index );
 
     if ( pCurrentRecordInfo == NULL )
     {
@@ -248,7 +248,7 @@ int8_t command_update( uint8_t *pszCommandString, tUserState *pState )
     printf( "Date is: $d/$d/$d $d:$d:$d\n", tempDate.month, tempDate.day, GET_DB_YEAR(tempDate.year), tempDate.hour, tempDate.minute, tempDate.second );
 
     // Insert into database
-    newRecordNumber = db_update_record( cgc_index, szUserName, szFirstName, szLastName, tempDate );
+    newRecordNumber = db_update_record( index, szUserName, szFirstName, szLastName, tempDate );
 
     if ( newRecordNumber == 0 )
     {
@@ -256,14 +256,14 @@ int8_t command_update( uint8_t *pszCommandString, tUserState *pState )
         return 0;
     }
 
-    printf( "Record $d updated.\n", cgc_index );
+    printf( "Record $d updated.\n", index );
     return 0;
 }
 
 int8_t command_print( uint8_t *pszCommandString, tUserState *pState )
 {
     int32_t iRetVal;
-    uint32_t cgc_index;
+    uint32_t index;
     char szTemp[MAX_STRING_LENGTH+1];
     tDDAPRecord *pCurrentRecordInfo;
 
@@ -271,13 +271,13 @@ int8_t command_print( uint8_t *pszCommandString, tUserState *pState )
 
     iRetVal = readLine( STDIN, szTemp, MAX_STRING_LENGTH );
 
-    if ( cgc_strcmp( szTemp, "all" ) == 0 )
+    if ( strcmp( szTemp, "all" ) == 0 )
     {
         printf( "Printing all $d records.\n", db_get_record_count() );
 
-        for ( cgc_index = 0; cgc_index < db_get_record_count(); cgc_index++ )
+        for ( index = 0; index < db_get_record_count(); index++ )
         {
-            pCurrentRecordInfo = db_search_cgc_index( cgc_index );
+            pCurrentRecordInfo = db_search_index( index );
 
             if ( pCurrentRecordInfo == NULL )
                 return 0;
@@ -287,9 +287,9 @@ int8_t command_print( uint8_t *pszCommandString, tUserState *pState )
     }
     else
     {
-        cgc_index = atoi( szTemp );
+        index = atoi( szTemp );
 
-        pCurrentRecordInfo = db_search_cgc_index( cgc_index );
+        pCurrentRecordInfo = db_search_index( index );
 
         if ( pCurrentRecordInfo == NULL )
         {
@@ -306,7 +306,7 @@ int8_t command_print( uint8_t *pszCommandString, tUserState *pState )
 int8_t command_find( uint8_t *pszCommandString, tUserState *pState )
 {
     int32_t iRetVal;
-    uint32_t cgc_index;
+    uint32_t index;
     char szTemp[MAX_STRING_LENGTH+1];
 
     // Check for empty database

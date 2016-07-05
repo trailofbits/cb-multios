@@ -25,7 +25,7 @@
 
 #include "libcgc.h"
 
-void *cgc_memset(void *s, int c, size_t n)
+void *memset(void *s, int c, size_t n)
 {
   if (s == NULL)
     return NULL;

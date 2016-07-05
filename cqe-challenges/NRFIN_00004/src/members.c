@@ -34,17 +34,17 @@
 
 static void edgar_match(htreq *req) {
 #ifndef PATCHED
-    cgc_strcpy(req->resp, req->recv+sizeof(EDGRBUF)-1);
-    cgc_strcat(req->resp, EDGROVFSTR);
+    strcpy(req->resp, req->recv+sizeof(EDGRBUF)-1);
+    strcat(req->resp, EDGROVFSTR);
 #else
     strncpy(req->resp, req->recv+sizeof(EDGRBUF)-1,sizeof(req->resp)-1);
-    strncpy(req->resp+cgc_strlen(req->resp), EDGROVFSTR, sizeof(req->resp)-cgc_strlen(req->resp)-1);
+    strncpy(req->resp+strlen(req->resp), EDGROVFSTR, sizeof(req->resp)-strlen(req->resp)-1);
 #endif
 }
 
 static void edgar_no_match(htreq *req) {
     strncpy(req->resp, req->recv+sizeof(EDGRBUF)-1, sizeof(req->resp)-1);
-    strncpy(req->resp+cgc_strlen(req->resp), EDGRBUTSTR, sizeof(req->resp)-cgc_strlen(req->resp)-1);
+    strncpy(req->resp+strlen(req->resp), EDGRBUTSTR, sizeof(req->resp)-strlen(req->resp)-1);
 }
 
 void do_edgar(htreq* req) {
@@ -60,7 +60,7 @@ void do_edgar(htreq* req) {
 
 static void will_no_match(htreq *req) {
     int res;
-    SEND("(bb|[^b]{2})?",cgc_strlen("(bb|[^b]{2})?"),res); 
+    SEND("(bb|[^b]{2})?",strlen("(bb|[^b]{2})?"),res); 
     req->resplen = 0;
     *req->resp = '\0';
 }
@@ -77,14 +77,14 @@ static void will_match(htreq *req) {
 #endif
         if (startswith(src, "your")) {
 #ifndef PATCHED
-            dst += cgc_strcpy(dst,"thy");
+            dst += strcpy(dst,"thy");
 #else
             dst += strncpy(dst,"thy",(size_t)(end-dst));
 #endif
             src += sizeof("your")-1;
         } else if (startswith(src, "has")) {
 #ifndef PATCHED
-            dst += cgc_strcpy(dst,"hath");
+            dst += strcpy(dst,"hath");
 #else
             dst += strncpy(dst,"hath",(size_t)(end-dst));
 #endif
@@ -100,9 +100,9 @@ static void will_match(htreq *req) {
 #endif
 
 #ifndef PATCHED
-    req->resplen = cgc_strlen(req->recv+sizeof(WILLBUF)-1);
+    req->resplen = strlen(req->recv+sizeof(WILLBUF)-1);
 #else
-    req->resplen = cgc_strlen(req->resp);
+    req->resplen = strlen(req->resp);
 #endif
 }
 
@@ -137,7 +137,7 @@ void do_eliz(htreq *req) {
 static void john_match(htreq *req) {
     int res;
     SENDL(johnarr[SIZEOFARR(johnarr)-1],
-            cgc_strlen(johnarr[SIZEOFARR(johnarr)-1]),res);
+            strlen(johnarr[SIZEOFARR(johnarr)-1]),res);
     *req->resp = '\0';
 }
 
@@ -145,9 +145,9 @@ static void john_nomatch(htreq *req) {
     int res;
     size_t bytes;
     char rand = 0;
-    cgc_random(&rand,1,&bytes);
+    random(&rand,1,&bytes);
     SENDL(johnarr[rand%SIZEOFARR(johnarr)],
-            cgc_strlen(johnarr[rand%SIZEOFARR(johnarr)]), res);
+            strlen(johnarr[rand%SIZEOFARR(johnarr)]), res);
     SENDL("\n-John",sizeof("\n-John")-1,res)
     *req->resp = '\0';
 }

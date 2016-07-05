@@ -1,6 +1,0 @@
-set( POLLS_RELEASE_SEED "2076613222")
-set( POLLS_TESTING_SEED "-962093213")
-set( AUTHOR_ID "YAN01")
-set( SERVICE_ID "00010")
-set( CFLAGS " -fno-builtin ")
-buildCB(${CFLAGS})

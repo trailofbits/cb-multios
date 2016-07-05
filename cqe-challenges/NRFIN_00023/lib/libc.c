@@ -58,7 +58,7 @@ write_all(int fd, void *buf, size_t n)
 }
 
 void *
-cgc_memset(void *ptr, int val, size_t n)
+memset(void *ptr, int val, size_t n)
 {
     void *ret = ptr;
     while (n--)
@@ -67,7 +67,7 @@ cgc_memset(void *ptr, int val, size_t n)
 }
 
 char *
-cgc_strcpy(char *dst, const char *src)
+strcpy(char *dst, const char *src)
 {
     size_t i = 0;
     for (; src[i]; i++)
@@ -89,11 +89,11 @@ strncpy(char *dst, const char *src, size_t n)
 }
 
 char *
-cgc_strcat(char *dst, const char *src)
+strcat(char *dst, const char *src)
 {
     char *ret = dst;
-    dst += cgc_strlen(dst);
-    cgc_strcpy(dst, src);
+    dst += strlen(dst);
+    strcpy(dst, src);
     return ret;
 }
 
@@ -101,14 +101,14 @@ char *
 strncat(char *dst, const char *src, size_t n)
 {
     char *ret = dst;
-    dst += cgc_strlen(dst);
+    dst += strlen(dst);
     strncpy(dst, src, n);
     dst[n] = '\0';
     return ret;
 }
 
 size_t
-cgc_strlen(const char *s) {
+strlen(const char *s) {
     size_t ret = 0;
     while (*s++)
         ret++;
@@ -140,7 +140,7 @@ itoa(int val, char *s)
     char *ret = s;
 
     if (val == 0)
-        return cgc_strcpy(s, "0");
+        return strcpy(s, "0");
 
     if (val < 0) {
         s++;
@@ -1048,7 +1048,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = cgc_strlen(s_arg);
+                  int len = strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

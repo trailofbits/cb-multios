@@ -114,7 +114,7 @@ int SendError(uint8_t request_id, uint8_t error) {
 
 	pkt[4] = error;
 
-	if (cgc_write(pkt, 5) != 5) {
+	if (write(pkt, 5) != 5) {
 		return(0);
 	}
 
@@ -130,21 +130,21 @@ int SendResponse(uint8_t request_id, vars_t *pm) {
 	pkt[3] = request_id;  
 
 	if (pm->type == STRING) {
-		if (cgc_strlen((char *)pm->value) > 252) {
+		if (strlen((char *)pm->value) > 252) {
 			return(SendError(request_id, ERROR_BADLEN));
 		}
-		cgc_strcpy((char *)pkt+4, (char *)pm->value);
+		strcpy((char *)pkt+4, (char *)pm->value);
 		// pkt length
-		pkt[1] = 2+cgc_strlen((char *)pm->value);
+		pkt[1] = 2+strlen((char *)pm->value);
 	} else if (pm->type == INT32) {
-		cgc_memcpy(pkt+4, pm->value, 4);
+		memcpy(pkt+4, pm->value, 4);
 		// pkt length
 		pkt[1] = 6;
 	} else {
 		return(SendError(request_id, ERROR_NOTFOUND));
 	}
 
-	if (cgc_write(pkt, pkt[1]+2) != pkt[1]+2) {
+	if (write(pkt, pkt[1]+2) != pkt[1]+2) {
 		return(0);
 	}
 
@@ -221,7 +221,7 @@ int HandleWriteRequest(unsigned char *pkt, uint8_t pkt_len) {
 		SendError(request_id, ERROR_BADLEN);
 		return(0);
 	}
-	cgc_memcpy(name, pkt+5, name_len);
+	memcpy(name, pkt+5, name_len);
 	curr_len += name_len;
 
 	// copy the type
@@ -243,7 +243,7 @@ int HandleWriteRequest(unsigned char *pkt, uint8_t pkt_len) {
 		SendError(request_id, ERROR_BADLEN);
 		return(0);
 	}
-	cgc_memcpy(value, pkt+5+name_len+2, value_len);
+	memcpy(value, pkt+5+name_len+2, value_len);
 
 	if ((pm = UpdateVARSObject(name, type, value)) == NULL) {
 		SendError(request_id, ERROR_WRITEFAILED);

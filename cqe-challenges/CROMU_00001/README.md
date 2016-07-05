@@ -18,13 +18,13 @@ A user can create new users and subsequently log in to their new account. From h
 ## Vulnerability
 Messages are stored in a singly linked list and have a field indicating whether or not they have been read by the recipient.
 
-When a user logs in, all unread messages are written to a single buffer which is then displayed to the newly logged in user via the function list_unread_messages(). The display buffer is calculated by first counting the number of unread messages and multiplying this by the size that each message will require. However, the count field is only 8-bits. If the user has greater than 255 unread messages this field will wrap acgc_round. Since the buffer size is calcluated based upon this count, an overflow will result in a buffer of insufficient size to hold the message data. The crash will actually occur in the cgc_strlen() function due to local variables being overwritten.
+When a user logs in, all unread messages are written to a single buffer which is then displayed to the newly logged in user via the function list_unread_messages(). The display buffer is calculated by first counting the number of unread messages and multiplying this by the size that each message will require. However, the count field is only 8-bits. If the user has greater than 255 unread messages this field will wrap around. Since the buffer size is calcluated based upon this count, an overflow will result in a buffer of insufficient size to hold the message data. The crash will actually occur in the strlen() function due to local variables being overwritten.
 
 ### Generic class of vulnerability
 Integer overflow resulting in an incorrectly sized small buffer and subsequently a buffer overflow.
 
 ### CWE classification
-CWE-190 Integer overflow or wrapacgc_round
+CWE-190 Integer overflow or wraparound
 CWE-131 Incorrect calculation of buffer size
 CWE-120 Buffer copy without checking size of input
 

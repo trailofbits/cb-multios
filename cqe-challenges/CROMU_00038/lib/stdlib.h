@@ -31,6 +31,8 @@ THE SOFTWARE.
 
 #include <libcgc.h>
 
+//typedef unsigned long size_t;
+
 typedef struct _heap_block_header {
 	size_t remaining_size;
 	struct _heap_block_header *next;
@@ -66,27 +68,27 @@ int islower( int c );
 int isupper( int c );
 int isalpha( int c );
 int isalnum( int c );
-int cgc_memcpy( void *dest, void *src, size_t n);
+int memcpy( void *dest, void *src, size_t n);
 
-char *cgc_strcpy( char *dest, char *src );
+char *strcpy( char *dest, char *src );
 char *strncpy( char *, const char *, size_t );
 int putc( int );
 int printf( const char *fmt, ... );
 int sprintf( char *str, const char *fmt, ... );
 void bzero( void *, size_t );
-void *cgc_memset(void *, int, size_t);
-int cgc_strcmp( const char *, const char * );
+void *memset(void *, int, size_t);
+int strcmp( const char *, const char * );
 char *strncat( char *dest, const char *src, size_t n );
 size_t getline( char *buffer, size_t len);
 size_t receive_until( char *, char, size_t );
 int receive_bytes (unsigned char *buffer, size_t size) ;
-size_t cgc_strcat( char *, char* );
-size_t cgc_strlen( char * );
+size_t strcat( char *, char* );
+size_t strlen( char * );
 size_t itoa( char *, size_t, size_t );
 void puts( char *t );
 char *strchr(const char *, int);
 char *strtok(char *, const char *);
-size_t cgc_cgc_write( const void *, size_t );
+size_t write( const void *, size_t );
 char *strdup( char * );
 
 #endif // __STDLIB_H__

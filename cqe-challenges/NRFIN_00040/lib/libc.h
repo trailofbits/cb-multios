@@ -55,7 +55,7 @@ int transmit_all(int fd, const void *buf, size_t count, size_t *tx_bytes);
  * @param n Number of times to copy character
  * @return dst
  */
-void * cgc_memset(void *dst, char c, size_t n); 
+void * memset(void *dst, char c, size_t n); 
 
 /**
  * Convert unsigned integer to string

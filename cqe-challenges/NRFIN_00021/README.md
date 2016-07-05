@@ -26,7 +26,7 @@ The second vulnerability occurs the second time the portfolio->stocks array is e
 
 ### Generic class of vulnerability
 NULL Pointer Dereference
-Integer Overflow or Wrapacgc_round
+Integer Overflow or Wraparound
 Out-of-bounds Write
 
 ### CWE classification

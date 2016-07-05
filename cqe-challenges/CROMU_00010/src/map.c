@@ -48,7 +48,7 @@ pmap init_map(char mapName[32]){
 	puts("\n**Allocate returned an error.\n");
 	_terminate(1);
 	}
-	cgc_strcpy(thisMap->name, mapName);
+	strcpy(thisMap->name, mapName);
 	thisMap->name[31] = 0;
 	thisMap->roadList = create_double_list();
 	return thisMap;
@@ -61,8 +61,8 @@ proad add_road(pmap thisMap, char roadName[32], double roadLength){
 	pdListNode lastRoadNode = get_last_element_d(thisMap->roadList);
 	thisNode = insert_double_list_node(thisMap->roadList, lastRoadNode);
 	thisRoad = (proad)thisNode->data;
-	cgc_strcpy(thisRoad->name, roadName);
-	thisRoad->name[cgc_strlen(roadName)] = 0;
+	strcpy(thisRoad->name, roadName);
+	thisRoad->name[strlen(roadName)] = 0;
 	thisRoad->length = roadLength;
 	thisRoad->addressList = create_double_list();
 	thisRoad->intersectionList = create_double_list();
@@ -134,7 +134,7 @@ paddress add_address ( int number, char resident[32], proad thisRoad, pintersect
 		return NULL;
 	}
 	thisAddress->number = number;
-	cgc_strcpy(thisAddress->resident, resident);
+	strcpy(thisAddress->resident, resident);
 	thisAddress->resident[31] = 0;
 	thisAddress->thisRoad = thisRoad;
 	thisAddress->prevIntersection = prevIntersection;
@@ -142,7 +142,7 @@ paddress add_address ( int number, char resident[32], proad thisRoad, pintersect
 	thisAddress->nextIntersection = nextIntersection;
 	thisAddress->distance_to_next = distance_to_next;
 	thisAddress->self = thisNode;
-	cgc_memcpy( thisNode->data, thisAddress, sizeof(address) );
+	memcpy( thisNode->data, thisAddress, sizeof(address) );
 	return (paddress)thisNode->data;
 }
 

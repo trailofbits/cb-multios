@@ -98,10 +98,10 @@ int InitializeTree() {
     TreeNode *node = calloc(sizeof(TreeNode), 1);
     VerifyPointerOrTerminate(node, "TreeNode during initialization");
     strncpy(node->name, InitialInfo[i].name, sizeof(node->name));
-    node->page_size = cgc_strlen(InitialInfo[i].data) + 1;
+    node->page_size = strlen(InitialInfo[i].data) + 1;
     node->page = calloc(node->page_size, 1);
     VerifyPointerOrTerminate(node->page, "node->page during initialization");
-    cgc_memcpy(node->page, InitialInfo[i].data, node->page_size);
+    memcpy(node->page, InitialInfo[i].data, node->page_size);
     if (InsertNodeInTree(node) != 0) {
       free(node->page);
       free(node);
@@ -118,21 +118,21 @@ void WalkTree(TreeNode *nodein) {
   TreeNode *node_stack[64];
 #endif
   int indent = 0;
-  int cgc_index = 0;
+  int index = 0;
   int what = 0xfe;
   TreeNode *node = nodein;
 
   printf("@s\n", node);
 
   if (node->child) {
-    node_stack[cgc_index++] = node->child;
-    node_stack[cgc_index++] = (TreeNode *)(indent + 1);
+    node_stack[index++] = node->child;
+    node_stack[index++] = (TreeNode *)(indent + 1);
   }
 
-  while (cgc_index > 0) {
+  while (index > 0) {
     // Pop node
-    indent = (int)node_stack[--cgc_index];
-    node = node_stack[--cgc_index];
+    indent = (int)node_stack[--index];
+    node = node_stack[--index];
     
     for (int i=0; i<indent; i++) {
       printf("    ");
@@ -140,13 +140,13 @@ void WalkTree(TreeNode *nodein) {
     printf("@s\n", node);
 
     if (node->peer) {
-      node_stack[cgc_index++] = node->peer;
-      node_stack[cgc_index++] = (TreeNode *)indent;
+      node_stack[index++] = node->peer;
+      node_stack[index++] = (TreeNode *)indent;
     }
     
     if (node->child) {
-      node_stack[cgc_index++] = node->child;
-      node_stack[cgc_index++] = (TreeNode *)(indent + 1);
+      node_stack[index++] = node->child;
+      node_stack[index++] = (TreeNode *)(indent + 1);
     }
   }
 }
@@ -190,7 +190,7 @@ int DeleteNode(char *name) {
   }
   // Lookup parent node
   char local_name[64];
-  cgc_memcpy(local_name, name, sizeof(local_name));
+  memcpy(local_name, name, sizeof(local_name));
   char *last_part = strrchr(local_name, '.');
   if (last_part == NULL) {
     parent = root;
@@ -229,14 +229,14 @@ TreeNode *LookupNode(char *name) {
   TreeNode *node = root->child;
   // Make a local copy of the name and walk its subparts
   char local_name[64];
-  cgc_memcpy(local_name, name, sizeof(local_name));
+  memcpy(local_name, name, sizeof(local_name));
   char *part = local_name;
   char *next_part = strchr(local_name, '.');
   if (next_part != NULL) {
     next_part[0] = '\0';
   }
   while (node != NULL) {
-    if (cgc_strcmp(node->name, part) == 0)
+    if (strcmp(node->name, part) == 0)
     {
       if (next_part == NULL) {
         return node;
@@ -274,7 +274,7 @@ int InsertNodeInTree(TreeNode *node) {
   }
    // Lookup parent node
   char local_name[64];
-  cgc_memcpy(local_name, node->name, sizeof(local_name));
+  memcpy(local_name, node->name, sizeof(local_name));
   char *last_part = strrchr(local_name, '.');
   TreeNode *insert_location = root;
   // If no subparts in name, insert as child to root

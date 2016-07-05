@@ -75,8 +75,8 @@ Ingredient_Type *ingredient;
 
 		ingredient->next = 0;
 
-		cgc_memcpy( ingredient->item, item, 99);
-		cgc_memcpy( ingredient->measurement, measurement, 19);
+		memcpy( ingredient->item, item, 99);
+		memcpy( ingredient->measurement, measurement, 19);
 
 		// store ingredient
 		++ingredients_count;

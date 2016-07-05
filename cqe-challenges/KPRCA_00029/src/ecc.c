@@ -38,10 +38,10 @@
 const static unsigned int G = 0x1c9c26b9; // generator polynomial
 const static unsigned int prim = 0x89; // primitive polynomial
 static uint8_t field[N];
-static uint8_t gf_cgc_index[N+1];
+static uint8_t gf_index[N+1];
 
-#define FMUL(x, y) (field[(gf_cgc_index[x] + gf_cgc_index[y]) % N])
-#define FINV(x) (field[(N - gf_cgc_index[x]) % N])
+#define FMUL(x, y) (field[(gf_index[x] + gf_index[y]) % N])
+#define FINV(x) (field[(N - gf_index[x]) % N])
 
 void ecc_init()
 {
@@ -60,9 +60,9 @@ void ecc_init()
         }
     }
 
-    // fill in gf_cgc_index table
+    // fill in gf_index table
     for (i = 0; i < N; i++)
-        gf_cgc_index[field[i]] = i;
+        gf_index[field[i]] = i;
 }
 
 int ecc_encode(uint8_t *bits)
@@ -109,8 +109,8 @@ int ecc_decode(uint8_t *bits)
     }
 
     // Berlekamp-Massey algorithm
-    cgc_memset(B, 0, sizeof(B));
-    cgc_memset(C, 0, sizeof(C));
+    memset(B, 0, sizeof(B));
+    memset(C, 0, sizeof(C));
     B[0] = 1;
     C[0] = 1;
     L = 0;
@@ -124,7 +124,7 @@ int ecc_decode(uint8_t *bits)
         if (d != 0)
         {
             uint8_t tmp[T+1];
-            cgc_memcpy(tmp, C, sizeof(C));
+            memcpy(tmp, C, sizeof(C));
 
             for (j = 0; j < T; j++)
                 if (B[j])
@@ -135,7 +135,7 @@ int ecc_decode(uint8_t *bits)
                 L = i + 1 - L;
                 b = d;
                 m = 0;
-                cgc_memcpy(B, tmp, sizeof(B));
+                memcpy(B, tmp, sizeof(B));
             }
         }
     }

@@ -243,7 +243,7 @@ static int read_record(interp_t *interp)
     if (rs == NULL)
         goto fail;
 
-    min = cgc_strlen(rs);
+    min = strlen(rs);
     if (min == 0)
     {
         rs = "\n";
@@ -273,7 +273,7 @@ static int read_record(interp_t *interp)
             }
         }
         interp->buf[i] = 0;
-    } while (ignore_blank && cgc_strlen(interp->buf) == 0);
+    } while (ignore_blank && strlen(interp->buf) == 0);
 
     return 1;
 
@@ -303,7 +303,7 @@ static int read_fields(interp_t *interp)
     if (fs == NULL)
         goto fail;
 
-    min = cgc_strlen(fs);
+    min = strlen(fs);
 
     free_fields(interp);
     interp->field0 = interp->buf;
@@ -340,7 +340,7 @@ static int read_fields(interp_t *interp)
         s = malloc(i - last + 1);
         if (s == NULL)
             goto fail;
-        cgc_memcpy(s, &interp->buf[last], i - last);
+        memcpy(s, &interp->buf[last], i - last);
         s[i - last] = 0;
         interp->fields[cnt++] = s;
 
@@ -355,7 +355,7 @@ static int read_fields(interp_t *interp)
     s = malloc(i - last + 1);
     if (s == NULL)
         goto fail;
-    cgc_memcpy(s, &interp->buf[last], i - last);
+    memcpy(s, &interp->buf[last], i - last);
     s[i - last] = 0;
     interp->fields[cnt++] = s;
     return 1;
@@ -369,11 +369,11 @@ static int combine_fields(interp_t *interp)
 {
     unsigned int cnt, i, ofs_len;
     const char *ofs = get_string(interp, "OFS");
-    ofs_len = cgc_strlen(ofs);
+    ofs_len = strlen(ofs);
 
     for (cnt = 0, i = 0; i < interp->num_fields; i++)
     {
-        unsigned int len = interp->fields[i] == NULL ? 0 : cgc_strlen(interp->fields[i]);
+        unsigned int len = interp->fields[i] == NULL ? 0 : strlen(interp->fields[i]);
         if (cnt + len + ofs_len >= BUF_SIZE - 1)
             return 0;
         if (i)
@@ -383,13 +383,13 @@ static int combine_fields(interp_t *interp)
 
     for (cnt = 0, i = 0; i < interp->num_fields; i++)
     {
-        unsigned int len = interp->fields[i] == NULL ? 0 : cgc_strlen(interp->fields[i]);
+        unsigned int len = interp->fields[i] == NULL ? 0 : strlen(interp->fields[i]);
         if (i)
         {
-            cgc_memcpy(&interp->buf[cnt], ofs, ofs_len);
+            memcpy(&interp->buf[cnt], ofs, ofs_len);
             cnt += ofs_len;
         }
-        cgc_memcpy(&interp->buf[cnt], interp->fields[i], len);
+        memcpy(&interp->buf[cnt], interp->fields[i], len);
         cnt += len;
     }
     interp->buf[cnt] = 0;
@@ -441,15 +441,15 @@ static int set_field(interp_t *interp, unsigned int num, const char *value)
         if (fields == NULL)
             return 0;
         interp->fields = fields;
-        cgc_memset(&interp->fields[interp->num_fields], 0, sizeof(char *) * (num - interp->num_fields));
+        memset(&interp->fields[interp->num_fields], 0, sizeof(char *) * (num - interp->num_fields));
         interp->num_fields = num;
     }
 
     if (num == 0)
     {
-        if (cgc_strlen(value) >= BUF_SIZE - 1)
+        if (strlen(value) >= BUF_SIZE - 1)
             return 0;
-        cgc_strcpy(interp->buf, value);
+        strcpy(interp->buf, value);
         free_fields(interp);
         interp->field0 = interp->buf;
     }
@@ -549,27 +549,27 @@ static int compare_value(var_t *lhs, var_t *rhs)
     char tmp[20];
 
     if (lhs->type == VAR_STRING && rhs->type == VAR_STRING)
-        return cgc_strcmp(lhs->v_string.value, rhs->v_string.value);
+        return strcmp(lhs->v_string.value, rhs->v_string.value);
 
     if (lhs->type == VAR_STRING && rhs->type == VAR_NUMBER)
     {
         to_string_buf(rhs->v_number.value, tmp);
-        return cgc_strcmp(lhs->v_string.value, tmp);
+        return strcmp(lhs->v_string.value, tmp);
     }
 
     if (lhs->type == VAR_NUMBER && rhs->type == VAR_STRING)
     {
         sprintf(tmp, "%d", lhs->v_number.value);
-        return cgc_strcmp(tmp, rhs->v_string.value);
+        return strcmp(tmp, rhs->v_string.value);
     }
 
     if (lhs->type == VAR_NUMBER && rhs->type == VAR_NUMBER)
         return lhs->v_number.value - rhs->v_number.value;
 
     if (lhs->type == VAR_NULL && rhs->type == VAR_STRING)
-        return cgc_strcmp("", rhs->v_string.value);
+        return strcmp("", rhs->v_string.value);
     if (rhs->type == VAR_NULL && lhs->type == VAR_STRING)
-        return cgc_strcmp(rhs->v_string.value, "");
+        return strcmp(rhs->v_string.value, "");
 
     if (lhs->type == VAR_NULL && rhs->type == VAR_NUMBER)
         return 0 - rhs->v_number.value;
@@ -599,14 +599,14 @@ static int do_concat(interp_t *interp, expr_t *e1, expr_t *e2)
     move_var(&v2, &interp->result);
 
     if (v1.type == VAR_STRING)
-        len += cgc_strlen(v1.v_string.value) + 1;
+        len += strlen(v1.v_string.value) + 1;
     else if (v1.type == VAR_NUMBER || v1.type == VAR_NULL)
         len += 20;
     else
         goto fail;
 
     if (v2.type == VAR_STRING)
-        len += cgc_strlen(v2.v_string.value) + 1;
+        len += strlen(v2.v_string.value) + 1;
     else if (v2.type == VAR_NUMBER || v2.type == VAR_NULL)
         len += 20;
     else
@@ -624,9 +624,9 @@ static int do_concat(interp_t *interp, expr_t *e1, expr_t *e2)
         out[0] = 0;
 
     if (v2.type == VAR_STRING)
-        sprintf(out + cgc_strlen(out), "%s", v2.v_string.value);
+        sprintf(out + strlen(out), "%s", v2.v_string.value);
     else if (v2.type == VAR_NUMBER)
-        sprintf(out + cgc_strlen(out), "%d", v2.type == VAR_NUMBER ? v2.v_number.value : 0);
+        sprintf(out + strlen(out), "%d", v2.type == VAR_NUMBER ? v2.v_number.value : 0);
 
     result = set_result_string(interp, out);
 
@@ -1085,7 +1085,7 @@ int program_run(program_t *prog, io_t *io)
 {
     int result = EVAL_ERROR;
     interp_t interp;
-    cgc_memset(&interp, 0, sizeof(interp_t));
+    memset(&interp, 0, sizeof(interp_t));
 
     interp.io = io;
     interp.prog = prog;

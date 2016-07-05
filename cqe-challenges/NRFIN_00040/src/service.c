@@ -52,7 +52,7 @@ object_t * object_find(uint8_t id) {
     for (i=0; i<NUM_OBJS; i++) {
         if (NULL != ns.obj[i] && id == ns.obj[i]->id) {
 #ifdef DEBUG
-            fprintf(stderr, "[D] object_find | found object at cgc_index %d\n", i);
+            fprintf(stderr, "[D] object_find | found object at index %d\n", i);
 #endif
             return ns.obj[i];
         }
@@ -832,7 +832,7 @@ int main(void) {
     size_t rx_bytes = 0;
     size_t tx_bytes = 0;
 
-    cgc_memset((void *)&ns, 0, sizeof(ns));
+    memset((void *)&ns, 0, sizeof(ns));
 
     // Keep processing commands until told to exit (or error occurs).
     while (TRUE) {

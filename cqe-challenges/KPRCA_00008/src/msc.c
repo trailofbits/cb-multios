@@ -37,13 +37,13 @@
 // aligned for SSE copies
 static uint8_t memory[NUM_BLOCKS * BLOCK_SIZE] __attribute__((__aligned__(16)));
 
-void *cgc_memcpy_fast(void *dst, void *src, size_t length);
+void *memcpy_fast(void *dst, void *src, size_t length);
 static int rbc_handle_packet(msc_t *msc, uint8_t *data, size_t length);
 static int rbc_handle_data(msc_t *msc, uint8_t *data, size_t length);
 
 int msc_init(msc_t *msc)
 {
-    cgc_memset(msc, 0, sizeof(msc_t));
+    memset(msc, 0, sizeof(msc_t));
     msc->state = MSC_ST_IDLE;
     msc->memory = memory;
     return 1;
@@ -256,7 +256,7 @@ static int rbc_handle_packet(msc_t *msc, uint8_t *data, size_t length)
     case 0x5A: /* MODE SENSE */
         if (data[2] == 0x3F || data[2] == 0x06)
         {
-            cgc_memset(buffer, 0, 18);
+            memset(buffer, 0, 18);
             *(uint16_t *)&buffer[0] = htobe16(16);
             buffer[8] = 0x86;
             buffer[9] = 0x08;
@@ -290,7 +290,7 @@ static int rbc_handle_data(msc_t *msc, uint8_t *data, size_t length)
         if (msc->count + length > msc->in_state.write.length)
             length = msc->in_state.write.length - msc->count;
 
-        cgc_memcpy_fast(&msc->memory[msc->in_state.write.lba * BLOCK_SIZE + msc->count], data, length);
+        memcpy_fast(&msc->memory[msc->in_state.write.lba * BLOCK_SIZE + msc->count], data, length);
         msc->count += length;
         if (msc->count == msc->in_state.write.length)
             msc->state = MSC_ST_STATUS;

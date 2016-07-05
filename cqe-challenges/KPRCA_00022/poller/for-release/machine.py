@@ -284,7 +284,7 @@ class Screening(ApplicationPage):
     def __init__(self):
         self.fields = [
             ("Drug Test", "? [Y/N]", True, None, random_yes_no),
-            ("Backgcgc_round Investigation", "? [Y/N]", True, None, random_yes_no)
+            ("Background Investigation", "? [Y/N]", True, None, random_yes_no)
         ]
 
 class Finished(ApplicationPage):
@@ -316,9 +316,9 @@ class JobApplication(Actions):
 
     welcome_text = ("\n\n" +
                     "Thanks for your interest in the Sea Eye Association.\n" +
-                    "In order to be considered for the job complete the preliminary online backgcgc_round check\n" +
+                    "In order to be considered for the job complete the preliminary online background check\n" +
                     "Due to the secure nature of the position you are applying for you may be asked to\n" +
-                    "submit additional paperwork after your preliminary backgcgc_round check has been approved.\n" +
+                    "submit additional paperwork after your preliminary background check has been approved.\n" +
                     "Thank you for your cooperation\n" )
 
     exit_text = ("Thank you!\n")

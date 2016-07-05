@@ -37,7 +37,7 @@ int main(void) {
 	char board[X_MAX][Y_MAX];
 
 	InitBoard(board);
-	cgc_strcpy(CURR_PLAYER, "WHITE");
+	strcpy(CURR_PLAYER, "WHITE");
 	PrintBoard(board);
 
 	while (1) {
@@ -53,10 +53,10 @@ int main(void) {
 
 		MakeMove(board, srcx, srcy, dstx, dsty);
 
-		if (!cgc_strcmp(CURR_PLAYER, "WHITE")) {
-			cgc_strcpy(CURR_PLAYER, "BLACK");
+		if (!strcmp(CURR_PLAYER, "WHITE")) {
+			strcpy(CURR_PLAYER, "BLACK");
 		} else {
-			cgc_strcpy(CURR_PLAYER, "WHITE");
+			strcpy(CURR_PLAYER, "WHITE");
 		}
 
 		puts("OK");

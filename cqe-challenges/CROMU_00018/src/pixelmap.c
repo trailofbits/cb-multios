@@ -147,10 +147,10 @@ int32_t pixelmap_write_file( uint8_t **pFileData, uint32_t *pFileSize, uint8_t *
     uint32_t filePos = 0;
 
     // Write out file data...
-    cgc_memcpy( (pData+filePos), &oFileHeader, sizeof(oFileHeader) );
+    memcpy( (pData+filePos), &oFileHeader, sizeof(oFileHeader) );
     filePos += sizeof(oFileHeader);
 
-    cgc_memcpy( (pData+filePos), &oInfoHeader, sizeof(oInfoHeader) );
+    memcpy( (pData+filePos), &oInfoHeader, sizeof(oInfoHeader) );
     filePos += sizeof(oInfoHeader);
 
     for ( row = height; row > 0; row-- )

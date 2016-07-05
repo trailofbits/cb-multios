@@ -44,7 +44,7 @@ Back in recv\_haiku, bytes\_remaining is decremented by the number of bytes in t
 
 This means that there are conditions when the total number of bytes written will not correctly match the total\_bytes value, which will cause the bytes\_remaining value to become negative. 
 
-The while loop checks for the loop invariant to equal 0, but under these conditions, it skips past 0 and goes negative, so the while loop condition will continue to be true until either bytes\_remaining wraps acgc_round all the way back to 0. Or something causes the system to crash prior to that.
+The while loop checks for the loop invariant to equal 0, but under these conditions, it skips past 0 and goes negative, so the while loop condition will continue to be true until either bytes\_remaining wraps around all the way back to 0. Or something causes the system to crash prior to that.
 
 Each time through the while loop will allow an additional line of input to be stored into the heap buffer. The allocation of the heap buffer for a haiku allocates 2 pages worth of memory. So an overflow takes a haiku of length of at least 8184 bytes (8192-8) to cause a memory access error and thus segfault (POV).
 
@@ -69,7 +69,7 @@ Improper checking of loop invariant
 
 Off-by-one-error
 
-Integer underflow and overflow with wrap acgc_round
+Integer underflow and overflow with wrap around
 
 ### CWE classification
 
@@ -79,10 +79,10 @@ CWE-20
 Improper Validation of Array Index
 CWE-129
 
-Integer Overflow or Wrapacgc_round
+Integer Overflow or Wraparound
 CWE-190
 
-Integer Underflow or Wrapacgc_round
+Integer Underflow or Wraparound
 CWE-191
 
 Off-by-one Error

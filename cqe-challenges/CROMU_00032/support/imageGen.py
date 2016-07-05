@@ -113,7 +113,7 @@ class cvf:
 	def genIncFrame( self ):
 		tempFrame = struct.pack('H', 0x5555)
 		frame_type = 1
-		cgc_index_type = 0
+		index_type = 0
 
 		dict_type = random.randint( 0, 7 )
 
@@ -133,7 +133,7 @@ class cvf:
 			dictionary = self.pixelDicts[dict_type][:]
 
 		### Write the flag
-		flag = ( frame_type << 7 ) | ( cgc_index_type << 6 ) | (dict_type << 3) | ( custom_dict)
+		flag = ( frame_type << 7 ) | ( index_type << 6 ) | (dict_type << 3) | ( custom_dict)
 		self.pv('Flag: %d' %flag, 4)
 
 		tempFrame += struct.pack('B', flag)
@@ -153,10 +153,10 @@ class cvf:
 		cntPixelsToGenerate = random.randint( 1, genMax )
 
 		### The count must be encoded in bits.
-		### Since this is not 0 cgc_indexed we do not subtract 1
+		### Since this is not 0 indexed we do not subtract 1
 		pixelCountEncodingBitCount = bitsNeeded( maxPixels )
 
-		### This is the size of each cgc_index field
+		### This is the size of each index field
 		pixelIndexEncodingBitCount = bitsNeeded( maxPixels - 1)
 
 		### The actual pixel value bit length needs to be calcd
@@ -173,14 +173,14 @@ class cvf:
 
 		### Generate the new pixel data
 		for x in range(cntPixelsToGenerate):
-			### Select image cgc_index
+			### Select image index
 			ic = random.randint(0, maxPixels-1)
 
 			### Select pixel value
 			iv = random.choice( dictionary )
 
-			### Pull out cgc_index of the pixel
-			pi = dictionary.cgc_index( iv )
+			### Pull out index of the pixel
+			pi = dictionary.index( iv )
 
 			self.pv( 'Index: %d Value: %d %d' %(ic, pi, ord(iv)), 4)
 
@@ -244,9 +244,9 @@ class cvf:
 		self.pv( 'Frame type: %d' %frame_type, 2)
 
 		### Index is not used with full frame
-		cgc_index_type = 0
+		index_type = 0
 
-		self.pv( 'Index type: %d' %cgc_index_type, 2)
+		self.pv( 'Index type: %d' %index_type, 2)
 
 		### Select the dictionary to use 0 for custom
 		dict_type = random.randint( 0, 7 )
@@ -267,23 +267,23 @@ class cvf:
 			dictionary = self.pixelDicts[dict_type][:]
 
 		### Write the flag
-		flag = ( frame_type << 7 ) | ( cgc_index_type << 6 ) | (dict_type << 3) | ( custom_dict)
+		flag = ( frame_type << 7 ) | ( index_type << 6 ) | (dict_type << 3) | ( custom_dict)
 		self.pv('Flag: %d' %flag, 2)
 
 		tempFrame += struct.pack('B', flag)
 
 		### Randomly select a pixel and generate both
-		###	the pixel image and the cgc_index array
+		###	the pixel image and the index array
 		pixel_image = []
-		cgc_index_array = []
+		index_array = []
 
 		length = self.height * self.width
 
 		for p in range(length):
 			q = random.choice( dictionary )
 			pixel_image.append( q )
-			cgc_index_array.append( dictionary.cgc_index( q ) )
-			self.pv('Index %d: Pixel Index: %d Pixel Value: %c %d' %(p, dictionary.cgc_index(q), q, ord(q)), 2)
+			index_array.append( dictionary.index( q ) )
+			self.pv('Index %d: Pixel Index: %d Pixel Value: %c %d' %(p, dictionary.index(q), q, ord(q)), 2)
 
 		### Calculate the number of bits for each pixel
 		pixel_bits_required = bitsNeeded( len(dictionary) - 1)
@@ -294,10 +294,10 @@ class cvf:
 
 		self.pv('Pixel encoding bits: %d' %pixel_bits_required, 2)
 
-		### Loop through each cgc_index and write the data
-		for i in range( len(cgc_index_array) ):
+		### Loop through each index and write the data
+		for i in range( len(index_array) ):
 			for j in range(pixel_bits_required):
-				cb = (cgc_index_array[i] >> ( (pixel_bits_required-1)-j)) & 1
+				cb = (index_array[i] >> ( (pixel_bits_required-1)-j)) & 1
 				bit_data |= ( cb << ( 7-bit_counter) )
 				bit_counter += 1
 
@@ -422,7 +422,7 @@ class cvf:
 
 			pixels = []
 
-			### Randomly select the pixel dictionary cgc_index
+			### Randomly select the pixel dictionary index
 			dictInd = random.choice( self.customAvailable )
 
 			self.pv( 'Custom pixel: %d' %dictInd, 1)

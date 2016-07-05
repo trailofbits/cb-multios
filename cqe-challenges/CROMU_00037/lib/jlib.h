@@ -26,7 +26,7 @@ THE SOFTWARE.
 
 void zero(char *, unsigned int);
 void print(char *);
-size_t cgc_strlen(char *);
+size_t strlen(char *);
 int read_until(char *, char, size_t);
 int strmatch(char *, char *);
 void strcopy(char *, char *);

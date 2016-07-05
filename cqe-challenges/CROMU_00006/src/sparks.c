@@ -14,7 +14,7 @@ void sparks(data_package data) {
   uint32 bar_buf[data.size];
   __block uint32* bar_buf_ptr = (uint32*)bar_buf;
 
-  cgc_read(&candidate_count, sizeof(candidate_count));
+  read(&candidate_count, sizeof(candidate_count));
 
   if ((candidate_count == 0 && sparkle_count == 0) ||
    (candidate_count > MAX_ALLOCATE_SIZE)) {
@@ -38,7 +38,7 @@ void sparks(data_package data) {
 
     for (uint32 cur = 0; cur < sparkle_count; cur++) {
       uint32 sparkle;
-      cgc_read(&sparkle, sizeof(sparkle));
+      read(&sparkle, sizeof(sparkle));
       sparkles[cur] = sparkle;
     }
   }
@@ -59,7 +59,7 @@ void sparks(data_package data) {
     double div = spark_divisor(max, min, sparkle_count);
     
     each(data, ^(uint32 cur, uint32 datum){
-        uint32 idx = spark_pick_cgc_index(datum, min, div);
+        uint32 idx = spark_pick_index(datum, min, div);
       
         bar_buf_ptr[cur] = sparkles[idx];
       });
@@ -76,7 +76,7 @@ double spark_divisor(uint32 max,
   return ((double)max - (double)min) / (sparkle_count - 1);
   }
 
-uint32 spark_pick_cgc_index(uint32 datum,
+uint32 spark_pick_index(uint32 datum,
                         uint32 min,
                         double divisor) {
   return (uint32)(((double)datum - min) / divisor);

@@ -151,7 +151,7 @@ class Frame(object):
         self.rootlevel = False
 
         # in some dynamic inheritance situations the compiler needs to add
-        # write tests acgc_round output statements.
+        # write tests around output statements.
         self.require_output_check = parent and parent.require_output_check
 
         # inside some tags we are using a buffer rather than yield statements.
@@ -528,17 +528,17 @@ class CodeGenerator(NodeVisitor):
         """
         # if any of the given keyword arguments is a python keyword
         # we have to make sure that no invalid call is created.
-        kwarg_workacgc_round = False
+        kwarg_workaround = False
         for kwarg in chain((x.key for x in node.kwargs), extra_kwargs or ()):
             if is_python_keyword(kwarg):
-                kwarg_workacgc_round = True
+                kwarg_workaround = True
                 break
 
         for arg in node.args:
             self.write(', ')
             self.visit(arg, frame)
 
-        if not kwarg_workacgc_round:
+        if not kwarg_workaround:
             for kwarg in node.kwargs:
                 self.write(', ')
                 self.visit(kwarg, frame)
@@ -549,7 +549,7 @@ class CodeGenerator(NodeVisitor):
             self.write(', *')
             self.visit(node.dyn_args, frame)
 
-        if kwarg_workacgc_round:
+        if kwarg_workaround:
             if node.dyn_kwargs is not None:
                 self.write(', **dict({')
             else:
@@ -714,9 +714,9 @@ class CodeGenerator(NodeVisitor):
         frame.require_output_check = False
         args = frame.arguments
         # XXX: this is an ugly fix for the loop nesting bug
-        # (tests.test_old_bugs.test_loop_call_bug).  This works acgc_round
+        # (tests.test_old_bugs.test_loop_call_bug).  This works around
         # a identifier nesting problem we have in general.  It's just more
-        # likely to happen in loops which is why we work acgc_round it.  The
+        # likely to happen in loops which is why we work around it.  The
         # real solution would be "nonlocal" all the identifiers that are
         # leaking into a new python frame and might be used both unassigned
         # and assigned.

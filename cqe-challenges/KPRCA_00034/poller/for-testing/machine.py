@@ -526,9 +526,9 @@ class Silk(Actions):
             self.senddata('BUY\t%s\b' % escape(p[0]))
             self.recvdata('4096\tSuccess\b')
             if p[3] == 1:
-                del self.state['products'][self.state['products'].cgc_index(p)]
+                del self.state['products'][self.state['products'].index(p)]
             else:
-                self.state['products'][self.state['products'].cgc_index(p)] = (p[0], p[1], p[2], p[3]-1)
+                self.state['products'][self.state['products'].index(p)] = (p[0], p[1], p[2], p[3]-1)
         else:
             name = random_alpha()
             self.senddata('BUY\t%s\b' % name)
@@ -548,7 +548,7 @@ class Silk(Actions):
                 resp_code = 0x2001 
                 resp_str = 'Name already in-use'
             else:
-                i = self.state['products'].cgc_index((name, seller, price, quantity))
+                i = self.state['products'].index((name, seller, price, quantity))
                 p = (name, seller, p[2], p[3])
                 self.state['products'][i] = (name, seller, p[2], p[3] + quantity)
 

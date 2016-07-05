@@ -233,11 +233,11 @@ def getRequiredEntries(title):
 	acceptable_list = []
 
 	if isSubEntry:
-		for cgc_index, val in enumerate(stit[title][1:]):
-			acceptable_list.append((cgc_index,val))
+		for index, val in enumerate(stit[title][1:]):
+			acceptable_list.append((index,val))
 	else:
-		for cgc_index, val in enumerate(titles[title][1:]):
-			acceptable_list.append((cgc_index,val))
+		for index, val in enumerate(titles[title][1:]):
+			acceptable_list.append((index,val))
 
 #	print "ACCEPTABLE: " + str(acceptable_list)
 
@@ -687,14 +687,14 @@ class ReMe_parser(Actions):
 			if len(blob) < 1000: # limited by the malloc in MAIN() of service.c
 				break;
 
-		self.cgc_write( struct.pack( "H", len(blob) ) ) # length of blob
-		self.cgc_write( blob )
+		self.write( struct.pack( "H", len(blob) ) ) # length of blob
+		self.write( blob )
 
 		# DEBUG ONLY
 		#filename = "%04d" % self.counter #random.randint(1, 12345))
 		#filename += '.test.out'
 		#f =  open("files/"+filename, 'w')
-		#f.cgc_write(blob)
+		#f.write(blob)
 		#f.close()
 
 		self.counter += 1

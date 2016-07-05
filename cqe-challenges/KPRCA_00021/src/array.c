@@ -26,6 +26,8 @@
 #include "array.h"
 #include "kty.h"
 
+#define UINT_MAX 4294967295
+
 array_t* array_create(int size, free_element_fn *fptr)
 {
   array_t *arr = (array_t *) malloc(sizeof(array_t));

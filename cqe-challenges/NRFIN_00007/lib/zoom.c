@@ -1,7 +1,7 @@
 /*
  * Copyright (C) Narf Industries <info@narfindustries.com>
  *
- * Permission is hereby granted, cgc_free of charge, to any person obtaining a
+ * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -39,7 +39,7 @@ zoom_filter_t * new_zoom_filter(int num_elements){
 		return NULL;
 	}
 	double entry_bits;
-	zoom_filter_t *zf = cgc_malloc(sizeof(zoom_filter_t));
+	zoom_filter_t *zf = malloc(sizeof(zoom_filter_t));
 	// todo check for null here
 	if(zf == NULL)
 		return NULL;
@@ -55,8 +55,8 @@ zoom_filter_t * new_zoom_filter(int num_elements){
 	zf->hashes = (unsigned int)(LN2*entry_bits);
 
 	zf->data_len = ((zf->num_bits / 8 )+1 )* sizeof(unsigned char);
-	// todo figure out why cgc_calloc broke here...
-	zf->data = (unsigned char *) cgc_calloc(1, zf->data_len);
+	// todo figure out why calloc broke here...
+	zf->data = (unsigned char *) calloc(1, zf->data_len);
 	if(zf->data == NULL){
 
         	
@@ -77,7 +77,7 @@ unsigned int get_sample_n_bits(size_t sz){
 	if(zft == NULL)
 		return 0;
 	nbits = zft->num_bits;
-	zoom_cgc_free(zft);
+	zoom_free(zft);
 	return nbits;
 }
 
@@ -89,12 +89,12 @@ size_t n_elements_from_sampsz(size_t sz){
 }
 
 zoom_filter_t * load_zoom_filter(char *fromwire, unsigned int num_bits){
-	size_t encoded_sz = cgc_strlen(fromwire);
+	size_t encoded_sz = strlen(fromwire);
 	char *decstr = decode(fromwire, encoded_sz);
 	if(decstr == NULL)
 		return NULL;
-	size_t datalen = cgc_strlen(fromwire)/BLOCK_SZ; 
-	zoom_filter_t *zf = cgc_malloc(sizeof(zoom_filter_t));
+	size_t datalen = strlen(fromwire)/BLOCK_SZ; 
+	zoom_filter_t *zf = malloc(sizeof(zoom_filter_t));
 	// todo check math based on new_zoom_filter_above
 	zf->data_len = datalen;
 
@@ -109,9 +109,9 @@ zoom_filter_t * load_zoom_filter(char *fromwire, unsigned int num_bits){
 
 }
 
-void zoom_cgc_free(zoom_filter_t *zf){
-	cgc_free(zf->data);
-	cgc_free(zf);
+void zoom_free(zoom_filter_t *zf){
+	free(zf->data);
+	free(zf);
 }
 
 // todo replace with own variant not mummur
@@ -165,7 +165,7 @@ hash_pair_t * hash_pair_buf(char *input, size_t buf_sz){
 	unsigned int h1 = crazy_hash(input, buf_sz, HASH_CONST);
 	unsigned int h2 = crazy_hash(input, buf_sz, h1);
 
-	hash_pair_t * hp = cgc_malloc(sizeof(hash_pair_t));
+	hash_pair_t * hp = malloc(sizeof(hash_pair_t));
 	// todo check for bad alloc
 	hp->h1 = h1;
 	hp->h2 = h2;

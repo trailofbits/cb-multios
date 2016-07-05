@@ -5,7 +5,7 @@
 
 ## Description:
 
-This is a word completion game with 10 initial cgc_rounds and a final cgc_round. During each cgc_round, the user is given an occluded word. The user then needs to provide the full word in order to pass. Once the user completes 10 of these word completion tasks, they will be presented with a final word that must also be solved.
+This is a word completion game with 10 initial rounds and a final round. During each round, the user is given an occluded word. The user then needs to provide the full word in order to pass. Once the user completes 10 of these word completion tasks, they will be presented with a final word that must also be solved.
  
 ## Vulnerability Class: 
 

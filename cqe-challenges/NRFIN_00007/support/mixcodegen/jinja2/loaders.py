@@ -271,7 +271,7 @@ class DictLoader(BaseLoader):
     """Loads a template from a python dict.  It's passed a dict of unicode
     strings bound to template names.  This loader is useful for unittesting:
 
-    >>> loader = DictLoader({'cgc_index.html': 'source here'})
+    >>> loader = DictLoader({'index.html': 'source here'})
 
     Because auto reloading is rarely useful this is disabled per default.
     """
@@ -296,7 +296,7 @@ class FunctionLoader(BaseLoader):
     filename, uptodatefunc)`` or `None` if the template does not exist.
 
     >>> def load_template(name):
-    ...     if name == 'cgc_index.html':
+    ...     if name == 'index.html':
     ...         return '...'
     ...
     >>> loader = FunctionLoader(load_template)
@@ -330,8 +330,8 @@ class PrefixLoader(BaseLoader):
             'app2':     PackageLoader('mypackage.app2')
         })
 
-    By loading ``'app1/cgc_index.html'`` the file from the app1 package is loaded,
-    by loading ``'app2/cgc_index.html'`` the file from the second.
+    By loading ``'app1/index.html'`` the file from the app1 package is loaded,
+    by loading ``'app2/index.html'`` the file from the second.
     """
 
     def __init__(self, mapping, delimiter='/'):

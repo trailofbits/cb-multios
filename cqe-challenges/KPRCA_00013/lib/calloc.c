@@ -29,7 +29,6 @@
 
 void *calloc(size_t nmemb, size_t size)
 {
-
   if (nmemb == 0 || size == 0)
     return NULL;
 
@@ -40,8 +39,8 @@ void *calloc(size_t nmemb, size_t size)
     return NULL;
 
   void *ptr = malloc(tot);
-
   if (ptr == NULL)
     return NULL;
-  return cgc_memset(ptr, 0, tot);
+
+  return memset(ptr, 0, tot);
 }

@@ -27,7 +27,7 @@ extern pfile root;
 
 int bubble_sort( pfile parent )
 {
-    int outer_cgc_index = 0;
+    int outer_index = 0;
     int total_count = 0;
     pfile *list = NULL;
     pfile nl = NULL;
@@ -46,28 +46,28 @@ int bubble_sort( pfile parent )
     /// up the pointers and modify the length
     list = (pfile*)parent->data;
     
-    while ( outer_cgc_index < parent->length ) {
-        if ( list[outer_cgc_index] != NULL ) {
+    while ( outer_index < parent->length ) {
+        if ( list[outer_index] != NULL ) {
             total_count++;
         }
         
-        outer_cgc_index++;
+        outer_index++;
     }
     
     if (total_count < parent->length ) {
-        outer_cgc_index = 0;
+        outer_index = 0;
         total_count = 0;
         
-        while ( outer_cgc_index < parent->length ) {
-            if ( list[outer_cgc_index] != NULL ) {
-                list[total_count] = list[outer_cgc_index];
+        while ( outer_index < parent->length ) {
+            if ( list[outer_index] != NULL ) {
+                list[total_count] = list[outer_index];
                 total_count++;
             }
             
-            outer_cgc_index++;
+            outer_index++;
         }
         
-        outer_cgc_index = total_count;
+        outer_index = total_count;
         
         /// Clear out the remainders
         while ( total_count < parent->length) {
@@ -77,28 +77,28 @@ int bubble_sort( pfile parent )
         
 #ifdef PATCHED
         /// Update the correct length
-        parent->length = outer_cgc_index;
+        parent->length = outer_index;
 #endif
         
     }
     
-    outer_cgc_index = 0;
+    outer_index = 0;
     
-    while ( outer_cgc_index < parent->length) {
-        total_count = outer_cgc_index+1;
+    while ( outer_index < parent->length) {
+        total_count = outer_index+1;
         
         while ( total_count < parent->length ) {
-            result = cgc_strcmp( list[outer_cgc_index]->name, list[total_count]->name);
+            result = strcmp( list[outer_index]->name, list[total_count]->name);
             
             if ( result > 0 ) {
                 nl = list[total_count];
-                list[total_count] = list[outer_cgc_index];
-                list[outer_cgc_index] = nl;
+                list[total_count] = list[outer_index];
+                list[outer_index] = nl;
             }
             
             total_count++;
         }
-        outer_cgc_index++;
+        outer_index++;
     }
     
     return 1;
@@ -107,7 +107,7 @@ int bubble_sort( pfile parent )
 int remove_sub_file( pfile parent, char *name )
 {
     pfile *list = NULL;
-    int cgc_index = 0;
+    int index = 0;
     pfile t = NULL;
     
     if ( parent == NULL || name == NULL ) {
@@ -120,15 +120,15 @@ int remove_sub_file( pfile parent, char *name )
     
     list = (pfile*)parent->data;
     
-    while ( cgc_index < parent->length ) {
-        t = list[cgc_index];
+    while ( index < parent->length ) {
+        t = list[index];
         
         if ( t == NULL ) {
-            cgc_index++;
+            index++;
             continue;
         }
         
-        if ( cgc_strcmp( t->name, name ) == 0 ) {
+        if ( strcmp( t->name, name ) == 0 ) {
             
             if ( t->type == DIR ) {
                 printf("[ERROR] Cannot delete a directory\n");
@@ -136,11 +136,11 @@ int remove_sub_file( pfile parent, char *name )
             }
             
             free_file( t );
-            list[cgc_index] = NULL;
+            list[index] = NULL;
             return 1;
         }
         
-        cgc_index ++;
+        index ++;
     }
     
     return 0;
@@ -174,7 +174,7 @@ int delete_file( char *name )
     }
     
     start = 1;
-    max = cgc_strlen(name);
+    max = strlen(name);
    
     if ( max > 256 ) {
         printf("[ERROR] Name too long\n");
@@ -184,7 +184,7 @@ int delete_file( char *name )
     while ( end != -1 ) {
         end = find_next_slash( name, start, max );
         
-        cgc_memset(nm, 0, 256);
+        memset(nm, 0, 256);
         
         if ( end == -1 ) {
 
@@ -193,7 +193,7 @@ int delete_file( char *name )
                return 0;
 	    }
 
-            cgc_memcpy( nm, name+start, max-start);
+            memcpy( nm, name+start, max-start);
             
             if ( does_sub_file_exist( base, nm ) == 0 ) {
                 printf("[ERROR] Could not locate $s\n", name );
@@ -213,7 +213,7 @@ int delete_file( char *name )
             return 0;
         }
  
-        cgc_memcpy( nm, name+start, end-start);
+        memcpy( nm, name+start, end-start);
         base = retrieve_sub( base, nm );
         
         if ( base == NULL ) {
@@ -235,7 +235,7 @@ int delete_file( char *name )
 pfile retrieve_sub( pfile pf, char *name )
 {
     pfile *list = NULL;
-    int cgc_index = 0;
+    int index = 0;
     pfile t = NULL;
     
     if ( pf == NULL || name == NULL ) {
@@ -248,19 +248,19 @@ pfile retrieve_sub( pfile pf, char *name )
 
     list = (pfile*)pf->data;
     
-    while ( cgc_index < pf->length ) {
-        t = list[cgc_index];
+    while ( index < pf->length ) {
+        t = list[index];
         
         if ( t == NULL ) {
-            cgc_index++;
+            index++;
             continue;
         }
         
-        if ( cgc_strcmp( t->name, name ) == 0 ) {
+        if ( strcmp( t->name, name ) == 0 ) {
             return t;
         }
         
-        cgc_index++;
+        index++;
     }
     
     return NULL;
@@ -268,7 +268,7 @@ pfile retrieve_sub( pfile pf, char *name )
 
 int find_next_slash( char *str, int start, int max )
 {
-    int cgc_index = -1;
+    int index = -1;
     
     if ( str == NULL ) {
         return -1;
@@ -276,14 +276,14 @@ int find_next_slash( char *str, int start, int max )
     
     while ( start < max ) {
         if ( str[start] == '/' ) {
-            cgc_index = start;
+            index = start;
             break;
         } else {
             start++;
         }
     }
     
-    return cgc_index;
+    return index;
 }
 
 int fixup_dir_length( pfile d )
@@ -298,7 +298,7 @@ int fixup_dir_length( pfile d )
     if ( d->length == 0 ) {
         d->length = 1;
         
-        /// 8 is used because it is cgc_rounded up anyway
+        /// 8 is used because it is rounded up anyway
         d->data = malloc( 8 );
         
         if ( d->data == NULL ) {
@@ -307,7 +307,7 @@ int fixup_dir_length( pfile d )
             return 0;
         }
         
-        cgc_memset(d->data, 0, 8);
+        memset(d->data, 0, 8);
     } else {
         /// Increment it by 1
         d->length += 1;
@@ -319,8 +319,8 @@ int fixup_dir_length( pfile d )
             return 0;
         }
         
-        cgc_memset(nd, 0, d->length * sizeof(pfile));
-        cgc_memcpy(nd, d->data, (d->length-1)*sizeof(pfile));
+        memset(nd, 0, d->length * sizeof(pfile));
+        memcpy(nd, d->data, (d->length-1)*sizeof(pfile));
         free(d->data);
         d->data = nd;
     }
@@ -350,22 +350,22 @@ pfile get_file( char *name )
     }
     
     start = 1;
-    max = cgc_strlen(name);
+    max = strlen(name);
     
     while ( end != -1 ) {
         end = find_next_slash( name, start, max );
         
         if ( end == -1 ) {
-            cgc_memset( sdir, 0, 256 );
-            cgc_memcpy( sdir, name+start, max-start);
+            memset( sdir, 0, 256 );
+            memcpy( sdir, name+start, max-start);
             
             rv = retrieve_sub( cbase, sdir );
             
             return rv;
         }
         
-        cgc_memset( sdir, 0, 256 );
-        cgc_memcpy( sdir, name+start, end-start);
+        memset( sdir, 0, 256 );
+        memcpy( sdir, name+start, end-start);
         
         cbase = retrieve_sub( cbase, sdir );
         
@@ -386,24 +386,24 @@ pfile get_file( char *name )
 int does_sub_file_exist( pfile pf, char *name)
 {
     pfile *list = NULL;
-    int cgc_index = 0;
+    int index = 0;
     pfile t = NULL;
     
     list = (pfile*)pf->data;
     
-    while ( cgc_index < pf->length ) {
-        t = list[cgc_index];
+    while ( index < pf->length ) {
+        t = list[index];
         
         if ( t == NULL ) {
-            cgc_index++;
+            index++;
             continue;
         }
         
-        if ( cgc_strcmp( t->name, name ) == 0 ) {
+        if ( strcmp( t->name, name ) == 0 ) {
             return 1;
         }
         
-        cgc_index++;
+        index++;
     }
     
     return 0;
@@ -450,7 +450,7 @@ int add_file( pfile nf )
     }
     
     start = 1;
-    max = cgc_strlen(nf->name);
+    max = strlen(nf->name);
     
     /// Handle the case where the name is just '/'
     if ( max == 1 ) {
@@ -463,10 +463,10 @@ int add_file( pfile nf )
         
         /// If this is the end then copy out the name and add it in
         if ( end == -1 ) {
-            cgc_memset(base, 0, 256);
-            cgc_memcpy( base, nf->name+start, max-start );
-            cgc_memset( nf->name, 0, 256);
-            cgc_memcpy( nf->name, base, max - start );
+            memset(base, 0, 256);
+            memcpy( base, nf->name+start, max-start );
+            memset( nf->name, 0, 256);
+            memcpy( nf->name, base, max - start );
             
             if ( does_sub_file_exist( cbase_dir, nf->name) == 1) {
                 printf("[ERROR] File already exists\n");
@@ -480,10 +480,10 @@ int add_file( pfile nf )
             
             return 1;
         } else {
-            cgc_memset( base, 0, 256);
+            memset( base, 0, 256);
             
             /// Copy the dir name and determine if it is valid
-            cgc_memcpy( base, nf->name+start, end-start);
+            memcpy( base, nf->name+start, end-start);
             
             temp = retrieve_sub( cbase_dir, base );
             
@@ -529,7 +529,7 @@ pfile init_file( void )
 		return new_file;
 	}
 
-	cgc_memset( new_file, 0, sizeof(file) );
+	memset( new_file, 0, sizeof(file) );
 
 	return new_file;
 }
@@ -546,13 +546,13 @@ int set_name( pfile pf, char *name)
         return 0;
     }
     
-    length = cgc_strlen( name );
+    length = strlen( name );
     
     if ( length > 255 ) {
         return 0;
     }
     
-    cgc_memcpy( pf->name, name, length );
+    memcpy( pf->name, name, length );
     
     return length;
 }
@@ -594,7 +594,7 @@ int set_data( pfile pf, int length, char *data )
         return 0;
     }
     
-    cgc_memcpy( tn, data, length + 1 );
+    memcpy( tn, data, length + 1 );
     
     pf->length = length;
     pf->data = tn;

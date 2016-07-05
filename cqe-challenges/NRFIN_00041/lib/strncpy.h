@@ -27,8 +27,8 @@
  * Copies bytes from source string into destination string.
  *
  * NOTE: 
- *  if size <= cgc_strlen(src), the dest will not be null terminated.
- *  if cgc_strlen(src) < size, dest is padded with '\0' bytes.
+ *  if size <= strlen(src), the dest will not be null terminated.
+ *  if strlen(src) < size, dest is padded with '\0' bytes.
  *
  * @param dest Destination string
  * @param src Source string

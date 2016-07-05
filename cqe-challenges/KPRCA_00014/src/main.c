@@ -166,7 +166,7 @@ do_slte:
 int main()
 {
     size_t bytes;
-    cgc_memset(&state, 0, sizeof(state));
+    memset(&state, 0, sizeof(state));
 
     uint32_t magic;
     if (read_fully(&magic, sizeof(magic)) != 0 || magic != MAGIC)

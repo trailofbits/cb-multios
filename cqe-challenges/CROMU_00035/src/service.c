@@ -68,7 +68,7 @@ pDataStruct init_data(){
 	workingData->root->directoryHeadNode = NULL;
 	char *name = mallocOrDie( 5, "Failed to malloc root name" );
 	workingData->root->name = name;	
-	cgc_strcpy(name, "");
+	strcpy(name, "");
 	return workingData;
 }
 
@@ -78,12 +78,12 @@ pPerms find_perm_by_name(char *name, pNode node, pDataStruct workingData){
 	pPerms tempPerm = node->perms;
 	while( tempPerm != NULL ){
 		if ( tempPerm->user != NULL ){
-			if ( cgc_strcmp(tempPerm->user->name,name) == 0 ){
+			if ( strcmp(tempPerm->user->name,name) == 0 ){
 				return tempPerm;
 			}
 		} 
 		if ( tempPerm->group != NULL ){
-			if ( cgc_strcmp(tempPerm->group->name,name) == 0 ){
+			if ( strcmp(tempPerm->group->name,name) == 0 ){
 				return tempPerm;
 			}
 		}
@@ -192,8 +192,8 @@ pNode _add_node( char type, unsigned int date, char *name, pNode parent, pUser u
 	newNode->type = type;
 	newNode->date = date;
 	newNode->perms = add_perm(user, NULL, newNode);
-	char *newName = mallocOrDie( cgc_strlen(name) + 1, "Failed to malloc name");
-	cgc_strcpy( newName, name );
+	char *newName = mallocOrDie( strlen(name) + 1, "Failed to malloc name");
+	strcpy( newName, name );
 	newNode->name = newName;
 	newNode->file = NULL;
 	newNode->parent = parent;
@@ -243,7 +243,7 @@ void delete_file_bytes(pFile file, unsigned int newSize){
 	}
 	size = last->chunkSize - remainderbytes;
 	char *newChunk = mallocOrDie( size , "Failed to malloc filechunk" );
-	cgc_memcpy(newChunk,last->chunk,size);
+	memcpy(newChunk,last->chunk,size);
 	free(last->chunk);
 	last->chunkSize = size;
 	last->chunk = newChunk;
@@ -254,7 +254,7 @@ pFileChunk add_file_chunk(char *data, pFile file, unsigned int size ){
 	//update file node with new head/tail/count as necessary
 	pFileChunk newFileChunk =  mallocOrDie( sizeof( sFileChunk ), "Failed to malloc filechunk" );
 	newFileChunk->chunk = mallocOrDie( size, "Failed to malloc chunk" );
-	cgc_memcpy( newFileChunk->chunk, data, size );
+	memcpy( newFileChunk->chunk, data, size );
 	newFileChunk->chunkSize = size;
 	if ( file->tail == NULL ){
 		file->head = newFileChunk;
@@ -375,9 +375,9 @@ pUser _add_user( char *name, pUser userList ){
 	//add user to userList, 
 	//if userList is NULL, create single element list
 	pUser newUser = mallocOrDie( sizeof( sUser ), "Failed to allocate user");
-	char *newName = mallocOrDie( cgc_strlen( name ) + 1, "Failed to allocate username");
-	//printf("_add_user cgc_strlen(name):@d",cgc_strlen( name ));
-	cgc_strcpy ( newName, name );
+	char *newName = mallocOrDie( strlen( name ) + 1, "Failed to allocate username");
+	//printf("_add_user strlen(name):@d",strlen( name ));
+	strcpy ( newName, name );
 	newUser->name = newName;
 	if ( userList == NULL ){
 		//not necessary, but looks nice
@@ -524,7 +524,7 @@ pUser find_user_by_name( char *name, pDataStruct workingData){
 	pUser retval = NULL;
 	pUser last = workingData->user;
 	while ( last != NULL ){
-		if ( cgc_strcmp(name, last->name ) == 0 ){
+		if ( strcmp(name, last->name ) == 0 ){
 			return last;
 		} else{
 			last = last->next;
@@ -552,8 +552,8 @@ pGroup _add_group( char *name, pGroup group ){
 	//add empty group of users, no users are added, empty group is returned
 	//group is dllist of groups to add group to, if null, create and return
 	pGroup newGroup = mallocOrDie( sizeof( sGroup ), "Failed to allocate group");
-	char *newName = mallocOrDie( cgc_strlen( name ) + 1, "Failed to allocate groupName");
-	cgc_strcpy( newName, name );
+	char *newName = mallocOrDie( strlen( name ) + 1, "Failed to allocate groupName");
+	strcpy( newName, name );
 	newGroup->name = newName;
 	newGroup->userCount = 0;
 	newGroup->userList = NULL;
@@ -625,7 +625,7 @@ pGroup find_group_by_name( char *name, pDataStruct workingData){
 	if ( workingData->group != NULL ){
 		pGroup last = workingData->group;
 		while ( last != NULL ){
-			if ( cgc_strcmp(name, last->name) == 0 ){
+			if ( strcmp(name, last->name) == 0 ){
 				return last;
 			}
 			last = last->next;
@@ -636,8 +636,8 @@ pGroup find_group_by_name( char *name, pDataStruct workingData){
 
 char *recursive_path(pNode start, pNode end){
 	if (end == start){
-		char *path = mallocOrDie(cgc_strlen(end->name) + 2, "Failed to allocate endName");
-		cgc_strcpy(path, end->name);
+		char *path = mallocOrDie(strlen(end->name) + 2, "Failed to allocate endName");
+		strcpy(path, end->name);
 		return path; 
 	}
 	if ( end->parent == NULL ){
@@ -648,10 +648,10 @@ char *recursive_path(pNode start, pNode end){
 	if (path == NULL){
 		return NULL;
 	}
-	char *retpath = mallocOrDie(  ( cgc_strlen(path) + cgc_strlen(end->name) + 2 ), "Failed to allocate retpath"); 	
-	cgc_strcpy(retpath, path);
-	cgc_strcat(retpath, "/");
-	cgc_strcat(retpath, end->name);
+	char *retpath = mallocOrDie(  ( strlen(path) + strlen(end->name) + 2 ), "Failed to allocate retpath"); 	
+	strcpy(retpath, path);
+	strcat(retpath, "/");
+	strcat(retpath, end->name);
 	free(path);
 	return retpath;
 }
@@ -659,7 +659,7 @@ char *recursive_path(pNode start, pNode end){
 void str_of_path(char *path, pDataStruct workingData, pNode end){
 	char *newPath = recursive_path(workingData->root, end);
 #ifdef PATCHED
-	unsigned int size = cgc_strlen(newPath);
+	unsigned int size = strlen(newPath);
 	if (size >= MAXPATH){
 		size = MAXPATH-1;
 		puts("Path exceeds max path size and has been truncated");
@@ -667,7 +667,7 @@ void str_of_path(char *path, pDataStruct workingData, pNode end){
 	strncpy(path, newPath, size );
 #endif
 #ifndef PATCHED
-	cgc_strcpy(path, newPath );	
+	strcpy(path, newPath );	
 #endif
 	free ( newPath );
 	return;
@@ -676,7 +676,7 @@ void str_of_path(char *path, pDataStruct workingData, pNode end){
 pNode find_node_by_name(char *name, pNode directoryNode){
 	pNode temp = directoryNode;
 	while( temp != NULL ){
-		if (cgc_strcmp(name,temp->name) == 0){
+		if (strcmp(name,temp->name) == 0){
 			return temp;
 		}
 		temp = temp->next;

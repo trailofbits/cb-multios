@@ -27,16 +27,16 @@ THE SOFTWARE.
 #include <stdlib.h>
 #include <stdint.h>
 
-int cgc_memcpy( void *dest, void *src, size_t n )
+int memcpy( void *dest, void *src, size_t n )
 {
-        size_t cgc_index = 0;
+        size_t index = 0;
 
-        while ( cgc_index < n ) {
-                ((char*)dest)[cgc_index] = ((char*)src)[cgc_index];
-                cgc_index++;
+        while ( index < n ) {
+                ((char*)dest)[index] = ((char*)src)[index];
+                index++;
         }
 
-        return cgc_index;
+        return index;
 }
 
 int islower( int c )
@@ -242,7 +242,7 @@ int atoi(const char* str)
     return (sign * integer_part);
 }
 
-char *cgc_strcpy( char *dest, char *src )
+char *strcpy( char *dest, char *src )
 {
     size_t i;
 
@@ -272,7 +272,7 @@ char *strncpy( char *dest, const char *src, size_t n )
 
 void bzero( void *buff, size_t len )
 {
-    size_t cgc_index = 0;
+    size_t index = 0;
     unsigned char *c = buff;
 
     if ( buff == NULL ) {
@@ -283,15 +283,15 @@ void bzero( void *buff, size_t len )
         goto end;
     }
 
-    for ( cgc_index = 0; cgc_index < len; cgc_index++ ) {
-        c[cgc_index] = 0x00;
+    for ( index = 0; index < len; index++ ) {
+        c[index] = 0x00;
     }
 
 end:
     return;
 }
 
-void *cgc_memset(void *s, int c, size_t n)
+void *memset(void *s, int c, size_t n)
 {
     unsigned char *t = (unsigned char *)s;
     while (--n)
@@ -300,7 +300,7 @@ void *cgc_memset(void *s, int c, size_t n)
     return(s);
 }
 
-int cgc_strcmp( const char *s1, const char *s2 )
+int strcmp( const char *s1, const char *s2 )
 {
     while ( *s1 && (*s1 == *s2) )
     {
@@ -321,7 +321,7 @@ int stricmp( const char *s1, const char *s2 )
 
 char *strncat ( char *dest, const char *src, size_t n )
 {
-    size_t dest_len = cgc_strlen(dest);
+    size_t dest_len = strlen(dest);
     size_t i;
 
     if (dest == NULL || src == NULL)
@@ -338,10 +338,10 @@ char *strncat ( char *dest, const char *src, size_t n )
 }
 
 int flush_input(int fd) {
-    cgc_fd_set read_fds;
+    fd_set read_fds;
     int err;
     int ready_fd;
-    struct cgc_timeval tv;
+    struct timeval tv;
     char buffer[1024];
     size_t rcv_cnt;
 
@@ -353,7 +353,7 @@ int flush_input(int fd) {
         tv.tv_sec = 0;
         tv.tv_usec = 10;
 
-        err = cgc_fdwait(fd + 1, &read_fds, NULL, &tv, &ready_fd);
+        err = fdwait(fd + 1, &read_fds, NULL, &tv, &ready_fd);
         if (err != 0) {
             return err;
         }
@@ -441,7 +441,7 @@ return 0;
 
 }
 
-size_t cgc_strcat( char *dest, char*src )
+size_t strcat( char *dest, char*src )
 {
     size_t length = 0;
     size_t start = 0;
@@ -450,7 +450,7 @@ size_t cgc_strcat( char *dest, char*src )
         goto end;
     }
 
-    start = cgc_strlen( dest );
+    start = strlen( dest );
 
     for ( ; src[length] != 0x00 ; start++, length++ ) {
         dest[start] = src[length];
@@ -461,7 +461,7 @@ end:
     return length;
 }
 
-size_t cgc_strlen( char * str )
+size_t strlen( char * str )
 {
     size_t length = 0;
 
@@ -523,7 +523,7 @@ void puts( char *t )
        return;
     }
 
-    len = cgc_strlen(t);
+    len = strlen(t);
 
     while (total_sent < len) {
         if (transmit(STDOUT, t+total_sent, len-total_sent, &size) != 0) {
@@ -588,15 +588,15 @@ char *strtok(char *str, const char *delim) {
 
 	// not been called before, so make a copy of the string
 	if (prev_str == NULL) {
-		if (cgc_strlen(str) > 4096) {
+		if (strlen(str) > 4096) {
 			// too big
 			return(NULL);
 		} 
-		prev_str_len = cgc_strlen(str);
+		prev_str_len = strlen(str);
 		if (allocate(prev_str_len, 0, (void *)&prev_str)) {
 			return(NULL);
 		}
-		cgc_strcpy(prev_str, str);
+		strcpy(prev_str, str);
 		prev_str_ptr = prev_str;
 	}
 
@@ -612,8 +612,8 @@ char *strtok(char *str, const char *delim) {
 
 	// find the earliest next delimiter
 	start = str;
-	end = str+cgc_strlen(str);
-	for (i = 0; i < cgc_strlen((char *)delim); i++) {
+	end = str+strlen(str);
+	for (i = 0; i < strlen((char *)delim); i++) {
 		if ((t = strchr(start, delim[i]))) {
 			if (t != NULL && t < end) {
 				end = t;
@@ -630,7 +630,7 @@ char *strtok(char *str, const char *delim) {
 	return(token);
 }
 
-ssize_t cgc_write( const void *buf, size_t count )
+ssize_t write( const void *buf, size_t count )
 {
 	size_t size;
 	size_t total_sent = 0;
@@ -658,12 +658,12 @@ char *strdup(char *s)
                 return(NULL);
         }
 
-        if (allocate(cgc_strlen(s)+1, 0, (void *)&retval)) {
+        if (allocate(strlen(s)+1, 0, (void *)&retval)) {
                 return(NULL);
         }
 
-        bzero(retval, cgc_strlen(s)+1);
-        cgc_strcpy(retval, s);
+        bzero(retval, strlen(s)+1);
+        strcpy(retval, s);
 
         return(retval);
 }
@@ -674,7 +674,7 @@ heap_metadata *heap_manager = NULL;
 void *calloc(size_t count, size_t size) {
     void *ret;
     ret = malloc(size * count);
-    cgc_memset(ret, 0, size * count);
+    memset(ret, 0, size * count);
     return ret;
 }
 
@@ -700,7 +700,7 @@ void *malloc(size_t size) {
         heap_manager->mem_inuse = sizeof(heap_manager);
         heap_manager->mem_free = 4096-heap_manager->mem_inuse;
         allocate(4096, 0, (void *)&heap_manager->blocks);
-        cgc_memset(heap_manager->blocks, 0, 4096);
+        memset(heap_manager->blocks, 0, 4096);
         blockHead = (heap_block_header *)heap_manager->blocks;
         blockHead->remaining_size = 4096-sizeof(heap_block_header);
         blockHead->next = NULL;

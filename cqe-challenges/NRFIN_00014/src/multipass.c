@@ -334,7 +334,7 @@ pack_and_data_t * process_client_history(pack_and_data_t *padi, size_t *ds){
 		if(txn->data == NULL)
 			_terminate(26);
 #endif
-		cgc_memcpy(&(txn_ptr->details), txn->data, dss);
+		memcpy(&(txn_ptr->details), txn->data, dss);
 		hist_ct += 1;
 		
 
@@ -512,7 +512,7 @@ pack_and_data_t * generate_error(packet_head_t *ph){
 	}
 
 
-	size_t m_sz = cgc_strlen(ERROR_MSGS[ERRNO]);
+	size_t m_sz = strlen(ERROR_MSGS[ERRNO]);
 	
 	size_t pay_sz  = sizeof(packet_data_error_t) + m_sz - sizeof(char *) ;
 	pack_and_data_t *pad = create_basic_response(cid, acd, txn_id, ph->pkt_type, ph->op_code, ERRNO, pay_sz);
@@ -521,7 +521,7 @@ pack_and_data_t * generate_error(packet_head_t *ph){
 	packet_data_error_t * e = (packet_data_error_t *) get_payload(resp);
 	e->length = m_sz;
 
-	cgc_memcpy(&(e->msg), ERROR_MSGS[ERRNO], m_sz);
+	memcpy(&(e->msg), ERROR_MSGS[ERRNO], m_sz);
 	
 	return pad;
 

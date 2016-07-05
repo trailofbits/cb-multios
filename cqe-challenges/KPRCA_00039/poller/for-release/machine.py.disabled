@@ -145,7 +145,7 @@ class Bot(object):
 
         return False
 
-    def surcgc_rounded_by(self, sboard, x, y, color, board=None):
+    def surrounded_by(self, sboard, x, y, color, board=None):
         if board is None:
             board = self.board
 
@@ -162,10 +162,10 @@ class Bot(object):
         elif cur == self.EMPTY:
             sboard[y][x] = 1
 
-        u = self.surcgc_rounded_by(sboard, x, y + 1, color, board);
-        d = self.surcgc_rounded_by(sboard, x, y - 1, color, board);
-        l = self.surcgc_rounded_by(sboard, x + 1, y, color, board);
-        r = self.surcgc_rounded_by(sboard, x - 1, y, color, board);
+        u = self.surrounded_by(sboard, x, y + 1, color, board);
+        d = self.surrounded_by(sboard, x, y - 1, color, board);
+        l = self.surrounded_by(sboard, x + 1, y, color, board);
+        r = self.surrounded_by(sboard, x - 1, y, color, board);
 
         if u + d + l + r > 4:
             return 2
@@ -198,12 +198,12 @@ class Bot(object):
                     black += 1
                     continue
 
-                s = self.surcgc_rounded_by(sboard, x, y, self.BLACK)
+                s = self.surrounded_by(sboard, x, y, self.BLACK)
                 if s > 1:
                     black += 1
                     continue
 
-                s = self.surcgc_rounded_by(sboard, x, y, self.WHITE)
+                s = self.surrounded_by(sboard, x, y, self.WHITE)
                 if s > 1:
                     white += 1
                     continue

@@ -33,19 +33,19 @@ typedef unsigned int uint32_t;
 typedef unsigned char uint8_t;
 extern int transmit_all(int fd, const char *buf, const size_t size);
 int recv_until(int fd, char *buf, const size_t buf_sz, const char delim);
-extern size_t cgc_strlen(const char *s);
+extern size_t strlen(const char *s);
 
 void * calloc(size_t nmemb, size_t sz);
 extern void free(void *p);
 
-void cgc_memcpy(void *d, const void *s, size_t size);
+void memcpy(void *d, const void *s, size_t size);
 int memcmp(void *d, const void *s, size_t size);
 char *strtok(char *str, const char delim);
 size_t read_ascii_line(int fd, char *data, size_t len);
 
 int buf_is_numeric(char *buf);
 int atoi(char *buf);
-char *cgc_strcat(char * s1, char *s2);
+char *strcat(char * s1, char *s2);
 unsigned int pos_ceil(double num);
 void malloc_reset();
 char * itoaB10(int value);

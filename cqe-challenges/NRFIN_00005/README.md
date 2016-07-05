@@ -36,7 +36,7 @@ The vulnerability comes about because the `memory_idx` varible is walked through
 
 Following that incorrect assignment, future references to the game struct will read memory starting with `game->scores` and going off the end of the allocated memory. Since, `game->scores->player` and `game->scores->computer` are both 0 at this point, both game struct pointers are null.
 
-Thus, after the if/else when `init_game_data(game->data)` is called on line 216 of service.c, the first function in `init_game_data` (tt.c line 65) is a cgc_memset which will be given null as it's first parameter (`data->top`), causing a segfault.
+Thus, after the if/else when `init_game_data(game->data)` is called on line 216 of service.c, the first function in `init_game_data` (tt.c line 65) is a memset which will be given null as it's first parameter (`data->top`), causing a segfault.
 
 There are two ways to trigger this vulnerable code path.
 
@@ -58,13 +58,13 @@ I consider the pov-1 trigger method to be more difficult to find and less obviou
 I consider pov-2 to be a red herring. The use of the START OVER menu option will directly cause the CB to segfault/core. This is reasonably easy to find and I expect the competitor CRS's to vary on their root cause analysis. In the one case, they may choose to patch out the START OVER option. Which is fine, it is not being tested in any pollers.
 
 
-The support directory contains a few items used to generate pov-1 and pov-2. First, the findpov1.py script is used to determine at which inital cgc_index of pi the automated player PRNG should start. The first successful cgc_index is 598:
+The support directory contains a few items used to generate pov-1 and pov-2. First, the findpov1.py script is used to determine at which inital index of pi the automated player PRNG should start. The first successful index is 598:
 
-`SUCCESS: player_char: P, pi_cgc_index: 598, scores: p=257/c=257`
+`SUCCESS: player_char: P, pi_index: 598, scores: p=257/c=257`
 
 So, support/genpov1 is the state machine code used to generate pov-1.xml with the player's PRNG starting at the 598th digit of pi.
 
-Because of some unkown extensive overhead in cb-server, I had to make a small change to cb-test to get it fully process pov-1. Acgc_round line 146 of cb-test where the parameters are listed for cb-server, I had to add a sufficiently large timeout parameter ('-t', '130').
+Because of some unkown extensive overhead in cb-server, I had to make a small change to cb-test to get it fully process pov-1. Around line 146 of cb-test where the parameters are listed for cb-server, I had to add a sufficiently large timeout parameter ('-t', '130').
 
 It takes just over 2 mins to run pov-1.xml, so the cb-server timeout has to be increased in order for the test to complete properly. A timeout of 130 seconds works in testing.
 

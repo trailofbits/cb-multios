@@ -29,7 +29,7 @@ Description: Contains a description of the video. This is optional but is used t
 
 Custom Pixel Dictionary: These custom dictionaries are used to minimize data size by only selecting those values that are necessary to display a given frame. It is possible to have 8 different custom dictionaries labeled 0-7. They are indicated by the sequences 0x4444-0x444b. They can be a maximum of 256 bytes.
 	8 bits - Length.
-	Length Bytes - This array is the cgc_index used for the custom pixel dictionary. For example, a dictionary of [ '0', '1', '2', '4'] Will have a length of 4 and the values can be access via their 0 based cgc_index into the array.
+	Length Bytes - This array is the index used for the custom pixel dictionary. For example, a dictionary of [ '0', '1', '2', '4'] Will have a length of 4 and the values can be access via their 0 based index into the array.
 
 Frame Data: Array of frames used to display the image. The first frame is always a full frame. The start of frame data is indicated by the two byte sequence 0x5555.
 
@@ -38,8 +38,8 @@ Flag 8 bits
 	bit 7 - Full frame or individual pixels
 		0 - Full frame redraws the entire frame. This requires that a frame have height*width pixels.
 		1 - Incremental pixels takes the previous frame and applies the changes to it.
-	bit 6 - 0 based cgc_index or x, y coords
-		0 - If 0 based then the cgc_index is between 0 and height * width. If it is a full frame then this is irrelavant
+	bit 6 - 0 based index or x, y coords
+		0 - If 0 based then the index is between 0 and height * width. If it is a full frame then this is irrelavant
 		1 - If x, y then the origin is the bottom left to ensure only positive coordinates
 	bits 5-3
 		Pixel dictionary
@@ -56,7 +56,7 @@ Flag 8 bits
 
 	If the frame type is incremental then log2(height*width) bits for pixel count
 	Variable Bits - Pixel Count
-	If it is zero cgc_index the bit length of the location is the log2(height*width) cgc_rounded up to the nearest integer.
+	If it is zero index the bit length of the location is the log2(height*width) rounded up to the nearest integer.
 	If it is x,y then the x length is log2(x) and y is log2(y)
 
 	For example a height of 28 and 40 would result in 28*40=1120 which means 11 bits for each with type 0, type 1 with x,y would be 4 bits for x, 5 bits for y with a total of 9. Following this is the pixel dictionary. This length is also dependent upon the type. Custom depends upon the number of characters, 1 is 1 bit, 2 is 2 bits, 3 is 3 bits, 4 is 4 bits, 5 is 6 bits, 6 is 6 bits and 7 is 7 bits.

@@ -57,7 +57,7 @@ class Spreadsheet(Actions):
             return '%.03f' % self.value
 
         def evaluate(self):
-            return cgc_round(self.value, 3)
+            return round(self.value, 3)
 
     class Cell(Value):
         def __init__(self, cells, cell):
@@ -80,7 +80,7 @@ class Spreadsheet(Actions):
                         raise ValueError()
                     result = old_value
                 else:
-                    result = cgc_round(old_value.evaluate(), 3)
+                    result = round(old_value.evaluate(), 3)
             finally:
                 self.cells[self.cell] = old_value
 
@@ -101,7 +101,7 @@ class Spreadsheet(Actions):
                 return '%s(%s)' % (self.op.name, ', '.join(map(lambda x: str(x), self.args)))
 
         def evaluate(self):
-            result = cgc_round(self.op.evaluate(map(lambda x: x.evaluate(), self.args)), 3)
+            result = round(self.op.evaluate(map(lambda x: x.evaluate(), self.args)), 3)
             if math.isinf(result):
                 return float('nan')
             return result
@@ -195,8 +195,8 @@ class Spreadsheet(Actions):
                 value = float('NaN')
             valuetext = str(self.Double(value))
         if value is not None and isinstance(value, float) and not math.isnan(value):
-            # XXX getting the cgc_rounding the match is impossible
-            length_to_match = min(6, valuetext.cgc_index('.') + 2)
+            # XXX getting the rounding the match is impossible
+            length_to_match = min(6, valuetext.index('.') + 2)
             self.read(length=len('Cell Value: ')+length_to_match, expect='Cell Value: %s' % valuetext[:length_to_match])
             self.read(delim='\n')
         else:
