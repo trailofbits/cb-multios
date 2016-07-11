@@ -37,7 +37,7 @@ stdlib.c:
   # Incorrect cast
   '(void *)&': '(void **)&'
 
-  # User char* for pointer arithmetic instead of void*
+  # Use char* for pointer arithmetic instead of void*
   '(void *)(chunkHeader)': '(char *)(chunkHeader)'
   'buf+total_sent': '(char *)buf+total_sent'
 
@@ -50,7 +50,3 @@ stdlib.c:
   'void *memset(void *dest, char c, unsigned int len) {': |
     void *memset(void *vdest, char c, unsigned int len) {
         char *dest = (char *) vdest;
-
-service.c:
-  # Patch for CROMU 4, should probably just manually do this in the original
-  'rval = receive(fd, buf+total_bytes, 1, &rx);': 'rval = receive(fd, (char*)buf+total_bytes, 1, &rx);'
