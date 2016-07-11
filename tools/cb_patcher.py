@@ -3,6 +3,8 @@ import os
 import shutil
 import sys
 
+import yaml  # pip install pyyaml
+
 ORIGINAL_CHALLS = os.path.abspath('../original-challenges')
 CHALLENGE_PATH = os.path.abspath('../cqe-challenges')
 
@@ -14,7 +16,12 @@ namespace cgc {{
 
 SRC_PATCH = '''{}
 using namespace cgc;
-{}'''
+{}
+'''
+
+# Load the manual patches
+with open('manual_patches.yaml') as f:
+    mpatches = yaml.safe_load(f)
 
 
 def debug(s):
@@ -64,6 +71,19 @@ def replace_include_names(src, lib_names):
     return src
 
 
+def apply_manual_patches(fname, src):
+    # type: (str, str) -> str
+    # Apply everything in 'all' first
+    for match, rep in mpatches['all'].iteritems():
+        src = src.replace(match, rep)
+
+    # Apply any patches specific to this file
+    if fname in mpatches:
+        for match, rep in mpatches[fname].iteritems():
+            src = src.replace(match, rep)
+    return src
+
+
 def split_after_includes(src):
     # type: (str) -> (str, str)
     if '#include' not in src:
@@ -86,7 +106,7 @@ def patch_lib(lib_path):
     except OSError:
         pass
 
-    for fname in os.listdir(lib_path):
+    for fname in listdir(lib_path):
         debug('\tPatching {}...'.format(fname))
         fpath = os.path.join(lib_path, fname)
 
@@ -104,21 +124,17 @@ def patch_lib(lib_path):
         patched = LIB_PATCH.format(before, after)
 
         # Replace all includes with the fixed names
-        patched = replace_include_names(patched, os.listdir(lib_path))
+        patched = replace_include_names(patched, listdir(lib_path))
 
-        # Replace NULLs with nullptrs
-        patched = patched.replace('NULL', 'nullptr')
-
-        # Annoying case specific to stdlib.c
-        if fname == 'stdlib.c':
-            patched = patched.replace('unsigned char *c = buff;', 'unsigned char *c = (unsigned char *) buff;')
+        # Apply all manual patches
+        patched = apply_manual_patches(fname, patched)
 
         save_patched_file(fpath, patched, 'cgc_{}{}')
 
 
 def patch_src(src_path):
     debug('Patching src files...\n')
-    for fname in os.listdir(src_path):
+    for fname in listdir(src_path):
         debug('\tPatching {}...'.format(fname))
         fpath = os.path.join(src_path, fname)
 
@@ -136,27 +152,43 @@ def patch_src(src_path):
         patched = SRC_PATCH.format(before, after)
 
         # Replace all includes with the fixed names
-        lib_path = os.path.join(os.path.dirname(src_path), 'lib')
-        patched = replace_include_names(patched, os.listdir(lib_path))
+        lib_files = listdir(os.path.join(os.path.dirname(src_path), 'lib'))
+        patched = replace_include_names(patched, lib_files)
 
-        # Replace NULLs with nullptrs
-        patched = patched.replace('NULL', 'nullptr')
+        # Apply all manual patches
+        patched = apply_manual_patches(fname, patched)
 
         save_patched_file(fpath, patched)
 
 
 def patch_challenge(chal):
     debug('Patching {}...\n'.format(chal))
-    # Patch all lib files first
-    patch_lib(os.path.join(CHALLENGE_PATH, chal, 'lib'))
 
-    # Patch all source files
-    patch_src(os.path.join(CHALLENGE_PATH, chal, 'src'))
+    # Some challenges have multiple binaries with the source in cb_* directories
+    dirs = listdir(os.path.join(CHALLENGE_PATH, chal))
+    cbdirs = filter(lambda d: d.startswith('cb_'), dirs)
+
+    if len(cbdirs) > 0:
+        # Process each of these as a separate challenge binary
+        for d in cbdirs:
+            patch_challenge(os.path.join(chal, d))
+    else:
+        # Patch all lib files first
+        patch_lib(os.path.join(CHALLENGE_PATH, chal, 'lib'))
+
+        # Patch all source files
+        patch_src(os.path.join(CHALLENGE_PATH, chal, 'src'))
+
+
+def listdir(path):
+    if not os.path.isdir(path):
+        return []
+    return sorted(os.listdir(path))
 
 
 def clear_challenges():
     """Delete all patched directories"""
-    for chal in os.listdir(CHALLENGE_PATH):
+    for chal in listdir(CHALLENGE_PATH):
         shutil.rmtree(os.path.join(CHALLENGE_PATH, chal))
 
 
@@ -164,7 +196,7 @@ def main():
     clear_challenges()
 
     # Copy over one challenge at a time and patch it
-    for chal in os.listdir(ORIGINAL_CHALLS)[:4]:  # Only a few for now
+    for chal in listdir(ORIGINAL_CHALLS)[:6]:  # Only a few for now
         shutil.copytree(os.path.join(ORIGINAL_CHALLS, chal),
                         os.path.join(CHALLENGE_PATH, chal))
         patch_challenge(chal)
