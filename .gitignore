@@ -116,6 +116,10 @@ CMakeCache.txt
 CMakeFiles
 CMakeScripts
 Makefile
+
+# We still need these
+!original-challenges/*/Makefile
+
 cmake_install.cmake
 install_manifest.txt
 
@@ -204,7 +208,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -249,3 +252,7 @@ target/
 .DS_Store
 
 cqe-challenges/*/bin/*
+.idea/
+_backup/
+cqe-challenges/
+test.cpp
