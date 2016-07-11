@@ -1,0 +1,7 @@
+POLLS_TESTING_SEED= 1067983855
+AUTHOR_ID = KPRCA
+SERVICE_ID = 00047
+CFLAGS = -g -O2 -Werror -Wall
+POLLS_RELEASE_SEED = 1820982
+
+include /usr/share/cb-testing/cgc-cb.mk

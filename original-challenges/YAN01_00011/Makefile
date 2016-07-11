@@ -1,0 +1,7 @@
+POLLS_RELEASE_SEED= -922465036
+POLLS_TESTING_SEED= -650138979
+AUTHOR_ID  = YAN01
+SERVICE_ID = 00011
+CFLAGS = -g
+
+include /usr/share/cb-testing/cgc-cb.mk
