@@ -5,6 +5,7 @@ import sys
 
 import yaml  # pip install pyyaml
 
+TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 ORIGINAL_CHALLS = os.path.abspath('../original-challenges')
 CHALLENGE_PATH = os.path.abspath('../cqe-challenges')
 
@@ -20,7 +21,7 @@ using namespace cgc;
 '''
 
 # Load the manual patches
-with open('manual_patches.yaml') as f:
+with open(os.path.join(TOOLS_DIR, 'manual_patches.yaml')) as f:
     mpatches = yaml.safe_load(f)
 
 
@@ -196,7 +197,7 @@ def main():
     clear_challenges()
 
     # Copy over one challenge at a time and patch it
-    for chal in listdir(ORIGINAL_CHALLS)[:6]:  # Only a few for now
+    for chal in listdir(ORIGINAL_CHALLS)[:7]:  # Only a few for now
         shutil.copytree(os.path.join(ORIGINAL_CHALLS, chal),
                         os.path.join(CHALLENGE_PATH, chal))
         patch_challenge(chal)
