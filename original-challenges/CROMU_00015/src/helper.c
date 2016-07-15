@@ -81,7 +81,7 @@ char *pullNextElementName( pstring str )
                         length = index-str->index;
 
                         /// Copy the name for the return
-                        if ( allocate( length + 1, 0, (void*)&elementId ) != 0 ) {
+                        if ( allocate( length + 1, 0, (void**)&elementId ) != 0 ) {
                                 elementId = NULL;
                                 goto end;
                         }

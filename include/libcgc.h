@@ -100,6 +100,10 @@ namespace cgc {
     int deallocate(void *addr, size_t length);
     int random(void *buf, size_t count, size_t *rnd_bytes);
 
+}
+
+#include <cmath>
+//#include <setjmp.h>
     typedef struct _jmp_buf {long _b[8];} jmp_buf[1];
     int setjmp(jmp_buf) __attribute__((__returns_twice__));
     void longjmp(jmp_buf, int) __attribute__((__noreturn__));
@@ -133,6 +137,5 @@ namespace cgc {
     float significandf(float);
     double significand(double);
     long double significandl(long double);
-}
 
 #endif /* _LIBCGC_H */

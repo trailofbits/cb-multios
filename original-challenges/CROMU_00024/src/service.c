@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include "service.h"
 #include "bst.h"
 
-
 int main(void) {
     
     bst_node_type *head;
@@ -69,7 +68,7 @@ int main(void) {
                 continue;
             }
 
-            item=calloc(1, sizeof(data_item_type));
+            item=(data_item *)calloc(1, sizeof(data_item_type));
 
             if (!item) {
 

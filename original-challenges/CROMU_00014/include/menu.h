@@ -27,12 +27,13 @@ THE SOFTWARE.
 #ifndef MENU_H
 #define MENU_H
 
+#include "service.h"
 
 typedef struct {
 
 	char *prompt;
 	char *command;
-	int (* Action)();
+	int (* Action)(logbook_type *);
 } menu_item;
 
 

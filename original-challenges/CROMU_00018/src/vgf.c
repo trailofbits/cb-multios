@@ -416,34 +416,30 @@ int32_t vgf_render_file( tVGFParsedFile *pFile, uint8_t *pDest, uint32_t *pDestL
         exitResults = -1;
         goto exit_cleanup;
     }
-
-    // Render
-    uint32_t destPixel = 0;
-    for ( pixel_idx = 0; pixel_idx < pixel_count; pixel_idx++ )
     {
-        if ( final_data[pixel_idx] == PIXEL_DEFAULT_COLOR_INDEX )
-        {
-            // Default black background
-            *(pDest+destPixel+0) = 0x00;
-            *(pDest+destPixel+1) = 0x00;
-            *(pDest+destPixel+2) = 0x00;
-        }
-        else
-        {
-            if ( final_data[pixel_idx] >= pFile->color_count )
-            {
-                exitResults = -1;
-                goto exit_cleanup;
+        // Render
+        uint32_t destPixel = 0;
+        for (pixel_idx = 0; pixel_idx < pixel_count; pixel_idx++) {
+            if (final_data[pixel_idx] == PIXEL_DEFAULT_COLOR_INDEX) {
+                // Default black background
+                *(pDest + destPixel + 0) = 0x00;
+                *(pDest + destPixel + 1) = 0x00;
+                *(pDest + destPixel + 2) = 0x00;
+            }
+            else {
+                if (final_data[pixel_idx] >= pFile->color_count) {
+                    exitResults = -1;
+                    goto exit_cleanup;
+                }
+
+                *(pDest + destPixel + 0) = pFile->pColorTable[final_data[pixel_idx]].red;
+                *(pDest + destPixel + 1) = pFile->pColorTable[final_data[pixel_idx]].green;
+                *(pDest + destPixel + 2) = pFile->pColorTable[final_data[pixel_idx]].blue;
             }
 
-            *(pDest+destPixel+0) = pFile->pColorTable[final_data[pixel_idx]].red;
-            *(pDest+destPixel+1) = pFile->pColorTable[final_data[pixel_idx]].green;
-            *(pDest+destPixel+2) = pFile->pColorTable[final_data[pixel_idx]].blue;
+            destPixel += 3;
         }
-
-        destPixel += 3;
     }
-
     exitResults = 0;
 
 exit_cleanup:

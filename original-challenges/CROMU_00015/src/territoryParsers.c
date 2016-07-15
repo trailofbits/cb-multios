@@ -328,7 +328,7 @@ pTerritory territoryTopLevel( pstring str )
 	int lastGood = 0;
 	int startIndex = 0;
 	int endIndex = 0;
-	element el = 0;
+	element el = (element) 0;
 
 	if ( str == NULL ) {
 		goto end;

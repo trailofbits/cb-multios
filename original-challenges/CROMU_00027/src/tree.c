@@ -95,11 +95,11 @@ struct InitialPageInfo InitialInfo[NUM_INITIAL_PAGES] = {
 int InitializeTree() {
   TreeNode *ptr;
   for (int i = 0; i < NUM_INITIAL_PAGES; ++i) {
-    TreeNode *node = calloc(sizeof(TreeNode), 1);
+    TreeNode *node = (TreeNode *) calloc(sizeof(TreeNode), 1);
     VerifyPointerOrTerminate(node, "TreeNode during initialization");
     strncpy(node->name, InitialInfo[i].name, sizeof(node->name));
     node->page_size = strlen(InitialInfo[i].data) + 1;
-    node->page = calloc(node->page_size, 1);
+    node->page = (char *) calloc(node->page_size, 1);
     VerifyPointerOrTerminate(node->page, "node->page during initialization");
     memcpy(node->page, InitialInfo[i].data, node->page_size);
     if (InsertNodeInTree(node) != 0) {
@@ -257,7 +257,7 @@ TreeNode *LookupNode(char *name) {
 
 int InsertNodeInTree(TreeNode *node) {
   if (root == NULL) {
-    TreeNode *node = calloc(sizeof(TreeNode), 1);
+    TreeNode *node = (TreeNode *) calloc(sizeof(TreeNode), 1);
     VerifyPointerOrTerminate(node, "root TreeNode during insert");
     node->name[0] = '.';
     root = node;

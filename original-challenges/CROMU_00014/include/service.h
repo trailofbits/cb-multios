@@ -89,7 +89,7 @@ int print_dives(logbook_type *);
 int list_dives(logbook_type *);
 int download_dive(logbook_type *);
 int dive_statistics(logbook_type *);
-int exit_app(int retcode);
+int exit_app(logbook_type* retcode);
 int print_diver_info(logbook_type *Info);
 int edit_dives(logbook_type *Info);
 int remove_dives(logbook_type *Info);

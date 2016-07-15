@@ -42,8 +42,8 @@ extern User *listOfUsers[MAX_USERS];
 extern int user_count;
 
 
-int login();
+int login(char*, char*);
 int logout();
-void create_user();
+void create_user(int);
 void list_users();
 int get_user_index(char *);

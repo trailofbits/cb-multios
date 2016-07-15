@@ -1,0 +1,11 @@
+all:
+  # Delete this define
+  - ? |
+      #ifdef NULL
+      #undef NULL
+      #define NULL (0)
+      #endif
+    : ''
+
+  # Replace NULLs in the cpps as 0
+  - 'NULL': '0'

@@ -169,6 +169,7 @@ namespace cgc {
 
     /* Updates a byte counter and returns the corresponding status code. */
     static int update_byte_count(size_t *counter, size_t count) {
+      if (!counter) return 0;
       if (!OBJECT_IS_WRITABLE(counter)) {
         return CGC_EFAULT;
       } else {
@@ -370,7 +371,7 @@ namespace cgc {
     /* Perform a backing memory allocation. */
     static int do_allocate(uintptr_t start, size_t size, void **addr) {
       void *ret_addr = (void *) start;
-      printf("do_allocate: size=%x\n", size);
+//      printf("do_allocate: size=%x\n", size);
       errno = 0;
       void *mmap_addr = mmap(ret_addr, size, PROT_READ | PROT_WRITE,
                              MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
@@ -412,7 +413,7 @@ namespace cgc {
         init_memory();
       }
 
-      printf("do_allocate: length=%x\n", length);
+//      printf("do_allocate: length=%x\n", length);
       length = PAGE_ALIGN(length);  /* Might overflow. */
 
       if (!length || length >= (gMemEnd - gMemBegin)) {
@@ -488,4 +489,13 @@ namespace cgc {
         return update_byte_count(rnd_bytes, count);
       }
     }
+
+//    double pow(double a, double b) { return a; }
+//    double rint(double a) { return a; }
+//    double log10(double a) { return a; }
+//    float logf(float a) { return a; }
+//    double fabs(double a) { return a; }
+//    double sqrt(double a) { return a; }
 }
+    int setjmp(jmp_buf) __attribute__((__returns_twice__)){return 0;}
+    void longjmp(jmp_buf, int) __attribute__((__noreturn__)){}

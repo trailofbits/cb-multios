@@ -120,7 +120,7 @@ void free_frame(protocol_frame* fr) {
 
 void send_eventually(int fd, void* payload, size_t expected) {
   size_t actual = 0;
-  void* buf = payload;
+  char* buf = (char *) payload;
 
   while (actual < expected){
     int errcode = 0;
@@ -136,7 +136,7 @@ void send_eventually(int fd, void* payload, size_t expected) {
 
 void receive_eventually(int fd, void* destination, size_t expected) {
   size_t actual = 0;
-  void* buf = destination;
+  char* buf = (char *) destination;
 
   while (actual < expected) {
     int errcode = 0;

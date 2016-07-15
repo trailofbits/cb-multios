@@ -27,6 +27,7 @@ THE SOFTWARE.
 #include <libcgc.h>
 #include "stdlib.h"
 #include "service.h"
+#include "../include/service.h"
 
 unsigned short (*swap_short)(unsigned short);
 unsigned (*swap_word)(unsigned);
@@ -104,7 +105,7 @@ int i;
 
 
         // now read and discard the rest of the SAP0 header
-        xif_data = malloc(segment_size-sizeof(segment_size));
+        xif_data = (unsigned char *) malloc(segment_size-sizeof(segment_size));
 
         if ((int)xif_data == 0) {
 
@@ -165,7 +166,7 @@ int i;
         _terminate(-1);
     }
     
-    xif_data = malloc(segment_size);
+    xif_data = (unsigned char *) malloc(segment_size);
 
     if ((int)xif_data == 0) {
 
@@ -226,7 +227,7 @@ int i;
         _terminate(-1);
     }
 
-    IFD = (void *)(tiff_hdr) + swap_word(tiff_hdr->Offset_to_IFD);
+    IFD = (IFD_Type *) ((char *)(tiff_hdr) + swap_word(tiff_hdr->Offset_to_IFD));
 
 
     // how many array entries are there
@@ -277,14 +278,14 @@ int i;
 
         if (swap_short(IFD->Entry[i].Tag) == 0x8825) {
 
-            gps_info_ptr = (void *)tiff_hdr + swap_word(IFD->Entry[i].Value);
+            gps_info_ptr = (char *)tiff_hdr + swap_word(IFD->Entry[i].Value);
 
-            process_gps_ifd(gps_info_ptr, tiff_hdr, segment_size, endofsegment_ptr);
+            process_gps_ifd((IFD_Type *)gps_info_ptr, tiff_hdr, segment_size, endofsegment_ptr);
 
         }
         else if (swap_short(IFD->Entry[i].Tag) == 0x8769) {
 
-            xif_ifd_ptr = (void *)tiff_hdr + swap_word(IFD->Entry[i].Value);
+            xif_ifd_ptr = (IFD_Type *) ((char *)tiff_hdr + swap_word(IFD->Entry[i].Value));
 
             process_xif_ifd(xif_ifd_ptr, tiff_hdr, segment_size, endofsegment_ptr);
 

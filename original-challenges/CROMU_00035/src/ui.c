@@ -439,7 +439,7 @@ void main_loop(pDataStruct workingData){
 							break;
 						}
 						if ( tempNum > 0){
-							rcvBuf = mallocOrDie(tempNum,"Failed to allocate tempBuf");
+							rcvBuf = (unsigned char *) mallocOrDie(tempNum,"Failed to allocate tempBuf");
 							puts("-----Begin File-----");//five - 
 							if ( tempNum != receive_bytes(rcvBuf,tempNum) ){
 								die("Failed to reveive file");
@@ -537,7 +537,7 @@ void main_loop(pDataStruct workingData){
 							break;
 						}
 						if ( tempNum > 0){
-							tempBuf = mallocOrDie(tempNum,"Failed to allocate tempBuf");
+							tempBuf = (char *) mallocOrDie(tempNum,"Failed to allocate tempBuf");
 							puts("-----Begin File-----");//five - 
 							if ( tempNum != receive_bytes((unsigned char *)tempBuf,tempNum) ){
 								die("Failed to reveive file");

@@ -31,7 +31,7 @@ THE SOFTWARE.
 
 trie * initTrie() {
 	trie *ret;
-	ret = calloc(sizeof(trie), 1);
+	ret = (trie *) calloc(sizeof(trie), 1);
 	return ret;
 }
 
@@ -41,7 +41,7 @@ void insertInTrie(trie *root, char *key,  void* value) {
 
 	ptr = root;
 	if(ptr->children == NULL) {
-		ptr->children = calloc(sizeof(trie), 1);
+		ptr->children = (trie *) calloc(sizeof(trie), 1);
 		ptr->children->tag = key[0];
 	}
 
@@ -60,16 +60,16 @@ void insertInTrie(trie *root, char *key,  void* value) {
 			if (key[i] == 0)
   				break;
 			if(ptr->children == NULL) {
-				ptr->children = calloc(sizeof(trie), 1);
+				ptr->children = (trie *) calloc(sizeof(trie), 1);
 				ptr->children->tag = key[i+1];
 			}
 			ptr = ptr->children;
 		} else {
-			ptr->next = calloc(sizeof(trie), 1);
+			ptr->next = (trie *) calloc(sizeof(trie), 1);
 			ptr->next->tag = key[i];
 			ptr = ptr->next;
 			while(i<strlen(key)) {
-				ptr->children = calloc(sizeof(trie), 1);
+				ptr->children = (trie *) calloc(sizeof(trie), 1);
 				ptr->children->tag = key[++i];
 				ptr = ptr->children;
 			}
@@ -77,7 +77,7 @@ void insertInTrie(trie *root, char *key,  void* value) {
 		}
 	}
 
-	ptr->value = value;
+	ptr->value = (char *) value;
 }
 
 trie * findInTrie(trie *root, char * key) {

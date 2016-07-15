@@ -50,8 +50,9 @@ typedef struct MALLOC_MANAGER
     void *pFreeList;
 } tMallocManager;
 
-void* calloc( size_t count, size_t obj_size );
-void* malloc( size_t alloc_size );
-void free( void *pMem );
+// These collide with this challenge's stdlib
+//void* calloc( size_t count, size_t obj_size );
+//void* malloc( size_t alloc_size );
+//void free( void *pMem );
 
 #endif // __MALLOC_H__

@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <libcgc.h>
 #include "stdlib.h"
 #include "service.h"
-
+#include "../include/service.h"
 
 
 Shopping_List_Type *build_shopping_list(Recipe_Type *book) {
@@ -52,7 +52,7 @@ Ingredient_Type *ingredient;
 
 		if (list_head==0) {
 
-			list_head = malloc(sizeof(Shopping_List_Type));
+			list_head = (Shopping_List_Type *) malloc(sizeof(Shopping_List_Type));
 
 			if (list_head == 0) {
 
@@ -72,7 +72,7 @@ Ingredient_Type *ingredient;
 			list->item = ingredient->item;
 			ingredient=ingredient->next;
 
-			list->next = malloc(sizeof(Shopping_List_Type));
+			list->next = (Shopping_List_Type *) malloc(sizeof(Shopping_List_Type));
 
 			if (list->next == 0) {
 

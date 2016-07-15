@@ -51,9 +51,9 @@ int step_count = 0;
 	
 	// the dynamic array is null terminated so allocate memory for the null too
 #ifdef PATCHED
-		recipe->Instructions = malloc(sizeof(char *) * 4);
+		recipe->Instructions = (char **) malloc(sizeof(char *) * 4);
 #else
-		recipe->Instructions = malloc(sizeof(char *) * 2);
+		recipe->Instructions = (char **) malloc(sizeof(char *) * 2);
 #endif
 
 		if (recipe->Instructions == 0) {
@@ -71,9 +71,9 @@ int step_count = 0;
 
 
 #ifdef PATCHED
-		temp_step=malloc(strlen(buffer)+1);
+		temp_step = (char *) malloc(strlen(buffer)+1);
 #else
-		temp_step=malloc(strlen(buffer));
+		temp_step = (char *) malloc(strlen(buffer));
 #endif
 
 		if (temp_step == 0) {
@@ -102,9 +102,9 @@ int step_count = 0;
 	while(size > 1) {
 
 #ifdef PATCHED
-			step_list = malloc(sizeof(char *)*(step_count+4));
+			step_list = (char **) malloc(sizeof(char *)*(step_count+4));
 #else
-			step_list = malloc(sizeof(char *)*(step_count+2));
+			step_list = (char **) malloc(sizeof(char *)*(step_count+2));
 #endif
 
 			if (step_list == 0) {
@@ -122,9 +122,9 @@ int step_count = 0;
 			memcpy(step_list, recipe->Instructions, sizeof(char *)*(step_count+1));
 
 #ifdef PATCHED
-			temp_step=malloc(strlen(buffer)+1);
+			temp_step = (char *) malloc(strlen(buffer)+1);
 #else
-			temp_step=malloc(strlen(buffer));
+			temp_step = (char *) malloc(strlen(buffer));
 #endif
 
 			if (temp_step == 0) {

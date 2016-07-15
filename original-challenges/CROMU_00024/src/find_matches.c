@@ -25,6 +25,7 @@ THE SOFTWARE.
 */
 #include "bst.h"
 #include "stdlib.h"
+#include "../../../cqe-challenges/CROMU_00024/include/bst.h"
 
 
 void find_matches(bst_node_type *head, int arg_count, char **args)  {
@@ -37,7 +38,7 @@ void find_matches(bst_node_type *head, int arg_count, char **args)  {
 
     //use the built-in functionality of a BST and find by the key value
 
-    item=find_node_by_key(head, make_key_from_name(args[1]));
+    item= (data_item_type *) find_node_by_key(head, make_key_from_name(args[1]));
 
     if (item) {
 

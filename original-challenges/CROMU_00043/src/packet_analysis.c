@@ -54,7 +54,7 @@ void TransmitOptionHeader(OptionHeader *header) {
 #else
       TransmitFormattedBytes(header->value);
 #endif
-      TransmitBytes("\n", 1);
+      TransmitBytes((void *) "\n", 1);
       break;
     }
     case OPTION_TYPE_LOCATION: {
@@ -123,7 +123,7 @@ void DisplayStatistics(SystemState *state) {
     TransmitOptionHeader(header);
     header = header->next;
   }
-  TransmitBytes("\n", 1);
+  TransmitBytes((void *) "\n", 1);
 }
 
 // Check if the packet matches the filter
@@ -542,13 +542,13 @@ int AnalyzePacket(SystemState *state, Packet *packet) {
 
   // If negative filters exist and match, don't show packet
   if (negative_match > 0) {
-    TransmitBytes("skip\n", 5);
+    TransmitBytes((void *) "skip\n", 5);
     return -1;
   }
   // If positive filters exist, but don't match, don't show packet
   if ((state->stats->num_positive_filters > 0) && (positive_match == 0)) {
 
-    TransmitBytes("skip\n", 5);
+    TransmitBytes((void *) "skip\n", 5);
    return -1;
   } 
   // Otherwise, show packet 
@@ -560,7 +560,7 @@ int AnalyzePacket(SystemState *state, Packet *packet) {
         if (AnalyzeApplicationLayer(state, packet) == 0) {
           if (state->display_flags & DISPLAY_CONTENT) {
             HexDump(packet->data, packet->size);
-            TransmitBytes("\n", 1);
+            TransmitBytes((void *) "\n", 1);
           }
           return 0;
         }

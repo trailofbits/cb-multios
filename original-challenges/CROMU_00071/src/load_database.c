@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include "malloc.h"
 #include "stdlib.h"
 #include "service.h"
+#include "../include/service.h"
 
 
 void makeAirportCode( unsigned char *readPtr, char apCode[4]);
@@ -59,7 +60,7 @@ int connectionNum;
 	airportCount = *readPtr % 16 + 5;
 
 
-	*airports = malloc(sizeof(airportInfoType));
+	*airports = (airportInfoType *) malloc(sizeof(airportInfoType));
 
 	if (*airports == 0)
 		return -1;
@@ -89,7 +90,7 @@ int connectionNum;
 		// if this isn't the last one, malloc memory for the next
 		if (i < airportCount -1 ) {
 
-			tmpPtr->next = malloc(sizeof(airportInfoType));
+			tmpPtr->next = (airportInfoType *) malloc(sizeof(airportInfoType));
 
 			if (tmpPtr->next == 0)
 				return -1;
@@ -110,7 +111,7 @@ int connectionNum;
 		connectionCount = *(readPtr + offset) % (airportCount/2) + 1;
 		offset++;
 
-		tmpPtr->connections = malloc(sizeof(connectionListType));
+		tmpPtr->connections = (connectionListType *) malloc(sizeof(connectionListType));
 
 		if (tmpPtr->connections == 0)
 			return -1;
@@ -142,7 +143,7 @@ int connectionNum;
 
 				if (i < connectionCount) {
 
-					tmpConnectionPtr->next = malloc(sizeof(connectionListType));
+					tmpConnectionPtr->next = (connectionListType *) malloc(sizeof(connectionListType));
 
 					if (tmpConnectionPtr->next == 0)
 						return -1;

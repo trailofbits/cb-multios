@@ -31,7 +31,7 @@ THE SOFTWARE.
 
 ltype *lint(char *name, char *val) {
 	ltype *ret;
-	ret = calloc(sizeof(ltype), 1);
+	ret = (ltype *) calloc(sizeof(ltype), 1);
 	ret->value = (void *)atoi(val);
 	ret->type = "Integer";
 	ret->name = strdup(name);
@@ -41,7 +41,7 @@ ltype *lint(char *name, char *val) {
 
 ltype *lstring(char *name, char *val) {
 	ltype *ret;
-	ret = calloc(sizeof(ltype), 1);
+	ret = (ltype *) calloc(sizeof(ltype), 1);
 	ret->value = strdup(val);
 	ret->type = "String";
 	ret->name = strdup(name);
@@ -51,7 +51,7 @@ ltype *lstring(char *name, char *val) {
 
 ltype *lbool(char *name, char *val) {
 	ltype *ret;
-	ret = calloc(sizeof(ltype), 1);
+	ret = (ltype *) calloc(sizeof(ltype), 1);
 	if(strcmp(val, "True") == 0) {
 		ret->value = (void *)1;
 	} else {
@@ -65,9 +65,9 @@ ltype *lbool(char *name, char *val) {
 
 ltype *lfunc(char *name, void (*val)()) {
 	ltype *ret;
-	ret = calloc(sizeof(ltype), 1);
+	ret = (ltype *) calloc(sizeof(ltype), 1);
 	ret->name = strdup(name);
-	ret->value = val;
+	ret->value = (void *) val;
 	ret->type = "Function";
 	ret->len = 0;
 	return ret;

@@ -33,7 +33,7 @@ vars_t *pVARS = NULL;
 // Init VARS
 int32_t InitVARS(void) {
 
-	if ((pVARS = CreateVARSObject("system.name", STRING, "CGC CB")) == NULL) {
+	if ((pVARS = CreateVARSObject("system.name", STRING, (void *) "CGC CB")) == NULL) {
 		return(0);
 	}
 
@@ -95,7 +95,7 @@ vars_t *CreateVARSObject(char *name, uint8_t type, void *value) {
 	}
 
 	// create the object
-	if ((pm = calloc(1, sizeof(vars_t))) == NULL) {
+	if ((pm = (vars_t *) calloc(1, sizeof(vars_t))) == NULL) {
 		_terminate(-1);
 	}
 
@@ -104,7 +104,7 @@ vars_t *CreateVARSObject(char *name, uint8_t type, void *value) {
 
 	pm->type = type;
 	if (type == STRING) {
-		strncpy((char *)pm->value, value, MAX_VALUE_LEN-1);
+		strncpy((char *)pm->value, (const char *) value, MAX_VALUE_LEN-1);
 	} else if (type == INT32) {
 		memcpy(pm->value, value, 4);
 	}
@@ -190,7 +190,7 @@ vars_t *UpdateVARSObject(char *name, uint8_t type, void *value) {
 	}
 
 	if (type == STRING) {
-		strncpy((char *)pm->value, value, MAX_VALUE_LEN-1);
+		strncpy((char *)pm->value, (const char *) value, MAX_VALUE_LEN-1);
 
 	} else if (type == INT32) {
 		memcpy(pm->value, value, 4);

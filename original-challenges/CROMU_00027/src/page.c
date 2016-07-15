@@ -49,7 +49,7 @@ int AddPageVar(PageVar *varlist, char *cmd) {
     while (pagevar->next != NULL) {
       pagevar = pagevar->next;
     }
-    pagevar->next = calloc(sizeof(PageVar), 1);
+    pagevar->next = (PageVar *) calloc(sizeof(PageVar), 1);
     VerifyPointerOrTerminate(pagevar->next, "New PageVar");
     pagevar = pagevar->next;
   }
@@ -59,7 +59,7 @@ int AddPageVar(PageVar *varlist, char *cmd) {
     return -1;
   }
   #endif 
-  pagevar->value = calloc(end - value + 1, 1);
+  pagevar->value = (char *) calloc(end - value + 1, 1);
   VerifyPointerOrTerminate(pagevar->value, "PageVar->value");
   memcpy(pagevar->value, value, end - value);
   return 1;
@@ -100,7 +100,7 @@ int InteractWithPage(char *page, int page_size, char *override_data) {
     return ServePageWithOverride(page, page_size, NULL);
   }
 #endif 
-  PageVar *override_list = calloc(sizeof(PageVar), 1);
+  PageVar *override_list = (PageVar *) calloc(sizeof(PageVar), 1);
   VerifyPointerOrTerminate(override_list, "Override_list initialization");
   // Process override variable definitions
   while(*override_data != '\0' && *override_data != ']') {
@@ -166,7 +166,7 @@ void OutputStr(char *s) {
 // will take precedence over variables of the same name defined in the page. 
 int ServePageWithOverride(char *page, int page_size, PageVar *override_list) {
   // Initialize varlist
-  PageVar *varlist = calloc(sizeof(PageVar), 1);
+  PageVar *varlist = (PageVar *) calloc(sizeof(PageVar), 1);
   VerifyPointerOrTerminate(varlist, "VarList initialization");
   in_a_box = 0;
   memset(line, '\0', sizeof(line));

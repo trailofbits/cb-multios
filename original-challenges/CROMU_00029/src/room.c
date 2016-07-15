@@ -306,7 +306,7 @@ void InitCustom(void) {
 int32_t AllocateGrid(double **grid, uint32_t x, uint32_t y, uint32_t z) {
 	size_t malloc_size = x*y*z*sizeof(double);
 
-	if ((*grid = calloc(malloc_size, 1)) == NULL) {
+	if ((*grid = (double *) calloc(malloc_size, 1)) == NULL) {
 		return(-1);
 	}
 

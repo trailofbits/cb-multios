@@ -63,7 +63,7 @@ pBitStream initStream( char *newData, unsigned int newDataLength )
 		return pbs;
 	}
 
-	pbs = malloc( sizeof(BitStream) );
+	pbs = (pBitStream) malloc( sizeof(BitStream) );
 
 	if ( pbs == NULL ) {
 		return pbs;
@@ -71,7 +71,7 @@ pBitStream initStream( char *newData, unsigned int newDataLength )
 
 	memset( pbs, 0, sizeof( BitStream ) );
 
-	pbs->stream = malloc( newDataLength );
+	pbs->stream = (char *) malloc( newDataLength );
 
 	if ( pbs->stream == NULL ) {
 		free(pbs);

@@ -263,7 +263,7 @@ int32_t SimStep(void) {
 
 	// allocate a new TGrid to hold updated temperatures
 	malloc_size = X*Y*Z*sizeof(double);
-	if ((TGridNew = calloc(malloc_size, 1)) == NULL) {
+	if ((TGridNew = (double *) calloc(malloc_size, 1)) == NULL) {
 		return(-1);
 	}
 

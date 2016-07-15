@@ -140,7 +140,7 @@ int32_t pixelmap_write_file( uint8_t **pFileData, uint32_t *pFileSize, uint8_t *
     oInfoHeader.piSizeImage = pmImageSize;
 
     // Allocate file data
-    (*pFileData) = malloc( oFileHeader.pmSize );
+    (*pFileData) = (uint8_t *) malloc( oFileHeader.pmSize );
     (*pFileSize) = oFileHeader.pmSize;
 
     uint8_t *pData = (*pFileData);

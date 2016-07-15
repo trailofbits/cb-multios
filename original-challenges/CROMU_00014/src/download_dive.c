@@ -72,7 +72,7 @@ int download_dive(logbook_type *Info)  {
 
 	// if its the first dive in the log
 	if (Info->dives == 0)  {
-		Info->dives=calloc(1, sizeof(dive_log_type));
+		Info->dives=(dive_log_type *) calloc(1, sizeof(dive_log_type));
 
 		if (Info->dives==0)
 			_terminate(-1);
@@ -86,7 +86,7 @@ int download_dive(logbook_type *Info)  {
 		while (next_dive->next != 0)
 			next_dive = next_dive->next;
 
-		next_dive->next = calloc(1, sizeof(dive_log_type));
+		next_dive->next = (dive_log_type *) calloc(1, sizeof(dive_log_type));
 
 		if (next_dive->next==0)
 			_terminate(-1);
@@ -95,7 +95,7 @@ int download_dive(logbook_type *Info)  {
 	}
 
 	// now allocate memory for the first data point in the dive
-	next_dive->data=calloc(1, sizeof(struct dive_data));
+	next_dive->data=(dive_data_type *) calloc(1, sizeof(struct dive_data));
 
 	if (next_dive->data==0)
 		_terminate(-1);
@@ -139,7 +139,7 @@ int download_dive(logbook_type *Info)  {
 			return -1;
 		}
 
-		temp_ptr->next=calloc(1, sizeof(dive_data_type));
+		temp_ptr->next=(dive_data_type *) calloc(1, sizeof(dive_data_type));
 
 		if (temp_ptr->next == 0)
 			_terminate(-1);
@@ -165,7 +165,7 @@ int download_dive(logbook_type *Info)  {
 	next_dive->dive_length = delta_time/60;
 
 	//setup bins per minute of the dive
-	bins=calloc(next_dive->dive_length+1, sizeof(int));
+	bins=(int *) calloc(next_dive->dive_length+1, sizeof(int));
 
 	 if (bins==0)
 	 	_terminate(-1);

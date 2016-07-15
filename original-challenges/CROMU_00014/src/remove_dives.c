@@ -25,6 +25,7 @@ THE SOFTWARE.
 */
 #include "service.h"
 #include "stdlib.h"
+#include "malloc.h"
 
 
 int remove_dives(logbook_type *Info)  {

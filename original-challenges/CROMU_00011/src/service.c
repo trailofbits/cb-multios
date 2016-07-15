@@ -266,7 +266,7 @@ char * print_subsets( psetArray r, int addName )
 		}
 	}
 
-	if ( allocate( strlen(data) + 1, 0, (void*)&outbuff) != 0 ) {
+	if ( allocate( strlen(data) + 1, 0, (void**)&outbuff) != 0 ) {
 		outbuff = NULL;
 		goto end;
 	}
@@ -899,6 +899,7 @@ psetArray parse_operations( char *setName, char *setData )
     int operation = 0;
     int nlen = 0;
     psetArray final = NULL;
+    int index = 0;
 
     if ( setName == NULL || setData == NULL ) {
         goto end;
@@ -1024,7 +1025,7 @@ psetArray parse_operations( char *setName, char *setData )
     strncpy( final->varName, setName, 15 );
 
     // Ensure that final will not contain itself as a set
-    int index = 0;
+
     for (index = 0; index < final->varCount; index++ ) {
         if ( final->sElems[index]->type == SET ) {
             if ( strcmp( final->sElems[index]->value, final->varName ) == 0 ) {

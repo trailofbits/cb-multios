@@ -46,7 +46,7 @@ int validatePtr(void *ptr) {
 void validateRet() {
 	int* retAddr = 0;
 
-	retAddr = __builtin_return_address(1);
+	retAddr = (int *) __builtin_return_address(1);
 
 	if((unsigned int)retAddr < PROGRAMBASE || (unsigned int)retAddr > PROGRAMBASE+PROGRAMSIZE) {
 		//only allowed to ret to an address within the main module.

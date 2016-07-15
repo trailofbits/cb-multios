@@ -198,7 +198,7 @@ int handle_send( void )
         return 0;
     }
     
-    data = malloc( file_length + 1);
+    data = (char *) malloc( file_length + 1);
     
     if ( data == NULL ) {
         printf("[ERROR] malloc failed\n");

@@ -51,7 +51,7 @@ int parse_command(char *buffer, char separator, char ***args) {
 	} // while
 
 	// allocate one char pointer for each field in the command
-	*args=calloc(arg_count, sizeof(char *));
+	*args= (char **) calloc(arg_count, sizeof(char *));
 
 	// failed to allocate the memory
 	if (*args==0) {

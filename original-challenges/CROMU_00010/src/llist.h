@@ -35,7 +35,7 @@ THE SOFTWARE.
 typedef struct dListNode_s {
 	struct dListNode_s *prev;
 	struct dListNode_s *next;
-	void *this;
+	void *_this;
 	char data[128];
 }dListNode, *pdListNode;
 

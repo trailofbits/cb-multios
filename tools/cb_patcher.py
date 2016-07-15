@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 import os
+import re
 import shutil
 import sys
+from collections import OrderedDict
 
 import yaml  # pip install pyyaml
 
@@ -20,9 +22,23 @@ using namespace cgc;
 {}
 '''
 
+
+def load_ordered_yaml_dict(yml):
+    for key in yml:
+        od = OrderedDict()
+        for lst in yml[key]:
+            k, v = lst.items()[0]
+            od[k] = v
+        yml[key] = od
+    return yml
+
+
 # Load the manual patches
-with open(os.path.join(TOOLS_DIR, 'manual_patches.yaml')) as f:
-    mpatches = yaml.safe_load(f)
+with open(os.path.join(TOOLS_DIR, 'manual_patches_c.yaml')) as f:
+    c_mpatches = load_ordered_yaml_dict(yaml.safe_load(f))
+
+with open(os.path.join(TOOLS_DIR, 'manual_patches_cpp.yaml')) as f:
+    cpp_mpatches = load_ordered_yaml_dict(yaml.safe_load(f))
 
 
 def debug(s):
@@ -72,8 +88,12 @@ def replace_include_names(src, lib_names):
     return src
 
 
-def apply_manual_patches(fname, src):
-    # type: (str, str) -> str
+def apply_manual_patches(fname, src, mpatches):
+    # type: (str, str, dict) -> str
+
+    # Delete extern "C" includes
+    src = re.sub(r'extern\s+"C"\s+\{([^}]+)}', r'\1', src)
+
     # Apply everything in 'all' first
     for match, rep in mpatches['all'].iteritems():
         src = src.replace(match, rep)
@@ -83,6 +103,28 @@ def apply_manual_patches(fname, src):
         for match, rep in mpatches[fname].iteritems():
             src = src.replace(match, rep)
     return src
+
+
+def is_cpp(fdir, fname, src):
+    # type: (str, str, str) -> bool
+    if 'extern "C"' in src:
+        return True
+
+    base, _ = os.path.splitext(fname)
+
+    # All possible c++ file names
+    cpps = ['{}{}.cc'.format(pre, base) for pre in ['', 'cgc_']]
+
+    # Paths to these files
+    cpps = [os.path.join(fdir, cpp) for cpp in cpps]
+
+    return any(map(os.path.exists, cpps))
+
+
+def select_and_apply_patches(fdir, fname, src):
+    # type: (str, str, str) -> str
+    patch_dict = cpp_mpatches if is_cpp(fdir, fname, src) else c_mpatches
+    return apply_manual_patches(fname, src, patch_dict)
 
 
 def split_after_includes(src):
@@ -98,14 +140,22 @@ def split_after_includes(src):
     return src[:next_line], src[next_line:]
 
 
+def try_delete(path):
+    try:
+        os.remove(path)
+    except OSError:
+        pass
+
+
 def patch_lib(lib_path):
     debug('Patching lib files...\n')
 
     # Delete libcgc.h if it exists
-    try:
-        os.remove(os.path.join(lib_path, 'libcgc.h'))
-    except OSError:
-        pass
+    try_delete(os.path.join(lib_path, 'libcgc.h'))
+
+    # These files are not needed
+    for f in ['cpp.cc', 'ctors.cc']:
+        try_delete(os.path.join(lib_path, f))
 
     for fname in listdir(lib_path):
         debug('\tPatching {}...'.format(fname))
@@ -128,7 +178,7 @@ def patch_lib(lib_path):
         patched = replace_include_names(patched, listdir(lib_path))
 
         # Apply all manual patches
-        patched = apply_manual_patches(fname, patched)
+        patched = select_and_apply_patches(lib_path, fname, patched)
 
         save_patched_file(fpath, patched, 'cgc_{}{}')
 
@@ -157,7 +207,7 @@ def patch_src(src_path):
         patched = replace_include_names(patched, lib_files)
 
         # Apply all manual patches
-        patched = apply_manual_patches(fname, patched)
+        patched = select_and_apply_patches(src_path, fname, patched)
 
         save_patched_file(fpath, patched)
 
@@ -179,6 +229,7 @@ def patch_challenge(chal):
 
         # Patch all source files
         patch_src(os.path.join(CHALLENGE_PATH, chal, 'src'))
+        patch_src(os.path.join(CHALLENGE_PATH, chal, 'include'))
 
 
 def listdir(path):
@@ -197,7 +248,7 @@ def main():
     clear_challenges()
 
     # Copy over one challenge at a time and patch it
-    for chal in listdir(ORIGINAL_CHALLS)[:7]:  # Only a few for now
+    for chal in listdir(ORIGINAL_CHALLS)[53:60]:  # Only a few for now
         shutil.copytree(os.path.join(ORIGINAL_CHALLS, chal),
                         os.path.join(CHALLENGE_PATH, chal))
         patch_challenge(chal)
