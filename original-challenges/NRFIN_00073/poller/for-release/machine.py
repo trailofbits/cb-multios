@@ -55,6 +55,7 @@ def chunks(l, n):
 class CTTP(Actions):
 
     def start(self):
+        #self.delay(100)
         #init prng
         self.last = None
         cookie = self._rand(4)

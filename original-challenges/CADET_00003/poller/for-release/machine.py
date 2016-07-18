@@ -4,7 +4,7 @@ import string
 
 class Palindrome(Actions):
     def start(self):
-        pass
+        #self.delay(100)
 
     def banner(self):
         # Confirm the initial empty line

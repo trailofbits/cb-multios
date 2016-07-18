@@ -177,6 +177,7 @@ class CROMU00071(Actions):
 		self.read( expect=(struct.pack('<B', expect_crc8 )), length=1 )
 
 	def start( self ):
+		#self.delay(100)
 		self.INTERNAL_PI = 3.1415926536
 
 		self.MAX_GEOFENCE_POINTS = 20

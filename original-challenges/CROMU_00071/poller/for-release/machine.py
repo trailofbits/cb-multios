@@ -12,6 +12,7 @@ class AirportTest(Actions):
     def start(self):
 
 
+        #self.delay(100)
         self.airports = []
 
         value = 0

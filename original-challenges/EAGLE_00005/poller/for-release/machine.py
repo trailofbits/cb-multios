@@ -11,6 +11,7 @@ class Hangman(Actions):
         self.read(length=len(data), expect=data)
 
     def start(self):
+        #self.delay(100)
         self._match('Password: ')
 
     def good_password(self):
