@@ -1,4 +1,6 @@
-add_library(libcgc libcgc.cpp)
+enable_language(ASM)
+add_library(libcgc libcgc.c maths.S)
+
 if(APPLE)
     set(flags "-DAPPLE")
 endif()
