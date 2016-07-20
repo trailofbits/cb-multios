@@ -10,7 +10,7 @@ def readAndMake(folder):
     oldMake = inStream.readlines()
     inStream.close()
 
-    makeVars = {'CFLAGS': '-fno-builtin -Wno-int-to-pointer-cast -Wno-writable-strings '}
+    makeVars = {'CFLAGS': '-fno-builtin -Wno-int-to-pointer-cast -Wno-writable-strings -nostdinc '}
     for line in oldMake:
         line = re.sub('[\r\n\t]', '', line)
         if "=" in line:
