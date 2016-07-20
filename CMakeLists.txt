@@ -1,14 +1,9 @@
 project(cb_porting)
-
-# needed for nullptr
-cmake_minimum_required(VERSION 3.1)
-set(CMAKE_CXX_STANDARD 11)
-
 include_directories(include)  # necessary libraries shared by all challenge binaries
 
 if(UNIX AND NOT APPLE)
     set(LINUX TRUE)
-    set(CMAKE_C_COMPILER clang-3.6)
+    set(CMAKE_C_COMPILER clang)
 endif()
 if(APPLE)
     set(APPLE TRUE)  # accurate on my mac
@@ -39,7 +34,7 @@ function(build path target)
     add_executable(${target}_patched ${cb_all_src})
 
     set_target_properties(${target} PROPERTIES COMPILE_FLAGS "${CFLAGS} " LINK_FLAGS "-m32")
-    set_target_properties(${target}_patched PROPERTIES COMPILE_FLAGS "${CFLAGS} -DPATCHED" LINK_FLAGS "-m32")
+    set_target_properties(${target}_patched PROPERTIES COMPILE_FLAGS "${CFLAGS} -DPATCHED -DPATCHED_1 -DPATCHED_2" LINK_FLAGS "-m32")
 
     target_link_libraries(${target} LINK_PUBLIC libcgc)
     target_link_libraries(${target}_patched LINK_PUBLIC libcgc)
@@ -48,7 +43,17 @@ endfunction()
 function(buildCB flags)
     set(CFLAGS "${flags} -g3 -m32 ${CFLAGS}")
     set(CFLAGS "-Derrno=__cgc_errno ${CFLAGS}")
-    set(CFLAGS "-isystem include ${CFLAGS}")
+
+    # Set OS defines
+    if(LINUX)
+        set(CFLAGS "-DLINUX ${CFLAGS}")
+    endif()
+    if(APPLE)
+        set(CFLAGS "-DAPPLE ${CFLAGS}")
+    endif()
+    if(WIN)
+        set(CFLAGS "-DWIN ${CFLAGS}")
+    endif()
 
     # Some challenges have multiple binaries that need to be built
     # Check if these directories exist
