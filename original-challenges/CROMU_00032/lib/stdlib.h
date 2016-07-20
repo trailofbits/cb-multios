@@ -23,12 +23,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
-#include <libcgc.h>
-#include "malloc.h"
-
 #ifndef __STDLIB_H__
 #define __STDLIB_H__
 
+#include <libcgc.h>
+#include "malloc.h"
 
 int isspace( int c );
 int isdigit( int c );

@@ -27,7 +27,6 @@ THE SOFTWARE.
 #include <libcgc.h>
 #include "stdlib.h"
 #include "service.h"
-#include "../../../cqe-challenges/CROMU_00040/include/service.h"
 
 #define BUFF_SIZE 200
 
@@ -43,7 +42,7 @@ size_t size;
 
 	if (*book == 0) {
 
-		*book = (Recipe_Type *) malloc(sizeof(Recipe_Type));
+		*book = malloc(sizeof(Recipe_Type));
 
 		if (*book==0) {
 
@@ -61,7 +60,7 @@ size_t size;
 		while(recipe->next != 0) 
 			recipe = recipe->next;
 
-		recipe->next = (Recipe_Type *) malloc(sizeof(Recipe_Type));
+		recipe->next = malloc(sizeof(Recipe_Type));
 
 		if (recipe->next == 0) {
 

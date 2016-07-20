@@ -58,5 +58,5 @@ char *strchr(const char *, int);
 char *strtok(char *, const char *);
 ssize_t write( const void *, size_t );
 char *strdup( char * );
-void float_to_str( double, char *);
+
 #endif // __STDLIB_H__

@@ -343,7 +343,7 @@ pPlanet planetTopLevel( pstring topLevel )
         element el;
         char *fl = NULL;
         int lastGood = 0;
-	char *c;
+
         if ( topLevel == NULL ) {
                 goto end;
         }
@@ -357,7 +357,7 @@ pPlanet planetTopLevel( pstring topLevel )
 		goto end;
 	}
 
-	c = "{Planet}";
+	char *c = "{Planet}";
 
 	for ( int i = 0; i < 8; i++ ) {
 		if ( topLevel->buffer[ topLevel->index + i ] != c[i] ) {

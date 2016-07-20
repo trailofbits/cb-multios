@@ -30,8 +30,8 @@ THE SOFTWARE.
 #include "stdlib.h"
 #include "service.h"
 
-
-int insert_node(bst_node_type **head, data_item_type *data, unsigned long make_key(void *)) {
+    
+int insert_node(bst_node_type **head, data_item_type *data, unsigned long make_key()) {
 
 bst_node_type *tmp_node;
 unsigned long key_val=0;

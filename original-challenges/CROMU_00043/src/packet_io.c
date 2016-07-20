@@ -136,7 +136,7 @@ int ReceiveAndProcessFile(SystemState *state) {
       }
       option = option->next;
     }
-    bzero((char *)option, sizeof(OptionHeader));
+    bzero((void *)option, sizeof(OptionHeader));
     ReceiveBytes(&option->type, sizeof(option->type));
     ReceiveBytes(&option->length, sizeof(option->length));
     // Allow 1 extra byte to ensure null termination 

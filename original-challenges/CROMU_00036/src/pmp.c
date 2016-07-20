@@ -67,7 +67,7 @@ int PMPGenerate(PMP_File *pmp, Canvas *c) {
   pmp->info.reserved2 = 0;
   pmp->info.reserved3 = 0;
 
-  char *data = (char *) pmp->data;
+  char *data = pmp->data;
   int x, y;
   for (y = c->y_size - 1; y >= 0; y--) {
     for (x = 0; x < c->x_size; x++) {

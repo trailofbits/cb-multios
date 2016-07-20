@@ -539,7 +539,7 @@ void parse_search_expression( char *pszTemp )
                 }
                 szTemp[cur_pos] = '\0';
 
-                if ( *pszCur == '\0' )
+                if ( pszCur == '\0' )
                 {
                     THROW( PARSER_EXCEPTION_SYNTAX_ERROR );
                     return;

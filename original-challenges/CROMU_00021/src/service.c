@@ -41,9 +41,9 @@ void sub();
 void mul();
 void div();
 void mod();
-void _xor();
-void _and();
-void _not();
+void xor();
+void and();
+void not();
 void terminate();
 void type();
 void _int();
@@ -63,7 +63,7 @@ int main() {
     insertInTrie(root, "mul", lfunc("mul", &mul));
     insertInTrie(root, "div", lfunc("div", &div));
     insertInTrie(root, "mod", lfunc("mod", &mod));
-    insertInTrie(root, "not", lfunc("not", &_not));
+    insertInTrie(root, "not", lfunc("not", &not));
     insertInTrie(root, "int", lfunc("int", &_int));
     insertInTrie(root, "terminate", lfunc("terminate", &terminate));
     insertInTrie(root, "equals", lfunc("equals", &equals));
@@ -273,11 +273,11 @@ void process(char *input) {
         tmp = strtok(NULL, " ");
     }
     while(!isEmpty(funcStack)) {
-        ltype *func = (ltype *) pop(funcStack);
+        ltype *func = pop(funcStack);
         ((void (*)())func->value)();
     }
     if(!(isEmpty(operStack))) {
-        ltype *oper = (ltype *) pop(operStack);
+        ltype *oper = pop(operStack);
         if(strcmp(oper->type, "Integer") == 0)
             printf("@d\n", oper->value);
         else if(strcmp(oper->type, "String") == 0)
@@ -292,14 +292,14 @@ void add() {
     ltype *oper2 = NULL;
 
     if(!(isEmpty(operStack)))
-        oper1 = (ltype *) pop(operStack);
+        oper1 = pop(operStack);
     else {
         puts("Not enough operands for add");
         return;
     }
 
     if(!(isEmpty(operStack)))
-        oper2 = (ltype *) pop(operStack);
+        oper2 = pop(operStack);
     else {
         puts("Not enough operands for add");
         return;
@@ -313,7 +313,7 @@ void add() {
         push(operStack, lint("", result));
     } else if((strcmp(oper1->type, "String") == 0) && (strcmp(oper2->type, "String") == 0)) {
         char *tmp;
-        tmp = (char *) calloc(oper1->len + oper2->len + 1, 1);
+        tmp = calloc(oper1->len + oper2->len + 1, 1);
         if(tmp) {
             memcpy(tmp, oper2->value, oper2->len);
             memcpy(tmp+(oper2->len), oper1->value, oper1->len);
@@ -328,7 +328,7 @@ void add() {
         char result[32];
         bzero(result, 32);
         int_to_str((int)oper1->value, result);
-        tmp = (char *) calloc(oper2->len + oper1->len + 1, 1);
+        tmp = calloc(oper2->len + oper1->len + 1, 1);
         if(tmp) {
             memcpy(tmp, oper2->value, oper2->len);
             memcpy(tmp+oper2->len, result, strlen(result));
@@ -350,14 +350,14 @@ void _int() {
     char *tmp;
 
     if(!(isEmpty(operStack)))
-        oper = (ltype *) pop(operStack);
+        oper = pop(operStack);
 
     if(oper) {
         if(strcmp(oper->type, "Integer") == 0)
             push(operStack, oper);
         else if(strcmp(oper->type, "String") == 0)
         {
-            tmp = (char *) oper->value;
+            tmp = oper->value;
             for(i=0;i<strlen(tmp);i++)
             {
                 if(!isdigit(tmp[i]))
@@ -366,7 +366,7 @@ void _int() {
                     return;
                 }
             }
-            push(operStack, lint("", (char *) oper->value));
+            push(operStack, lint("", oper->value));
         } else if(strcmp(oper->type, "Boolean") == 0) {
             if(oper->value)
                 push(operStack, lint("", "1"));
@@ -383,10 +383,10 @@ void mul() {
     ltype *oper2 = NULL;
 
     if(!(isEmpty(operStack)))
-        oper1 = (ltype *) pop(operStack);
+        oper1 = pop(operStack);
 
     if(!(isEmpty(operStack)))
-        oper2 = (ltype *) pop(operStack);
+        oper2 = pop(operStack);
 
     if(oper1 && oper2) {
         if(strcmp(oper2->type, "Integer") == 0 && strcmp(oper1->type, "Integer") == 0) {
@@ -409,7 +409,7 @@ void mul() {
             #endif
             times = (int)oper1->value;
             size = (oper2->len * (int)oper1->value) + 1;
-            tmp = (char *) calloc(size, 1);
+            tmp = calloc(size, 1);
             orig = tmp;
             if(tmp)
             {
@@ -434,14 +434,14 @@ void sub() {
     ltype *oper2 = NULL;
 
     if(!(isEmpty(operStack)))
-        oper1 = (ltype *) pop(operStack);
+        oper1 = pop(operStack);
     else {
         puts("Not enough operands for sub");
         return;
     }
 
     if(!(isEmpty(operStack)))
-        oper2 = (ltype *) pop(operStack);
+        oper2 = pop(operStack);
     else {
         puts("Not enough operands for sub");
         return;
@@ -463,10 +463,10 @@ void div() {
     ltype *oper2 = NULL;
     
     if(!(isEmpty(operStack)))
-        oper1 = (ltype *) pop(operStack);
+        oper1 = pop(operStack);
 
     if(!(isEmpty(operStack)))
-        oper2 = (ltype *) pop(operStack);
+        oper2 = pop(operStack);
 
     if(oper1 && oper2) {
         if((strcmp(oper1->type, "Integer") == 0) && (strcmp(oper2->type, "Integer") == 0)) {
@@ -489,10 +489,10 @@ void mod() {
     ltype *oper2 = NULL;
     
     if(!(isEmpty(operStack)))
-        oper1 = (ltype *) pop(operStack);
+        oper1 = pop(operStack);
 
     if(!(isEmpty(operStack)))
-        oper2 = (ltype *) pop(operStack);
+        oper2 = pop(operStack);
 
     if(oper1 && oper2) {
         if((strcmp(oper1->type, "Integer") == 0) && (strcmp(oper2->type, "Integer") == 0)) {
@@ -510,18 +510,18 @@ void mod() {
     }
 }
 
-void _not() {
+void not() {
     ltype *oper1 = NULL;
 
     if(!(isEmpty(operStack)))
-        oper1 = (ltype *) pop(operStack);
+        oper1 = pop(operStack);
     else {
         puts("Not enough operands for not.");
         return;
     }
     //this is mostly a stupid joke...because it's not the string passed in.
     if(strcmp(oper1->type, "String") == 0) {
-        if(strcmp((char *) oper1->value, "OMG"))
+        if(strcmp(oper1->value, "OMG"))
             push(operStack, lstring("", "OMG"));
         else
             push(operStack, lstring("", "BBQ"));
@@ -539,7 +539,7 @@ void len() {
     ltype *oper = NULL;
 
     if(!(isEmpty(operStack)))
-        oper = (ltype *) pop(operStack);
+        oper = pop(operStack);
     else {
         puts("Not enough operands for len.");
         return;
@@ -555,10 +555,10 @@ void equals() {
     ltype *oper2 = NULL;
 
     if(!(isEmpty(operStack)))
-        oper1 = (ltype *) pop(operStack);
+        oper1 = pop(operStack);
 
     if(!(isEmpty(operStack)))
-        oper2 = (ltype *) pop(operStack);
+        oper2 = pop(operStack);
 
     if(oper1 && oper2)
     {
@@ -568,7 +568,7 @@ void equals() {
             else
                 push(operStack, lbool("", "False"));
         } else if (strcmp(oper1->type, "String") == 0 && strcmp(oper2->type, "String") == 0) {
-            if(strcmp((char *) oper1->value, (char *) oper2->value) == 0)
+            if(strcmp(oper1->value, oper2->value) == 0)
                 push(operStack, lbool("", "True"));
             else
                 push(operStack, lbool("", "False"));
@@ -583,7 +583,7 @@ void type() {
     ltype *oper1 = NULL;
 
     if(!(isEmpty(operStack))) {
-        oper1 = (ltype *) pop(operStack);
+        oper1 = pop(operStack);
     }
 
     if(oper1 != NULL)
@@ -594,7 +594,7 @@ void terminate() {
     ltype *oper1 = NULL;
 
     if(!(isEmpty(operStack))) {
-        oper1 = (ltype *) pop(operStack);
+        oper1 = pop(operStack);
     }
     //don't worry if the stack is empty.  We're going to terminate anyway.
     if(oper1 && (strcmp(oper1->type, "Integer") == 0))

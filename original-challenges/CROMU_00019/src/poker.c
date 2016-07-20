@@ -184,68 +184,79 @@ void poker(player_info *player)
 		}
 
 		sort_by_value(hand, sizeof(hand));
-		{
-			// Check for multiples
-			int i = 0;
-			int four_of_a_kind = 0;
-			int three_of_a_kind = 0;
-			int pair = 0;
-			int jacks_or_better = 0;
 
-			while (i < sizeof(hand)) {
-				int count = count_cards(hand, sizeof(hand), hand[i]);
-				if (count == 4) {
-					printf("Four of a kind!\n");
-					player->wallet += payouts[POKER_FOUR_OF_A_KIND];
+		// Check for multiples
+		int i = 0;
+		int four_of_a_kind = 0;
+		int three_of_a_kind = 0;
+		int pair = 0;
+		int jacks_or_better = 0;
+
+		while (i < sizeof(hand))
+		{
+			int count = count_cards(hand, sizeof(hand), hand[i]);
+			if (count == 4)
+			{
+				printf("Four of a kind!\n");
+				player->wallet += payouts[POKER_FOUR_OF_A_KIND];
+				goto DONE;
+			}
+			if (count == 3)
+			{
+				if (pair == 1)
+				{
+					printf("Full House!\n");
+					player->wallet += payouts[POKER_FULL_HOUSE];
 					goto DONE;
 				}
-				if (count == 3) {
-					if (pair == 1) {
-						printf("Full House!\n");
-						player->wallet += payouts[POKER_FULL_HOUSE];
-						goto DONE;
-					}
-					three_of_a_kind = 1;
+				three_of_a_kind = 1;
+			}
+			if (count == 2)
+			{
+				if (three_of_a_kind == 1)
+				{
+					printf("Full House!\n");
+					player->wallet += payouts[POKER_FULL_HOUSE];
+					goto DONE;
 				}
-				if (count == 2) {
-					if (three_of_a_kind == 1) {
-						printf("Full House!\n");
-						player->wallet += payouts[POKER_FULL_HOUSE];
-						goto DONE;
-					}
-					if (poker_value[hand[i]] >= 11) {
-						jacks_or_better = 1;
-					}
-					if (pair == 1) {
-						printf("Two Pair!\n");
-						player->wallet += payouts[POKER_TWO_PAIR];
-						goto DONE;
-					}
-					pair = 1;
+				if (poker_value[hand[i]] >= 11)
+				{
+					jacks_or_better = 1;
 				}
-				i += count;
+				if (pair == 1)
+				{
+					printf("Two Pair!\n");
+					player->wallet += payouts[POKER_TWO_PAIR];
+					goto DONE;
+				}
+				pair = 1;
 			}
-			if (three_of_a_kind == 1) {
-				printf("Three of a kind!\n");
-				player->wallet += payouts[POKER_THREE_OF_A_KIND];
-				goto DONE;
-			}
-			if (jacks_or_better == 1) {
-				printf("Jacks or better!\n");
-				player->wallet += payouts[POKER_JACKS_OR_BETTER];
-				goto DONE;
-			}
-
-			// Check for straight
-			if ((pair == 0) && (poker_value[hand[4]] == poker_value[hand[0]] + 4)) {
-				printf("Straight!\n");
-				player->wallet += payouts[POKER_STRAIGHT];
-				goto DONE;
-			}
-
-			printf("You Lose!\n");
+			i += count;
+		}
+		if (three_of_a_kind == 1)
+		{
+			printf("Three of a kind!\n");
+			player->wallet += payouts[POKER_THREE_OF_A_KIND] ;
 			goto DONE;
 		}
+		if (jacks_or_better == 1)
+		{
+			printf("Jacks or better!\n");
+			player->wallet += payouts[POKER_JACKS_OR_BETTER];
+			goto DONE;
+		}
+
+		// Check for straight
+		if ((pair == 0) && (poker_value[hand[4]] == poker_value[hand[0]] + 4))
+		{
+			printf("Straight!\n");
+			player->wallet += payouts[POKER_STRAIGHT];
+			goto DONE;
+		}
+
+		printf("You Lose!\n");
+		goto DONE;
+	
 	DONE:
 		continue;
 	}

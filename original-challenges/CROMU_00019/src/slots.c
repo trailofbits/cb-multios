@@ -31,6 +31,18 @@ THE SOFTWARE.
 #include "prng.h"
 
 
+// Print the slot machine state
+void print_board(int board_size, unsigned char board[][board_size])
+{
+	for (int y=0; y<board_size; y++)
+	{
+		for(int x=0; x<board_size; x++)
+		{
+			printf("@c ", board[x][y]);
+		}
+		printf("\n");
+	}
+}
 
 // Runs the slot machine game
 void slots(player_info *player)
@@ -84,16 +96,7 @@ void slots(player_info *player)
 				board[x][y] = random_in_range('!', max_char);
 			}	
 		}
-
-		// print_board
-		for (int y=0; y<board_size; y++)
-		{
-			for(int x=0; x<board_size; x++)
-			{
-				printf("@c ", board[x][y]);
-			}
-			printf("\n");
-		}
+		print_board(board_size, board);
 
 		// Check for a win
 		// Column check

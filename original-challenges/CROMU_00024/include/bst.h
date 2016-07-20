@@ -59,7 +59,7 @@ typedef struct bst_stats {
 unsigned long str_token( char *str);
 unsigned long make_key_from_name(void *data_item);
 
-int insert_node(bst_node_type **head, data_item_type *data, unsigned long make_key(void *));
+int insert_node(bst_node_type **head, data_item_type *data, unsigned long make_key());
 int delete_node(bst_node_type **head, char *str, unsigned long key);
 void *find_node_by_key(bst_node_type *head, unsigned long key); 
 int walk_tree(bst_node_type *node);

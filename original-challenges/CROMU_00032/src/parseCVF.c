@@ -277,7 +277,7 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 	pixel_bits = bitsNeeded( dictionary->charCount - 1);
 
 	/// allocate the new frame
-	newFrame = (pframe) malloc( sizeof(frame) );
+	newFrame = malloc( sizeof(frame) );
 
 	if ( newFrame == NULL ) {
 		return 0;
@@ -287,7 +287,7 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 	newFrame->height = pNewImage->height;
 	newFrame->width = pNewImage->width;
 
-	newFrame->image = (char *) malloc( length );
+	newFrame->image = malloc( length );	
 
 	if ( newFrame->image == NULL ) {
 		free(newFrame);
@@ -486,7 +486,7 @@ int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int index )
 		return pixelCount;
 	}
 
-	pixelArray = (char *) malloc( pixelCount + 1 );
+	pixelArray = malloc( pixelCount + 1 );
 
 	if (pixelArray == NULL ) {
 		return 0;
@@ -680,7 +680,7 @@ int parseCVFHeader( pBitStream pbs, pcvf pNewImage )
 	}
 
 	/// Allocate frame structure pointer array
-	pNewImage->renderedFrames = (pframe *) malloc( sizeof( pframe ) * pNewImage->frameCount);
+	pNewImage->renderedFrames = malloc( sizeof( pframe ) * pNewImage->frameCount);
 
 	if ( pNewImage->renderedFrames == NULL ) {
 		return 0;
@@ -797,7 +797,7 @@ pcvf initCVF( void )
 {
 	pcvf nc = NULL;
 
-	nc = (pcvf) malloc( sizeof( cvf ) );
+	nc = malloc( sizeof( cvf ) );
 
 	if ( nc == NULL ) {
 		return nc;

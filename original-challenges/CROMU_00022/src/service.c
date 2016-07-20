@@ -35,7 +35,7 @@ THE SOFTWARE.
 
 pDiverInfo init_data(){
 	pDiverInfo workingData = NULL;
-	workingData = (pDiverInfo) malloc( sizeof( sDiverInfo ) );
+	workingData = malloc( sizeof( sDiverInfo ) );
 	if ( workingData == NULL ){ _terminate( -2 );}
 	return workingData;
 }
@@ -51,9 +51,9 @@ pDiveEntry AddDive( pDiverInfo DiverInfo ){
 	pDiveEntryListNode DiveEntryListCur = NULL ;
 	pDiveEntryListNode DiveEntryListTemp;
 	//linked list node
-	pDiveEntryListNode DiveEntryListNew = (pDiveEntryListNode) malloc( sizeof( sDiveEntryListNode ) );
+	pDiveEntryListNode DiveEntryListNew = malloc( sizeof( sDiveEntryListNode ) );
 	//data element
-	pDiveEntry DiveEntryNew = (pDiveEntry) malloc( sizeof( sDiveEntry ) );
+	pDiveEntry DiveEntryNew = malloc( sizeof( sDiveEntry ) );
 	//if malloc fails, exit
 	if (  ( DiveEntryNew == NULL ) || ( DiveEntryListNew == NULL )  ) { _terminate( -2 );}
 

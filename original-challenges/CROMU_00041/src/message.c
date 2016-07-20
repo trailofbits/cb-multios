@@ -36,7 +36,7 @@ int msg_count_login;
 typedef struct
 {
 	Message listOfMessages[MAX_USERS][MAX_MESSAGES];
-	void (*printer)(int, int);
+	void (*printer)();
 } GLOBALS;
 
 GLOBALS globs;

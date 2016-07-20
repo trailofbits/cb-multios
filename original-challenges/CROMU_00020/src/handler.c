@@ -49,11 +49,11 @@ HANDLER(rand){
     buf[i] = churn_rand_uint8();
   }
 
-  protocol_frame _template;
-  _template.type = RAND_RESP_ID;
-  _template.length = byte_count;
+  protocol_frame template;
+  template.type = RAND_RESP_ID;
+  template.length = byte_count;
 
-  protocol_frame* payload = allocate_frame(_template);
+  protocol_frame* payload = allocate_frame(template);
   payload->value = (void*) buf;
 
   send_frame(payload);
@@ -75,7 +75,7 @@ HANDLER(echo){
   char buf[ECHO_MAX_LEN + 2];
   void* meh;
   protocol_frame* payload;
-  protocol_frame _template;
+  protocol_frame template;
 
   if (frame->length == 0) return;
 
@@ -96,10 +96,10 @@ HANDLER(echo){
     i++;
   }
 
-  _template.type = ECHO_RESP_ID;
-  _template.length = frame->length;
+  template.type = ECHO_RESP_ID;
+  template.length = frame->length;
 
-  payload = allocate_frame(_template);
+  payload = allocate_frame(template);
   meh = payload->value;
   payload->value = (void*) &buf;
 

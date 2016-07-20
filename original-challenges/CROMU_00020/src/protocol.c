@@ -29,21 +29,21 @@ THE SOFTWARE.
 
 #define MAX_FRAME_SIZE 65536
 
-protocol_frame* allocate_frame(protocol_frame _template) {
+protocol_frame* allocate_frame(protocol_frame template) {
   protocol_frame* candidate;
   if (allocate(sizeof(protocol_frame), 0, (void**)(&candidate))) {
     _terminate(-1);
   }
 
-  candidate->type = _template.type;
-  candidate->length = _template.length;
+  candidate->type = template.type;
+  candidate->length = template.length;
 
   if (candidate->length == 0) return candidate;
   if (candidate->length > MAX_FRAME_SIZE) {
     _terminate(-1);
   }
 
-  if (allocate(_template.length, 0, (void**)(&(candidate->value)))) {
+  if (allocate(template.length, 0, (void**)(&(candidate->value)))) {
     _terminate(-1);
   }
 

@@ -115,7 +115,7 @@ int ReceiveCommand(CommandStruct *command, int *more_commands) {
   }
   if (command->data_size > 0) {
     // Data is not encoded
-    command->data = (uint8_t *) calloc(command->data_size + 1, 1);
+    command->data = calloc(command->data_size + 1, 1);
     VerifyPointerOrTerminate(command->data, "command->data during parsing");
     uint8_t *command_data = command->data;
     bytes_received = receive_fixed((char *)command->data, command->data_size);
@@ -136,10 +136,10 @@ int ReceiveCommand(CommandStruct *command, int *more_commands) {
       return -1;
     }
     #endif 
-    command->data = (uint8_t *) calloc(decoded_size + 1, 1);
+    command->data = calloc(decoded_size + 1, 1);
     VerifyPointerOrTerminate(command->data, "command->data during parsing");
     char *encoded_data;
-    encoded_data = (char *) calloc(encoded_size + 1, 1);
+    encoded_data = calloc(encoded_size + 1, 1);
     VerifyPointerOrTerminate(encoded_data, "encoded_data during parsing");
     bytes_received = receive_fixed(encoded_data, encoded_size);
     if (bytes_received != encoded_size) {
@@ -186,7 +186,7 @@ void HandleCommand(CommandStruct *command) {
       break;
     }
     case SEND: {
-      TreeNode *new_node = (TreeNode *) calloc(sizeof(TreeNode), 1);
+      TreeNode *new_node = calloc(sizeof(TreeNode), 1);
       VerifyPointerOrTerminate(command->data, "new_node during SEND");
       memcpy(new_node->name, command->name, sizeof(new_node->name));
       new_node->page = (char *) command->data;

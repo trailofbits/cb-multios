@@ -54,7 +54,7 @@ int isEmpty(stack *myStack) {
 stack *initStack() {
 	stack *ret;
 
-	ret = (stack *) calloc(sizeof(stack), 1);
+	ret = calloc(sizeof(stack), 1);
 	if(ret != NULL) {
 
 	} else {

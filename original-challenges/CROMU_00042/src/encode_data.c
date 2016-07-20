@@ -74,7 +74,7 @@ size_t i, j;
 				break;
 		}	
 
-		padded_input_data = (unsigned char *) malloc(padded_input_size);
+		padded_input_data = malloc(padded_input_size);
 
 		if (padded_input_data == 0) {
 
@@ -86,7 +86,7 @@ size_t i, j;
 
 		memcpy(padded_input_data, data, data_size);
 
-		output_data = (unsigned char *) malloc(output_size);
+		output_data = malloc(output_size);
 
 		if (output_data == 0) {
 
@@ -136,7 +136,7 @@ unsigned char *input_data;
 
 	if (count > 0) {
 	
-		input_data = (unsigned char *) malloc(count);
+		input_data = malloc(count);
 
 		if (input_data == 0) {
 

@@ -48,8 +48,8 @@ void *mallocOrDie( int size, char *message ){
 
 pDataStruct init_data(){
 	pDataStruct workingData = NULL;
-	workingData = (pDataStruct) mallocOrDie( sizeof( sDataStruct ), "Failed to malloc workingData" );
-	workingData->root = (pNode) mallocOrDie( sizeof( sNode ), "Failed to malloc root node" );
+	workingData = mallocOrDie( sizeof( sDataStruct ), "Failed to malloc workingData" );
+	workingData->root = mallocOrDie( sizeof( sNode ), "Failed to malloc root node" );
 	workingData->root->parent = NULL;
 	workingData->root->prev = NULL;
 	workingData->root->date = 0;
@@ -66,7 +66,7 @@ pDataStruct init_data(){
 	workingData->root->file = NULL;
 	workingData->root->parent = NULL;
 	workingData->root->directoryHeadNode = NULL;
-	char *name = (char *) mallocOrDie( 5, "Failed to malloc root name" );
+	char *name = mallocOrDie( 5, "Failed to malloc root name" );
 	workingData->root->name = name;	
 	strcpy(name, "");
 	return workingData;
@@ -94,7 +94,7 @@ pPerms find_perm_by_name(char *name, pNode node, pDataStruct workingData){
 
 pPerms add_perm(pUser user, pGroup group, pNode node){
 	if (  (  ( user == NULL ) && (  group == NULL ) ) || (  ( user != NULL ) && (  group != NULL ) )  ) {die("Bad call to _add_perm");}
-	pPerms newPerms = (pPerms) mallocOrDie( sizeof( sPerms ), "Failed to malloc pPerms" );
+	pPerms newPerms = mallocOrDie( sizeof( sPerms ), "Failed to malloc pPerms" );
 	if ( user != NULL ){
 		newPerms->user = user;
 	} 
@@ -184,7 +184,7 @@ pNode _add_node( char type, unsigned int date, char *name, pNode parent, pUser u
 	//if parent.directoryHeadNode is NULL this is a new nodelist
 	//_addNode does not add pFile or directoryHeadNode
 	//DOES NOT add file, directoryHeadNode.. that is handled by add_file and add_directory
-	pNode newNode = (pNode) mallocOrDie( sizeof( sNode ), "Failed to mallod node");
+	pNode newNode = mallocOrDie( sizeof( sNode ), "Failed to mallod node");
 	newNode->parent = parent;
 	newNode->next = NULL;
 	newNode->directoryTailNode = NULL;
@@ -192,7 +192,7 @@ pNode _add_node( char type, unsigned int date, char *name, pNode parent, pUser u
 	newNode->type = type;
 	newNode->date = date;
 	newNode->perms = add_perm(user, NULL, newNode);
-	char *newName = (char *) mallocOrDie( strlen(name) + 1, "Failed to malloc name");
+	char *newName = mallocOrDie( strlen(name) + 1, "Failed to malloc name");
 	strcpy( newName, name );
 	newNode->name = newName;
 	newNode->file = NULL;
@@ -242,7 +242,7 @@ void delete_file_bytes(pFile file, unsigned int newSize){
 		}
 	}
 	size = last->chunkSize - remainderbytes;
-	char *newChunk = (char *) mallocOrDie( size , "Failed to malloc filechunk" );
+	char *newChunk = mallocOrDie( size , "Failed to malloc filechunk" );
 	memcpy(newChunk,last->chunk,size);
 	free(last->chunk);
 	last->chunkSize = size;
@@ -252,8 +252,8 @@ void delete_file_bytes(pFile file, unsigned int newSize){
 pFileChunk add_file_chunk(char *data, pFile file, unsigned int size ){
 	//allocate a new fileChunk and insert into file chunk list
 	//update file node with new head/tail/count as necessary
-	pFileChunk newFileChunk = (pFileChunk) mallocOrDie( sizeof( sFileChunk ), "Failed to malloc filechunk" );
-	newFileChunk->chunk = (char *) mallocOrDie( size, "Failed to malloc chunk" );
+	pFileChunk newFileChunk =  mallocOrDie( sizeof( sFileChunk ), "Failed to malloc filechunk" );
+	newFileChunk->chunk = mallocOrDie( size, "Failed to malloc chunk" );
 	memcpy( newFileChunk->chunk, data, size );
 	newFileChunk->chunkSize = size;
 	if ( file->tail == NULL ){
@@ -273,7 +273,7 @@ pFileChunk add_file_chunk(char *data, pFile file, unsigned int size ){
 
 pNode add_file( pNode directory,unsigned int date, unsigned int size, char *name, char* data, pUser user ){
 	//if size is 0, data is null, create new empty file
-	pFile newFile = (pFile) mallocOrDie( sizeof( sFile ), "Failed to malloc file" );
+	pFile newFile = mallocOrDie( sizeof( sFile ), "Failed to malloc file" );
 	if ( size > 0) {
 		pFileChunk newFileChunk = add_file_chunk(data, newFile, size );
 	}
@@ -374,8 +374,8 @@ pNode add_directory( unsigned int date, char *name, pNode parent, pUser user ){
 pUser _add_user( char *name, pUser userList ){
 	//add user to userList, 
 	//if userList is NULL, create single element list
-	pUser newUser = (pUser) mallocOrDie( sizeof( sUser ), "Failed to allocate user");
-	char *newName = (char *) mallocOrDie( strlen( name ) + 1, "Failed to allocate username");
+	pUser newUser = mallocOrDie( sizeof( sUser ), "Failed to allocate user");
+	char *newName = mallocOrDie( strlen( name ) + 1, "Failed to allocate username");
 	//printf("_add_user strlen(name):@d",strlen( name ));
 	strcpy ( newName, name );
 	newUser->name = newName;
@@ -551,8 +551,8 @@ pUser find_user_by_number( int number, pDataStruct workingData){
 pGroup _add_group( char *name, pGroup group ){
 	//add empty group of users, no users are added, empty group is returned
 	//group is dllist of groups to add group to, if null, create and return
-	pGroup newGroup = (pGroup) mallocOrDie( sizeof( sGroup ), "Failed to allocate group");
-	char *newName = (char *) mallocOrDie( strlen( name ) + 1, "Failed to allocate groupName");
+	pGroup newGroup = mallocOrDie( sizeof( sGroup ), "Failed to allocate group");
+	char *newName = mallocOrDie( strlen( name ) + 1, "Failed to allocate groupName");
 	strcpy( newName, name );
 	newGroup->name = newName;
 	newGroup->userCount = 0;
@@ -580,7 +580,7 @@ pGroup add_group( char *name, pDataStruct workingData ){
 }
 
 pGroupUserList add_user_to_group( pUser user, pGroup group ){
-	pGroupUserList newGroupUserListNode = (pGroupUserList) mallocOrDie( sizeof( sGroupUserList ), "Failed to allocate newUser");
+	pGroupUserList newGroupUserListNode = mallocOrDie( sizeof( sGroupUserList ), "Failed to allocate newUser");
 	newGroupUserListNode->user = user;
 	newGroupUserListNode->next = NULL;
 	//if group has no users
@@ -636,7 +636,7 @@ pGroup find_group_by_name( char *name, pDataStruct workingData){
 
 char *recursive_path(pNode start, pNode end){
 	if (end == start){
-		char *path = (char *) mallocOrDie(strlen(end->name) + 2, "Failed to allocate endName");
+		char *path = mallocOrDie(strlen(end->name) + 2, "Failed to allocate endName");
 		strcpy(path, end->name);
 		return path; 
 	}
@@ -648,7 +648,7 @@ char *recursive_path(pNode start, pNode end){
 	if (path == NULL){
 		return NULL;
 	}
-	char *retpath = (char *) mallocOrDie(  ( strlen(path) + strlen(end->name) + 2 ), "Failed to allocate retpath");
+	char *retpath = mallocOrDie(  ( strlen(path) + strlen(end->name) + 2 ), "Failed to allocate retpath"); 	
 	strcpy(retpath, path);
 	strcat(retpath, "/");
 	strcat(retpath, end->name);

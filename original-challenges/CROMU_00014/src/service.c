@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 logbook_type logbook;
 
-
 int main(void) {
     
     menu_item menu[] = {
@@ -55,9 +54,10 @@ int main(void) {
  
 }  // main  
 
-int exit_app(logbook_type* ret_code)
+
+int exit_app(int ret_code)
 {
 
-	_terminate((unsigned int) ret_code);
+	_terminate(ret_code);
 
 }

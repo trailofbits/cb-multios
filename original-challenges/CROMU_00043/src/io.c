@@ -35,8 +35,7 @@ void FailAndTerminate(char *error_msg) {
   _terminate(-1);
 }
 
-void ReceiveBytes(void *vbuffer, size_t size) {
-  char *buffer = (char *) vbuffer;
+void ReceiveBytes(void *buffer, size_t size) {
   size_t bytes_received;
   int return_value;
 
@@ -106,8 +105,7 @@ void HexDump(uint8_t *data, size_t size) {
 }
        
 
-void TransmitBytes(void *vbuffer, size_t size) {
-  char *buffer = (char *) vbuffer;
+void TransmitBytes(void *buffer, size_t size) {
   size_t bytes_transmitted;
   int return_value;
 
@@ -144,7 +142,7 @@ void vTransmitFormattedBytes(char *format, va_list arg_list) {
       switch (*format) {
         case '+': {
           // print plus
-          TransmitBytes((void *) "+", 1);
+          TransmitBytes("+", 1);
           break;
         }
         case 'd': {
@@ -152,7 +150,7 @@ void vTransmitFormattedBytes(char *format, va_list arg_list) {
           char buf[11];
           int i = va_arg(arg_list, int);
           if (i < 0) {
-            TransmitBytes((void *) "-", 1);
+            TransmitBytes("-", 1);
             i = -i;
           }
           int temp_int = i;

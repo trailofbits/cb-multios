@@ -227,7 +227,7 @@ int parse_instructions() {
          memset(&inst, 0xff, sizeof(inst));
          //make the effort to write all, but we are quitting anyway so nothing
          //we can do it this comes back short
-         write_all(PIPEFD_OUT, (char *) &inst, sizeof(inst));
+         write_all(PIPEFD_OUT, (void *) &inst, sizeof(inst));
          break;
       }
       if (parse_inst(buf, &inst)) {
@@ -235,7 +235,7 @@ int parse_instructions() {
          result = -1;
          goto done;
       }
-      if (write_all(PIPEFD_OUT, (char *) &inst, sizeof(inst)) != sizeof(inst)) {
+      if (write_all(PIPEFD_OUT, (void *) &inst, sizeof(inst)) != sizeof(inst)) {
          printf("ERROR: transmit to runner failed!\n");
          result = -1;
          goto done;
@@ -255,7 +255,7 @@ done:
       inst.opcode = -2;
       //make the effort to write all, but we are quitting anyway
       //so nothing we can do if this is short
-      write_all(PIPEFD_OUT, (char *) &inst, sizeof(inst));
+      write_all(PIPEFD_OUT, (void *) &inst, sizeof(inst)); 
    }
    return result;
 }

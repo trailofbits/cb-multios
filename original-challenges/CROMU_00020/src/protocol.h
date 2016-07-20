@@ -34,7 +34,7 @@ typedef struct {
   void* value;
 } protocol_frame;
 
-protocol_frame* allocate_frame(protocol_frame _template);
+protocol_frame* allocate_frame(protocol_frame template);
 
 protocol_frame* expect_frame(uint32 type);
 protocol_frame* receive_frame();

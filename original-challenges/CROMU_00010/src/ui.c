@@ -165,27 +165,26 @@ proad select_road(pmap thisMap){
 			case LIST:
 				print_roads(thisMap);
 				break;
-			case NUMBER: {
-				printf("1-@d:\n", thisMap->roadList->count);
+			case NUMBER:
+				printf("1-@d:\n",thisMap->roadList->count);
 				int number = get_positive_int();
-				if (number == 0) {
+				if ( number == 0 ){
 					puts("Invalid number. (0)");
 					break;
 				}
-				if (thisMap->roadList->count >= number) {
+				if (thisMap->roadList->count >= number){
 					thisRoad = (proad) thisMap->roadList->listRoot->data;
 					int i = 1;
-					while (i < number) {
+					while (i<number){
 						thisRoad = (proad) thisRoad->self->next->data;
 						i++;
 					}
 					loop = 0;
-				} else {
+				}else{
 					puts("Invalid number. (out of range)");
 				}
 				//select by number
 				break;
-			}
 			case EXIT:
 				loop = 0;
 				thisRoad = NULL;
@@ -217,28 +216,27 @@ paddress select_address(proad thisRoad){
 			case LIST:
 				print_addresses(thisRoad);
 				break;
-			case NUMBER: {
-				printf("1-@d:\n", thisRoad->addressList->count);
+			case NUMBER:
+				printf("1-@d:\n",thisRoad->addressList->count);
 				int number = get_positive_int();
-				if (number == 0) {
+				if ( number == 0 ){
 					puts("Invalid number. (0)");
 					return NULL;
 				}
-				if (thisRoad->addressList->count >= number) {
+				if (thisRoad->addressList->count >= number){
 					thisAddress = (paddress) thisRoad->addressList->listRoot->data;
 					int i = 1;
-					while (i < number) {
+					while (i<number){
 						thisAddress = (paddress) thisAddress->self->next->data;
 						i++;
 					}
 					return thisAddress;
-				} else {
+				}else{
 					puts("Invalid number. (out of range)");
 					return NULL;
 				}
 				//select by number
 				break;
-			}
 			case EXIT:
 				return NULL;
 			default:
@@ -265,28 +263,27 @@ pintersection select_intersection(proad thisRoad){
 			case LIST:
 				print_intersections(thisRoad);
 				break;
-			case NUMBER: {
-				printf("1-@d:\n", thisRoad->intersectionList->count);
+			case NUMBER:
+				printf("1-@d:\n",thisRoad->intersectionList->count);
 				int number = get_positive_int();
-				if (number == 0) {
+				if ( number ==0 ){
 					puts("Invalid number.");
 					return NULL;
 				}
-				if (thisRoad->intersectionList->count >= number) {
+				if (thisRoad->intersectionList->count >= number){
 					thisIntersection = (pintersection) thisRoad->intersectionList->listRoot->data;
 					int i = 1;
-					while (i < number) {
-						thisIntersection = (pintersection) thisIntersection->self->next->data;
+					while (i<number){
+						thisIntersection = (pintersection)thisIntersection->self->next->data;
 						i++;
 					}
 					loop = 0;
-				} else {
+				}else{
 					puts("Invalid number.");
 					return NULL;
 				}
 				//select by number
 				break;
-			}
 			case NOTDEFINED:
 				loop = 0;
 				thisIntersection = NULL;

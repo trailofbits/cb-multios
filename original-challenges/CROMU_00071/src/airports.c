@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include "service.h"
 #include "commands.h"
 #include "printf.h"
-#include "../include/service.h"
 
 
 int showAirports(airportInfoType *airports, char *command) {
@@ -295,7 +294,7 @@ connectionListType connections2add[MAX_CONNECTIONS];
 
 
 	// create the entry at the end
-	tmpAirport = (airportInfoType *) malloc(sizeof(airportInfoType));
+	tmpAirport = malloc(sizeof(airportInfoType));
 
 	// memory allocation failed
 	if (tmpAirport == 0) 
@@ -324,7 +323,7 @@ connectionListType connections2add[MAX_CONNECTIONS];
 
 		if (tmpAirport->connections == 0) {
 
-			tmpAirport->connections = (connectionListType *) malloc(sizeof(connectionListType));
+			tmpAirport->connections = malloc(sizeof(connectionListType));
 
 			if (tmpAirport->connections == 0)
 				return UNRECOVERABLE_ERROR;
@@ -335,7 +334,7 @@ connectionListType connections2add[MAX_CONNECTIONS];
 		}
 		else {
 
-			tmpConnection->next = (connectionListType *) malloc(sizeof(connectionListType));
+			tmpConnection->next = malloc(sizeof(connectionListType));
 
 			if (tmpConnection->next == 0)
 				return UNRECOVERABLE_ERROR;

@@ -75,7 +75,7 @@ pBitStream readImageData( void )
 		return NULL;
 	}
 
-	newData = (char *) malloc( length );
+	newData = malloc( length );
 
 	if ( newData == NULL ) {
 		return NULL;

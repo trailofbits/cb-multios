@@ -299,7 +299,7 @@ int fixup_dir_length( pfile d )
         d->length = 1;
         
         /// 8 is used because it is rounded up anyway
-        d->data = (char *) malloc( 8 );
+        d->data = malloc( 8 );
         
         if ( d->data == NULL ) {
             printf("[ERROR] Failed to fixup dir data\n");
@@ -311,8 +311,8 @@ int fixup_dir_length( pfile d )
     } else {
         /// Increment it by 1
         d->length += 1;
-
-        nd = (char *) malloc( d->length * sizeof(pfile));
+        
+        nd = malloc( d->length * sizeof(pfile));
         
         if ( nd == NULL ) {
             d->length--;
@@ -523,7 +523,7 @@ pfile init_file( void )
 {
 	pfile new_file = NULL;
 
-	new_file = (pfile) malloc( sizeof(file) );
+	new_file = malloc( sizeof(file) );
 
 	if ( new_file == NULL ) {
 		return new_file;
@@ -588,7 +588,7 @@ int set_data( pfile pf, int length, char *data )
         return 0;
     }
     
-    tn = (char *) malloc( length + 1 );
+    tn = malloc( length + 1 );
     
     if ( tn == NULL ) {
         return 0;

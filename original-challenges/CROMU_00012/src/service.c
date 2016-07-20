@@ -92,7 +92,7 @@ void bookKeeping(carstate *drive)
 
 void raiseAlarm() {
 	char a;
-	memcpy(&a, (char *) "AAAAAAAAAAAAAAAA", (size_t) 16);
+	memcpy(&a, "AAAAAAAAAAAAAAAA", 16);
 	validateRet();
 }
 

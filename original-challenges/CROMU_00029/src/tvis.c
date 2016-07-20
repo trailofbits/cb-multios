@@ -42,7 +42,7 @@ extern uint32_t Z;
 #define MAX_HEIGHT 10.0
 
 // function to use cb's lib functions for float string formatting
-//void float_to_str( double, char *);
+void float_to_str( double, char *);
 double output[10][10];
 void output_str(uint32_t x, uint32_t y, char *buf) {
 	float_to_str(output[x][y]-273.15, buf);

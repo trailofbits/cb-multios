@@ -37,7 +37,7 @@ int SendAll(const void *buffer, size_t length) {
   int return_value;
 
   while (bytes_sent < length) {
-    return_value = transmit( STDOUT, (char *) buffer + bytes_sent, length - bytes_sent, &tx_count );
+    return_value = transmit( STDOUT, buffer + bytes_sent, length - bytes_sent, &tx_count ); 
     if (return_value != 0 || tx_count == 0) {
       return -1;
     }
@@ -72,7 +72,7 @@ int ReceiveAll(void *buffer, size_t length) {
   int return_value;
   
   while (total_bytes_read < length) {
-    return_value = receive(STDIN, (char *) buffer + total_bytes_read, length - total_bytes_read, &bytes_read);
+    return_value = receive(STDIN, buffer + total_bytes_read, length - total_bytes_read, &bytes_read);
     if (return_value != 0 || bytes_read == 0) {
       return -1;
     }

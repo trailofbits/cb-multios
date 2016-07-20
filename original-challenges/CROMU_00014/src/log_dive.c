@@ -39,7 +39,7 @@ int log_dives(logbook_type *Info)  {
 
 	// if this is the first entry, assign it to the head of the list
 	if (Info->dives == 0)  {
-		Info->dives=(dive_log_type *) calloc(1, sizeof(dive_log_type));
+		Info->dives=calloc(1, sizeof(dive_log_type));
 
 		if (Info->dives==0)
 			_terminate(-1);
@@ -53,7 +53,7 @@ int log_dives(logbook_type *Info)  {
 		while (next_dive->next != 0)
 			next_dive = next_dive->next;
 
-		next_dive->next = (dive_log_type *) calloc(1, sizeof(dive_log_type));
+		next_dive->next = calloc(1, sizeof(dive_log_type));
 
 		if (next_dive->next==0)
 			_terminate(-1);
