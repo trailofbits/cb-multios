@@ -12,6 +12,33 @@ all:
   'timeval': 'cgc_timeval'
   'fd_set': 'cgc_fd_set'
 
+# Wrong param types
+libcpp.cc: &new_sz
+  # KPRCA 54
+  'operator new(unsigned int sz)': 'operator new(size_t sz)'
+  'operator new[](unsigned int sz)': 'operator new[](size_t sz)'
+  
 cpp.cc:
+  # CROMU 21, 23, 26, 42, 44, 70
   'void *operator new( unsigned int alloc_size )': 'void *operator new( size_t alloc_size )'
   'void *operator new[]( unsigned int alloc_size )': 'void *operator new[]( size_t alloc_size )'
+  
+  # KPRCA 52, 53
+  'void *operator new(unsigned int size)': 'void *operator new(size_t size)'
+  'void *operator new[](unsigned int size)': 'void *operator new[](size_t  size)'
+  
+  # TNETS 2
+  <<: *new_sz
+
+
+# A few files had a section() attribute, but were missing "DATA,", which is needed on OSX
+# KPRCA 25
+# TODO: Windows?
+aafirst.c: &rodatafix
+  'section(".rodata.init")': 'section("DATA,.rodata.init")'
+
+oo.h:
+  <<: *rodatafix
+
+zzlast.c:
+  <<: *rodatafix
