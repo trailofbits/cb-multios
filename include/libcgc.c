@@ -368,7 +368,7 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
 /* Perform a backing memory allocation. */
 static int do_allocate(uintptr_t start, size_t size, void **addr) {
   void *ret_addr = (void *) start;
-  printf("do_allocate: size=%x\n", size);
+//  printf("do_allocate: size=%x\n", size);
   errno = 0;
   void *mmap_addr = mmap(ret_addr, size, PROT_READ | PROT_WRITE,
                          MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
@@ -410,7 +410,7 @@ int allocate(size_t length, int is_executable, void **addr) {
     init_memory();
   }
 
-  printf("do_allocate: length=%x\n", length);
+//  printf("do_allocate: length=%x\n", length);
   length = PAGE_ALIGN(length);  /* Might overflow. */
 
   if (!length || length >= (gMemEnd - gMemBegin)) {
