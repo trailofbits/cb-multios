@@ -1,0 +1,17 @@
+# This contains a bunch of small fixes that allow the challenges to be compiled
+
+# Format:
+# [filename]:
+#   '[code to be replaced]': '[replacement]'
+#   ...
+
+# Patches that should be applied to all files
+all:
+  'random(': 'cgc_random('
+  'fdwait(': 'cgc_fdwait('
+  'timeval': 'cgc_timeval'
+  'fd_set': 'cgc_fd_set'
+
+cpp.cc:
+  'void *operator new( unsigned int alloc_size )': 'void *operator new( size_t alloc_size )'
+  'void *operator new[]( unsigned int alloc_size )': 'void *operator new[]( size_t alloc_size )'
