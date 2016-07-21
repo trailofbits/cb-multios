@@ -1,0 +1,691 @@
+#!/usr/bin/env python
+
+import argparse
+import random
+import shutil
+import socket
+import tempfile
+import hashlib
+import os
+import subprocess
+import re
+
+CHECK_TYPES = ['build', 'pov', 'polls', 'static', 'remote']
+
+class check_type(object):
+    def __init__(self, *args):
+        for check in args:
+            assert check is None or check in CHECK_TYPES, "invalid check type: %s" % str(check)
+        self.checks = args
+
+    def __call__(self, func):
+        def wrapped(wrap_self, *args, **kwargs):
+            if wrap_self.build_type is None or wrap_self.build_type in self.checks:
+                wrap_self._check_output(['make', 'clean'])
+
+                if 'pov' in self.checks:
+                    wrap_self._check_output(['make', 'pov'])
+
+                if 'build' in self.checks:
+                    wrap_self._check_output(['make', 'build'])
+
+                if 'polls' in self.checks:
+                    wrap_self._check_output(['make', 'patched-so'])
+                    wrap_self._check_output(['make', 'generate-polls'])
+
+                func(wrap_self, *args, **kwargs)
+
+                if wrap_self.no_cleanup is False:
+                    wrap_self._check_output(['make', 'clean'])
+                return True
+            else:
+                return None
+        return wrapped
+
+
+class Acceptance(object):
+    def __init__(self, name, path, debug=False, build_type=None, cb_type=None, no_cleanup=False, strict=False):
+        self.name = name
+        self.path = path
+        self.debug = debug
+        self.build_type = build_type
+        self.cb_type = cb_type
+        self.no_cleanup = no_cleanup
+        self.strict = strict
+
+        self.current = True
+        self.current_method = ''
+
+    def get_checks(self):
+        methods = [x for x in dir(self) if callable(getattr(self, x)) and (x.startswith('check_') or x.startswith('warn_'))]
+        methods.sort()
+        return methods
+
+    def __call__(self, check_name):
+        methods = self.get_checks()
+
+        ret = True
+        if check_name is not None:
+            assert check_name in methods, 'Invalid check: %s' % (repr(check_name))
+
+        for method_name in methods:
+            if check_name is not None and check_name != method_name:
+                continue
+
+            self.current_method = method_name
+            print "# %s - %s" % (self.name, method_name)
+
+            try:
+                result = getattr(self, method_name)()
+            except subprocess.CalledProcessError as err:
+                self.fail("command failed: %s" % (str(err)))
+            except AssertionError as err:
+                self.fail(str(err))
+
+            if self.current is True:
+                if result is None:
+                    print "ok - skipped %s" % method_name
+                else:
+                    print "ok - %s" % method_name
+            else:
+                ret = False
+            self.current = True
+        return ret
+
+    def _check_output(self, cmd, should_fail=False):
+        if self.debug:
+            print '# %s' % (' '.join(cmd))
+    
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        retcode = process.poll()
+        if self.debug > 1:
+            for line in stdout.splitlines():
+                print "# stdout: %s" % line
+            for line in stderr.splitlines():
+                print "# stderr: %s" % line
+            print "# retcode: %s" % repr(retcode)
+
+        if should_fail:
+            assert retcode != 0, "command expected to fail, but did not: %s" % ' '.join(cmd)
+        if not should_fail and retcode:
+            raise subprocess.CalledProcessError(retcode, cmd, output=stdout)
+
+        return stdout
+
+    def fail(self, reason):
+        self.current = False
+        if self.current_method.startswith('warn_') and not self.strict:
+            print "# WARNING - %s - %s : %s" % (self.name, self.current_method, reason)
+        else:
+            print "not ok - %s - %s : %s" % (self.name, self.current_method, reason)
+        return False
+
+    def is_true(self, value, reason):
+        if value is not True:
+            return self.fail(reason)
+        return True
+
+    def is_in(self, value, allowed, reason):
+        if value not in allowed:
+            return self.fail(reason)
+        return True
+
+    def is_not_in(self, value, not_allowed, reason):
+        if value in not_allowed:
+            return self.fail(reason)
+        return True
+
+    def is_equal(self, value, expected, reason):
+        if not value == expected:
+            return self.fail(reason)
+        return True
+    
+    def is_not_equal(self, value, expected, reason):
+        if value == expected:
+            return self.fail(reason)
+        return True
+
+    def is_startswith(self, value, expected, reason):
+        if not value.startswith(expected):
+            return self.fail(reason)
+        return True
+
+    @staticmethod
+    def checksum(files):
+        out = [hashlib.md5(open(i, 'rb').read()).hexdigest() for i in files]
+        out.sort()
+        return out
+
+    @check_type(None)
+    def check_basic(self):
+        # 'make' should pass on its own
+        self._check_output(['make', 'clean'])
+        self._check_output(['make'])
+
+    @check_type('remote')
+    def check_remote(self):
+        if not self.is_startswith(socket.gethostname(), 'crs', 'unable to verify remote CBs'):
+            return
+
+        self._check_output(['make', 'build', 'pov', 'generate-polls'])
+        self._check_output(['make', 'check-remote'])
+        if os.path.isdir(os.path.join(self.path, 'ids')):
+            self._check_output(['make', 'check-ids'])
+
+    @check_type('build')
+    def check_determistic_builds(self):
+        # this is where I rebuild the binaries over and over, verifying we get
+        # the same checksum each time  (make clean; make build;)
+        bins = [os.path.join('bin', x) for x in os.listdir('bin')]
+        before = self.checksum(bins)
+        self._check_output(['make', 'clean'])
+        self._check_output(['make', 'build'])
+        after = self.checksum(bins)
+
+        self.is_equal(before, after, 'checksums differ')
+
+    @check_type('build')
+    def check_patches_change_bin(self):
+        bins, bins_patched, bins_partial = self.get_bins()
+
+        bins1 = [os.path.join(self.path, 'bin', x) for x in bins]
+        bins2 = [os.path.join(self.path, 'bin', x) for x in bins_patched]
+
+        cs1 = self.checksum(bins1)
+        cs2 = self.checksum(bins2)
+        self.is_not_equal(cs1, cs2, 'patched and unpatched bins are the same')
+
+    @check_type('polls')
+    def check_polls(self):
+        xml = []
+
+        path = os.path.join(self.path, 'poller', 'for-release')
+        if os.path.isdir(path):
+            xml += [os.path.join(path, x) for x in os.listdir(path) if x.endswith('.xml')]
+
+        if self.cb_type is None or self.cb_type == 'cqe':
+            path = os.path.join(self.path, 'poller', 'for-testing')
+            if os.path.isdir(path):
+                xml += [os.path.join(path, x) for x in os.listdir(path) if x.endswith('.xml')]
+
+        xml.sort()
+
+        self.is_true(len(xml) >= 1000, 'not enough polls: %d' % len(xml))
+
+        # Validate all of the XML from the polls
+        self._check_output(['poll-validate'] + xml)
+
+        checksums = self.checksum(xml)
+        self.is_equal(len(checksums), len(set(checksums)), 'duplicate polls')
+
+        for filename in xml:
+            with open(filename, 'r') as fh:
+                poll = fh.read()
+                self.is_true('<read' in poll, "at least one read in poll: %s" % filename)
+                self.is_true('<write' in poll, "at least one write in poll: %s" % filename)
+
+    @check_type('pov')
+    def check_pov(self):
+        povs = []
+        path = os.path.join(self.path, 'pov')
+
+        if os.path.isdir(path):
+            if self.cb_type is None or self.cb_type == 'cqe':
+                povs += [os.path.join(path, x) for x in os.listdir(path) if x.endswith('.xml')]
+            if self.cb_type is None or self.cb_type == 'cfe':
+                povs += [os.path.join(path, x) for x in os.listdir(path) if x.endswith('.pov')]
+
+        self.is_true(len(povs) >= 1, 'at least one pov: %d' % len(povs))
+
+        for filename in povs:
+            if filename.endswith('.xml'):
+                self._check_output(['poll-validate', filename])
+            else:
+                self._check_output(['cgcef_verify', filename])
+
+    def get_bins(self):
+        bins_all = os.listdir('bin')
+        bins = [x for x in bins_all if not x.endswith('_patched') and 'partial' not in x]
+        bins_partial = [x for x in bins_all if 'partial' in x]
+        bins_patched = [x for x in bins_all if x.endswith('_patched') and 'partial' not in x]
+        return bins, bins_patched, bins_partial
+
+    @check_type('pov', 'build')
+    def check_pov_prng_skip(self):
+        bins, bins_patched = self.get_bins()[:2]
+
+        skip = "%d" % random.randint(10, 1000)
+
+        pov_path = os.path.join(self.path, 'pov')
+
+        for _ in range(256):
+            skip = "%d" % random.randint(10, 1000)
+            cmd = ['cb-test', '--negotiate_seed', '--directory', 'bin', '--cb'] + bins + ['--xml_dir', pov_path, '--should_core', '--cb_seed_skip', skip]
+            self._check_output(cmd)
+
+            cmd = ['cb-test', '--negotiate_seed', '--directory', 'bin', '--cb'] + bins_patched + ['--xml_dir', pov_path, '--failure_ok', '--cb_seed_skip', skip]
+            self._check_output(cmd)
+    
+    @check_type('polls', 'build')
+    def warn_sequential_read_write(self):
+        bins, bins_patched = self.get_bins()[:2]
+        strace_bin_path = os.path.join(self.path, 'build', 'strace-wrap.sh')
+        strace_out_path = os.path.join(self.path, 'build', 'strace.out')
+        with open(strace_bin_path, 'w') as fh:
+            fh.write('#!/bin/bash\nset -u\nstrace -o ${STRACE_PATH} $*\n')
+        os.chmod(strace_bin_path, 0o755)
+        
+        too_many = 25
+        
+        for poll_dir in ['for-release', 'for-testing']:
+            base_dir = os.path.join(self.path, 'poller', poll_dir)
+            
+            if not os.path.isdir(base_dir):
+                continue
+
+            bins = [os.path.abspath(os.path.join('bin', x)) for x in bins]
+            bins_patched = [os.path.abspath(os.path.join('bin', x)) for x in bins_patched]
+           
+            polls = [x for x in sorted(os.listdir(base_dir)) if x.endswith('.xml')]
+
+            for filename in polls:
+                file_path = os.path.join(base_dir, filename)
+                for cb_set in [bins, bins_patched]:
+                    if len(cb_set) > 1:
+                        continue
+                    cmd = ['cb-test', '--negotiate_seed', '--directory', 'bin', '--xml', file_path, '--wrapper', strace_bin_path, '--debug', '--cb_env', 'STRACE_PATH=%s' % strace_out_path, '--cb'] + cb_set
+                    self._check_output(cmd)
+                    last = ''
+                    count = 0
+                    with open(strace_out_path, 'r') as fh:
+                        stdout = fh.read()
+
+                    for line in stdout.split('\n'):
+                        # reset counter at exit
+                        if line.startswith('_terminate'):
+                            if not self.is_true(count < too_many, 'too many sequential %s (count: %d)' % (repr(last), count)):
+                                return
+                            count = 0
+                            continue
+    
+                        if line.startswith('transmit') or line.startswith('receive'):
+                            # cheap hack for parsers, not worrying about quoting, just
+                            # grabbing the first and second to last arg
+                            args = line.split(', ')
+                            args = [args[0].replace('(', ' ')] + args[1:]
+                            size = int(args[-2])
+    
+                            if size > 1:
+                                count = 0
+
+                            if args[0] == last:
+                                count += 1
+                            else:
+                                last = args[0]
+                                count = 0
+
+                            if not self.is_true(count < too_many, 'too many sequential %s (count: %d)' % (repr(last), count)):
+                                return
+
+    @check_type('polls', 'build')
+    def check_prng_skip(self):
+        bins, bins_patched = self.get_bins()[:2]
+
+        skip = "%d" % random.randint(10, 1000)
+
+        for poll_dir in ['for-release', 'for-testing']:
+            base_dir = os.path.join(self.path, 'poller', poll_dir)
+
+            if not os.path.isdir(base_dir):
+                continue
+
+            cmd = ['cb-test', '--negotiate_seed', '--directory', 'bin', '--cb'] + bins + ['--xml_dir', base_dir, '--cb_seed_skip', skip]
+            self._check_output(cmd)
+
+            cmd = ['cb-test', '--negotiate_seed', '--directory', 'bin', '--cb'] + bins_patched + ['--xml_dir', base_dir, '--cb_seed_skip', skip]
+            self._check_output(cmd)
+
+    @check_type('build')
+    def check_max_filesize(self):
+        bins, bins_patched, bins_partial = self.get_bins()
+        for filename in bins + bins_patched + bins_partial:
+            path = os.path.join('bin', filename)
+            self.is_true(os.path.getsize(path) <= (4**10)*25, "max file size of %s" % filename)
+
+    @check_type('polls', 'build')
+    def warn_munge_seed(self):
+        bins, bins_patched = self.get_bins()[:2]
+
+        for poll_dir in ['for-release', 'for-testing']:
+            base_dir = os.path.join(self.path, 'poller', poll_dir)
+
+            if not os.path.isdir(base_dir):
+                continue
+
+            for cb_set in [bins, bins_patched]:
+                cmd = ['cb-test', '--negotiate_seed', '--directory', 'bin', '--cb'] + cb_set + ['--xml_dir', base_dir]
+                self._check_output(cmd)
+                cmd += ['--cb_seed_munge']
+                self._check_output(cmd, should_fail=True)
+
+
+    @check_type('polls', 'build')
+    def check_segmented_writes_polls(self):
+        bins, bins_patched = self.get_bins()[:2]
+
+        for poll_dir in ['for-release', 'for-testing']:
+            base_dir = os.path.join(self.path, 'poller', poll_dir)
+
+            if not os.path.isdir(base_dir):
+                continue
+
+            cmd = ['cb-test', '--negotiate_seed', '--directory', 'bin', '--cb'] + bins + ['--xml_dir', base_dir, '--max_send', '1', '--timeout', '1500']
+            self._check_output(cmd)
+
+            cmd = ['cb-test', '--negotiate_seed', '--directory', 'bin', '--cb'] + bins_patched + ['--xml_dir', base_dir, '--max_send', '1', '--timeout', '1500']
+            self._check_output(cmd)
+
+    @check_type('pov', 'build')
+    def check_segmented_writes_pov(self):
+        bins, bins_patched = self.get_bins()[:2]
+
+        pov_path = os.path.join(self.path, 'pov')
+
+        for _ in range(256):
+            cmd = ['cb-test', '--negotiate_seed', '--directory', 'bin', '--cb'] + bins + ['--xml_dir', pov_path, '--max_send', '1', '--should_core', '--timeout', '1500']
+            self._check_output(cmd)
+
+            cmd = ['cb-test', '--negotiate_seed', '--directory', 'bin', '--cb'] + bins_patched + ['--xml_dir', pov_path, '--failure_ok', '--max_send', '1', '--timeout', '1500']
+            self._check_output(cmd)
+
+    @check_type('polls', 'build')
+    def check_deterministic_polls(self):
+        # polls can use the shared object made during build time
+
+        depths = {}
+        with open('Makefile') as fh:
+            for line in fh:
+                m = re.match(r'^POLLS_(RELEASE|TESTING)_MAX_DEPTH\s*=\s*([0-9]+)$', line)
+                if m:
+                    name = 'for-' + m.group(1).lower()
+                    value = int(m.group(2))
+                    depths[name] = value
+
+        for poll_dir in ['for-release', 'for-testing']:
+            base_path = os.path.join(self.path, 'poller', poll_dir)
+
+            machine = os.path.join(base_path, 'machine.py')
+            graph = os.path.join(base_path, 'state-graph.yaml')
+
+            if not os.path.isfile(machine):
+                continue
+
+            if not os.path.isfile(graph):
+                continue
+
+            out = []
+            for _ in [0, 1]:
+                tmp_dir = tempfile.mkdtemp()
+
+                cmd = ['generate-polls']
+
+                if poll_dir in depths:
+                    cmd += ['--depth', '%d' % depths[poll_dir]]
+
+                cmd += ['--count', '1000', '--seed', '0', machine, graph, tmp_dir]
+                self._check_output(cmd)
+
+                polls = [os.path.join(tmp_dir, x) for x in os.listdir(tmp_dir) if x.endswith('.xml')]
+                out.append(self.checksum(polls))
+                shutil.rmtree(tmp_dir)
+
+            self.is_equal(out[0], out[1], '%s generator is not repeatable' % (poll_dir))
+
+    @check_type('static')
+    def check_directories(self):
+
+        required = {
+            'files': {
+                '': ['Makefile', 'README.md']
+            },
+            'directories' : {
+                '': ['poller'],
+            }
+        }
+
+        optional = {
+            'files': {
+                '': lambda x: x in required['files'][''],
+                '/include': lambda x: x.endswith('.h'),
+                '/src': lambda x: x.endswith('.c') or x.endswith('.cc') or x.endswith('.h'),
+                '/lib': lambda x: x.endswith('.c') or x.endswith('.cc') or x.endswith('.h'),
+                '/ids': lambda x: x.endswith('.rules'),
+                '/pov': lambda x: re.match(r'^POV_\d{5}.(xml|povxml)$', x) is not None,
+                '/poller/for-testing': lambda x: x in ['machine.py', 'state-graph.yaml'] or re.match(r'^POLL_\d{5}.xml$', x) is not None,
+                '/poller/for-release': lambda x: x in ['machine.py', 'state-graph.yaml'] or re.match(r'^POLL_\d{5}.xml$', x) is not None,
+                '/poller': lambda x: False, # this should fail, no files should be here
+            },
+        }
+
+        if self.cb_type == 'cfe':
+            optional['files']['/pov'] = lambda x: re.match(r'^POV_\d{5}.povxml$', x) is not None
+            optional['files']['/poller/for-release'] = lambda x: x in ['machine.py', 'state-graph.yaml']
+
+            del optional['files']['/poller/for-testing']
+        elif self.cb_type == 'cqe':
+            del optional['files']['/ids']
+            optional['files']['/pov'] = lambda x: re.match(r'^POV_\d{5}.xml$', x) is not None
+
+        check_paths = [self.path]
+
+        while len(check_paths):
+            path = check_paths.pop()
+
+            seen = {}
+            sub_cb = []
+            is_sub_cb = False
+
+            if path != self.path:
+                is_sub_cb = True
+
+            for directory, subdirs, files in os.walk(path):
+                if '/.svn/' in directory or directory.endswith('/.svn'):
+                    continue
+
+                if '.svn' in subdirs:
+                    subdirs.remove('.svn')
+
+                relative = directory[len(path):]
+
+                seen[relative] = True
+
+                if len(subdirs) == 0 and len(files) == 0:
+                    self.fail('empty directory: %s' % relative)
+
+                if not is_sub_cb:
+                    if re.match(r'^/cb_\d+$', relative):
+                        check_paths.append(directory)
+                        sub_cb.append(relative)
+                        continue
+                    elif re.match(r'^/cb_\d+/.*$', relative):
+                        # sub cb subdirs handled elsewhere
+                        continue
+
+                    # allow whatever they want in 'support'.  but thats it
+                    if relative == '/support' or relative.startswith('/support/'):
+                        continue
+
+                    if relative in required['files']:
+                        for filename in required['files'][relative]:
+                            self.is_in(filename, files, 'required file: %s' % filename)
+
+                    if (self.cb_type is None or self.cb_type == 'cfe') and re.match(r'^/pov_\d+$', relative):
+                        self.is_true(len(subdirs) == 0, 'POV-CB subdirs: %s' % (repr(subdirs)))
+                        for filename in files:
+                            self.is_true(filename.endswith('.c') or filename.endswith('.h'), 'invalid file in %s: %s' % (repr(relative), repr(filename)))
+                        continue
+
+                if relative not in optional['files'] and relative not in required['files']:
+                    self.fail('Invalid directory: %s (%s)' % (repr(relative), ', '.join(files)))
+                    continue
+
+                if 'libcgc.h' in files:
+                    self.fail('libcgc.h should not be included')
+
+                if 'libpov.h' in files:
+                    self.fail('libpov.h should not be included')
+
+                for filename in files:
+                    self.is_true(optional['files'][relative](filename), 'invalid file in %s: %s' % (repr(relative), repr(filename)))
+
+            if sub_cb:
+                self.is_not_in('/src', seen, 'src must not be provided in case of IPC CBs')
+                self.is_not_in('/lib', seen, 'lib must not be provided in case of IPC CBs')
+                self.is_not_in('/include', seen, 'include must not be provided in case of IPC CBs')
+            else:
+                self.is_in('/src', seen, 'src is required except for IPC CBs: %s' % (repr(path)))
+
+    @check_type('static')
+    def check_makefile(self):
+        required = {
+            'SERVICE_ID': lambda x: len(x) == 5 and x.isdigit(),
+            'AUTHOR_ID': lambda x: len(x) == 5 and x.isalnum(),
+        }
+
+        optional = {
+            'NO_STRIP': lambda x: x == '1',
+            'POLLS_RELEASE_COUNT': lambda x: x.isdigit(),
+            'POLLS_RELEASE_MAX_DEPTH': lambda x: x.isdigit(),
+            'POLLS_RELEASE_SEED': lambda x: x.isdigit() or x[0] == '-' and x[1:].isdigit(),
+            'POLLS_TESTING_COUNT': lambda x: x.isdigit(),
+            'POLLS_TESTING_MAX_DEPTH': lambda x: x.isdigit(),
+            'POLLS_TESTING_SEED': lambda x: x.isdigit() or x[0] == '-' and x[1:].isdigit(),
+            'CFLAGS': lambda x: x == x, # XXX - add more later
+            'CXXFLAGS': lambda x: x == x, # XXX - add more later
+            'override LDFLAGS': lambda x: x == x, # XXX - add more later.  Not thrilled with this
+        }
+
+        if self.cb_type == 'cfe':
+            required['VULN_COUNT'] = lambda x: x.isdigit()
+
+            for key in optional.keys():
+                if key.startswith('POLLS') and key != 'POLLS_RELEASE_MAX_DEPTH':
+                    del optional[key]
+        elif self.cb_type is None:
+            optional['VULN_COUNT'] = lambda x: x.isdigit()
+
+        seen = {}
+
+        makefile = []
+        with open('Makefile') as fh:
+            for line in fh:
+                line = line.replace('\n', '')
+                if not len(line):
+                    continue
+
+                self.is_not_in('#', line, 'No comments (%s)' % repr(line))
+                if line[0] == '#':
+                    continue
+
+                for char in ';|><`()!$\\':
+                    self.is_not_in(char, line, 'shell meta characters '
+                                '%s : %s' % (char, repr(line)))
+
+                makefile.append(line)
+
+        last_line = makefile.pop()
+        self.is_equal(last_line, 'include /usr/share/cb-testing/cgc-cb.mk',
+                   'end with cgc-cb.mk include: %s' % last_line)
+
+        for line in makefile:
+            self.is_in('=', line, 'not a variable: %s' % line)
+            if '=' not in line:
+                continue
+
+            var, arg = line.split('=', 1)
+            var = var.rstrip()
+            arg = arg.strip()
+
+            if var in required:
+                self.is_true(required[var](arg), 'invalid %s: %s' % (var, repr(arg)))
+            elif var in optional:
+                self.is_true(optional[var](arg), 'invalid %s: %s' % (var, repr(arg)))
+            else:
+                self.fail('disallowed entry: %s' % line)
+
+            self.is_not_in(var, seen, '%s defined multiple times' % (var))
+            seen[var] = True
+
+        for var in required:
+            self.is_in(var, seen, 'missing required variable: %s' % (var))
+
+def get_checks():
+    a = Acceptance('', '/')
+    return a.get_checks()
+
+def main():
+    current_dir = os.getcwd()
+
+    parser = argparse.ArgumentParser(description='Test CB for acceptance '
+                                     'within CGC')
+    parser.add_argument('--debug', required=False, action='count',
+                        help='Enable debugging output (use multiple times to increase verbosity)')
+    parser.add_argument('--check', choices=get_checks(), type=str,
+                        help='Run just a specific check')
+    parser.add_argument('--check_type', choices=CHECK_TYPES, default=None,
+                        help='Only run the checks that match the check type')
+    parser.add_argument('challenges', metavar='CB', type=str, nargs='+',
+                        help='paths to CB')
+    parser.add_argument('--cb_type', choices=['cqe', 'cfe'], default=None)
+    parser.add_argument('--no_cleanup', action='store_true', help='disable cleanup')
+    parser.add_argument('--strict', action='store_true', help='error on warnings')
+
+    args = parser.parse_args()
+
+    failed = False
+
+    for cb_path in args.challenges:
+        while cb_path[-1] == '/':
+            cb_path = cb_path[:-1]
+
+        if cb_path == '.':
+            cb_path = current_dir
+        elif not cb_path.startswith('/'):
+            cb_path = os.path.join(current_dir, cb_path)
+
+        cb_name = os.path.split(cb_path)[-1]
+
+        cb_tmp_dir = None
+
+        try:
+            assert re.match('^[A-Z0-9]{5}_[0-9]{5}$', cb_name), "invalid CB: %s" % cb_name
+            cb_tmp_dir = tempfile.mkdtemp()
+            dest_path = os.path.join(cb_tmp_dir, cb_name)
+            subprocess.check_call(['cp', '-r', cb_path, dest_path])
+            os.chdir(dest_path)
+
+            a = Acceptance(cb_name, dest_path, args.debug, args.check_type, args.cb_type, args.no_cleanup, args.strict)
+            ret = a(args.check)
+
+            if not ret:
+                failed = True
+        except AssertionError as err:
+            failed = True
+            print "not ok - %s : %s" % (cb_name, err)
+        except subprocess.CalledProcessError as err:
+            failed = True
+            print "not ok - %s : %s" % (cb_name, err)
+
+        if cb_tmp_dir is not None:
+            if args.no_cleanup:
+                print "# not cleaning up %s" % repr(cb_tmp_dir)
+            else:
+                shutil.rmtree(cb_tmp_dir)
+
+        os.chdir(current_dir)
+
+    return failed == True
+
+if __name__ == '__main__':
+    exit(main())
