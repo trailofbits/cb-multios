@@ -6,8 +6,8 @@ import sys
 import yaml  # pip install pyyaml
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-ORIGINAL_CHALLS = os.path.abspath('../original-challenges')
-CHALLENGE_PATH = os.path.abspath('../cqe-challenges')
+ORIGINAL_CHALLS = os.path.join(os.path.dirname(TOOLS_DIR), 'original-challenges')
+CHALLENGE_PATH = os.path.join(os.path.dirname(TOOLS_DIR), 'cqe-challenges')
 
 # Load the manual patches
 with open(os.path.join(TOOLS_DIR, 'manual_patches.yaml')) as f:
@@ -70,7 +70,7 @@ def patch_files_in_dir(path):
 
 
 def patch_challenge(chal):
-    debug('Patching {}...\n'.format(chal))
+    debug('\nPatching {}...\n'.format(chal))
 
     # Some challenges have multiple binaries with the source in cb_* directories
     dirs = listdir(os.path.join(CHALLENGE_PATH, chal))
