@@ -15,7 +15,22 @@ def debug(s):
     sys.stdout.flush()
 
 
+class Score:
+    """Contains the results of a test"""
+
+    def __init__(self):
+        self.passed = 0
+        self.total = 0
+
+    @property
+    def failed(self):
+        """Number of failed tests"""
+        return self.passed - self.total
+
+
 class Tester:
+    """Tests and keeps track of the results of a single challenge binary"""
+
     # These determine which types of tests will be run
     # Both are enabled by default
     povs = True
@@ -31,8 +46,18 @@ class Tester:
         self.poll_dir = os.path.join(self.chal_dir, 'poller')
 
         # Keep track of success
-        self.total = 0
-        self.passed = 0
+        self.povs = Score()
+        self.polls = Score()
+
+    @property
+    def passed(self):
+        """Number of passed tests"""
+        return self.povs.passed + self.polls.passed
+
+    @property
+    def total(self):
+        """Total number of tests run"""
+        return self.povs.total + self.polls.total
 
     @property
     def failed(self):
@@ -47,31 +72,31 @@ class Tester:
         failed = int(output.split('polls failed: ')[1].split('\n')[0])
         return passed, failed
 
-    def run_test(self, bin_name, xml_dir):
+    def run_test(self, bin_name, xml_dir, score):
         cb_cmd = ['./cb-test', '--cb', bin_name, '--directory', self.bin_dir, '--xml_dir', xml_dir]
         p = subprocess.Popen(cb_cmd, cwd=TEST_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = p.communicate()
 
         passed, failed = self.parse_results(out)
-        self.passed += passed
-        self.total += passed + failed
+        score.passed += passed
+        score.total += passed + failed
 
-    def run_against_dir(self, xml_dir):
+    def run_against_dir(self, xml_dir, score):
         tests = glob.glob(os.path.join(xml_dir, '*.xml'))
         if len(tests) == 0:
             debug('None found\n')
         else:
             debug('Running {} test(s)'.format(len(tests) * 2))
 
-            # Keep track of pass/totals
-            p, t = self.passed, self.total
+            # Keep track of old pass/totals
+            p, t = score.passed, score.total
 
             # Run the tests
-            self.run_test(self.name, xml_dir)
-            self.run_test('{}_patched'.format(self.name), xml_dir)
+            self.run_test(self.name, xml_dir, score)
+            self.run_test('{}_patched'.format(self.name), xml_dir, score)
 
             # Display resulting totals
-            debug(' => Passed {}/{}\n'.format(self.passed - p, self.total - t))
+            debug(' => Passed {}/{}\n'.format(score.passed - p, score.total - t))
 
     def run(self):
         debug('\nTesting {}...\n'.format(self.name))
@@ -79,14 +104,14 @@ class Tester:
         # Test POVs
         if self.povs:
             debug('POV:\n\t')
-            self.run_against_dir(self.pov_dir)
+            self.run_against_dir(self.pov_dir, self.povs)
 
         # Test POLLs
         if self.polls:
             debug('POLL:\n')
             for subdir in listdir(self.poll_dir):
                 debug('\t{}:\t'.format(subdir))
-                self.run_against_dir(os.path.join(self.poll_dir, subdir))
+                self.run_against_dir(os.path.join(self.poll_dir, subdir), self.polls)
 
 
 def test_challenges(chals):
