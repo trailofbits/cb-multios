@@ -143,14 +143,16 @@ class Tester:
         debug('Done testing {} => Passed {}/{} tests\n'.format(self.name, self.passed, self.total))
 
 
-def test_challenges(chals):
-    # type: (list) -> None
+def test_challenges(chal_names):
+    # type: (list) -> list
     # Filter out any challenges that don't exist
-    for c in chals:
+    chals = []
+    for c in chal_names:
         cdir = os.path.join(CHAL_DIR, c)
         if not os.path.isdir(cdir):
             debug('ERR: Challenge "{}" does not exist, skipping\n'.format(c))
-            chals.remove(c)
+            continue
+        chals.append(c)
 
     # Create and run all testers
     testers = map(Tester, chals)
