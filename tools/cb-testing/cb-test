@@ -209,8 +209,8 @@ class Background(object):
             self.process.terminate()
         except OSError:
             pass
-        for my_thread in self.threads:
-            my_thread.join()
+        # for my_thread in self.threads:
+        #     my_thread.join()
 
     def wait(self):
         """ Wait for the process to exit.
@@ -654,7 +654,7 @@ class Runner(object):
         """
         assert connection_count > 0
         server_cmd = ['socat', 'TCP-Listen:%d,reuseaddr,fork' % (self.port),
-                      'EXEC:./%s' % (os.path.join(self.directory, self.cb_list[0]))]
+                      'EXEC:%s' % (os.path.join(self.directory, self.cb_list[0]))]
         # print server_cmd
         return self.background(server_cmd, 'socat')
 
@@ -751,7 +751,9 @@ class Runner(object):
             replay_bin = './cb-replay-pov'
 
         replay_cmd = [replay_bin, '--host', self.ip_address, '--port', '%d' %
-                      self.port, '--debug']
+                      self.port,
+                      # '--debug'
+                      ]
 
         if self.timeout > 0:
             replay_cmd += ['--timeout', '%d' % self.timeout]
