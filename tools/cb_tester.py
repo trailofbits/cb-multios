@@ -66,13 +66,30 @@ class Tester:
 
     @staticmethod
     def parse_results(output):
+        """ Parses out the number of passed and failed tests from cb-test output
+
+        Args:
+            output (str): Raw output from running cb-test
+        Returns:
+            (int, int): # of tests passed, # of tests failed
+        """
+        # If the test failed to run, consider it failed
         if 'polls passed' not in output:
             return 0, 1
+
+        # Parse out results
         passed = int(output.split('polls passed: ')[1].split('\n')[0])
         failed = int(output.split('polls failed: ')[1].split('\n')[0])
         return passed, failed
 
     def run_test(self, bin_name, xml_dir, score):
+        """ Runs a test using cb-test and saves the result
+
+        Args:
+            bin_name (str): Name of the binary being tested
+            xml_dir (str): Directory containing all xml tests
+            score (Score): Object to store the results in
+        """
         cb_cmd = ['./cb-test', '--cb', bin_name, '--directory', self.bin_dir, '--xml_dir', xml_dir]
         p = subprocess.Popen(cb_cmd, cwd=TEST_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = p.communicate()
@@ -82,23 +99,34 @@ class Tester:
         score.total += passed + failed
 
     def run_against_dir(self, xml_dir, score):
+        """ Runs all tests in a given directory
+        against the patched and unpatched versions of a binary
+
+        Args:
+            xml_dir (str): Directory containing all xml tests
+            score (Score): Object to store the results in
+        """
+        # Check if there are any tests available in this directory
         tests = glob.glob(os.path.join(xml_dir, '*.xml'))
         if len(tests) == 0:
             debug('None found\n')
-        else:
-            debug('Running {} test(s)'.format(len(tests) * 2))
+            return
 
-            # Keep track of old pass/totals
-            p, t = score.passed, score.total
+        # *2 because each test is run against the patched and unpatched binary
+        debug('Running {} test(s)'.format(len(tests) * 2))
 
-            # Run the tests
-            self.run_test(self.name, xml_dir, score)
-            self.run_test('{}_patched'.format(self.name), xml_dir, score)
+        # Keep track of old pass/totals
+        p, t = score.passed, score.total
 
-            # Display resulting totals
-            debug(' => Passed {}/{}\n'.format(score.passed - p, score.total - t))
+        # Run the tests
+        self.run_test(self.name, xml_dir, score)
+        self.run_test('{}_patched'.format(self.name), xml_dir, score)
+
+        # Display resulting totals
+        debug(' => Passed {}/{}\n'.format(score.passed - p, score.total - t))
 
     def run(self):
+        """Runs all tests for this challenge binary"""
         debug('\nTesting {}...\n'.format(self.name))
 
         # Test POVs
@@ -112,6 +140,7 @@ class Tester:
             for subdir in listdir(self.poll_dir):
                 debug('\t{}:\t'.format(subdir))
                 self.run_against_dir(os.path.join(self.poll_dir, subdir), self.polls)
+        debug('Done testing {} => Passed {}/{} tests\n'.format(self.name, self.passed, self.total))
 
 
 def test_challenges(chals):
@@ -127,7 +156,6 @@ def test_challenges(chals):
     testers = map(Tester, chals)
     for test in testers:
         test.run()
-        debug('Done testing {} => Passed {}/{} tests\n'.format(test.name, test.passed, test.total))
 
 
 def listdir(path):
