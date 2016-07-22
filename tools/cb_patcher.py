@@ -81,19 +81,22 @@ def patch_challenge(chal):
         for d in cbdirs:
             patch_challenge(os.path.join(chal, d))
     else:
-        # Patch all lib files first
-        debug('Patching lib files...\n')
         lib_path = os.path.join(CHALLENGE_PATH, chal, 'lib')
+        src_path = os.path.join(CHALLENGE_PATH, chal, 'src')
+        inc_path = os.path.join(CHALLENGE_PATH, chal, 'include')
 
         # Delete libcgc.h if it exists
-        try_delete(os.path.join(lib_path, 'libcgc.h'))
+        for pth in [lib_path, src_path, inc_path]:
+            try_delete(os.path.join(pth, 'libcgc.h'))
 
+        # Patch all lib files first
+        debug('Patching lib files...\n')
         patch_files_in_dir(lib_path)
 
         # Patch all source files
         debug('Patching src files...\n')
-        patch_files_in_dir(os.path.join(CHALLENGE_PATH, chal, 'src'))
-        patch_files_in_dir(os.path.join(CHALLENGE_PATH, chal, 'include'))
+        patch_files_in_dir(src_path)
+        patch_files_in_dir(inc_path)
 
 
 def listdir(path):
