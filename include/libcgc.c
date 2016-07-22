@@ -168,6 +168,7 @@ void _terminate(unsigned int status) {
 
 /* Updates a byte counter and returns the corresponding status code. */
 static int update_byte_count(size_t *counter, size_t count) {
+  if (!counter) return 0;
   if (!OBJECT_IS_WRITABLE(counter)) {
     return CGC_EFAULT;
   } else {
