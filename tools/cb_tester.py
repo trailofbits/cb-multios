@@ -251,6 +251,10 @@ def generate_xlsx(path, tests):
     for col in range(1, 10):
         ws.write_formula(row, col, '=SUM({})'.format(xlutil.xl_range(1, col, len(tests), col)))
 
+    # Total % passed
+    ws.write_formula(row, 10, '=100*{}/MAX(1, {})'.format(xlutil.xl_rowcol_to_cell(row, 8),
+                                                          xlutil.xl_rowcol_to_cell(row, 7)))
+
     # Averages at bottom
     row += 1
     ws.write(row, 0, 'AVERAGE')
