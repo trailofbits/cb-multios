@@ -155,6 +155,12 @@ def test_challenges(chal_names):
         if not os.path.isdir(cdir):
             debug('ERR: Challenge "{}" does not exist, skipping\n'.format(c))
             continue
+
+        # Skip duplicates
+        if c in chals:
+            debug('Ignoring duplicate "{}"\n'.format(c))
+            continue
+
         chals.append(c)
 
     # Create and run all testers
