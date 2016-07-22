@@ -5,6 +5,9 @@ import os
 import subprocess
 import sys
 
+import xlsxwriter as xl  # pip install xlsxwriter
+import xlsxwriter.utility as xlutil
+
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'cqe-challenges')
 TEST_DIR = os.path.join(TOOLS_DIR, 'cb-testing')
@@ -159,6 +162,98 @@ def test_challenges(chal_names):
     for test in testers:
         test.run()
 
+    return testers
+
+
+def generate_xlsx(path, tests):
+    """ Generates an excel spreadsheet containing the results of all tests
+
+    Args:
+        path (str): Path to save the spreadsheet
+        tests (list of Tester): All completed tests
+    """
+    debug('Generating excel spreadsheet...')
+    # Fix filename
+    if not path.endswith('.xlsx'):
+        path += '.xlsx'
+
+    wb = xl.Workbook(path)
+    ws = wb.add_worksheet()
+
+    # Some formats used in the sheet
+    fmt_name = wb.add_format({'font_color': 'green', 'bg_color': 'black'})
+    fmt_perfect = wb.add_format({'bg_color': '#b6d7a8', 'border': 1, 'border_color': '#cccccc'})
+    fmt_bad = wb.add_format({'bg_color': '#ea9999', 'border': 1, 'border_color': '#cccccc'})
+    fmt_none = wb.add_format({'bg_color': '#ffe599', 'border': 1, 'border_color': '#cccccc'})
+    fmt_default = wb.add_format({'bg_color': 'white', 'border': 1, 'border_color': '#cccccc'})
+
+    # Write headers
+    row = 0
+    ws.write_row(row, 0, ['CB_NAME',
+                          'POVs Total', 'POVs Passed', 'POVs Failed',
+                          'POLLs Total', 'POLLs Passed', 'POLLs Failed',
+                          'Total Tests', 'Total Passed', 'Total Failed',
+                          '% Passed', 'Notes'])
+
+    # Add all test data
+    for test in tests:
+        row += 1
+
+        # Pick the format for this row
+        if test.total == 0:
+            fmt = fmt_none
+        elif test.total == test.passed:
+            fmt = fmt_perfect
+        elif test.passed == 0:
+            fmt = fmt_bad
+        else:
+            fmt = fmt_default
+
+        # Write some fields we already know
+        ws.write(row, 0, test.name, fmt_name)
+        ws.write_row(row, 1, [test.povs.total, test.povs.passed, '',
+                              test.polls.total, test.polls.passed], fmt)
+
+        # NOTE: Leaving all of these to be calculated in excel in case you want to manually edit it later
+        # POVs failed
+        ws.write_formula(row, 3, '={}-{}'.format(xlutil.xl_rowcol_to_cell(row, 1),
+                                                 xlutil.xl_rowcol_to_cell(row, 2)), fmt)
+
+        # POLLs failed
+        ws.write_formula(row, 6, '={}-{}'.format(xlutil.xl_rowcol_to_cell(row, 4),
+                                                 xlutil.xl_rowcol_to_cell(row, 5)), fmt)
+
+        # Total tests
+        ws.write_formula(row, 7, '={}+{}'.format(xlutil.xl_rowcol_to_cell(row, 1),
+                                                 xlutil.xl_rowcol_to_cell(row, 4)), fmt)
+
+        # Total passed
+        ws.write_formula(row, 8, '={}+{}'.format(xlutil.xl_rowcol_to_cell(row, 2),
+                                                 xlutil.xl_rowcol_to_cell(row, 5)), fmt)
+
+        # Total failed
+        ws.write_formula(row, 9, '={}-{}'.format(xlutil.xl_rowcol_to_cell(row, 7),
+                                                 xlutil.xl_rowcol_to_cell(row, 8)), fmt)
+
+        # % Passed
+        ws.write_formula(row, 10, '=100*{}/MAX(1, {})'.format(xlutil.xl_rowcol_to_cell(row, 8),
+                                                              xlutil.xl_rowcol_to_cell(row, 7)), fmt)
+
+    # Totals at bottom
+    row += 1
+    ws.write(row, 0, 'TOTAL')
+    for col in range(1, 10):
+        ws.write_formula(row, col, '=SUM({})'.format(xlutil.xl_range(1, col, len(tests), col)))
+
+    # Averages at bottom
+    row += 1
+    ws.write(row, 0, 'AVERAGE')
+    for col in range(1, 11):
+        ws.write_formula(row, col, '=AVERAGE({})'.format(xlutil.xl_range(1, col, len(tests), col)))
+
+    wb.close()
+    debug('Done, saved to {}\n'.format(path))
+
 
 def listdir(path):
     # type: (str) -> list
@@ -184,6 +279,10 @@ def main():
     g.add_argument('--polls', action='store_true',
                    help='Only run tests against POLLS')
 
+    parser.add_argument('-o', '--output',
+                        default=None, type=str,
+                        help='If provided, an excel spreadsheet will be generated and saved here')
+
     args = parser.parse_args(sys.argv[1:])
 
     # Disable other tests depending on args
@@ -194,10 +293,13 @@ def main():
 
     if args.all:
         debug('Running tests against all challenges\n')
-        test_challenges(listdir(CHAL_DIR))
-    elif args.chals:
+        tests = test_challenges(listdir(CHAL_DIR))
+    else:
         debug('Running tests against {} challenge(s)\n'.format(len(args.chals)))
-        test_challenges(args.chals)
+        tests = test_challenges(args.chals)
+
+    if args.output:
+        generate_xlsx(os.path.abspath(args.output), tests)
 
 
 if __name__ == '__main__':
