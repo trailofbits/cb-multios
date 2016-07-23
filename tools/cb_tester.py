@@ -36,8 +36,8 @@ class Tester:
 
     # These determine which types of tests will be run
     # Both are enabled by default
-    povs = True
-    polls = True
+    povs_enabled = True
+    polls_enabled = True
 
     def __init__(self, chal_name):
         self.name = chal_name
@@ -133,12 +133,12 @@ class Tester:
         debug('\nTesting {}...\n'.format(self.name))
 
         # Test POVs
-        if self.povs:
+        if Tester.povs_enabled:
             debug('POV:\n\t')
             self.run_against_dir(self.pov_dir, self.povs)
 
         # Test POLLs
-        if self.polls:
+        if Tester.polls_enabled:
             debug('POLL:\n')
             for subdir in listdir(self.poll_dir):
                 debug('\t{}:\t'.format(subdir))
@@ -297,9 +297,9 @@ def main():
 
     # Disable other tests depending on args
     if args.povs:
-        Tester.polls = False
+        Tester.polls_enabled = False
     if args.polls:
-        Tester.povs = False
+        Tester.povs_enabled = False
 
     if args.all:
         debug('Running tests against all challenges\n')
