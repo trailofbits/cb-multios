@@ -80,6 +80,9 @@ class Tester:
         if 'polls passed' not in output:
             return 0, 1
 
+        if 'timed out' in output:
+            debug('WARNING: test timed out')
+
         # Parse out results
         passed = int(output.split('polls passed: ')[1].split('\n')[0])
         failed = int(output.split('polls failed: ')[1].split('\n')[0])
@@ -93,7 +96,8 @@ class Tester:
             xml_dir (str): Directory containing all xml tests
             score (Score): Object to store the results in
         """
-        cb_cmd = ['./cb-test', '--cb', bin_name, '--directory', self.bin_dir, '--xml_dir', xml_dir]
+        cb_cmd = ['./cb-test', '--cb', bin_name, '--directory', self.bin_dir, '--xml_dir', xml_dir,
+                  '--concurrent', '1', '--timeout', '30']
         p = subprocess.Popen(cb_cmd, cwd=TEST_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = p.communicate()
 
