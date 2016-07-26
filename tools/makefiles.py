@@ -1,6 +1,9 @@
 #!/usr/bin/env python
-from os import listdir
+import os
 import re
+
+TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
+CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'cqe-challenges')
 
 #reads in old makefile from folder
 #parses for compiler arguments 
@@ -33,7 +36,7 @@ def readAndMake(folder):
 
 #write makeFiles for all folders in path
 def doAll(path):
-    dirs = listdir(path)
+    dirs = os.listdir(path)
     for folder in dirs:
         folder = path + "/" + folder
         #print folder
@@ -42,5 +45,4 @@ def doAll(path):
             readAndMake(folder)
 
 if __name__ == '__main__':
-    path = "../cqe-challenges"
-    doAll(path)   ##path should be folder containing multiple challenge binaries and nothing else.
+    doAll(CHAL_DIR)   ##path should be folder containing multiple challenge binaries and nothing else.
