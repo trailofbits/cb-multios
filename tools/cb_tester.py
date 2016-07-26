@@ -88,16 +88,16 @@ class Tester:
         failed = int(output.split('polls failed: ')[1].split('\n')[0])
         return passed, failed
 
-    def run_test(self, bin_name, xml_dir, score):
+    def run_test(self, bin_names, xml_dir, score):
         """ Runs a test using cb-test and saves the result
 
         Args:
-            bin_name (str): Name of the binary being tested
+            bin_names (list of str): Name of the binary being tested
             xml_dir (str): Directory containing all xml tests
             score (Score): Object to store the results in
         """
-        cb_cmd = ['./cb-test', '--cb', bin_name, '--directory', self.bin_dir, '--xml_dir', xml_dir,
-                  '--concurrent', '1', '--timeout', '30']
+        cb_cmd = ['./cb-test', '--directory', self.bin_dir, '--xml_dir', xml_dir,
+                  '--concurrent', '1', '--timeout', '30', '--cb'] + bin_names
         p = subprocess.Popen(cb_cmd, cwd=TEST_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = p.communicate()
 
@@ -122,12 +122,20 @@ class Tester:
         # *2 because each test is run against the patched and unpatched binary
         debug('Running {} test(s)'.format(len(tests) * 2))
 
+        # Collect the names of binaries to be tested
+        cb_dirs = glob.glob(os.path.join(self.chal_dir, 'cb_*'))
+        if len(cb_dirs) > 0:
+            # There are multiple binaries in this challenge
+            bin_names = ['{}_{}'.format(self.name, i + 1) for i in range(len(cb_dirs))]
+        else:
+            bin_names = [self.name]
+
         # Keep track of old pass/totals
         p, t = score.passed, score.total
 
         # Run the tests
-        self.run_test(self.name, xml_dir, score)
-        self.run_test('{}_patched'.format(self.name), xml_dir, score)
+        self.run_test(bin_names, xml_dir, score)
+        self.run_test(['{}_patched'.format(b) for b in bin_names], xml_dir, score)
 
         # Display resulting totals
         debug(' => Passed {}/{}\n'.format(score.passed - p, score.total - t))
