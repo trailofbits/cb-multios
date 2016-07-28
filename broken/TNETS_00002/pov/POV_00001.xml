@@ -3,10 +3,10 @@
 <pov>
     <cbid>service</cbid>
     <replay>
-	<read echo="ascii">
-          <delim>\x0a</delim>
-	  <match><data>ctors called...</data></match>
-	</read>
+	<!--<read echo="ascii">-->
+          <!--<delim>\x0a</delim>-->
+	  <!--<match><data>ctors called...</data></match>-->
+	<!--</read>-->
 
 	<read echo="ascii">
 	  <delim>\x0a</delim>
