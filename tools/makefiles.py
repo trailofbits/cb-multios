@@ -1,48 +1,53 @@
 #!/usr/bin/env python
+import glob
 import os
 import re
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'cqe-challenges')
 
-#reads in old makefile from folder
-#parses for compiler arguments 
-#creates cmake lists file with parsed arguments as parent-scope variables
-def readAndMake(folder):
-    inStream = open(folder+"/Makefile", "r")
-    oldMake = inStream.readlines()
-    inStream.close()
 
-    makeVars = {'CFLAGS': '-fno-builtin -Wno-int-to-pointer-cast -Wno-writable-strings -nostdinc '}
-    for line in oldMake:
+def generate_cmake(path):
+    # Path to the new CMakelists.txt
+    cmake_path = os.path.join(os.path.dirname(path), 'CMakeLists.txt')
+    print('Generating: {}'.format(cmake_path))
+
+    # Read in the Makefile
+    with open(path) as f:
+        old_make = f.readlines()
+
+    # Default values for CFLAGS
+    make_vars = {'CFLAGS': '-fno-builtin -Wno-int-to-pointer-cast -Wno-writable-strings -nostdinc '}
+    for line in old_make:
         line = re.sub('[\r\n\t]', '', line)
+
+        # Parse out any variables in the Makefile
         if "=" in line:
             var, val = line.split('=', 1)
             var = var.strip()
             val = val.strip()
+
+            # Keep the CFLAGS that have already been set
             if var == "CFLAGS":
-                makeVars[var] += val.replace('-Werror', '')
+                make_vars[var] += val.replace('-Werror', '')
             else:
-                makeVars[var] = val
+                make_vars[var] = val
 
-    newMake = ""
-    for var, val in makeVars.iteritems():
-        newMake += 'set( {} "{}" )\n'.format(var, val)
-    newMake += 'buildCB(${CFLAGS})'
+    # Generate the CMake data
+    cmake = ""
+    for var, val in make_vars.iteritems():
+        cmake += 'set( {} "{}" )\n'.format(var, val)
+    cmake += 'buildCB(${CFLAGS})'
 
-    outStream = open(folder + "/CMakeLists.txt", "w")
-    outStream.write(newMake)
-    outStream.close()
+    # Write the CMakelists
+    with open(cmake_path, 'w') as f:
+        f.write(cmake)
 
-#write makeFiles for all folders in path
-def doAll(path):
-    dirs = os.listdir(path)
-    for folder in dirs:
-        folder = path + "/" + folder
-        #print folder
-        if "00" in folder:
-            print folder
-            readAndMake(folder)
+
+def main():
+    makefiles = glob.glob(os.path.join(CHAL_DIR, '*', 'Makefile'))
+    map(generate_cmake, makefiles)
+
 
 if __name__ == '__main__':
-    doAll(CHAL_DIR)   ##path should be folder containing multiple challenge binaries and nothing else.
+    main()
