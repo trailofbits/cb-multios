@@ -10,6 +10,8 @@ function prompt() {
     [[ $REPLY =~ ^[Yy]$ ]]
 }
 
+# Install necessary python packages
+pip install pyyaml xlsxwriter
 
 # Check if the patched challenges are already there
 REGEN=0
