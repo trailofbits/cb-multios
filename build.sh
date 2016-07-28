@@ -21,9 +21,6 @@ if [[ -d "$DIR/cqe-challenges" && -n "$(ls -A "$DIR/cqe-challenges" 2>/dev/null)
 fi
 
 if [[ ${REGEN} == 0 ]]; then
-    # Delete these, they get in the way
-    find "$DIR" -type f | grep "\.DS_Store" | xargs rm
-
     echo "Generating patched challenges..."#
     ${TOOLS}/cb_patcher.py
 fi
