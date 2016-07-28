@@ -19,21 +19,6 @@ def debug(s):
     sys.stdout.flush()
 
 
-def save_patched_file(fpath, patched):
-    """Saves the patched file with a new name
-
-    Args:
-        fpath (str): Path to original file
-        patched (str): Patched code
-    """
-    # Write the patched file
-    with open(fpath, 'w') as f:
-        f.write(patched)
-
-    fname = os.path.basename(fpath)
-    debug('done => {}\n'.format(fname))
-
-
 def apply_manual_patches(fname, src):
     # type: (str, str) -> str
     # Apply everything in 'all' first
@@ -66,7 +51,10 @@ def patch_files_in_dir(path):
         # Apply all manual patches
         patched = apply_manual_patches(fname, src)
 
-        save_patched_file(fpath, patched)
+        # Write the patched file
+        with open(fpath, 'w') as f:
+            f.write(patched)
+        debug('done => {}\n'.format(fname))
 
 
 def patch_challenge(chal):
@@ -116,9 +104,11 @@ def main():
 
     # Copy over one challenge at a time and patch it
     for chal in listdir(ORIGINAL_CHALLS):  # Only a few for now
-        shutil.copytree(os.path.join(ORIGINAL_CHALLS, chal),
-                        os.path.join(CHALLENGE_PATH, chal))
-        patch_challenge(chal)
+        chal_dir = os.path.join(ORIGINAL_CHALLS, chal)
+        if os.path.isdir(chal_dir):
+            shutil.copytree(chal_dir,
+                            os.path.join(CHALLENGE_PATH, chal))
+            patch_challenge(chal)
 
 
 if __name__ == '__main__':
