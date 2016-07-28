@@ -1,0 +1,333 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Welcome to eCommerce v0.1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>c</data></write>
+    <write><data>OcJGbobrloEBKPsSnVgfbpQls\x0a54509\x0a15\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>OcJGbobrloEBKPsSnVgfbpQls \x28Price: 545.09\x2c Count: 15\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>c</data></write>
+    <write><data>TdqMavlmCXbM\x0a18813\x0a6\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>OcJGbobrloEBKPsSnVgfbpQls \x28Price: 545.09\x2c Count: 15\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>TdqMavlmCXbM \x28Price: 188.13\x2c Count: 6\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>OcJGbobrloEBKPsSnVgfbpQls \x28Price: 545.09\x2c Count: 15\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>TdqMavlmCXbM \x28Price: 188.13\x2c Count: 6\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>b</data></write>
+    <write><data>TdqMavlmCXbM\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>OcJGbobrloEBKPsSnVgfbpQls \x28Price: 545.09\x2c Count: 15\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>TdqMavlmCXbM \x28Price: 188.13\x2c Count: 5\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>c</data></write>
+    <write><data>ZjxjFuamiliwHcZbsjnYCyHVwrhDbl\x0a77252\x0a6\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>c</data></write>
+    <write><data>LxIAEsEpDVFQcSdnp\x0a59737\x0a7\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>c</data></write>
+    <write><data>jrgOAYPWHwX\x0a84544\x0a6\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>b</data></write>
+    <write><data>TdqMavlmCXbM\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>b</data></write>
+    <write><data>ZjxjFuamiliwHcZbsjnYCyHVwrhDbl\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>c</data></write>
+    <write><data>LlBQFbYSAqxZjrcpyCpfAYZg\x0a24548\x0a4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>c</data></write>
+    <write><data>rkMspogaNuVHdIgpUvfSggeydCGB\x0a24369\x0a13\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LlBQFbYSAqxZjrcpyCpfAYZg \x28Price: 245.48\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LxIAEsEpDVFQcSdnp \x28Price: 597.37\x2c Count: 7\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>OcJGbobrloEBKPsSnVgfbpQls \x28Price: 545.09\x2c Count: 15\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>TdqMavlmCXbM \x28Price: 188.13\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>ZjxjFuamiliwHcZbsjnYCyHVwrhDbl \x28Price: 772.52\x2c Count: 5\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>jrgOAYPWHwX \x28Price: 845.44\x2c Count: 6\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>rkMspogaNuVHdIgpUvfSggeydCGB \x28Price: 243.69\x2c Count: 13\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LlBQFbYSAqxZjrcpyCpfAYZg \x28Price: 245.48\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LxIAEsEpDVFQcSdnp \x28Price: 597.37\x2c Count: 7\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>OcJGbobrloEBKPsSnVgfbpQls \x28Price: 545.09\x2c Count: 15\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>TdqMavlmCXbM \x28Price: 188.13\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>ZjxjFuamiliwHcZbsjnYCyHVwrhDbl \x28Price: 772.52\x2c Count: 5\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>jrgOAYPWHwX \x28Price: 845.44\x2c Count: 6\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>rkMspogaNuVHdIgpUvfSggeydCGB \x28Price: 243.69\x2c Count: 13\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LlBQFbYSAqxZjrcpyCpfAYZg \x28Price: 245.48\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LxIAEsEpDVFQcSdnp \x28Price: 597.37\x2c Count: 7\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>OcJGbobrloEBKPsSnVgfbpQls \x28Price: 545.09\x2c Count: 15\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>TdqMavlmCXbM \x28Price: 188.13\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>ZjxjFuamiliwHcZbsjnYCyHVwrhDbl \x28Price: 772.52\x2c Count: 5\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>jrgOAYPWHwX \x28Price: 845.44\x2c Count: 6\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>rkMspogaNuVHdIgpUvfSggeydCGB \x28Price: 243.69\x2c Count: 13\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LlBQFbYSAqxZjrcpyCpfAYZg \x28Price: 245.48\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LxIAEsEpDVFQcSdnp \x28Price: 597.37\x2c Count: 7\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>OcJGbobrloEBKPsSnVgfbpQls \x28Price: 545.09\x2c Count: 15\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>TdqMavlmCXbM \x28Price: 188.13\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>ZjxjFuamiliwHcZbsjnYCyHVwrhDbl \x28Price: 772.52\x2c Count: 5\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>jrgOAYPWHwX \x28Price: 845.44\x2c Count: 6\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>rkMspogaNuVHdIgpUvfSggeydCGB \x28Price: 243.69\x2c Count: 13\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>c</data></write>
+    <write><data>VjYeVniQPArTk\x0a11346\x0a18\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LlBQFbYSAqxZjrcpyCpfAYZg \x28Price: 245.48\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LxIAEsEpDVFQcSdnp \x28Price: 597.37\x2c Count: 7\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>OcJGbobrloEBKPsSnVgfbpQls \x28Price: 545.09\x2c Count: 15\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>TdqMavlmCXbM \x28Price: 188.13\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>VjYeVniQPArTk \x28Price: 113.46\x2c Count: 18\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>ZjxjFuamiliwHcZbsjnYCyHVwrhDbl \x28Price: 772.52\x2c Count: 5\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>jrgOAYPWHwX \x28Price: 845.44\x2c Count: 6\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>rkMspogaNuVHdIgpUvfSggeydCGB \x28Price: 243.69\x2c Count: 13\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>b</data></write>
+    <write><data>jrgOAYPWHwX\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>a</data></write>
+    <read><delim>\x0a</delim><match><data>Apple \x28Price: 1.10\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Banana \x28Price: 0.30\x2c Count: 25\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Computer \x28Price: 1000.00\x2c Count: 1\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LlBQFbYSAqxZjrcpyCpfAYZg \x28Price: 245.48\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>LxIAEsEpDVFQcSdnp \x28Price: 597.37\x2c Count: 7\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>OcJGbobrloEBKPsSnVgfbpQls \x28Price: 545.09\x2c Count: 15\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Orange \x28Price: 1.20\x2c Count: 10\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>TdqMavlmCXbM \x28Price: 188.13\x2c Count: 4\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>VjYeVniQPArTk \x28Price: 113.46\x2c Count: 18\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>ZjxjFuamiliwHcZbsjnYCyHVwrhDbl \x28Price: 772.52\x2c Count: 5\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>jrgOAYPWHwX \x28Price: 845.44\x2c Count: 5\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>rkMspogaNuVHdIgpUvfSggeydCGB \x28Price: 243.69\x2c Count: 13\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>b</data></write>
+    <write><data>TdqMavlmCXbM\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>c</data></write>
+    <write><data>IUhWxAYEUZSRJUnYThe\x0a96085\x0a14\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>b</data></write>
+    <write><data>VjYeVniQPArTk\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>c</data></write>
+    <write><data>uaxXay\x27DkPMjaB\x27Sv\x0a28745\x0a9\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+    <write><data>b</data></write>
+    <write><data>OcJGbobrloEBKPsSnVgfbpQls\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Please make a selection:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09a\x29 List products\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09b\x29 Buy a product\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x09c\x29 Sell a product\x0a</data></match></read>
+</replay>
+</pov>
