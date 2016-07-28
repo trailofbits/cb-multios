@@ -11,7 +11,12 @@ function prompt() {
 }
 
 # Install necessary python packages
-pip install pyyaml xlsxwriter
+python -c "import yaml; import xlsxwriter"
+if [[ $? -ne 0 ]]; then
+    echo "Please install pyyaml and xlsxwriter"
+    echo "  $ sudo pip install pyyaml xlsxwriter"
+    exit 1
+fi
 
 # Check if the patched challenges are already there
 REGEN=0
