@@ -1,3 +1,6 @@
+# Using this min version for now
+cmake_minimum_required(VERSION 2.8)
+
 project(cb_porting)
 include_directories(include)  # necessary libraries shared by all challenge binaries
 
