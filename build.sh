@@ -18,17 +18,8 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-# Check if the patched challenges are already there
-REGEN=0
-if [[ -d "$DIR/cqe-challenges" && -n "$(ls -A "$DIR/cqe-challenges" 2>/dev/null)"  ]]; then
-    prompt "Patched challenges already exist. Delete and regenerate?"
-    REGEN=$?
-fi
-
-if [[ ${REGEN} == 0 ]]; then
-    echo "Generating patched challenges..."#
-    ${TOOLS}/cb_patcher.py
-fi
+echo "Running patcher"
+${TOOLS}/cb_patcher.py $@
 
 echo "Generating CMakelists"
 ${TOOLS}/makefiles.py

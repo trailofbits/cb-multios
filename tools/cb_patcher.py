@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import glob
 import os
 import shutil
 import sys
@@ -95,17 +96,36 @@ def listdir(path):
     return sorted(os.listdir(path))
 
 
-def clear_challenges():
-    """Delete all patched directories"""
-    for chal in listdir(CHALLENGE_PATH):
-        shutil.rmtree(os.path.join(CHALLENGE_PATH, chal))
+def clear_challenges(chal_paths):
+    """Delete patched challenge directories"""
+    for chal in chal_paths:
+        try:
+            shutil.rmtree(chal)
+        except OSError:
+            pass
 
 
 def main():
-    clear_challenges()
+    # Check which challenges to patch
+    if len(sys.argv) > 1:
+        # Filter out any invalid challenges
+        chals = set(sys.argv[1:]).intersection(listdir(ORIGINAL_CHALLS))
+
+        # Delete the old challenge folders
+        clear_challenges([os.path.join(CHALLENGE_PATH, c) for c in chals])
+    else:
+        # Get all challenges
+        chals = listdir(ORIGINAL_CHALLS)
+
+        # Prompt before deleting all old challenges
+        existing_chals = glob.glob(os.path.join(CHALLENGE_PATH, '*', ''))
+        if len(existing_chals) > 0:
+            res = raw_input('Patched challenges already exist. Delete and regenerate? (y/n): ') or 'n'
+            if res[0] in 'yY':
+                clear_challenges(existing_chals)
 
     # Copy over one challenge at a time and patch it
-    for chal in listdir(ORIGINAL_CHALLS):  # Only a few for now
+    for chal in chals:  # Only a few for now
         chal_dir = os.path.join(ORIGINAL_CHALLS, chal)
         if os.path.isdir(chal_dir):
             shutil.copytree(chal_dir,
