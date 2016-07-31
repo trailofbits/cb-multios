@@ -1,6 +1,13 @@
-# cb-multios
+# DARPA Challenge Binaries in Linux, Windows, OS X
 
-DARPA CGC Challenges Binaries in Linux, Windows, and OS X
+These programs (CBs) were specifically designed with vulnerabilities that represent a wide variety of software flaws. They are more than simple test cases, they approximate real software with enough complexity to stress both manual and automated vulnerability discovery.
+
+The CBs are the best available benchmark to evaluate program analysis tools. Using them, it is possible to make comparisons such as:
+
+* How good are tools from the Cyber Grand Challenge vs. existing program analysis and bug finding tools
+* When a new tool is released, how does it stack up against the current best?
+* Do static analysis tools that work with source code find more bugs than dynamic analysis tools that work with binaries?
+* Are tools written for Mac OS X better than tools written for Linux, and are they better than tools written for Windows?
 
 ## Building
 
@@ -52,3 +59,6 @@ This will test only POVs against all challenges and save the results:
 $ ./cb_tester.py -a --povs -o out.xlsx
 ```
 
+# Porting Notes
+
+The challenge binaries were written for a platform without a standard libc. Each binary re-implemented just the necessary libc features. Therefore, standard symbols were redefined. By using the `-nostdinc` flag during compilation, we were able to disable the use of standard library headers, and avoid rewriting a lot of challenge binary code.
