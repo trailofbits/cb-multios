@@ -59,6 +59,6 @@ This will test only POVs against all challenges and save the results:
 $ ./cb_tester.py -a --povs -o out.xlsx
 ```
 
-# Porting Notes
+## Porting Notes
 
 The challenge binaries were written for a platform without a standard libc. Each binary re-implemented just the necessary libc features. Therefore, standard symbols were redefined. By using the `-nostdinc` flag during compilation, we were able to disable the use of standard library headers, and avoid rewriting a lot of challenge binary code.
