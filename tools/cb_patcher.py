@@ -127,9 +127,9 @@ def main():
     # Copy over one challenge at a time and patch it
     for chal in chals:  # Only a few for now
         chal_dir = os.path.join(ORIGINAL_CHALLS, chal)
-        if os.path.isdir(chal_dir):
-            shutil.copytree(chal_dir,
-                            os.path.join(CHALLENGE_PATH, chal))
+        dest_dir = os.path.join(CHALLENGE_PATH, chal)
+        if os.path.isdir(chal_dir) and not os.path.isdir(dest_dir):
+            shutil.copytree(chal_dir, dest_dir)
             patch_challenge(chal)
 
 
