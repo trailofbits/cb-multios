@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><length>342</length><match><data>\x0a\x0aThanks for your interest in the Sea Eye Association.\x0aIn order to be considered for the job complete the preliminary online background check\x0aDue to the secure nature of the position you are applying for you may be asked to\x0asubmit additional paperwork after your preliminary background check has been approved.\x0aThank you for your cooperation\x0a</data></match></read>
+    <read><length>21</length><match><data>\x0aCandidate Info Form\x0a</data></match></read>
+    <read><length>11</length><match><data>Last Name: </data></match></read>
+    <write><data>Kent\x0a</data></write>
+    <read><length>12</length><match><data>First Name: </data></match></read>
+    <write><data>Clark\x0a</data></write>
+    <read><length>33</length><match><data>Middle Name \x5bMI or Middle Name\x5d: </data></match></read>
+    <write><data>S\x0a</data></write>
+    <read><length>26</length><match><data>Suffix \x5bJr\x2c Sr\x2c II\x2c etc\x5d: </data></match></read>
+    <write><data>SrAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\x0a</data></write>
+    <read><delim>: </delim><match><pcre>.*</pcre></match></read>
+    <write><data>11\x0a</data></write>
+    <read><delim>: </delim><match><pcre>.*</pcre></match></read>
+    <write><data>\x2a\x2aexit\x0a</data></write>
+    <read><length>11</length><match><data>Thank you!\x0a</data></match></read>
+</replay>
+</pov>

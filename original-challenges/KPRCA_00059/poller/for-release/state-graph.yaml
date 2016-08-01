@@ -1,0 +1,25 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: loc
+- name: speed
+- name: rpm
+- name: doreset
+- name: elapse
+- name: quit
+
+edges:
+- start: loc
+- menu: loc
+- menu: speed
+- menu: rpm
+- menu: doreset
+- menu: elapse
+- menu: quit
+  weight: 0.01
+- loc: menu
+- speed: menu
+- rpm: menu
+- doreset: menu
+- elapse: menu

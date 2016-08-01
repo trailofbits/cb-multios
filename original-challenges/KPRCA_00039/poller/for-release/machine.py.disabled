@@ -1,0 +1,394 @@
+#!/usr/bin/env python
+from generator.actions import Actions
+import copy
+import ctypes
+import random
+import re
+import struct
+import sys
+
+class Go(Actions):
+    def start(self):
+        self.state['bot'] = Bot('User')
+        self.write(struct.pack('<Q', self.state['bot'].seed))
+
+    def read_name_prompt(self):
+        self.read(expect='What is your name?\n', delim='\n')
+
+    def write_name(self):
+        self.write('User\n')
+
+    def read_greeting(self):
+        self.read(expect='Hi, User\n', delim='\n')
+
+    def read_prompt(self):
+        self.read(expect='.*?{} B >'.format(self.state['bot'].ticks), expect_format='pcre', delim='>')
+
+    def play(self):
+        while True:
+            while True:
+                p = self.chance(0.05)
+                x = random.randint(0, 19)
+                y = random.randint(0, 19)
+
+                self.read_prompt()
+                if p:
+                    self.write('pass\n')
+                else:
+                    self.write('{} {}\n'.format(x, y))
+
+                ret = self.state['bot'].interact(Bot.BLACK, x, y, p)
+
+                if ret == 0:
+                    break
+                elif ret == 1:
+                    ret = bot.end_game(self.name, 0)
+                    self.read(expect='.*?' + ret, expect_format='pcre', delim=self.state['bot'].name)
+                    return
+                elif ret == -1:
+                    continue
+
+            ret = self.state['bot'].tick()
+            if ret is not None:
+                self.read(expect='.*?' + ret, expect_format='pcre', delim=self.state['bot'].name)
+                return
+
+
+def pr(s):
+    DEBUG = False
+    if DEBUG:
+        print s
+
+class Bot(object):
+    BLACK = 1
+    WHITE = 2
+    EMPTY = 3
+    OFF_BOARD = 4
+
+    def __init__(self, name):
+        self.name = name
+        self.seed = 0x5555555555555555
+        self.prng_s = ctypes.c_uint64(self.seed)
+        self.zobrist = []
+        self.bd = 19
+        self.np = 2
+        self.history = set()
+        self.board = [[self.EMPTY for _ in xrange(self.bd)] for _ in xrange(self.bd)]
+        self.scores = [0, 0]
+        self.caps = [0, 0]
+        self.used = [0, 0]
+        self.ticks = 0
+        self.passes = 0
+        self.init_zobrist()
+        h = self.hash_zobrist(self.board)
+        pr("DEBUG: SAVING {:x}".format(h))
+        self.history.add(h)
+
+    def prand(self):
+        self.prng_s = ctypes.c_uint64(self.prng_s.value * 1103515245 + 12345)
+        return ctypes.c_uint32(self.prng_s.value / (2 << 15)).value
+
+    def OTHER_PLAYER(self, color):
+        if color == self.BLACK:
+            return self.WHITE
+        else:
+            return self.BLACK
+
+    def copy_board(self):
+        return copy.deepcopy(self.board)
+
+    def init_zobrist(self):
+        for _ in xrange(self.bd * self.bd * self.np):
+            self.zobrist.append(self.prand())
+
+    def hash_zobrist(self, board):
+        h = ctypes.c_uint32(0)
+        for i in xrange(self.bd * self.bd):
+            if (board[i / self.bd][i % self.bd] != self.EMPTY):
+                h.value ^= self.zobrist[i * 2 + board[i / self.bd][i % self.bd] - 1]
+        return h.value
+
+    def color(self, x, y, board=None):
+        if board is None:
+            board = self.board
+        if x >= self.bd or x < 0 or y >= self.bd or y < 0:
+            return self.OFF_BOARD
+        return board[y][x]
+
+    def has_liberty(self, sboard, x, y, color, board=None):
+        if board is None:
+            board = self.board
+
+        c = self.color(x, y)
+        if c == self.OFF_BOARD:
+            return False
+        if sboard[y][x] == 1:
+            return False
+
+        u = self.color(x, y + 1, board)
+        d = self.color(x, y - 1, board)
+        l = self.color(x - 1, y, board)
+        r = self.color(x + 1, y, board)
+
+        sboard[y][x] = 1
+        if (u == self.EMPTY or d == self.EMPTY or l == self.EMPTY or r == self.EMPTY):
+            return True
+
+        if (u == color and self.has_liberty(sboard, x, y + 1, color, board)):
+            return True;
+        elif (d == color and self.has_liberty(sboard, x, y - 1, color, board)):
+            return True;
+        elif (l == color and self.has_liberty(sboard, x - 1, y, color, board)):
+            return True;
+        elif (r == color and self.has_liberty(sboard, x + 1, y, color, board)):
+            return True;
+
+        return False
+
+    def surrounded_by(self, sboard, x, y, color, board=None):
+        if board is None:
+            board = self.board
+
+        cur = self.color(x, y, board)
+        if cur == self.OFF_BOARD or sboard[y][x] == 1:
+            return 1
+
+        if cur == color:
+            sboard[y][x] = 1
+            return 2
+        elif cur == self.OTHER_PLAYER(color):
+            sboard[y][x] = 1
+            return 0
+        elif cur == self.EMPTY:
+            sboard[y][x] = 1
+
+        u = self.surrounded_by(sboard, x, y + 1, color, board);
+        d = self.surrounded_by(sboard, x, y - 1, color, board);
+        l = self.surrounded_by(sboard, x + 1, y, color, board);
+        r = self.surrounded_by(sboard, x - 1, y, color, board);
+
+        if u + d + l + r > 4:
+            return 2
+        else:
+            return 0
+
+    def remove_captures(self, color, board):
+        cnt = 0
+        frozen = copy.deepcopy(board)
+        for y in xrange(self.bd):
+            for x in xrange(self.bd):
+                sboard = [[0 for _ in xrange(self.bd)] for _ in xrange(self.bd)]
+                if self.color(x, y, frozen) == color and not self.has_liberty(sboard, x, y, color, frozen):
+                    cnt += 1
+                    board[y][x] = self.EMPTY
+        pr( "DEBUG: GOT {} CAPS FOR {}".format(cnt, color))
+        return cnt
+
+    def score(self):
+        white = self.caps[self.WHITE - 1]
+        black = self.caps[self.BLACK - 1]
+        for y in xrange(self.bd):
+            for x in xrange(self.bd):
+                sboard = [[0 for _ in xrange(self.bd)] for _ in xrange(self.bd)]
+                cur = self.color(x, y)
+                if cur == self.WHITE:
+                    white += 1
+                    continue
+                elif cur == self.BLACK:
+                    black += 1
+                    continue
+
+                s = self.surrounded_by(sboard, x, y, self.BLACK)
+                if s > 1:
+                    black += 1
+                    continue
+
+                s = self.surrounded_by(sboard, x, y, self.WHITE)
+                if s > 1:
+                    white += 1
+                    continue
+
+        self.scores[self.BLACK - 1] = black
+        self.scores[self.WHITE - 1] = white
+
+
+    def check_and_play(self, x, y, color, play):
+        pr( "DEBUG: Checking: {} {} {}".format(x, y, color))
+        if color != self.EMPTY and self.board[y][x] != self.EMPTY:
+            pr( "DEBUG: NO GOOD")
+            return -1
+
+        pr("DEBUG: SIMMING: {} {} {}".format(x, y, color))
+        simulated = self.copy_board()
+        simulated[y][x] = color
+        our_cap = self.remove_captures(self.OTHER_PLAYER(color), simulated)
+        thr_cap = self.remove_captures(color, simulated)
+
+        h = self.hash_zobrist(simulated)
+        hseen = h in self.history
+        pr( "DEBUG: HISTORY SZ {}".format(len(self.history)))
+        if hseen:
+            pr( "DEBUG: HAS HAPPENED {:x}".format(h))
+            return -1
+        elif play:
+            pr( "DEBUG: SETTING {} {} {}".format(x, y, color))
+            self.board = simulated
+            self.used[color - 1] += 1
+            self.caps[color - 1] += our_cap
+            self.caps[self.OTHER_PLAYER(color) - 1] += thr_cap
+            return 0
+        else:
+            return 0
+
+    def end_game(self, name, reason):
+        s = "Game Over "
+        if reason == 0:
+            s += "Both Passed\n"
+        elif reason == 1:
+            s += "Game Time Exceeded\n"
+        elif reason == 2:
+            s += "Stones Exhausted\n"
+
+        s += "You are a "
+        if self.scores[self.BLACK - 1] > self.scores[self.WHITE - 1]:
+            s += "Winner, "
+        else:
+            s += "Loser, "
+        s += name
+        return s
+
+    def pass_for(self, color):
+        self.passes += 1
+        if (color == self.WHITE and self.passes > 1):
+            return -1
+        else:
+            return 0
+
+    def interact(self, color, x, y, p):
+        pr("DEBUG: I {}".format(color))
+        if (p):
+            pr( "DEBUG: PASSING")
+            return self.pass_for(color) < 0
+
+        if x >= self.bd or x < 0 or y >= self.bd or y < 0:
+            pr( "DEBUG: BAD READ MOVE {} {}".format(x, y))
+            return -1
+
+        pr( "DEBUG: READ {} {}".format(x, y))
+
+        self.passes = 0
+        if self.check_and_play(x, y, color, True) < 0:
+            pr( "DEBUG: BAD CHECK AND PLAY")
+            return -1
+
+        h = self.hash_zobrist(self.board)
+        pr( "DEBUG: SAVING {:x}".format(h))
+        self.history.add(h)
+        return 0
+
+    def calculate_move(self, color):
+        gend = 0
+        bvote = 0
+        bx, by = None, None
+        for y in xrange(self.bd):
+            for x in xrange(self.bd):
+                vote = 0
+                sboard = [[0 for _ in xrange(self.bd)] for _ in xrange(self.bd)]
+                neigh_cnt = 0
+                neigh_cnt += int(self.color(x + 1, y) == color)
+                neigh_cnt += int(self.color(x - 1, y) == color)
+                neigh_cnt += int(self.color(x, y + 1) == color)
+                neigh_cnt += int(self.color(x, y - 1) == color)
+                if neigh_cnt == 4:
+                    vote -= 3
+                elif neigh_cnt == 2:
+                    vote += 1
+                elif neigh_cnt == 1:
+                    vote += 2
+
+                pr( "DEBUG: VOTE ({}, {}) {} {} = {}".format(neigh_cnt, bvote, x, y, vote))
+                if vote >= bvote:
+                    pr( "DEBUG: VOTE >= BVOTE")
+                    if self.check_and_play(x, y, color, False) < 0:
+                        pr( "DEBUG: CALC CONT {} {}".format(x, y))
+                        continue
+
+                    chance = self.prand()
+                    pr( "DEBUG: CHANCE {}".format(chance))
+                    if ((vote == bvote and (chance % 100) > 90) or
+                            (vote > bvote and (chance  % 100) > 75)):
+                        gend += 1
+                        bx = x
+                        by = y
+                        bvote = vote
+
+                        if gend > 5:
+                            return bx, by, "play"
+                else:
+                    pr( "DEBUG: VOTE < BVOTE")
+
+        if gend == 0:
+            return None, None, "pass"
+        else:
+            return bx, by, "play"
+
+    def ai(self, color):
+        pr( "DEBUG: AI {}".format(color))
+        x, y, act = self.calculate_move(color)
+        if act == "pass":
+            self.passes += 1
+        elif x is not None and y is not None and act == "play":
+            pr( "DEBUG: Calculated {} {}".format(x, y))
+            self.check_and_play(x, y, color, True)
+            h = self.hash_zobrist(self.board)
+            pr( "DEBUG: SAVING {:x}".format(h))
+            self.history.add(h)
+        else:
+            raise Exception
+
+    def pb(self):
+        sys.stdout.write("@@")
+        for y in xrange(self.bd):
+            for x in xrange(self.bd):
+                sys.stdout.write("{}".format(self.board[y][x]))
+        sys.stdout.write('\n')
+        sys.stdout.flush()
+
+    def tick(self):
+        self.score()
+        self.ai(self.WHITE)
+        self.score()
+        pr( "DEBUG: TICK {}".format(self.ticks))
+        self.ticks += 1
+        if self.ticks > 150:
+            return self.end_game(self.name, 1)
+        elif self.used[self.BLACK - 1] > 90 or self.used[self.WHITE - 1] > 90:
+            return self.end_game(self.name, 2)
+        else:
+            return None
+
+if __name__ == '__main__':
+    with open(sys.argv[1]) as f:
+        lines = f.readlines()
+
+    lines = filter(
+        lambda x: '<write>' in x,
+        lines
+    )
+
+    lines = map(lambda x: x.strip(), lines)
+    acts = filter(None, map(lambda l: re.search('pass|>(\d+)\s(\d+)', l), lines))
+    cords = map(lambda x: x.groups(), acts)
+
+    bot = Bot('User')
+    for x, y in cords:
+        if x and y:
+            ret = bot.interact(bot.BLACK, int(x), int(y), False)
+        else:
+            ret = bot.interact(bot.BLACK, None, None, True)
+
+        if ret == 0:
+            bot.tick()
+        elif ret == 1:
+            bot.end_game(self.name, 0)
+            break

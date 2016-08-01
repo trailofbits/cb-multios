@@ -1,6 +1,0 @@
-set( POLLS_RELEASE_SEED "-485651521")
-set( POLLS_TESTING_SEED "-334899908")
-set( AUTHOR_ID "NRFIN")
-set( SERVICE_ID "00025")
-set( CFLAGS "-g -O0 -Wno-overlength-strings -Wno-packed -fno-builtin -Wno-int-to-pointer-cast -DDEBUG ")
-buildCB(${CFLAGS})

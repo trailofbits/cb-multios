@@ -1,0 +1,38 @@
+---
+nodes:
+- name: start
+- name: main_menu
+- name: input_matrix
+- name: print_matrix
+- name: add_matrices
+- name: subtract_matrices
+- name: multiply_matrices
+- name: swap_rows
+- name: swap_cols
+- name: transpose
+- name: rref
+- name: do_randomize
+- name: exit
+edges:
+- start: main_menu
+- main_menu: input_matrix
+- main_menu: print_matrix
+- main_menu: add_matrices
+- main_menu: subtract_matrices
+- main_menu: multiply_matrices
+- main_menu: swap_rows
+- main_menu: swap_cols
+- main_menu: transpose
+- main_menu: rref
+- main_menu: do_randomize
+- main_menu: exit
+- input_matrix: main_menu
+- print_matrix: main_menu
+- add_matrices: main_menu
+- subtract_matrices: main_menu
+- multiply_matrices: main_menu
+- swap_rows: main_menu
+- swap_cols: main_menu
+- transpose: main_menu
+- rref: main_menu
+- do_randomize: main_menu

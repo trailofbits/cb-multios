@@ -1,0 +1,200 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x00</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x0a\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x0a</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x0b\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x0b</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x0c\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x0c</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x0d\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x0d</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB8</data></write>
+    <write><data>\x0a</data></write>
+    <write><data>\x00\x10</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x10</data></write>
+
+    <read><delim>\x0a</delim><match><data>\x3cHTML\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cHEAD\x3eMessages\x3c\x2fHEAD\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cBODY\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cb\x3eMessage 0:\x3c\x2fb\x3e\x3cBR\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cb\x3eFrom:\x3c\x2fb\x3e 0\x3cBR\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cb\x3eTo:\x3c\x2fb\x3e 16\x3cBR\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cb\x3eMessage Data:\x3c\x2fb\x3e\x3cBR\x3e\x0a</data></match></read>
+
+    <read><length>8</length><match><data>________</data></match></read>
+
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3c\x2fBODY\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3c\x2fHTML\x3e\x0a</data></match></read>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x0e\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x0e</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x0f\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x0f</data></write>
+
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xBB</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x01\x00</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x01</data></write>
+
+    <read><delim>\x0a</delim><match><data>\x3cHTML\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cHEAD\x3eMessages\x3c\x2fHEAD\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cBODY\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cb\x3eMessage 1:\x3c\x2fb\x3e\x3cBR\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cb\x3eFrom:\x3c\x2fb\x3e 0\x3cBR\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cb\x3eTo:\x3c\x2fb\x3e 0\x3cBR\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3cb\x3eMessage Data:\x3c\x2fb\x3e\x3cBR\x3e\x0a</data></match></read>
+
+    <read><length>2</length><match><data>__</data></match></read>
+
+    <delay>100</delay>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3c\x2fBODY\x3e\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x3c\x2fHTML\x3e\x0a</data></match></read>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x00\x01</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x01</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x00\x02</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x02</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x00\x03</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x03</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x00\x04</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x04</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x01\x01</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x02</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x01\x04</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x05</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x02\x04</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x06</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x03\x04</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x07</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x04\x04</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x08</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x05\x04</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x09</data></write>
+
+    <write><data>\xaa\xaa\xaa\xaa</data></write>
+    <write><data>\xc3\xac</data></write>
+    <write><data>\xB1</data></write>
+    <write><data>\x04</data></write>
+    <write><data>\x06\x04</data></write>
+    <write><data>\x00\x00</data></write>
+    <write><data>\x00\x0a</data></write>
+
+</replay>
+</pov>

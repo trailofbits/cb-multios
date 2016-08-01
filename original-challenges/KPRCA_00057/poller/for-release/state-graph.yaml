@@ -1,0 +1,13 @@
+---
+nodes:
+- name: start
+- name: branch
+- name: add_object
+- name: fin
+
+edges:
+- start: branch
+- branch: add_object
+- branch: fin
+  weight: 0.1
+- add_object: branch

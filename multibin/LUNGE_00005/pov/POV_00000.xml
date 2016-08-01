@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Function pipelines made easy!\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>available functions include:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>0: contains\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1: word\x2dcount\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2: does\x2dnot\x2dcontain\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3: compress\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4: decompress\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Which function do you wish to include?  Available: \x5b01234\x5d \x28Enter an empty line to stop configuration\x29</data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Which function do you wish to include?  Available: \x5b0134\x5d \x28Enter an empty line to stop configuration\x29</data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Which function do you wish to include?  Available: \x5b013\x5d \x28Enter an empty line to stop configuration\x29</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Setting contains to read from 65535 and write to 65535 \x28via 3\x29</data></match></read>
+    <read><delim>\x0a</delim><match><data>Setting word\x2dcount to read from 65535 and write to 65535 \x28via 5\x29</data></match></read>
+    <read><delim>\x0a</delim><match><data>Setting compress to read from 65535 and write to 65535 \x28via 9\x29</data></match></read>
+    <read><delim>\x0a</delim><match><data>function pipeline: does\x2dnot\x2dcontain decompress\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>How do you want to configure \x27does\x2dnot\x2dcontain\x27?\x0a</data></match></read>
+    <write><data>FFFF\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Setting does\x2dnot\x2dcontain to read from 0 and write to 11 \x28via 7\x29</data></match></read>
+    <read><delim>\x0a</delim><match><data>Setting decompress to read from 12 and write to 1 \x28via 11\x29</data></match></read>
+    <write><data>9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9f9\x0a</data></write>
+    <write><data>\x00\x0a</data></write>
+    <read><length>1</length></read>
+</replay>
+</pov>

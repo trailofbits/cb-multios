@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <!-- Dereference arbitrary memory location. This example hits arr+0x48001000, which, given current allocate() impl, should put us around the null page. This pov also tests max bytesize, 0xffffffff -->
+    <write><data>new num blah 0\x0anew arr blah2 1\x0anew view blah3 blah2 byte\x0aset blah3 byteSize blah\x0aset blah 4294967295\x0aget blah3 1207963648\x0a\x00</data></write>
+    <read><delim>\x0a</delim><match><data>Done.</data></match></read>
+</replay>
+</pov>

@@ -6,18 +6,23 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
 #include <sys/select.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) < (b)) ? (b) : (a))
 
+#ifndef SIGPWR
+# define SIGPWR 0
+#endif
 
 enum {
-  k2GiB = 2147483648
+    k2GiB = 2147483648
 };
 
 static uintptr_t gMemBegin = 0;
@@ -163,6 +168,7 @@ void _terminate(unsigned int status) {
 
 /* Updates a byte counter and returns the corresponding status code. */
 static int update_byte_count(size_t *counter, size_t count) {
+  if (!counter) return 0;
   if (!OBJECT_IS_WRITABLE(counter)) {
     return CGC_EFAULT;
   } else {
@@ -247,8 +253,8 @@ static int check_timeout(const struct cgc_timeval *timeout) {
 }
 
 enum {
-  kPracticalMaxNumCBs = 6,
-  kExpectedMaxFDs = 3 + (2 * kPracticalMaxNumCBs)
+    kPracticalMaxNumCBs = 6,
+    kExpectedMaxFDs = 3 + (2 * kPracticalMaxNumCBs)
 };
 
 /* Marshal a CGC fd set into an OS fd set. */
@@ -324,11 +330,11 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
 
   errno = 0;
   int num_selected_fds = select(
-      nfds,
-      (readfds ? &read_fds : NULL),
-      (writefds ? &write_fds : NULL),
-      NULL,
-      (timeout ? &max_wait_time : NULL));
+          nfds,
+          (readfds ? &read_fds : NULL),
+          (writefds ? &write_fds : NULL),
+          NULL,
+          (timeout ? &max_wait_time : NULL));
   const int errno_val = errno;
   errno = 0;
 
@@ -363,7 +369,7 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
 /* Perform a backing memory allocation. */
 static int do_allocate(uintptr_t start, size_t size, void **addr) {
   void *ret_addr = (void *) start;
-  printf("do_allocate: size=%x\n", size);
+//  printf("do_allocate: size=%x\n", size);
   errno = 0;
   void *mmap_addr = mmap(ret_addr, size, PROT_READ | PROT_WRITE,
                          MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
@@ -405,7 +411,7 @@ int allocate(size_t length, int is_executable, void **addr) {
     init_memory();
   }
 
-  printf("do_allocate: length=%x\n", length);
+//  printf("do_allocate: length=%x\n", length);
   length = PAGE_ALIGN(length);  /* Might overflow. */
 
   if (!length || length >= (gMemEnd - gMemBegin)) {
@@ -414,8 +420,8 @@ int allocate(size_t length, int is_executable, void **addr) {
 
   size_t run_length = 0;
   for (size_t start = gMemEnd - PAGE_SIZE;
-      start >= gMemBegin;
-      start -= PAGE_SIZE) {
+       start >= gMemBegin;
+       start -= PAGE_SIZE) {
     if (test_page(start)) {
       run_length = 0;
     } else {

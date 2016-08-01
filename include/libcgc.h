@@ -1,13 +1,6 @@
 #ifndef _LIBCGC_H
 #define _LIBCGC_H
 
-#include <stdint.h>
-
-#ifndef LIBCGC_IMPL
-# include <stddef.h>
-# include <limits.h>
-#endif
-
 #define STDIN 0
 #define STDOUT 1
 #define STDERR 2
@@ -15,10 +8,10 @@
 #ifdef NULL
 # undef NULL
 #endif
-#define NULL ((void *)0)
+#define NULL (0)
 
-typedef uintptr_t size_t;
-typedef intptr_t ssize_t;
+typedef unsigned long size_t;
+typedef long ssize_t;
 
 #ifndef PAGE_SIZE
 # define PAGE_SIZE 4096
@@ -40,39 +33,39 @@ typedef intptr_t ssize_t;
 
 typedef long int _fd_mask;
 
-#define	CGC__NFDBITS (8 * sizeof(_fd_mask))
+#define CGC__NFDBITS (8 * sizeof(_fd_mask))
 
 typedef struct {
-	_fd_mask _fd_bits[CGC_FD_SETSIZE / CGC__NFDBITS];
+    _fd_mask _fd_bits[CGC_FD_SETSIZE / CGC__NFDBITS];
 } cgc_fd_set;
 
-#define	CGC_FD_ZERO(set)							\
-	do {								\
-		int __i;						\
-		for (__i = 0; __i < (CGC_FD_SETSIZE / CGC__NFDBITS); __i++)	\
-			(set)->_fd_bits[__i] = 0;				\
-	} while (0)
+#define CGC_FD_ZERO(set)                                            \
+    do {                                                            \
+        int __i;                                                    \
+        for (__i = 0; __i < (CGC_FD_SETSIZE / CGC__NFDBITS); __i++) \
+            (set)->_fd_bits[__i] = 0;                               \
+    } while (0)
 
-#define	CGC_FD_SET(b, set) \
-	((set)->_fd_bits[b / CGC__NFDBITS] |= (1 << (b & (CGC__NFDBITS - 1))))
+#define CGC_FD_SET(b, set) \
+    ((set)->_fd_bits[b / CGC__NFDBITS] |= (1 << (b & (CGC__NFDBITS - 1))))
 
-#define	CGC_FD_CLR(b, set) \
-	((set)->_fd_bits[b / CGC__NFDBITS] &= ~(1 << (b & (CGC__NFDBITS - 1))))
+#define CGC_FD_CLR(b, set) \
+    ((set)->_fd_bits[b / CGC__NFDBITS] &= ~(1 << (b & (CGC__NFDBITS - 1))))
 
-#define	CGC_FD_ISSET(b, set) \
-	((set)->_fd_bits[b / CGC__NFDBITS] & (1 << (b & (CGC__NFDBITS - 1))))
+#define CGC_FD_ISSET(b, set) \
+    ((set)->_fd_bits[b / CGC__NFDBITS] & (1 << (b & (CGC__NFDBITS - 1))))
 
 struct cgc_timeval {
-	int tv_sec;
-	int tv_usec;
+    int tv_sec;
+    int tv_usec;
 };
 
-#define	CGC_EBADF 1
-#define	CGC_EFAULT 2
-#define	CGC_EINVAL 3
-#define	CGC_ENOMEM 4
-#define	CGC_ENOSYS 5
-#define	CGC_EPIPE 6
+#define CGC_EBADF 1
+#define CGC_EFAULT 2
+#define CGC_EINVAL 3
+#define CGC_ENOMEM 4
+#define CGC_ENOSYS 5
+#define CGC_EPIPE 6
 
 #ifndef LIBCGC_IMPL
 # define FD_SETSIZE CGC_FD_SETSIZE
@@ -94,7 +87,7 @@ void _terminate(unsigned int status) __attribute__((__noreturn__));
 int transmit(int fd, const void *buf, size_t count, size_t *tx_bytes);
 int receive(int fd, void *buf, size_t count, size_t *rx_bytes);
 int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
-	  const struct cgc_timeval *timeout, int *readyfds);
+               const struct cgc_timeval *timeout, int *readyfds);
 int allocate(size_t length, int is_X, void **addr);
 int deallocate(void *addr, size_t length);
 int cgc_random(void *buf, size_t count, size_t *rnd_bytes);

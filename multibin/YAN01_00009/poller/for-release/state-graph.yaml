@@ -1,0 +1,42 @@
+---
+nodes:
+- name: start
+- name: say_hi_good
+- name: say_hi_bad
+- name: get_page
+- name: get_page_good
+- name: get_page_bad
+- name: say_bye
+- name: end
+
+edges:
+
+- start: say_hi_good
+  weight: .75
+- start: say_hi_bad
+  weight: .25
+
+- say_hi_good: get_page
+  weight: .9
+ 
+- say_hi_good: say_bye
+  weight: .1
+
+- say_hi_bad: say_hi_good
+  weight: .9
+
+- say_hi_bad: say_bye
+  weight: .1
+
+- get_page: get_page_good
+- get_page: get_page_bad
+
+- get_page_good: get_page
+- get_page_good: say_bye
+ 
+- get_page_bad: get_page
+- get_page_bad: say_bye
+
+- say_bye: end 
+
+

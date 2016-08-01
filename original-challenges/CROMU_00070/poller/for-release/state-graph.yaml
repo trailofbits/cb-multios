@@ -1,0 +1,33 @@
+---
+nodes:
+- name: start
+- name: command_main
+- name: info
+- name: debug
+- name: update_geofence
+- name: position
+- name: gps_on
+- name: gps_off
+- name: sleep
+- name: wakeup
+- name: shutdown
+
+edges:
+- start: command_main
+- command_main: info
+- command_main: debug
+- command_main: update_geofence
+- command_main: position
+- command_main: gps_on
+- command_main: gps_off
+- command_main: sleep
+- command_main: wakeup
+- command_main: shutdown
+- info: command_main
+- debug: command_main
+- update_geofence: command_main
+- position: command_main
+- gps_on: command_main
+- gps_off: command_main
+- sleep: command_main
+- wakeup: command_main

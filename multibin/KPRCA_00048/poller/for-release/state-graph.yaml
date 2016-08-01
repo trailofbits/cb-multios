@@ -1,0 +1,49 @@
+---
+nodes:
+- name: start
+- name: choose_command
+
+- name: append
+- name: auth
+- name: bitcount
+- name: bitop
+- name: decr
+- name: dele
+- name: exists
+- name: get
+- name: incr
+- name: keys
+- name: rename
+- name: set
+
+- name: quit
+
+edges:
+- start: auth
+- auth: choose_command
+
+- choose_command: append
+- choose_command: bitcount
+- choose_command: bitop
+- choose_command: decr
+- choose_command: dele
+- choose_command: exists
+- choose_command: get
+- choose_command: incr
+- choose_command: keys
+- choose_command: rename
+- choose_command: set
+- choose_command: quit
+  weight: 0.05
+
+- append: choose_command
+- bitcount: choose_command
+- bitop: choose_command
+- decr: choose_command
+- dele: choose_command
+- exists: choose_command
+- get: choose_command
+- incr: choose_command
+- keys: choose_command
+- rename: choose_command
+- set: choose_command

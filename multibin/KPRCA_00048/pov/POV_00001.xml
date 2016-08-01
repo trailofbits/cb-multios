@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim> </delim><match><data>hackdis\x3e </data></match></read>
+    <write><data>auth password\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>auth ok\x0a</data></match></read>
+
+    <write><data>append aaa bbb\x0a</data></write>
+    <read><length>10</length></read>
+
+    <write><data>bitop and aaa bbb\x0a</data></write>
+    <read><length>12</length></read>
+
+    <write><data>quit\x0a</data></write>
+</replay>
+</pov>

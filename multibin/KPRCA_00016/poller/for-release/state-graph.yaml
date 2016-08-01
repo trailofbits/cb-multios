@@ -1,0 +1,33 @@
+---
+nodes:
+- name: start
+- name: help
+- name: register
+- name: login
+- name: logout
+- name: list
+- name: view
+- name: send
+- name: delete
+- name: quit
+- name: menu
+
+edges:
+- start: menu
+- menu: help
+- menu: register
+- menu: login
+- menu: logout
+- menu: list
+- menu: view
+- menu: send
+- menu: delete
+- help: menu
+- register: menu
+- login: menu
+- logout: menu
+- list: menu
+- view: menu
+- send: menu
+- delete: menu
+- menu: quit
