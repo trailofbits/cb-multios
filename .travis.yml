@@ -6,12 +6,9 @@ os:
  - linux
  - osx
 compiler: 
- - gcc
  - clang
 matrix:
  exclude:
-   - compiler: gcc
-     os: osx
    - compiler: clang
      os: linux
 before_install:
