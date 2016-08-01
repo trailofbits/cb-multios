@@ -5,12 +5,12 @@ DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
 TOOLS="$DIR/tools"
 
 # Install necessary python packages
-/usr/bin/env python -c "import yaml; import xlsxwriter"
-if [[ $? -ne 0 ]]; then
-    echo "Please install pyyaml and xlsxwriter"
-    echo "  $ sudo pip install pyyaml xlsxwriter"
-    exit 1
-fi
+#/usr/bin/env python -c "import yaml; import xlsxwriter"
+#if [[ $? -ne 0 ]]; then
+#    echo "Please install pyyaml and xlsxwriter"
+#    echo "  $ sudo pip install pyyaml xlsxwriter"
+#    exit 1
+#fi
 
 echo "Running patcher"
 ${TOOLS}/cb_patcher.py $@
