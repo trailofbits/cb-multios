@@ -4,12 +4,6 @@
 DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
 TOOLS="$DIR/tools"
 
-function prompt() {
-    read -p "$1 (y/n): " -n 1 -r
-    echo
-    [[ $REPLY =~ ^[Yy]$ ]]
-}
-
 # Install necessary python packages
 python -c "import yaml; import xlsxwriter"
 if [[ $? -ne 0 ]]; then
