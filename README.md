@@ -1,5 +1,7 @@
 # DARPA Challenge Binaries in Linux, Windows, OS X
 
+[![Slack Status](https://empireslacking.herokuapp.com/badge.svg)](https://empireslacking.herokuapp.com)
+
 These programs (CBs) were specifically designed with vulnerabilities that represent a wide variety of software flaws. They are more than simple test cases, they approximate real software with enough complexity to stress both manual and automated vulnerability discovery.
 
 The CBs are the best available benchmark to evaluate program analysis tools. Using them, it is possible to make comparisons such as:
@@ -62,3 +64,5 @@ $ ./cb_tester.py -a --povs -o out.xlsx
 ## Porting Notes
 
 The challenge binaries were written for a platform without a standard libc. Each binary re-implemented just the necessary libc features. Therefore, standard symbols were redefined. By using the `-nostdinc` flag during compilation, we were able to disable the use of standard library headers, and avoid rewriting a lot of challenge binary code.
+
+We are working to make the use of this repository easier to understand and use for the evaluation of tools. If you have questions about the challenge binaries, please [join our Slack](https://empireslacking.herokuapp.com) and we'll be happy to answer any of your questions.
