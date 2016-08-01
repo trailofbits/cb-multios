@@ -5,7 +5,7 @@ DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
 TOOLS="$DIR/tools"
 
 # Install necessary python packages
-python -c "import yaml; import xlsxwriter"
+/usr/bin/env python -c "import yaml; import xlsxwriter"
 if [[ $? -ne 0 ]]; then
     echo "Please install pyyaml and xlsxwriter"
     echo "  $ sudo pip install pyyaml xlsxwriter"
