@@ -1,4 +1,4 @@
-# DARPA Challenge Binaries in Linux, Windows, OS X
+# DARPA Challenge Binaries in Linux and OS X
 
 [![Slack Status](https://empireslacking.herokuapp.com/badge.svg)](https://empireslacking.herokuapp.com)
 
@@ -10,6 +10,8 @@ The CBs are the best available benchmark to evaluate program analysis tools. Usi
 * When a new tool is released, how does it stack up against the current best?
 * Do static analysis tools that work with source code find more bugs than dynamic analysis tools that work with binaries?
 * Are tools written for Mac OS X better than tools written for Linux, and are they better than tools written for Windows?
+
+Windows support coming soon!
 
 ## Building
 
