@@ -5,7 +5,7 @@
 
 The DARPA Challenge Binaries (CBs) are custom-made programs specifically designed to contain vulnerabilities that represent a wide variety of crashing software flaws. They are more than simple test cases, they approximate real software with enough complexity to stress both manual and automated vulnerability discovery. The CBs come with extensive functionality tests, triggers for introduced bugs, patches, and performance monitoring tools, enabling benchmarking of patching tools and bug mitigation strategies.
 
-The CBs were originally developed for DECREE -- a custom Linux-derived operating system that has no signals, no shared memory, no threads, no libc runtime, and only seven system calls -- making them incompatible with any existing analysis tools. In this repository, we have modified the CBs to work on Linux and OS X by replacing the build system and creating a new libc-like runtime. Scripts have been provided that help modify the CBs to support other operating systems.
+The CBs were originally developed for DECREE -- a custom Linux-derived operating system that has no signals, no shared memory, no threads, no standard libc runtime, and only seven system calls -- making them incompatible with most existing analysis tools. In this repository, we have modified the CBs to work on Linux and OS X by replacing the build system and re-implementing CGC system calls via standard libc functionality and native operating system semantics. Scripts have been provided that help modify the CBs to support other operating systems.
 
 The CBs are the best available benchmark to evaluate program analysis tools. Using them, it is possible to make comparisons such as:
 
@@ -23,7 +23,7 @@ This directory contains all of the unmodified source code for the challenge bina
 This directory contains `libcgc`, which implements the syscalls to work on non-DECREE systems. `libcgc` currently works on OS X and Linux.
 
 ### tools
-This folder contains python scripts that help with modifying, building, and testing the original challenges.
+This folder contains Python scripts that help with modifying, building, and testing the original challenges.
 
 ### cb_patcher.py
 This script will copy all challenges out of `original-challenges`, modify them as necessary, and place them in `cqe-challenges`. These modifications include: 
@@ -35,7 +35,7 @@ This script will copy all challenges out of `original-challenges`, modify them a
 This will parse the `Makefile` in each challenge folder and generate a `CMakeLists.txt` with the same variables and CFLAGS. This also adds the `-nostdinc` flag to all challenges, so that they have no access to the system libraries, and can only include their own libraries and `libcgc.h`.
 
 ### cb_tester.py
-This is a helper script to test all challenges using `cb-test`. Results are summarized and can be output to an excel spreadsheet. More details below.
+This is a helper script to test all challenges using `cb-test`. Results are summarized and can be output to an excel spreadsheet. More details in the [testing section](#testing) below.
 
 ## Building
 
@@ -55,7 +55,7 @@ These commands will build both the patched and unpatched binaries in the `bin` f
 
 ## Testing
 
-`cb_tester.py` is a wrapper around `cb-test` that can be used to test challenges and summarize results.
+The `cb_tester.py` utility is a wrapper around `cb-test` that can be used to test challenges and summarize results. The [`cb-test`](https://github.com/CyberGrandChallenge/cb-testing) tool is a testing utility created for the DARPA Cyber Grand Challenge to verify CBs are fully functional. 
 
 ### Options
 
@@ -98,6 +98,8 @@ https://docs.google.com/spreadsheets/d/1B88nQFs1G7MZemB2leOROhJKSNIz_Rge6sbd1KZE
 Windows support is coming soon!
 
 The challenge binaries were written for a platform without a standard libc. Each binary re-implemented just the necessary libc features. Therefore, standard symbols were redefined. By using the `-nostdinc` flag during compilation, we were able to disable the use of standard library headers, and avoid rewriting a lot of challenge binary code.
+
+We chose to use the CMake build system to enable portability across different compiler and operating systems. CMake works across a large matrix of compiler and operating system versions, while providing a consistent interface to check for dependencies and build software projects. 
 
 We are working to make this repository easier to use for the evaluation of program analysis tools. If you have questions about the challenge binaries, please [join our Slack](https://empireslacking.herokuapp.com) and we'll be happy to answer them.
 
