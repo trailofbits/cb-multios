@@ -29,6 +29,7 @@ This folder contains Python scripts that help with modifying, building, and test
 This script will copy all challenges out of `original-challenges`, modify them as necessary, and place them in `cqe-challenges`. These modifications include: 
 
 * Deleting `libcgc.h` if it appears anywhere in the challenge source
+* Deleting any C++ definitions that are required for the cgc runtime
 * A set of find/replace definitions in `manual_patches.yaml`
 
 ### makefiles.py
@@ -55,7 +56,13 @@ These commands will build both the patched and unpatched binaries in the `bin` f
 
 ## Testing
 
-The `cb_tester.py` utility is a wrapper around `cb-test` that can be used to test challenges and summarize results. The [`cb-test`](https://github.com/CyberGrandChallenge/cb-testing) tool is a testing utility created for the DARPA Cyber Grand Challenge to verify CBs are fully functional. 
+The `cb_tester.py` utility is a wrapper around `cb-test` that can be used to test challenges and summarize results. The [`cb-test`](https://github.com/CyberGrandChallenge/cb-testing) tool is a testing utility created for the DARPA Cyber Grand Challenge to verify CBs are fully functional.
+
+`cb-test` has been modified to use `socat` as the challenge server instead of `cb-server`. Further changes include:
+
+* Always running the challenges on localhost
+* Skipping any checks that verify the file is a valid DECREE binary
+* Lessening sleeps and timeouts to allow tests to run at a reasonable rate
 
 ### Options
 
