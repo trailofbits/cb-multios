@@ -43,6 +43,9 @@ def generate_cmake(path):
     with open(cmake_path, 'w') as f:
         f.write(cmake)
 
+    # Delete the now unused Makefile
+    os.remove(path)
+
 
 def main():
     makefiles = glob.glob(os.path.join(CHAL_DIR, '*', 'Makefile'))
