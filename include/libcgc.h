@@ -10,8 +10,13 @@
 #endif
 #define NULL (0)
 
+#if defined(APPLE) || defined(__LP64__) || defined(_LP64)
 typedef unsigned long size_t;
 typedef long ssize_t;
+#elif defined(LINUX)
+typedef unsigned int size_t;
+typedef int ssize_t;
+#endif
 
 #ifndef PAGE_SIZE
 # define PAGE_SIZE 4096
