@@ -17,7 +17,7 @@ matrix:
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo easy_install pip; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo pip install --upgrade pyyaml xlsxwriter; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then pip install --upgrade pip; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo pip install --upgrade pip; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then pip uninstall pyyaml; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then pip install --upgrade pyyaml xlsxwriter; fi
 script:
