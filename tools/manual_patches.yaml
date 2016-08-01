@@ -4,6 +4,11 @@
 # [filename]:
 #   '[code to be replaced]': '[replacement]'
 #   ...
+#
+#   # Everything inside the 're' key is treated a regex substitution
+#   re:
+#     '[regex match]': '[replace]'
+#     ...
 
 # Patches that should be applied to all files
 all:
@@ -11,6 +16,11 @@ all:
   'fdwait(': 'cgc_fdwait('
   'timeval': 'cgc_timeval'
   'fd_set': 'cgc_fd_set'
+  'ssize_t': 'cgc_ssize_t'
+
+  re:
+    '([^s])size_t': '\1cgc_size_t'
+
 
 # Some fixes for challenges that used C++
 # KPRCA 53, 54, TNETS 2

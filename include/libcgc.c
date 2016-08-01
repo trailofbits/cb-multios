@@ -37,7 +37,7 @@ static uint8_t gMappedPages[(k2GiB / PAGE_SIZE) / 8] = {0};
  */
 static void init_memory(void) {
   errno = 0;
-  size_t alloc_size = k2GiB;
+  cgc_size_t alloc_size = k2GiB;
   int errno_val = ENOMEM;
   void *mem = NULL;
   for (; errno_val && alloc_size; alloc_size /= 2) {
@@ -57,23 +57,23 @@ static void init_memory(void) {
 }
 
 static int test_page(uintptr_t addr) {
-  const size_t page = (addr - gMemBegin) / PAGE_SIZE;
-  const size_t byte = page / 8;
-  const size_t bit = page % 8;
+  const cgc_size_t page = (addr - gMemBegin) / PAGE_SIZE;
+  const cgc_size_t byte = page / 8;
+  const cgc_size_t bit = page % 8;
   return 0 != (gMappedPages[byte] & (1U << bit));
 }
 
 static void set_page(uintptr_t addr) {
-  const size_t page = (addr - gMemBegin) / PAGE_SIZE;
-  const size_t byte = page / 8;
-  const size_t bit = page % 8;
+  const cgc_size_t page = (addr - gMemBegin) / PAGE_SIZE;
+  const cgc_size_t byte = page / 8;
+  const cgc_size_t bit = page % 8;
   gMappedPages[byte] |= 1U << bit;
 }
 
 static void clear_page(uintptr_t addr) {
-  const size_t page = (addr - gMemBegin) / PAGE_SIZE;
-  const size_t byte = page / 8;
-  const size_t bit = page % 8;
+  const cgc_size_t page = (addr - gMemBegin) / PAGE_SIZE;
+  const cgc_size_t byte = page / 8;
+  const cgc_size_t bit = page % 8;
   gMappedPages[byte] &= ~(1U << bit);
 }
 
@@ -120,12 +120,12 @@ static int page_is_writable(void *ptr) {
 
 /* Returns the number of readable bytes pointed to by `ptr`, up to a maximum
  * of `size` bytes. */
-static size_t num_readable_bytes(const void *ptr, size_t size) {
+static cgc_size_t num_readable_bytes(const void *ptr, cgc_size_t size) {
   const uintptr_t addr = (uintptr_t) ptr;
   const uintptr_t end_addr = addr + size;
   uintptr_t page_addr = addr & ~(((uintptr_t) PAGE_SIZE) - 1);
-  size_t count = 0;
-  size_t disp = addr - page_addr;
+  cgc_size_t count = 0;
+  cgc_size_t disp = addr - page_addr;
   for (; page_addr < end_addr; page_addr += PAGE_SIZE) {
     if (!page_is_readable((const void *) page_addr)) {
       break;
@@ -138,12 +138,12 @@ static size_t num_readable_bytes(const void *ptr, size_t size) {
 
 /* Returns the number of writable bytes pointed to by `ptr`, up to a maximum
  * of `size` bytes. */
-static size_t num_writable_bytes(void *ptr, size_t size) {
+static cgc_size_t num_writable_bytes(void *ptr, cgc_size_t size) {
   const uintptr_t addr = (uintptr_t) ptr;
   const uintptr_t end_addr = addr + size;
   uintptr_t page_addr = addr & ~(((uintptr_t) PAGE_SIZE) - 1);
-  size_t count = 0;
-  size_t disp = addr - page_addr;
+  cgc_size_t count = 0;
+  cgc_size_t disp = addr - page_addr;
   for (; page_addr < end_addr; page_addr += PAGE_SIZE) {
     if (!page_is_readable((const void *) page_addr) ||
         !page_is_writable((void *) page_addr)) {
@@ -168,7 +168,7 @@ void _terminate(unsigned int status) {
   (sizeof(*(ptr)) == num_writable_bytes((ptr), sizeof(*(ptr))))
 
 /* Updates a byte counter and returns the corresponding status code. */
-static int update_byte_count(size_t *counter, size_t count) {
+static int update_byte_count(cgc_size_t *counter, cgc_size_t count) {
   if (!counter) return 0;
   if (!OBJECT_IS_WRITABLE(counter)) {
     return CGC_EFAULT;
@@ -179,14 +179,14 @@ static int update_byte_count(size_t *counter, size_t count) {
 }
 
 /* Transmits data from one CGC process to another. */
-int transmit(int fd, const void *buf, size_t count, size_t *tx_bytes) {
+int transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
   if (!count) {
     return update_byte_count(tx_bytes, 0);
   } else if (0 > fd) {
     return CGC_EBADF;
   }
 
-  const size_t max_count = num_readable_bytes(buf, count);
+  const cgc_size_t max_count = num_readable_bytes(buf, count);
   if (!max_count) {
     return CGC_EFAULT;
   } else if (max_count < count) {
@@ -196,7 +196,7 @@ int transmit(int fd, const void *buf, size_t count, size_t *tx_bytes) {
   }
 
   errno = 0;
-  const ssize_t ret = write(fd, buf, count);
+  const cgc_ssize_t ret = write(fd, buf, count);
   const int errno_val = errno;
   errno = 0;
 
@@ -207,25 +207,25 @@ int transmit(int fd, const void *buf, size_t count, size_t *tx_bytes) {
   } else if (errno_val) {
     return CGC_EPIPE;  /* Guess... */
   } else {
-    return update_byte_count(tx_bytes, (size_t) ret);
+    return update_byte_count(tx_bytes, (cgc_size_t) ret);
   }
 }
 
 /* Receives data from another CGC process. */
-int receive(int fd, void *buf, size_t count, size_t *rx_bytes) {
+int receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
   if (!count) {
     return update_byte_count(rx_bytes, 0);
   } else if (0 > fd) {
     return CGC_EBADF;
   }
 
-  const size_t max_count = num_writable_bytes(buf, count);
+  const cgc_size_t max_count = num_writable_bytes(buf, count);
   if (!max_count) {
     return CGC_EFAULT;
   }
 
   errno = 0;
-  const ssize_t ret = read(fd, buf, max_count);
+  const cgc_ssize_t ret = read(fd, buf, max_count);
   const int errno_val = errno;
   errno = 0;
 
@@ -236,7 +236,7 @@ int receive(int fd, void *buf, size_t count, size_t *rx_bytes) {
   } else if (errno_val) {
     return CGC_EPIPE;  /* Guess... */
   } else {
-    return update_byte_count(rx_bytes, (size_t) ret);
+    return update_byte_count(rx_bytes, (cgc_size_t) ret);
   }
 }
 
@@ -368,7 +368,7 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
 }
 
 /* Perform a backing memory allocation. */
-static int do_allocate(uintptr_t start, size_t size, void **addr) {
+static int do_allocate(uintptr_t start, cgc_size_t size, void **addr) {
   void *ret_addr = (void *) start;
 //  printf("do_allocate: size=%x\n", size);
   errno = 0;
@@ -405,7 +405,7 @@ static int do_allocate(uintptr_t start, size_t size, void **addr) {
  * challenges, and if it were used, then JITed code would likely be 32-bit, and
  * ideally, this code will also work on 64-bit.
  */
-int allocate(size_t length, int is_executable, void **addr) {
+int allocate(cgc_size_t length, int is_executable, void **addr) {
   if (!length) {
     return CGC_EINVAL;
   } else if (!gMemBegin) {
@@ -419,8 +419,8 @@ int allocate(size_t length, int is_executable, void **addr) {
     return CGC_EINVAL;  /* Too big of a request! */
   }
 
-  size_t run_length = 0;
-  for (size_t start = gMemEnd - PAGE_SIZE;
+  cgc_size_t run_length = 0;
+  for (cgc_size_t start = gMemEnd - PAGE_SIZE;
        start >= gMemBegin;
        start -= PAGE_SIZE) {
     if (test_page(start)) {
@@ -436,7 +436,7 @@ int allocate(size_t length, int is_executable, void **addr) {
 }
 
 /* Deallocate some range of memory and mark the pages as free. */
-int deallocate(void *addr, size_t length) {
+int deallocate(void *addr, cgc_size_t length) {
   uintptr_t base = (uintptr_t) addr;
   if (!length || base != PAGE_ALIGN(base)) {
     return CGC_EINVAL;
@@ -476,7 +476,7 @@ int deallocate(void *addr, size_t length) {
 }
 
 /* So this isn't really a random number generator. */
-int cgc_random(void *buf, size_t count, size_t *rnd_bytes) {
+int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
   if (!count) {
     return update_byte_count(rnd_bytes, 0);
   } else if (count > SSIZE_MAX) {

@@ -10,13 +10,8 @@
 #endif
 #define NULL (0)
 
-#if defined(APPLE) || defined(__LP64__) || defined(_LP64)
-typedef unsigned long size_t;
-typedef long ssize_t;
-#elif defined(LINUX)
-typedef unsigned int size_t;
-typedef int ssize_t;
-#endif
+typedef unsigned long cgc_size_t;
+typedef long cgc_ssize_t;
 
 #ifndef PAGE_SIZE
 # define PAGE_SIZE 4096
@@ -27,11 +22,11 @@ typedef int ssize_t;
 #endif
 
 #ifndef SSIZE_MAX
-# define SSIZE_MAX ((ssize_t)((~((size_t)0ULL))>>1))
+# define SSIZE_MAX ((cgc_ssize_t)((~((cgc_size_t)0ULL))>>1))
 #endif
 
 #ifndef SIZE_MAX
-# define SIZE_MAX (~((size_t)0ULL))
+# define SIZE_MAX (~((cgc_size_t)0ULL))
 #endif
 
 #define CGC_FD_SETSIZE 1024
@@ -89,13 +84,13 @@ struct cgc_timeval {
 #endif
 
 void _terminate(unsigned int status) __attribute__((__noreturn__));
-int transmit(int fd, const void *buf, size_t count, size_t *tx_bytes);
-int receive(int fd, void *buf, size_t count, size_t *rx_bytes);
+int transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes);
+int receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes);
 int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
                const struct cgc_timeval *timeout, int *readyfds);
-int allocate(size_t length, int is_X, void **addr);
-int deallocate(void *addr, size_t length);
-int cgc_random(void *buf, size_t count, size_t *rnd_bytes);
+int allocate(cgc_size_t length, int is_X, void **addr);
+int deallocate(void *addr, cgc_size_t length);
+int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes);
 
 typedef struct { long _b[8]; } jmp_buf[1];
 int setjmp(jmp_buf) __attribute__((__returns_twice__));

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import glob
 import os
+import re
 import shutil
 import sys
 
@@ -14,22 +15,45 @@ CHALLENGE_PATH = os.path.join(os.path.dirname(TOOLS_DIR), 'cqe-challenges')
 with open(os.path.join(TOOLS_DIR, 'manual_patches.yaml')) as f:
     mpatches = yaml.safe_load(f)
 
+# Special keys used in the patches yaml
+YAML_ALL = 'all'
+YAML_RE = 're'
+
 
 def debug(s):
     sys.stdout.write(str(s))
     sys.stdout.flush()
 
 
+def apply_regex(src, patch_dict):
+    # type: (str, dict) -> str
+    if YAML_RE not in patch_dict:
+        return src
+
+    for pat, repl in patch_dict[YAML_RE].iteritems():
+        src = re.sub(pat, repl, src)
+    return src
+
+
+def apply_match_rep(src, patch_dict):
+    # type: (str, dict) -> str
+    for match, rep in patch_dict.iteritems():
+        if isinstance(rep, str):
+            src = src.replace(match, rep)
+    return src
+
+
 def apply_manual_patches(fname, src):
     # type: (str, str) -> str
     # Apply everything in 'all' first
-    for match, rep in mpatches['all'].iteritems():
-        src = src.replace(match, rep)
+    src = apply_match_rep(src, mpatches[YAML_ALL])
+    src = apply_regex(src, mpatches[YAML_ALL])
 
     # Apply any patches specific to this file
     if fname in mpatches:
-        for match, rep in mpatches[fname].iteritems():
-            src = src.replace(match, rep)
+        src = apply_match_rep(src, mpatches[fname])
+        src = apply_regex(src, mpatches[fname])
+
     return src
 
 
