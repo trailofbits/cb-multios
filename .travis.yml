@@ -7,10 +7,6 @@ os:
  - osx
 compiler: 
  - clang
-matrix:
- exclude:
-   - compiler: clang
-     os: linux
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo easy_install pip; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo pip install --upgrade pyyaml xlsxwriter; fi
