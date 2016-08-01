@@ -6,7 +6,6 @@ include_directories(include)  # necessary libraries shared by all challenge bina
 
 if(UNIX AND NOT APPLE)
     set(LINUX TRUE)
-    set(CMAKE_C_COMPILER clang)
 endif()
 if(APPLE)
     set(APPLE TRUE)  # accurate on my mac
