@@ -98,7 +98,7 @@ $ ./cb_tester.py -a --povs -o out.xlsx
 
 Porting the Challenge Binaries is a work in progress, and the current status of the porting effort is tracked in the following spreadsheet:
 
-https://docs.google.com/spreadsheets/d/1B88nQFs1G7MZemB2leOROhJKSNIz_Rge6sbd1KZESuE/edit?pli=1#gid=1553177307
+https://drive.google.com/open?id=0B5IktF0SDNcaYTRmWlZwWjVrbHc
 
 ## Notes
 
