@@ -16,6 +16,7 @@ matrix:
      os: linux
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo easy_install pip; fi
-  - sudo pip install pyyaml xlsxwriter
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo pip install --upgrade pip; fi
+  - sudo pip install --upgrade pyyaml xlsxwriter
 script:
   - ./build.sh
