@@ -2,8 +2,6 @@ sudo: required
 dist: trusty
 osx_image: xcode8
 language: cpp
-virtualenv:
-  system_site_packages: true
 os: 
  - linux
  - osx
@@ -19,7 +17,7 @@ matrix:
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo easy_install pip; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo pip install --upgrade pyyaml xlsxwriter; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get -qq update; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get -y install python-yaml python-xlsxwriter; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo pip install --upgrade pip; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo pip install --upgrade pyyaml xlsxwriter; fi
 script:
   - ./build.sh
