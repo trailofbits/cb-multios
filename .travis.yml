@@ -15,7 +15,7 @@ matrix:
    - compiler: clang
      os: linux
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; sudo easy_install pip; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo easy_install pip; fi
   - sudo pip install pyyaml xlsxwriter
 script:
   - ./build.sh
