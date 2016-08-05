@@ -74,3 +74,14 @@ tornado.c:
 vm.c:
   'syscall_random,': 'syscall_cgc_random,'
 
+# Fix for newer C++ challenges
+new.h:
+  'inline void * operator new(unsigned int length, void *ptr)': 'inline void * operator new(cgc_size_t length, void *ptr)'
+
+# Azurad fixes
+parser.cc: &azurad
+  re:
+    'std::(cgc_)?size_t': 'cgc_size_t'
+
+parser.h:
+  <<: *azurad
