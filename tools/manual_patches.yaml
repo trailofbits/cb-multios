@@ -68,3 +68,9 @@ tornado.c:
         __asm__ volatile ( "psrld %1, %0" : "+x" (a) : "i" (b) );
         return a;
     }
+
+# Minor rename in vFilter
+# TODO: use a regex for this kind of stuff in 'all'
+vm.c:
+  'syscall_random,': 'syscall_cgc_random,'
+
