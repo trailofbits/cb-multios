@@ -1,8 +1,11 @@
 # Using this min version for now
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 
 project(cb_porting)
 include_directories(include)  # necessary libraries shared by all challenge binaries
+
+# Needed for newer challenges
+set(CMAKE_CXX_STANDARD 11)
 
 if(UNIX AND NOT APPLE)
     set(LINUX TRUE)
