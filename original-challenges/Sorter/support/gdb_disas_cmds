@@ -1,0 +1,10 @@
+set logging on
+set pagination off
+disas /r heap_propagate
+disas /r heap_sort
+disas /r heapify
+disas /r insertion_sort
+disas /r merge_helper
+disas /r merge_sort
+disas /r selection_sort
+quit

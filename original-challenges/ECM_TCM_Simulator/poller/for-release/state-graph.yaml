@@ -1,0 +1,16 @@
+---
+nodes:
+- name: start
+- name: init_run
+- name: run
+- name: exit_simulation
+- name: restart
+
+edges:
+- start: init_run
+- init_run: run
+- run: exit_simulation
+  weight: 0.50
+- run: restart
+  weight: 0.50
+- restart: init_run

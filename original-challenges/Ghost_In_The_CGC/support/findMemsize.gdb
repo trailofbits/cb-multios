@@ -1,0 +1,4 @@
+break *0x804810b
+r
+x /x $ebp-0xc
+quit

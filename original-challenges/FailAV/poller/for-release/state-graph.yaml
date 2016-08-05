@@ -1,0 +1,19 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: query
+- name: update
+- name: whitelist
+- name: quit
+
+edges:
+- start: query
+- menu: query
+- menu: update
+- menu: whitelist
+- menu: quit
+  weight: 0.04
+- query: menu
+- update: menu
+- whitelist: menu

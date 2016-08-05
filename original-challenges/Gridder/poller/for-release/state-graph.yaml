@@ -1,0 +1,28 @@
+---
+nodes:
+- name: start
+- name: player_selection
+- name: new_gridder
+- name: ask_difficulty_range
+- name: give_up
+- name: solve_gridder
+- name: change_difficulty
+- name: change_board_size
+- name: exit
+
+edges:
+- start: player_selection
+- player_selection: new_gridder
+- new_gridder: player_selection
+- player_selection: ask_difficulty_range
+- ask_difficulty_range: player_selection
+- player_selection: give_up
+- give_up: player_selection
+- player_selection: solve_gridder
+- solve_gridder: player_selection
+- player_selection: change_difficulty
+- change_difficulty: player_selection
+- player_selection: change_board_size
+- change_board_size: player_selection
+- player_selection: exit
+  weight: .1

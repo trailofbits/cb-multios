@@ -1,0 +1,45 @@
+---
+nodes:
+- name: start
+- name: unmounted
+- name: mount
+- name: mounted
+- name: list_files
+- name: recursively_list_files
+- name: preview_file
+- name: read_file
+- name: write_file
+- name: update_file
+- name: add_file
+- name: add_directory
+- name: delete_file
+- name: delete_directory
+- name: exit
+
+edges:
+- start: unmounted
+- unmounted: mount
+- unmounted: exit
+- mount: mounted
+- mounted: list_files
+- list_files: mounted
+- mounted: recursively_list_files
+- recursively_list_files: mounted
+- mounted: preview_file
+- preview_file: mounted
+- mounted: read_file
+- read_file: mounted
+- mounted: write_file
+- write_file: mounted
+- mounted: update_file
+- update_file: mounted
+- mounted: add_file
+- add_file: mounted
+- mounted: add_directory
+- add_directory: mounted
+- mounted: delete_file
+- delete_file: mounted
+- mounted: delete_directory
+- delete_directory: mounted
+- mounted: exit
+

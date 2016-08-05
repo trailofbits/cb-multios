@@ -1,0 +1,20 @@
+---
+nodes:
+- name: start
+- name: genInstructions
+- name: genLDI
+- name: genALU
+- name: genBranch
+- name: dumpState
+
+edges:
+- start: genInstructions
+- genInstructions: genLDI
+- genInstructions: genALU
+- genInstructions: dumpState
+  weight: 0.005
+- genInstructions: genBranch
+  weight: 0.1
+- genLDI: genInstructions
+- genALU: genInstructions
+- genBranch: genInstructions

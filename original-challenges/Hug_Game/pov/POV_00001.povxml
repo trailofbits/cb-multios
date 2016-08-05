@@ -1,0 +1,53 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE cfepov SYSTEM "/usr/share/cgc-docs/cfe-pov.dtd">
+<cfepov>
+<cbid>service</cbid>
+<replay>
+    <negotiate><type1><ipmask>0xF7F7F7F7</ipmask><regmask>0xF7F7F7F7</regmask><regnum>0</regnum></type1></negotiate>
+    <read><delim>\x0a</delim><match><data>Welcome to the hug gambling server.</data></match></read>
+    <read><delim>\x0a</delim><match><data>What is your name?</data></match></read>
+    <write><data>\xd0\xdd\xdd\x08\xb8</data>
+    <var>TYPE1_REG</var>
+    <data>\x68</data>
+    <var>TYPE1_IP</var>
+    <data>\xc3\x00\x00\x00\x00\xeb\xfe\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0a</data></write>
+    <read><delim>. </delim></read>
+    <read><delim>\x0a</delim><match><data>You have 1000 hugs. Shall we play a game?</data></match></read>
+    <read><delim>\x0a</delim><match><data>1. Coin Flip</data></match></read>
+    <read><delim>\x0a</delim><match><data>2. Hangman</data></match></read>
+    <read><delim>\x0a</delim><match><data>3. Dice game</data></match></read>
+    <read><delim>\x0a</delim><match><data>q. Quit</data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><delim>? </delim><match><data>How much would you like to wager</data></match></read>
+    <write><data>24\x0a</data></write>
+    <read><delim>? </delim><match><data>How many rolls do you want</data></match></read>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>24\x0a</data></write>
+    <write><data>q\x0a</data></write>
+    <write><data>q\x0a</data></write>
+    <write><data>q\x0a</data></write>
+    <write><data>q\x0a</data></write>
+</replay>
+</cfepov>

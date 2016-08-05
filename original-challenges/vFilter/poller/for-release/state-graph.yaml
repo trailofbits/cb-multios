@@ -1,0 +1,11 @@
+---
+nodes:
+- name: start
+- name: random_pkts
+- name: random_filter
+- name: execute
+
+edges:
+- start: random_pkts
+- random_pkts: random_filter
+- random_filter: execute

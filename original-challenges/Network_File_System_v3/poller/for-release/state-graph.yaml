@@ -1,0 +1,120 @@
+---
+nodes:
+- name: start
+- name: TestLogin
+- name: TestDir
+- name: TestRead
+- name: TestWrite
+- name: TestWriteAppend
+- name: TestDel
+- name: TestRename
+- name: end
+edges:
+- start: TestLogin
+  weight: 1.0
+
+- TestLogin: TestDir
+  weight: 1.0
+- TestLogin: TestRead
+  weight: 1.0
+- TestLogin: TestWrite
+  weight: 1.0
+- TestLogin: TestWriteAppend
+  weight: 1.0
+- TestLogin: TestDel
+  weight: 1.0
+- TestLogin: TestRename
+  weight: 1.0
+- TestLogin: end
+  weight: 1.0
+
+- TestDir: TestDir
+  weight: 1.0
+- TestDir: TestRead
+  weight: 1.0
+- TestDir: TestWrite
+  weight: 1.0
+- TestDir: TestWriteAppend
+  weight: 1.0
+- TestDir: TestDel
+  weight: 1.0
+- TestDir: TestRename
+  weight: 1.0
+- TestDir: end
+  weight: 1.0
+
+- TestRead: TestDir
+  weight: 1.0
+- TestRead: TestRead
+  weight: 1.0
+- TestRead: TestWrite
+  weight: 1.0
+- TestRead: TestWriteAppend
+  weight: 1.0
+- TestRead: TestDel
+  weight: 1.0
+- TestRead: TestRename
+  weight: 1.0
+- TestRead: end
+  weight: 1.0
+
+- TestWrite: TestDir
+  weight: 1.0
+- TestWrite: TestRead
+  weight: 1.0
+- TestWrite: TestWrite
+  weight: 1.0
+- TestWrite: TestWriteAppend
+  weight: 1.0
+- TestWrite: TestDel
+  weight: 1.0
+- TestWrite: TestRename
+  weight: 1.0
+- TestWrite: end
+  weight: 1.0
+
+- TestWriteAppend: TestDir
+  weight: 1.0
+- TestWriteAppend: TestRead
+  weight: 1.0
+- TestWriteAppend: TestWrite
+  weight: 1.0
+- TestWriteAppend: TestWriteAppend
+  weight: 1.0
+- TestWriteAppend: TestDel
+  weight: 1.0
+- TestWriteAppend: TestRename
+  weight: 1.0
+- TestWriteAppend: end
+  weight: 1.0
+
+- TestDel: TestDir
+  weight: 1.0
+- TestDel: TestRead
+  weight: 1.0
+- TestDel: TestWrite
+  weight: 1.0
+- TestDel: TestWriteAppend
+  weight: 1.0
+- TestDel: TestDel
+  weight: 1.0
+- TestDel: TestRename
+  weight: 1.0
+- TestDel: end
+  weight: 1.0
+
+- TestRename: TestDir
+  weight: 1.0
+- TestRename: TestRead
+  weight: 1.0
+- TestRename: TestWrite
+  weight: 1.0
+- TestRename: TestWriteAppend
+  weight: 1.0
+- TestRename: TestDel
+  weight: 1.0
+- TestRename: TestRename
+  weight: 1.0
+- TestRename: end
+  weight: 1.0
+

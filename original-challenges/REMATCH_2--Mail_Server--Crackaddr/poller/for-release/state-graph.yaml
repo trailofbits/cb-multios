@@ -1,0 +1,26 @@
+---
+nodes:
+- name: start
+- name: sendmail
+- name: sendmail_loop
+- name: sendmail_ADDRESSBOOK
+- name: sendmail_LIST
+- name: sendmail_LISTALL
+- name: sendmail_POST
+- name: sendmail_READ
+- name: sendmail_quit
+
+edges:
+- start: sendmail
+- sendmail: sendmail_loop
+- sendmail_loop: sendmail_ADDRESSBOOK
+- sendmail_loop: sendmail_LIST
+- sendmail_loop: sendmail_LISTALL
+- sendmail_loop: sendmail_POST
+- sendmail_loop: sendmail_READ
+- sendmail_loop: sendmail_quit
+- sendmail_ADDRESSBOOK: sendmail_loop
+- sendmail_LIST: sendmail_loop
+- sendmail_LISTALL: sendmail_loop
+- sendmail_POST: sendmail_loop
+- sendmail_READ: sendmail_loop

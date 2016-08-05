@@ -1,0 +1,21 @@
+---
+nodes:
+- name: start
+- name: user_menu
+- name: input_barcode
+- name: view_barcode_ascii
+- name: view_cached_barcodes
+- name: generate_barcode_image
+- name: exit
+edges:
+- start: user_menu
+- user_menu: exit
+- user_menu: input_barcode
+- input_barcode: user_menu
+- user_menu: view_barcode_ascii
+- view_barcode_ascii: user_menu
+- user_menu: view_cached_barcodes
+- view_cached_barcodes: user_menu
+- user_menu: generate_barcode_image
+  weight: .5
+- generate_barcode_image: user_menu

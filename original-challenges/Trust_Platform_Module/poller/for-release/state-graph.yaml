@@ -1,0 +1,30 @@
+---
+nodes:
+- name: start
+- name: _choose
+- name: _extend
+- name: _reset
+- name: _xorhash
+- name: _zero
+- name: end
+
+edges:
+- start: _choose
+
+- _choose: _extend
+  weight: 1
+- _choose: _reset
+  weight: .25
+- _choose: _xorhash
+  weight: 1
+- _choose: _zero
+  weight: .5
+
+- _extend: _choose
+- _reset: _choose
+
+- _xorhash: _choose
+- _xorhash: end
+  weight: .25
+
+- _zero: _choose

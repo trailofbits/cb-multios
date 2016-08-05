@@ -1,0 +1,89 @@
+---
+nodes:
+- name: start
+- name: command
+
+- name: implicit_push
+- name: explicit_push
+- name: add
+- name: sub
+- name: mul
+- name: div
+- name: fact
+- name: neg
+- name: abs
+- name: mod_
+- name: and_
+- name: or_
+- name: xor
+- name: not_
+- name: sum_
+- name: avg
+- name: dup
+- name: dupn
+- name: min
+- name: max
+- name: depth
+- name: drop
+- name: dropn
+- name: invert
+- name: undo
+
+- name: quit
+
+edges:
+- start: command
+
+- command: implicit_push
+- command: explicit_push
+- command: add
+- command: sub
+- command: mul
+- command: div
+- command: fact
+- command: neg
+- command: abs
+- command: mod_
+- command: and_
+- command: or_
+- command: xor
+- command: not_
+- command: sum_
+- command: avg
+- command: dup
+- command: dupn
+- command: min
+- command: max
+- command: depth
+- command: drop
+- command: dropn
+- command: invert
+- command: undo
+
+- command: quit
+
+- implicit_push: command
+- explicit_push: command
+- add: command
+- sub: command
+- mul: command
+- div: command
+- fact: command
+- neg: command
+- abs: command
+- mod_: command
+- and_: command
+- or_: command
+- not_: command
+- xor: command
+- sum_: command
+- avg: command
+- dup: command
+- dupn: command
+- min: command
+- max: command
+- depth: command
+- drop: command
+- dropn: command
+- invert: command
+- undo: command
