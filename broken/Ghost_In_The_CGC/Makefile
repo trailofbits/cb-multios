@@ -1,4 +1,3 @@
 AUTHOR_ID  = YAN01
 SERVICE_ID = 00015
 CFLAGS     = -O0 -g -Wall
-
