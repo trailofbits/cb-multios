@@ -1,0 +1,30 @@
+---
+nodes:
+- name: start
+- name: awaiting_input
+- name: register_user
+- name: search_for_user
+- name: delete_user
+- name: join_channel
+- name: search_for_channel
+- name: login
+- name: logout
+- name: exit_server
+edges:
+- start: search_for_user
+- awaiting_input: register_user
+- register_user: awaiting_input
+- awaiting_input: search_for_user
+- search_for_user: awaiting_input
+- awaiting_input: delete_user
+- delete_user: awaiting_input
+- awaiting_input: join_channel
+- join_channel: awaiting_input
+- awaiting_input: search_for_channel
+- search_for_channel: awaiting_input
+- awaiting_input: login
+- login: awaiting_input
+- awaiting_input: logout
+- logout: awaiting_input
+- awaiting_input: exit_server
+  weight: 0.03

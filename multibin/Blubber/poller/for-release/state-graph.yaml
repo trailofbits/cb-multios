@@ -1,0 +1,25 @@
+---
+nodes:
+- name: start
+- name: reg
+- name: sub_self
+- name: read_unread
+- name: blub
+- name: nop
+- name: branch
+- name: exit
+
+edges:
+- start: reg
+- reg: sub_self
+- sub_self: blub
+
+- branch: nop
+- branch: blub
+- branch: read_unread
+- branch: exit
+  weight: 0.3
+
+- read_unread: branch
+- blub: branch
+- nop: branch
