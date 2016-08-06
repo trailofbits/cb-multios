@@ -99,7 +99,7 @@ def patch_challenge(chal):
         inc_path = os.path.join(CHALLENGE_PATH, chal, 'include')
 
         # Delete these files if they exist
-        del_list = ['libcgc.h', 'ctors.cc', 'dtors.cc', 'cpp.cc', 'libcpp.cc', 'new.cc']
+        del_list = ['libcgc.h', 'ctors.cc', 'dtors.cc', 'cpp.cc', 'libcpp.cc', 'new.cc', 'new.h']
         for pth in [lib_path, src_path, inc_path]:
             for f in del_list:
                 try_delete(os.path.join(pth, f))
