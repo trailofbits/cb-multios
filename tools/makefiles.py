@@ -4,7 +4,7 @@ import os
 import re
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'cqe-challenges')
+CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'processed-challenges')
 
 
 def generate_cmake(path):
@@ -48,7 +48,7 @@ def generate_cmake(path):
 
 
 def main():
-    makefiles = glob.glob(os.path.join(CHAL_DIR, '*', 'Makefile'))
+    makefiles = glob.glob(os.path.join(CHAL_DIR, '*', 'build_directives.txt'))
     map(generate_cmake, makefiles)
 
 

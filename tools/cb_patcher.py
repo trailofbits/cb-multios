@@ -9,7 +9,7 @@ import yaml  # pip install pyyaml
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 ORIGINAL_CHALLS = os.path.join(os.path.dirname(TOOLS_DIR), 'original-challenges')
-CHALLENGE_PATH = os.path.join(os.path.dirname(TOOLS_DIR), 'cqe-challenges')
+CHALLENGE_PATH = os.path.join(os.path.dirname(TOOLS_DIR), 'processed-challenges')
 
 # Load the manual patches
 with open(os.path.join(TOOLS_DIR, 'manual_patches.yaml')) as f:
