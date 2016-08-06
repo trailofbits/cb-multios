@@ -33,7 +33,7 @@ This script will copy all challenges out of `original-challenges`, modify them a
 * A set of find/replace definitions in `manual_patches.yaml`
 
 ### makefiles.py
-This will parse the `Makefile` in each challenge folder and generate a `CMakeLists.txt` with the same variables and CFLAGS. This also adds the `-nostdinc` flag to all challenges, so that they have no access to the system libraries, and can only include their own libraries and `libcgc.h`.
+This will parse the `build_directive.txt` in each challenge folder and generate a `CMakeLists.txt` with the same variables and CFLAGS. This also adds the `-nostdinc` flag to all challenges, so that they have no access to the system libraries, and can only include their own libraries and `libcgc.h`.
 
 ### cb_tester.py
 This is a helper script to test all challenges using `cb-test`. Results are summarized and can be output to an excel spreadsheet. More details in the [testing section](#testing) below.
