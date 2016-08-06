@@ -17,7 +17,7 @@ if(WIN32)
     set(WIN TRUE)
 endif()
 
-set(main_dir cqe-challenges) # directory which contains all cb subdirs
+set(main_dir processed-challenges) # directory which contains all cb subdirs
 
 file(GLOB challenge_binaries ${main_dir}/*) # list of all files(+paths) in maindir - all dirs should be cbs
 add_subdirectory(include)
