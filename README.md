@@ -26,7 +26,7 @@ This directory contains `libcgc`, which implements the syscalls to work on non-D
 This folder contains Python scripts that help with modifying, building, and testing the original challenges.
 
 ### cb_patcher.py
-This script will copy all challenges out of `original-challenges`, modify them as necessary, and place them in `cqe-challenges`. These modifications include: 
+This script will copy all challenges out of `original-challenges`, modify them as necessary, and place them in `processed-challenges`. These modifications include:
 
 * Deleting `libcgc.h` if it appears anywhere in the challenge source
 * Deleting any C++ definitions that are required for the cgc runtime
@@ -52,7 +52,7 @@ To build individual challenges, list them as arguments to `build.sh`, for exampl
 $ ./build.sh CADET_00001 CROMU_00001
 ```
 
-These commands will build both the patched and unpatched binaries in the `bin` folder of the respective challenge (`cqe-challenges/[challenge]/bin/`).
+These commands will build both the patched and unpatched binaries in the `bin` folder of the respective challenge (`processed-challenges/[challenge]/bin/`).
 
 ## Testing
 
@@ -76,7 +76,7 @@ The `cb_tester.py` utility is a wrapper around `cb-test` that can be used to tes
 
 ### Example Usage
 
-The following will run tests against all challenges in `cqe-challenges` and save the results to `out.xlsx`:
+The following will run tests against all challenges in `processed-challenges` and save the results to `out.xlsx`:
 
 ```bash
 $ ./cb_tester.py -a -o out.xlsx

@@ -9,7 +9,7 @@ import xlsxwriter as xl  # pip install xlsxwriter
 import xlsxwriter.utility as xlutil
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'cqe-challenges')
+CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'processed-challenges')
 TEST_DIR = os.path.join(TOOLS_DIR, 'cb-testing')
 
 
