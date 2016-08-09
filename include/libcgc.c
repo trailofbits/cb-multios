@@ -1,7 +1,7 @@
 /* Copyright 2015 Peter Goodman (peter@trailofbits.com), all rights reserved. */
 
 #define LIBCGC_IMPL
-#include <libcgc.h>
+#include "libcgc.h"
 
 #include <errno.h>
 #include <fcntl.h>
@@ -254,22 +254,28 @@ static int check_timeout(const struct cgc_timeval *timeout) {
 }
 
 enum {
-    kPracticalMaxNumCBs = 6,
+    // Maximum number of binaries running for one challenge
+    kPracticalMaxNumCBs = 9,
+    
+    // STD(IN/OUT/ERR) + a socketpair for every binary
+    // All fds used by the binaries should be less than this
     kExpectedMaxFDs = 3 + (2 * kPracticalMaxNumCBs)
 };
 
 /* Marshal a CGC fd set into an OS fd set. */
-static int copy_cgc_fd_set(const cgc_fd_set *cgc_fds, fd_set *os_fds,
-                           int *num_fds) {
+static int copy_cgc_fd_set(const cgc_fd_set *cgc_fds, fd_set *os_fds, int *num_fds) {
   for (unsigned fd = 0; fd < CGC__NFDBITS; ++fd) {
-    if (fd >= kExpectedMaxFDs) {
-      return CGC_EBADF;
-    } else if (CGC_FD_ISSET(fd, cgc_fds)) {
+    if (CGC_FD_ISSET(fd, cgc_fds)) {
+      // Shouldn't be using an fd greater than the allowed values
+      if (fd >= kExpectedMaxFDs) {
+          return CGC_EBADF;
+      }
+      
       if (fd > NFDBITS) {
         continue;  /* OS set size is too small. */
       }
       FD_SET(fd, os_fds);
-      ++num_fds;
+      ++*num_fds;
     }
   }
   return 0;
@@ -312,7 +318,7 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
   if (writefds) {
     if (!OBJECT_IS_WRITABLE(writefds)) {  /* Opportunistic. */
       return CGC_EFAULT;
-    } else if (0 != (ret = copy_cgc_fd_set(readfds, &read_fds, &actual_num_fds))) {
+    } else if (0 != (ret = copy_cgc_fd_set(writefds, &write_fds, &actual_num_fds))) {
       return ret;
     }
   }
@@ -321,8 +327,8 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
     return EINVAL;  /* Not actually specified, but oh well. */
   }
 
-  CGC_FD_ZERO(readfds);
-  CGC_FD_ZERO(writefds);
+  if (readfds)  CGC_FD_ZERO(readfds);
+  if (writefds) CGC_FD_ZERO(writefds);
 
   if (timeout) {
     max_wait_time.tv_sec = timeout->tv_sec;
