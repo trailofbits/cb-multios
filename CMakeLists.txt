@@ -6,6 +6,7 @@ include_directories(include)  # necessary libraries shared by all challenge bina
 
 # Needed for newer challenges
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_STANDARD 99)
 
 if(UNIX AND NOT APPLE)
     set(LINUX TRUE)
