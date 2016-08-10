@@ -32,12 +32,11 @@ function(build path target)
     aux_source_directory(${path}/include cb_inc)
     set(cb_all_src ${cb_lib} ${cb_src} ${cb_inc})
 
-    include_directories(${path}/lib)
-    include_directories(${path}/src)
-    include_directories(${path}/include)
-
     add_executable(${target} ${cb_all_src})
     add_executable(${target}_patched ${cb_all_src})
+
+    target_include_directories(${target} PUBLIC ${path}/lib ${path}/src ${path}/include)
+    target_include_directories(${target}_patched PUBLIC ${path}/lib ${path}/src ${path}/include)
 
     set_target_properties(${target} PROPERTIES COMPILE_FLAGS "${CFLAGS} " LINK_FLAGS "-m32")
     set_target_properties(${target}_patched PROPERTIES COMPILE_FLAGS "${CFLAGS} -DPATCHED -DPATCHED_1 -DPATCHED_2" LINK_FLAGS "-m32")
