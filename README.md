@@ -88,11 +88,19 @@ To run tests against only two challenges, do this:
 $ ./cb_tester.py -c CADET_00001 CROMU_00001
 ```
 
-This will test only POVs against all challenges and save the results:
+To test all POVs and save the results, run:
 
 ```bash
 $ ./cb_tester.py -a --povs -o out.xlsx
 ```
+
+### Types of Tests
+
+All tests are a series of input strings and expected output for a challenge. There are two types of tests that are used:
+
+`POV (Proof of Vulnerability)`: These tests are intended to exploit any vulnerabilities that exist in a challenge. They are expected to pass with the patched versions of the challenges, and in many cases cause the unpatched version to crash.
+
+`POLL`: These tests are used to check that a challenge is functioning correctly, and are expected to pass with both the unpatched and patched versions of challenges.
 
 ## Current Status
 
