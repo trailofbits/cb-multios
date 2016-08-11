@@ -653,10 +653,13 @@ class Runner(object):
 
         """
         assert connection_count > 0
-        server_cmd = ['socat', 'TCP-Listen:%d,reuseaddr,fork' % (self.port),
-                      'EXEC:%s' % (os.path.join(self.directory, self.cb_list[0]))]
+        # server_cmd = ['socat', 'TCP-Listen:%d,reuseaddr,fork' % (self.port),
+        #               'EXEC:%s' % (os.path.join(self.directory, self.cb_list[0]))]
+        # return self.background(server_cmd, 'socat')
+        server_cmd = ['../cb_simple_server.py', '-p', str(self.port),
+                      '-d', self.directory] + self.cb_list
+        return self.background(server_cmd, 'cb_simple_server.py')
         # print server_cmd
-        return self.background(server_cmd, 'socat')
 
     def start_ids(self, connection_count):
         """ Start cb-proxy in the background
@@ -752,7 +755,7 @@ class Runner(object):
 
         replay_cmd = [replay_bin, '--host', self.ip_address, '--port', '%d' %
                       self.port,
-                      # '--debug'
+                      '--debug'
                       ]
 
         if self.timeout > 0:
