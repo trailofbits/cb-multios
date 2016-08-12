@@ -23,6 +23,6 @@ mkdir ${DIR}/build
 cd ${DIR}/build
 
 echo "Creating Makefiles"
-cmake ..
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On ..
 
 make
