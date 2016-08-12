@@ -14,6 +14,7 @@
 #include <sys/select.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <err.h>
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) < (b)) ? (b) : (a))
@@ -490,7 +491,31 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
   } else if (!(count = num_writable_bytes(buf, count))) {
     return CGC_EFAULT;
   } else {
-    memset(buf, 0x41, count);
+    // TODO: Support seeds from the testing. arc4random_buf is easy but 
+    //  not the right way to do it.
+    arc4random_buf(buf, count);
     return update_byte_count(rnd_bytes, count);
   }
+}
+
+void *cgc_initialize_secret_page(void)
+{
+  const void * MAGIC_PAGE_ADDRESS = (void *)0x4347C000;
+  const size_t MAGIC_PAGE_SIZE = 4096;
+
+  void *mmap_addr = mmap(MAGIC_PAGE_ADDRESS, MAGIC_PAGE_SIZE, 
+                         PROT_READ | PROT_WRITE,
+                         MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, 
+                         -1, 0);
+
+  if (mmap_addr != MAGIC_PAGE_ADDRESS)
+  {
+    err(1, "[!] Failed to map the secret page");
+  }
+
+  // TODO: Support seeds from the testing. arc4random_buf is easy but 
+  //  not the right way to do it.
+  arc4random_buf(mmap_addr, MAGIC_PAGE_SIZE);
+
+  return mmap_addr;
 }

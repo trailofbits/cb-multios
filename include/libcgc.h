@@ -99,6 +99,8 @@ int allocate(cgc_size_t length, int is_X, void **addr);
 int deallocate(void *addr, cgc_size_t length);
 int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes);
 
+void *cgc_initialize_secret_page(void);
+
 // All of the following functions are defined in asm (maths.S)
 // The asm symbols are being forced to match maths.S keep compatibility across OS's
 // (no leading underscores on Windows/OS X)
