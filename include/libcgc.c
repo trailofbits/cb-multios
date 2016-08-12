@@ -256,7 +256,7 @@ static int check_timeout(const struct cgc_timeval *timeout) {
 
 enum {
     // Maximum number of binaries running for one challenge
-    kPracticalMaxNumCBs = 9,
+    kPracticalMaxNumCBs = 10,
     
     // STD(IN/OUT/ERR) + a socketpair for every binary
     // All fds used by the binaries should be less than this
