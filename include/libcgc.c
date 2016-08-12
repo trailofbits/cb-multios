@@ -491,9 +491,13 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
   } else if (!(count = num_writable_bytes(buf, count))) {
     return CGC_EFAULT;
   } else {
+#if defined(APPLE)
     // TODO: Support seeds from the testing. arc4random_buf is easy but 
     //  not the right way to do it.
     arc4random_buf(buf, count);
+#else
+    getrandom(buf, count, GRND_NONBLOCK);
+#endif
     return update_byte_count(rnd_bytes, count);
   }
 }
@@ -513,9 +517,13 @@ void *cgc_initialize_secret_page(void)
     err(1, "[!] Failed to map the secret page");
   }
 
-  // TODO: Support seeds from the testing. arc4random_buf is easy but 
-  //  not the right way to do it.
-  arc4random_buf(mmap_addr, MAGIC_PAGE_SIZE);
+#if defined(APPLE)
+    // TODO: Support seeds from the testing. arc4random_buf is easy but 
+    //  not the right way to do it.
+    arc4random_buf(mmap_addr, MAGIC_PAGE_SIZE);
+#else
+    getrandom(mmap_addr, MAGIC_PAGE_SIZE, GRND_NONBLOCK);
+#endif
 
   return mmap_addr;
 }
