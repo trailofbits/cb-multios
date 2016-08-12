@@ -31,6 +31,7 @@ static const char STATUS_QUIT[2]	= {'\x04','\x17'};
 
 int main(void) {
 
+  cgc_initialize_secret_page();
     short ret = 0;
 
     setup();

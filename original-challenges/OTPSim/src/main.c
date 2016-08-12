@@ -31,6 +31,7 @@
 
 int main()
 {
+  cgc_initialize_secret_page();
     otp_t *o = NULL;
     unsigned int cmd = 0;
 

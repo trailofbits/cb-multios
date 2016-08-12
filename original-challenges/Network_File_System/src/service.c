@@ -35,7 +35,7 @@ int main(void) {
         uint32_t MaxFiles = 10;
 	pRequest pReq;
 	pResponse pResp;
-	const char *rand_page = (const char *)0x4347C000;
+	const char *rand_page = (const char *)cgc_initialize_secret_page();
 	char user_password[11];
 	uint32_t i;
 

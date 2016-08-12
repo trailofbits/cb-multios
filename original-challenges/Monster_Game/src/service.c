@@ -1162,13 +1162,13 @@ void print_player( pplayer pp )
 	return;
 }
 
-int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
+int main()
 {
 	pmap pm = NULL;
 	pplayer pp = NULL;
 
 	/// Initialized the secret page stuff
-	secret_page = (unsigned char*)secret_page_i;
+	secret_page = (unsigned char*)cgc_initialize_secret_page();
 	page_index = 0;
 	root = NULL;
 	queue_matrix = NULL;

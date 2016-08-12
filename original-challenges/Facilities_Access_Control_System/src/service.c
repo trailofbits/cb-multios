@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include "io.h"
 
 int main(void) {
+  cgc_initialize_secret_page();
 	while (RecvCommand()) {
 	}
 	return(0);

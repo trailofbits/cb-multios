@@ -31,6 +31,7 @@
 int
 main(void)
 {
+  cgc_initialize_secret_page();
     char buf[40] = { 0 };
     unsigned int game;
 

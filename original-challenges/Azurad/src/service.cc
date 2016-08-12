@@ -183,9 +183,9 @@ static bool builtin_rand(void *arg, Evaluator &eval, const vector<unique_ptr<Var
     return true;
 }
 
-extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
+extern "C" int main()
 {
-    char *secret_page = (char *)secret_page_i;
+    char *secret_page = (char *)cgc_initialize_secret_page();
 
     Parser parser(program);
     if (parser.parse())

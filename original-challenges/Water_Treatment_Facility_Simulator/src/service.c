@@ -41,7 +41,7 @@ int main(void) {
 	char buf[32];
 
 	// init the PRNG
-	seed_prng(*(unsigned int *)rand_page);
+	seed_prng(*(unsigned int *)cgc_initialize_secret_page());
 
 	// init the simulation
 	InitPlant();

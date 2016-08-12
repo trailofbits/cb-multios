@@ -28,6 +28,7 @@
 
 
 int main(void) {
+  cgc_initialize_secret_page();
 
     unsigned int choice = 0;
     int ret = SUCCESS;

@@ -34,6 +34,7 @@ THE SOFTWARE.
 void say_hello();
 
 int main(void) {
+  cgc_initialize_secret_page();
   types_check();
 
   monte_initialize();

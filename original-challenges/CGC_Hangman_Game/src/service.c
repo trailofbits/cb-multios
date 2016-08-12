@@ -191,6 +191,7 @@ void playGame() {
 
 int main() {
    //interact with the client socket
+   cgc_initialize_secret_page();
    char *lf;
    printf("Password: ");
    if (fgets(inbuf, sizeof(inbuf) - 1, stdin) == NULL) {

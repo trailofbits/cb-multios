@@ -23,11 +23,9 @@
 
 #include "interface.h"
 
-extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
+extern "C" int main()
 {
-    char *secret_page = (char *)secret_page_i;
-    (void) secret_page;
-    (void) unused;
+    char *secret_page = (char *)cgc_initialize_secret_page();
 
     Interface intf(stdin, stdout);
     while (true)

@@ -277,6 +277,7 @@ parkinstr_t *read_instr() {
 }
 
 int main(void) {
+  cgc_initialize_secret_page();
     stats.do_stats = do_stats;
     statsp = &stats;
     parkinstr_t *instr;

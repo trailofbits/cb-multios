@@ -50,9 +50,9 @@ void init_prng( void )
 	seed_prng_array( randomData, 8 );
 }
 
-int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) 
+int main()
 {
-	void *secret_page = (void *)secret_page_i;
+	void *secret_page = (void *)cgc_initialize_secret_page();
 
 	tBasebandState oBaseband;
 

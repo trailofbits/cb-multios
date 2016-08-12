@@ -827,6 +827,7 @@ void gen_result_bufs(void) {
 }
 
 int main(void) {
+  cgc_initialize_secret_page();
 
     int ret = 0;
     size_t bytes = 0;

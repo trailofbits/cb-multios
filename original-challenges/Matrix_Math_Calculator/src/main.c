@@ -340,6 +340,7 @@ void rref_matrix(matrix_t *m, matrix_t *m_result)
 
 int main(void)
 {
+  cgc_initialize_secret_page();
     int retval = 0;
     int choice = 0;
     short *prandom_data;

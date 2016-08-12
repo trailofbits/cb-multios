@@ -498,11 +498,11 @@ void HandleChangeName()
     e->ChangeName(name);
 }
 
-extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
+extern "C" int main()
 {
     char buf[6], nameBuf[32];
 
-    g_rand = (char *) secret_page_i;
+    g_rand = (char *) cgc_initialize_secret_page();
 
     if (freaduntil(nameBuf, sizeof(nameBuf), '\n', stdin) < 0)
         exit(0);

@@ -36,6 +36,7 @@ char *obf_strings(char *input_string);
 extern char test[];
 
 int main(void) {
+  cgc_initialize_secret_page();
 
 	unsigned int databaseCheck;
 	productDefType *productDatabase;

@@ -50,6 +50,7 @@ void gen_status_codes(void) {
 }
 
 int main(void) {
+  cgc_initialize_secret_page();
 
     short ret = 0;
 

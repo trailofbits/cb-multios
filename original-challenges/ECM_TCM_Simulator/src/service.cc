@@ -64,9 +64,9 @@ void RunSimulation( uint8_t *pSecretPage )
 	oSim.RunSimulation();	
 }
 
-int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) 
+int main()
 {
-	void *secret_page = (void *)secret_page_i;
+	void *secret_page = (void *)cgc_initialize_secret_page();
 
 	uint32_t *pPageArray = (uint32_t*)secret_page;
 	uint32_t ts = pPageArray[0] + pPageArray[1] + pPageArray[2] + pPageArray[3];

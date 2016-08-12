@@ -593,11 +593,9 @@ void setBullets() {
     }
 }
 
-int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
-    void *secret_page = (void *)secret_page_i;
+int main() {
+    void *secret_page = (void *)cgc_initialize_secret_page();
 
-    (void) secret_page;
-    
     fbuffered(stdout, 1);
     if (turnCounter == 0) {
         setupNewGame();

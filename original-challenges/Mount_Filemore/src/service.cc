@@ -42,10 +42,9 @@ char *FillBuffer(const char *secret_page, const unsigned int num_bytes)
     return data;
 }
 
-extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
+extern "C" int main()
 {
-    char *secret_page = (char *)secret_page_i;
-    (void) secret_page;
+    char *secret_page = (char *)cgc_initialize_secret_page();
     /* If you want to obfuscate input/output, uncomment and change */
     fxlat(stdin, "2281771");
     fxlat(stdout, "2281771");

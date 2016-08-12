@@ -184,6 +184,7 @@ read_plane(struct shape *out)
 int
 main(void)
 {
+  cgc_initialize_secret_page();
     struct pt_ctx ctx;
     ssize_t ret;
 

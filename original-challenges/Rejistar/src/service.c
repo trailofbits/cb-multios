@@ -258,6 +258,7 @@ void runService(Service* serviceList, Message *message) {
 }
 
 int main(void) {
+  cgc_initialize_secret_page();
 	size_t bytes;
 	size_t size=0;
 	char* vuln_buf;

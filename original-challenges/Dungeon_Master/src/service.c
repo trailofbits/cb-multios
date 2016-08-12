@@ -254,6 +254,7 @@ void initScoreboard(Dungeon* dungeon) {
 
 
 int main(void) {
+  cgc_initialize_secret_page();
 Dungeon dungeon;
 char move=0;
 int result=0;

@@ -144,6 +144,7 @@ done:
 
 int main()
 {
+  cgc_initialize_secret_page();
     char buf[8];
     int i;
     fbuffered(stdin, 1);
