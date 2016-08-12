@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import socket
 import subprocess
 import sys
 import time
@@ -33,16 +34,21 @@ class ChallengeHandler(StreamRequestHandler):
         os.dup2(req_socks[1], 1)
 
         # Create all challenge fds
+        socks = []
         if len(self.challenges) > 1:
+            # Close fds where the sockets will be placed
+            os.closerange(3, last_fd)
+
             new_fd = 3  # stderr + 1
             for i in xrange(len(self.challenges)):
-                # Create a new pipe for a challenge
-                socks = os.pipe()[::-1]  # (write_fd, read_fd)
+                # Create a socketpair for every running binary
+                socks += socket.socketpair(socket.AF_UNIX, socket.SOCK_STREAM, socket.AF_UNSPEC)
+                sock_fds = [sock.fileno() for sock in socks[-2:]]
 
-                # Duplicate the ends of the pipe to the correct fds
-                for s in socks:
-                    if s != new_fd:
-                        os.dup2(s, new_fd)
+                # Duplicate the sockets to the correct fds if needed
+                for fd in sock_fds:
+                    if fd != new_fd:
+                        os.dup2(fd, new_fd)
                     new_fd += 1
 
         # Start all challenges
@@ -56,6 +62,12 @@ class ChallengeHandler(StreamRequestHandler):
         for proc in procs:
             if proc.poll() is None:
                 proc.terminate()
+
+        # Close all sockpairs
+        map(lambda s: s.close(), socks)
+
+        # Try to close any remaining duplicated sock fds
+        os.closerange(3, last_fd)
 
         # Restore stdin/out
         os.dup2(saved[0], 0)
