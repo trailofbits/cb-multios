@@ -496,7 +496,9 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
     //  not the right way to do it.
     arc4random_buf(buf, count);
 #else
-    getrandom(buf, count, GRND_NONBLOCK);
+	FILE *rdev = fopen("/dev/urandom", "rb");
+	fread(buf, count, 1, rdev);
+	fclose(rdev);
 #endif
     return update_byte_count(rnd_bytes, count);
   }
@@ -522,7 +524,9 @@ void *cgc_initialize_secret_page(void)
     //  not the right way to do it.
     arc4random_buf(mmap_addr, MAGIC_PAGE_SIZE);
 #else
-    getrandom(mmap_addr, MAGIC_PAGE_SIZE, GRND_NONBLOCK);
+	FILE *rdev = fopen("/dev/urandom", "rb");
+	fread(mmap_addr, MAGIC_PAGE_SIZE, 1, rdev);
+	fclose(rdev);
 #endif
 
   return mmap_addr;
