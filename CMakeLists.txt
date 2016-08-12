@@ -39,7 +39,7 @@ function(build path target)
     target_include_directories(${target}_patched PUBLIC ${path}/lib ${path}/src ${path}/include)
 
     set_target_properties(${target} PROPERTIES COMPILE_FLAGS "${CFLAGS} " LINK_FLAGS "-m32")
-    set_target_properties(${target}_patched PROPERTIES COMPILE_FLAGS "${CFLAGS} -DPATCHED -DPATCHED_1 -DPATCHED_2" LINK_FLAGS "-m32")
+    set_target_properties(${target}_patched PROPERTIES COMPILE_FLAGS "${CFLAGS} ${patch_defs}" LINK_FLAGS "-m32")
 
     target_link_libraries(${target} LINK_PUBLIC libcgc)
     target_link_libraries(${target}_patched LINK_PUBLIC libcgc)
@@ -58,6 +58,14 @@ function(buildCB flags)
     endif()
     if(WIN)
         set(CFLAGS "-DWIN ${CFLAGS}")
+    endif()
+
+    # Generate all the patched #defines for this challenge
+    set(patch_defs "-DPATCHED")
+    if(VULN_COUNT)
+        foreach(i RANGE 1 ${VULN_COUNT})
+            set(patch_defs "${patch_defs} -DPATCHED_${i}")
+        endforeach()
     endif()
 
     # Some challenges have multiple binaries that need to be built
