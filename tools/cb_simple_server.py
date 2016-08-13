@@ -2,11 +2,17 @@
 
 import argparse
 import os
-import socket
 import subprocess
 import sys
 import time
 from SocketServer import ForkingTCPServer, StreamRequestHandler
+import signal
+
+class TimeoutError(Exception):
+    pass
+
+def alarm_handler(signum, frame):
+    raise TimeoutError()
 
 
 class ChallengeHandler(StreamRequestHandler):
@@ -34,40 +40,34 @@ class ChallengeHandler(StreamRequestHandler):
         os.dup2(req_socks[1], 1)
 
         # Create all challenge fds
-        socks = []
         if len(self.challenges) > 1:
-            # Close fds where the sockets will be placed
-            os.closerange(3, last_fd)
-
             new_fd = 3  # stderr + 1
             for i in xrange(len(self.challenges)):
-                # Create a socketpair for every running binary
-                socks += socket.socketpair(socket.AF_UNIX, socket.SOCK_STREAM, socket.AF_UNSPEC)
-                sock_fds = [sock.fileno() for sock in socks[-2:]]
+                # Create a new pipe for a challenge
+                socks = os.pipe()[::-1]  # (write_fd, read_fd)
 
-                # Duplicate the sockets to the correct fds if needed
-                for fd in sock_fds:
-                    if fd != new_fd:
-                        os.dup2(fd, new_fd)
+                # Duplicate the ends of the pipe to the correct fds
+                for s in socks:
+                    if s != new_fd:
+                        os.dup2(s, new_fd)
                     new_fd += 1
 
         # Start all challenges
         procs = map(subprocess.Popen, self.challenges)
 
         # Continue until any of the processes die
-        while all([proc.poll() is None for proc in procs]):
-            time.sleep(0.1)
+	signal.signal(signal.SIGALRM, alarm_handler)
+	signal.alarm(2)
+	try:
+            while all([proc.poll() is None for proc in procs]):
+                time.sleep(0.1)
+        except TimeoutError:
+            pass
 
         # Kill the rest
         for proc in procs:
             if proc.poll() is None:
                 proc.terminate()
-
-        # Close all sockpairs
-        map(lambda s: s.close(), socks)
-
-        # Try to close any remaining duplicated sock fds
-        os.closerange(3, last_fd)
 
         # Restore stdin/out
         os.dup2(saved[0], 0)
