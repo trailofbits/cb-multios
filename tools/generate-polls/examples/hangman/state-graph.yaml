@@ -1,0 +1,19 @@
+---
+nodes:
+- name: start
+- name: good_password
+- name: play_game
+- name: play_again
+  continue: .95
+- name: play_again_yes
+- name: play_again_no
+- name: play_again_bad_answer
+edges:
+- start: good_password
+- good_password: play_game
+- play_game: play_again
+- play_again: play_again_yes
+- play_again: play_again_no
+- play_again: play_again_bad_answer
+  after: .9
+- play_again_yes: play_game

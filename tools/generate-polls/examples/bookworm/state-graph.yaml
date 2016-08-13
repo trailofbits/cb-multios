@@ -1,0 +1,29 @@
+---
+nodes:
+- name: start
+  chance: 1.0
+  continue: 0.9
+- name: menu
+  chance: 1.0
+  continue: 0.9
+- name: exit
+  chance: 1.0
+  continue: 0.9
+- name: list_books
+- name: review
+- name: reviewed
+- name: bad_menu
+edges:
+- start: menu
+- menu: exit
+- menu: bad_menu
+  weight: .1
+- menu: list_books
+- menu: review
+  weight: .5
+- menu: reviewed
+
+- bad_menu: menu
+- list_books: menu
+- review: menu
+- reviewed: menu

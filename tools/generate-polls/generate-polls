@@ -1,0 +1,267 @@
+#!/usr/bin/python -B
+#
+# generate-polls
+#
+# Copyright (C) 2014 Brian Caswell <bmc@lungetech.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+import sys
+import argparse
+import imp
+import os
+import random
+import yaml
+import struct
+import zipfile
+
+from generator.actions import Actions
+from generator.graph import Graph
+
+
+def get_attribute(item, name, default=None):
+    if name in item:
+        return item[name]
+    if default is None:
+        raise Exception('No value for %s')
+    return default
+
+
+def verify_node(node):
+    assert isinstance(node, dict)
+    assert 'name' in node
+    assert set(node.keys()).issubset(set(['name', 'chance', 'continue']))
+    assert node['name'] not in ['weight', 'before', 'after', 'chance', 'name', 'continue']
+
+
+def get_graph(machine, filename):
+    with open(filename, 'r') as graph_fh:
+        states = yaml.load(graph_fh)
+
+    assert len(states) == 2
+    assert 'nodes' in states
+    assert 'edges' in states
+
+    graph = Graph()
+    for node in states['nodes']:
+        verify_node(node)
+
+        assert hasattr(machine, node['name']), "the state machine (%s) does "\
+                       "not have a method named %s" % (
+                       machine.__class__.__name__, node['name'])
+
+        chance = get_attribute(node, 'chance', 1.0)
+        continue_chance = get_attribute(node, 'continue', 1.0)
+
+        node_ptr = getattr(machine, node['name'])
+        graph.add_node(node['name'], node_ptr, chance=chance,
+                       continue_chance=continue_chance)
+
+    for edge in states['edges']:
+        assert len(edge) <= 3
+        weight = get_attribute(edge, 'weight', 1.0)
+        before = get_attribute(edge, 'before', 1.0)
+        after = get_attribute(edge, 'after', 0.0)
+        for node in edge.keys():
+            if node == 'weight':
+                continue
+            if node == 'after':
+                continue
+            assert hasattr(machine, node), "%s does not have the attribute %s" % (machine.__class__.__name__, node)
+            assert hasattr(machine, edge[node]), "%s does not have the edge method for %s" % (machine.__class__.__name__, edge[node])
+            graph.add_edge(getattr(machine, node),
+                           getattr(machine, edge[node]),
+                           weight=weight,
+                           before=before,
+                           after=after)
+
+    return graph
+
+def get_dups(total_count, duplicate, repeat):
+    dup_counts = []
+    dup_total = 0
+
+    for i in range(duplicate):
+        repeat_count = random.randint(1, repeat)
+        dup_total += repeat_count
+        dup_counts.append(repeat_count)
+   
+    values = list(range(total_count - dup_total))
+    
+    dups = []
+    for i in dup_counts:
+        value = random.choice(values)
+        values.remove(value)
+        dups += [value] * i
+    
+    return dups
+
+def get_state_machine(filename):
+    module = imp.load_source('state_machine', filename)
+    for name in dir(module):
+        obj = getattr(module, name)
+        if name == 'Actions':
+            continue
+        if not isinstance(obj, type):
+            continue
+        if not issubclass(obj, Actions):
+            continue
+        return obj()
+    raise Exception('No state machine defined in %s' % filename)
+
+def get_package(directory, filename, round_id):
+    zip_fh = zipfile.ZipFile(os.path.join(directory, "%d-%s" % (round_id, filename)),
+                             'w', zipfile.ZIP_DEFLATED)
+    return zip_fh
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Generate CGC Polls')
+    parser.add_argument('--count', required=False, type=str, help='How many iterations to generate per round')
+    parser.add_argument('--depth', required=False, type=int, default=0xFFFFF,
+                        help='Maximum number of state transitions per '
+                        'iteration')
+    parser.add_argument('--seed', required=False, type=str,
+                        help='Set random seed')
+    parser.add_argument('machine', metavar='machine', type=str,
+                        help='Python module with Actions state machine')
+    parser.add_argument('state', metavar='state_graph', type=str,
+                        help='YAML file specifying state transitions')
+    parser.add_argument('output', metavar='output', type=str,
+                        help='Output directory')
+    parser.add_argument('--duplicate', required=False, type=int,
+                        help='Number of polls that should be duplicated in a round',
+                        default=0)
+    parser.add_argument('--repeat', required=False, type=int,
+                        help='Number of times a duplicated poll should occur', default=0)
+    parser.add_argument('--rounds', required=False, type=int, default=1,
+                        help='Number of rounds the polls should be divided into')
+    parser.add_argument('--store_seed', required=False, action='store_true',
+                        default=False, help='Store the PRNG seed into the XML')
+    parser.add_argument('--package', required=False, type=str,
+                        help='Packaged poll results')
+    args = parser.parse_args()
+    
+    if args.seed:
+        random.seed(args.seed)
+
+    machine = get_state_machine(args.machine)
+    graph = get_graph(machine, args.state)
+
+    graph.max_depth = args.depth
+
+    if args.count is not None:
+        if ':' in args.count:
+            min_count, max_count = [int(x) for x in args.count.split(':')]
+        else:
+            min_count = max_count = int(args.count)
+    else:
+        min_count = max_count = 1000
+
+    if max_count == 0 or min_count == 0:
+        print "Not generating polls"
+
+    assert args.repeat >= 0 and args.repeat <= 10, "Invalid repeat: %d" % args.repeat
+    assert args.duplicate >= 0 and args.duplicate <= 10, "Invalid duplicate: %d" % args.duplicate
+
+    assert args.repeat * args.duplicate != 0 or args.repeat + args.duplicate == 0, "If repeat or duplicate is used, both must not be 0"
+
+    assert args.repeat * args.duplicate < min_count, "More duplicates (%d) appear than the total count per round (%d)" % (args.repeat * args.duplicate, min_count)
+
+    if len(args.output):
+        if not os.path.exists(args.output):
+            os.makedirs(args.output)
+        elif not os.path.isdir(args.output):
+            raise Exception('output directory is not a directory: %s' %
+                            args.output)
+
+    with open(os.path.join(args.output, 'graph.dot'), 'w') as graph_fh:
+        graph_fh.write(graph.dot())
+
+    round_id = 0
+    package_fh = None
+    if args.package is not None:
+        package_fh = get_package(args.output, args.package, round_id)
+
+    package_fh = None
+
+    current_id = 0
+    round_counts = []
+    for round_id in range(args.rounds):
+        round_counts.append(random.randint(min_count, max_count))
+    total = sum(round_counts)
+
+    for round_id in range(args.rounds):
+        round_start = current_id
+        if args.package is not None:
+            if package_fh is not None:
+                package_fh.close()
+    
+            package_fh = get_package(args.output, args.package, round_id)
+
+        polls = []
+
+        count = round_counts[round_id]
+        dups = get_dups(count, args.duplicate, args.repeat)
+        for i in range(count - len(dups)):
+            machine.reset()
+
+            graph.walk(current_id, total)
+            xml = machine.xml(args.store_seed)
+            polls.append(xml)
+
+            # only duplicate the polls that do not use the magic page
+            if machine.used_magic_page is False:
+                while i in dups:
+                    dups.remove(i)
+                    # print "DUP %d of round %d" % (i, round_id)
+                    xml = machine.xml(args.store_seed)
+                    polls.append(xml)
+
+            current_id += 1
+
+        random.shuffle(polls)
+
+        # Generate new polls to account for all those that were selected to be
+        # dup'd but could not be because the magic page was used.
+        for i in range(len(polls), count):
+            machine.reset()
+
+            graph.walk(current_id, (args.rounds * count))
+            xml = machine.xml(args.store_seed)
+            polls.append(xml)
+            current_id += 1
+
+        for i, xml in enumerate(polls):
+            filename = 'GEN_%05d_%05d.xml' % (round_id, i)
+    
+            if package_fh is not None:
+                package_fh.writestr(filename, xml)
+            else:
+                with open(os.path.join(args.output, filename), 'w') as xml_fh:
+                    xml_fh.write(xml)
+
+    if package_fh is not None:
+        package_fh.close()
+
+    graph.plot(args.output)
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,40 @@
+---
+nodes:
+- name: start
+- name: login
+  chance: .99
+  continue: .9
+- name: password
+  chance: .89
+  continue: .9
+- name: after_login
+- name: fetch
+  chance: .8
+- name: delete
+  chance: .8
+- name: file_list
+  chance: .7
+- name: logout
+  chance: .8
+  continue: .1
+- name: put
+  chance: .5
+edges:
+- start: login
+- login: password
+- password: after_login
+- after_login: delete
+- after_login: fetch
+- after_login: file_list
+- after_login: login
+  weight: .1
+- after_login: password
+  weight: .1
+- after_login: logout
+  weight: .5
+- after_login: put
+- delete: after_login
+- fetch: after_login
+- file_list: after_login
+- logout: after_login
+- put: after_login
