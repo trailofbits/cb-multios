@@ -63,6 +63,13 @@ class ChallengeHandler(StreamRequestHandler):
         # Start all challenges
         procs = map(subprocess.Popen, self.challenges)
 
+        # Send the ready byte
+        # NOTE: cb-replay has been modified to recv this
+        # This forces cb-replay to wait until all binaries are running,
+        # avoiding the race condition where the replay starts too early
+        with os.fdopen(req_socks[0], 'w') as sock_out:
+            sock_out.write('R')
+
         # Continue until any of the processes die
         signal.signal(signal.SIGALRM, alarm_handler)
         signal.alarm(2)

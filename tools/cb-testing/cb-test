@@ -509,14 +509,14 @@ class Runner(object):
         for cb_name in self.cb_list:
             cb_path = os.path.join(self.directory, cb_name)
             try:
-		print("" + cb_path + "\n")
+        print("" + cb_path + "\n")
                 subprocess.check_output(['cgcef_verify', cb_path])
             except subprocess.CalledProcessError as err:
                 logging.error('not ok - CB did not verify: %s', str(err), extra={'raw':True})
                 return -1
-	#always return true bc otherwise it would always be false
-		the binaries are elf, not decree #
-	"""
+    #always return true bc otherwise it would always be false
+        the binaries are elf, not decree #
+    """
         return 0
 
     @staticmethod
@@ -1030,8 +1030,8 @@ class Runner(object):
             ids = self.start_ids(len(xml_list))
             replay_result = self.start_replay(xml_list)
 
-            if server.process.poll() is None:
-                self.use_server_connections(len(xml_list))
+            # if server.process.poll() is None:
+            #     self.use_server_connections(len(xml_list))
 
             server_result = None, ''
 

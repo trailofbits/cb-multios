@@ -568,7 +568,7 @@ class Throw(object):
 
         result = struct.pack('<L', len(packed)) + ''.join(packed)
         return result
-        
+
     def cb_negotiate(self):
         """ Prior to starting the POV comms, setup the seeds with the CB server
 
@@ -581,10 +581,10 @@ class Throw(object):
         Raises:
             None
         """
-    
+
         if not self.negotiate:
             return 0
-       
+
         seed = self.pov.seed
 
         if seed is None:
@@ -640,12 +640,18 @@ class Throw(object):
         except socket.error as err:
             self.log_fail('connection error: %s' % repr(err))
             return
-            
+
         # = socket.create_connection(self.target)
         self.log('connected to %s' % repr(self.target))
         if self.cb_negotiate() != 0:
             self.log_fail('negotiation failed')
             return
+
+        # Wait for the ready byte from the server
+        # The replay will not start until this happens, and will quit if it doesn't
+        ready = self._read_len(1)
+        if ready != 'R':
+            self.log_fail("Didn't receive the ready byte 'R', got '{}' instead".format(ready))
 
         for method, arguments in self.pov:
             assert method in methods, "%s not in methods" % method
@@ -1341,7 +1347,7 @@ def run_pov(src, dst, pov_info, timeout, debug, max_send, negotiate, cb_seed, mu
             except TestFailure:
                 # this exception should always happen.  don't stop because
                 # one timed out.
-                pass 
+                pass
         thrower.dump()
 
     return thrower.passed, thrower.failed, thrower.logs
@@ -1420,13 +1426,13 @@ def main():
 
         for response in pool_responses:
             response.get()
-    
+
     except KeyboardInterrupt:
         print "# Interrupted.  Logging as error"
         result_handler.errors += 1
         if args.concurrent > 1:
             pool.terminate()
-    finally: 
+    finally:
         if args.concurrent > 1:
             pool.close()
             pool.join()
