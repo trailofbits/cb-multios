@@ -113,6 +113,7 @@ def main():
         ChallengeHandler.challenges.append(os.path.join(cdir, chal))
 
     # Start the challenge server
+    ForkingTCPServer.allow_reuse_address = True
     srv = ForkingTCPServer(('localhost', args.port), ChallengeHandler)
     try:
         print('Starting server at localhost:{}'.format(args.port))
