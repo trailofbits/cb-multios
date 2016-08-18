@@ -38,7 +38,7 @@ int main(void) {
     PrintErrorAndTerminate("Initialize server failed");
   }  
   // Respond to commands
-  CommandStruct command;
+  CommandStruct command = {};
   int more_commands = 0;
   do {
     if (ReceiveCommand(&command, &more_commands) != 0) {
