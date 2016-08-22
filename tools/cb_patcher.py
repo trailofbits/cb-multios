@@ -145,7 +145,7 @@ def main():
         # Prompt before deleting all old challenges
         existing_chals = glob.glob(os.path.join(CHALLENGE_PATH, '*', ''))
         if len(existing_chals) > 0:
-            res = raw_input('Patched challenges already exist. Delete and regenerate? (y/n): ') or 'n'
+            res = raw_input('Patched challenges already exist. Delete and regenerate? (y/N): ') or 'n'
             if res[0] in 'yY':
                 clear_challenges(existing_chals)
 
