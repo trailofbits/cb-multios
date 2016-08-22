@@ -198,20 +198,35 @@ def generate_xlsx(path, tests):
     wb = xl.Workbook(path)
     ws = wb.add_worksheet()
 
-    # Some formats used in the sheet
+    # Some cell formats used in the sheet
     fmt_name = wb.add_format({'font_color': 'green', 'bg_color': 'black'})
     fmt_perfect = wb.add_format({'bg_color': '#b6d7a8', 'border': 1, 'border_color': '#cccccc'})
     fmt_bad = wb.add_format({'bg_color': '#ea9999', 'border': 1, 'border_color': '#cccccc'})
     fmt_none = wb.add_format({'bg_color': '#ffe599', 'border': 1, 'border_color': '#cccccc'})
     fmt_default = wb.add_format({'bg_color': 'white', 'border': 1, 'border_color': '#cccccc'})
 
+    # Some common format strings
+    subtract = '={}-{}'
+    add = '={}+{}'
+    percent = '=100*{}/MAX(1, {})'
+
     # Write headers
+    cols = ['CB_NAME',
+            'POVs Total', 'POVs Passed', 'POVs Failed', '% POVs Passed', '',
+            'POLLs Total', 'POLLs Passed', 'POLLs Failed', '% POLLs Passed', '',
+            'Total Tests', 'Total Passed', 'Total Failed', 'Total % Passed',
+            'Notes']
     row = 0
-    ws.write_row(row, 0, ['CB_NAME',
-                          'POVs Total', 'POVs Passed', 'POVs Failed',
-                          'POLLs Total', 'POLLs Passed', 'POLLs Failed',
-                          'Total Tests', 'Total Passed', 'Total Failed',
-                          '% Passed', 'Notes'])
+    ws.write_row(row, 0, cols)
+
+    # Helper map for getting column indices
+    col_to_idx = {val: i for i, val in enumerate(cols)}
+
+    # Helper for writing formulas that use two cells
+    def write_formula(row, col_name, formula, formula_col1, formula_col2):
+        ws.write_formula(row, col_to_idx[col_name],
+                         formula.format(xlutil.xl_rowcol_to_cell(row, col_to_idx[formula_col1]),
+                                        xlutil.xl_rowcol_to_cell(row, col_to_idx[formula_col2])))
 
     # Add all test data
     for test in tests:
@@ -227,52 +242,63 @@ def generate_xlsx(path, tests):
         else:
             fmt = fmt_default
 
+        # Apply this format to the whole row
+        ws.conditional_format(row, col_to_idx['POVs Total'],
+                              row, col_to_idx['Total % Passed'], {
+            'type': 'formula',
+            'criteria': 'TRUE',  # "conditional"
+            'format': fmt
+        })
+
         # Write some fields we already know
         ws.write(row, 0, test.name, fmt_name)
-        ws.write_row(row, 1, [test.povs.total, test.povs.passed, '',
-                              test.polls.total, test.polls.passed], fmt)
+        ws.write_row(row, col_to_idx['POVs Total'], [test.povs.total, test.povs.passed])
+        ws.write_row(row, col_to_idx['POLLs Total'], [test.polls.total, test.polls.passed])
 
         # NOTE: Leaving all of these to be calculated in excel in case you want to manually edit it later
-        # POVs failed
-        ws.write_formula(row, 3, '={}-{}'.format(xlutil.xl_rowcol_to_cell(row, 1),
-                                                 xlutil.xl_rowcol_to_cell(row, 2)), fmt)
 
-        # POLLs failed
-        ws.write_formula(row, 6, '={}-{}'.format(xlutil.xl_rowcol_to_cell(row, 4),
-                                                 xlutil.xl_rowcol_to_cell(row, 5)), fmt)
+        # POVs
+        write_formula(row, 'POVs Failed', subtract, 'POVs Total', 'POVs Passed')
+        write_formula(row, '% POVs Passed', percent, 'POVs Passed', 'POVs Total')
 
-        # Total tests
-        ws.write_formula(row, 7, '={}+{}'.format(xlutil.xl_rowcol_to_cell(row, 1),
-                                                 xlutil.xl_rowcol_to_cell(row, 4)), fmt)
+        # POLLs
+        write_formula(row, 'POLLs Failed', subtract, 'POLLs Total', 'POLLs Passed')
+        write_formula(row, '% POLLs Passed', percent, 'POLLs Passed', 'POLLs Total')
 
-        # Total passed
-        ws.write_formula(row, 8, '={}+{}'.format(xlutil.xl_rowcol_to_cell(row, 2),
-                                                 xlutil.xl_rowcol_to_cell(row, 5)), fmt)
+        # Totals
+        write_formula(row, 'Total Tests', add, 'POVs Total', 'POLLs Total')
+        write_formula(row, 'Total Passed', add, 'POVs Passed', 'POLLs Passed')
+        write_formula(row, 'Total Failed', subtract, 'Total Tests', 'Total Passed')
+        write_formula(row, 'Total % Passed', percent, 'Total Passed', 'Total Tests')
 
-        # Total failed
-        ws.write_formula(row, 9, '={}-{}'.format(xlutil.xl_rowcol_to_cell(row, 7),
-                                                 xlutil.xl_rowcol_to_cell(row, 8)), fmt)
-
-        # % Passed
-        ws.write_formula(row, 10, '=100*{}/MAX(1, {})'.format(xlutil.xl_rowcol_to_cell(row, 8),
-                                                              xlutil.xl_rowcol_to_cell(row, 7)), fmt)
+    # These columns are ignored in totals
+    skip_cols = ['', 'CB_NAME', '% POVs Passed', '% POLLs Passed', 'Total % Passed', 'Notes']
 
     # Totals at bottom
     row += 1
     ws.write(row, 0, 'TOTAL')
-    for col in range(1, 10):
-        ws.write_formula(row, col, '=SUM({})'.format(xlutil.xl_range(1, col, len(tests), col)))
+    for col_name in cols:
+        if col_name not in skip_cols:
+            col = col_to_idx[col_name]
+            ws.write_formula(row, col, '=SUM({})'.format(xlutil.xl_range(1, col, len(tests), col)))
 
-    # Total % passed
-    ws.write_formula(row, 10, '=100*{}/MAX(1, {})'.format(xlutil.xl_rowcol_to_cell(row, 8),
-                                                          xlutil.xl_rowcol_to_cell(row, 7)))
+    # Calculate total %'s
+    write_formula(row, '% POVs Passed', percent, 'POVs Passed', 'POVs Total')
+    write_formula(row, '% POLLs Passed', percent, 'POLLs Passed', 'POLLs Total')
+    write_formula(row, 'Total % Passed', percent, 'Total Passed', 'Total Tests')
+
+    # These columns are ignored in averages
+    skip_cols = ['', 'CB_NAME', 'Notes']
 
     # Averages at bottom
     row += 1
     ws.write(row, 0, 'AVERAGE')
-    for col in range(1, 11):
-        ws.write_formula(row, col, '=AVERAGE({})'.format(xlutil.xl_range(1, col, len(tests), col)))
+    for col_name in cols:
+        if col_name not in skip_cols:
+            col = col_to_idx[col_name]
+            ws.write_formula(row, col, '=AVERAGE({})'.format(xlutil.xl_range(1, col, len(tests), col)))
 
+    # Done, save the spreadsheet
     wb.close()
     debug('Done, saved to {}\n'.format(path))
 
