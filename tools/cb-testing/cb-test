@@ -209,8 +209,8 @@ class Background(object):
             self.process.terminate()
         except OSError:
             pass
-        # for my_thread in self.threads:
-        #     my_thread.join()
+        for my_thread in self.threads:
+            my_thread.join()
 
     def wait(self):
         """ Wait for the process to exit.
