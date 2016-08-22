@@ -16,7 +16,7 @@ The CBs are the best available benchmark to evaluate program analysis tools. Usi
 
 ## Components
 
-### original-challenges 
+### original-challenges
 This directory contains all of the unmodified source code for the challenge binaries. Challenges that are not building or are not yet supported are in the `multibin` directory.
 
 ### include
@@ -25,18 +25,21 @@ This directory contains `libcgc`, which implements the syscalls to work on non-D
 ### tools
 This folder contains Python scripts that help with modifying, building, and testing the original challenges.
 
-### cb_patcher.py
+#### cb_patcher.py
 This script will copy all challenges out of `original-challenges`, modify them as necessary, and place them in `processed-challenges`. These modifications include:
 
 * Deleting `libcgc.h` if it appears anywhere in the challenge source
 * Deleting any C++ definitions that are required for the cgc runtime
 * A set of find/replace definitions in `manual_patches.yaml`
 
-### makefiles.py
+#### makefiles.py
 This will parse the `build_directive.txt` in each challenge folder and generate a `CMakeLists.txt` with the same variables and CFLAGS. This also adds the `-nostdinc` flag to all challenges, so that they have no access to the system libraries, and can only include their own libraries and `libcgc.h`.
 
-### cb_tester.py
+#### cb_tester.py
 This is a helper script to test all challenges using `cb-test`. Results are summarized and can be output to an excel spreadsheet. More details in the [testing section](#testing) below.
+
+#### cb_simple_server.py
+This acts as a replacement for `cb-server` (The CGC provided challenge server). This supports IPC by setting up socketpairs for every running binary at the [correct file descriptors](https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/newsletter/ipc.md#implementation). In order for this to work, `cb-replay` has been modified to wait until the server is ready before starting a test.
 
 ## Building
 
@@ -58,8 +61,9 @@ These commands will build both the patched and unpatched binaries in the `bin` f
 
 The `cb_tester.py` utility is a wrapper around `cb-test` that can be used to test challenges and summarize results. The [`cb-test`](https://github.com/CyberGrandChallenge/cb-testing) tool is a testing utility created for the DARPA Cyber Grand Challenge to verify CBs are fully functional.
 
-`cb-test` has been modified to use `socat` as the challenge server instead of `cb-server`. Further changes include:
+`cb-test` has been modified to work with a custom server. All changes include:
 
+* Starting `cb_simple_server.py` instead of `cb-server`
 * Always running the challenges on localhost
 * Skipping any checks that verify the file is a valid DECREE binary
 * Lessening sleeps and timeouts to allow tests to run at a reasonable rate
@@ -114,7 +118,7 @@ Windows support is coming soon!
 
 The challenge binaries were written for a platform without a standard libc. Each binary re-implemented just the necessary libc features. Therefore, standard symbols were redefined. By using the `-nostdinc` flag during compilation, we were able to disable the use of standard library headers, and avoid rewriting a lot of challenge binary code.
 
-We use the CMake build system to enable portability across different compilers and operating systems. CMake works across a large matrix of compiler and operating system versions, while providing a consistent interface to check for dependencies and build software projects. 
+We use the CMake build system to enable portability across different compilers and operating systems. CMake works across a large matrix of compiler and operating system versions, while providing a consistent interface to check for dependencies and build software projects.
 
 We are working to make this repository easier to use for the evaluation of program analysis tools. If you have questions about the challenge binaries, please [join our Slack](https://empireslacking.herokuapp.com) and we'll be happy to answer them.
 
