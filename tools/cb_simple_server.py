@@ -20,6 +20,7 @@ def alarm_handler(signum, frame):
 
 class ChallengeHandler(StreamRequestHandler):
     challenges = []
+    chal_timeout = 2
 
     def handle(self):
         # Setup fds for all challenges according to:
@@ -67,12 +68,11 @@ class ChallengeHandler(StreamRequestHandler):
         # NOTE: cb-replay has been modified to recv this
         # This forces cb-replay to wait until all binaries are running,
         # avoiding the race condition where the replay starts too early
-        with os.fdopen(req_socks[0], 'w') as sock_out:
-            sock_out.write('R')
+        os.write(req_socks[0], 'R')
 
         # Continue until any of the processes die
         signal.signal(signal.SIGALRM, alarm_handler)
-        signal.alarm(2)
+        signal.alarm(self.chal_timeout)
         try:
             while all([proc.poll() is None for proc in procs]):
                 time.sleep(0.1)
@@ -102,6 +102,9 @@ def main():
                         help='TCP port used for incoming connections')
     parser.add_argument('-d', '--directory', required=True,
                         help='Directory containing the challenge binaries')
+    parser.add_argument('-t', '--timeout', type=int,
+                        help='The time in seconds that challenges are allowed to run before quitting'
+                        ' (default is {} seconds)'.format(ChallengeHandler.chal_timeout))
     parser.add_argument('challenge_binaries', nargs='+',
                         help='List of challenge binaries to run on the server')
 
@@ -111,6 +114,10 @@ def main():
     cdir = os.path.abspath(args.directory)
     for chal in args.challenge_binaries:
         ChallengeHandler.challenges.append(os.path.join(cdir, chal))
+
+    # Set challenge timeout
+    if args.timeout and args.timeout > 0:
+        ChallengeHandler.chal_timeout = args.timeout
 
     # Start the challenge server
     ForkingTCPServer.allow_reuse_address = True

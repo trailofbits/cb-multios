@@ -657,6 +657,7 @@ class Runner(object):
         #               'EXEC:%s' % (os.path.join(self.directory, self.cb_list[0]))]
         # return self.background(server_cmd, 'socat')
         server_cmd = ['../cb_simple_server.py', '-p', str(self.port),
+                      '-t', str(self.timeout),
                       '-d', self.directory] + self.cb_list
         return self.background(server_cmd, 'cb_simple_server.py')
         # print server_cmd
