@@ -106,6 +106,14 @@ All tests are a series of input strings and expected output for a challenge. The
 
 `POLL`: These tests are used to check that a challenge is functioning correctly, and are expected to pass with both the unpatched and patched versions of challenges.
 
+### OS X Notice
+
+By default on Mac OS X, failed polls generate core dumps in /cores. With hundreds and thousands of tests this can quickly fill up your system parition. Disable these with:
+
+```bash
+$ sudo sysctl -w kern.coredump=0
+```
+
 ## Current Status
 
 Porting the Challenge Binaries is a work in progress, and the current status of the porting effort is tracked in the following spreadsheet:
