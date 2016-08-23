@@ -1,5 +1,5 @@
 enable_language(ASM)
-add_library(libcgc libcgc.c maths.S)
+add_library(libcgc libcgc.c maths.S ansi_x931_aes128.c)
 
 if(APPLE)
     set(flags "-DAPPLE")
