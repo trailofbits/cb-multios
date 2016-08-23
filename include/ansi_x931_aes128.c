@@ -18,10 +18,8 @@ void __cgc_xor(const uint8_t*, const uint8_t*, uint8_t*);
 cgc_prng cgc_init_prng(const uint8_t *seed) {
     cgc_prng prng;
     memcpy(&prng.state, seed, sizeof(cgc_aes_state));
-    for (int i = 0; i < BLOCK_SIZE; ++i) {
-        prng.random_data[i] = '\x00';
-        prng.intermediate[i] = '\x00';
-    }
+    memset(prng.random_data, 0, BLOCK_SIZE);
+    memset(prng.intermediate, 0, BLOCK_SIZE);
 
     // Force a new block to be generated immediately
     prng.random_idx = BLOCK_SIZE;
