@@ -2,6 +2,7 @@
 
 #define LIBCGC_IMPL
 #include "libcgc.h"
+#include "ansi_x931_aes128.h"
 
 #include <errno.h>
 #include <fcntl.h>
@@ -257,7 +258,7 @@ static int check_timeout(const struct cgc_timeval *timeout) {
 enum {
     // Maximum number of binaries running for one challenge
     kPracticalMaxNumCBs = 10,
-    
+
     // STD(IN/OUT/ERR) + a socketpair for every binary
     // All fds used by the binaries should be less than this
     kExpectedMaxFDs = 3 + (2 * kPracticalMaxNumCBs)
@@ -271,7 +272,7 @@ static int copy_cgc_fd_set(const cgc_fd_set *cgc_fds, fd_set *os_fds, int *num_f
       if (fd >= kExpectedMaxFDs) {
           return CGC_EBADF;
       }
-      
+
       if (fd > NFDBITS) {
         continue;  /* OS set size is too small. */
       }
@@ -492,7 +493,7 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
     return CGC_EFAULT;
   } else {
 #if defined(APPLE)
-    // TODO: Support seeds from the testing. arc4random_buf is easy but 
+    // TODO: Support seeds from the testing. arc4random_buf is easy but
     //  not the right way to do it.
     arc4random_buf(buf, count);
 #else
@@ -504,30 +505,30 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
   }
 }
 
-void *cgc_initialize_secret_page(void)
-{
+void *cgc_initialize_secret_page(void) {
   const void * MAGIC_PAGE_ADDRESS = (void *)0x4347C000;
   const size_t MAGIC_PAGE_SIZE = 4096;
 
-  void *mmap_addr = mmap(MAGIC_PAGE_ADDRESS, MAGIC_PAGE_SIZE, 
+  void *mmap_addr = mmap(MAGIC_PAGE_ADDRESS, MAGIC_PAGE_SIZE,
                          PROT_READ | PROT_WRITE,
-                         MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, 
+                         MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS,
                          -1, 0);
 
-  if (mmap_addr != MAGIC_PAGE_ADDRESS)
-  {
+  if (mmap_addr != MAGIC_PAGE_ADDRESS) {
     err(1, "[!] Failed to map the secret page");
   }
 
-#if defined(APPLE)
-    // TODO: Support seeds from the testing. arc4random_buf is easy but 
-    //  not the right way to do it.
-    arc4random_buf(mmap_addr, MAGIC_PAGE_SIZE);
-#else
-	FILE *rdev = fopen("/dev/urandom", "rb");
-	fread(mmap_addr, MAGIC_PAGE_SIZE, 1, rdev);
-	fclose(rdev);
-#endif
+  const uint8_t *prng_seed = (uint8_t *) getenv("seed");
+  if (prng_seed == NULL) {
+      printf("Environment variable 'seed' not found, generating random seed\n");
+
+      // TODO: Actually make this random
+      prng_seed = (uint8_t *) "seedseedseedseed0123456789abcdef\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+  }
+
+  // Fill the magic page
+  cgc_prng prng = cgc_init_prng(prng_seed);
+  cgc_aes_get_bytes(&prng, MAGIC_PAGE_SIZE, mmap_addr);
 
   return mmap_addr;
 }
