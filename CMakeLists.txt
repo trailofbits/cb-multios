@@ -21,7 +21,12 @@ endif()
 set(main_dir processed-challenges) # directory which contains all cb subdirs
 
 file(GLOB challenge_binaries ${main_dir}/*) # list of all files(+paths) in maindir - all dirs should be cbs
+
+# Build libcgc
 add_subdirectory(include)
+
+# Build tiny-AES128-C
+add_subdirectory(include/tiny-AES128-C)
 
 function(build path target)
     message("Building ${target}")

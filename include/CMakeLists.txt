@@ -6,7 +6,7 @@ if(APPLE)
 endif()
 
 if(LINUX)
-    set(flags "-fno-builtin   -DLINUX")
+    set(flags "-fno-builtin -DLINUX")
 endif()
 
 if(WIN)
@@ -14,5 +14,5 @@ if(WIN)
 endif()
 
 set_target_properties(libcgc PROPERTIES COMPILE_FLAGS "-m32 ${flags}")
-
-target_include_directories(libcgc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(libcgc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/tiny-AES128-C)
+target_link_libraries(libcgc LINK_PUBLIC tiny-AES128-C)
