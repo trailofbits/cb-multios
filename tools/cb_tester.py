@@ -307,7 +307,7 @@ def listdir(path):
     # type: (str) -> list
     if not os.path.isdir(path):
         return []
-    return sorted(os.listdir(path))
+    return sorted(os.listdir(path), key=lambda s: s.lower())
 
 
 def main():
