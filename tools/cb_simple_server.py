@@ -26,6 +26,11 @@ class ChallengeHandler(StreamRequestHandler):
         # Setup fds for all challenges according to:
         # https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/newsletter/ipc.md
 
+        # Get the seed from cb-replay
+        # Encoded seed sent as:
+        # [record count (1)] [record type (1)] [record size (48)] [seed]
+        seed = self.rfile.read(60)[12:].encode('hex')
+
         # This is the first fd after all of the challenges
         last_fd = 2 * len(self.challenges) + 3
 
@@ -62,7 +67,8 @@ class ChallengeHandler(StreamRequestHandler):
                     new_fd += 1
 
         # Start all challenges
-        procs = map(subprocess.Popen, self.challenges)
+        cb_env = {'seed': seed}
+        procs = map(lambda c: subprocess.Popen(c, env=cb_env), self.challenges)
 
         # Send the ready byte
         # NOTE: cb-replay has been modified to recv this
