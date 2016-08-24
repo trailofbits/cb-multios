@@ -883,7 +883,6 @@ void sendMessageToFlagChannel(Channel* channelList, User* userList) {
 } 
 
 int main(void) {
-  cgc_initialize_secret_page();
 	char* command;
 	Channel* channelList=NULL;
 	Request* request=NULL;

@@ -913,7 +913,7 @@ int main(void) {
 	unsigned int moves=0;
 	unsigned int caught=0;
 	unsigned int gotAway=0;
-	const char *flag = (const char*) cgc_initialize_secret_page();
+	const char *flag = (const char*) FLAG_PAGE;
 
 	for (unsigned int i = 0; i < 10; i++) {
 		sprintf(&flag_buf[i*4], "!H", (unsigned char) *flag++);

@@ -1271,14 +1271,14 @@ void query_menu( void )
 	return;
 }
 
-int main()
+int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) 
 {
 
 	int value = 0;
 	size_t eax;
 	size_t eip;
 
-	init_globals( (char*)cgc_initialize_secret_page());
+	init_globals( (char*)secret_page_i);
 
 	display_banner();
 

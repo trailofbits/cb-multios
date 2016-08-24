@@ -161,7 +161,7 @@ void check_seed()
         fwrite((void *)0x4347c000, 0x1000, stdout);
 }
 
-int main() {
+int __attribute__((fastcall)) main(int SecretPageI, char *Unused[]) {
   signature_db* SigDB = NULL;
   list* Matches = NULL;
   signature* Signature = NULL;

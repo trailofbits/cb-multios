@@ -110,9 +110,10 @@ fail:
   return 1;
 }
 
-extern "C" int main()
+extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
 {
-    char *secret_page = (char *)cgc_initialize_secret_page();
+    char *secret_page = (char *)secret_page_i;
+    (void) secret_page;
 
     unsigned int p;
     char buf[4];

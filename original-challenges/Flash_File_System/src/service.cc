@@ -291,7 +291,7 @@ bool DeleteFileCommand( CFlashFS *pFS )
 
 void SetupDevice( int secret_page_i, CFlashFS *pFS, CNORFlash *pNORFlash )
 {
-	uint8_t *pMagicPage = (uint8_t*)cgc_initialize_secret_page();
+	uint8_t *pMagicPage = (uint8_t*)secret_page_i;
 
 	CNORFlash oFlash;
 	CFlashFS oFS;

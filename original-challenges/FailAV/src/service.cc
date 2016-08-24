@@ -27,9 +27,10 @@
 #include "engine.h"
 #include "interface.h"
 
-extern "C" int main()
+extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
 {
-    char *secret_page = (char *)cgc_initialize_secret_page();
+    char *secret_page = (char *)secret_page_i;
+    (void) secret_page;
 
     unsigned char ruleset[128 + 9];
     unsigned char *data = NULL;

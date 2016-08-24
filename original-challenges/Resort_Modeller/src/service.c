@@ -62,7 +62,6 @@ void gen_result_bufs(void) {
 }
 
 int main(void) {
-  cgc_initialize_secret_page();
 
     ssize_t ret = 0;
 

@@ -38,7 +38,6 @@ THE SOFTWARE.
 securityIdType securityID = 0;
 
 int main(void) {
-  cgc_initialize_secret_page();
 char command[1024];
 char buffer[100];
 char nameBuffer[10];

@@ -36,7 +36,6 @@ THE SOFTWARE.
 #include "ui.h"
 
 int main(){
-  cgc_initialize_secret_page();
 	ui_main();
 	return 0;
 }

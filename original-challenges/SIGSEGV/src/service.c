@@ -210,7 +210,7 @@ int main(void) {
     segnode_t *head = NULL;
     segnode_t *prev = NULL;
     int err = 0;
-    uint32_t *flag = (uint32_t*)cgc_initialize_secret_page();
+    uint32_t *flag = (uint32_t*)FLAG_PAGE;
     uint32_t val = flag[0]^flag[1]^flag[2]^flag[3];
 
     SSEND(sizeof(val),(char*)&val);

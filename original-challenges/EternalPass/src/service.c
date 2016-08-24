@@ -208,7 +208,6 @@ void rc4crypt(unsigned char *s, unsigned char *d, int len) {
 }
 
 int main(void) {
-  cgc_initialize_secret_page();
 
     unsigned char masterpw[256] = {0};
     unsigned char rc4state[256] = {0};

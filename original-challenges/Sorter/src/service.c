@@ -217,7 +217,7 @@ void check_seed()
     fflush(stdout);
 }
 
-int main() {
+int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
     init();
     //int _G_FPTRS[] = { (int) &malloc, (int) &free, (int) &memcpy, (int) &memmove, (int) &print_array, (int) &swap,
     //                    (int) heapify, (int) heap_propagate, (int) merge_helper,

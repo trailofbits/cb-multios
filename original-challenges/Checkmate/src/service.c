@@ -43,7 +43,6 @@ calculate_csum(unsigned int x)
 int
 main(void)
 {
-    cgc_initialize_secret_page();
     struct ai_state ai_state;
     struct bitboard board;
     enum color cur_player;

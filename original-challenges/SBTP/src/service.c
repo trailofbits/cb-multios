@@ -605,7 +605,6 @@ bool verify_integrity() {
 }
 
 int main() {
-  cgc_initialize_secret_page();
     if (verify_integrity())
         return go();
     else

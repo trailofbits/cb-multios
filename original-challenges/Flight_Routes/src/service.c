@@ -34,7 +34,6 @@ THE SOFTWARE.
 airportInfoType *airports;
 
 int main(void) {
-  cgc_initialize_secret_page();
 
 char command[150];
 int retval;

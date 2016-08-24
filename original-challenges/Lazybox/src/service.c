@@ -41,7 +41,7 @@ int main(void) {
 	char buf[MAX_CMD_LEN];
 	int32_t i;
 	uint8_t ParseResult;
-	const char *rand_page = (const char *)cgc_initialize_secret_page();
+	const char *rand_page = (const char *)0x4347C000;
 
 	// init the prng
         seed_prng(*(unsigned int *)rand_page);

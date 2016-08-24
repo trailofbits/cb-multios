@@ -36,7 +36,6 @@ pNode Nodes;
 pEdge Edges;
 
 int main(void) {
-  cgc_initialize_secret_page();
 	uint32_t count = 0;
 	// initialize the graph pointers
 	Nodes = NULL;

@@ -41,11 +41,11 @@ extern "C"
 
 #define PAGE_SIZE	(4096)
 
-int main()
+int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) 
 {
 	CTimeGen *pTimeGen;
 
-	pTimeGen = new CTimeGen( (uint32_t *)cgc_initialize_secret_page(), (PAGE_SIZE / sizeof(uint32_t)) );	
+	pTimeGen = new CTimeGen( (uint32_t *)secret_page_i, (PAGE_SIZE / sizeof(uint32_t)) );	
 
 	CNetworkComm oComms( STDIN, STDOUT );
 
