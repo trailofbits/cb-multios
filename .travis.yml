@@ -2,16 +2,23 @@ sudo: required
 dist: trusty
 osx_image: xcode8
 language: cpp
-os: 
- - linux
- - osx
-compiler: 
- - clang
+os:
+- linux
+- osx
+compiler:
+- clang
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo easy_install pip; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo pip install --upgrade pyyaml xlsxwriter; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo /usr/bin/env python -m pip install --upgrade pip; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then /usr/bin/env python -m pip install --user --upgrade pyyaml xlsxwriter; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y libc6-dev libc6-dev-i386 g++-multilib; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo easy_install pip; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo pip install --upgrade pyyaml xlsxwriter;
+  fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo /usr/bin/env python -m pip install
+  --upgrade pip; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then /usr/bin/env python -m pip install --user
+  --upgrade pyyaml xlsxwriter; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y libc6-dev libc6-dev-i386
+  g++-multilib; fi
 script:
-  - ./build.sh
+- ./build.sh
+notifications:
+  slack:
+    secure: P55a2c+EwQDUDV4mhcw80fLqSCSldkZjOEi1EQCVdpGkVzGXV4fUVKQquMqw62ctNvCLrPeOpvAHuQagR2e5L2FOifDMvtABaJyitHnaN03Bu/TKud1fRls7WhjsTPOd1SboG1XN7VnvhcJKIrQh4Jh/QSc+3DVE0a0GY3F5veDSsvdJJCHQuvuErSgkXw0P0BbyUuw6pP5ZUY2gWKRU9U/RZXx++W9xCMEL1fh0wD27pwMMILQhcmJrLAmgpkg/pSNU4LPMREnFwgVQsxLeKGSt/Ri0aXQUx1UVwly9ZGLskSZMZvsvXRWCd9GCOxTAEoDWlx/DroPQniPHTQ4/g19uK9fjp4hLKWxVdG6S3jdOgtwKvbCwmuS0zVCFpl033pn8z+9S4+BESdCPD1KxakvZn1yFh0k2qx9R1L+0D9mn2OCoJKsYoiF0dLzqqX//AUZHidKd0i4GCZSCaTbXsZU2Ad5dk2wXDMs0gLTkk31wrH3WKRJjiADxhVbMJKpA/EUh1UvIO/t3PMSxAnVmke+AeC7rc0Ja/czaFq1jnELVTqnHYqwUqjznmZzlRZTPVfnovZApZyYscCFVqDaUGbart0C8vJTtuy3LZrqFxgke/+SwyFaIG+PofHcwC1+YpbSNQzqX9tK6t8Y5d1l6LKCIIw8um+wUAd9+v8cLMVk=
