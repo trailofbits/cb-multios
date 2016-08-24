@@ -25,4 +25,4 @@ cd ${DIR}/build
 echo "Creating Makefiles"
 cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On ..
 
-make
+make -j$(getconf _NPROCESSORS_ONLN)
