@@ -36,7 +36,7 @@ all:
             cgc_initialize_secret_page();
 
     # Fix for main that expects the secret page addr as the first argument
-    'main\(int\s+([^\,]+)\,([^\)]+)\)\s*\{': |
+    'main\s*\(\s*int\s+([^\,]+)\,([^\)]+)\s*\)\s*\{': |
         main(int \1, \2) {
             \1 = (int) cgc_initialize_secret_page();
 
