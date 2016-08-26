@@ -12,6 +12,8 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
+set -e
+
 echo "Running patcher"
 ${TOOLS}/cb_patcher.py $@
 
@@ -26,3 +28,4 @@ echo "Creating Makefiles"
 cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On ..
 
 make -j$(getconf _NPROCESSORS_ONLN)
+
