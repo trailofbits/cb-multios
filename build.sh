@@ -21,7 +21,7 @@ echo "Generating CMakelists"
 ${TOOLS}/makefiles.py
 
 echo "Creating build directory"
-mkdir ${DIR}/build
+mkdir -p ${DIR}/build
 cd ${DIR}/build
 
 echo "Creating Makefiles"
