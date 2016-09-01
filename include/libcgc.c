@@ -521,15 +521,13 @@ void *cgc_initialize_secret_page(void) {
   // This will be hex encoded
   const char *prng_seed_hex = getenv("seed");
   if (prng_seed_hex == NULL) {
-    //   printf("Environment variable 'seed' not found, generating random seed\n");
-
       // TODO: Actually make this random
       prng_seed_hex = "736565647365656473656564736565643031323334353637383961626364656600000000000000000000000000000000";
   }
 
   // Convert the hex encoded seed to a normal string
   const char *pos = prng_seed_hex;
-  uint8_t *prng_seed = calloc(0, (BLOCK_SIZE * 3) * sizeof(uint8_t));
+  uint8_t prng_seed[BLOCK_SIZE * 3];
   for(int i = 0; i < BLOCK_SIZE * 3; ++i) {
       sscanf(pos, "%2hhx", &prng_seed[i]);
       pos += 2;

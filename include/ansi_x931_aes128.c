@@ -7,8 +7,8 @@
 // TODO: CROSS PLATFORM?
 
 // Some helpers for the prng
-void __cgc_gen_block(cgc_prng*);
-void __cgc_xor(const uint8_t*, const uint8_t*, uint8_t*);
+void cgc_gen_block(cgc_prng*);
+void cgc_xor(const uint8_t*, const uint8_t*, uint8_t*);
 
 /**
  * Initializes a PRNG from a given seed
@@ -38,7 +38,7 @@ void cgc_aes_get_bytes(cgc_prng *prng, uint32_t len, uint8_t *buf) {
     while (buf_idx < len) {
         // Generate another block of random data if needed
         if (prng->random_idx >= BLOCK_SIZE) {
-            __cgc_gen_block(prng);
+            cgc_gen_block(prng);
         }
 
         // Copy over data until we run out of data or the end of the buffer is reached
@@ -55,7 +55,7 @@ void cgc_aes_get_bytes(cgc_prng *prng, uint32_t len, uint8_t *buf) {
  * @param b   Second input buffer
  * @param buf Output buffer
  */
-void __cgc_xor(const uint8_t *a, const uint8_t *b, uint8_t *buf) {
+void cgc_xor(const uint8_t *a, const uint8_t *b, uint8_t *buf) {
     for (int i = 0; i < BLOCK_SIZE; ++i) {
         buf[i] = a[i] ^ b[i];
     }
@@ -65,20 +65,20 @@ void __cgc_xor(const uint8_t *a, const uint8_t *b, uint8_t *buf) {
  * Generates a new block of random data and stores it in the prng
  * @param prng PRNG to generate the new data for
  */
-void __cgc_gen_block(cgc_prng *prng) {
+void cgc_gen_block(cgc_prng *prng) {
     // Encrypt counter value, giving the intermediate
     AES128_ECB_encrypt(prng->state.datetime, prng->state.key, prng->intermediate);
 
     // XOR intermediate and aes vector, encrypt the result to get the random data
     uint8_t tmp[16];
-    __cgc_xor(prng->intermediate, prng->state.vec, tmp);
+    cgc_xor(prng->intermediate, prng->state.vec, tmp);
     AES128_ECB_encrypt(tmp, prng->state.key, prng->random_data);
 
     // Reset random data index
     prng->random_idx = 0;
 
     // XOR random data with intermediate, encrypt the result to get the new vector
-    __cgc_xor(prng->intermediate, prng->random_data, tmp);
+    cgc_xor(prng->intermediate, prng->random_data, tmp);
     AES128_ECB_encrypt(tmp, prng->state.key, prng->state.vec);
 
     // Update the datetime counter
