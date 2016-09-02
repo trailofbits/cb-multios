@@ -483,7 +483,35 @@ int deallocate(void *addr, cgc_size_t length) {
   return 0;
 }
 
-/* So this isn't really a random number generator. */
+
+cgc_prng *prng = NULL;
+/**
+ * Initializes the prng for use with cgc_random and the secret page
+ */
+void try_init_prng() {
+    // Don't reinitialize
+    if (prng != NULL) return;
+
+    // This will be hex encoded
+    const char *prng_seed_hex = getenv("seed");
+    if (prng_seed_hex == NULL) {
+        // TODO: Actually make this random
+        prng_seed_hex = "736565647365656473656564736565643031323334353637383961626364656600000000000000000000000000000000";
+    }
+
+    // Convert the hex encoded seed to a normal string
+    const char *pos = prng_seed_hex;
+    uint8_t prng_seed[BLOCK_SIZE * 3];
+    for(int i = 0; i < BLOCK_SIZE * 3; ++i) {
+        sscanf(pos, "%2hhx", &prng_seed[i]);
+        pos += 2;
+    }
+
+    // Create the prng
+    prng = (cgc_prng *) malloc(sizeof(cgc_prng));
+    *prng = cgc_init_prng(prng_seed);
+}
+
 int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
   if (!count) {
     return update_byte_count(rnd_bytes, 0);
@@ -492,15 +520,9 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
   } else if (!(count = num_writable_bytes(buf, count))) {
     return CGC_EFAULT;
   } else {
-#if defined(APPLE)
-    // TODO: Support seeds from the testing. arc4random_buf is easy but
-    //  not the right way to do it.
-    arc4random_buf(buf, count);
-#else
-	FILE *rdev = fopen("/dev/urandom", "rb");
-	fread(buf, count, 1, rdev);
-	fclose(rdev);
-#endif
+    // Get random bytes from the prng
+    try_init_prng();
+    cgc_aes_get_bytes(prng, count, buf);
     return update_byte_count(rnd_bytes, count);
   }
 }
@@ -518,24 +540,9 @@ void *cgc_initialize_secret_page(void) {
     err(1, "[!] Failed to map the secret page");
   }
 
-  // This will be hex encoded
-  const char *prng_seed_hex = getenv("seed");
-  if (prng_seed_hex == NULL) {
-      // TODO: Actually make this random
-      prng_seed_hex = "736565647365656473656564736565643031323334353637383961626364656600000000000000000000000000000000";
-  }
-
-  // Convert the hex encoded seed to a normal string
-  const char *pos = prng_seed_hex;
-  uint8_t prng_seed[BLOCK_SIZE * 3];
-  for(int i = 0; i < BLOCK_SIZE * 3; ++i) {
-      sscanf(pos, "%2hhx", &prng_seed[i]);
-      pos += 2;
-  }
-
-  // Fill the magic page
-  cgc_prng prng = cgc_init_prng(prng_seed);
-  cgc_aes_get_bytes(&prng, MAGIC_PAGE_SIZE, mmap_addr);
+  // Fill the magic page with bytes from the prng
+  try_init_prng();
+  cgc_aes_get_bytes(prng, MAGIC_PAGE_SIZE, mmap_addr);
 
   return mmap_addr;
 }
