@@ -484,13 +484,13 @@ int deallocate(void *addr, cgc_size_t length) {
 }
 
 
-cgc_prng *prng = NULL;
+cgc_prng *cgc_internal_prng = NULL;
 /**
  * Initializes the prng for use with cgc_random and the secret page
  */
 void try_init_prng() {
     // Don't reinitialize
-    if (prng != NULL) return;
+    if (cgc_internal_prng != NULL) return;
 
     // This will be hex encoded
     const char *prng_seed_hex = getenv("seed");
@@ -508,8 +508,8 @@ void try_init_prng() {
     }
 
     // Create the prng
-    prng = (cgc_prng *) malloc(sizeof(cgc_prng));
-    *prng = cgc_init_prng(prng_seed);
+    cgc_internal_prng = (cgc_prng *) malloc(sizeof(cgc_prng));
+    *cgc_internal_prng = cgc_init_prng(prng_seed);
 }
 
 int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
@@ -522,7 +522,7 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
   } else {
     // Get random bytes from the prng
     try_init_prng();
-    cgc_aes_get_bytes(prng, count, buf);
+    cgc_aes_get_bytes(cgc_internal_prng, count, buf);
     return update_byte_count(rnd_bytes, count);
   }
 }
@@ -542,7 +542,7 @@ void *cgc_initialize_secret_page(void) {
 
   // Fill the magic page with bytes from the prng
   try_init_prng();
-  cgc_aes_get_bytes(prng, MAGIC_PAGE_SIZE, mmap_addr);
+  cgc_aes_get_bytes(cgc_internal_prng, MAGIC_PAGE_SIZE, mmap_addr);
 
   return mmap_addr;
 }
