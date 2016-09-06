@@ -494,7 +494,7 @@ void try_init_prng() {
 
     // This will be hex encoded
     const char *prng_seed_hex = getenv("seed");
-    if (prng_seed_hex == NULL) {
+    if (prng_seed_hex == NULL || strlen(prng_seed_hex) != (BLOCK_SIZE * 3) * 2) {
         // TODO: Actually make this random
         prng_seed_hex = "736565647365656473656564736565643031323334353637383961626364656600000000000000000000000000000000";
     }
@@ -509,7 +509,8 @@ void try_init_prng() {
 
     // Create the prng
     cgc_internal_prng = (cgc_prng *) malloc(sizeof(cgc_prng));
-    *cgc_internal_prng = cgc_init_prng(prng_seed);
+    cgc_aes_state *seed = (cgc_aes_state *) prng_seed;
+    cgc_init_prng(cgc_internal_prng, seed);
 }
 
 int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {

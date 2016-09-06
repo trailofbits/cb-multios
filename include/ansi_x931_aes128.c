@@ -15,16 +15,12 @@ void cgc_xor(const uint8_t*, const uint8_t*, uint8_t*);
  * @param  seed Initial state of the PRNG
  * @return      Generated PRNG
  */
-cgc_prng cgc_init_prng(const uint8_t *seed) {
-    cgc_prng prng;
-    memcpy(&prng.state, seed, sizeof(cgc_aes_state));
-    memset(prng.random_data, 0, BLOCK_SIZE);
-    memset(prng.intermediate, 0, BLOCK_SIZE);
+void cgc_init_prng(cgc_prng *prng, const cgc_aes_state *seed) {
+    memset(prng, 0, sizeof(cgc_prng));
+    memcpy(&prng->state, seed, sizeof(cgc_aes_state));
 
     // Force a new block to be generated immediately
-    prng.random_idx = BLOCK_SIZE;
-
-    return prng;
+    prng->random_idx = BLOCK_SIZE;
 }
 
 /**
@@ -70,7 +66,7 @@ void cgc_gen_block(cgc_prng *prng) {
     AES128_ECB_encrypt(prng->state.datetime, prng->state.key, prng->intermediate);
 
     // XOR intermediate and aes vector, encrypt the result to get the random data
-    uint8_t tmp[16];
+    uint8_t tmp[BLOCK_SIZE];
     cgc_xor(prng->intermediate, prng->state.vec, tmp);
     AES128_ECB_encrypt(tmp, prng->state.key, prng->random_data);
 
