@@ -601,10 +601,10 @@ class Throw(object):
             self.log_fail('negotiate failed.  expected to send %d, sent %d' % (len(encoded), sent))
             return -1
 
-        response_packed = self._read_len(4)
-        response = struct.unpack('<L', response_packed)[0]
-        if response != 1:
-            return -1
+        # response_packed = self._read_len(4)
+        # response = struct.unpack('<L', response_packed)[0]
+        # if response != 1:
+        #     return -1
 
         return 0
 

@@ -148,8 +148,10 @@ void handle_cmp()
 }
 
 
-int main() {
-    void *secret_page = (void *)cgc_initialize_secret_page();
+int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
+    void *secret_page = (void *)secret_page_i;
+
+    (void) secret_page;
 
     op_t *calcs = NULL;
     unsigned int cmd, i, sum = 0;

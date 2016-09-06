@@ -56,7 +56,6 @@ void set_name(printer_t *printer, int index)
 
 int main()
 {
-  cgc_initialize_secret_page();
     int i, recv_mode = 0;
     char buf[2048];
     char *tmp, *queue;

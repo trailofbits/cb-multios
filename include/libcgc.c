@@ -2,6 +2,7 @@
 
 #define LIBCGC_IMPL
 #include "libcgc.h"
+#include "ansi_x931_aes128.h"
 
 #include <errno.h>
 #include <fcntl.h>
@@ -257,7 +258,7 @@ static int check_timeout(const struct cgc_timeval *timeout) {
 enum {
     // Maximum number of binaries running for one challenge
     kPracticalMaxNumCBs = 10,
-    
+
     // STD(IN/OUT/ERR) + a socketpair for every binary
     // All fds used by the binaries should be less than this
     kExpectedMaxFDs = 3 + (2 * kPracticalMaxNumCBs)
@@ -271,7 +272,7 @@ static int copy_cgc_fd_set(const cgc_fd_set *cgc_fds, fd_set *os_fds, int *num_f
       if (fd >= kExpectedMaxFDs) {
           return CGC_EBADF;
       }
-      
+
       if (fd > NFDBITS) {
         continue;  /* OS set size is too small. */
       }
@@ -482,7 +483,36 @@ int deallocate(void *addr, cgc_size_t length) {
   return 0;
 }
 
-/* So this isn't really a random number generator. */
+
+cgc_prng *cgc_internal_prng = NULL;
+/**
+ * Initializes the prng for use with cgc_random and the secret page
+ */
+void try_init_prng() {
+    // Don't reinitialize
+    if (cgc_internal_prng != NULL) return;
+
+    // This will be hex encoded
+    const char *prng_seed_hex = getenv("seed");
+    if (prng_seed_hex == NULL || strlen(prng_seed_hex) != (BLOCK_SIZE * 3) * 2) {
+        // TODO: Actually make this random
+        prng_seed_hex = "736565647365656473656564736565643031323334353637383961626364656600000000000000000000000000000000";
+    }
+
+    // Convert the hex encoded seed to a normal string
+    const char *pos = prng_seed_hex;
+    uint8_t prng_seed[BLOCK_SIZE * 3];
+    for(int i = 0; i < BLOCK_SIZE * 3; ++i) {
+        sscanf(pos, "%2hhx", &prng_seed[i]);
+        pos += 2;
+    }
+
+    // Create the prng
+    cgc_internal_prng = (cgc_prng *) malloc(sizeof(cgc_prng));
+    cgc_aes_state *seed = (cgc_aes_state *) prng_seed;
+    cgc_init_prng(cgc_internal_prng, seed);
+}
+
 int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
   if (!count) {
     return update_byte_count(rnd_bytes, 0);
@@ -491,43 +521,29 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
   } else if (!(count = num_writable_bytes(buf, count))) {
     return CGC_EFAULT;
   } else {
-#if defined(APPLE)
-    // TODO: Support seeds from the testing. arc4random_buf is easy but 
-    //  not the right way to do it.
-    arc4random_buf(buf, count);
-#else
-	FILE *rdev = fopen("/dev/urandom", "rb");
-	fread(buf, count, 1, rdev);
-	fclose(rdev);
-#endif
+    // Get random bytes from the prng
+    try_init_prng();
+    cgc_aes_get_bytes(cgc_internal_prng, count, buf);
     return update_byte_count(rnd_bytes, count);
   }
 }
 
-void *cgc_initialize_secret_page(void)
-{
+void *cgc_initialize_secret_page(void) {
   const void * MAGIC_PAGE_ADDRESS = (void *)0x4347C000;
   const size_t MAGIC_PAGE_SIZE = 4096;
 
-  void *mmap_addr = mmap(MAGIC_PAGE_ADDRESS, MAGIC_PAGE_SIZE, 
+  void *mmap_addr = mmap(MAGIC_PAGE_ADDRESS, MAGIC_PAGE_SIZE,
                          PROT_READ | PROT_WRITE,
-                         MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, 
+                         MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS,
                          -1, 0);
 
-  if (mmap_addr != MAGIC_PAGE_ADDRESS)
-  {
+  if (mmap_addr != MAGIC_PAGE_ADDRESS) {
     err(1, "[!] Failed to map the secret page");
   }
 
-#if defined(APPLE)
-    // TODO: Support seeds from the testing. arc4random_buf is easy but 
-    //  not the right way to do it.
-    arc4random_buf(mmap_addr, MAGIC_PAGE_SIZE);
-#else
-	FILE *rdev = fopen("/dev/urandom", "rb");
-	fread(mmap_addr, MAGIC_PAGE_SIZE, 1, rdev);
-	fclose(rdev);
-#endif
+  // Fill the magic page with bytes from the prng
+  try_init_prng();
+  cgc_aes_get_bytes(cgc_internal_prng, MAGIC_PAGE_SIZE, mmap_addr);
 
   return mmap_addr;
 }

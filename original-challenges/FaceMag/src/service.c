@@ -37,7 +37,6 @@ THE SOFTWARE.
 extern fileHandleType securityIDFileHandle;
 
 int main(void) {
-  cgc_initialize_secret_page();
 
 int retcode;
 unsigned int count;

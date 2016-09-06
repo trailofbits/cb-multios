@@ -298,7 +298,6 @@ void skip_data(int fd, ssize_t n, int* err)
 }
 
 int main(void) {
-  cgc_initialize_secret_page();
   int err;
   int empty_cnt = 0;
   char block_buf[BLOCK_SIZE];

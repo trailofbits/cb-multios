@@ -38,7 +38,6 @@
 
 int main(void) {
 
-    cgc_initialize_secret_page();
     char input[INBUFSZ] = {0};
     int bytes_recv = 0;
 

@@ -15,7 +15,6 @@ void say_hello();
 void run_loop();
 
 int main(void) {
-  cgc_initialize_secret_page();
   types_check();
   lexer_test();
   stack_test();

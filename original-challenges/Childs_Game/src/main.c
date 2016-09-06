@@ -178,7 +178,6 @@ void init_player(human_t *player)
 
 int main()
 {
-  cgc_initialize_secret_page();
     human_t *player = calloc(1, sizeof(human_t));
     int max_input = 256;
     char *input = malloc(max_input);

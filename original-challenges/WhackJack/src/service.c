@@ -34,7 +34,6 @@ THE SOFTWARE.
 
 
 int main(void) {
-  cgc_initialize_secret_page();
 
 playerInfoType players[MAX_PLAYERS];	
 char buffer[4];

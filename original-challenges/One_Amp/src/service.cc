@@ -60,9 +60,9 @@ void PrintPlaylist(Playlist *playlist, unsigned int playlist_id)
     fflush(stdout);
 }
 
-extern "C" int main()
+extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
 {
-    unsigned char *secret_page = (unsigned char *)cgc_initialize_secret_page();
+    unsigned char *secret_page = (unsigned char *)secret_page_i;
     /* If you want to obfuscate input/output, uncomment and change */
     fxlat(stdin, "393748225");
     fxlat(stdout, "393748225");

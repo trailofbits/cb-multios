@@ -416,9 +416,9 @@ void run_server(FILE* in, FILE* out, unsigned char* secrets)
   }
 }
 
-extern "C" int main()
+extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
 {
-    unsigned char *secret_page = (unsigned char *)cgc_initialize_secret_page();
+    unsigned char *secret_page = (unsigned char *)secret_page_i;
     fxlat(stdin, "EREH_EULAV_MODNAR");
     fxlat(stdout, "EREH_EULAV_MODNAR");
     run_server(stdin, stdout, secret_page);

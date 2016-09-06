@@ -121,7 +121,6 @@ fail:
 int
 main(void)
 {
-  cgc_initialize_secret_page();
     char *p;
     int ret, parsing_dfa = 1;
     onmatch_handler onmatch = default_onmatch;

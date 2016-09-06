@@ -1341,7 +1341,6 @@ void sendDocumentID(unsigned int documentID) {
 
 
 int main(void) {
-  cgc_initialize_secret_page();
 	Object* documentObject;
 	Macro* macros;
 	char* documentString;

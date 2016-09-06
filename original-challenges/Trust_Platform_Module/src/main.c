@@ -204,7 +204,6 @@ size_t findChar(const char* str, char c)
 
 int main(void)
 {
-  cgc_initialize_secret_page();
   char cmd[64];
   uint8_t hash[HASH_SIZE];
   uint8_t buf[HASH_SIZE];

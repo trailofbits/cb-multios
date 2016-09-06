@@ -261,7 +261,6 @@ void printLights(void* addr)
 
 int main(void)
 {
-  cgc_initialize_secret_page();
   char buf[MAX_MSG_SIZE];
   int i = 0;
   int j = 0;

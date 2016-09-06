@@ -309,10 +309,10 @@ static unsigned int do_hash(const unsigned char *_data, unsigned int len)
     return hash;
 }
 
-int main() {
+int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
     pkt_t pkt;
     state_t cur_state;
-    void *secret_page = (void *)cgc_initialize_secret_page();
+    void *secret_page = (void *)secret_page_i;
     unsigned int secret_hash;
 
     secret_hash = do_hash(secret_page, 0x1000);

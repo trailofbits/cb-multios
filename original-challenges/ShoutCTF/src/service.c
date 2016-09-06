@@ -469,8 +469,8 @@ void do_random_action(ctf_t *ctf)
     }
 }
 
-int main() {
-    void *secret_page = (void *)cgc_initialize_secret_page();
+int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
+    void *secret_page = (void *)secret_page_i;
     char buf[256];
 
     r = *(unsigned int *)secret_page ^ *(unsigned int *)&secret_page[20];

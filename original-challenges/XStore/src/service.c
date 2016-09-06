@@ -688,8 +688,8 @@ void check_seed()
         fwrite((void *)0x4347c000, 0x1000, stdout);
 }
 
-int main() {
-    void *secret_page = (void *)cgc_initialize_secret_page();
+int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
+    void *secret_page = (void *)secret_page_i;
     uint64_t command;
     size_t size;
     uint8_t debug = 0;
