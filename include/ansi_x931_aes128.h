@@ -8,12 +8,13 @@
  * This is the AES related info for a prng
  * A prng seed contains all of this data
  */
-#pragma pack(1)
+#pragma pack(push, 1)
 typedef struct cgc_aes_state {
     uint8_t vec[BLOCK_SIZE];
     uint8_t key[BLOCK_SIZE];
     uint8_t datetime[BLOCK_SIZE];
 } cgc_aes_state;
+#pragma pack(pop)
 
 typedef struct cgc_prng {
     cgc_aes_state state;
