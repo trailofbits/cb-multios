@@ -97,14 +97,10 @@ function(buildCB flags)
 endfunction(buildCB)
 
 
-foreach(cb_path ${challenge_binaries})          #iterate through cbs
-    #	if (LINUX)		- test os
+foreach(cb_path ${challenge_binaries})
     if(IS_DIRECTORY ${cb_path} AND EXISTS ${cb_path}/CMakeLists.txt)
-        MESSAGE("${cb_path}")
-        get_filename_component(cb_id ${cb_path} NAME)   #get filename
-
+        # Get filename
+        get_filename_component(cb_id ${cb_path} NAME)
         add_subdirectory(${cb_path} ${cb_path}/bin)
-
     endif()
-    #	endif()
 endforeach()

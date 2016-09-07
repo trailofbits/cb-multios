@@ -66,7 +66,6 @@ def try_delete(path):
 
 def patch_files_in_dir(path):
     for fname in listdir(path):
-        debug('\tPatching {}...'.format(fname))
         fpath = os.path.join(path, fname)
 
         # Read in the contents of the file
@@ -79,11 +78,10 @@ def patch_files_in_dir(path):
         # Write the patched file
         with open(fpath, 'w') as f:
             f.write(patched)
-        debug('done => {}\n'.format(fname))
 
 
 def patch_challenge(chal):
-    debug('\nPatching {}...\n'.format(chal))
+    debug('Patching {}\n'.format(chal))
 
     # Some challenges have multiple binaries with the source in cb_* directories
     dirs = listdir(os.path.join(CHALLENGE_PATH, chal))
@@ -106,11 +104,9 @@ def patch_challenge(chal):
         try_delete(os.path.join(lib_path, 'main.cc'))
 
         # Patch all lib files
-        debug('Patching lib files...\n')
         patch_files_in_dir(lib_path)
 
         # Patch all source files
-        debug('Patching src files...\n')
         patch_files_in_dir(src_path)
         patch_files_in_dir(inc_path)
 
