@@ -199,7 +199,8 @@ def generate_xlsx(path, tests):
     ws = wb.add_worksheet()
 
     # Some cell formats used in the sheet
-    fmt_name = wb.add_format({'font_color': 'green', 'bg_color': 'black'})
+    fmt_name = wb.add_format({'font_color': '#00ff00', 'bg_color': 'black',
+                              'border': 1, 'border_color': '#005500'})
     fmt_perfect = wb.add_format({'bg_color': '#b6d7a8', 'border': 1, 'border_color': '#cccccc'})
     fmt_bad = wb.add_format({'bg_color': '#ea9999', 'border': 1, 'border_color': '#cccccc'})
     fmt_none = wb.add_format({'bg_color': '#ffe599', 'border': 1, 'border_color': '#cccccc'})
@@ -223,53 +224,49 @@ def generate_xlsx(path, tests):
     col_to_idx = {val: i for i, val in enumerate(cols)}
 
     # Helper for writing formulas that use two cells
-    def write_formula(row, col_name, formula, formula_col1, formula_col2):
+    def write_formula(row, col_name, formula, formula_col1, formula_col2, fmt=fmt_default):
+        # type: (int, str, str, str, str, xl.format.Format) -> None
         ws.write_formula(row, col_to_idx[col_name],
                          formula.format(xlutil.xl_rowcol_to_cell(row, col_to_idx[formula_col1]),
-                                        xlutil.xl_rowcol_to_cell(row, col_to_idx[formula_col2])))
+                                        xlutil.xl_rowcol_to_cell(row, col_to_idx[formula_col2])), fmt)
+
+    # Helper for choosing the right format for a cell
+    def select_fmt(total, passed):
+        # type: (int, int) -> xl.format.Format
+        if total == 0:
+            return fmt_none
+        elif total == passed:
+            return fmt_perfect
+        elif passed == 0:
+            return fmt_bad
+        return fmt_default
 
     # Add all test data
     for test in tests:
         row += 1
 
-        # Pick the format for this row
-        if test.total == 0:
-            fmt = fmt_none
-        elif test.total == test.passed:
-            fmt = fmt_perfect
-        elif test.passed == 0:
-            fmt = fmt_bad
-        else:
-            fmt = fmt_default
-
-        # Apply this format to the whole row
-        ws.conditional_format(row, col_to_idx['POVs Total'],
-                              row, col_to_idx['Total % Passed'], {
-            'type': 'formula',
-            'criteria': 'TRUE',  # "conditional"
-            'format': fmt
-        })
-
-        # Write some fields we already know
+        # Write the challenge name
         ws.write(row, 0, test.name, fmt_name)
-        ws.write_row(row, col_to_idx['POVs Total'], [test.povs.total, test.povs.passed])
-        ws.write_row(row, col_to_idx['POLLs Total'], [test.polls.total, test.polls.passed])
 
         # NOTE: Leaving all of these to be calculated in excel in case you want to manually edit it later
-
         # POVs
-        write_formula(row, 'POVs Failed', subtract, 'POVs Total', 'POVs Passed')
-        write_formula(row, '% POVs Passed', percent, 'POVs Passed', 'POVs Total')
+        fmt = select_fmt(test.povs.total, test.povs.passed)
+        ws.write_row(row, col_to_idx['POVs Total'], [test.povs.total, test.povs.passed], fmt)
+        write_formula(row, 'POVs Failed', subtract, 'POVs Total', 'POVs Passed', fmt)
+        write_formula(row, '% POVs Passed', percent, 'POVs Passed', 'POVs Total', fmt)
 
         # POLLs
-        write_formula(row, 'POLLs Failed', subtract, 'POLLs Total', 'POLLs Passed')
-        write_formula(row, '% POLLs Passed', percent, 'POLLs Passed', 'POLLs Total')
+        fmt = select_fmt(test.polls.total, test.polls.passed)
+        ws.write_row(row, col_to_idx['POLLs Total'], [test.polls.total, test.polls.passed], fmt)
+        write_formula(row, 'POLLs Failed', subtract, 'POLLs Total', 'POLLs Passed', fmt)
+        write_formula(row, '% POLLs Passed', percent, 'POLLs Passed', 'POLLs Total', fmt)
 
         # Totals
-        write_formula(row, 'Total Tests', add, 'POVs Total', 'POLLs Total')
-        write_formula(row, 'Total Passed', add, 'POVs Passed', 'POLLs Passed')
-        write_formula(row, 'Total Failed', subtract, 'Total Tests', 'Total Passed')
-        write_formula(row, 'Total % Passed', percent, 'Total Passed', 'Total Tests')
+        fmt = select_fmt(test.total, test.passed)
+        write_formula(row, 'Total Tests', add, 'POVs Total', 'POLLs Total', fmt)
+        write_formula(row, 'Total Passed', add, 'POVs Passed', 'POLLs Passed', fmt)
+        write_formula(row, 'Total Failed', subtract, 'Total Tests', 'Total Passed', fmt)
+        write_formula(row, 'Total % Passed', percent, 'Total Passed', 'Total Tests', fmt)
 
     # These columns are ignored in totals
     skip_cols = ['', 'CB_NAME', '% POVs Passed', '% POLLs Passed', 'Total % Passed', 'Notes']
