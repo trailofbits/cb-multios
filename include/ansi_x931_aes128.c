@@ -12,8 +12,8 @@ void cgc_xor(const uint8_t*, const uint8_t*, uint8_t*);
 
 /**
  * Initializes a PRNG from a given seed
- * @param  seed Initial state of the PRNG
- * @return      Generated PRNG
+ * @param prng PRNG to initialize
+ * @param seed Initial state of the PRNG
  */
 void cgc_init_prng(cgc_prng *prng, const cgc_aes_state *seed) {
     memset(prng, 0, sizeof(cgc_prng));
