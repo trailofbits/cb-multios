@@ -8,6 +8,13 @@ include_directories(include)  # necessary libraries shared by all challenge bina
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_STANDARD 99)
 
+# Set compiler
+if(UNIX)
+    SET(CMAKE_ASM_COMPILER clang)
+    SET(CMAKE_C_COMPILER clang)
+    SET(CMAKE_CXX_COMPILER clang++)
+endif()
+
 if(UNIX AND NOT APPLE)
     set(LINUX TRUE)
 endif()
