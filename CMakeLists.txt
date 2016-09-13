@@ -8,6 +8,9 @@ include_directories(include)  # necessary libraries shared by all challenge bina
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_STANDARD 99)
 
+# Dynamic linking
+set(BUILD_SHARED_LIBS ON)
+
 # Set compiler
 if(UNIX)
     SET(CMAKE_ASM_COMPILER clang)
