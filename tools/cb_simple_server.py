@@ -31,6 +31,15 @@ class ChallengeHandler(StreamRequestHandler):
         # [record count (1)] [record type (1)] [record size (48)] [seed]
         seed = self.rfile.read(60)[12:].encode('hex')
 
+        # Get the pid of cb-replay
+        # This will be used to send a signal when challenges are ready
+        replay_pid = self.rfile.readline()
+        try:
+            replay_pid = int(replay_pid)
+        except ValueError:
+            sys.stderr.write("Invalid cb-replay pid: {}".format(replay_pid))
+            return
+
         # This is the first fd after all of the challenges
         last_fd = 2 * len(self.challenges) + 3
 
@@ -68,15 +77,17 @@ class ChallengeHandler(StreamRequestHandler):
 
         # Start all challenges
         cb_env = {'seed': seed}
-        procs = map(lambda c: subprocess.Popen(c, env=cb_env), self.challenges)
+        procs = [subprocess.Popen(c, env=cb_env) for c in self.challenges]
 
-        # Send the ready byte
-        # NOTE: cb-replay has been modified to recv this
+        # Send a signal to cb-replay to tell it the challenges are ready
+        # NOTE: cb-replay has been modified to wait for this
         # This forces cb-replay to wait until all binaries are running,
         # avoiding the race condition where the replay starts too early
-        os.write(req_socks[0], 'R')
+        # Using SIGILL here because SIGUSR1 is invalid on Windows
+        os.kill(replay_pid, signal.SIGILL)
 
         # Continue until any of the processes die
+        # TODO: SIGALRM is invalid on Windows
         signal.signal(signal.SIGALRM, alarm_handler)
         signal.alarm(self.chal_timeout)
         try:

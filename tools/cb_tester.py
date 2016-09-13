@@ -78,10 +78,12 @@ class Tester:
         """
         # If the test failed to run, consider it failed
         if 'polls passed' not in output:
+            debug('\nWARNING: there was an error running a test')
+            print output
             return 0, 1
 
         if 'timed out' in output:
-            debug('WARNING: test timed out')
+            debug('\nWARNING: test timed out')
 
         # Parse out results
         passed = int(output.split('polls passed: ')[1].split('\n')[0])
@@ -97,7 +99,7 @@ class Tester:
             score (Score): Object to store the results in
         """
         cb_cmd = ['./cb-test', '--directory', self.bin_dir, '--xml_dir', xml_dir,
-                  '--concurrent', '8', '--timeout', '5', '--negotiate_seed', '--cb'] + bin_names
+                  '--concurrent', '4', '--timeout', '5', '--negotiate_seed', '--cb'] + bin_names
         p = subprocess.Popen(cb_cmd, cwd=TEST_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = p.communicate()
 
