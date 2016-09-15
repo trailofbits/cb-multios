@@ -48,14 +48,14 @@
     .size \base\()l, . - \base\()l
 .endm
 
-ENTER _sin
-_sinl:
+ENTER cgc_sin
+cgc_sinl:
     fldt    4(%esp)
     jmp     1f
-_sinf:
+cgc_sinf:
     flds    4(%esp)
     jmp     1f
-_sin:
+cgc_sin:
     fldl    4(%esp)
 1:
     fsin
@@ -64,19 +64,19 @@ _sin:
     jp      2f
     ret
 2:
-    call    _twopi_rem
+    call    cgc_twopi_rem
     fsin
     ret
-END _sin
+END cgc_sin
 
-ENTER _cos
-_cosl:
+ENTER cgc_cos
+cgc_cosl:
     fldt    4(%esp)
     jmp     1f
-_cosf:
+cgc_cosf:
     flds    4(%esp)
     jmp     1f
-_cos:
+cgc_cos:
     fldl    4(%esp)
 1:
     fcos
@@ -85,19 +85,19 @@ _cos:
     jp      2f
     ret
 2:
-    call    _twopi_rem
+    call    cgc_twopi_rem
     fcos
     ret
-END _cos
+END cgc_cos
 
-ENTER _tan
-_tanl:
+ENTER cgc_tan
+cgc_tanl:
     fldt    4(%esp)
     jmp     1f
-_tanf:
+cgc_tanf:
     flds    4(%esp)
     jmp     1f
-_tan:
+cgc_tan:
     fldl    4(%esp)
 1:
     fptan
@@ -107,14 +107,14 @@ _tan:
     fstp    %st(0)
     ret
 2:
-    call    _twopi_rem
+    call    cgc_twopi_rem
     fptan
     fstp    %st(0)
     ret
-END _tan
+END cgc_tan
 
-.type _twopi_rem, @function
-_twopi_rem:
+.type cgc_twopi_rem, @function
+cgc_twopi_rem:
     fldpi
     fadd    %st(0)
     fxch    %st(1)
@@ -125,18 +125,18 @@ _twopi_rem:
     jp      1b
     fstp    %st(1)
     ret
-.size    _twopi_rem, . - _twopi_rem
+.size    cgc_twopi_rem, . - cgc_twopi_rem
 
-ENTER _remainder
-_remainderl:
+ENTER cgc_remainder
+cgc_remainderl:
     fldt    16(%esp)
     fldt    4(%esp)
     jmp     1f
-_remainderf:
+cgc_remainderf:
     flds    8(%esp)
     flds    4(%esp)
     jmp     1f
-_remainder:
+cgc_remainder:
     fldl    12(%esp)
     fldl    4(%esp)
 1:
@@ -146,164 +146,164 @@ _remainder:
     jp      1b
     fstp    %st(1)
     ret
-END _remainder
+END cgc_remainder
 
-ENTER _log
-_logl:
+ENTER cgc_log
+cgc_logl:
     fldt    4(%esp)
     jmp     1f
-_logf:
+cgc_logf:
     flds    4(%esp)
     jmp     1f
-_log:
+cgc_log:
     fldl    4(%esp)
 1:
     fldln2
     fxch    %st(1)
     fyl2x
     ret
-END _log
+END cgc_log
 
-ENTER _log10
-_log10l:
+ENTER cgc_log10
+cgc_log10l:
     fldt    4(%esp)
     jmp     1f
-_log10f:
+cgc_log10f:
     flds    4(%esp)
     jmp     1f
-_log10:
+cgc_log10:
     fldl    4(%esp)
 1:
     fldlg2
     fxch    %st(1)
     fyl2x
     ret
-END _log10
+END cgc_log10
 
-ENTER _significand
-_significandl:
+ENTER cgc_significand
+cgc_significandl:
     fldt    4(%esp)
     jmp     1f
-_significandf:
+cgc_significandf:
     flds    4(%esp)
     jmp     1f
-_significand:
+cgc_significand:
     fldl    4(%esp)
 1:
     fxtract
     fstp    %st(1)
     ret
-END _significand
+END cgc_significand
 
-ENTER _scalbn
-ENTER _scalbln
-_scalbnl:
-_scalblnl:
+ENTER cgc_scalbn
+ENTER cgc_scalbln
+cgc_scalbnl:
+cgc_scalblnl:
     fildl   16(%esp)
     fldt    4(%esp)
     jmp     1f
-_scalbnf:
-_scalblnf:
+cgc_scalbnf:
+cgc_scalblnf:
     fildl   8(%esp)
     flds    4(%esp)
     jmp     1f
-_scalbn:
-_scalbln:
+cgc_scalbn:
+cgc_scalbln:
     fildl   12(%esp)
     fldl    4(%esp)
 1:
     fscale
     fstp    %st(1)
     ret
-END _scalbn
-END _scalbln
+END cgc_scalbn
+END cgc_scalbln
 
-ENTER _rint
-_rintl:
+ENTER cgc_rint
+cgc_rintl:
     fldt    4(%esp)
     jmp     1f
-_rintf:
+cgc_rintf:
     flds    4(%esp)
     jmp     1f
-_rint:
+cgc_rint:
     fldl    4(%esp)
 1:
     frndint
     ret
-END _rint
+END cgc_rint
 
-ENTER _sqrt
-_sqrtl:
+ENTER cgc_sqrt
+cgc_sqrtl:
     fldt    4(%esp)
     jmp     1f
-_sqrtf:
+cgc_sqrtf:
     flds    4(%esp)
     jmp     1f
-_sqrt:
+cgc_sqrt:
     fldl    4(%esp)
 1:
     fsqrt
     ret
-END _sqrt
+END cgc_sqrt
 
-ENTER _fabs
-_fabsl:
+ENTER cgc_fabs
+cgc_fabsl:
     fldt    4(%esp)
     jmp     1f
-_fabsf:
+cgc_fabsf:
     flds    4(%esp)
     jmp     1f
-_fabs:
+cgc_fabs:
     fldl    4(%esp)
 1:
     fabs
     ret
-END _fabs
+END cgc_fabs
 
-ENTER _atan2
-_atan2l:
+ENTER cgc_atan2
+cgc_atan2l:
     fldt    4(%esp)
     fldt    16(%esp)
     jmp     1f
-_atan2f:
+cgc_atan2f:
     flds    4(%esp)
     flds    8(%esp)
     jmp     1f
-_atan2:
+cgc_atan2:
     fldl    4(%esp)
     fldl    12(%esp)
 1:
     fpatan
     ret
-END _atan2
+END cgc_atan2
 
-ENTER _log2
-_log2l:
+ENTER cgc_log2
+cgc_log2l:
     fldt    4(%esp)
     jmp     1f
-_log2f:
+cgc_log2f:
     flds    4(%esp)
     jmp     1f
-_log2:
+cgc_log2:
     fldl    4(%esp)
 1:
     fld1
     fxch
     fyl2x
     ret
-END _log2
+END cgc_log2
 
-ENTER _exp2
-    .type    _exp2x, @function
-_exp2l:
+ENTER cgc_exp2
+    .type    cgc_exp2x, @function
+cgc_exp2l:
     fldt    4(%esp)
-    jmp     _exp2x
-_exp2f:
+    jmp     cgc_exp2x
+cgc_exp2f:
     flds    4(%esp)
-    jmp     _exp2x
-_exp2:
+    jmp     cgc_exp2x
+cgc_exp2:
     fldl    4(%esp)
-_exp2x:
+cgc_exp2x:
     fld     %st(0)
     frndint
     fsubr   %st,%st(1)
@@ -314,44 +314,44 @@ _exp2x:
     fscale
     fstp    %st(1)
     ret
-END _exp2
-.size    _exp2x, . - _exp2x
+END cgc_exp2
+.size    cgc_exp2x, . - cgc_exp2x
 
-ENTER _pow
-_powl:
+ENTER cgc_pow
+cgc_powl:
     fldt    16(%esp)
     fldt    4(%esp)
     jmp     1f
-_powf:
+cgc_powf:
     flds    8(%esp)
     flds    4(%esp)
     jmp     1f
-_pow:
+cgc_pow:
     fldl    12(%esp)
     fldl    4(%esp)
 1:
     fyl2x
-    jmp     _exp2x
-END _pow
+    jmp     cgc_exp2x
+END cgc_pow
 
-ENTER _exp
-_expl:
+ENTER cgc_exp
+cgc_expl:
     fldt    4(%esp)
     jmp     1f
-_expf:
+cgc_expf:
     flds    4(%esp)
     jmp     1f
-_exp:
+cgc_exp:
     fldl    4(%esp)
 1:
     fldl2e
     fmulp
-    jmp     _exp2x
-END _exp
+    jmp     cgc_exp2x
+END cgc_exp
 
-.global _setjmp
-.type _setjmp, @function
-_setjmp:
+.global cgc_setjmp
+.type cgc_setjmp, @function
+cgc_setjmp:
     movl    4(%esp), %ecx
     movl    0(%esp), %edx
     movl    %edx, 0(%ecx)
@@ -362,11 +362,11 @@ _setjmp:
     movl    %edi, 20(%ecx)
     xorl    %eax, %eax
     ret
-.size _setjmp, . - _setjmp
+.size cgc_setjmp, . - cgc_setjmp
 
-.global _longjmp
-.type _longjmp, @function
-_longjmp:
+.global cgc_longjmp
+.type cgc_longjmp, @function
+cgc_longjmp:
     movl    4(%esp), %edx
     movl    8(%esp), %eax
     movl    0(%edx), %ecx
@@ -381,4 +381,4 @@ _longjmp:
 1:
     movl    %ecx, 0(%esp)
     ret
-.size _longjmp, . - _longjmp
+.size cgc_longjmp, . - cgc_longjmp
