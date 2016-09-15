@@ -13,6 +13,7 @@ addons:
       - libc6-dev
       - libc6-dev-i386
       - g++-multilib
+      - clang-3.8
 install:
   - pip install --upgrade --user xlsxwriter pyyaml
 script:

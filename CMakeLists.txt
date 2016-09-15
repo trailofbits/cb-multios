@@ -11,18 +11,17 @@ set(CMAKE_C_STANDARD 99)
 # Dynamic linking
 set(BUILD_SHARED_LIBS ON)
 
-# Set compiler
-if(UNIX)
+if(UNIX AND NOT APPLE)
+    set(LINUX TRUE)
+    SET(CMAKE_ASM_COMPILER clang-3.8)
+    SET(CMAKE_C_COMPILER clang-3.8)
+    SET(CMAKE_CXX_COMPILER clang++-3.8)
+endif()
+if(APPLE)
+    set(APPLE TRUE)
     SET(CMAKE_ASM_COMPILER clang)
     SET(CMAKE_C_COMPILER clang)
     SET(CMAKE_CXX_COMPILER clang++)
-endif()
-
-if(UNIX AND NOT APPLE)
-    set(LINUX TRUE)
-endif()
-if(APPLE)
-    set(APPLE TRUE)  # accurate on my mac
 endif()
 if(WIN32)
     set(WIN TRUE)
