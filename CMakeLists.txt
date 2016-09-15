@@ -8,8 +8,18 @@ include_directories(include)  # necessary libraries shared by all challenge bina
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_STANDARD 99)
 
-# Dynamic linking
-set(BUILD_SHARED_LIBS ON)
+# Default CFLAGS
+SET(CFLAGS "-fno-builtin -Wno-int-to-pointer-cast -Wno-writable-strings -nostdinc -m32")
+
+# Linker options
+# Dynamic by default
+option(BUILD_SHARED_LIBS "" ON)
+set(LDFLAGS "-m32")
+if(BUILD_STATIC_LIBS AND UNIX AND NOT APPLE)
+    set(LDFLAGS "${LDFLAGS} -static -Wl,--allow-multiple-definition")
+    SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
+    SET(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
+endif()
 
 if(UNIX AND NOT APPLE)
     set(LINUX TRUE)
@@ -52,8 +62,8 @@ function(build path target)
     target_include_directories(${target} PUBLIC ${path}/lib ${path}/src ${path}/include)
     target_include_directories(${target}_patched PUBLIC ${path}/lib ${path}/src ${path}/include)
 
-    set_target_properties(${target} PROPERTIES COMPILE_FLAGS "${CFLAGS} " LINK_FLAGS "-m32")
-    set_target_properties(${target}_patched PROPERTIES COMPILE_FLAGS "${CFLAGS} ${patch_defs}" LINK_FLAGS "-m32")
+    set_target_properties(${target} PROPERTIES COMPILE_FLAGS "${CFLAGS} " LINK_FLAGS "${LDFLAGS} ")
+    set_target_properties(${target}_patched PROPERTIES COMPILE_FLAGS "${CFLAGS} ${patch_defs}" LINK_FLAGS "${LDFLAGS} ")
 
     target_link_libraries(${target} LINK_PUBLIC libcgc)
     target_link_libraries(${target}_patched LINK_PUBLIC libcgc)

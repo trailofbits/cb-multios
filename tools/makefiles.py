@@ -17,27 +17,22 @@ def generate_cmake(path):
         old_make = f.readlines()
 
     # Default values for CFLAGS
-    make_vars = {'CFLAGS': '-fno-builtin -Wno-int-to-pointer-cast -Wno-writable-strings -nostdinc '}
+    make_vars = {}
     for line in old_make:
         line = re.sub('[\r\n\t]', '', line)
 
         # Parse out any variables in the Makefile
         if "=" in line:
             var, val = line.split('=', 1)
-            var = var.strip()
-            val = val.strip()
-
-            # Keep the CFLAGS that have already been set
-            if var == "CFLAGS":
-                make_vars[var] += val.replace('-Werror', '')
-            else:
-                make_vars[var] = val
+            var = var.strip().replace('CFLAGS', 'flags')  # Rename CFLAGS to flags
+            val = val.strip().replace('-Werror', '')      # Get rid of -Werror if it's there
+            make_vars[var] = val
 
     # Generate the CMake data
     cmake = ""
     for var, val in make_vars.iteritems():
         cmake += 'set( {} "{}" )\n'.format(var, val)
-    cmake += 'buildCB(${CFLAGS})'
+    cmake += 'buildCB("${flags} ")'
 
     # Write the CMakelists
     with open(cmake_path, 'w') as f:
