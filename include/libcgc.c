@@ -33,7 +33,10 @@ int transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
   if (ret < 0) {
     return errno;
   } else {
-    *tx_bytes = ret;
+
+    if (tx_bytes)
+      *tx_bytes = ret;
+
     return 0;
   }
 }
@@ -45,7 +48,10 @@ int receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
   if (ret < 0) {
     return errno;
   } else {
-    *rx_bytes = ret;
+
+    if (rx_bytes)
+      *rx_bytes = ret;
+
     return 0;
   }
 }
@@ -139,25 +145,15 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
     max_wait_time.tv_usec = timeout->tv_usec;
   }
 
-  errno = 0;
   int num_selected_fds = select(
           nfds,
           (readfds ? &read_fds : NULL),
           (writefds ? &write_fds : NULL),
           NULL,
           (timeout ? &max_wait_time : NULL));
-  const int errno_val = errno;
-  errno = 0;
 
-  if (errno_val) {
-    if (ENOMEM == errno_val) {
-      return CGC_ENOMEM;
-    } else if (EBADF == errno_val) {
-      return CGC_EBADF;
-    } else {
-      return CGC_EINVAL;
-    }
-  }
+  if (num_selected_fds < 0)
+    return errno;
 
   if (readfds) {
     copy_os_fd_set(&read_fds, readfds);
@@ -191,7 +187,9 @@ int allocate(cgc_size_t length, int is_executable, void **addr) {
     return errno;
   }
 
-  *addr = return_address;
+  if (addr)
+    *addr = return_address;
+
   memset(return_address, 0, length);
 
   return 0;
@@ -227,7 +225,7 @@ void try_init_prng() {
 
     // Convert the hex encoded seed to a normal string
     const char *pos = prng_seed_hex;
-    uint8_t prng_seed[BLOCK_SIZE * 3];
+    uint8_t prng_seed[BLOCK_SIZE * 3] = {};
     for(int i = 0; i < BLOCK_SIZE * 3; ++i) {
         sscanf(pos, "%2hhx", &prng_seed[i]);
         pos += 2;
@@ -243,7 +241,10 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
     // Get random bytes from the prng
     try_init_prng();
     cgc_aes_get_bytes(cgc_internal_prng, count, buf);
-    *rnd_bytes = count;
+
+    if (rnd_bytes)
+      *rnd_bytes = count;
+
     return 0;
 }
 

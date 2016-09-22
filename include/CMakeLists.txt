@@ -13,6 +13,6 @@ if(WIN)
     set(flags "-DWIN")
 endif()
 
-set_target_properties(libcgc PROPERTIES COMPILE_FLAGS "-m32 ${flags}" LINK_FLAGS "${LDFLAGS} ")
+set_target_properties(libcgc PROPERTIES COMPILE_FLAGS "-g -m32 ${flags}" LINK_FLAGS "${LDFLAGS} ")
 target_include_directories(libcgc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/tiny-AES128-C)
 target_link_libraries(libcgc LINK_PUBLIC tiny-AES128-C)
