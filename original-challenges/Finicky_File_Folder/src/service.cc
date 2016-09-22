@@ -631,7 +631,7 @@ class File
           cpy = min(len, BUFFER_SZ - (offset % BUFFER_SZ));
           if (bufp->SetContents(bytes + cnt, offset % BUFFER_SZ, cpy) != 0)
           {
-            err("Bad buffer cgc_write");
+            err("Bad buffer write");
           }
         }
         else
@@ -639,7 +639,7 @@ class File
           cpy = min((len - cnt), BUFFER_SZ);
           if (bufp->SetContents(bytes + cnt, 0, cpy) != 0)
           {
-            err("Bad buffer cgc_write");
+            err("Bad buffer write");
           }
         }
 
@@ -801,7 +801,7 @@ class FileHandle
   {
     if (file_.Read(bytes, offset_, len) != 0)
     {
-      err("Bad fh cgc_read");
+      err("Bad fh read");
     }
 
     offset_ += len;
@@ -822,7 +822,7 @@ class FileHandle
 
     if (file_.Write(bytes, offset_, len) != 0)
     {
-      err("Bad fh cgc_write");
+      err("Bad fh write");
     }
 
     offset_ += len;

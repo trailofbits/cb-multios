@@ -164,7 +164,7 @@ int main(void)
       continue;
     }
     failed_cnt = 0;
-    dbg("cgc_read line: %s", line);
+    dbg("read line: %s", line);
 
     if (strncmp("quit", line, cgc_strlen("quit")) == 0)
     {

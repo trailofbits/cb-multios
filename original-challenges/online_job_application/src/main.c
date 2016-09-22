@@ -190,7 +190,7 @@ static page_option get_response()
             return UPDATE;
         if( memcmp(&response[2], "help", cgc_strlen("help")) == 0 )
             return HELP;
-        if( memcmp(&response[2], "cgc_exit", cgc_strlen("cgc_exit")) == 0 )
+        if( memcmp(&response[2], "cgc_exit", cgc_strlen("exit")) == 0 )
             return EXIT;
     }
 
@@ -204,7 +204,7 @@ void print_menu()
     printf("**next <Move to the next page>\n");
     printf("**update [id] <Update field, ex: \"Update First Name\">\n");
     printf("**help <Print this dialogue>\n");
-    printf("**cgc_exit <Exit application>\n");
+    printf("**exit <Exit application>\n");
 }
 
 int main(void)
@@ -413,7 +413,7 @@ int final_screening()
 int finished() {
     printf("\n\nYou have completed your application with the Sea Eye Association.\n");
     printf("You may review the form. Navigate through the application with **prev and **next.\n");
-    printf("Once your are satisfied type **cgc_exit to cgc_exit and submit the form\n");
+    printf("Once your are satisfied type **exit to exit and submit the form\n");
     printf("If you wish to discard your application, please use Control-C\n");
 
     if (g_page_idx > g_last_page_completed + 1) {

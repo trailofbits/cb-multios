@@ -974,7 +974,7 @@ int main() {
       size_t rx_bytes = 0;
       if (SUCCESS != (ret = receive_all(STDIN, buf, 1, &rx_bytes)) || rx_bytes != 1) {
    #ifdef DEBUG
-         fprintf(stderr, "%s: [D] failed to cgc_read length byte; bailing...\n", STR_THREAD_NAME);
+         fprintf(stderr, "%s: [D] failed to read length byte; bailing...\n", STR_THREAD_NAME);
    #endif
          goto _bail_main;
       }
@@ -992,7 +992,7 @@ int main() {
       // TODO: Why is transmit() returning EINVAL? (according to /usr/include/libcgc.h)
       if (SUCCESS != (ret = receive_all(STDIN, buf, len, &rx_bytes)) || rx_bytes != len) {
    #ifdef DEBUG
-         fprintf(stderr, "%s: [E] wrong number of syscall bytes cgc_read; bailing...\n", STR_THREAD_NAME);
+         fprintf(stderr, "%s: [E] wrong number of syscall bytes read; bailing...\n", STR_THREAD_NAME);
    #endif
          goto _bail_main; 
       }

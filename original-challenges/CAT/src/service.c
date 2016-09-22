@@ -115,7 +115,7 @@ int do_normal(packet_t *req, packet_t *resp) {
                 (byte_t *)req->inst.src, 
                 FLAG_PAGE_BGN, 
                 FLAG_PAGE_END)) {
-            dbg("attempt to cgc_read from FLAG page; returning error packet\n");
+            dbg("attempt to read from FLAG page; returning error packet\n");
             resp->status = S_ERROR;
             goto bail;
         }

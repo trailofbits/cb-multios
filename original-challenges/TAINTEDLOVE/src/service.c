@@ -205,7 +205,7 @@ int causality_poppycock(void) {
 
 #ifdef DEBUG
         fprintf(stderr, 
-            "[D] poppycock | gate PASSED, going to cgc_write 0x42 to: vuln_buf[%d]\n", 
+            "[D] poppycock | gate PASSED, going to write 0x42 to: vuln_buf[%d]\n", 
             rx_buf[SKIP_PRIME * GATE_PRIME]);
 #endif        
         vuln_buf[rx_buf[SKIP_PRIME * GATE_PRIME]] = 0xAA;
@@ -600,7 +600,7 @@ void cgc_exit(void) {
     size_t MIN_RX_BYTES = 1;
 
 #ifdef DEBUG
-    fprintf(stderr, "[D] cgc_exit() | got %d bytes\n", rx_bytes);
+    fprintf(stderr, "[D] exit() | got %d bytes\n", rx_bytes);
 #endif
 
     unsigned char exit_code = rx_buf[1];
@@ -608,7 +608,7 @@ void cgc_exit(void) {
     // Reflect the cgc_exit code
     if (SUCCESS != (ret = transmit_all(STDOUT, &exit_code, 1, NULL))) { 
 #ifdef DEBUG
-        fprintf(stderr, "[E] cgc_exit | during transmit_all()\n");
+        fprintf(stderr, "[E] exit | during transmit_all()\n");
 #endif
         ret = ERRNO_TRANSMIT;
         goto _bail_exit;

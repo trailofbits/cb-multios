@@ -224,7 +224,7 @@ int EchoHandler() {
 		bzero(outstr, MAX_CMD);
 		strncpy(outstr, ARGV[1], MAX_CMD-1);
 		if ((len = Unescape(outstr)) == -1) {
-			puts("unable to cgc_write to file");
+			puts("unable to write to file");
 			return(-1);
 		}
 		cgc_write(outstr, len);
@@ -252,13 +252,13 @@ int EchoHandler() {
 		if (!strcmp(ARGV[2], ">")) {
 			// cgc_write to file
 			if ((out = fopen(pathname, "w")) == NULL) {
-				puts("unable to cgc_write to file");
+				puts("unable to write to file");
 				return(-1);
 			}
 			bzero(outstr, MAX_CMD);
 			strncpy(outstr, ARGV[1], MAX_CMD-1);
 			if ((len = Unescape(outstr)) == -1) {
-				puts("unable to cgc_write to file");
+				puts("unable to write to file");
 				fclose(out);
 				return(-1);
 			}
@@ -267,14 +267,14 @@ int EchoHandler() {
 		} else if (!strcmp(ARGV[2], ">>")) {
 			// append to file
 			if ((out = fopen(pathname, "a")) == NULL) {
-				puts("unable to cgc_write to file");
+				puts("unable to write to file");
 				return(-1);
 			}
 			bzero(outstr, MAX_CMD);
 			strncpy(outstr, ARGV[1], MAX_CMD-1);
 			if ((len = Unescape(outstr)) == -1) {
 				fclose(out);
-				puts("unable to cgc_write to file");
+				puts("unable to write to file");
 				return(-1);
 			}
 			fwrite(outstr, len, 1, out);

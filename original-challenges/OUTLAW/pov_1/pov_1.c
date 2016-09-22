@@ -191,7 +191,7 @@ int main(void) {
       // msg msgExit = msgNull;
       // msgExit.dst = DST_EXIT;
       // CHK_SUCCESS(send_bytes(PIPE_SEND, (char *)&msgExit, sizeof(msg)),
-      //   "[E] sending cgc_exit message\n");
+      //   "[E] sending exit message\n");
       // // will be wrong - that's okay
       // CHK_SUCCESS(type2_submit((unsigned char *)&hypothesis, t2vals.read_size), 
       //   "[E] couldn't submit flag\n");
@@ -236,13 +236,13 @@ int main(void) {
   // msg msgExit = msgNull;
   // msgExit.dst = DST_EXIT;
   // CHK_SUCCESS(send_bytes(PIPE_SEND, (char *)&msgExit, sizeof(msg)),
-  //   "[E] sending cgc_exit message\n");
+  //   "[E] sending exit message\n");
 
   DBG("[D] done\n");
 
 bail:
   CHK_SUCCESS(send_bytes(PIPE_SEND, (char *)&msgExit, sizeof(msg)),
-    "[E] sending cgc_exit message\n");
+    "[E] sending exit message\n");
   return ret;
 }
 

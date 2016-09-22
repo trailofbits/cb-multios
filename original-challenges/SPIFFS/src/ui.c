@@ -223,7 +223,7 @@ void print_working_dir(pDataStruct workingData){
 }
 
 void main_loop(pDataStruct workingData){
-	char *commandList[] = {"set", "get", "add", "delete","cgc_exit","help","ls","cat","cd"};
+	char *commandList[] = {"set", "get", "add", "delete","exit","help","ls","cat","cd"};
 	char *setList[] = {"date", "user", "group","help"};
 	char *getList[] = {"date", "user", "group", "workingDir","help", "userlist", "grouplist", "usersingroup"};
 	char *addList[] = {"user", "group", "file", "directory", "usertogroup","perm", "appendfile","help"};
@@ -734,7 +734,7 @@ void main_loop(pDataStruct workingData){
 					puts("-----Begin File-----");//five - 
 					while ( tempFileChunk != NULL ){
 						if (tempFileChunk->chunkSize != cgc_write(tempFileChunk,tempFileChunk->chunkSize)){
-							puts("file cgc_write failed");
+							puts("file write failed");
 						}
 /*
 						c = tempFileChunk->chunk;

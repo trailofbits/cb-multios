@@ -14,7 +14,7 @@ char* msgs[25] = {
 "Can you give me an example?\n",
 "Ohh I see. Why don't you tell me about the lights.\n",
 "Is there a pattern to them?\n",
-"Well why don't you cgc_read some lights to me.\n",
+"Well why don't you read some lights to me.\n",
 "4347C003\n", //14
 "Sure\n",
 "4347C002\n", //16

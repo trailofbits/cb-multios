@@ -142,7 +142,7 @@ unsigned int new_offset_value;
 	cgc_write(3, buffer, 4);
 
 	// send the command to cgc_exit the CB
-	cgc_write(STDOUT, "cgc_exit\n", 5);
+	cgc_write(STDOUT, "exit\n", 5);
 
 }
 

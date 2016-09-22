@@ -241,7 +241,7 @@ int execute_program(char* program, size_t max) {
       *dp = ch;
       if (!*dp)
       {
-        dbg("null byte cgc_read");
+        dbg("null byte read");
         break;
       }
     }

@@ -107,8 +107,8 @@ uint32_t ReadShellPrompt(int fd, char *buf, size_t len) {
 				continue;
 			} else {
 				printf("\b\b  \b\b");
-				printf("cgc_exit  ");
-				strcpy(buf, "cgc_exit");
+				printf("exit  ");
+				strcpy(buf, "exit");
 				return(1);
 			}
 		}

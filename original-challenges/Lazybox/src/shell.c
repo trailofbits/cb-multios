@@ -160,7 +160,7 @@ int32_t HandleHelp(Command *pCmd) {
 		puts("Available commands:");
 		puts("chuser");
 		puts("chpw");
-		puts("cgc_exit");
+		puts("exit");
 		puts("id");
 		puts("help");
 		puts("?");
@@ -177,8 +177,8 @@ int32_t HandleHelp(Command *pCmd) {
 			} else {
 				puts("Usage: passwd");
 			}
-		} else if (!strcmp(pCmd->argv[1], "cgc_exit")) {
-			puts("Usage: cgc_exit");
+		} else if (!strcmp(pCmd->argv[1], "exit")) {
+			puts("Usage: exit");
 		} else if (!strcmp(pCmd->argv[1], "id")) {
 			puts("Usage: id");
 		} else if (!strcmp(pCmd->argv[1], "help")) {

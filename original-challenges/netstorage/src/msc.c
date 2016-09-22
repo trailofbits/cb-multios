@@ -229,7 +229,7 @@ static int rbc_handle_packet(msc_t *msc, uint8_t *data, size_t length)
         uint32_t lba = be32toh(*(uint32_t *)&data[2]);
         uint16_t len = be16toh(*(uint16_t *)&data[7]);
 #ifdef DEBUG
-        fprintf(stderr, "cgc_read from %d, %d bytes\n", lba * BLOCK_SIZE, len * BLOCK_SIZE);
+        fprintf(stderr, "read from %d, %d bytes\n", lba * BLOCK_SIZE, len * BLOCK_SIZE);
 #endif
         if (lba > NUM_BLOCKS)
             return 0;
@@ -242,7 +242,7 @@ static int rbc_handle_packet(msc_t *msc, uint8_t *data, size_t length)
         uint32_t lba = be32toh(*(uint32_t *)&data[2]);
         uint16_t len = be16toh(*(uint16_t *)&data[7]);
 #ifdef DEBUG
-        fprintf(stderr, "cgc_write to %d, %d bytes\n", lba * BLOCK_SIZE, len * BLOCK_SIZE);
+        fprintf(stderr, "write to %d, %d bytes\n", lba * BLOCK_SIZE, len * BLOCK_SIZE);
 #endif
         if (lba > NUM_BLOCKS)
             return 0;

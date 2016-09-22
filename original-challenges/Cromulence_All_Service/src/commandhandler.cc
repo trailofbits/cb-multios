@@ -89,7 +89,7 @@ void CCommandHandler::Run( void )
             continue;
         }
 
-        if ( stricmp( szToken, "cgc_exit" ) == 0 )
+        if ( stricmp( szToken, "exit" ) == 0 )
             break;
 
         if ( stricmp( szToken, "?" ) == 0 )

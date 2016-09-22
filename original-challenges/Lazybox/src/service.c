@@ -82,7 +82,7 @@ int main(void) {
 			ChUser(&Cmd);
 		} else if (!strcmp(Cmd.argv[0], "chpw")) {
 			ChPw(&Cmd);
-		} else if (!strcmp(Cmd.argv[0], "cgc_exit")) {
+		} else if (!strcmp(Cmd.argv[0], "exit")) {
 			HandleExit(&Cmd);
 		} else if (!strcmp(Cmd.argv[0], "id")) {
 			ID(&Cmd);

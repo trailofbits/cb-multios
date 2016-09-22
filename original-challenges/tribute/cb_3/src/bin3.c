@@ -217,7 +217,7 @@ int execute() {
 #endif
 
 #ifdef DEBUG
-   fprintf(stderr, "child 3 entering cgc_read program loop\n");
+   fprintf(stderr, "child 3 entering read program loop\n");
 #endif
    do {
       nbytes = read_all(PIPEFD_IN, (char*)(program + PC), sizeof(inst_t));
@@ -229,11 +229,11 @@ int execute() {
           goto done;
       }
 #ifdef DEBUG
-      fprintf(stderr, "cgc_read %d bytes from pipe 12\n", sizeof(inst_t));
+      fprintf(stderr, "read %d bytes from pipe 12\n", sizeof(inst_t));
 #endif
    } while (++PC < 512);
 #ifdef DEBUG
-   fprintf(stderr, "child 3 leaving cgc_read program loop\n");
+   fprintf(stderr, "child 3 leaving read program loop\n");
 #endif
    if (nbytes != sizeof(inst_t) && nbytes != 0) {
       result = -1;

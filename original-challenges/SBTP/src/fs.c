@@ -428,7 +428,7 @@ char *readfile(char *path) {
     char *tmp;
     char *parent;
     size_t plen;
-    debug("cgc_read file @b\n", path);
+    debug("read file @b\n", path);
 
     CHECKINIT();
 

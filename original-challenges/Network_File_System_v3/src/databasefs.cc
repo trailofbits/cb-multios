@@ -713,7 +713,7 @@ uint32_t CDBFS::FileWrite( uint8_t *pBuf, uint32_t size, uint32_t nitems, CDBFSO
 	// Check to make sure file is opened writeable
 	if ( pFP->GetMode() != FILE_OPEN_WRITE )
 	{
-		SetError( "File opened cgc_read only" );
+		SetError( "File opened read only" );
 		return (0);
 	}
 

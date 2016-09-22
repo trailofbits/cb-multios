@@ -368,7 +368,7 @@ struct node * list_remove(struct list *lst, char value) {
   if (needle->next) { needle->next->prev = needle->prev; }
 
 #ifdef DEBUG_LISTS
-  fprintf(stderr, "K: [D] cgc_exit: list_remove, needle: %p\n", needle);
+  fprintf(stderr, "K: [D] exit: list_remove, needle: %p\n", needle);
   fprintf(stderr, "\t\tremoved node; dump after:\n");
   list_dump(lst);
 #endif
@@ -408,7 +408,7 @@ int node_destroy(struct node *nd) {
   ret = deallocate((void *)nd, PAGE_SZ);
 
 #ifdef DEBUG_LISTS
-  fprintf(stderr, "K: [D] cgc_exit: node_destroy; ret = %d\n", ret);
+  fprintf(stderr, "K: [D] exit: node_destroy; ret = %d\n", ret);
 #endif
 
   return ret;

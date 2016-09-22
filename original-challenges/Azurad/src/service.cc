@@ -197,7 +197,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
         eval.addExternal("ord", builtin_ord);
         eval.addExternal("flag", builtin_flag, secret_page);
         eval.addExternal("rand", builtin_rand, secret_page);
-        eval.addExternal("cgc_read", builtin_read);
+        eval.addExternal("read", builtin_read);
         if (!eval.run())
         {
             fprintf(stderr, "Eval error\n");

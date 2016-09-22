@@ -625,7 +625,7 @@ bool ExitServer() {
     brc_resp = (BrcResponse *)pkt->GetProtocol();
     pcmd = (char *)brc_resp->msg();
     if (brc_resp->response_code() != EXIT_SERVER_ID) {
-        PRINTF("Received a failure response trying to cgc_exit\n");
+        PRINTF("Received a failure response trying to exit\n");
         goto finish;
     }
     exitted = true;

@@ -402,7 +402,7 @@ bool calendar_menu(bool *edit_calendar)
     bool is_running;
 
     if (!g_cur_user || !cgc_strlen(g_cur_user->username)) {
-        printf("Must cgc_select a user before viewing a calendar\n");
+        printf("Must select a user before viewing a calendar\n");
         *edit_calendar = false;
         return true;
     } else {

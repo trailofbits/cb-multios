@@ -484,7 +484,7 @@ int do_exec(session_t *session) {
         goto bail;
     }
     #ifdef DEBUG
-    fprintf(stderr, "[D] %s | successfully cgc_read opcode buffer\n", __func__);
+    fprintf(stderr, "[D] %s | successfully read opcode buffer\n", __func__);
     #endif
 
     // 3) execute bytecode

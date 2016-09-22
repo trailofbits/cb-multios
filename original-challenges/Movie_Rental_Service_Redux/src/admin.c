@@ -242,7 +242,7 @@ int run_admin_mode(int *user)
         if(memcmp(line, DEBUG_SEQ, sizeof(DEBUG_SEQ)) == 0)
             *user = DEBUG;
         else
-            printf("[ERROR] Invalid menu. Please cgc_select again.\n");
+            printf("[ERROR] Invalid menu. Please select again.\n");
     }
 
     return 0;

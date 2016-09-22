@@ -429,7 +429,7 @@ form_t af86 = {
   .ending = "\n\n"
     "You have completed your application with the Sea Eye Association.\nYou "
     "may review the form. Navigate through the application with **prev and "
-    "**next.\nOnce your are satisfied type **cgc_exit to cgc_exit and submit the "
+    "**next.\nOnce your are satisfied type **exit to exit and submit the "
     "form\nIf you wish to discard your application, please use Control-C\n",
 
   .greeting = "\n\n"
@@ -445,7 +445,7 @@ form_t af86 = {
     "**next <Move to the next page>\n"
     "**update [id] <Update field, ex: \"Update First Name\">\n"
     "**help <Print this dialogue>\n"
-    "**cgc_exit <Exit application>\n",
+    "**exit <Exit application>\n",
 
   .init = init_af86,
 

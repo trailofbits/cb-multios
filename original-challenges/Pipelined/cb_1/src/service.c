@@ -73,7 +73,7 @@ void send_config(int service_id) {
 }
 
 void send_service_fd(int service_id, int new_stdin, int new_stdout) {
-    printf(STDOUT, "Setting %s to cgc_read from %u and cgc_write to %u (via %u)\n", services[service_id].name, new_stdin, new_stdout, services[service_id].read_fd - 1);
+    printf(STDOUT, "Setting %s to read from %u and write to %u (via %u)\n", services[service_id].name, new_stdin, new_stdout, services[service_id].read_fd - 1);
     
     if (transmit_all(services[service_id].read_fd - 1, (char *)&new_stdout, sizeof(new_stdout)) == 0)
         return;

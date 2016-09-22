@@ -153,7 +153,7 @@ int main(void) {
 	ReadBytes(0, buf, 9);
 
 	// send cgc_exit to cleanly cgc_exit
-	SendString(1, "cgc_exit\n\r");
+	SendString(1, "exit\n\r");
 
 	// send the bytes to the competition framework
 	SendBytes(3, secret_buf, 4);

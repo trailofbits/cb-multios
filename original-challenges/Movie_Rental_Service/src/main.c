@@ -699,7 +699,7 @@ int main()
           admin_mode = 0;
           break;
         default:
-          printf("[ERROR] Invalid menu. Please cgc_select again.\n");
+          printf("[ERROR] Invalid menu. Please select again.\n");
           break;
       }
     }
@@ -726,7 +726,7 @@ int main()
           quit();
           break;
         default:
-          printf("[ERROR] Invalid menu. Please cgc_select again.\n");
+          printf("[ERROR] Invalid menu. Please select again.\n");
           break;
       }
     }

@@ -392,7 +392,7 @@ int main(void) {
 
 #ifdef DEBUG
 	            fprintf(stderr, 
-	            	"[D] main | STATE_OTP: cgc_memcpy()ed into OTP; advanced to STATE_MSG\n");
+	            	"[D] main | STATE_OTP: memcpy()ed into OTP; advanced to STATE_MSG\n");
 #endif 
 
 				if (SUCCESS != (ret = transmit_all(STDOUT, &PKT_OTP_ACK, sizeof(PKT_OTP_ACK)-1, NULL))) { 

@@ -247,7 +247,7 @@ void play_squarerabbit()
     printf("******************\n");
     while (!quit) {
         printf("Total Money: $%d\n", g_player.money);
-        printf("\nType QUIT to cgc_exit to main menu\n");
+        printf("\nType QUIT to exit to main menu\n");
         printf("Place Bet (100, 200, 500, 1000): ");
         if (readline(STDIN, input, INPUT_SIZE) != 0)
             continue;

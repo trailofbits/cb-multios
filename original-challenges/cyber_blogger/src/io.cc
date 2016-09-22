@@ -164,7 +164,7 @@ File *IO::upload_file()
 
     printf("--Begin Uploading File--\n");
     if (!IO::readnbytes(sizeof(unsigned int), header)) {
-        printf("Could not cgc_read magic num\n");
+        printf("Could not read magic num\n");
         return NULL;
     }
 
@@ -185,7 +185,7 @@ File *IO::upload_file()
         data_size = AsciiArt::find_data_size(header);
         data = new char[data_size];
         if (!IO::readnbytes(data_size, data)) {
-            printf("Could not cgc_read data\n");
+            printf("Could not read data\n");
             delete[] data;
             return NULL;
         }
@@ -209,7 +209,7 @@ File *IO::upload_file()
 
         data = new char[data_size];
         if (!IO::readnbytes(data_size, data)) {
-            printf("Could not cgc_read data\n");
+            printf("Could not read data\n");
             delete[] data;
             return NULL;
         }

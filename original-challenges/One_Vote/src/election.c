@@ -62,7 +62,7 @@
 
 #define NUM_WINNERS_Q	"Enter number of election winners desired: "
 #define MAX_CANDIDATES_Q "Enter the max number of candidates allowed: "
-#define WRITE_IN_OK_Q 	"Can voters cgc_write-in new candidates? (Yy/Nn): "
+#define WRITE_IN_OK_Q 	"Can voters write-in new candidates? (Yy/Nn): "
 
 #define CHOOSE 			"Choose an option: "
 

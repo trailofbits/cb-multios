@@ -1053,7 +1053,7 @@ uint8_t AddUser(char *Username, char *Password) {
 		if (fwrite(line, cgc_strlen(line), 1, newpasswd) != cgc_strlen(line)) {
 			fclose(passwd);
 			fclose(newpasswd);
-			SetFsError("Unable to cgc_write tmp passwd file");
+			SetFsError("Unable to write tmp passwd file");
 			DeleteFile("~passwd");
 			return(0);
 		}
@@ -1061,7 +1061,7 @@ uint8_t AddUser(char *Username, char *Password) {
 			if (fwrite("\n", 1, 1, newpasswd) != 1) {
 				fclose(passwd);
 				fclose(newpasswd);
-				SetFsError("Unable to cgc_write tmp passwd file");
+				SetFsError("Unable to write tmp passwd file");
 				DeleteFile("~passwd");
 				return(0);
 			}
@@ -1150,7 +1150,7 @@ uint8_t DeleteUser(char *Username) {
 		if (fwrite(line, cgc_strlen(line), 1, newpasswd) != cgc_strlen(line)) {
 			fclose(passwd);
 			fclose(newpasswd);
-			SetFsError("Unable to cgc_write tmp passwd file");
+			SetFsError("Unable to write tmp passwd file");
 			DeleteFile("~passwd");
 			return(0);
 		}
@@ -1241,7 +1241,7 @@ uint8_t ChangePasswd(char *Username, char *NewPasswd) {
 			if (fwrite(line, cgc_strlen(line), 1, newpasswd) != cgc_strlen(line)) {
 				fclose(passwd);
 				fclose(newpasswd);
-				SetFsError("Unable to cgc_write tmp passwd file");
+				SetFsError("Unable to write tmp passwd file");
 				DeleteFile("~passwd");
 				return(0);
 			}
@@ -1253,7 +1253,7 @@ uint8_t ChangePasswd(char *Username, char *NewPasswd) {
 
 		// restore the delimiter strtok would have removed
 		if (fwrite(line, cgc_strlen(line), 1, newpasswd) != cgc_strlen(line)) {
-			SetFsError("Unable to cgc_write tmp passwd file");
+			SetFsError("Unable to write tmp passwd file");
 			fclose(passwd);
 			fclose(newpasswd);
 			DeleteFile("~passwd");

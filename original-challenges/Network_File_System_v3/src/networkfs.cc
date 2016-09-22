@@ -198,7 +198,7 @@ void CNetworkFS::HandleCFSLogin( void )
 
 	if ( m_pComms->RecvData( (uint8_t*)&oLoginHdr, sizeof(oLoginHdr) ) != sizeof(oLoginHdr) )
 	{
-		SetError( "Login cgc_read error" );
+		SetError( "Login read error" );
 		return;
 	}
 
@@ -211,7 +211,7 @@ void CNetworkFS::HandleCFSLogin( void )
 		delete pszUsername;
 		delete pszPassword;
 
-		SetError( "Login cgc_read error" );
+		SetError( "Login read error" );
 		return;
 	}
 
@@ -222,7 +222,7 @@ void CNetworkFS::HandleCFSLogin( void )
 		delete pszUsername;
 		delete pszPassword;
 
-		SetError( "Login cgc_read error" );
+		SetError( "Login read error" );
 		return;
 	}
 
@@ -364,7 +364,7 @@ void CNetworkFS::HandleCFSRead( void )
 
 	if ( m_pComms->RecvData( (uint8_t*)&oReadHdr, sizeof(oReadHdr) ) != sizeof(oReadHdr) )
 	{
-		SetError( "Read cgc_read error" );
+		SetError( "Read read error" );
 		return;
 	}
 
@@ -375,7 +375,7 @@ void CNetworkFS::HandleCFSRead( void )
 	{
 		delete pszFilename;
 
-		SetError( "Read cgc_read error" );
+		SetError( "Read read error" );
 		return;
 	}
 
@@ -443,7 +443,7 @@ void CNetworkFS::HandleCFSWrite( void )
 
 	if ( m_pComms->RecvData( (uint8_t*)&oWriteHdr, sizeof(oWriteHdr) ) != sizeof(oWriteHdr) )
 	{
-		SetError( "Write cgc_read error" );
+		SetError( "Write read error" );
 		return;
 	}
 
@@ -456,7 +456,7 @@ void CNetworkFS::HandleCFSWrite( void )
 		delete pszFilename;
 		delete pData;
 
-		SetError( "Write cgc_read error" );
+		SetError( "Write read error" );
 		return;
 	}
 
@@ -467,7 +467,7 @@ void CNetworkFS::HandleCFSWrite( void )
 		delete pszFilename;
 		delete pData;
 
-		SetError( "Write cgc_read error" );
+		SetError( "Write read error" );
 		return;
 	}
 
@@ -538,7 +538,7 @@ void CNetworkFS::HandleCFSWriteAppend( void )
 
 	if ( m_pComms->RecvData( (uint8_t*)&oWriteAppendHdr, sizeof(oWriteAppendHdr) ) != sizeof(oWriteAppendHdr) )
 	{
-		SetError( "Write append cgc_read error" );
+		SetError( "Write append read error" );
 		return;
 	}
 
@@ -551,7 +551,7 @@ void CNetworkFS::HandleCFSWriteAppend( void )
 		delete pData;
 		delete pszFilename;
 
-		SetError( "Write append cgc_read error" );
+		SetError( "Write append read error" );
 		return;
 	}
 
@@ -563,7 +563,7 @@ void CNetworkFS::HandleCFSWriteAppend( void )
 		delete pData;
 		delete pszFilename;
 
-		SetError( "Write append cgc_read error" );
+		SetError( "Write append read error" );
 		return;
 	}
 
@@ -620,7 +620,7 @@ void CNetworkFS::HandleCFSDel( void )
 
 	if ( m_pComms->RecvData( (uint8_t*)&oDeleteHdr, sizeof(oDeleteHdr) ) != sizeof(oDeleteHdr) )
 	{
-		SetError( "Delete cgc_read error" );
+		SetError( "Delete read error" );
 		return;
 	}
 
@@ -631,7 +631,7 @@ void CNetworkFS::HandleCFSDel( void )
 	{
 		delete pszFilename;
 
-		SetError( "Delete cgc_read error" );
+		SetError( "Delete read error" );
 		return;
 	}
 
@@ -668,7 +668,7 @@ void CNetworkFS::HandleCFSRename( void )
 
 	if ( m_pComms->RecvData( (uint8_t*)&oRenameHdr, sizeof(oRenameHdr) ) != sizeof(oRenameHdr) )
 	{
-		SetError( "Rename cgc_read error" );
+		SetError( "Rename read error" );
 		return;
 	}
 
@@ -681,7 +681,7 @@ void CNetworkFS::HandleCFSRename( void )
 		delete pszOrigFilename;
 		delete pszNewFilename;
 
-		SetError( "Rename cgc_read error" );
+		SetError( "Rename read error" );
 		return;
 	}
 
@@ -692,7 +692,7 @@ void CNetworkFS::HandleCFSRename( void )
 		delete pszOrigFilename;
 		delete pszNewFilename;
 
-		SetError( "Rename cgc_read error" );
+		SetError( "Rename read error" );
 		return;
 	}
 

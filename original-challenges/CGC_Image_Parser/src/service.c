@@ -167,7 +167,7 @@ int menu( void )
 		selection = 0;
 
 		if ( receive_until( (char*)&selection, '\n', 2 ) == 0 ) {
-			printf("[ERROR] Failed to cgc_read choice\n");
+			printf("[ERROR] Failed to read choice\n");
 			return 0;
 		}
 
@@ -311,7 +311,7 @@ int main(void)
 	image_length = readData( &image );
 
 	if ( image_length == 0 ) {
-		printf("[ERROR] Failed to cgc_read image\n");
+		printf("[ERROR] Failed to read image\n");
 		return 0;
 	}
 

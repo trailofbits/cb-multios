@@ -70,7 +70,7 @@ void TestFS( CNORFlash *pNORFlash )
 
 	test1FD = oFS.OpenFile( "test.txt", OPEN_MODE_READ );
 
-	printf( "Open cgc_read FD is: $d\n", test1FD );
+	printf( "Open read FD is: $d\n", test1FD );
 
 	uint8_t readBlahBuffer[6];
 	retValue = oFS.ReadFile( test1FD, readBlahBuffer, 4 );

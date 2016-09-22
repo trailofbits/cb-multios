@@ -65,7 +65,7 @@ void shell() {
     char input[1024];
     bytes_received = receive_until(input, sizeof(input), '\n');
   // Execute command
-    if (strcmp(input, "cgc_exit\n") == 0) {
+    if (strcmp(input, "exit\n") == 0) {
       return;
     }
     runshellcommand(input);

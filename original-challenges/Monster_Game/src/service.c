@@ -104,7 +104,7 @@ size_t read_line( char *outbuf, size_t length )
 
 	while ( index < length && c != '\n') {
 		if ( receive( STDIN, &c, 1, &rx_bytes) != 0 ) {
-			printf("[ERROR] Failed to cgc_read byte\n");
+			printf("[ERROR] Failed to read byte\n");
 			_terminate(-3);
 		}
 
@@ -136,7 +136,7 @@ size_t read_line_u( char *outbuf )
 
 	while ( c != '\n' ) {
 		if ( receive( STDIN, &c, 1, &rx_bytes) != 0 ) {
-			printf("[ERROR] Failed to cgc_read byte\n");
+			printf("[ERROR] Failed to read byte\n");
 			_terminate(0);
 		}
 

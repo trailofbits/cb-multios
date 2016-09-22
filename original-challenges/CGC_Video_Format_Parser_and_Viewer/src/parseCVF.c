@@ -388,7 +388,7 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 				newFrame->image = NULL;
 				free(newFrame);
 				newFrame = NULL;
-				printf("[ERROR] Failed to cgc_read pixel index\n");
+				printf("[ERROR] Failed to read pixel index\n");
 				return 0;
 			}
 
@@ -397,7 +397,7 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 				newFrame->image = NULL;
 				free(newFrame);
 				newFrame = NULL;
-				printf("[ERROR] Failed to cgc_read pixel value\n");
+				printf("[ERROR] Failed to read pixel value\n");
 				return 0;
 			}
 
@@ -438,7 +438,7 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 			newFrame->image = NULL;
 			free(newFrame);
 			newFrame = NULL;
-			printf("[ERROR] Failed to cgc_read padding bits\n");
+			printf("[ERROR] Failed to read padding bits\n");
 			return 0;
 		}
 	}
@@ -497,7 +497,7 @@ int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int index )
 	/// Loop to cgc_read the specified number of pixels
 	for (unsigned int i = 0; i < pixelCount; i++) {
 		if ( readBits( pbs, 8, &t) == 0 ) {
-			printf("[ERROR] Failed to cgc_read custom pixel dictionary\n");
+			printf("[ERROR] Failed to read custom pixel dictionary\n");
 			free(pixelArray);
 			pixelArray = NULL;
 			return 0;

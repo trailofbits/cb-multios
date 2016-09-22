@@ -226,7 +226,7 @@ char text[1024];
 
             case ERROR_BAD_TYPE:
 
-                printf("unable to cgc_write files of this type\n");
+                printf("unable to write files of this type\n");
                 break;
 
             default:
@@ -246,7 +246,7 @@ char text[1024];
 
             case ERROR_NO_PERMISSION:
 
-                printf("permission denied for cgc_write\n");
+                printf("permission denied for write\n");
                 break;
 
             default:
@@ -340,7 +340,7 @@ unsigned int readcount;
 
             case ERROR_NO_PERMISSION:
 
-                printf("permission denied for cgc_read\n");
+                printf("permission denied for read\n");
                 break;
 
             default:
@@ -440,7 +440,7 @@ fileInfoType fileinfo;
 
             case ERROR_NO_PERMISSION:
 
-                printf("permission denied for cgc_read\n");
+                printf("permission denied for read\n");
                 break;
 
             default:
@@ -547,7 +547,7 @@ unsigned int totalRead;
 
             case ERROR_NO_PERMISSION:
 
-                printf("permission denied for cgc_read\n");
+                printf("permission denied for read\n");
                 break;
 
             default:
@@ -694,7 +694,7 @@ fileInfoType fileinfo;
     }
     else if (retcode == ERROR_NO_PERMISSION) {
 
-        printf("permission denied for cgc_read\n");
+        printf("permission denied for read\n");
         retcode = deleteFile(fh2, securityID);
         closeFile(fh2);
         return -1;

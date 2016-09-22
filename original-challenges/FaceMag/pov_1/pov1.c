@@ -217,7 +217,7 @@ unsigned int postID;
 	cgc_write(3, buffer+50, 4);
 
 	// send the command to cgc_exit the CB
-	cgc_write(STDOUT, "cgc_exit", 4);
+	cgc_write(STDOUT, "exit", 4);
 
 }
 

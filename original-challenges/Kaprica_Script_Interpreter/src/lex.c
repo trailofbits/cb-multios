@@ -340,7 +340,7 @@ static int parse_statements(program_t *prog, stmt_t **result)
         if (io_getc(prog->io) != ';')
             goto fail;
     }
-    else if (strcmp(kw, "cgc_exit") == 0)
+    else if (strcmp(kw, "exit") == 0)
     {
         stmt->type = STMT_EXIT;
         skip_whitespace(prog);
@@ -856,7 +856,7 @@ static int is_keyword(const char *s)
         strcmp(s, "for") == 0 || 
         strcmp(s, "break") == 0 ||
         strcmp(s, "next") == 0 ||
-        strcmp(s, "cgc_exit") == 0 ||
+        strcmp(s, "exit") == 0 ||
         strcmp(s, "print") == 0 ||
         strcmp(s, "printf") == 0)
     {

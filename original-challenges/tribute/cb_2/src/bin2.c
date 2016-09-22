@@ -220,7 +220,7 @@ int parse_instructions() {
 #endif
    while ((i1 = read_until_delim(PIPEFD_IN, buf, 255, '\n')) > 0) {
 #ifdef DEBUG
-      fprintf(stderr, "cgc_read %d bytes from pipe 01\n", i1);
+      fprintf(stderr, "read %d bytes from pipe 01\n", i1);
 #endif
       buf[i1] = 0;
       if (memcmp(buf, "END", 3) == 0) {

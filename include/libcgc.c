@@ -233,6 +233,7 @@ void try_init_prng() {
 
     // Create the prng
     cgc_internal_prng = (cgc_prng *) malloc(sizeof(cgc_prng));
+    memset(cgc_internal_prng, 0, sizeof(cgc_prng));
     cgc_aes_state *seed = (cgc_aes_state *) prng_seed;
     cgc_init_prng(cgc_internal_prng, seed);
 }

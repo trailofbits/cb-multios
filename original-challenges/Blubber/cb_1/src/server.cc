@@ -163,7 +163,7 @@ void handle_blub(client_state* c)
     fprintf(c->tx, "...: ");
     if (!client_ready(c) || freaduntil(tmp, BLUB_MAX, EOT_C, c->rx) < 0)
     {
-      dbg("Failed to cgc_read blub");
+      dbg("Failed to read blub");
       return;
     }
     tmp[BLUB_MAX] = '\0';
@@ -187,7 +187,7 @@ void handle_reblub(server_state* s, client_state* c)
   char username[USERNAME_MAX + 1];
   if (!client_ready(c) || freaduntil(username, USERNAME_MAX, EOT_C, c->rx) < 0)
   {
-    dbg("Failed to cgc_read reblub username");
+    dbg("Failed to read reblub username");
     return;
   }
   username[USERNAME_MAX] = '\0';
@@ -196,7 +196,7 @@ void handle_reblub(server_state* s, client_state* c)
   char num[16];
   if (!client_ready(c) || freaduntil(num, sizeof(num) - 1, EOT_C, c->rx) < 0)
   {
-    dbg("Failed to cgc_read reblub number");
+    dbg("Failed to read reblub number");
     return;
   }
 
@@ -230,7 +230,7 @@ void handle_sub(server_state* s, client_state* c)
   char username[USERNAME_MAX + 1];
   if (!client_ready(c) || freaduntil(username, USERNAME_MAX, EOT_C, c->rx) < 0)
   {
-    dbg("Failed cgc_read sub username");
+    dbg("Failed read sub username");
     return;
   }
   username[USERNAME_MAX] = '\0';

@@ -58,7 +58,7 @@ int planetMenu( pPlanet pl )
 		printf("10) Set population\n");
 		printf("11) Add Country\n");
 		printf("12) Select country\n");
-		printf("13) Delete Planet and cgc_exit menu\n");
+		printf("13) Delete Planet and exit menu\n");
 		printf("14) Exit menu\n");
 		printf("Selection: ");
 

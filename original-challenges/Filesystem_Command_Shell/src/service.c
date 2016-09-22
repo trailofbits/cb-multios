@@ -54,7 +54,7 @@ fileHandleType fh;
         {"make", makeFile },
         {"erase", eraseFile }, 
         {"list", listFiles },
-        {"cgc_write", overwriteFile }, 
+        {"write", overwriteFile }, 
         {"show", dumpFile },
         {"last", readFromEnd },
         { "first", readFirstN }, 
@@ -101,7 +101,7 @@ fileHandleType fh;
 
     }
 
-    strcpy(buffer, "Valid commands are make, makememfile, erase, list, copy, cgc_write, show, first, last, and perms.");
+    strcpy(buffer, "Valid commands are make, makememfile, erase, list, copy, write, show, first, last, and perms.");
 
     retcode = writeFile(fh, buffer, cgc_strlen(buffer), ROOT_ID);
 
@@ -180,7 +180,7 @@ fileHandleType fh;
             continue;
 
         }
-        else if (strcmp(args[0], "cgc_exit") == 0 ) {
+        else if (strcmp(args[0], "exit") == 0 ) {
 
             break;
 

@@ -74,7 +74,7 @@ student_t *register_student()
     if(!student->set_major(student, answer))
         printf("Bad Department Name\n");
 
-    printf("Congratulations. You're cgc_read to start adding classes\n");
+    printf("Congratulations. You're read to start adding classes\n");
     return student;
 }
 

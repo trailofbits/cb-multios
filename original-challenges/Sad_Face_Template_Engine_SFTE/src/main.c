@@ -51,7 +51,7 @@ void define_vars(dict_t **vars)
   sad_var_type_t var_type;
   char var_name[MAX_BUF_SIZE];
   char var_value[MAX_BUF_SIZE];
-  printf("-- Empty variable name will cgc_exit this menu\n");
+  printf("-- Empty variable name will exit this menu\n");
   printf("-- Empty value will undefine the variable (if exists)\n");
   while (1)
   {

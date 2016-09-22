@@ -717,7 +717,7 @@ int deserialize(void) {
     }
 
 #ifdef DEBUG
-    fprintf(stderr, "[D] deserialize | cgc_read 0x%04x bytes of json\n", rx_bytes);
+    fprintf(stderr, "[D] deserialize | read 0x%04x bytes of json\n", rx_bytes);
 #endif
 
     // Parse json.

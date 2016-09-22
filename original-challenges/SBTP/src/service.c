@@ -311,7 +311,7 @@ resp_t *do_get(msg_t *msg) {
     }
 
     if (!(data = readfile(msg->buf))) {
-        debug("Failed to cgc_read file.\n");
+        debug("Failed to read file.\n");
         resp->type = GET_FAIL;
         return resp;
     }

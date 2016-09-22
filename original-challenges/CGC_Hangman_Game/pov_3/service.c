@@ -77,7 +77,7 @@ void match(const char *str) {
    char buf[4096];
    int l = cgc_strlen(str);
    if (fread(buf, 1, l, stdin) != l) {
-      err("short cgc_read in match\n", 20, 1);
+      err("short read in match\n", 20, 1);
    }
    if (memcmp(buf, str, l) != 0) {
       transmit(2, "match fail expected:\n", 21, NULL);

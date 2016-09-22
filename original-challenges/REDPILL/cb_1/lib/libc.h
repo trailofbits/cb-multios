@@ -16,7 +16,7 @@
 // Errors / statuses
 #define SUCCESS 0
 #define ERRNO_SEND (SERVICE_ID+1)
-#define ERR_RECV "[E] could not cgc_read or insufficient bytes\n"
+#define ERR_RECV "[E] could not read or insufficient bytes\n"
 #define ERRNO_RECV (SERVICE_ID+2)
 #define ERRNO_ALLOC (SERVICE_ID+3)
 #define ERRNO_INSUFFICIENT_BYTES (SERVICE_ID+4)

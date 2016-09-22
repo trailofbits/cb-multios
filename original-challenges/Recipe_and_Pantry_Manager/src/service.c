@@ -73,7 +73,7 @@ int read_selection( void )
 
 	while ( value ) {
 		if ( receive( STDIN, data + index, value, &bytes) != 0 ) {
-			printf("[ERROR] Failed to cgc_read data\n");
+			printf("[ERROR] Failed to read data\n");
 			_terminate(-1);
 		}
 
@@ -113,12 +113,12 @@ int read_string( char *dest, size_t maxlen )
 
 	while ( index < maxlen ) {
 		if ( receive( STDIN, &c, 1, &bytes_read) != 0 ) {
-			printf("[ERROR] Failed to cgc_read string\n");
+			printf("[ERROR] Failed to read string\n");
 			_terminate(-3);
 		}
 
 		if ( bytes_read == 0 ) {
-			printf("[ERROR] String cgc_read failure\n");
+			printf("[ERROR] String read failure\n");
 			_terminate(-4);
 		}
 
@@ -339,7 +339,7 @@ pingredient ingredient_prompt( )
 
 	bzero( data, 6 );
 	if ( read_string( data, 5 ) == 0 ) {
-		printf("[ERROR] Failed to cgc_read the measurement type.\n");
+		printf("[ERROR] Failed to read the measurement type.\n");
 		free(ping);
 		return NULL;
 	}
@@ -980,7 +980,7 @@ void update_pantry( void )
 
 	bzero( data, 16 );
 	if ( read_string( data, 5 ) == 0 ) {
-		printf("[ERROR] Failed to cgc_read the measurement type.\n");
+		printf("[ERROR] Failed to read the measurement type.\n");
 		return;
 	}
 

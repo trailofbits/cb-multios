@@ -71,7 +71,7 @@ int handle_read(FILE* rx, FILE* tx, vector* read_blubs)
   int to_read = 0;
   if (fread(&to_read, sizeof(to_read), rx) != sizeof(to_read))
   {
-    dbg("Failed to cgc_read count");
+    dbg("Failed to read count");
     return 0;
   }
   check_quit((char *)&to_read);
@@ -84,7 +84,7 @@ int handle_read(FILE* rx, FILE* tx, vector* read_blubs)
 
     if (fread(&id, sizeof(id), rx) != sizeof(id))
     {
-      dbg("Failed to cgc_read id");
+      dbg("Failed to read id");
       break;
     }
     check_quit((char *)&id);
@@ -204,7 +204,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
       {
         case 0: // cgc_read
           {
-            dbg("Doing cgc_read");
+            dbg("Doing read");
             handle_read(rx, tx, &read_blubs);
             break;
           }

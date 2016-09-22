@@ -39,7 +39,7 @@ int read_until_END() {
       while ((nbytes = read_until_delim(0, buf, 253, '\n')) > 0) {
          size_t tlen;
 #ifdef DEBUG
-         fprintf(stderr, "cgc_read %d bytes from socket\n", nbytes);
+         fprintf(stderr, "read %d bytes from socket\n", nbytes);
 #endif
          buf[nbytes++] = '\n';
          for (counter = 0; counter < nbytes; counter++) {

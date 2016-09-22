@@ -117,7 +117,7 @@ int i;
 
         if (ret_code == -1) {
 
-            printf("unable to cgc_read SAP0 segment\n");
+            printf("unable to read SAP0 segment\n");
             _terminate(-1);
         }
 
@@ -177,7 +177,7 @@ int i;
 
     if (ret_code == -1) {
 
-        printf("unable to cgc_read SAP1 segment\n");
+        printf("unable to read SAP1 segment\n");
         _terminate(-1);
     }
 
