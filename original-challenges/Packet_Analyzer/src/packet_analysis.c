@@ -50,7 +50,7 @@ void TransmitOptionHeader(OptionHeader *header) {
   switch(header->type) {
     case OPTION_TYPE_STRING: {
 #ifdef PATCHED
-      TransmitBytes(header->value, strlen.header->value));
+      TransmitBytes(header->value, cgc_strlen(header->value));
 #else
       TransmitFormattedBytes(header->value);
 #endif
@@ -504,7 +504,7 @@ int AnalyzeApplicationLayer(SystemState *state, Packet *packet) {
       _terminate(-1);
     }
     bzero(header, header_length + 1);
-    memcpy.header, (char *)(packet->data), header_length);
+    cgc_memcpy(header, (char *)(packet->data), header_length);
     DisplayFormatted(state, DISPLAY_APPLICATION, "Headers: +s\n", header);
     packet->data += header_length;
     packet->size -= header_length;
