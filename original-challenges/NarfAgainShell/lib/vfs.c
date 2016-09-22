@@ -87,7 +87,7 @@ lookup_dir(const struct vfs *vfs, const char *path, int follow_links)
     size_t path_len;
     char *path_dup, *cur;
 
-    path_len = strlen(path);
+    path_len = cgc_strlen(path);
     if (path_len == 0)
         return vfs->root;
 
@@ -135,7 +135,7 @@ lookup_file(const struct vfs *vfs, const char *path, int follow_links)
     size_t path_len;
     char *path_dup, *name;
 
-    path_len = strlen(path);
+    path_len = cgc_strlen(path);
     if (path[path_len - 1] == '/')
         return NULL;
 
@@ -178,7 +178,7 @@ get_path_from_dir(const struct vfs *vfs, const struct directory *dir)
 
         memmove(ret + cur_len + 1, ret, path_len);
         ret[cur_len] = '/';
-        memcpy(ret, cur->name, cur_len);
+        cgc_memcpy(ret, cur->name, cur_len);
 
         path_len += cur_len + 1;
         cur = cur->parent;
@@ -211,7 +211,7 @@ get_path_from_file(const struct vfs *vfs, const struct file *file)
     if ((ret = get_path_from_dir(vfs, file->parent)) == NULL)
         return NULL;
 
-    if ((tmp = realloc(ret, strlen(ret) + name_len + 1)) == NULL) {
+    if ((tmp = realloc(ret, cgc_strlen(ret) + name_len + 1)) == NULL) {
         free(ret);
         return NULL;
     }
@@ -240,7 +240,7 @@ read_file(const struct vfs *vfs, uid_t user, const char *path, unsigned char **c
 {
     struct file *file;
 
-    // We can read any file in our current model, so suppress unused warning
+    // We can cgc_read any file in our current model, so suppress unused warning
     (void)(user);
 
     if ((file = lookup_file(vfs, path, 1)) == NULL)
@@ -287,7 +287,7 @@ create_dir(struct vfs *vfs, const char *path)
     size_t path_len;
     char *path_dup, *name;
 
-    path_len = strlen(path);
+    path_len = cgc_strlen(path);
     if ((path_dup = calloc(path_len + 1)) == NULL)
         return NULL;
 
@@ -345,7 +345,7 @@ create_file(struct vfs *vfs, const char *path)
     size_t path_len;
     char *path_dup, *name;
 
-    path_len = strlen(path);
+    path_len = cgc_strlen(path);
     if (path[path_len - 1] == '/')
         return NULL;
 
@@ -406,7 +406,7 @@ create_symlink(struct vfs *vfs, uid_t user, const char *src_path, const char *ds
     char *path_dup, *name;
     uid_t owner;
 
-    src_path_len = strlen(src_path);
+    src_path_len = cgc_strlen(src_path);
     if (src_path[src_path_len - 1] == '/')
         return -1;
 
@@ -441,7 +441,7 @@ create_symlink(struct vfs *vfs, uid_t user, const char *src_path, const char *ds
     if (user != owner && user != ROOT_UID)
         goto free_path;
 
-    dst_path_len = strlen(dst_path);
+    dst_path_len = cgc_strlen(dst_path);
     if ((contents = calloc(dst_path_len + 1)) == NULL)
         goto free_path;
 
@@ -485,7 +485,7 @@ delete_file(struct vfs *vfs, uid_t user, struct file *file)
     // Suppress unused warning
     (void)vfs;
 
-    // Do we have permission to write to the file?
+    // Do we have permission to cgc_write to the file?
     if (user != file->owner && user != ROOT_UID)
         return -1;
 

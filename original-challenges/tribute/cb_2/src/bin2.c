@@ -209,8 +209,8 @@ int parse_instructions() {
    char buf[256];
    inst_t inst;
    int result;
-   memset(buf, 0, sizeof(buf));
-   memset(&inst, 0, sizeof(inst));
+   cgc_memset(buf, 0, sizeof(buf));
+   cgc_memset(&inst, 0, sizeof(inst));
 #ifdef DEBUG
    fprintf(stderr, "parse_instructions hitting illegal inst\n");
 #endif
@@ -220,12 +220,12 @@ int parse_instructions() {
 #endif
    while ((i1 = read_until_delim(PIPEFD_IN, buf, 255, '\n')) > 0) {
 #ifdef DEBUG
-      fprintf(stderr, "read %d bytes from pipe 01\n", i1);
+      fprintf(stderr, "cgc_read %d bytes from pipe 01\n", i1);
 #endif
       buf[i1] = 0;
       if (memcmp(buf, "END", 3) == 0) {
-         memset(&inst, 0xff, sizeof(inst));
-         //make the effort to write all, but we are quitting anyway so nothing
+         cgc_memset(&inst, 0xff, sizeof(inst));
+         //make the effort to cgc_write all, but we are quitting anyway so nothing
          //we can do it this comes back short
          write_all(PIPEFD_OUT, (void *) &inst, sizeof(inst));
          break;
@@ -243,7 +243,7 @@ int parse_instructions() {
 #ifdef DEBUG
       fprintf(stderr, "wrote %d bytes to pipe 12\n", sizeof(inst));
 #endif
-      memset(buf, 0, sizeof(buf));
+      cgc_memset(buf, 0, sizeof(buf));
    }
 #ifdef DEBUG
    fprintf(stderr, "child 2 done in parse_instructions\n");
@@ -251,9 +251,9 @@ int parse_instructions() {
    result = 0;
 done:
    if (result == -1) {
-      memset(&inst, 0xff, sizeof(inst));
+      cgc_memset(&inst, 0xff, sizeof(inst));
       inst.opcode = -2;
-      //make the effort to write all, but we are quitting anyway
+      //make the effort to cgc_write all, but we are quitting anyway
       //so nothing we can do if this is short
       write_all(PIPEFD_OUT, (void *) &inst, sizeof(inst)); 
    }

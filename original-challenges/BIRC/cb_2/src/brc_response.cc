@@ -37,13 +37,13 @@ BrcResponse::BrcResponse(short response_code, char *msg, unsigned short msg_leng
     set_server_addr();
 
     char *pdata = raw_data_ + token_length();
-    memcpy(pdata, &server_addr_, sizeof(server_addr_));
+    cgc_memcpy(pdata, &server_addr_, sizeof(server_addr_));
     pdata += sizeof(server_addr_);
-    memcpy(pdata, &response_code, sizeof(response_code));
+    cgc_memcpy(pdata, &response_code, sizeof(response_code));
     pdata += sizeof(response_code);
-    memcpy(pdata, &msg_length, sizeof(msg_length));
+    cgc_memcpy(pdata, &msg_length, sizeof(msg_length));
     pdata += sizeof(msg_length);
-    memcpy(pdata, msg, msg_length);
+    cgc_memcpy(pdata, msg, msg_length);
 }
 
 BrcResponse::~BrcResponse() {

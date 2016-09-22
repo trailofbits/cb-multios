@@ -21,7 +21,7 @@
 */
 #include <libcgc.h>
 
-void *memcpy(void *dest, const void *src, size_t n) {
+void *cgc_memcpy(void *dest, const void *src, size_t n) {
 
 	char *c_src, *c_dst;
 	c_src = (char *) src;

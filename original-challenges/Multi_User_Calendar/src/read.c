@@ -42,7 +42,7 @@ int readline(char *buf, size_t buf_size)
         else
         {
             fflush(stdout);
-            exit(0);
+            cgc_exit(0);
         }
     }
 
@@ -77,7 +77,7 @@ char *q_and_a(char *question, int maxlen, char *buf, size_t buflen, int *recv_st
         case ERROR:
             return NULL;
         case SUCCESS:
-            if (strlen(buf) > maxlen || (!allow_empty && !strlen(buf))) {
+            if (cgc_strlen(buf) > maxlen || (!allow_empty && !cgc_strlen(buf))) {
                 *recv_status = FAIL;
             } else {
                 answer = strdup(buf);

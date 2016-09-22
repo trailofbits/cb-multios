@@ -30,7 +30,7 @@ error_t user_new(user_t **user)
     if (!user)
         return ERR_INTERNAL;
     *user = (user_t *) malloc(sizeof(user_t));
-    memset(*user, 0, sizeof(user_t));
+    cgc_memset(*user, 0, sizeof(user_t));
     return ERR_OK;
 }
 
@@ -38,9 +38,9 @@ error_t user_set_nick(user_t *user, const char *nick)
 {
     if (!user || !nick)
         return ERR_INTERNAL;
-    if (strlen(nick) >= sizeof(user->nick))
+    if (cgc_strlen(nick) >= sizeof(user->nick))
         return ERR_NICK_LONG;
-    memset(user->nick, 0, sizeof(user->nick));
+    cgc_memset(user->nick, 0, sizeof(user->nick));
     strcpy(user->nick, nick);
     return ERR_OK;
 }
@@ -49,9 +49,9 @@ error_t user_set_pass(user_t *user, const char *pass)
 {
     if (!user || !pass)
         return ERR_INTERNAL;
-    if (strlen(pass) >= sizeof(user->pass))
+    if (cgc_strlen(pass) >= sizeof(user->pass))
         return ERR_PASS_LONG;
-    memset(user->pass, 0, sizeof(user->pass));
+    cgc_memset(user->pass, 0, sizeof(user->pass));
     strcpy(user->pass, pass);
     return ERR_OK;
 }
@@ -71,10 +71,10 @@ error_t team_new(team_t **team)
     if (!team)
         return ERR_INTERNAL;
     *team = (team_t *) malloc(sizeof(team_t));
-    memset(*team, 0, sizeof(team_t));
+    cgc_memset(*team, 0, sizeof(team_t));
     (*team)->members = (user_t **) malloc(sizeof(user_t *) * 8);
     (*team)->sz_members = 8;
-    memset((*team)->members, 0, (*team)->sz_members * sizeof(user_t *));
+    cgc_memset((*team)->members, 0, (*team)->sz_members * sizeof(user_t *));
     return ERR_OK;
 }
 error_t team_add_member(team_t *team, user_t *user)
@@ -116,9 +116,9 @@ error_t team_change_name(team_t *team, const char *name)
 {
     if (!team || !name)
         return ERR_INTERNAL;
-    if (strlen(name) >= sizeof(team->name))
+    if (cgc_strlen(name) >= sizeof(team->name))
         return ERR_NAME_LONG;
-    memset(team->name, 0, sizeof(team->name));
+    cgc_memset(team->name, 0, sizeof(team->name));
     strcpy(team->name, name);
     return ERR_OK;
 }

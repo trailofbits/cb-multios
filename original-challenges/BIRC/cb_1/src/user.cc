@@ -32,9 +32,9 @@ User::User(const char *name, const unsigned short name_length, const char *pass,
     : joined_channels_(MAX_CHAN_SIZE), direct_msgs_(MAX_MSG_SIZE),
         blocked_users_(MAX_BLOCKED_USERS) {
     name_length_ = name_length < MAX_LENGTH ? name_length : MAX_LENGTH;
-    memcpy(name_, name, name_length_);
+    cgc_memcpy(name_, name, name_length_);
     pass_length_ = pass_length < MAX_LENGTH ? pass_length : MAX_LENGTH;
-    memcpy(pass_, pass, pass_length_);
+    cgc_memcpy(pass_, pass, pass_length_);
     is_admin_ = is_admin;
 }
 
@@ -118,7 +118,7 @@ const char *User::name() {
 
 void User::set_name(const char *name, const unsigned short name_length) {
     name_length_ = name_length < MAX_LENGTH ? name_length : MAX_LENGTH;
-    memcpy(name_, name, name_length_);
+    cgc_memcpy(name_, name, name_length_);
 }
 
 const unsigned short User::name_length() {
@@ -131,7 +131,7 @@ const char *User::pass() {
 
 void User::set_pass(const char *pass, const unsigned short pass_length) {
     pass_length_ = pass_length < MAX_LENGTH ? pass_length : MAX_LENGTH;
-    memcpy(pass_, pass, pass_length_);
+    cgc_memcpy(pass_, pass, pass_length_);
 }
 
 const unsigned short User::pass_length() {

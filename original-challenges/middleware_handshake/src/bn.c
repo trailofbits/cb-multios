@@ -91,7 +91,7 @@ int bn_copy(bn_t *bn, const bn_t *src)
     if (bn_init_bits(bn, src->length * sizeof(uint32_t) * 8) != SUCCESS)
         return FAILURE;
 
-    memcpy(bn->data, src->data, src->length * sizeof(uint32_t));
+    cgc_memcpy(bn->data, src->data, src->length * sizeof(uint32_t));
     bn->length = src->length;
     return SUCCESS;
 }

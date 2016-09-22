@@ -38,7 +38,7 @@ void FxReverb::apply(AudioStream &stream) const
 {
     Gain gain = Gain::fromRational(-50, 100);
     int32_t *buffer = new int32_t[delay];
-    memset(buffer, 0, sizeof(int32_t) * delay);
+    cgc_memset(buffer, 0, sizeof(int32_t) * delay);
 
     for (unsigned int i = 0; i < stream.getLength(); i++)
     {

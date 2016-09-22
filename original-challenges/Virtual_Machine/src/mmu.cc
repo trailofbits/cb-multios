@@ -92,7 +92,7 @@ bool CMMU::AddMemorySection( uint16_t address, uint8_t *pData, uint16_t dataLen,
 		m_mmuPages[mmuPage].mmuFlags |= mmuFlags;
 	
 		// Copy in the data
-		memcpy( m_mmuPages[mmuPage].pageData+pageOffset, pData+copyFromPos, copyAmount );
+		cgc_memcpy( m_mmuPages[mmuPage].pageData+pageOffset, pData+copyFromPos, copyAmount );
 
 		// Update copy positions
 		copyFromPos += copyAmount;
@@ -167,7 +167,7 @@ bool CMMU::ReadDMA( uint16_t address, uint8_t *pData, uint16_t amount )
 		if ( pageOffset+amountToRead > MMU_PAGE_SIZE )
 			amountToRead = (MMU_PAGE_SIZE - (pageOffset+amountToRead));
 
-		memcpy( pData+offset, m_mmuPages[mmuPage].pageData+pageOffset, amountToRead );
+		cgc_memcpy( pData+offset, m_mmuPages[mmuPage].pageData+pageOffset, amountToRead );
 
 		offset += amountToRead;
 		amount -= amountToRead;
@@ -193,7 +193,7 @@ bool CMMU::WriteDMA( uint16_t address, uint8_t *pData, uint16_t amount )
 		if ( pageOffset+amountToWrite > MMU_PAGE_SIZE )
 			amountToWrite = (MMU_PAGE_SIZE - (pageOffset+amountToWrite));
 
-		memcpy( m_mmuPages[mmuPage].pageData+pageOffset, (pData+offset), amountToWrite );
+		cgc_memcpy( m_mmuPages[mmuPage].pageData+pageOffset, (pData+offset), amountToWrite );
 
 		offset += amountToWrite;
 		amount -= amountToWrite;

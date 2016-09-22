@@ -59,9 +59,9 @@ void handle_calc(unsigned int cmd)
       type = OP_MOD; break;
   }
   if (fread(&arg1, sizeof(int), stdin) != sizeof(int))
-    exit(0);
+    cgc_exit(0);
   if (fread(&arg2, sizeof(int), stdin) != sizeof(int))
-    exit(0);
+    cgc_exit(0);
   if (arg1 == 0 || arg2 == 0)
     return;
   g_calcs[g_num_calcs].arg1 = arg1;
@@ -89,7 +89,7 @@ void handle_imp(op_t **calcs)
   op_t op;
   unsigned int i;
   if (fread(&g_sz_calcs, sizeof(size_t), stdin) != sizeof(size_t))
-    exit(0);
+    cgc_exit(0);
   if (g_sz_calcs > 30 || g_sz_calcs < 3)
     return;
   if (g_calcs)
@@ -100,10 +100,10 @@ void handle_imp(op_t **calcs)
   for (i = 0; i < g_sz_calcs; ++i)
   {
     if (fread(&op, sizeof(op_t), stdin) != sizeof(op_t))
-      exit(0);
+      cgc_exit(0);
     if (op.arg1 == 0 || op.arg2 == 0)
-      exit(0);
-    memcpy(&g_calcs[g_num_calcs], &op, sizeof(op_t));
+      cgc_exit(0);
+    cgc_memcpy(&g_calcs[g_num_calcs], &op, sizeof(op_t));
     g_num_calcs++;
   }
 }
@@ -196,7 +196,7 @@ int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
             handle_calc(cmd);
           break;
         case CMD_EXP:
-          memset(results, 0, sizeof(results));
+          cgc_memset(results, 0, sizeof(results));
           handle_exp(results);
           for (i = 0; i < g_num_calcs; ++i)
             fwrite(&results[i], sizeof(int), stdout);
@@ -214,5 +214,5 @@ int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
           break;
       }
     }
-    exit(0);
+    cgc_exit(0);
 }

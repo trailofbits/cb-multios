@@ -52,7 +52,7 @@ char *ls_dir(char *path) {
     struct node *dirnode;
     dirtree_t *dir;
     struct node *head, *cur;
-    size_t plen = strlen(path);
+    size_t plen = cgc_strlen(path);
 
     debug("listing fs path @b\n", path);
     CHECKINIT();
@@ -77,7 +77,7 @@ char *ls_dir(char *path) {
     head = list_head_node(files);
 
     for (i=0, cur=head; i < list_length(files); i++) {
-        len += strlen(((file_t*)cur->data)->name)+1;
+        len += cgc_strlen(((file_t*)cur->data)->name)+1;
         cur = cur->next;
     }
 
@@ -92,7 +92,7 @@ char *ls_dir(char *path) {
     for (i=0, idx = 0, cur = head; i < list_length(files); i++) {
         file = ((file_t*)cur->data);
         strcpy(dirlist+idx, file->name);
-        idx += strlen(file->name);
+        idx += cgc_strlen(file->name);
         *(dirlist+idx++) = ':';
         cur = cur->next;
     }
@@ -113,12 +113,12 @@ int add_dir(char *path) {
 
     CHECKINIT();
 
-    if (strlen(path) <= 1) {
+    if (cgc_strlen(path) <= 1) {
         debug("Path is too short.\n");
         return 3;
     }
 
-    if (strlen(path) > MAX_FILENAME_SIZE) {
+    if (cgc_strlen(path) > MAX_FILENAME_SIZE) {
         debug("Path is too long.\n");
         return 4;
     }
@@ -130,7 +130,7 @@ int add_dir(char *path) {
         return 1;
     }
 
-    parent = calloc(strlen(path)+1);
+    parent = calloc(cgc_strlen(path)+1);
 
     if (!parent) {
         debug("Failed to allocate string.\n");
@@ -149,12 +149,12 @@ int add_dir(char *path) {
         tmp = strtok(NULL, DIRSEPCHR);
     }
 
-    if (strlen(fn) < 1) {
+    if (cgc_strlen(fn) < 1) {
         debug("Filename too short.\n");
         return 2;
     }
 
-    if (strlen(parent) > 1) {
+    if (cgc_strlen(parent) > 1) {
         dirnode = list_find_node_with_data_recurse(&root->directories, &get_dir, path);
         debug("path: @b\n",path);
         if (!dirnode) {
@@ -201,7 +201,7 @@ int rm_dir(char *path) {
         return 1;
     }
 
-    len = strlen(path);
+    len = cgc_strlen(path);
 
     if (len > MAX_FILENAME_SIZE) {
         debug("Path was too long.\n");
@@ -232,7 +232,7 @@ int rm_dir(char *path) {
         tmp = strtok(NULL, DIRSEPCHR);
     }
 
-    if (strlen(parent) == 1 && *parent == DIRSEPCHR) {
+    if (cgc_strlen(parent) == 1 && *parent == DIRSEPCHR) {
         dir = &root->directories;
     } else {
         parentnode = list_find_node_with_data_recurse(&root->directories, &get_dir, parent);
@@ -302,7 +302,7 @@ int add_file(char *path, char *data) {
         tmp = strtok(NULL, DIRSEPCHR);
     }
 
-    len = strlen(fn);
+    len = cgc_strlen(fn);
 
     if (len < 1) {
         debug("Filename too short.\n");
@@ -314,7 +314,7 @@ int add_file(char *path, char *data) {
         return 3;
     }
 
-    if (strlen(data)+1 > MAX_FILE_SIZE) {
+    if (cgc_strlen(data)+1 > MAX_FILE_SIZE) {
         debug("File data too long.\n");
         return 4;
     }
@@ -357,7 +357,7 @@ int rm_file(char *path) {
         return 1;
     }
 
-    len = strlen(path);
+    len = cgc_strlen(path);
 
     if (len > MAX_FILENAME_SIZE) {
         debug("Path was too long.\n");
@@ -388,7 +388,7 @@ int rm_file(char *path) {
         tmp = strtok(NULL, DIRSEPCHR);
     }
 
-    if (strlen(parent) == 1 && *parent == DIRSEPCHR) {
+    if (cgc_strlen(parent) == 1 && *parent == DIRSEPCHR) {
         files = &root->files;
     } else {
         parentnode = list_find_node_with_data_recurse(&root->directories, &get_dir, parent);
@@ -428,11 +428,11 @@ char *readfile(char *path) {
     char *tmp;
     char *parent;
     size_t plen;
-    debug("read file @b\n", path);
+    debug("cgc_read file @b\n", path);
 
     CHECKINIT();
 
-    plen = strlen(path);
+    plen = cgc_strlen(path);
 
     if (plen > MAX_FILENAME_SIZE) {
         debug("File path too long.\n", path);
@@ -464,13 +464,13 @@ char *readfile(char *path) {
     }
 
 
-    if (strlen(fn) < 1) {
+    if (cgc_strlen(fn) < 1) {
         debug("Filename too short.\n");
         return NULL;
     }
 
     debug("parent: @b\n", parent);
-    if (strlen(parent) == 1 && *parent == DIRSEPCHR) {
+    if (cgc_strlen(parent) == 1 && *parent == DIRSEPCHR) {
         filenode = list_find_node_with_data(&root->files, get_file, fn);
     } else {
         dirnode = list_find_node_with_data_recurse(&root->directories, &get_dir, parent);

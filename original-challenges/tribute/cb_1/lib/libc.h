@@ -7,14 +7,14 @@
 
 unsigned int htonl(unsigned int hostlong);
 
-size_t strlen(const char *str);
+size_t cgc_strlen(const char *str);
 char *strcpy(char *dst, const char *src);
 int strcmp(const char *s1, const char *s2);
 char *strchr(const char *s, int c);
 long strtol(const char *str, char **endptr, int base);
 char *strsep(char **stringp, const char *delim);
 
-void *memset(void *dst, int c, unsigned int n);
+void *cgc_memset(void *dst, int c, unsigned int n);
 int memcmp(const void *b1, const void *b2, size_t n);
 
 int toupper(int c);

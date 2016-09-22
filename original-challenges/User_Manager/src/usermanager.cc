@@ -408,7 +408,7 @@ void CUserManager::DoUserReadMessages( CUserEntry *pUser )
         pUser->ClearUnreadMessages( );
     }
 
-    printf( "@d total messages available, enter number to read: ", pUser->GetMessageCount() );
+    printf( "@d total messages available, enter number to cgc_read: ", pUser->GetMessageCount() );
 
     String sAction;
 

@@ -79,7 +79,7 @@ static inline int transmit_xlat(int fd,  const unsigned char *map, const void *b
         size_t cnt = count - i;
         if (cnt > sizeof(tmp)) cnt = sizeof(tmp);
 
-        memcpy(tmp, cbuf + i, cnt);
+        cgc_memcpy(tmp, cbuf + i, cnt);
         xlat(map, tmp, cnt);
         if (transmit_all(fd, tmp, cnt) != 0)
             return -1;

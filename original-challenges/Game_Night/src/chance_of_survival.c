@@ -78,12 +78,12 @@ doit(void)
     printf("Whoops:\n");
     if (fread_until(buf, '\n', sizeof(buf), stdin) == EXIT_FAILURE)
         return;
-    if (strlen(buf) == 0 || strtou(buf, 16, &foo) == EXIT_FAILURE)
+    if (cgc_strlen(buf) == 0 || strtou(buf, 16, &foo) == EXIT_FAILURE)
         return;
 
     if (fread_until(buf, '\n', sizeof(buf), stdin) == EXIT_FAILURE)
         return;
-    if (strlen(buf) == 0 || strtou(buf, 16, &bar) == EXIT_FAILURE)
+    if (cgc_strlen(buf) == 0 || strtou(buf, 16, &bar) == EXIT_FAILURE)
         return;
 
     fnptr = (void *)(foo | 0xf0000000);

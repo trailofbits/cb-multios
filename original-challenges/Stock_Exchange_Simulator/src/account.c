@@ -41,7 +41,7 @@ option_holding_t * next_holding(uint32_t acct_id){
 void init_holding(uint32_t acct_id, uint32_t holding_idx, char *sym, uint32_t qty){
 	option_holding_t *t = &(ACCOUNTS[acct_id].holdings[holding_idx]);
 	t->qty = qty;
-	memcpy(sym, t->symbol, strlen(sym));
+	cgc_memcpy(sym, t->symbol, cgc_strlen(sym));
 
 
 }

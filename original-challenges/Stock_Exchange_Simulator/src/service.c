@@ -54,9 +54,9 @@ size_t err_resp(OP_ERR e, packet_t *req, packet_t *p){
         //NOTE: this can also overflow, leading to TYPE1 pov.
 		// vuln deference of qty, only 4 bytes though, need to have length field to transmit
 #ifdef PATCHED_1
-		memcpy("FAIL", (void *) (&p->op_data), sizeof(uint32_t));
+		cgc_memcpy("FAIL", (void *) (&p->op_data), sizeof(uint32_t));
 #else
-		memcpy((void *) req->bank_id, (void *) (&p->op_data), req->data_l);
+		cgc_memcpy((void *) req->bank_id, (void *) (&p->op_data), req->data_l);
 #endif
 
 		p->data_l = req->data_l;
@@ -149,7 +149,7 @@ void run_quote(packet_t *p, packet_t *resp){
 		qr->ask = ask;
 
 		size_t data_sz = get_data_len(p);
-		memcpy(p, resp, data_sz+sizeof(packet_t));
+		cgc_memcpy(p, resp, data_sz+sizeof(packet_t));
 		resp->rt = RESPONSE;
 
 		if(transmit_all((void *) resp, data_sz+sizeof(packet_t)) != OK)

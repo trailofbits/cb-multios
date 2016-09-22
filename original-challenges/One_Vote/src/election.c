@@ -62,7 +62,7 @@
 
 #define NUM_WINNERS_Q	"Enter number of election winners desired: "
 #define MAX_CANDIDATES_Q "Enter the max number of candidates allowed: "
-#define WRITE_IN_OK_Q 	"Can voters write-in new candidates? (Yy/Nn): "
+#define WRITE_IN_OK_Q 	"Can voters cgc_write-in new candidates? (Yy/Nn): "
 
 #define CHOOSE 			"Choose an option: "
 
@@ -294,8 +294,8 @@ static unsigned char validate_voter(void *v) {
 	voter_t *voter = (voter_t *)v;
 
 	// check: first and last name have at least 1 letter; reject empty names
-	if ((0 == strlen(voter->person.f_name, TERM)) ||
-		(0 == strlen(voter->person.l_name, TERM))) {
+	if ((0 == cgc_strlen(voter->person.f_name, TERM)) ||
+		(0 == cgc_strlen(voter->person.l_name, TERM))) {
 		return FALSE;
 	}
 
@@ -317,8 +317,8 @@ static unsigned char validate_candidate(void *c_new) {
 	candidate_t *candidate = (candidate_t *)c_new;
 
 	// check: first and last name have at least 1 letter; reject empty names
-	if ((0 == strlen(candidate->person.f_name, TERM)) ||
-		(0 == strlen(candidate->person.l_name, TERM))) {
+	if ((0 == cgc_strlen(candidate->person.f_name, TERM)) ||
+		(0 == cgc_strlen(candidate->person.l_name, TERM))) {
 		return FALSE;
 	}
 
@@ -360,8 +360,8 @@ static unsigned char validate_emgr(void *e) {
 	e_mgr_t *e_mgr = (e_mgr_t *)e;
 
 	// check: first and last name have at least 1 letter; reject empty names
-	if ((0 == strlen(e_mgr->person.f_name, TERM)) ||
-		(0 == strlen(e_mgr->person.l_name, TERM))) {
+	if ((0 == cgc_strlen(e_mgr->person.f_name, TERM)) ||
+		(0 == cgc_strlen(e_mgr->person.l_name, TERM))) {
 		return FALSE;
 	}
 
@@ -515,7 +515,7 @@ static int print_select_candidate_list(void) {
 	// "\tID: Fname Lname\n"
 	SEND(STDOUT, SELECT_CANDIDATE, sizeof(SELECT_CANDIDATE));
 	while (cur != end) {
-		memset(outbuf, '\0', sizeof(outbuf));
+		cgc_memset(outbuf, '\0', sizeof(outbuf));
 		bytes_used = 0;
 
 		c = (candidate_t *)cur->data;
@@ -605,8 +605,8 @@ static unsigned int create_and_insert_vote(candidate_t *c, unsigned int *vote_id
 	voter->vote_id = vote->id;
 
 	// save voter and candidate into vote struct
-	if ((sizeof(voter_t) != memcpy(&vote->v, voter, sizeof(voter_t))) ||
-		(sizeof(candidate_t) != memcpy(&vote->c, c, sizeof(candidate_t))))
+	if ((sizeof(voter_t) != cgc_memcpy(&vote->v, voter, sizeof(voter_t))) ||
+		(sizeof(candidate_t) != cgc_memcpy(&vote->c, c, sizeof(candidate_t))))
 		_terminate(ERRNO_COPY);
 
 	if (FALSE == vote->validate(vote)) {
@@ -614,8 +614,8 @@ static unsigned int create_and_insert_vote(candidate_t *c, unsigned int *vote_id
 	}
 
 	// insert vote using key "<first name> <last name>"
-	key_buf_len = strlen(voter->person.f_name, TERM) +
-				  strlen(voter->person.l_name, TERM) + 2; 
+	key_buf_len = cgc_strlen(voter->person.f_name, TERM) +
+				  cgc_strlen(voter->person.l_name, TERM) + 2; 
 	key = malloc(key_buf_len);
 	MALLOC_OK(key);
 
@@ -629,7 +629,7 @@ static unsigned int create_and_insert_vote(candidate_t *c, unsigned int *vote_id
 #else
 	bytes_written = snprintf(local_key, key_buf_len, '%', TERM, 
 							voter->person.f_name, voter->person.l_name);
-	memcpy(key, local_key, bytes_written + 1);
+	cgc_memcpy(key, local_key, bytes_written + 1);
 #endif
 
 
@@ -771,7 +771,7 @@ static int send_voting_results(struct list *results_list, unsigned char full) {
 
 		if ((++order_count <= e.conf.num_winners) || (TRUE == full)) {
 
-			memset(outbuf, '\0', sizeof(outbuf));
+			cgc_memset(outbuf, '\0', sizeof(outbuf));
 			bytes_used = 0;
 
 			c = (candidate_t *)pair->value;
@@ -815,7 +815,7 @@ static int send_voter_results(void) {
 	while (NULL != cur) {
 		v = (voter_t *)cur->value;
 
-		memset(outbuf, '\0', sizeof(outbuf));
+		cgc_memset(outbuf, '\0', sizeof(outbuf));
 		bytes_used = 0;
 
 		if (0 == v->vote_id) {

@@ -25,7 +25,7 @@
 char *strcasestr(const char *haystack, const char *needle)
 {
     unsigned int i;
-    unsigned int l = strlen(needle);
+    unsigned int l = cgc_strlen(needle);
     for (i = 0; haystack[i] != 0; i++)
         if (strncasecmp(&haystack[i], needle, l) == 0)
             return (char *)&haystack[i];

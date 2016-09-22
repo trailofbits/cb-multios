@@ -53,7 +53,7 @@ size_t transmit_string(char *string) {
     size_t count;
     int ret;
 
-    count = strlen(string);
+    count = cgc_strlen(string);
 
     ret = transmit_all(STDOUT, string, count);
     if (ret != 0) {

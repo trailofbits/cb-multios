@@ -189,10 +189,10 @@ dtostr(double value, char *str, size_t num)
     if (utostr(whole_part, 10, 0, str, num - DTOSTR_PRECISION - 1) != 0)
         return EXIT_FAILURE;
 
-    str += strlen(str);
+    str += cgc_strlen(str);
     *str++ = '.';
 
-    fractional_len = strlen(fractional_buf);
+    fractional_len = cgc_strlen(fractional_buf);
     for (i = 0; i < DTOSTR_PRECISION - fractional_len; i++)
         *str++ = '0';
 

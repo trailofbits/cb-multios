@@ -214,7 +214,7 @@ void sendGoalNotification() {
 
 	int ret;
 
-	ret = transmit_all(STDOUT, GOAL_STR, strlen(GOAL_STR));
+	ret = transmit_all(STDOUT, GOAL_STR, cgc_strlen(GOAL_STR));
 	if(ret != 0)
 		_terminate(TRANSMIT_ERROR);
 

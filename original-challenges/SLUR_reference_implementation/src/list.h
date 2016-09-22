@@ -38,7 +38,7 @@
       return -1;                                                \
     name##_list *n = malloc(sizeof(name##_list));               \
     if (n == NULL)                                              \
-      exit(1);                                                  \
+      cgc_exit(1);                                                  \
     while (list->next != NULL)                                  \
       list = list->next;                                        \
     list->next = n;                                             \

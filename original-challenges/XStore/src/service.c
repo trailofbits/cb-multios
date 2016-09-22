@@ -103,7 +103,7 @@ void send_response(uint64_t val)
 {
     fwrite(&val, sizeof(uint64_t), stdout);
     if (val == RES_ERR_PARSING)
-        exit(0);
+        cgc_exit(0);
 }
 
 xpk_err pack_object(xpk_ctx_t *ctx, object_t* obj);
@@ -430,7 +430,7 @@ void handle_delete(size_t size)
         int i;
         object_t **objs = (object_t **) data->data;
         keys = malloc(sizeof(char*) * data->len);
-        memset(keys, 0, sizeof(char*) * data->len);
+        cgc_memset(keys, 0, sizeof(char*) * data->len);
         for (i = 0; i < data->len; i++)
         {
             if (objs[i]->type != TYPE_STRING)
@@ -574,7 +574,7 @@ void print_array(int depth, object_t **arr, unsigned int size, uint64_t *i, uint
     unsigned char indent[MAX_PRINT_DEPTH + 1];
     if (depth == MAX_PRINT_DEPTH)
         return;
-    memset(indent, '\t', MAX_PRINT_DEPTH);
+    cgc_memset(indent, '\t', MAX_PRINT_DEPTH);
     indent[depth] = 0;
 
     for (j = 0; j < size; j++)
@@ -593,7 +593,7 @@ void print_map(int depth, tr_t root, uint64_t *i, uint64_t n)
     unsigned char indent[MAX_PRINT_DEPTH + 1];
     if (depth == MAX_PRINT_DEPTH)
         return;
-    memset(indent, '\t', MAX_PRINT_DEPTH);
+    cgc_memset(indent, '\t', MAX_PRINT_DEPTH);
     indent[depth] = 0;
 
     if (root && (*i < n || n == 0))
@@ -731,7 +731,7 @@ int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
             case CMD_QUIT:
                 send_response(RES_OK);
                 fflush(stdout);
-                exit(0);
+                cgc_exit(0);
             default:
                 send_response(RES_INVALID);
                 break;

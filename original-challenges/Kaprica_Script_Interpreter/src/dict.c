@@ -86,7 +86,7 @@ static int enlarge_tbl(dict_t *dict, unsigned int new_size)
     if (new_tbl == NULL)
         return 0;
 
-    memset(new_tbl, 0, new_size * sizeof(_record_t *));
+    cgc_memset(new_tbl, 0, new_size * sizeof(_record_t *));
     dict->tbl = new_tbl;
     dict->length = new_size;
 

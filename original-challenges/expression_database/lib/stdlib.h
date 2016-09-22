@@ -40,9 +40,9 @@ int atoi(const char *str);
 int strcmp( char *str1, char *str2 );
 char *strcpy( char *dest, char *src );
 char *strncpy( char *dest, const char *src, size_t num );
-size_t strlen( const char *str );
+size_t cgc_strlen( const char *str );
 int printf( const char *fmt, ... );
 
-void memcpy( void *dest, void *src, size_t numbytes );
+void cgc_memcpy( void *dest, void *src, size_t numbytes );
 
 #endif // __STDLIB_H__

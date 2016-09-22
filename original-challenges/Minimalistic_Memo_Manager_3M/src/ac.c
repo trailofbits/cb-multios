@@ -76,9 +76,9 @@ void ac_add_custom(char *typo, char *correct)
       if (strcmp(typo, word_list[i].typo) == 0)
         return;
     }
-    if (strlen(typo) < MAX_AC_LEN &&
-        strlen(correct) < MAX_AC_LEN &&
-        strlen(typo) > 0)
+    if (cgc_strlen(typo) < MAX_AC_LEN &&
+        cgc_strlen(correct) < MAX_AC_LEN &&
+        cgc_strlen(typo) > 0)
     {
       strcpy(word_list[num_words].typo, typo);
       strcpy(word_list[num_words].correct, correct);
@@ -111,7 +111,7 @@ void ac_process(void *ud)
 
       if (end-start < sizeof(word))
       {
-        memcpy(word, &ac_buffer[start], end-start);
+        cgc_memcpy(word, &ac_buffer[start], end-start);
         word[end-start] = 0;
       }
       else
@@ -126,7 +126,7 @@ void ac_process(void *ud)
         if (strcmp(word, word_list[j].typo) == 0)
         {
           char *newbuf;
-          diff = strlen(word_list[j].correct) - strlen(word);
+          diff = cgc_strlen(word_list[j].correct) - cgc_strlen(word);
           mutex_lock(&ac_mutex);
 
           if (diff < 0)
@@ -140,7 +140,7 @@ void ac_process(void *ud)
             if (diff > 0)
               // memmove after we enlarge the buffer
               memmove(&ac_buffer[end + diff], &ac_buffer[end], ac_idx - end);
-            memcpy(&ac_buffer[start], word_list[j].correct, strlen(word_list[j].correct));
+            cgc_memcpy(&ac_buffer[start], word_list[j].correct, cgc_strlen(word_list[j].correct));
             ac_idx += diff;
           }
 
@@ -172,7 +172,7 @@ char *ac_read(int fd, char term)
 
   while (1)
   {
-    // read next word
+    // cgc_read next word
     size_t count = 0;
     char word[MAX_AC_LEN];
     for (count = 0; count < MAX_AC_LEN; count++)
@@ -197,7 +197,7 @@ char *ac_read(int fd, char term)
     mutex_lock(&ac_mutex);
 #endif
     ac_buffer = newbuf;
-    memcpy(&ac_buffer[ac_idx], word, count);
+    cgc_memcpy(&ac_buffer[ac_idx], word, count);
     ac_idx += count;
     ac_buffer[ac_idx] = 0;
     mutex_unlock(&ac_mutex);

@@ -117,7 +117,7 @@ int main()
 			cnt_incorrect++;
 			continue;
 		}
-		else if (ret == 2) // user requested exit
+		else if (ret == 2) // user requested cgc_exit
 		{
 			printf("exiting main loop\n");
 			return 1;

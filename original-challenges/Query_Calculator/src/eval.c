@@ -81,7 +81,7 @@ sint32 eval(compiler* clr) {
 }
 
 sint32 eval_string(char* str) {
-  lexer_list* ll = lex_string(strlen(str), str);
+  lexer_list* ll = lex_string(cgc_strlen(str), str);
   compiler* clr = compile(ll);
   return eval(clr);
 }

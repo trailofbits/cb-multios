@@ -2,12 +2,12 @@
 
 int send_string(int fd, char* s)
 {
-  unsigned l = strlen(s);
+  unsigned l = cgc_strlen(s);
 
   if (!l)
     return -1;
 
-  return transmit_all(fd, s, strlen(s));
+  return transmit_all(fd, s, cgc_strlen(s));
 }
 
 uint32_t ReadScreen(unsigned char** Lines)
@@ -15,19 +15,19 @@ uint32_t ReadScreen(unsigned char** Lines)
 #ifdef DEBUG
   return 0;
 #endif
-  unsigned char* read;
+  unsigned char* cgc_read;
   unsigned read_len;
   unsigned LineCnt = 0;
 
   for (;;)
   {
     send_string(STDERR, "READING\n");
-    delimited_read(STDIN, &read, &read_len, (unsigned char *)"\n", 1);
-    Lines[LineCnt++] = read;
+    delimited_read(STDIN, &cgc_read, &read_len, (unsigned char *)"\n", 1);
+    Lines[LineCnt++] = cgc_read;
 
-    if (!strncmp("----", (const char *)read, 4)  || !strncmp("Erro", (const char *)read, 4))
+    if (!strncmp("----", (const char *)cgc_read, 4)  || !strncmp("Erro", (const char *)cgc_read, 4))
       break;
-    send_string(STDERR, (char *)read);
+    send_string(STDERR, (char *)cgc_read);
   }
 
   send_string(STDERR, "DONE\n");
@@ -74,7 +74,7 @@ int main()
 
     int m = strtol(s, NULL, 10);
     unsigned char secret[4];
-    memcpy(secret, (void *)&m, 4);
+    cgc_memcpy(secret, (void *)&m, 4);
 
     secret[0] ^= 0x14;
     secret[1] ^= 0x15;

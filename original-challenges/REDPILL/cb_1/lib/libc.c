@@ -368,7 +368,7 @@ struct node * list_remove(struct list *lst, char value) {
   if (needle->next) { needle->next->prev = needle->prev; }
 
 #ifdef DEBUG_LISTS
-  fprintf(stderr, "K: [D] exit: list_remove, needle: %p\n", needle);
+  fprintf(stderr, "K: [D] cgc_exit: list_remove, needle: %p\n", needle);
   fprintf(stderr, "\t\tremoved node; dump after:\n");
   list_dump(lst);
 #endif
@@ -408,7 +408,7 @@ int node_destroy(struct node *nd) {
   ret = deallocate((void *)nd, PAGE_SZ);
 
 #ifdef DEBUG_LISTS
-  fprintf(stderr, "K: [D] exit: node_destroy; ret = %d\n", ret);
+  fprintf(stderr, "K: [D] cgc_exit: node_destroy; ret = %d\n", ret);
 #endif
 
   return ret;
@@ -418,7 +418,7 @@ int node_destroy(struct node *nd) {
 // NOTE: not POSIX
 // MOD: it works in reverse
 // RETURN: the first argument
-unsigned char * memset(void *b, char c, size_t len) {
+unsigned char * cgc_memset(void *b, char c, size_t len) {
 
   char *ptr = (char *)b; 
   while (len) {
@@ -537,7 +537,7 @@ int toupper(int c) {
    return c;
 }
 
-size_t strlen(const char *str) {
+size_t cgc_strlen(const char *str) {
    size_t res = 0;
    while (*str++) {res++;}
    return res;
@@ -1353,7 +1353,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = strlen(s_arg);
+                  int len = cgc_strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

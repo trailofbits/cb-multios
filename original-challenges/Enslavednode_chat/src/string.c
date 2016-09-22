@@ -41,7 +41,7 @@ string *new_string(char *d)
 
   if (d) {
 #ifdef PATCHED
-    size_t nz = (strlen(d) + 1) * 2;
+    size_t nz = (cgc_strlen(d) + 1) * 2;
     s->d = realloc(s->d, nz);
     if (!s->d)
       error(EALLOC);
@@ -59,10 +59,10 @@ int set_string(string *s, char *d)
   if (!d || !s)
     return -1;
 
-  memset(s->d, '\0', s->cap);
+  cgc_memset(s->d, '\0', s->cap);
 
-  if (strlen(d) + 1 > s->cap) {
-    s->cap = (strlen(d) + strlen(s->d) + 1) * 2;
+  if (cgc_strlen(d) + 1 > s->cap) {
+    s->cap = (cgc_strlen(d) + cgc_strlen(s->d) + 1) * 2;
     s->d = realloc(s->d, s->cap);
     if (!s->d)
       error(EALLOC);
@@ -77,8 +77,8 @@ int append_string(string *s, const char *d)
   if (!d || !s)
     return -1;
 
-  if (strlen(d) + strlen(s->d) + 1 > s->cap) {
-    s->cap = (strlen(d) + strlen(s->d) + 1) * 2;
+  if (cgc_strlen(d) + cgc_strlen(s->d) + 1 > s->cap) {
+    s->cap = (cgc_strlen(d) + cgc_strlen(s->d) + 1) * 2;
     s->d = realloc(s->d, s->cap);
     if (!s->d)
       error(EALLOC);
@@ -95,8 +95,8 @@ int contains_string(string *s, const char *sub)
 
   const char *s1 = s->d;
   const char *s2 = sub;
-  size_t sub_len = strlen(sub);
-  size_t dom_len = strlen(s->d);
+  size_t sub_len = cgc_strlen(sub);
+  size_t dom_len = cgc_strlen(s->d);
 
   if (dom_len < sub_len)
     return 0;
@@ -109,7 +109,7 @@ int contains_string(string *s, const char *sub)
 
   while (*s1) {
     s2 = sub;
-    dom_len = strlen(s1);
+    dom_len = cgc_strlen(s1);
     const char *s3 = s1;
     size_t matched = 0;
 

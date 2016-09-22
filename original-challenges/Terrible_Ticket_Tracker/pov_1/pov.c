@@ -6,7 +6,7 @@
 
 void write_string(char* s)
 {
-  transmit_all(STDOUT, s, strlen(s));
+  transmit_all(STDOUT, s, cgc_strlen(s));
 }
 
 int main(void)
@@ -42,9 +42,9 @@ int main(void)
       }
 
       transmit_all(STDERR, "\nA\n", 3);
-      delimited_read(STDIN, &buf, &bufsz, (unsigned char*)("Ticket Finished" EOL), strlen("Ticket Finished" EOL));
+      delimited_read(STDIN, &buf, &bufsz, (unsigned char*)("Ticket Finished" EOL), cgc_strlen("Ticket Finished" EOL));
       transmit_all(STDERR, "B\n", 2);
-      delimited_read(STDIN, &buf, &bufsz, (unsigned char*)("OK" EOL), strlen("OK" EOL));
+      delimited_read(STDIN, &buf, &bufsz, (unsigned char*)("OK" EOL), cgc_strlen("OK" EOL));
       transmit_all(STDERR, "C\n", 2);
       transmit_all(STDERR, buf, bufsz);
       if (bufsz > 80)

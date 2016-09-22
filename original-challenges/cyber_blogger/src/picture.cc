@@ -29,10 +29,10 @@ extern "C" {
 Picture::Picture(void *_header, void *data, char *_filename)
 : File(sizeof(PictureHeader), ((PictureHeader *)_header)->data_size, _filename)
 {
-    memcpy(&header, _header, sizeof(PictureHeader));
+    cgc_memcpy(&header, _header, sizeof(PictureHeader));
     raw_header = (void *)&header;
     raw_data = new char[get_data_size() + 1];
-    memcpy(raw_data, data, get_data_size());
+    cgc_memcpy(raw_data, data, get_data_size());
     raw_data[get_data_size()] = '\0';
 }
 

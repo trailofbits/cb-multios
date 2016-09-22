@@ -149,7 +149,7 @@ eParserSymbol parse_get_symbol( char *pszString, uint32_t *new_offset )
 
         if ( strbeg( pszString+offset, g_parseTable[symIndex].text ) == 0 )
         {
-            offset += strlen( g_parseTable[symIndex].text );
+            offset += cgc_strlen( g_parseTable[symIndex].text );
             (*new_offset) = offset;
 
             return g_parseTable[symIndex].symbol;

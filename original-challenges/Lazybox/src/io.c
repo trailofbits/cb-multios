@@ -107,8 +107,8 @@ uint32_t ReadShellPrompt(int fd, char *buf, size_t len) {
 				continue;
 			} else {
 				printf("\b\b  \b\b");
-				printf("exit  ");
-				strcpy(buf, "exit");
+				printf("cgc_exit  ");
+				strcpy(buf, "cgc_exit");
 				return(1);
 			}
 		}
@@ -163,7 +163,7 @@ uint32_t ReadShellPrompt(int fd, char *buf, size_t len) {
 					EraseLine(0);
 					PrintPrompt();
 					strcpy(buf, ENV.CommandHistory[CurrCommandHistory]);
-					total_len = strlen(ENV.CommandHistory[CurrCommandHistory]);
+					total_len = cgc_strlen(ENV.CommandHistory[CurrCommandHistory]);
 					CursorPos = total_len;
 					printf("$s", ENV.CommandHistory[CurrCommandHistory]);
 					continue;
@@ -184,7 +184,7 @@ uint32_t ReadShellPrompt(int fd, char *buf, size_t len) {
 						EraseLine(0);
 						PrintPrompt();
 						strcpy(buf, TmpBuf);
-						total_len = strlen(buf);
+						total_len = cgc_strlen(buf);
 						CursorPos = total_len;
 						printf("$s", buf);
 						CurrCommandHistory = -1;
@@ -196,7 +196,7 @@ uint32_t ReadShellPrompt(int fd, char *buf, size_t len) {
 					EraseLine(0);
 					PrintPrompt();
 					strcpy(buf, ENV.CommandHistory[CurrCommandHistory]);
-					total_len = strlen(ENV.CommandHistory[CurrCommandHistory]);
+					total_len = cgc_strlen(ENV.CommandHistory[CurrCommandHistory]);
 					CursorPos = total_len;
 					printf("$s", ENV.CommandHistory[CurrCommandHistory]);
 					continue;

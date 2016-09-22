@@ -333,9 +333,9 @@ int main(void) {
 		ReadBytes( 0, buf, 10);
 
 		index = -1;
-		// Check that the read worked and that there wasn't a null
+		// Check that the cgc_read worked and that there wasn't a null
 		for ( i = 0; i < 4; i++) {
-			/// If the value is "\n1" then assume that the read failed
+			/// If the value is "\n1" then assume that the cgc_read failed
 			if ( buf[i] == 0x0a && buf[i+1] == '1') {
 				index = i;
 				break;

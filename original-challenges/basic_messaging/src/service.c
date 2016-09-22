@@ -48,7 +48,7 @@ THE SOFTWARE.
 typedef struct message {
 	struct message *next;
 	unsigned int message_id;
-	unsigned int read;
+	unsigned int cgc_read;
 	char message[MESSAGE_LENGTH];
 } message, *pmessage;
 
@@ -142,7 +142,7 @@ size_t create_user( puser_manager pum, char *username )
 		goto end;
 	}
 
-	if ( strlen(username) > USERNAME_LENGTH - 1 ) {
+	if ( cgc_strlen(username) > USERNAME_LENGTH - 1 ) {
 		puts("[-] Error username too long\n");
 		goto end;
 	}
@@ -266,7 +266,7 @@ pmessage create_message( char * msg_string )
 		goto end;
 	}
 
-	if ( strlen( msg_string ) > MESSAGE_LENGTH - 1 ) {
+	if ( cgc_strlen( msg_string ) > MESSAGE_LENGTH - 1 ) {
 		puts("[-] Error Message too long\n");
 		goto end;
 	}
@@ -278,11 +278,11 @@ pmessage create_message( char * msg_string )
 
 	pmsg->next = NULL;
 	pmsg->message_id = 0;
-	pmsg->read = 0;
+	pmsg->cgc_read = 0;
 
 	bzero( pmsg->message, MESSAGE_LENGTH );
 
-	for ( counter = 0; counter < strlen( msg_string ); counter++ ) {
+	for ( counter = 0; counter < cgc_strlen( msg_string ); counter++ ) {
 		pmsg->message[counter] = msg_string[counter];
 	}
 
@@ -364,13 +364,13 @@ void read_message( pmessage_manager pmm, size_t message_id )
 
 	while ( walker ) {
 		if ( walker->message_id == message_id ) {
-			retval = strlen(buffer);
+			retval = cgc_strlen(buffer);
 			itoa( buffer + retval, message_id, 0x100-retval );
 			strncat(buffer, ":  ", 0x100 );
 			strncat(buffer, walker->message, 0x100 );
 			strncat( buffer, "\n***********************************\n", 0x100 );
 			puts( buffer );
-			walker->read = 1;
+			walker->cgc_read = 1;
 			goto end;
 		}
 
@@ -410,7 +410,7 @@ void list_unread_messages( pmessage_manager pmm )
 	walker = pmm->root;
 
 	while ( walker ) {
-		if ( walker->read == 0 ) {
+		if ( walker->cgc_read == 0 ) {
 			count++;
 		}
 		walker= walker->next;
@@ -438,12 +438,12 @@ void list_unread_messages( pmessage_manager pmm )
 	walker = pmm->root;
 
 	while ( walker ) {
-		if ( walker->read == 0 ) {
+		if ( walker->cgc_read == 0 ) {
 
-			// Mark the message as read
-			walker->read = 1;
+			// Mark the message as cgc_read
+			walker->cgc_read = 1;
 			strcat( data, "***********************************\n");
-			itoa( data + strlen(data), walker->message_id, 4 );
+			itoa( data + cgc_strlen(data), walker->message_id, 4 );
 			strcat( data, ":  " );
 			strcat( data, walker->message );
 			strcat( data, "\n");
@@ -458,7 +458,7 @@ end:
 }
 
 /**
- * List all existing messages of a user including those already read.
+ * List all existing messages of a user including those already cgc_read.
  * @param pmm Pointer to the message management structure of a user.
  **/
 void list_messages( pmessage_manager pmm )

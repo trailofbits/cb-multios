@@ -262,7 +262,7 @@ int main(void) {
 	cmd.EndingNode = 0x2ff+9;
 	SendBytes(0, (char *)&cmd, 13);
 
-	// read the response
+	// cgc_read the response
 	
 	// send a new allocation request
 	// causing the fake malloc block to be used

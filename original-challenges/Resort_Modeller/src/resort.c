@@ -498,7 +498,7 @@ int32_t load_rider_group(void) {
 	uint32_t *input_s;
 	uint32_t count;
 
-	// get count and then read in rider data
+	// get count and then cgc_read in rider data
 	RECV(&count, sizeof(uint32_t));
 
 	read_sz = count * RIDER_IO_SZ;
@@ -532,11 +532,11 @@ int32_t load_rider_single(void) {
 	uint32_t *input_s;
 	uint32_t count;
 
-	// get count and then read in rider data
+	// get count and then cgc_read in rider data
 	RECV(&count, sizeof(uint32_t));
 	if (count != 1) return -1;
 
-	// count is 1, so read in rider data
+	// count is 1, so cgc_read in rider data
 	read_sz = count * RIDER_IO_SZ;
 	input = calloc(read_sz);
 	MALLOC_OK(input);
@@ -581,7 +581,7 @@ int32_t start_simulation(void) {
 	int32_t ret;
 	Rider *r;
 
-	// read # of steps
+	// cgc_read # of steps
 	RECV(&steps, sizeof(uint32_t));
 	if (0 == steps) return -1;
 

@@ -98,12 +98,12 @@ int countryMenu( pCountry co )
 			bzero(selection, BSIZE );
 			receive(0, selection, 19, &length);
 
-			if ( allocate( strlen(selection)+1, 0, (void**)&(t)) != 0 ) {
+			if ( allocate( cgc_strlen(selection)+1, 0, (void**)&(t)) != 0 ) {
 				t = NULL;
 				continue;
 			}
 
-			bzero( t, strlen(selection)+1);
+			bzero( t, cgc_strlen(selection)+1);
 
 			choice = 0;
 			while ( isalpha( selection[choice] ) ) {
@@ -306,7 +306,7 @@ void freeCountry( pCountry co )
 	index = 0;
 	while ( index < co->language_count) {
 		if ( co->languages[index] != NULL ) {
-			deallocate( co->languages[index], strlen(co->languages[index]) + 1 );
+			deallocate( co->languages[index], cgc_strlen(co->languages[index]) + 1 );
 			co->languages[index] = NULL;
 		}
 		index++;
@@ -410,11 +410,11 @@ pCountry countryTopLevel( pstring str )
 
 	if ( strcmp( temp_name, "Country" ) != 0 ) {
 		printf("!!Country: Invalid opening element id\n");
-		deallocate( temp_name, strlen(temp_name) + 1 );
+		deallocate( temp_name, cgc_strlen(temp_name) + 1 );
 		goto error;
 	}
 
-	deallocate(temp_name, strlen(temp_name) + 1 );
+	deallocate(temp_name, cgc_strlen(temp_name) + 1 );
 
 	skipWhiteSpace(str);
 
@@ -431,7 +431,7 @@ pCountry countryTopLevel( pstring str )
 	while ( temp_name != NULL ) {
 		el = elementNameToEnum( temp_name );
 
-		deallocate( temp_name, strlen(temp_name) + 1 );
+		deallocate( temp_name, cgc_strlen(temp_name) + 1 );
 
 		switch (el) {
 			case name:
@@ -444,7 +444,7 @@ pCountry countryTopLevel( pstring str )
 				bzero( newCountry->name, 20);
 				strncpy( newCountry->name, temp_name, 19 );
 
-				deallocate( temp_name, strlen(temp_name)+1);
+				deallocate( temp_name, cgc_strlen(temp_name)+1);
 				temp_name = NULL;
 				break;
 			case capitol:
@@ -458,7 +458,7 @@ pCountry countryTopLevel( pstring str )
 				bzero( newCountry->capitol, 20 );
 				strncpy( newCountry->capitol, temp_name, 19 );
 
-				deallocate( temp_name, strlen(temp_name)+1);
+				deallocate( temp_name, cgc_strlen(temp_name)+1);
 				temp_name = NULL;
 				break;
 			case population:
@@ -565,11 +565,11 @@ pCountry countryTopLevel( pstring str )
 	}
 
 	if ( strcmp( temp_name, "Country" ) != 0 ) {
-		deallocate(temp_name, strlen(temp_name) + 1 );
+		deallocate(temp_name, cgc_strlen(temp_name) + 1 );
 		goto error;
 	}
 
-	deallocate( temp_name, strlen(temp_name) + 1 );
+	deallocate( temp_name, cgc_strlen(temp_name) + 1 );
 
 	skipWhiteSpace(str);
 
@@ -645,13 +645,13 @@ char* extractLanguage( pstring str )
 	/// If the element id is not "Language" then this is the wrong function
 	if ( strcmp( temp, "Language") != 0 ) {
 		printf("!!Element id is not \"Language\"\n");
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 		temp = NULL;
 		return language;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, strlen(temp) + 1);
+	deallocate(temp, cgc_strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -732,11 +732,11 @@ char* extractLanguage( pstring str )
 
 	if ( strcmp( temp, "Language") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, strlen(temp)+1);
+		deallocate(temp, cgc_strlen(temp)+1);
 		goto error;
 	}
 
-	deallocate(temp, strlen(temp)+1);
+	deallocate(temp, cgc_strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -754,7 +754,7 @@ char* extractLanguage( pstring str )
 
 error:
 	if (language != NULL) {
-		deallocate( language, strlen(language) + 1 );
+		deallocate( language, cgc_strlen(language) + 1 );
 		language = NULL;
 	}
 
@@ -895,11 +895,11 @@ char* extractCapitol( pstring str )
 
 	if ( strcmp( temp, "Capitol") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, strlen(temp)+1);
+		deallocate(temp, cgc_strlen(temp)+1);
 		goto error;
 	}
 
-	deallocate(temp, strlen(temp)+1);
+	deallocate(temp, cgc_strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -917,7 +917,7 @@ char* extractCapitol( pstring str )
 
 error:
 	if (capitol != NULL) {
-		deallocate( capitol, strlen(capitol) + 1 );
+		deallocate( capitol, cgc_strlen(capitol) + 1 );
 		capitol = NULL;
 	}
 

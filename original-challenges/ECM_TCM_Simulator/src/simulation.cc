@@ -47,7 +47,7 @@ CSimulationCommand::CSimulationCommand( uint8_t srcID, uint8_t destID, uint32_t 
 {
 	m_pData = new uint8_t[cmdLength];
 
-	memcpy( m_pData, pCmdData, cmdLength );
+	cgc_memcpy( m_pData, pCmdData, cmdLength );
 }
 
 CSimulationCommand::~CSimulationCommand( ) 
@@ -517,7 +517,7 @@ void CSimulation::SendBinaryMessage( uint32_t cmd_time_ms, uint8_t srcID, uint8_
 	
 	uint8_t *pMessageData = new uint8_t[messageLength];
 
-	memset( pMessageData, 0, messageLength );
+	cgc_memset( pMessageData, 0, messageLength );
 
 	uint32_t binaryPos = 0;
 	for ( size_t pos = 0; pos < sLine.GetLength(); )

@@ -51,7 +51,7 @@ void load_default_jokes(jokedb_struct *jokedb) {
 	insert_joke(jokedb, "Chuck Norris is so fast, he can dodge raindrops.");
 	insert_joke(jokedb, "Chuck Norris doesn't wear a watch. HE decides what time it is.");
 	insert_joke(jokedb, "The original title for Alien vs. Predator was Alien and Predator vs Chuck Norris.");
-	insert_joke(jokedb, "Chuck Norris doesn't read books. He stares them down until he gets the information he wants.");
+	insert_joke(jokedb, "Chuck Norris doesn't cgc_read books. He stares them down until he gets the information he wants.");
 	insert_joke(jokedb, "If Chuck Norris were to ever run out of ammo, his weapon would continue to fire out of fear of disappointing Chuck Norris.");
 	insert_joke(jokedb, "Chuck Norris' hand is the only hand that can beat a Royal Flush.");
 	insert_joke(jokedb, "Chuck Norris made a Happy Meal cry.");
@@ -83,7 +83,7 @@ int insert_joke(jokedb_struct *jokedb, const char *joke_str) {
 		return -1;
 	
 	// return error (-2) if the joke_str is too long.
-	} else if (strlen(joke_str) >= MAX_JOKE_STRING_LEN - 1) {
+	} else if (cgc_strlen(joke_str) >= MAX_JOKE_STRING_LEN - 1) {
 		if (LOGLEVEL >= LOG_INFO) {
 			syslog(LOG_ERROR, "Joke was too long -->\n");
 
@@ -98,7 +98,7 @@ int insert_joke(jokedb_struct *jokedb, const char *joke_str) {
 	} else {
 		int idx = jokedb->count;
 		// copy joke_str into next slot in joke db
-		strncpy(jokedb->jokes[idx].joke_string, joke_str, strlen(joke_str));
+		strncpy(jokedb->jokes[idx].joke_string, joke_str, cgc_strlen(joke_str));
 		// assign id to that joke
 		jokedb->jokes[idx].joke_id = idx;
 		// update joke count

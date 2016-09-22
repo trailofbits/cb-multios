@@ -45,7 +45,7 @@ int main(void) {
       unsigned int to_read = 0;
       unsigned int level = 0;
       unsigned char *challenge;
-      //**** length read
+      //**** length cgc_read
       int read_00000_res = length_read(0, &key, sizeof(key));
       read_00000_res = length_read(0, (unsigned char*)&to_read, sizeof(to_read));
 
@@ -62,12 +62,12 @@ int main(void) {
       unsigned char *read_00004;
       unsigned int read_00004_len;
       unsigned int read_00004_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00004_len = 4;
       read_00004 = (unsigned char*)malloc(read_00004_len);
       int read_00004_res = length_read(0, read_00004, read_00004_len);
       if (read_00004_res) {} //silence unused variable warning
-      //**** read assign to var "TYPE2_VALUE" from slice
+      //**** cgc_read assign to var "TYPE2_VALUE" from slice
       assign_from_slice("TYPE2_VALUE", read_00004, read_00004_len - read_00004_ptr, 0, 0, 1);
       free(read_00004);
       if (read_00004_ptr) {}  //silence unused variable warning if any

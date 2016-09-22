@@ -34,7 +34,7 @@ THE SOFTWARE.
 
 
 // Format:
-// 2b: sync -- 0xc3c3 (not saved in packet -- just read and discarded)
+// 2b: sync -- 0xc3c3 (not saved in packet -- just cgc_read and discarded)
 // 2b: type -- PacketType enum
 // 2b: len of data (max is MAX_DATA_LEN in service.h)
 // *b: data
@@ -73,12 +73,12 @@ void SendResponse ( uint16_t category, uint8_t error )
 	buff[5] = 0x00;
 
 	// data
-	memcpy ( ( uint8_t* )&buff[6], &category, sizeof( uint16_t ) );
+	cgc_memcpy ( ( uint8_t* )&buff[6], &category, sizeof( uint16_t ) );
 
 	buff[8] = error;
 
 
-	write( buff, RESP_LEN );
+	cgc_write( buff, RESP_LEN );
 }
 
 InPacket* ReadInput()
@@ -165,7 +165,7 @@ fail:
 }
 
 //
-//	read input, parse command, respond to command
+//	cgc_read input, parse command, respond to command
 //
 int main( void )
 {
@@ -254,7 +254,7 @@ int main( void )
 				FitnessSensor *sensor = new FitnessSensor( id, mac, &pkt->data[6], pkt->data_len - 6 );
 				sensor->SetUser( sensorManager.GetCurrentUser() );
 
-				// read sensor information
+				// cgc_read sensor information
 				#ifndef TEST_VER
 					if ( sensor->IsInvalid() == true )
 					{
@@ -301,7 +301,7 @@ int main( void )
 
 				int d_offset = 3;
 
-				// read all field values
+				// cgc_read all field values
 				for ( int i = 0; i < field_count-1; i++, d_offset += 3 )
 				{
 					switch ( pkt->data[ d_offset ] )
@@ -578,14 +578,14 @@ int main( void )
 				buff[3] = 0x00;
 
 				// data len
-				memcpy( &buff[4], &data_len, sizeof( uint16_t ) );
+				cgc_memcpy( &buff[4], &data_len, sizeof( uint16_t ) );
 
 				// data
-				memcpy ( ( uint8_t* )&buff[6], data, data_len );
+				cgc_memcpy ( ( uint8_t* )&buff[6], data, data_len );
 
 				delete[] data;
 
-				write( buff, data_len + 6 );
+				cgc_write( buff, data_len + 6 );
 
 				delete[] buff;
 
@@ -614,12 +614,12 @@ int main( void )
 				buff[3] = 0x77;
 
 				// data len
-				memcpy( &buff[4], &data_len, sizeof( uint16_t ) );
+				cgc_memcpy( &buff[4], &data_len, sizeof( uint16_t ) );
 
 				// data
-				memcpy ( ( uint8_t* )&buff[6], data, data_len );
+				cgc_memcpy ( ( uint8_t* )&buff[6], data, data_len );
 
-				write( buff, data_len + 6 );
+				cgc_write( buff, data_len + 6 );
 
 				break;
 			}

@@ -38,37 +38,37 @@ char* CRequirement::ReqTypeToString(CRequirement::Type type)
 {
     char *typeString = static_cast<char *>(malloc(512));
     char *p = typeString;
-    memset(typeString, 0, 512);
+    cgc_memset(typeString, 0, 512);
     if ((type & CRequirement::Type::GROUND_OP) == CRequirement::Type::GROUND_OP)
     {
         strcpy(p, "GROUND,");
-        p += strlen("GROUND,");
+        p += cgc_strlen("GROUND,");
     }
     if ((type & CRequirement::Type::AERIAL_OP) == CRequirement::Type::AERIAL_OP)
     {
         strcpy(p, "AERIAL,");
-        p += strlen("AERIAL,");
+        p += cgc_strlen("AERIAL,");
     }
     if ((type & CRequirement::Type::NAVAL_OP) == CRequirement::Type::NAVAL_OP)
     {
         strcpy(p, "NAVAL,");
-        p += strlen("NAVAL,");
+        p += cgc_strlen("NAVAL,");
     }
     if ((type & CRequirement::Type::INTEL_OP) == CRequirement::Type::INTEL_OP)
     {
         strcpy(p, "INTEL,");
-        p += strlen("INTEL,");
+        p += cgc_strlen("INTEL,");
     }
     if ((type & CRequirement::Type::SPECIAL_OP) == CRequirement::Type::SPECIAL_OP)
     {
         strcpy(p, "SPECIAL,");
-        p += strlen("SPECIAL,");
+        p += cgc_strlen("SPECIAL,");
     }
     if ((type & CRequirement::Type::RESCUE_OP) == CRequirement::Type::RESCUE_OP)
     {
         strcpy(p, "RESCUE,");
-        p += strlen("RESCUE,");
+        p += cgc_strlen("RESCUE,");
     }
-    typeString[strlen(typeString) - 1] = '\0';
+    typeString[cgc_strlen(typeString) - 1] = '\0';
     return typeString;
 }

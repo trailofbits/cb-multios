@@ -105,7 +105,7 @@ void sendGameDescription(Dungeon dungeon) {
 					dungeon.moveTypes.left, dungeon.moveTypes.right, dungeon.moveTypes.jump, dungeon.moveTypes.jumpleft,
 					dungeon.moveTypes.jumpright, dungeon.moveTypes.wait, dungeon.moveTypes.quit);
 
-	len = strlen(buffer);
+	len = cgc_strlen(buffer);
 	if((ret = transmit_all(STDOUT, buffer, len)))
 		_terminate(TRANSMIT_ERROR);
 }
@@ -114,7 +114,7 @@ void sendGameDescription(Dungeon dungeon) {
 * Send the player a description of the game, including instructions
 * on how to navigate the menu.
 * NOTE: Characters representing moves are randomly generated and must
-* be parsed from the directions to know how to select menu options.
+* be parsed from the directions to know how to cgc_select menu options.
 * 
 * @param dungeon A copy of the dungeon structure
 *
@@ -129,7 +129,7 @@ void sendMenuInstruction(Dungeon dungeon) {
 	sprintf(buffer, "Menu\n-----\nPlay game: !C\nGet instructions: !C\nHigh Scores: !C\nQuit game: !C\n",
 			dungeon.moveTypes.play, dungeon.moveTypes.instructions, dungeon.moveTypes.scores, dungeon.moveTypes.quit);
 
-	len = strlen(buffer);
+	len = cgc_strlen(buffer);
 	if((ret = transmit_all(STDOUT, buffer, len)))
 		_terminate(TRANSMIT_ERROR);
 }
@@ -190,17 +190,17 @@ void sendHighScores(Score* scoreList) {
 
 	if(!highScore) {
 
-		if(transmit_all(STDOUT, NO_SCORES_MSG, strlen(NO_SCORES_MSG)))
+		if(transmit_all(STDOUT, NO_SCORES_MSG, cgc_strlen(NO_SCORES_MSG)))
 			_terminate(TRANSMIT_ERROR);
 
 		return;
 	}
 
 	sprintf((char*)buffer, MASTER_MSG, highScore->score, highScore->name);
-	if(transmit_all(STDOUT, buffer, strlen((char*)buffer)))
+	if(transmit_all(STDOUT, buffer, cgc_strlen((char*)buffer)))
 			_terminate(TRANSMIT_ERROR);
 
-	if(transmit_all(STDOUT, HIGHSCORE_HDR, strlen(HIGHSCORE_HDR)))
+	if(transmit_all(STDOUT, HIGHSCORE_HDR, cgc_strlen(HIGHSCORE_HDR)))
 		_terminate(TRANSMIT_ERROR);
 
 	for(Score* score=highScore->next; score!=NULL; score=score->next) {
@@ -211,7 +211,7 @@ void sendHighScores(Score* scoreList) {
 #endif
 		sprintf((char*)buffer, "!U. !U  !X\n", num, score->score, score->name);
 		num++;
-		if(transmit_all(STDOUT, buffer, strlen((char*)buffer)))
+		if(transmit_all(STDOUT, buffer, cgc_strlen((char*)buffer)))
 			_terminate(TRANSMIT_ERROR);		
 	}
 }

@@ -153,7 +153,7 @@ void add_new_packet( uint8_t packetType, fpPacketTypeHandler fpHandler, uint8_t 
 	pNewPacket->dataLen = dataLen;
 	
 	// Copy in the data	
-	memcpy( pNewPacket->packetData, pData, dataLen );
+	cgc_memcpy( pNewPacket->packetData, pData, dataLen );
 
 	// Add packet to receive list
 	if ( g_packetData.pPacketList == NULL )
@@ -225,10 +225,10 @@ void HandleBroadcastPacket( uint8_t *pData, uint32_t dataLen )
 	char szTemp[256];
 	char szUsername[MAX_USERNAME_LENGTH+1];
 
-	memcpy( szUsername, pData+1, fromUserNameLen );
+	cgc_memcpy( szUsername, pData+1, fromUserNameLen );
 	szUsername[fromUserNameLen] = '\0';
 
-	memcpy( szTemp, pData+fromUserNameLen+2, broadcastMessageLen );
+	cgc_memcpy( szTemp, pData+fromUserNameLen+2, broadcastMessageLen );
 	szTemp[broadcastMessageLen] = '\0';
 
 	printf( "[BROADCAST]From $s::$s\n", szUsername, szTemp );
@@ -275,10 +275,10 @@ void HandleChannelPacket( uint8_t *pData, uint32_t dataLen )
 	char szFromUsername[MAX_USERNAME_LENGTH+1];
 	char szTemp[256];
 
-	memcpy( szFromUsername, pData+1, fromUserNameLen );
+	cgc_memcpy( szFromUsername, pData+1, fromUserNameLen );
 	szFromUsername[fromUserNameLen] = '\0';
 
-	memcpy( szTemp, pData+fromUserNameLen+3, channelMessageLen );
+	cgc_memcpy( szTemp, pData+fromUserNameLen+3, channelMessageLen );
 	szTemp[channelMessageLen] = '\0';
 
 	printf( "[CHANNEL $d]Message from $s::$s\n", channelNumber, szFromUsername, szTemp );
@@ -340,13 +340,13 @@ void HandlePrivatePacket( uint8_t *pData, uint32_t dataLen )
 	char szFromUsername[MAX_USERNAME_LENGTH+1];
 	char szToUsername[MAX_USERNAME_LENGTH+1];
 
-	memcpy( szToUsername, pData+1, toUserNameLen );
+	cgc_memcpy( szToUsername, pData+1, toUserNameLen );
 	szToUsername[toUserNameLen] = '\0';
 
-	memcpy( szFromUsername, pData+toUserNameLen+2, fromUserNameLen );
+	cgc_memcpy( szFromUsername, pData+toUserNameLen+2, fromUserNameLen );
 	szFromUsername[fromUserNameLen] = '\0';
 
-	memcpy( szTemp, pData+toUserNameLen+fromUserNameLen+3, privateMessageLen );
+	cgc_memcpy( szTemp, pData+toUserNameLen+fromUserNameLen+3, privateMessageLen );
 	szTemp[privateMessageLen] = '\0';
 
 	printf( "[PRIVATE MESSAGE]$s to $s::$s\n", szToUsername, szFromUsername, szTemp );
@@ -383,7 +383,7 @@ void HandleConnectPacket( uint8_t *pData, uint32_t dataLen )
 	// Display message
 	char szUsername[MAX_USERNAME_LENGTH];
 
-	memcpy( szUsername, pData+1, connectUserNameLen );
+	cgc_memcpy( szUsername, pData+1, connectUserNameLen );
 	szUsername[connectUserNameLen] = '\0';
 
 	printf( "[CONNECT MESSAGE]$s connected\n", szUsername );	
@@ -420,7 +420,7 @@ void HandleDisconnectPacket( uint8_t *pData, uint32_t dataLen )
 	// Display message
 	char szUsername[MAX_USERNAME_LENGTH];
 
-	memcpy( szUsername, pData+1, disconnectUserNameLen );
+	cgc_memcpy( szUsername, pData+1, disconnectUserNameLen );
 	szUsername[disconnectUserNameLen] = '\0';
 
 	printf( "[DISCONNECT MESSAGE]$s disconnected\n", szUsername );	

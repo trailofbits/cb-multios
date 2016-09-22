@@ -62,7 +62,7 @@ result DB_CURRENT_db_insert(record rec)
     node_t *n = malloc(sizeof(*n));
     result res;
 
-    memset(n, 0, sizeof(*n));
+    cgc_memset(n, 0, sizeof(*n));
     n->key = rec.k.data.data;
     n->key_length = rec.k.data.count;
     n->data = rec.data.data;

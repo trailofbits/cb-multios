@@ -37,7 +37,7 @@ int FreeArgs() {
 	int i = 0;
 
 	while (ARGV[i]) {
-		deallocate(ARGV[i], strlen(ARGV[i]));
+		deallocate(ARGV[i], cgc_strlen(ARGV[i]));
 		ARGV[i] = NULL;
 		i++;
 	}
@@ -64,8 +64,8 @@ int ParseArgs(char *cmd) {
 
 	while ((tok = strtok(NULL, " ")) != NULL && ARGC < MAX_ARGS-1) {
 		// handle closing quote made up of multiple " "-separated tokens
-		if (open_quote && tok[strlen(tok)-1] == '"') {
-			new_len = strlen(ARGV[ARGC]) + strlen(tok) + 1;
+		if (open_quote && tok[cgc_strlen(tok)-1] == '"') {
+			new_len = cgc_strlen(ARGV[ARGC]) + cgc_strlen(tok) + 1;
 			if (allocate(new_len, 0, (void *)&t)) {
 				FreeArgs();
 				ARGC = 0;
@@ -73,15 +73,15 @@ int ParseArgs(char *cmd) {
 			}
 			strcpy(t, ARGV[ARGC]+1);
 			strcat(t, " ");
-			tok[strlen(tok)-1] = '\0';
+			tok[cgc_strlen(tok)-1] = '\0';
 			strcat(t, tok);
-			deallocate(ARGV[ARGC], strlen(ARGV[ARGC]));
+			deallocate(ARGV[ARGC], cgc_strlen(ARGV[ARGC]));
 			ARGV[ARGC++] = t;
 			open_quote = 0;
 
 		// handle middle tokens for quoted string
 		} else if (open_quote) {
-			new_len = strlen(ARGV[ARGC]) + strlen(tok) + 2;
+			new_len = cgc_strlen(ARGV[ARGC]) + cgc_strlen(tok) + 2;
 			if (allocate(new_len, 0, (void *)&t)) {
 				FreeArgs();
 				ARGC = 0;
@@ -90,12 +90,12 @@ int ParseArgs(char *cmd) {
 			strcpy(t, ARGV[ARGC]);
 			strcat(t, " ");
 			strcat(t, tok);
-			deallocate(ARGV[ARGC], strlen(ARGV[ARGC]));
+			deallocate(ARGV[ARGC], cgc_strlen(ARGV[ARGC]));
 			ARGV[ARGC] = t;
 
 		// handle token delimited by quotes
-		} else if (tok[0] == '"' & tok[strlen(tok)-1] == '"') {
-			tok[strlen(tok)-1] = '\0';
+		} else if (tok[0] == '"' & tok[cgc_strlen(tok)-1] == '"') {
+			tok[cgc_strlen(tok)-1] = '\0';
 			ARGV[ARGC++] = strdup(tok+1);
 
 		// handle starting quote 

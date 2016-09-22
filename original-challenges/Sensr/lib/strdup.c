@@ -25,13 +25,13 @@
 
 char *strdup(const char *s1)
 {
-  size_t len = strlen(s1);
+  size_t len = cgc_strlen(s1);
   char *cpy = malloc(len + 1);
 
   if (!cpy)
     return NULL;
 
-  memcpy(cpy, s1, len);
+  cgc_memcpy(cpy, s1, len);
   cpy[len] = '\0';
 
   return cpy;

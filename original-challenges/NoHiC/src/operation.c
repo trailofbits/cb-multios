@@ -55,7 +55,7 @@ NUM_TYPE nt;
  Read in the list type and store it in nt.
 */
 int get_list_type() {
-	// read list type (uint8_t)
+	// cgc_read list type (uint8_t)
 	uint8_t l_type = 0;
     RECV(&l_type, sizeof(uint8_t));
 
@@ -71,7 +71,7 @@ int get_list_type() {
  Read in the count and return it in count.
 */
 void get_num_count(uint32_t * count) {
-	// read number count (uint32_t)
+	// cgc_read number count (uint32_t)
     RECV(count, sizeof(uint32_t));
 }
 
@@ -79,7 +79,7 @@ void get_num_count(uint32_t * count) {
  Read in the op_code and return it in op_code
 */
 int get_op_code(MATH_OPS * op_code) {
-	// read op_code (uint8_t)
+	// cgc_read op_code (uint8_t)
 	uint8_t oc = 0;
 	RECV(&oc, sizeof(uint8_t));
 	if (oc < num_math_ops) {
@@ -100,7 +100,7 @@ node_t * read_double_into_node() {
 	ALLOC(sizeof(dbl64_data_t), &data);
 	// allocate(sizeof(dbl64_data_t), 0, (void **)&data);
 
-	// read next number as double
+	// cgc_read next number as double
     RECV(data, sizeof(double));
 
 	// create node with number
@@ -117,7 +117,7 @@ node_t * read_int_into_node() {
 	ALLOC(sizeof(int32_data_t), &data);
 	// allocate(sizeof(int32_data_t), 0, (void **)&data);
 
-	// read next number
+	// cgc_read next number
     RECV(data, sizeof(int32_t));
 
 	// create node with number
@@ -202,7 +202,7 @@ int dbl64_node_compare(node_t * nd1, node_t * nd2) {
 }
 
 /*
- Create the list. Then read in list of numbers and store them in the list.
+ Create the list. Then cgc_read in list of numbers and store them in the list.
  Success: 0
  Failure: < 0
 */

@@ -43,7 +43,7 @@ tCommandHandlerTable g_cmdTable[] =
     { "find", command_find, CMD_FLAG_AUTH },
     { "login", command_login, CMD_FLAG_NOAUTH },
     { "logout", command_logout, CMD_FLAG_AUTH },
-    { "exit", command_exit, CMD_FLAG_NOAUTH | CMD_FLAG_EXIT },
+    { "cgc_exit", command_exit, CMD_FLAG_NOAUTH | CMD_FLAG_EXIT },
     { "", NULL, 0 }
 };
 

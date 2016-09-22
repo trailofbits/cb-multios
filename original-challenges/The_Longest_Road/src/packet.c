@@ -37,7 +37,7 @@ int populate_packet(Packet *pkt, char* data, int len)
 		return FAIL;
 	}
 
-	memcpy(pkt, data, len);
+	cgc_memcpy(pkt, data, len);
 
 	int content_len = pkt->length - '0';
 	if (content_len > MAX_CONTENT || content_len < 0)
@@ -207,9 +207,9 @@ int packet_handler(Packet* pkt)//, Game *game)
 						// stack is full. game over
 						tmp_pkt.type = DATA;
 						tmp_pkt.subtype = NXTPCE;
-						strncpy(tmp_pkt.content, t, strlen(t));
+						strncpy(tmp_pkt.content, t, cgc_strlen(t));
 
-						send_packet_new(&tmp_pkt, strlen(t));
+						send_packet_new(&tmp_pkt, cgc_strlen(t));
 						return SUCCESS;
 					}
 					else if (rtn == 22)
@@ -244,7 +244,7 @@ int packet_handler(Packet* pkt)//, Game *game)
 
 					tmp_pkt.type = DATA;
 					tmp_pkt.subtype = NXTPCE;
-					memcpy(tmp_pkt.content, ss, 9);
+					cgc_memcpy(tmp_pkt.content, ss, 9);
 					tmp_pkt.content[9] = '0';
 
 					encrypt_data(tmp_pkt.content, 10, current_encryption);
@@ -285,7 +285,7 @@ int packet_handler(Packet* pkt)//, Game *game)
 					// error, must get another piece first
 					tmp_pkt.type = DATA;
 					tmp_pkt.subtype = PLCPCE;
-					memcpy(tmp_pkt.content, ss, 6);
+					cgc_memcpy(tmp_pkt.content, ss, 6);
 
 					send_packet_new(&tmp_pkt, 6);
 					return SUCCESS;
@@ -314,7 +314,7 @@ int packet_handler(Packet* pkt)//, Game *game)
 					Packet tmp;
 					tmp.type = DATA;
 					tmp.subtype = PLCPCE;
-					memcpy(tmp.content, ss, 8);
+					cgc_memcpy(tmp.content, ss, 8);
 
 					send_packet_new(&tmp, 8);
 					return SUCCESS;
@@ -469,12 +469,12 @@ void send_auth_challenge(int enc)
 	Packet tmp;
 	tmp.type = MGMT;
 	tmp.subtype = AUTHCHALREQ;
-	memcpy(tmp.content, chall_val, 5);
+	cgc_memcpy(tmp.content, chall_val, 5);
 	
 	send_packet_new(&tmp, 5);
 
 	encrypt_data(chall_val, 5, enc);
-	memcpy(enc_chal.answer, chall_val, 5);
+	cgc_memcpy(enc_chal.answer, chall_val, 5);
 }
 
 int handle_auth_challenge_resp(char *answer)
@@ -609,7 +609,7 @@ int handle_deauth_req(char reason)
 		tmp.content[0] = '0'; // Failed deauthentication
 
 		send_packet_new(&tmp, 1);
-		return FAIL; // exit
+		return FAIL; // cgc_exit
 	}
 	else
 	{
@@ -630,7 +630,7 @@ int handle_deauth_req(char reason)
 // len is the number of characters being used in the content field
 void send_packet(Packet *pkt)
 {
-	write((char*)pkt, sizeof(Packet));
+	cgc_write((char*)pkt, sizeof(Packet));
 	printf("\n");
 }
 
@@ -654,7 +654,7 @@ void send_packet_new(Packet *pkt, int len)
 	pkt->length = len + '0';
 
 	set_checksum(pkt);
-	write((char*)pkt, sizeof(Packet));
+	cgc_write((char*)pkt, sizeof(Packet));
 	printf("\n");
 }
 

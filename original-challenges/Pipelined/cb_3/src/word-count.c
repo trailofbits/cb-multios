@@ -23,7 +23,7 @@ void setup(void) {
 
 #define ISALPHA(x) ((x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z'))
 
-void exit(int i) {
+void cgc_exit(int i) {
     transmit_all(write_fd, "\x00\n", 2);
     _terminate(i);
 }
@@ -73,5 +73,5 @@ int main(void) {
     setup();
     sleep(2);
     ret = count();
-    exit(ret);
+    cgc_exit(ret);
 }

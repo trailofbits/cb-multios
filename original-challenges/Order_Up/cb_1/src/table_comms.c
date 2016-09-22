@@ -127,7 +127,7 @@ unsigned char get_orders_from_table(unsigned int table_id, Order **o_list) {
 	while (0 < order_count) {
 		o = malloc(sizeof(Order));
 		MALLOC_OK(o);
-		memset(o, '\x00', sizeof(Order));
+		cgc_memset(o, '\x00', sizeof(Order));
 		RECV(T_READ_FD(MASTER_TID), (char *)&o->t_id, sizeof(unsigned int));
 		RECV(T_READ_FD(MASTER_TID), (char *)&o->c_id, sizeof(unsigned int));
 		RECV(T_READ_FD(MASTER_TID), (char *)&o->ftype, sizeof(FoodTypes));

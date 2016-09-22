@@ -151,8 +151,8 @@ int main(void)
 	
 	((tLoginCommand *)commandData)->userNameLen = 4;
 	((tLoginCommand *)commandData)->passwordLen = 10;	// rootpasswd
-	memcpy( ((char *)(commandData+2)), "root", 4 );
-	memcpy( ((char *)(commandData+6)), "rootpasswd", 10 );
+	cgc_memcpy( ((char *)(commandData+2)), "root", 4 );
+	cgc_memcpy( ((char *)(commandData+6)), "rootpasswd", 10 );
 
 	// Login
 	SendCommand( COMMAND_LOGIN, commandData, sizeof(tLoginCommand)+14 );
@@ -167,13 +167,13 @@ int main(void)
 	
 	((tWriteCommand *)commandData)->writeLength = 20;
 	((tWriteCommand *)commandData)->fileNameLength = 6;
-	memcpy( ((char *)(commandData+3)), "blahah", 6 );
-	memcpy( ((char *)(commandData+9)), responseData, 20 );
+	cgc_memcpy( ((char *)(commandData+3)), "blahah", 6 );
+	cgc_memcpy( ((char *)(commandData+9)), responseData, 20 );
 	
 	SendCommand( COMMAND_WRITE, commandData, sizeof(tWriteCommand)+26 );
 	GetResponse( responseData, &responseLength );
 
-	// Do read command (outside of bounds)
+	// Do cgc_read command (outside of bounds)
 	typedef struct READ_STRUCT
 	{
 		int32_t fileOffset;
@@ -185,7 +185,7 @@ int main(void)
 	((tReadCommand *)commandData)->readLength = 0x1000;
 	((tReadCommand *)commandData)->fileNameLength = 6;
 
-	memcpy( ((char *)commandData+sizeof(tReadCommand)), "blahah", 6 );
+	cgc_memcpy( ((char *)commandData+sizeof(tReadCommand)), "blahah", 6 );
 	
 	// Send debug command -- this will fail auth token!
 	SendCommand( COMMAND_READ, commandData, sizeof(tReadCommand)+6 );

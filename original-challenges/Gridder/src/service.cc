@@ -102,7 +102,7 @@ unsigned int RecvCmdId()
 {
     unsigned int cmd_id;
     if (fread(&cmd_id, sizeof(cmd_id), stdin) != sizeof(cmd_id))
-        exit(0);
+        cgc_exit(0);
     return cmd_id;
 }
 
@@ -140,7 +140,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
     while (!exited)
     {
         pmsg_status = &g_error_table[0];
-        memset(gridder_recv_buf, 0, sizeof(gridder_recv_buf));
+        cgc_memset(gridder_recv_buf, 0, sizeof(gridder_recv_buf));
         cmd_id = RecvCmdId();
         switch (cmd_id)
         {

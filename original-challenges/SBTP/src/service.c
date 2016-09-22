@@ -33,7 +33,7 @@
 /**
  * Read in data from stdin with a timeout
  *
- * @param s struct to read into
+ * @param s struct to cgc_read into
  * @return 1 on success, 0 on failure
  */
 #define READDATATIMEOUT(s) (sizeof(s) == readall_timeout(stdin,(char *)&s,sizeof(s)) ? 1 : 0)
@@ -41,7 +41,7 @@
 /**
  * Read in data from stdin and decrypt
  *
- * @param s struct to read into
+ * @param s struct to cgc_read into
  * @return 1 on success, 0 on failure
  */
 #define EREADDATA(s) (sizeof(s) == ereadall(stdin,(char *)&s,sizeof(s)) ? 1 : 0)
@@ -49,7 +49,7 @@
 /**
  * Encrypt data and send to stdout
  *
- * @param s struct to write
+ * @param s struct to cgc_write
  * @return 1 on success, 0 on failure
  */
 #define ESENDDATA(s) (sizeof(s) == esendall(stdout,(char *)&s,sizeof(s)) ? 1 : 0)
@@ -86,12 +86,12 @@ static config_t conf;
 static char *last;
 
 /**
- * Attempt to read a fixed number of bytes, timeout after 2 seconds
+ * Attempt to cgc_read a fixed number of bytes, timeout after 2 seconds
  *
- * @param fd File descriptor to read from.
- * @param buf Buffer to write read bytes to.
- * @param s Maximum number of bytes to read
- * @return Number of bytes read 
+ * @param fd File descriptor to cgc_read from.
+ * @param buf Buffer to cgc_write cgc_read bytes to.
+ * @param s Maximum number of bytes to cgc_read
+ * @return Number of bytes cgc_read 
  */
 static size_t readall_timeout(int fd, char *buf, size_t s) {
     fd_set readfds;
@@ -116,12 +116,12 @@ static size_t readall_timeout(int fd, char *buf, size_t s) {
 }
 
 /**
- * Attempt to read a fixed number of bytes and decrypt
+ * Attempt to cgc_read a fixed number of bytes and decrypt
  *
- * @param fd File descriptor to read from.
- * @param buf Buffer to write read bytes to.
- * @param s Maximum number of bytes to read
- * @return Number of bytes read 
+ * @param fd File descriptor to cgc_read from.
+ * @param buf Buffer to cgc_write cgc_read bytes to.
+ * @param s Maximum number of bytes to cgc_read
+ * @return Number of bytes cgc_read 
  */
 static size_t ereadall(int fd, char *buf, size_t s) {
     size_t i = 0;
@@ -148,8 +148,8 @@ static size_t ereadall(int fd, char *buf, size_t s) {
 /**
  * Attempt to encrypt then send a fixed number of bytes
  *
- * @param fd File descriptor to write to
- * @param buf Buffer to read bytes from
+ * @param fd File descriptor to cgc_write to
+ * @param buf Buffer to cgc_read bytes from
  * @param s Number of bytes to send
  * @return Number of bytes sent.
  */
@@ -190,7 +190,7 @@ resp_t *do_mkdir(msg_t *msg) {
 
     if (!add_dir(msg->buf)) {
         resp->type = MKDIR_OK;
-        memset(resp->buf, 0, sizeof(resp->buf));
+        cgc_memset(resp->buf, 0, sizeof(resp->buf));
     } else {
         debug("Adding directory failed.\n");
         resp->type = MKDIR_FAIL;
@@ -225,7 +225,7 @@ resp_t *do_list(msg_t *msg) {
     }
 
     //truncate if too long
-    if (strlen(dirlist) > MAX_FILE_SIZE)
+    if (cgc_strlen(dirlist) > MAX_FILE_SIZE)
         *(dirlist+MAX_FILE_SIZE) = '\0'; 
     strcpy(resp->buf, dirlist);
 
@@ -256,7 +256,7 @@ resp_t *do_put(msg_t *msg) {
         return NULL;
     }
 
-    fnlen = strlen(msg->buf);
+    fnlen = cgc_strlen(msg->buf);
 
     if (fnlen > MAX_FILENAME_SIZE) {
         debug("Filename too large.\n");
@@ -267,7 +267,7 @@ resp_t *do_put(msg_t *msg) {
     fn = malloc(fnlen+1);
     strcpy(fn, msg->buf);
 
-    datalen = strlen(msg->buf+fnlen+1);
+    datalen = cgc_strlen(msg->buf+fnlen+1);
     
     if (datalen > MAX_FILE_SIZE) {
         debug("File data too large.\n");
@@ -311,13 +311,13 @@ resp_t *do_get(msg_t *msg) {
     }
 
     if (!(data = readfile(msg->buf))) {
-        debug("Failed to read file.\n");
+        debug("Failed to cgc_read file.\n");
         resp->type = GET_FAIL;
         return resp;
     }
 
     resp->type = GET_OK;
-    memcpy(resp->buf, data, sizeof(resp->buf));
+    cgc_memcpy(resp->buf, data, sizeof(resp->buf));
     return resp;
 }
 
@@ -346,7 +346,7 @@ resp_t *do_rm(msg_t *msg) {
         return resp;
     }
 
-    memcpy(resp, msg, sizeof(resp_t));
+    cgc_memcpy(resp, msg, sizeof(resp_t));
     return resp;
 }
 
@@ -375,7 +375,7 @@ resp_t *do_rmdir(msg_t *msg) {
         return resp;
     }
 
-    memcpy(resp, msg, sizeof(resp_t));
+    cgc_memcpy(resp, msg, sizeof(resp_t));
     return resp;
 }
 
@@ -477,7 +477,7 @@ int go(void) {
     if (!f)
         return 1;
 
-    memcpy(f, seed, 8*sizeof(uint32_t));
+    cgc_memcpy(f, seed, 8*sizeof(uint32_t));
 
     if (!conf.encrypt)
         seed = calloc(8*sizeof(uint32_t));
@@ -492,7 +492,7 @@ int go(void) {
     }
 
     #ifdef PATCHED_1
-    memset(f, '\0', 8*sizeof(uint32_t));
+    cgc_memset(f, '\0', 8*sizeof(uint32_t));
     #endif
     debug("flag data: @h\n",f);
 
@@ -538,7 +538,7 @@ int go(void) {
                 return 1;
             } else {
                 debug("copying last out\n");
-                memcpy(resend, last+offset, sizeof(resp_t)-offset);
+                cgc_memcpy(resend, last+offset, sizeof(resp_t)-offset);
             }
 
             #ifdef PATCHED_1

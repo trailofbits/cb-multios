@@ -121,7 +121,7 @@ int vfdprintf(int fd, const char *fmt, va_list ap)
                 break;
             case 's':
                 astring = va_arg(ap, char *);
-                send_n_bytes(fd, strlen(astring), astring);
+                send_n_bytes(fd, cgc_strlen(astring), astring);
                 break;
             case 'd':
                 aint = va_arg(ap, int);
@@ -247,7 +247,7 @@ int sprintf(char *str, const char *fmt, ...)
                 break;
             case 's':
                 astring = va_arg(ap, char *);
-                for (i = 0; i < strlen(astring); i++)
+                for (i = 0; i < cgc_strlen(astring); i++)
                     OUTPUT_BYTE(&n, &str, astring[i]);
                 break;
             case 'd':

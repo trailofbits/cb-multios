@@ -94,34 +94,34 @@ void load_menu(Menu *menu) {
     // Appetizer template
     a = malloc(sizeof(Appetizer));
     MALLOC_OK(a);
-    memset(a, '\\0', sizeof(Appetizer));
+    cgc_memset(a, '\\0', sizeof(Appetizer));
     a->ftype = APP_TYPE;
     name = "{0}";
-    memcpy(a->name, name, strlen(name, '\\0'));
+    cgc_memcpy(a->name, name, cgc_strlen(name, '\\0'));
     add_appetizer(menu,a);
 
     // Meal template
     m = malloc(sizeof(Meal));
     MALLOC_OK(m);
-    memset(m, '\\0', sizeof(Meal));
+    cgc_memset(m, '\\0', sizeof(Meal));
     m->ftype = MEAL_TYPE;
     name = "{0}";
-    memcpy(m->name, name, strlen(name, '\\0'));
+    cgc_memcpy(m->name, name, cgc_strlen(name, '\\0'));
     main = "{1}";
-    memcpy(m->main, main, strlen(main, '\\0'));
+    cgc_memcpy(m->main, main, cgc_strlen(main, '\\0'));
     veggies = "{2}";
-    memcpy(m->veggies, veggies, strlen(veggies, '\\0'));
+    cgc_memcpy(m->veggies, veggies, cgc_strlen(veggies, '\\0'));
     side = "{3}";
-    memcpy(m->side, side, strlen(side, '\\0'));
+    cgc_memcpy(m->side, side, cgc_strlen(side, '\\0'));
     add_meal(menu, m);
 
     // Dessert template
     d = malloc(sizeof(Dessert));
     MALLOC_OK(d);
-    memset(d, '\\0', sizeof(Dessert));
+    cgc_memset(d, '\\0', sizeof(Dessert));
     d->ftype = DES_TYPE;
     name = "{0}";
-    memcpy(d->name, name, strlen(name, '\\0'));
+    cgc_memcpy(d->name, name, cgc_strlen(name, '\\0'));
     add_dessert(menu,d);
 
 }

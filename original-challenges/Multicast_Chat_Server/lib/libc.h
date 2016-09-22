@@ -80,8 +80,8 @@
  *
  * @param fd A file descriptor
  * @param buf The destination buffer
- * @param n The number of bytes to read
- * @return The number of bytes read, or negative on failure
+ * @param n The number of bytes to cgc_read
+ * @return The number of bytes cgc_read, or negative on failure
  */
 ssize_t read_all(int fd, void *buf, size_t n);
 
@@ -90,7 +90,7 @@ ssize_t read_all(int fd, void *buf, size_t n);
  *
  * @param fd A file descriptor
  * @param buf A pointer to be set to the destination buffer
- * @return The number of bytes read, or negative on failure
+ * @return The number of bytes cgc_read, or negative on failure
  */
 ssize_t read_line(int fd, char **buf);
 
@@ -99,7 +99,7 @@ ssize_t read_line(int fd, char **buf);
  *
  * @param fd A file descriptor
  * @param buf The source buffer
- * @param n The number of bytes to write
+ * @param n The number of bytes to cgc_write
  * @return The number of bytes written, or negative on failure
  */
 ssize_t write_all(int fd, void *buf, size_t n);
@@ -147,7 +147,7 @@ void *realloc(void *ptr, size_t size);
  * @param n The number of bytes to set
  * @return ptr
  */
-void *memset(void *ptr_, int val, size_t n);
+void *cgc_memset(void *ptr_, int val, size_t n);
 
 /**
  * Copy n bytes from src to dst.
@@ -157,7 +157,7 @@ void *memset(void *ptr_, int val, size_t n);
  * @param n The number of bytes to copy
  * @return dst
  */
-void *memcpy(void *dst_, const void *src_, size_t n);
+void *cgc_memcpy(void *dst_, const void *src_, size_t n);
 
 /**
  * Move n bytes from src to dst.
@@ -205,7 +205,7 @@ char *strncpy(char *dst, const char *src, size_t n);
  * @param s The string
  * @return The length of s
  */
-size_t strlen(const char *s);
+size_t cgc_strlen(const char *s);
 
 /**
  * Return the length of a null-terminated string, checking at most n bytes.
@@ -363,7 +363,7 @@ extern FILE *stderr;
 /**
  * Formatted output to a stream.
  *
- * @param stream The stream to write to
+ * @param stream The stream to cgc_write to
  * @param format The format specifier
  * @return number of bytes written
  */
@@ -372,7 +372,7 @@ int fprintf(FILE * stream, const char *format, ...);
 /**
  * Formatted output to stdout.
  *
- * @param stream The stream to write to
+ * @param stream The stream to cgc_write to
  * @param format The format specifier
  * @return number of bytes written
  */

@@ -45,7 +45,7 @@
 #define BADJOKEERROR "\nThat joke you gave me is crap! " \
         "For that, you get to start over!\n"
 #define JOKEDBFULL "Lordy, lordy, I've had enough Chuck Norris jokes. Go away.\n"
-#define SHOWWHICHID "Give me the ID of the joke you want to read. Or better yet, " \
+#define SHOWWHICHID "Give me the ID of the joke you want to cgc_read. Or better yet, " \
         "enter RANDOM and I'll choose one for you.\n" 
 #define BADIDERROR "\nWhat do you take me for? That ID is bogus! Try again.\n"
 #define BADSTRERROR "\nAre you kidding me? What is that garbage? "\

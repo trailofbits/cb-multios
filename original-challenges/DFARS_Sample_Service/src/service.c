@@ -71,7 +71,7 @@ void register_book(program_state *s, char *section, char *name, char *data) {
         err(1, "invalid data");
 
     while (bk != NULL) {
-        if (0 == strlen(bk->section)) {
+        if (0 == cgc_strlen(bk->section)) {
             bk->section = strdup(section);
             bk->name = strdup(name);
             bk->data = strdup(data);
@@ -96,7 +96,7 @@ void register_book(program_state *s, char *section, char *name, char *data) {
 *
 * If the input does not begin with the marker "|", then the program will
 * continue the search into unspecified memory regions.  If the marker is found
-* elsewhere, the program will write the input after the traversal marker "++|"
+* elsewhere, the program will cgc_write the input after the traversal marker "++|"
 * at the found location.
 *
 * By placing a a marker "|" in a known location, a specified input may be able
@@ -113,7 +113,7 @@ int normalize_path(char *path) {
     if (path == NULL)
         return -1;
 
-    const size_t len = strlen(path);
+    const size_t len = cgc_strlen(path);
     char *end_of_path = path + len;
     q = p = path;
 
@@ -252,7 +252,7 @@ int cmd_search(program_state *s, char *args) {
     size_t scan_len;
     (void) args;
 
-    scan_len = strlen(args);
+    scan_len = cgc_strlen(args);
 
     if (scan_len == 0) {
         return 1;
@@ -273,7 +273,7 @@ int cmd_search(program_state *s, char *args) {
     }
 
     while (cur_book != NULL) {
-        if (skip_search((size_t *)&skip_dict, args, scan_len, cur_book->data, strlen(cur_book->data)) == 1) {
+        if (skip_search((size_t *)&skip_dict, args, scan_len, cur_book->data, cgc_strlen(cur_book->data)) == 1) {
             printf("%s : %s\n", cur_book->section, cur_book->name);
         }
 
@@ -288,7 +288,7 @@ int cmd_ch_sec(program_state *s, char *args) {
     size_t sub_section_len;
     book_t *cur_book = &(s->book_list);
 
-    sub_section_len = strlen(args);
+    sub_section_len = cgc_strlen(args);
 
     if (sub_section_len == 0)
         return 1;
@@ -311,7 +311,7 @@ int cmd_ch_sec(program_state *s, char *args) {
     if (normalize_path(args) != 0)
         return -1;
         
-    sub_section_len = strlen(args);
+    sub_section_len = cgc_strlen(args);
     
     if (args[0] != DELIM)
         return 0;
@@ -320,7 +320,7 @@ int cmd_ch_sec(program_state *s, char *args) {
         return 0;
    
     while (cur_book != NULL) {
-        size_t section_len = strlen(cur_book->section);
+        size_t section_len = cgc_strlen(cur_book->section);
 
         if (section_len >= sub_section_len) {
             if (0 == strcmp(cur_book->section, args)) {
@@ -336,7 +336,7 @@ int cmd_ch_sec(program_state *s, char *args) {
     if (changed == 0) {
         cur_book = &(s->book_list);
         while (cur_book != NULL) {
-            size_t section_len = strlen(cur_book->section);
+            size_t section_len = cgc_strlen(cur_book->section);
 
             if (section_len >= sub_section_len) {
                 if (0 == strncmp(cur_book->section, args, sub_section_len)) {
@@ -365,7 +365,7 @@ char *compress(char *string) {
         return NULL;
 
     curr = *string;
-    length = strlen(string);
+    length = cgc_strlen(string);
     encoded = (char *)calloc(((length * 2) + 1), sizeof(char));
 
     if (encoded == NULL)
@@ -392,10 +392,10 @@ int cmd_compress(program_state *s, char *args) {
     if (args == NULL)
         return -1;
 
-    if (0 == strlen(args))
+    if (0 == cgc_strlen(args))
         return -1;
 
-    if (0 == strlen(s->current_dir))
+    if (0 == cgc_strlen(s->current_dir))
         return -1;
 
     while (cur_book != NULL) {
@@ -433,17 +433,17 @@ int cmd_get(program_state *s, char *args) {
     if (args == NULL)
         return -1;
 
-    if (0 == strlen(args))
+    if (0 == cgc_strlen(args))
         return -1;
 
     if (NULL == s->current_dir)
         return -1;
 
-    if (0 == strlen(s->current_dir))
+    if (0 == cgc_strlen(s->current_dir))
         return -1;
 
     while (cur_book != NULL) {
-        if (strlen(cur_book->section) == strlen(s->current_dir)) {
+        if (cgc_strlen(cur_book->section) == cgc_strlen(s->current_dir)) {
             if (0 == strcmp(cur_book->section, s->current_dir)) {
                 if (0 == strcmp(cur_book->name, args)) {
                     transmit_str(STDOUT, cur_book->name);
@@ -465,19 +465,19 @@ int cmd_make_sec(program_state *s, char *args) {
     size_t len = 3;
     char *name;
 
-    if (strlen(args) == 0) {
+    if (cgc_strlen(args) == 0) {
         return -1;
     }
     
-    assert((SIZE_MAX - len) - strlen(args) > strlen(s->current_dir));
+    assert((SIZE_MAX - len) - cgc_strlen(args) > cgc_strlen(s->current_dir));
 
-    len += strlen(s->current_dir);
-    len += strlen(args);
+    len += cgc_strlen(s->current_dir);
+    len += cgc_strlen(args);
 
     name = calloc(1, len);
     assert(name != NULL);
 
-    if (strlen(s->current_dir) > 0) {
+    if (cgc_strlen(s->current_dir) > 0) {
         out = strlcat(name, s->current_dir, len);
         assert(out <= len);
     } else {
@@ -499,7 +499,7 @@ int cmd_put(program_state *s, char *args) {
     char *name;
     char *data;
 
-    if (strlen(s->current_dir) == 0) {
+    if (cgc_strlen(s->current_dir) == 0) {
         return -1;
     }
 
@@ -527,12 +527,12 @@ int cmd_list(program_state *s, char *args) {
     transmit_str(STDOUT, "\n");
 
     while (cur_book != NULL) {
-        if (0 == strlen(cur_book->section))
+        if (0 == cgc_strlen(cur_book->section))
             break;
 
-        if (0 == strncmp(cur_book->section, s->current_dir, strlen(s->current_dir))) {
-            if (strlen(cur_book->section) - strlen(s->current_dir) > 0) {
-                transmit_all(STDOUT, cur_book->section + strlen(s->current_dir), strlen(cur_book->section) - strlen(s->current_dir));
+        if (0 == strncmp(cur_book->section, s->current_dir, cgc_strlen(s->current_dir))) {
+            if (cgc_strlen(cur_book->section) - cgc_strlen(s->current_dir) > 0) {
+                transmit_all(STDOUT, cur_book->section + cgc_strlen(s->current_dir), cgc_strlen(cur_book->section) - cgc_strlen(s->current_dir));
                 transmit_str(STDOUT, ":");
             }
 
@@ -548,7 +548,7 @@ int cmd_list(program_state *s, char *args) {
 }
 
 void remove_newline(char *line) {
-    size_t new_line = strlen(line) - 1;
+    size_t new_line = cgc_strlen(line) - 1;
 
     if (line[new_line] == '\n')
         line[new_line] = '\0';
@@ -592,7 +592,7 @@ int process(program_state *s) {
     process_t method;
 
     while (1) {
-        memset(s->input_buf, 0, sizeof(s->input_buf));
+        cgc_memset(s->input_buf, 0, sizeof(s->input_buf));
         transmit_str(STDOUT, "> ");
 
         if (0 != receive_delim(0, s->input_buf, sizeof(s->input_buf) - 1, '\n')) {
@@ -601,13 +601,13 @@ int process(program_state *s) {
 
         remove_newline(s->input_buf);
 
-        if (strlen(s->input_buf) == 0)
+        if (cgc_strlen(s->input_buf) == 0)
             continue;
 
         name = strtok(s->input_buf, " ");
         args = strtok(NULL, "\x00");
 
-        if (strlen(name) >= COMMAND_NAME_SIZE)
+        if (cgc_strlen(name) >= COMMAND_NAME_SIZE)
             return -1;
 
         method = get_command(s, name);
@@ -636,7 +636,7 @@ int process(program_state *s) {
 
 int main(void) {
     program_state s;
-    memset(&s, 0, sizeof(s));
+    cgc_memset(&s, 0, sizeof(s));
     
     command_t node_0x40f0;
     command_t node_0x40d0;

@@ -69,7 +69,7 @@ pBitStream initStream( char *newData, unsigned int newDataLength )
 		return pbs;
 	}
 
-	memset( pbs, 0, sizeof( BitStream ) );
+	cgc_memset( pbs, 0, sizeof( BitStream ) );
 
 	pbs->stream = malloc( newDataLength );
 
@@ -81,7 +81,7 @@ pBitStream initStream( char *newData, unsigned int newDataLength )
 
 	pbs->streamLength = newDataLength;
 
-	memcpy( pbs->stream, newData, newDataLength );
+	cgc_memcpy( pbs->stream, newData, newDataLength );
 
 	return pbs;		
 }
@@ -105,11 +105,11 @@ int readBits( pBitStream stream, unsigned int bitCount, unsigned int *outBits )
 		return retval;
 	}
 
-	/// Calculate the end index after the read
+	/// Calculate the end index after the cgc_read
 	outIndex = stream->byteIndex * 8;
 	outIndex += stream->bitIndex + bitCount;
 
-	/// Ensure that the read does not go beyond the buffer
+	/// Ensure that the cgc_read does not go beyond the buffer
 	if ( stream->streamLength * 8 < outIndex ) {
 		return retval;
 	}

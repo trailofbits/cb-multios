@@ -124,7 +124,7 @@ DefineFunction(TrainerObject, void, deserialize, Buffer *buf)
     this->m_reward = $(buf, read_number);
 
     name = $(buf, read_string);
-    if (strlen(name)+1 > TRAINER_NAME_LEN)
+    if (cgc_strlen(name)+1 > TRAINER_NAME_LEN)
         raise(EXC_BAD_STATE);
 
     strcpy(this->m_name, name);

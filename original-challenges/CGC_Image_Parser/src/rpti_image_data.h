@@ -29,7 +29,7 @@ THE SOFTWARE.
 #define RPTI_MAGIC 0xc35109d3
 /**
  * Structure to hold the rpti image data.
- * It points to the current byte/bit to be read
+ * It points to the current byte/bit to be cgc_read
  **/
 typedef struct rpti_image_data {
 	char *buffer;

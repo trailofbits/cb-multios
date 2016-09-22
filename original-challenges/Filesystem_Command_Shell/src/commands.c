@@ -226,7 +226,7 @@ char text[1024];
 
             case ERROR_BAD_TYPE:
 
-                printf("unable to write files of this type\n");
+                printf("unable to cgc_write files of this type\n");
                 break;
 
             default:
@@ -246,7 +246,7 @@ char text[1024];
 
             case ERROR_NO_PERMISSION:
 
-                printf("permission denied for write\n");
+                printf("permission denied for cgc_write\n");
                 break;
 
             default:
@@ -263,12 +263,12 @@ char text[1024];
 
         receive_until(text, '\n', sizeof(text));
 
-        if ( strlen(text) == 0 ) {
+        if ( cgc_strlen(text) == 0 ) {
 
             break;
         }
 
-        retcode = writeFile(fh, text, strlen(text), securityID);
+        retcode = writeFile(fh, text, cgc_strlen(text), securityID);
 
         if ( retcode < 0 ) {
 
@@ -340,7 +340,7 @@ unsigned int readcount;
 
             case ERROR_NO_PERMISSION:
 
-                printf("permission denied for read\n");
+                printf("permission denied for cgc_read\n");
                 break;
 
             default:
@@ -357,7 +357,7 @@ unsigned int readcount;
 
     while ( retcode == 0 ) {
 
-        write(STDOUT, buffer, readcount);
+        cgc_write(STDOUT, buffer, readcount);
         bzero(buffer, sizeof(buffer));
         retcode = readFile(fh, buffer, sizeof(buffer), 0, &readcount, securityID);
     
@@ -440,7 +440,7 @@ fileInfoType fileinfo;
 
             case ERROR_NO_PERMISSION:
 
-                printf("permission denied for read\n");
+                printf("permission denied for cgc_read\n");
                 break;
 
             default:
@@ -458,14 +458,14 @@ fileInfoType fileinfo;
 
     if (readcount > 0 ) {
 
-        write(STDOUT, buffer, readcount);
+        cgc_write(STDOUT, buffer, readcount);
     }
 
     while ( retcode == 0 ) {
 
         bzero(buffer, sizeof(buffer));
         retcode = readFile(fh, buffer, sizeof(buffer), 0, &readcount, securityID);
-        write(STDOUT, buffer, readcount);
+        cgc_write(STDOUT, buffer, readcount);
     
     }
 
@@ -547,7 +547,7 @@ unsigned int totalRead;
 
             case ERROR_NO_PERMISSION:
 
-                printf("permission denied for read\n");
+                printf("permission denied for cgc_read\n");
                 break;
 
             default:
@@ -566,14 +566,14 @@ unsigned int totalRead;
     if (readCount > 0 ) {
 
         totalRead += readCount;
-        write(STDOUT, buffer, readCount);
+        cgc_write(STDOUT, buffer, readCount);
     }
 
     while ( retcode == 0 && totalRead < readTermCount ) {
 
         bzero(buffer, sizeof(buffer));
         retcode = readFile(fh, buffer, minimum(sizeof(buffer), readTermCount - totalRead), 0, &readCount, securityID);
-        write(STDOUT, buffer, readCount);
+        cgc_write(STDOUT, buffer, readCount);
         totalRead += readCount;
     
     }
@@ -694,7 +694,7 @@ fileInfoType fileinfo;
     }
     else if (retcode == ERROR_NO_PERMISSION) {
 
-        printf("permission denied for read\n");
+        printf("permission denied for cgc_read\n");
         retcode = deleteFile(fh2, securityID);
         closeFile(fh2);
         return -1;

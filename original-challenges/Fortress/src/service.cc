@@ -213,7 +213,7 @@ void HandleSendMission()
     }
     fprintf(stdout, "\nselect> ");
     if (freaduntil(buf, sizeof(buf), '\n', stdin) < 0)
-        exit(0);
+        cgc_exit(0);
     int idx = strtoul(buf, NULL, 10);
     if (idx >= availMissions.GetSize())
         fprintf(stdout, "Invalid mission.\n");
@@ -239,11 +239,11 @@ void HandleSendMission()
         PrintExplorers(availExps);
         fprintf(stdout, "\nselect> ");
         if (freaduntil(buf, sizeof(buf), '\n', stdin) < 0)
-            exit(0);
+            cgc_exit(0);
         char *tmp = buf, *id = NULL;
         while ((id = strsep(&tmp, ",")))
         {
-            if (strlen(id) == 0)
+            if (cgc_strlen(id) == 0)
                 continue;
             idx = strtoul(id, NULL, 10);
             if (idx >= availExps.GetSize())
@@ -274,7 +274,7 @@ void HandleSendMission()
         fprintf(stdout, "confirm?> ");
         fbuffered(stdout, 0);
         if (freaduntil(buf, sizeof(buf), '\n', stdin) < 0)
-            exit(0);
+            cgc_exit(0);
         if (strcmp(buf, "y") == 0 || strcmp(buf, "Y") == 0)
         {
             m->Execute(selectedExps);
@@ -330,7 +330,7 @@ void HandleHireExplorer()
     PrintExplorers(unhiredExps);
     fprintf(stdout, "\nselect> ");
     if (freaduntil(buf, sizeof(buf), '\n', stdin) < 0)
-        exit(0);
+        cgc_exit(0);
     int idx = strtoul(buf, NULL, 10);
     if (idx >= unhiredExps.GetSize())
     {
@@ -382,7 +382,7 @@ void HandleRemoveExplorer()
     PrintExplorers(hiredExps);
     fprintf(stdout, "\nselect> ");
     if (freaduntil(buf, sizeof(buf), '\n', stdin) < 0)
-        exit(0);
+        cgc_exit(0);
     int idx = strtoul(buf, NULL, 10);
     if (idx >= hiredExps.GetSize())
     {
@@ -414,7 +414,7 @@ void HandleLearnSkills()
     PrintExplorers(availExps);
     fprintf(stdout, "\nselect> ");
     if (freaduntil(buf, sizeof(buf), '\n', stdin) < 0)
-        exit(0);
+        cgc_exit(0);
     int idx = strtoul(buf, NULL, 10);
     if (idx >= availExps.GetSize())
     {
@@ -433,7 +433,7 @@ void HandleLearnSkills()
     }
     fprintf(stdout, "\nselect> ");
     if (freaduntil(buf, sizeof(buf), '\n', stdin) < 0)
-        exit(0);
+        cgc_exit(0);
     idx = strtoul(buf, NULL, 10);
     if (idx >= skills.GetSize())
     {
@@ -448,7 +448,7 @@ void HandleLearnSkills()
     }
     fprintf(stdout, "\nslot? (1,2)> ");
     if (freaduntil(buf, sizeof(buf), '\n', stdin) < 0)
-        exit(0);
+        cgc_exit(0);
     idx = strtoul(buf, NULL, 10);
     if (idx != 1 && idx != 2)
     {
@@ -481,7 +481,7 @@ void HandleChangeName()
         fprintf(stdout, "%d. %s\n", i, availExps.GetAt(i)->GetName());
     fprintf(stdout, "\nselect> ");
     if (freaduntil(buf, sizeof(buf), '\n', stdin) < 0)
-        exit(0);
+        cgc_exit(0);
     int idx = strtoul(buf, NULL, 10);
     if (idx >= availExps.GetSize())
     {
@@ -491,7 +491,7 @@ void HandleChangeName()
     CExplorer *e = availExps.GetAt(idx);
     fprintf(stdout, "\nNew name? ");
     if (freaduntil(name, sizeof(name), '\n', stdin) < 0)
-        exit(0);
+        cgc_exit(0);
 #ifdef PATCHED_1
     name[CExplorer::k_maxNameLength] = '\0';
 #endif
@@ -505,7 +505,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
     g_rand = (char *) secret_page_i;
 
     if (freaduntil(nameBuf, sizeof(nameBuf), '\n', stdin) < 0)
-        exit(0);
+        cgc_exit(0);
     g_fort.SetOwner(nameBuf);
 
     PrintWelcomeBanner(g_fort.GetOwner()[0]);
@@ -571,7 +571,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
         else if (strcmp(buf, "3") == 0)
         {
             fprintf(stdout, "Boo.\n");
-            exit(0);
+            cgc_exit(0);
         }
         else
         {

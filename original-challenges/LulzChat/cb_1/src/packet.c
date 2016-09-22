@@ -42,7 +42,7 @@ packet_t* parse_packet(int fd)
   /* Read the packet header */
   to_read = sizeof(packet_t) - sizeof(char *);
   if (read_n(fd, (char *)packet, to_read) != to_read)
-    exit(0);
+    cgc_exit(0);
     //goto fail;
 
   if (packet->body_len > MAX_BODY_LEN)

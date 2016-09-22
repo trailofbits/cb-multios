@@ -194,14 +194,14 @@ private:
         {
             _allocated = new_size;
             table = new _node *[_allocated];
-            memset(table, 0, sizeof(_node *) * _allocated);
+            cgc_memset(table, 0, sizeof(_node *) * _allocated);
         }
         else
         {
             delete[] table;
             _allocated = new_size;
             table = new _node *[_allocated];
-            memset(table, 0, sizeof(_node *) * _allocated);
+            cgc_memset(table, 0, sizeof(_node *) * _allocated);
 
             for (_node *node = head; node != nullptr; node = node->lnext)
             {

@@ -373,11 +373,11 @@ pTerritory territoryTopLevel( pstring str )
 
 	if ( strcmp( temp_name, "Territory" ) != 0 ) {
 		printf("!!Territory: Invalid opening element id\n");
-		deallocate( temp_name, strlen(temp_name) + 1 );
+		deallocate( temp_name, cgc_strlen(temp_name) + 1 );
 		goto error;
 	}
 
-	deallocate(temp_name, strlen(temp_name) + 1 );
+	deallocate(temp_name, cgc_strlen(temp_name) + 1 );
 
 	skipWhiteSpace(str);
 
@@ -394,7 +394,7 @@ pTerritory territoryTopLevel( pstring str )
 	while ( temp_name != NULL ) {
 		el = elementNameToEnum( temp_name );
 
-		deallocate( temp_name, strlen(temp_name) + 1 );
+		deallocate( temp_name, cgc_strlen(temp_name) + 1 );
 
 		switch (el) {
 			case name:
@@ -407,7 +407,7 @@ pTerritory territoryTopLevel( pstring str )
 				bzero( newTerritory->name, 20 );
 				strncpy( newTerritory->name, temp_name, 19 );
 
-				deallocate( temp_name, strlen(temp_name)+1);
+				deallocate( temp_name, cgc_strlen(temp_name)+1);
 				temp_name = NULL;
 				break;
 			case founder:
@@ -420,7 +420,7 @@ pTerritory territoryTopLevel( pstring str )
 				bzero( newTerritory->founder, 30 );
 				strncpy( newTerritory->founder, temp_name, 29 );
 
-				deallocate(temp_name, strlen(temp_name)+1);
+				deallocate(temp_name, cgc_strlen(temp_name)+1);
 				temp_name = NULL;
 				break;
 			case population:
@@ -515,11 +515,11 @@ pTerritory territoryTopLevel( pstring str )
 	}
 
 	if ( strcmp( temp_name, "Territory" ) != 0 ) {
-		deallocate(temp_name, strlen(temp_name) + 1 );
+		deallocate(temp_name, cgc_strlen(temp_name) + 1 );
 		goto error;
 	}
 
-	deallocate( temp_name, strlen(temp_name) + 1 );
+	deallocate( temp_name, cgc_strlen(temp_name) + 1 );
 
 	skipWhiteSpace( str );
 
@@ -593,12 +593,12 @@ char* extractFounder( pstring str )
 	}
 
 	if ( strcmp( temp, "Founder") != 0 ) {
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 		return NULL;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, strlen(temp) + 1);
+	deallocate(temp, cgc_strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -674,11 +674,11 @@ char* extractFounder( pstring str )
 	temp = copyData( str, start, end );
 
 	if ( strcmp( temp, "Founder") != 0 ) {
-		deallocate(temp, strlen(temp)+1);
+		deallocate(temp, cgc_strlen(temp)+1);
 		goto error;
 	}
 
-	deallocate(temp, strlen(temp)+1);
+	deallocate(temp, cgc_strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -696,7 +696,7 @@ char* extractFounder( pstring str )
 
 error:
 	if (founder != NULL) {
-		deallocate( founder, strlen(founder) + 1 );
+		deallocate( founder, cgc_strlen(founder) + 1 );
 		founder = NULL;
 	}
 
@@ -759,13 +759,13 @@ int extractEstablished( pstring str )
 	/// If the element id is not "Established" then this is the wrong function
 	if ( strcmp( temp, "Established") != 0 ) {
 		printf("!!Element id is not \"Established\"\n");
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 		temp = NULL;
 		return established;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, strlen(temp) + 1);
+	deallocate(temp, cgc_strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -836,11 +836,11 @@ int extractEstablished( pstring str )
 	temp = copyData( str, start, end );
 
 	if ( strcmp( temp, "Established") != 0 ) {
-		deallocate(temp, strlen(temp)+1);
+		deallocate(temp, cgc_strlen(temp)+1);
 		return established;
 	}
 
-	deallocate(temp, strlen(temp)+1);
+	deallocate(temp, cgc_strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -863,7 +863,7 @@ int extractEstablished( pstring str )
 
 	established = atoi( temp );
 
-	deallocate( temp, strlen(temp) + 1 );
+	deallocate( temp, cgc_strlen(temp) + 1 );
 
 	return established;
 

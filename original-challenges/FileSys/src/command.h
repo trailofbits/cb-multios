@@ -154,11 +154,11 @@ class ReadCmd: public Command
 {
   public:
     ~ReadCmd() {};
-    ReadCmd() : Command("read", "cat") {}
+    ReadCmd() : Command("cgc_read", "cat") {}
 
     const char* Usage()
     {
-      return "read <fileno> [pos] [len]\n - Reads a file.";
+      return "cgc_read <fileno> [pos] [len]\n - Reads a file.";
     }
 
     int Execute(FileManager *fm, int argc, char** argv);
@@ -169,7 +169,7 @@ class ModifyCmd: public Command
 {
   public:
     ~ModifyCmd() {};
-    ModifyCmd() : Command("modify", "write") {}
+    ModifyCmd() : Command("modify", "cgc_write") {}
 
     const char* Usage()
     {
@@ -244,7 +244,7 @@ class QuitCmd: public Command
 {
   public:
     ~QuitCmd() {};
-    QuitCmd() : Command("quit", "exit") {}
+    QuitCmd() : Command("quit", "cgc_exit") {}
 
     const char* Usage()
     {

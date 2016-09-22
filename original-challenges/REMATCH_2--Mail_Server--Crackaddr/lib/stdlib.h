@@ -38,7 +38,7 @@ double atof( char *pStr );
  
 char *strcpy( char *pDest, const char *pSource );
 char *strncpy( char *pDest, const char *pSource, size_t maxlen );
-void *memcpy( void *pDest, const void *pSrc, size_t nbytes );
+void *cgc_memcpy( void *pDest, const void *pSrc, size_t nbytes );
 void get_random( void *dest, int size);
 
 #endif // STDLIB_H__

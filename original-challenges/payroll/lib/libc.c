@@ -27,10 +27,10 @@ THE SOFTWARE.
 #include <libcgc.h>
 #include "libc.h"
 
-// Receive until 'length' chars read OR 'end' char found OR newline. Up to 'length'
+// Receive until 'length' chars cgc_read OR 'end' char found OR newline. Up to 'length'
 // chars written to 'dest', including 'end' char.  
 // Returns 0 on success, otherwise error code. 
-// Number of bytes read is returned in 'bytes_read'.
+// Number of bytes cgc_read is returned in 'bytes_read'.
 int receive_until(char *dest, size_t length, char end, size_t *bytes_read)
 {
 	size_t count = 0;
@@ -52,7 +52,7 @@ int receive_until(char *dest, size_t length, char end, size_t *bytes_read)
 	return 0;
 }
 
-size_t strlen(char *buf)
+size_t cgc_strlen(char *buf)
 {
 	size_t length = 0;
 	while(buf[length]!='\0') length++;
@@ -61,7 +61,7 @@ size_t strlen(char *buf)
 
 void print(char *buf)
 {
-   size_t len = strlen(buf);
+   size_t len = cgc_strlen(buf);
    size_t tx = 0;
    size_t nbytes;
    while (tx < len) {
@@ -132,7 +132,7 @@ int atoi(char *str)
 }
 
 // itoa - Does not check output buffer size. 
-// Can potentially write up to 12 characters ("-2147483648\0") to str.
+// Can potentially cgc_write up to 12 characters ("-2147483648\0") to str.
 void itoa(char *str, int i)
 {
 	char buffer[11];
@@ -167,7 +167,7 @@ void itoa(char *str, int i)
 	str[outpos] = '\0';
 }
 
-void memcpy(char *dst, char *src, size_t size)
+void cgc_memcpy(char *dst, char *src, size_t size)
 {
 	char *end = dst + size;
 	while(dst != end)
@@ -176,7 +176,7 @@ void memcpy(char *dst, char *src, size_t size)
 	}
 }
 
-void memset(char *dst, char c, size_t size)
+void cgc_memset(char *dst, char c, size_t size)
 {
 	char *end = dst + size;
 	while(dst < end)

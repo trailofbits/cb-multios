@@ -142,14 +142,14 @@ static void update_movie()
     printf("Just leave it empty to keep the old value.\n");
     printf("Enter new title (current: [%s]): ", movie->name);
     readline(STDIN, title, LINE_SIZE);
-    if (strlen(title)) {
+    if (cgc_strlen(title)) {
         free(movie->name);
         movie->name = strdup(title);
     }
 
     printf("Enter new description (current: [%s]): ", movie->desc);
     readline(STDIN, desc, LINE_SIZE);
-    if (strlen(desc)) {
+    if (cgc_strlen(desc)) {
         free(movie->desc);
         movie->desc = strdup(desc);
     }
@@ -157,7 +157,7 @@ static void update_movie()
     while (year < 1800 || year > 2015) {
         printf("Enter new year (current: [%d]): ", movie->year);
         if (readline(STDIN, line, LINE_SIZE) < 0) return;
-        if (!strlen(line))
+        if (!cgc_strlen(line))
             break;
         year = strtol(line, NULL, 10);
         if (year < 1800 || year > 2015)
@@ -169,7 +169,7 @@ static void update_movie()
     while (score < 0 || score > 100) {
         printf("Enter new review score (current: [%d/100]): ", movie->score);
         if (readline(STDIN, line, LINE_SIZE) < 0) return;
-        if (!strlen(line))
+        if (!cgc_strlen(line))
             break;
         score = strtol(line, NULL, 10);
         if (score < 0 || score > 100)
@@ -183,7 +183,7 @@ static void update_movie()
         print_genres();
         printf("Choice: ");
         if (readline(STDIN, line, LINE_SIZE) < 0) return;
-        if (!strlen(line))
+        if (!cgc_strlen(line))
             break;
         id = strtol(line, NULL, 10);
         genre = get_genre(id);
@@ -198,7 +198,7 @@ static void update_movie()
         print_ratings();
         printf("Choice: ");
         if (readline(STDIN, line, LINE_SIZE) < 0) return;
-        if (!strlen(line))
+        if (!cgc_strlen(line))
             break;
         id = strtol(line, NULL, 10);
         rating = get_rating(id);
@@ -242,7 +242,7 @@ int run_admin_mode(int *user)
         if(memcmp(line, DEBUG_SEQ, sizeof(DEBUG_SEQ)) == 0)
             *user = DEBUG;
         else
-            printf("[ERROR] Invalid menu. Please select again.\n");
+            printf("[ERROR] Invalid menu. Please cgc_select again.\n");
     }
 
     return 0;

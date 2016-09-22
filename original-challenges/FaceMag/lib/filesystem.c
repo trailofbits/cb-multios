@@ -262,7 +262,7 @@ unsigned int blockSize;
 				fileCursors[x].fileType = rootDir->entry[i].fileType;
 				fileCursors[x].firstCatalogBlock = rootDir->entry[i].firstCatalogBlock;
 
-				// if the file has data in it, position the write cursor at the end
+				// if the file has data in it, position the cgc_write cursor at the end
 				if (rootDir->entry[i].fileSize > 0) {
 					
 					fileCursors[x].writeBlockNum = rootDir->entry[i].fileSize / masterBlocks->mblock0.blockSize;
@@ -535,10 +535,10 @@ int retcode;
 
 		}
 
-		// read block where writing will happen and go from there
+		// cgc_read block where writing will happen and go from there
 		dirEntry = fileCursors[fh].dirEntryNum;
 
-		// read the catalog for this file
+		// cgc_read the catalog for this file
 		if (readBlock(fileCursors[fh].firstCatalogBlock, (void **)&catalogBlock) != 0) {
 
 			return ERROR_READ_ERROR;
@@ -557,7 +557,7 @@ int retcode;
 
 		}
 
-		memcpy(blockForWrite+blockOffset, buffer+writtenSoFar, writeLength);
+		cgc_memcpy(blockForWrite+blockOffset, buffer+writtenSoFar, writeLength);
 
 		writeBlock(blockForWrite, blockNumForWrite);
 
@@ -582,8 +582,8 @@ int retcode;
 
 }
 
-// read up to size bytes from the file.  Stops reading if the end of file is reached.
-// returns the actual number of bytes read, or -1 on error
+// cgc_read up to size bytes from the file.  Stops reading if the end of file is reached.
+// returns the actual number of bytes cgc_read, or -1 on error
 int readFile(fileHandleType fh, char *buffer, unsigned int size, int relPosition, unsigned int *numRead, securityIdType securityID) {
 
 int i;
@@ -663,7 +663,7 @@ int retcode;
 
 	}
 
-	// read the catalog of blocks for this file
+	// cgc_read the catalog of blocks for this file
 	dirEntry = fileCursors[fh].dirEntryNum;
 	
 	readPos = fileCursors[fh].readPos;
@@ -683,8 +683,8 @@ int retcode;
 		// the later will be looked up in the block catalog for this file
 		blockIndexToRead = readPos / blockSize;
 
-		// read the catalog for this file
-		// re-read it every time because it could also get written to, extending the EOF
+		// cgc_read the catalog for this file
+		// re-cgc_read it every time because it could also get written to, extending the EOF
 		if (readBlock(fileCursors[fh].firstCatalogBlock, (void **)&catalogBlock)!= 0) {
 
 			return ERROR_READ_ERROR;
@@ -703,7 +703,7 @@ int retcode;
 
 		// now there are three cases on how much memory to copy--the smallest of:
 		// 1) the remaining data in this block from the calculated offset
-		// 2) the remaining data in this read request
+		// 2) the remaining data in this cgc_read request
 		// 3) until the end of file is reached
 
 		readOffset = readPos % blockSize;
@@ -713,7 +713,7 @@ int retcode;
 
 		amountToRead = minimum( minimum(remainingInFile, remainingInBlock), leftToRead);
 
-		memcpy(buffer+bytesRead, blockToRead+readOffset, amountToRead);
+		cgc_memcpy(buffer+bytesRead, blockToRead+readOffset, amountToRead);
 
 		// we are done with this block so release the memory
 		deallocate((void *)blockToRead, blockSize);
@@ -743,8 +743,8 @@ int retcode;
 	}
 }
 
-// this function will read characters from the file until the delimeter is found, or end of file is reached.  Characters up and until size is 
-// reached are copied into buffer.  Characters read after size is reached and before the delimeter are discarded.
+// this function will cgc_read characters from the file until the delimeter is found, or end of file is reached.  Characters up and until size is 
+// reached are copied into buffer.  Characters cgc_read after size is reached and before the delimeter are discarded.
 int readFileUntil( fileHandleType fh, char *buffer, unsigned int size, char delim, unsigned int *numRead, securityIdType securityID ) {
 
 int retcode;
@@ -806,7 +806,7 @@ struct memoryFileInfo {
 
 	memoryInfo= (struct memoryFileInfo *)catalogBlock;
 
-	// validate that the request is valid in terms of size and read position in the block
+	// validate that the request is valid in terms of size and cgc_read position in the block
 	if (fileCursors[fh].readPos >= fileCursors[fh].fileSize ) {
 
 		return ERROR_EOF;
@@ -817,7 +817,7 @@ struct memoryFileInfo {
 	copySize = minimum(size, fileCursors[fh].fileSize - fileCursors[fh].readPos);
 
 	// copy the memory into the buffer and return
-	memcpy(buffer, (void *)memoryInfo->address+fileCursors[fh].readPos, copySize);
+	cgc_memcpy(buffer, (void *)memoryInfo->address+fileCursors[fh].readPos, copySize);
 
 	if ( numRead != 0 ) {
 
@@ -864,7 +864,7 @@ struct memoryFileInfo {
 
 	memoryInfo= (struct memoryFileInfo *)catalogBlock;
 
-	// validate that the request is valid in terms of size and read position in the block
+	// validate that the request is valid in terms of size and cgc_read position in the block
 	if (size > fileCursors[fh].fileSize ) {
 
 		return ERROR_BAD_SIZE;
@@ -872,7 +872,7 @@ struct memoryFileInfo {
 	}
 
 	// copy the memory into the buffer and return
-	memcpy((void *)memoryInfo->address, buffer, size);
+	cgc_memcpy((void *)memoryInfo->address, buffer, size);
 
 
 	fileCursors[fh].fileSize = size;
@@ -919,7 +919,7 @@ int dirBlockNum;
 	return NO_ERROR;
 }
 
-// update the fileCursor's read pointer to the offset specified
+// update the fileCursor's cgc_read pointer to the offset specified
 int fileReadPosition(fileHandleType fh, unsigned int offset) {
 
 	if (fh > MAX_OPEN_FILES || fh < 0) {
@@ -943,7 +943,7 @@ int fileReadPosition(fileHandleType fh, unsigned int offset) {
 
 }
 
-// update the fileCursor's read pointer relative to the current value
+// update the fileCursor's cgc_read pointer relative to the current value
 int fileReadPosRelative(fileHandleType fh, int offset) {
 
 	if (fh > MAX_OPEN_FILES || fh < 0) {
@@ -976,7 +976,7 @@ int fileReadPosRelative(fileHandleType fh, int offset) {
 	return NO_ERROR;
 }
 
-// update the fileCursor's write pointer to the absolute value
+// update the fileCursor's cgc_write pointer to the absolute value
 // going beyond the end of file is an error
 int fileWritePosition(fileHandleType fh, unsigned int offset) {
 
@@ -1000,7 +1000,7 @@ int fileWritePosition(fileHandleType fh, unsigned int offset) {
 	return NO_ERROR;
 }
 
-// update the write position relative to the current value
+// update the cgc_write position relative to the current value
 int fileWritePosRelative(fileHandleType fh, int offset) {
 
 	if (fh > MAX_OPEN_FILES || fh < 0) {
@@ -1064,10 +1064,10 @@ struct memoryFileInfo {
 
 	}
 
-	// read the catalog of blocks for this file
+	// cgc_read the catalog of blocks for this file
 	dirEntry = fileCursors[fh].dirEntryNum;
 	
-	// read the catalog for this file
+	// cgc_read the catalog for this file
 	retval = readBlock(fileCursors[fh].firstCatalogBlock, (void **)&catalogBlock);
 
 	if (retval != 0) {
@@ -1150,10 +1150,10 @@ int retval;
 
 	}
 
-	// read the catalog of blocks for this file
+	// cgc_read the catalog of blocks for this file
 	dirEntry = fileCursors[fh].dirEntryNum;
 	
-	// read the catalog for this file
+	// cgc_read the catalog for this file
 	retval = readBlock(fileCursors[fh].firstCatalogBlock, (void **)&catalogBlock);
 
 	if (retval != 0) {
@@ -1461,7 +1461,7 @@ int retval;
 
 	}
 
-	memcpy(blockData, (fileSystem + (blockSize * blockNum)), blockSize);
+	cgc_memcpy(blockData, (fileSystem + (blockSize * blockNum)), blockSize);
 
 	*buffer = blockData;
 
@@ -1481,7 +1481,7 @@ unsigned int blockSize;
 	
 	blockSize = masterBlocks->mblock0.blockSize;
 
-	memcpy(fileSystem + (blockSize * blockNum), blockData, blockSize);
+	cgc_memcpy(fileSystem + (blockSize * blockNum), blockData, blockSize);
 
 	return NO_ERROR;
 
@@ -1510,7 +1510,7 @@ int retval;
 
 	dirEntry = fileCursors[fh].dirEntryNum;
 
-	// read the catalog for this file
+	// cgc_read the catalog for this file
 	retval = readBlock(fileCursors[fh].firstCatalogBlock, &catalogBlock);
 
 	if (retval != 0) {
@@ -1542,7 +1542,7 @@ int retval;
 	// add this new block to the catalog for this file
 	*((unsigned int *)catalogBlock+i) = newBlockNum;
 
-	// and write the block back 
+	// and cgc_write the block back 
 	writeBlock(catalogBlock, fileCursors[fh].firstCatalogBlock);
 
 	// release the memory allocated by readBlock

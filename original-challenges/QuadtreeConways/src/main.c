@@ -80,7 +80,7 @@ static int readline(int fd, char *line, size_t line_size)
 
     for (i = 0; i < line_size; i++) {
         if (receive(fd, line, 1, &rx) != 0 || rx == 0)
-            exit(0);
+            cgc_exit(0);
         if (*line == '\n')
             break;
         line++;
@@ -121,7 +121,7 @@ static coord_t parse_coordinate(char *line, size_t line_size)
     if (line != NULL)
         ycoord = line;
 
-    if(!xcoord || !ycoord || !strlen(xcoord) || !strlen(ycoord))
+    if(!xcoord || !ycoord || !cgc_strlen(xcoord) || !cgc_strlen(ycoord))
         return coord;
 
     char *temp = xcoord;

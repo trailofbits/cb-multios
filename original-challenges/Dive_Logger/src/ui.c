@@ -68,7 +68,7 @@ char GetChar(){
 
 long int GetInt(){
 	char ctemp[32];
-	memset(ctemp, 0, 32);
+	cgc_memset(ctemp, 0, 32);
 
 	int retval = 0;
 	int len = receive_until_flush(ctemp, DELIM, 10);
@@ -532,14 +532,14 @@ pDiveEntryListNode SelectDive( pDiverInfo DiverInfo, char prompt[32] ){
 		count += 1;
 		printf("@4d: @-10s @-8s",count, DiveEntryThis->DiveDate, DiveEntryThis->DiveTime);
 		printf(" @-25s @-25s\n", DiveEntryThis->SiteName, DiveEntryThis->DiveLocation );
-		//DiveEntryListThis is ++, but doesn't matter because exit loop on count which is most certainly
+		//DiveEntryListThis is ++, but doesn't matter because cgc_exit loop on count which is most certainly
 		//greater then MAXDIVECOUNT 
 		DiveEntryListThis = DiveEntryListThis->next;
 	}
 	printf("@s",prompt);
 	selection = GetPositiveInt();
-	//smashing count lets you select large int, and read past maloc in list[selection];
-	//controllable by editing dive if count is selected to point to place to arbitrary write
+	//smashing count lets you cgc_select large int, and cgc_read past maloc in list[selection];
+	//controllable by editing dive if count is selected to point to place to arbitrary cgc_write
 	if (  (selection >= 1 )&&( selection <= count )  ){
 		DiveEntryListThis = list[selection-1];
 	}else {

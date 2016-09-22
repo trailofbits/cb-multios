@@ -24,7 +24,7 @@ unbuffered:
         if (stream->length + size >= sizeof(stream->buffer))
         {
             tx = sizeof(stream->buffer) - stream->length;
-            memcpy(stream->buffer + stream->length, buf, tx);
+            cgc_memcpy(stream->buffer + stream->length, buf, tx);
             stream->length += tx;
             idx += tx;
 
@@ -34,7 +34,7 @@ unbuffered:
         if (idx < size)
         {
             tx = size - idx;
-            memcpy(stream->buffer + stream->length, buf + idx, tx);
+            cgc_memcpy(stream->buffer + stream->length, buf + idx, tx);
             stream->length += tx;
             idx += tx;
         }

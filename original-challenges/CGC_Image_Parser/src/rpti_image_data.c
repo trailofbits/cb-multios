@@ -190,7 +190,7 @@ int rpti_display_img( prpti_image_data rid)
 	}
 
 	/// Set all empty pixels to spaces
-	memset( image, ' ', image_length );
+	cgc_memset( image, ' ', image_length );
 	
 	/// End the image with a NULL byte
 	image[image_length] = '\x00';
@@ -253,7 +253,7 @@ int rpti_display_img( prpti_image_data rid)
 /**
  * Reads the requested number of bits upto a max of 32
  * @param rid Pointer to an rpti image structure
- * @param bit_count Number of bits to read
+ * @param bit_count Number of bits to cgc_read
  * @param out_data Pointer to an integer to receive the data
  * @return Returns the data in the outdata pointer 0 on failure, 1 on success.
  **/ 
@@ -333,10 +333,10 @@ int rpti_inc_index( prpti_image_data rid, int bit_count )
 }
 
 /**
- * Determines if the read is valid
+ * Determines if the cgc_read is valid
  * @param rid Pointer ot an rpti image structure
- * @param bit_count Number of bits requested to be read
- * @return Returns 0 if the read cannot be satisfied 1 otherwise
+ * @param bit_count Number of bits requested to be cgc_read
+ * @return Returns 0 if the cgc_read cannot be satisfied 1 otherwise
  **/
 int rpti_read_check( prpti_image_data rid, int bit_count )
 {
@@ -383,7 +383,7 @@ int rpti_read_magic( prpti_image_data rid )
 		return 0;
 	}
 
-	memcpy( &magic, rid->buffer, 4 );
+	cgc_memcpy( &magic, rid->buffer, 4 );
 
 	if ( magic != RPTI_MAGIC ) {
 		return 0;

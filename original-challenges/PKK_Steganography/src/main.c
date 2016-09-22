@@ -190,7 +190,7 @@ int embed_text(pkk_t *pkk, char *text, unsigned short len)
     cur += sizeof(int);
     *(short *)cur = len;
     cur += sizeof(short);
-    memcpy(cur, text, len);
+    cgc_memcpy(cur, text, len);
     cur += len;
     *(int *)cur = SECRET_END_TAG;
 

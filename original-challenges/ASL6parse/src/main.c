@@ -48,27 +48,27 @@ static int read_exactly(int fd, uint8_t *buf, size_t n)
 int main(void)
 {
   unsigned size = 0;
-  size_t read = 0;
+  size_t cgc_read = 0;
   uint8_t buf[MAX_SIZE];
-  memset(buf, 0, sizeof(buf));
+  cgc_memset(buf, 0, sizeof(buf));
 
-  if (receive(STDIN, &size, sizeof(size), &read) != 0)
-    exit(1);
+  if (receive(STDIN, &size, sizeof(size), &cgc_read) != 0)
+    cgc_exit(1);
 
-  if (read != 4)
-    exit(1);
+  if (cgc_read != 4)
+    cgc_exit(1);
 
   if (size > MAX_SIZE) {
     printf("too big\n");
-    exit(1);
+    cgc_exit(1);
   }
 
   if (read_exactly(STDIN, buf, size) != 0)
-    exit(1);
+    cgc_exit(1);
 
   element *e = decode(buf, (unsigned) buf + size);
   if (e == NULL)
-    exit(1);
+    cgc_exit(1);
 
   pprint(e);
 }

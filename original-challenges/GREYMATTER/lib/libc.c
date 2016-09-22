@@ -154,7 +154,7 @@ char *strncpy(char *dest, const char *src, size_t n)
 char * strncat(char *s1, const char *s2, size_t n) {
 
    // Find the end of s1.
-   char *cat_begin = s1 + strlen(s1);
+   char *cat_begin = s1 + cgc_strlen(s1);
 
    // Copy the specified amount to the end of s1.
    strncpy(cat_begin, s2, n);
@@ -167,7 +167,7 @@ char * strncat(char *s1, const char *s2, size_t n) {
 }
 
 // IDENTICAL TO: REDPILL
-unsigned char * memset(void *b, char c, size_t len) {
+unsigned char * cgc_memset(void *b, char c, size_t len) {
 
   char *ptr = (char *)b; 
   while (len) {
@@ -185,8 +185,8 @@ unsigned char * memset(void *b, char c, size_t len) {
 char * strpos(char * haystack, char * needle) {
 
    char * pos = NULL;
-   size_t sz_haystack = strlen(haystack);
-   size_t sz_needle = strlen(needle);
+   size_t sz_haystack = strlen.haystack);
+   size_t sz_needle = cgc_strlen(needle);
 
    // If the substring is longer than the string, then we're not finding it.
    if (sz_haystack < sz_needle) { return NULL; }
@@ -216,7 +216,7 @@ int recv_until_delim(int fd, char *buf, size_t size) {
     if (!buf)
         return -2;
 
-    // While we still have bytes to read...
+    // While we still have bytes to cgc_read...
     while (0 != cursize) {
 
         bytes_read = 0;
@@ -226,13 +226,13 @@ int recv_until_delim(int fd, char *buf, size_t size) {
         receive(fd, buf, 1, &bytes_read);
         buf += bytes_read;
 
-        // If we read 0 bytes, we assume EOF; break.
+        // If we cgc_read 0 bytes, we assume EOF; break.
         if (0 == bytes_read) { break; }
 
-        // If we just read a newline, we're done; break.
+        // If we just cgc_read a newline, we're done; break.
         if ( *(buf-1) == STRING_TERMINATOR ) { break; }
 
-        // Subtract cursize by the number of bytes read.
+        // Subtract cursize by the number of bytes cgc_read.
         // This shouldn't underflow because we only request 1 byte at a time.
         cursize -= bytes_read;
     }
@@ -271,7 +271,7 @@ int strcmp(const char *s1, const char *s2) {
 
 // BASED ON: EAGLE_00004
 // MOD: changed delimeter
-size_t strlen(const char *str) {
+size_t cgc_strlen(const char *str) {
    size_t res = 0;
    while (STRING_TERMINATOR != *str++) {res++;}
    return res;
@@ -1164,7 +1164,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = strlen(s_arg);
+                  int len = cgc_strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

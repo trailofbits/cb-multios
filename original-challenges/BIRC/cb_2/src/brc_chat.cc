@@ -40,19 +40,19 @@ BrcChat::BrcChat(char *sender_name, char *recp_name, char *chat_msg, short chat_
     raw_data_ = new char[length_];
     set_token();
     char *pdata = raw_data_ + token_length();
-    memcpy(pdata, &chat_type, sizeof(chat_type));
+    cgc_memcpy(pdata, &chat_type, sizeof(chat_type));
     pdata += sizeof(chat_type);
-    memcpy(pdata, &sender_name_length, sizeof(sender_name_length));
+    cgc_memcpy(pdata, &sender_name_length, sizeof(sender_name_length));
     pdata += sizeof(sender_name_length);
-    memcpy(pdata, &recp_name_length, sizeof(recp_name_length));
+    cgc_memcpy(pdata, &recp_name_length, sizeof(recp_name_length));
     pdata += sizeof(recp_name_length);
-    memcpy(pdata, &chat_msg_length, sizeof(chat_msg_length));
+    cgc_memcpy(pdata, &chat_msg_length, sizeof(chat_msg_length));
     pdata += sizeof(chat_msg_length);
-    memcpy(pdata, sender_name, sender_name_length);
+    cgc_memcpy(pdata, sender_name, sender_name_length);
     pdata += sender_name_length;
-    memcpy(pdata, recp_name, recp_name_length);
+    cgc_memcpy(pdata, recp_name, recp_name_length);
     pdata += recp_name_length;
-    memcpy(pdata, chat_msg, chat_msg_length);
+    cgc_memcpy(pdata, chat_msg, chat_msg_length);
 }
 
 BrcChat::~BrcChat() {

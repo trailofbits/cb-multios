@@ -71,7 +71,7 @@ private:
 
 public:
 
-	// read from input
+	// cgc_read from input
 	// store all variables
 	void ReadInput();
 

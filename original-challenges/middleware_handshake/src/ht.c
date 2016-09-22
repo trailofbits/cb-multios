@@ -80,7 +80,7 @@ fail:
 
 int ht_init(ht_t *tbl)
 {
-    memset(tbl, 0, sizeof(ht_t));
+    cgc_memset(tbl, 0, sizeof(ht_t));
     tbl->tbl_size = INITIAL_COUNT;
     return _ht_resize(tbl);
 }

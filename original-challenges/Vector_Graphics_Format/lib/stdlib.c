@@ -131,7 +131,7 @@ char *strncpy( char *dest, const char *src, size_t num )
     return (dest);
 }
 
-void *memcpy( void *dest, void *src, size_t numbytes )
+void *cgc_memcpy( void *dest, void *src, size_t numbytes )
 {
     size_t bytes_copied = 0;
     if ( numbytes >= 4 )
@@ -146,7 +146,7 @@ void *memcpy( void *dest, void *src, size_t numbytes )
     return dest;
 }
 
-void *memset( void *dest, int value, size_t numbytes )
+void *cgc_memset( void *dest, int value, size_t numbytes )
 {
     size_t bytes_copied = 0;
     uint8_t byte_set_value = (uint8_t)value;
@@ -226,7 +226,7 @@ int atoi(const char* str)
     return (sign * integer_part);
 }
 
-size_t strlen( const char *str )
+size_t cgc_strlen( const char *str )
 {
     size_t length = 0;
 

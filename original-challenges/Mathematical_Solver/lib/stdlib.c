@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <stdlib.h>
 #include <stdint.h>
 
-int memcpy( void *dest, void *src, size_t n )
+int cgc_memcpy( void *dest, void *src, size_t n )
 {
         size_t index = 0;
 
@@ -275,7 +275,7 @@ end:
     return;
 }
 
-void *memset(void *s, int c, size_t n)
+void *cgc_memset(void *s, int c, size_t n)
 {
     unsigned char *t = (unsigned char *)s;
     while (--n)
@@ -295,7 +295,7 @@ int strcmp( const char *s1, const char *s2 )
 
 char *strncat ( char *dest, const char *src, size_t n )
 {
-    size_t dest_len = strlen(dest);
+    size_t dest_len = cgc_strlen(dest);
     size_t i;
 
     if (dest == NULL || src == NULL)
@@ -345,7 +345,7 @@ size_t strcat( char *dest, char*src )
         goto end;
     }
 
-    start = strlen( dest );
+    start = cgc_strlen( dest );
 
     for ( ; src[length] != 0x00 ; start++, length++ ) {
         dest[start] = src[length];
@@ -356,7 +356,7 @@ end:
     return length;
 }
 
-size_t strlen( char * str )
+size_t cgc_strlen( char * str )
 {
     size_t length = 0;
 
@@ -411,7 +411,7 @@ end:
 void puts( char *t )
 {
     size_t size;
-    transmit(STDOUT, t, strlen(t), &size);
+    transmit(STDOUT, t, cgc_strlen(t), &size);
     transmit(STDOUT, "\n", 1, &size);
 }
 
@@ -464,11 +464,11 @@ char *strtok(char *str, const char *delim) {
 
 	// not been called before, so make a copy of the string
 	if (prev_str == NULL) {
-		if (strlen(str) > 4096) {
+		if (cgc_strlen(str) > 4096) {
 			// too big
 			return(NULL);
 		} 
-		prev_str_len = strlen(str);
+		prev_str_len = cgc_strlen(str);
 		if (allocate(prev_str_len, 0, (void *)&prev_str)) {
 			return(NULL);
 		}
@@ -488,8 +488,8 @@ char *strtok(char *str, const char *delim) {
 
 	// find the earliest next delimiter
 	start = str;
-	end = str+strlen(str);
-	for (i = 0; i < strlen((char *)delim); i++) {
+	end = str+cgc_strlen(str);
+	for (i = 0; i < cgc_strlen((char *)delim); i++) {
 		if ((t = strchr(start, delim[i]))) {
 			if (t != NULL && t < end) {
 				end = t;
@@ -506,7 +506,7 @@ char *strtok(char *str, const char *delim) {
 	return(token);
 }
 
-ssize_t write( const void *buf, size_t count )
+ssize_t cgc_write( const void *buf, size_t count )
 {
 	size_t size;
 
@@ -527,11 +527,11 @@ char *strdup(char *s)
                 return(NULL);
         }
 
-        if (allocate(strlen(s)+1, 0, (void *)&retval)) {
+        if (allocate(cgc_strlen(s)+1, 0, (void *)&retval)) {
                 return(NULL);
         }
 
-        bzero(retval, strlen(s)+1);
+        bzero(retval, cgc_strlen(s)+1);
         strcpy(retval, s);
 
         return(retval);

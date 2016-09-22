@@ -40,7 +40,7 @@ pretty_print_tokens(struct token *tokens, size_t n)
             printf("%d", tokens[i].val.i);
             break;
         case TOK_VARIABLE:
-            memset(name, '\0', sizeof(name));
+            cgc_memset(name, '\0', sizeof(name));
             strncpy(name, tokens[i].val.s, 4);
             printf("%s", name);
             break;
@@ -92,7 +92,7 @@ pretty_print_ast_node(struct ast_node *node)
         printf("%d", node->expr.constant);
         break;
     case AST_VARIABLE:
-        memset(name, '\0', sizeof(name));
+        cgc_memset(name, '\0', sizeof(name));
         strncpy(name, node->expr.variable, 4);
         printf("%s", name);
         break;

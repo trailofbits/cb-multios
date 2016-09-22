@@ -28,23 +28,23 @@ void do_exit(msg *exit_msg) {
     DBG("\n");
     int ret = SUCCESS;
 
-    // We got an exit() command from the CRS.  Propagate it to both CBs.
+    // We got an cgc_exit() command from the CRS.  Propagate it to both CBs.
     
     DBG("[D] shutting down CLIENT; exit_msg = 0x%08x\n", *exit_msg);
     if (SUCCESS != (ret = send_bytes(PIPE_CB1_A, (char *)exit_msg, sizeof(msg)))) {
-        DBG("[E] failed to send exit message to CLIENT\n");
+        DBG("[E] failed to send cgc_exit message to CLIENT\n");
         ret = ERRNO_EXIT;
         goto bail;
     } 
 
     DBG("[D] shutting down SERVER\n");
     if (SUCCESS != (ret = send_bytes(PIPE_CB2_A, (char *)exit_msg, sizeof(msg)))) {
-        DBG("[E] failed to send exit message to SERVER\n");
+        DBG("[E] failed to send cgc_exit message to SERVER\n");
         ret = ERRNO_EXIT;
         goto bail;
     } 
 
-    DBG("[D] got exit() message; terminating...\n");
+    DBG("[D] got cgc_exit() message; terminating...\n");
 
 bail:
     _terminate(ret);

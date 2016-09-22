@@ -42,7 +42,7 @@ int send_all(char * buf, size_t len);
  * @param dst Destination buffer
  * @param l Number of bytes to copy
  */
-void memcpy(void *src, void *dst, size_t l);
+void cgc_memcpy(void *src, void *dst, size_t l);
 
 /**
  * Transmit all bytes in buffer
@@ -78,7 +78,7 @@ int recv_all(const size_t size, void *buf);
  * @param s String
  * @return Length of string, maximum 65535
  */
-size_t strlen(char * s);
+size_t cgc_strlen(char * s);
 
 /**
  * Clear buffer

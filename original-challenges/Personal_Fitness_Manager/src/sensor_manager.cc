@@ -77,10 +77,10 @@ uint8_t *SensorManager::ListSensors( uint16_t &buffer_len)
 				count_per_user++;
 				uint16_t id = pSensor->GetID();
 				uint32_t mac = pSensor->GetMacAsInt();
-				memcpy( &buff[buffer_len], &id, sizeof( uint16_t ) );
+				cgc_memcpy( &buff[buffer_len], &id, sizeof( uint16_t ) );
 
 				buffer_len += sizeof( uint16_t );
-				memcpy( &buff[buffer_len], &mac, sizeof( uint32_t ) );
+				cgc_memcpy( &buff[buffer_len], &mac, sizeof( uint32_t ) );
 				buffer_len += sizeof( uint32_t );
 
 				if (pSensor->GetType() == BIKE)
@@ -89,15 +89,15 @@ uint8_t *SensorManager::ListSensors( uint16_t &buffer_len)
 
 					if (data)
 					{
-						uint32_t len = strlen((char *)data);
+						uint32_t len = cgc_strlen((char *)data);
 #ifdef PATCHED_1		
 						if ( buffer_len < ( 6 * MAX_SENSORS_PER_USER * MAX_USERS - len + 1) )
 						{
-							memcpy(&buff[buffer_len], data, len);
+							cgc_memcpy(&buff[buffer_len], data, len);
 							buffer_len += len;
 						}
 #else
-						memcpy(&buff[buffer_len], data, len);
+						cgc_memcpy(&buff[buffer_len], data, len);
 
 						return NULL;
 #endif
@@ -107,7 +107,7 @@ uint8_t *SensorManager::ListSensors( uint16_t &buffer_len)
 		}
 	}
 	uint8_t *rbuf = new uint8_t[buffer_len];
-	memcpy(rbuf, data, buffer_len);
+	cgc_memcpy(rbuf, data, buffer_len);
 	return rbuf;
 }
 

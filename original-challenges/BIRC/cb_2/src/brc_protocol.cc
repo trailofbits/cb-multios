@@ -35,7 +35,7 @@ BrcProtocol::BrcProtocol(char *data, unsigned short data_length) {
     set_token();
     length_ = data_length + TokenGenerator::GetTokenLength();
     raw_data_ = new char[length_];
-    memcpy(&raw_data_[TokenGenerator::GetTokenLength()], data, data_length);
+    cgc_memcpy(&raw_data_[TokenGenerator::GetTokenLength()], data, data_length);
 }
 
 BrcProtocol::~BrcProtocol() {
@@ -87,6 +87,6 @@ void BrcProtocol::DebugPrintProtocol() const {
 
 void BrcProtocol::set_token() {
     const char *token = TokenGenerator::GetToken();
-    memcpy(raw_data_, token, TokenGenerator::GetTokenLength());
+    cgc_memcpy(raw_data_, token, TokenGenerator::GetTokenLength());
 }
 

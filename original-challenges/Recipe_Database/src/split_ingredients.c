@@ -41,7 +41,7 @@ int i;
 
 	bzero(buffer, BUFF_SIZE);
 
-	while (tmp[i] != ' ' && i < BUFF_SIZE-1 && i < strlen(tmp)) {
+	while (tmp[i] != ' ' && i < BUFF_SIZE-1 && i < cgc_strlen(tmp)) {
 
 		buffer[i] = tmp[i];
 		++i;
@@ -52,7 +52,7 @@ int i;
 	tmp = input+i+1;
 
 	// first validate that the first term is a measurement value
-	for (i=0; i < strlen(buffer); ++i) {
+	for (i=0; i < cgc_strlen(buffer); ++i) {
 
 		if (!isdigit(buffer[i]) && buffer[i]!='.' && buffer[i]!='/') {
 
@@ -69,7 +69,7 @@ int i;
 	bzero(buffer, BUFF_SIZE);
 	i = 0;
 
-	while (tmp[i] != ' ' && i < BUFF_SIZE-1 && i < strlen(tmp)) {
+	while (tmp[i] != ' ' && i < BUFF_SIZE-1 && i < cgc_strlen(tmp)) {
 
 		buffer[i] = tmp[i];
 		++i;

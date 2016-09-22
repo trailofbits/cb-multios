@@ -94,7 +94,7 @@ void filaments_new(start_func_t func, void *userdata)
 
     fib->start_func = func;
     fib->userdata = userdata;
-    memset(fib->env, 0, sizeof(fib->env));
+    cgc_memset(fib->env, 0, sizeof(fib->env));
     fib->env->_b[0] = (long)__filaments_new;
     fib->env->_b[2] = (long)fib->stack + 0x7ffc;
 

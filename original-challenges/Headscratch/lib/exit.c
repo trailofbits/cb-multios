@@ -22,7 +22,7 @@
  */
 #include <libcgc.h>
 
-void exit(int code)
+void cgc_exit(int code)
 {
     _terminate(code);
 

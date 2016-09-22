@@ -202,10 +202,10 @@ int newRecord(Report *report) {
 		_terminate(ALLOCATE_ERROR);
 #endif
 
-	memset(record->data, 0, report->record_size);
+	cgc_memset(record->data, 0, report->record_size);
     
     for(nextField = report->fields; nextField != NULL; nextField = nextField->next) {
-    	memset(receive_buf, 0, report->record_size);
+    	cgc_memset(receive_buf, 0, report->record_size);
     	recv(STDIN, receive_buf, nextField->size);
 
     	strcpy(&record->data[field_index], receive_buf);

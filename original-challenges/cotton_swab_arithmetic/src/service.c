@@ -42,7 +42,7 @@ int inst_decode(uint8_t *bytes, uint16_t len, inst_t *inst) {
     if (inst->opcode & INST_MASK_OP1) { inst_len += INST_OFF_SZ; } else { inst_len += INST_IMM_SZ; }
     if (inst->opcode & INST_MASK_OP2) { inst_len += INST_OFF_SZ; } else { inst_len += INST_IMM_SZ; }
 
-    // If we would read off the end of the bytecode, bail.
+    // If we would cgc_read off the end of the bytecode, bail.
     if (inst_len > len) {
 #ifdef DEBUG
         fprintf(stderr, 

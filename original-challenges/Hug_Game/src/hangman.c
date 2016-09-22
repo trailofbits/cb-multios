@@ -49,7 +49,7 @@ void hangman() {
 
 	bzero(correct, 128);
 	toguess = pickaword(state);
-	len = strlen(toguess);
+	len = cgc_strlen(toguess);
 	state->hangmanguess = 0;
 
 	wagered = getBet(state);
@@ -67,7 +67,7 @@ void hangman() {
 				put("_");
 			else {
 				put(&correct[i]);
-				i+= strlen(&correct[i])-1;
+				i+= cgc_strlen(&correct[i])-1;
 			}
 		}
 
@@ -85,7 +85,7 @@ void hangman() {
 		}
 		if(right == 0)
 			state->hangmanguess++;
-		if(strlen(correct) == strlen(toguess))
+		if(cgc_strlen(correct) == cgc_strlen(toguess))
 		{
 			handleOutcome(state, 1, wagered);
 			return;

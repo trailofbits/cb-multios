@@ -136,17 +136,17 @@ int dumpBoard(PlayerState* ps)
     {
       tempStr[0] = '\t';
       tempStr[1] = COL_BASE;
-      write(STDOUT, tempStr, 2);
+      cgc_write(STDOUT, tempStr, 2);
     }
     else
     {
       //this will mess up if i > 26
       tempStr[0] = COL_BASE + (char)i;
-      write(STDOUT, tempStr, 1);
+      cgc_write(STDOUT, tempStr, 1);
     }
   }
   tempStr[0] = '\n';
-  write(STDOUT, tempStr, 1);
+  cgc_write(STDOUT, tempStr, 1);
 
   for (i = 0; i < BOARD_SIZE; i++)
   {
@@ -156,16 +156,16 @@ int dumpBoard(PlayerState* ps)
     tempStr[3] = ROW_BASE + (char)i;
     tempStr[4] = ':';
     tempStr[5] = '\t';
-    write(STDOUT, tempStr, 6);
+    cgc_write(STDOUT, tempStr, 6);
 
     for (j = 0; j < BOARD_SIZE; j++)
     {
       tempStr[0] = ps->board[i][j];
-      write(STDOUT, tempStr, 1);
+      cgc_write(STDOUT, tempStr, 1);
     }
   
     tempStr[0] = '\n';
-    write(STDOUT, tempStr, 1);
+    cgc_write(STDOUT, tempStr, 1);
   }
   return (0);
 }
@@ -453,45 +453,45 @@ int processTarget(PlayerState* ps, Command* cmd)
   {
     ps->board[ROW_TO_NUM(cmd->row)][COL_TO_NUM(cmd->col)] = HIT_CELL;
     ps->ship2Life--;
-    write(STDOUT, HIT_MSG, myStrLen(HIT_MSG));
+    cgc_write(STDOUT, HIT_MSG, myStrLen(HIT_MSG));
     if (ps->ship2Life == 0)
     {
-      write(STDOUT, SHIP2_SUNK_MSG, myStrLen(SHIP2_SUNK_MSG));
+      cgc_write(STDOUT, SHIP2_SUNK_MSG, myStrLen(SHIP2_SUNK_MSG));
     }
   }
   else if ( ps->board[ROW_TO_NUM(cmd->row)][COL_TO_NUM(cmd->col)] == SHIP3 )
   {
     ps->board[ROW_TO_NUM(cmd->row)][COL_TO_NUM(cmd->col)] = HIT_CELL;
     ps->ship3Life--;
-    write(STDOUT, HIT_MSG, myStrLen(HIT_MSG));
+    cgc_write(STDOUT, HIT_MSG, myStrLen(HIT_MSG));
     if (ps->ship3Life == 0)
     {
-      write(STDOUT, SHIP3_SUNK_MSG, myStrLen(SHIP3_SUNK_MSG));
+      cgc_write(STDOUT, SHIP3_SUNK_MSG, myStrLen(SHIP3_SUNK_MSG));
     }
   }
   else if ( ps->board[ROW_TO_NUM(cmd->row)][COL_TO_NUM(cmd->col)] == SHIP4 )
   {
     ps->board[ROW_TO_NUM(cmd->row)][COL_TO_NUM(cmd->col)] = HIT_CELL;
     ps->ship4Life--;
-    write(STDOUT, HIT_MSG, myStrLen(HIT_MSG));
+    cgc_write(STDOUT, HIT_MSG, myStrLen(HIT_MSG));
     if (ps->ship4Life == 0)
     {
-      write(STDOUT, SHIP4_SUNK_MSG, myStrLen(SHIP4_SUNK_MSG));
+      cgc_write(STDOUT, SHIP4_SUNK_MSG, myStrLen(SHIP4_SUNK_MSG));
     }
   }
   else if ( ps->board[ROW_TO_NUM(cmd->row)][COL_TO_NUM(cmd->col)] == SHIP5 )
   {
     ps->board[ROW_TO_NUM(cmd->row)][COL_TO_NUM(cmd->col)] = HIT_CELL;
     ps->ship5Life--;
-    write(STDOUT, HIT_MSG, myStrLen(HIT_MSG));
+    cgc_write(STDOUT, HIT_MSG, myStrLen(HIT_MSG));
     if (ps->ship5Life == 0)
     {
-      write(STDOUT, SHIP5_SUNK_MSG, myStrLen(SHIP5_SUNK_MSG));
+      cgc_write(STDOUT, SHIP5_SUNK_MSG, myStrLen(SHIP5_SUNK_MSG));
     }
   }
   else
   {
-    write(STDOUT, MISSED_MSG, myStrLen(MISSED_MSG));
+    cgc_write(STDOUT, MISSED_MSG, myStrLen(MISSED_MSG));
   }
 
   return (0);
@@ -530,11 +530,11 @@ int main(void)
   {
     if (curPlayer == 0)
     {
-      write(STDOUT, P0_PROMPT, myStrLen(P0_PROMPT)); 
+      cgc_write(STDOUT, P0_PROMPT, myStrLen(P0_PROMPT)); 
     }
     else
     {
-      write(STDOUT, P1_PROMPT, myStrLen(P1_PROMPT)); 
+      cgc_write(STDOUT, P1_PROMPT, myStrLen(P1_PROMPT)); 
     }
 
     ret = getCommand(&cmd);
@@ -543,7 +543,7 @@ int main(void)
     {
       if (cmd.cmdNum == CMD_EXIT)
       {
-        write(STDOUT, EXIT_MSG, myStrLen(EXIT_MSG)); 
+        cgc_write(STDOUT, EXIT_MSG, myStrLen(EXIT_MSG)); 
         //break;
       }
       else if (cmd.cmdNum == CMD_NEW)
@@ -558,11 +558,11 @@ int main(void)
       }
       else if (cmd.cmdNum == CMD_HELP)
       {
-        write(STDOUT, HELP_MSG, myStrLen(HELP_MSG));
+        cgc_write(STDOUT, HELP_MSG, myStrLen(HELP_MSG));
       }
       else if (bEnded)
       {
-        write(STDOUT, GAME_ALREADY_ENDED_MSG, myStrLen(GAME_ALREADY_ENDED_MSG));
+        cgc_write(STDOUT, GAME_ALREADY_ENDED_MSG, myStrLen(GAME_ALREADY_ENDED_MSG));
       }
       else if (cmd.cmdNum == CMD_MAP)
       { 
@@ -579,7 +579,7 @@ int main(void)
       {
         if (bStarted)
         {
-          write(STDOUT, GAME_ALREADY_STARTED_MSG, myStrLen(GAME_ALREADY_STARTED_MSG));
+          cgc_write(STDOUT, GAME_ALREADY_STARTED_MSG, myStrLen(GAME_ALREADY_STARTED_MSG));
         }
         else
         {
@@ -590,7 +590,7 @@ int main(void)
       {
         if (bStarted)
         {
-          write(STDOUT, GAME_ALREADY_STARTED_MSG, myStrLen(GAME_ALREADY_STARTED_MSG));
+          cgc_write(STDOUT, GAME_ALREADY_STARTED_MSG, myStrLen(GAME_ALREADY_STARTED_MSG));
         }
         else
         {
@@ -610,7 +610,7 @@ int main(void)
           }
           else
           {
-            write(STDOUT, BAD_COMMAND_MSG, myStrLen(BAD_COMMAND_MSG));
+            cgc_write(STDOUT, BAD_COMMAND_MSG, myStrLen(BAD_COMMAND_MSG));
           }
         }
       }
@@ -618,7 +618,7 @@ int main(void)
       {
         if (!bStarted)
         {
-          write(STDOUT, GAME_NOT_STARTED_MSG, myStrLen(GAME_NOT_STARTED_MSG));
+          cgc_write(STDOUT, GAME_NOT_STARTED_MSG, myStrLen(GAME_NOT_STARTED_MSG));
         }
         else
         {
@@ -638,7 +638,7 @@ int main(void)
             {
               if (allShipsSunk(&player1))
               {
-                write(STDOUT, YOU_WIN_MSG, myStrLen(YOU_WIN_MSG));
+                cgc_write(STDOUT, YOU_WIN_MSG, myStrLen(YOU_WIN_MSG));
                 bStarted = 0;
                 bEnded = 1;
               }
@@ -647,7 +647,7 @@ int main(void)
             {
               if (allShipsSunk(&player0))
               {
-                write(STDOUT, YOU_WIN_MSG, myStrLen(YOU_WIN_MSG));
+                cgc_write(STDOUT, YOU_WIN_MSG, myStrLen(YOU_WIN_MSG));
                 bStarted = 0;
                 bEnded = 1;
               }
@@ -658,18 +658,18 @@ int main(void)
           }
           else
           {
-            write(STDOUT, BAD_COMMAND_MSG, myStrLen(BAD_COMMAND_MSG));
+            cgc_write(STDOUT, BAD_COMMAND_MSG, myStrLen(BAD_COMMAND_MSG));
           }
         }
       }
     }    
     else if (ret == -1)
     {
-      write(STDOUT, BAD_COMMAND_MSG, myStrLen(BAD_COMMAND_MSG));
+      cgc_write(STDOUT, BAD_COMMAND_MSG, myStrLen(BAD_COMMAND_MSG));
     }
-    else if (ret == -2) //read error
+    else if (ret == -2) //cgc_read error
     {
-      write(STDOUT, READ_ERROR_MSG, myStrLen(READ_ERROR_MSG));
+      cgc_write(STDOUT, READ_ERROR_MSG, myStrLen(READ_ERROR_MSG));
       break;
     }
   }

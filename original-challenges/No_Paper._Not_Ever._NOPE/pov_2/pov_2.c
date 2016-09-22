@@ -123,13 +123,13 @@ int main(void) {
    static unsigned int write_00000_len = 694;
    transmit_all(1, write_00000, write_00000_len);
 
-   // read s_key
+   // cgc_read s_key
    length_read(0, read_buf, 12);
 
-   // read pwd 
+   // cgc_read pwd 
    length_read(0, pwd, pwd_len);
 
-   // read the rest
+   // cgc_read the rest
    length_read(0, read_buf, 8+128-12);
 
 
@@ -291,7 +291,7 @@ int main(void) {
 
    // should segfault here...
 
-   // tax submitted read
+   // tax submitted cgc_read
    length_read(0, read_buf, read_buf_len);
    
 }

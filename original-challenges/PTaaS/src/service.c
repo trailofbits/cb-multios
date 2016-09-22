@@ -74,19 +74,19 @@ read_vector(struct vector *out)
     if (fread_until(buf, '\n', sizeof(buf), stdin) == EXIT_FAILURE)
         return EXIT_FAILURE;
 
-    if ((tok = strtok(buf, ", ")) == NULL || strlen(tok) == 0)
+    if ((tok = strtok(buf, ", ")) == NULL || cgc_strlen(tok) == 0)
         return EXIT_FAILURE;
 
     if (strtod(tok, &x) == EXIT_FAILURE)
         return EXIT_FAILURE;
     
-    if ((tok = strtok(NULL, ", ")) == NULL || strlen(tok) == 0)
+    if ((tok = strtok(NULL, ", ")) == NULL || cgc_strlen(tok) == 0)
         return EXIT_FAILURE;
 
     if (strtod(tok, &y) == EXIT_FAILURE)
         return EXIT_FAILURE;
 
-    if ((tok = strtok(NULL, ", ")) == NULL || strlen(tok) == 0)
+    if ((tok = strtok(NULL, ", ")) == NULL || cgc_strlen(tok) == 0)
         return EXIT_FAILURE;
 
     if (strtod(tok, &z) == EXIT_FAILURE)

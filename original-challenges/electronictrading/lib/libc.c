@@ -27,14 +27,14 @@ ssize_t
 read_all(int fd, void *buf, size_t n)
 {
     ssize_t ret = 0;
-    size_t read;
+    size_t cgc_read;
 
     while (n) {
-        if (receive(fd, (char *)(buf + ret), n, &read) != 0)
+        if (receive(fd, (char *)(buf + ret), n, &cgc_read) != 0)
             return -1;
 
-        n -= read;
-        ret += read;
+        n -= cgc_read;
+        ret += cgc_read;
     }
 
     return ret;
@@ -58,7 +58,7 @@ write_all(int fd, void *buf, size_t n)
 }
 
 void *
-memset(void *ptr, int val, size_t n)
+cgc_memset(void *ptr, int val, size_t n)
 {
     void *ret = ptr;
     while (n--)
@@ -92,7 +92,7 @@ char *
 strcat(char *dst, const char *src)
 {
     char *ret = dst;
-    dst += strlen(dst);
+    dst += cgc_strlen(dst);
     strcpy(dst, src);
     return ret;
 }
@@ -101,14 +101,14 @@ char *
 strncat(char *dst, const char *src, size_t n)
 {
     char *ret = dst;
-    dst += strlen(dst);
+    dst += cgc_strlen(dst);
     strncpy(dst, src, n);
     dst[n] = '\0';
     return ret;
 }
 
 size_t
-strlen(const char *s) {
+cgc_strlen(const char *s) {
     size_t ret = 0;
     while (*s++)
         ret++;
@@ -1048,7 +1048,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = strlen(s_arg);
+                  int len = cgc_strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

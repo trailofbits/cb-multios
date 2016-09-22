@@ -113,7 +113,7 @@ int init_backing(HEAP_MEM_T *hm){
 
 HEAP_MEM_T * get_chunk_head_for_sz(size_t s){
 	for(int i = 0; i < MAX_HEADS; i++){
-		// select our chunk
+		// cgc_select our chunk
 		HEAP_MEM_T * current_heap_head = &(sheap_heap.heads[i]);
 		size_t current_chunk_sz = current_heap_head->chunk_size;
 
@@ -258,7 +258,7 @@ void free(void *pz){
 	int x;
 
 	for(int i = 0; i <= MAX_HEADS; i++){
-		// select our chunk
+		// cgc_select our chunk
 		current_heap_head = &(sheap_heap.heads[i]);
 
 		alloc_node_t *bh =  get_head(current_heap_head->backing);

@@ -29,14 +29,14 @@ void write_bytes(const void *buf, size_t count)
 {
     size_t bytes;
     if (transmit(STDOUT, buf, count, &bytes) != 0 || bytes != count)
-        exit(1);
+        cgc_exit(1);
 }
 
 void read_bytes(void *buf, size_t count)
 {
     size_t bytes;
     if (receive(STDIN, buf, count, &bytes) != 0 || bytes != count)
-        exit(1);
+        cgc_exit(1);
 }
 
 void write_byte(uint8_t b)
@@ -96,7 +96,7 @@ int read_int()
 
 void write_string(const char *str)
 {
-    unsigned int length = strlen(str);
+    unsigned int length = cgc_strlen(str);
     write_int(length);
     write_bytes(str, length);
 }

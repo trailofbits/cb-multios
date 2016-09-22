@@ -693,7 +693,7 @@ push(struct rpncalc_state *state)
         if (read_all(STDIN, m->data, size) != size)
             goto free_m;
 
-        // Check to make sure we didn't read in any NaNs
+        // Check to make sure we didn't cgc_read in any NaNs
         for (i = 0; i < size / sizeof(double); i++)
             if (IS_NAN(m->data[i]))
                 goto free_m;

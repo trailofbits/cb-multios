@@ -44,7 +44,7 @@ void SendEchoRequest(void) {
 	pL4->Dst = 7; // echo port
 	pL4->Src = 1; // src port, don't care
 	pL4->Len = 4;
-	memcpy(Packet+sizeof(L3Hdr)+sizeof(L4Hdr), (void *)0x4347C000, 4);
+	cgc_memcpy(Packet+sizeof(L3Hdr)+sizeof(L4Hdr), (void *)0x4347C000, 4);
 
 	// build up the L3 header
 	pL3->Dst = 0x0a010202;

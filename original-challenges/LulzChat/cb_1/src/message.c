@@ -60,7 +60,7 @@ message_t* parse_message(char *data, user_t *from, user_t *to, unsigned int len)
     char *unprotected = malloc(MAX_TEXT_LEN + 1);
     if (unprotected == NULL)
       goto fail;
-    memset(unprotected, 0, MAX_TEXT_LEN + 1);
+    cgc_memset(unprotected, 0, MAX_TEXT_LEN + 1);
     strncpy(unprotected, &data[8], MAX_TEXT_LEN);
     key[0] = from->auth_code;
     key[1] = from->auth_code ^ from->user_id;
@@ -75,7 +75,7 @@ message_t* parse_message(char *data, user_t *from, user_t *to, unsigned int len)
     msg->text = malloc(MAX_TEXT_LEN);
     if (msg->text == NULL)
       goto fail;
-    memcpy(msg->text, unprotected, MAX_TEXT_LEN);
+    cgc_memcpy(msg->text, unprotected, MAX_TEXT_LEN);
     msg->text_len = MAX_TEXT_LEN;
   }
   else

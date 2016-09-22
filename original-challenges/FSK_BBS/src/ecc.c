@@ -109,8 +109,8 @@ int ecc_decode(uint8_t *bits)
     }
 
     // Berlekamp-Massey algorithm
-    memset(B, 0, sizeof(B));
-    memset(C, 0, sizeof(C));
+    cgc_memset(B, 0, sizeof(B));
+    cgc_memset(C, 0, sizeof(C));
     B[0] = 1;
     C[0] = 1;
     L = 0;
@@ -124,7 +124,7 @@ int ecc_decode(uint8_t *bits)
         if (d != 0)
         {
             uint8_t tmp[T+1];
-            memcpy(tmp, C, sizeof(C));
+            cgc_memcpy(tmp, C, sizeof(C));
 
             for (j = 0; j < T; j++)
                 if (B[j])
@@ -135,7 +135,7 @@ int ecc_decode(uint8_t *bits)
                 L = i + 1 - L;
                 b = d;
                 m = 0;
-                memcpy(B, tmp, sizeof(B));
+                cgc_memcpy(B, tmp, sizeof(B));
             }
         }
     }

@@ -165,7 +165,7 @@ int fpai_display_img( pfpai_image_data fid )
 		return 0;
 	}
 
-	memset( image, ' ', image_length );
+	cgc_memset( image, ' ', image_length );
 	image[image_length] = '\x00';
 
 	//printf("minx: @d maxx: @d miny: @d maxy: @d\n", minx, maxx, miny, maxy);

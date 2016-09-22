@@ -50,7 +50,7 @@ list_t * card_list = NULL;
 // success: SUCCESS
 // failure: ERRNO_MP_RECV, ERRNO_MP_LIST_PUSH, ERRNO_MP_ALLOC
 int issue_card(packet_head_t * pkt_hdr_ptr) {
-    // read card amount
+    // cgc_read card amount
     packet_data_issue_t * pdi = NULL;
 
     RET_ON_FAIL(transaction_recv_issue(&pdi));
@@ -316,7 +316,7 @@ void send_error(packet_head_t * pkt_hdr_ptr, uint8_t err_status, char * err_msg)
     }
     pkt_err.msg = err_msg;
 
-    pkt_err.length = strlen(err_msg);
+    pkt_err.length = cgc_strlen(err_msg);
 
 // typedef struct packet_data_error {
 //     uint32_t length;
@@ -539,7 +539,7 @@ int main(void) {
     while (1) {
         pkt_header_ptr = NULL;
 
-        // read in pkt header, fail if we didn't get a full header
+        // cgc_read in pkt header, fail if we didn't get a full header
         if (sizeof(packet_head_t) != recv_all(pkt_buf_ptr, sizeof(packet_head_t))) {
             ret = ERRNO_MP_RECV;
             goto _fail_main;

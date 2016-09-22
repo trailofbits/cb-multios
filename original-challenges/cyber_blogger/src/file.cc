@@ -27,16 +27,16 @@ File::File(size_t _header_size, size_t _data_size, char *_filename)
     size_t len;
     header_size = _header_size;
     data_size = _data_size;
-    if (!_filename || !*_filename || strlen(_filename) >= sizeof(filename))
+    if (!_filename || !*_filename || cgc_strlen(_filename) >= sizeof(filename))
         strcpy(filename, "New File");
     else
         strcpy(filename, _filename);
 
-    len = strlen(filename);
+    len = cgc_strlen(filename);
     if (len > 4 && filename[len - 4] == '.')
         strcpy(extension, &filename[len - 3]);
     else
-        memset(extension, 0, sizeof(extension));
+        cgc_memset(extension, 0, sizeof(extension));
 }
 
 File::~File()

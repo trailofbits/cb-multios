@@ -18,7 +18,7 @@ char gValidChars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 #define NEXT_WORD_MSG "Next Word: "
 #define FINAL_RND_MSG "Final Round. Chose another 2 digit number\n"
 
-size_t strlen(char* str)
+size_t cgc_strlen(char* str)
 {
   size_t ret = 0; 
   if (str == NULL)
@@ -57,7 +57,7 @@ size_t transmit_all(char* buf, size_t size)
 
 size_t transmit_str(char* buf)
 {
-  size_t len = strlen(buf);
+  size_t len = cgc_strlen(buf);
   return (transmit_all(buf, len));
 }
 
@@ -174,7 +174,7 @@ int init(int rot)
   int i = 0;
   for (i = 0; i < numWords; i++)
   {
-    total += strlen(gSeedWords[i]);
+    total += cgc_strlen(gSeedWords[i]);
     total += 1; //for the NULL character
   }
  

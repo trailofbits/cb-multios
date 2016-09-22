@@ -21,7 +21,7 @@
 */
 #include "memcpy.h"
 
-void * memset(void *dst, char c, size_t n) {
+void * cgc_memset(void *dst, char c, size_t n) {
     size_t i;
     unsigned char *d = dst;
     for (i=0; i<n; i++) {

@@ -132,7 +132,7 @@ static int do_buy(void) {
 		p_copy = malloc(sizeof(Product));
 		MALLOC_OK(p_copy);
 
-		memcpy(p_copy, p, sizeof(Product));
+		cgc_memcpy(p_copy, p, sizeof(Product));
 
 		// add product to buy list		
 		list_insert_at_end(&buy_list, p_copy);
@@ -186,7 +186,7 @@ static int do_check(void) {
 	sale_price = p->sfn(p->model_num, p->cost);
 	SEND(STDOUT, (char *)&sale_price, sizeof(float));
 
-	d_len = strlen(p->desc, '\0');
+	d_len = cgc_strlen(p->desc, '\0');
 	if (0 < d_len)
 		SEND(STDOUT, p->desc, d_len);
 	// terminate the description string
@@ -283,7 +283,7 @@ static int do_rm(void) {
 static int do_update(void) {
 	int bytes_recvd = 0;
 	Product *p = NULL;
-	unsigned int (*desc_copy)(void *dst, const void *src, unsigned int cnt) = memcpy;
+	unsigned int (*desc_copy)(void *dst, const void *src, unsigned int cnt) = cgc_memcpy;
 	char bc[BARCODE_SZ] = {0};
 	char desc_buf[MAX_DESC_LEN] = {0};
 
@@ -416,7 +416,7 @@ static int do_list(void) {
 		}
 		if (0 != options[3] % 2) {
 			// send description
-			d_len = strlen(p->desc, '\0');
+			d_len = cgc_strlen(p->desc, '\0');
 			if (0 < d_len)
 				SEND(STDOUT, p->desc, d_len);
 			// terminate the description string

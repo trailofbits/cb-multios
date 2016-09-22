@@ -32,7 +32,7 @@ void *realloc(void *ptr, size_t size);
 void free(void *ptr);
 
 /* miscellaneous functions */
-void exit(int ret);
+void cgc_exit(int ret);
 long strtol(const char *str, char **endptr, int base);
 unsigned long strtoul(const char *str, char **endptr, int base);
 

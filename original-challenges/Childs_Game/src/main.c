@@ -120,7 +120,7 @@ void player_print_stats(human_t *player)
 
 void reset_player(human_t *player)
 {
-    memset(player->name, 0, sizeof(player->name));
+    cgc_memset(player->name, 0, sizeof(player->name));
     player->score = 0;
     player->num_ttt_consecutive_draws = 0;
     player->num_rps_wins = 0;

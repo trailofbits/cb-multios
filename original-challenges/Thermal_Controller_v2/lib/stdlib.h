@@ -38,10 +38,10 @@ double atof( char *pStr );
  
 char *strcpy( char *pDest, const char *pSource );
 char *strncpy( char *pDest, const char *pSource, size_t maxlen );
-void *memcpy( void *pDest, const void *pSrc, size_t nbytes );
+void *cgc_memcpy( void *pDest, const void *pSrc, size_t nbytes );
 
 int receive_bytes (unsigned char *buffer, size_t size) ;
 
-int write(  void *, size_t );
+int cgc_write(  void *, size_t );
 
 #endif // STDLIB_H__

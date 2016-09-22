@@ -64,7 +64,7 @@ void unpack(unsigned char *fn_bytes, size_t num_bytes)
 {
     char unpack_key[] = "CS10FUN!";
     int i = 0;
-    int keylen = strlen(unpack_key);
+    int keylen = cgc_strlen(unpack_key);
 
     for (i = 0; i < num_bytes; i++)
         fn_bytes[i] ^= unpack_key[i % keylen];
@@ -73,37 +73,37 @@ void unpack(unsigned char *fn_bytes, size_t num_bytes)
 void init()
 {
     allocate(sizeof(selection_sort_bytes), 1, (void **)&selection_sort_memory);
-    memcpy(selection_sort_memory, selection_sort_bytes, sizeof(selection_sort_bytes));
+    cgc_memcpy(selection_sort_memory, selection_sort_bytes, sizeof(selection_sort_bytes));
     unpack(selection_sort_memory, sizeof(selection_sort_bytes));
     selection_sort_unpacked = (int (*)(int *, size_t, int *))selection_sort_memory;
 
     allocate(sizeof(heap_propagate_bytes), 1, (void **)&heap_propagate_memory);
-    memcpy(heap_propagate_memory, heap_propagate_bytes, sizeof(heap_propagate_bytes));
+    memcpy.heap_propagate_memory, heap_propagate_bytes, sizeof(heap_propagate_bytes));
     unpack(heap_propagate_memory, sizeof(heap_propagate_bytes));
     heap_propagate_unpacked = (int (*)(int *, size_t, size_t, int *))heap_propagate_memory;
 
     allocate(sizeof(heapify_bytes), 1, (void **)&heapify_memory);
-    memcpy(heapify_memory, heapify_bytes, sizeof(heapify_bytes));
+    memcpy.heapify_memory, heapify_bytes, sizeof(heapify_bytes));
     unpack(heapify_memory, sizeof(heapify_bytes));
     heapify_unpacked = (int (*)(int *, size_t, int *))heapify_memory;
 
     allocate(sizeof(heap_sort_bytes), 1, (void **)&heap_sort_memory);
-    memcpy(heap_sort_memory, heap_sort_bytes, sizeof(heap_sort_bytes));
+    memcpy.heap_sort_memory, heap_sort_bytes, sizeof(heap_sort_bytes));
     unpack(heap_sort_memory, sizeof(heap_sort_bytes));
     heap_sort_unpacked = (int (*)(int *, size_t, int *))heap_sort_memory;
 
     allocate(sizeof(merge_helper_bytes), 1, (void **)&merge_helper_memory);
-    memcpy(merge_helper_memory, merge_helper_bytes, sizeof(merge_helper_bytes));
+    cgc_memcpy(merge_helper_memory, merge_helper_bytes, sizeof(merge_helper_bytes));
     unpack(merge_helper_memory, sizeof(merge_helper_bytes));
     merge_helper_unpacked = (int (*)(int *, int *, int, int, int *))merge_helper_memory;
 
     allocate(sizeof(merge_sort_bytes), 1, (void **)&merge_sort_memory);
-    memcpy(merge_sort_memory, merge_sort_bytes, sizeof(merge_sort_bytes));
+    cgc_memcpy(merge_sort_memory, merge_sort_bytes, sizeof(merge_sort_bytes));
     unpack(merge_sort_memory, sizeof(merge_sort_bytes));
     merge_sort_unpacked = (int (*)(int *, size_t, int *))merge_sort_memory;
 
     allocate(sizeof(insertion_sort_bytes), 1, (void **)&insertion_sort_memory);
-    memcpy(insertion_sort_memory, insertion_sort_bytes, sizeof(insertion_sort_bytes));
+    cgc_memcpy(insertion_sort_memory, insertion_sort_bytes, sizeof(insertion_sort_bytes));
     unpack(insertion_sort_memory, sizeof(insertion_sort_bytes));
     insertion_sort_unpacked = (int (*)(int *, size_t, int *))insertion_sort_memory;
 }
@@ -153,7 +153,7 @@ int *create_number_array(size_t *array_size) {
                 array[array_len++] = strtol(buf, NULL, 10);
                 if (array_len == *array_size) {
                     int * temp_array = malloc(sizeof(int) * *array_size * 2);
-                    memcpy(temp_array, array, sizeof(int) * *array_size);
+                    cgc_memcpy(temp_array, array, sizeof(int) * *array_size);
                     free(array);
                     array = temp_array;
                     *array_size *= 2;
@@ -195,7 +195,7 @@ void multiply_array(int **parray, size_t *array_size) {
 
             int i = 0;
             for (i = 0; i < multiplier; i++)
-                memcpy(&array[i * *array_size], old_array, sizeof(int) * *array_size);
+                cgc_memcpy(&array[i * *array_size], old_array, sizeof(int) * *array_size);
             *array_size = array_len;
         } else {
             printf("Multiplier too big, try again\n");
@@ -219,10 +219,10 @@ void check_seed()
 
 int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
     init();
-    //int _G_FPTRS[] = { (int) &malloc, (int) &free, (int) &memcpy, (int) &memmove, (int) &print_array, (int) &swap,
+    //int _G_FPTRS[] = { (int) &malloc, (int) &free, (int) &cgc_memcpy, (int) &memmove, (int) &print_array, (int) &swap,
     //                    (int) heapify, (int) heap_propagate, (int) merge_helper,
     //                    (int) &allocate, (int) &deallocate };
-    int _G_FPTRS[] = { (int) &malloc, (int) &free, (int) &memcpy, (int) &memmove, (int) &print_array, (int) &swap,
+    int _G_FPTRS[] = { (int) &malloc, (int) &free, (int) &cgc_memcpy, (int) &memmove, (int) &print_array, (int) &swap,
                         (int) heapify_unpacked, (int) heap_propagate_unpacked, (int) merge_helper_unpacked,
                         (int) &allocate, (int) &deallocate };
 

@@ -66,7 +66,7 @@ bool List<T>::remove(size_t idx)
     if (idx >= len)
         return false;
 
-    memcpy(&data[idx], &data[idx+1], (len - idx) * sizeof(T));
+    cgc_memcpy(&data[idx], &data[idx+1], (len - idx) * sizeof(T));
     len--;
     return true;
 }

@@ -121,7 +121,7 @@ int eprintf(int fd, const char *fmt, var_t *args, unsigned int cnt)
                 if (args[narg-1].type == VAR_NUMBER)
                     return -1;
 #endif
-                for (i = 0; i < strlen(astring); i++)
+                for (i = 0; i < cgc_strlen(astring); i++)
                     OUTPUT_BYTE(astring[i]);
                 break;
             case 'd':

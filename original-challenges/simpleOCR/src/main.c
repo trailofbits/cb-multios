@@ -39,7 +39,7 @@
 #define err(s, ...) \
 ({ \
   fdprintf(STDERR, "DEBUG %s:%d:\t" s "\n", __FILE__, __LINE__, ##__VA_ARGS__); \
-  exit(1); \
+  cgc_exit(1); \
 })
 
 
@@ -96,10 +96,10 @@ int read_n_bytes(int fd, size_t n, char* buf)
 
 int read_until(int fd, size_t n, char terminator, char* buf)
 {
-  size_t read = 0;
-  while (read < n)
+  size_t cgc_read = 0;
+  while (cgc_read < n)
   {
-    ssize_t tmp_read = read_n_bytes(fd, 1, buf + read);
+    ssize_t tmp_read = read_n_bytes(fd, 1, buf + cgc_read);
     if (tmp_read < 0)
     {
       return -1;
@@ -109,14 +109,14 @@ int read_until(int fd, size_t n, char terminator, char* buf)
       break;
     }
 
-    if (memchr(buf + read, terminator, tmp_read) != NULL)
+    if (memchr(buf + cgc_read, terminator, tmp_read) != NULL)
     {
-      *((char* )memchr(buf + read, terminator, tmp_read)) = '\0';
-      return read + tmp_read;
+      *((char* )memchr(buf + cgc_read, terminator, tmp_read)) = '\0';
+      return cgc_read + tmp_read;
     }
     else
     {
-      read += tmp_read;
+      cgc_read += tmp_read;
     }
   }
 
@@ -365,7 +365,7 @@ char* perform_ocr(u8* image, u32 width, u32 height, float match_threshold_pct)
 int check_junk(void)
 {
   u32 chk = 0;
-  size_t max = strlen(junk);
+  size_t max = cgc_strlen(junk);
   for (size_t k = 0; k < 0x10; k++)
   {
     for(size_t i = 0; i < max; i++)
@@ -397,25 +397,25 @@ int main(void)
 
   #define LINE_SIZE 32
   char line[LINE_SIZE];
-  memset(line, 0, LINE_SIZE);
+  cgc_memset(line, 0, LINE_SIZE);
   if (read_until(infd, LINE_SIZE, '\n', line) < 0)
     err("bad line");
   else
     dbg("good line");
 
-  if (strlen(line) != strlen(magic) || strncmp(line, magic, strlen(line)) != 0)
+  if (cgc_strlen(line) != cgc_strlen(magic) || strncmp(line, magic, cgc_strlen(line)) != 0)
     err("bad magic");
   else
     dbg("good magic");
 
-  memset(line, 0, LINE_SIZE);
+  cgc_memset(line, 0, LINE_SIZE);
   if (read_until(infd, LINE_SIZE, '\n', line) < 0)
     err("bad line");
   else
     dbg("good line");
 
   u32 w, h;
-  if (parse_dimensions(line, strlen(line), &w, &h) != 0)
+  if (parse_dimensions(line, cgc_strlen(line), &w, &h) != 0)
     err("bad dimensions");
   else
     dbg("good dimensions, %dx%d", w, h);

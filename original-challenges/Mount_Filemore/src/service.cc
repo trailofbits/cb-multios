@@ -268,7 +268,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
                 const unsigned int max_file_name = sizeof(((fs_file *)0)->name);
                 char *file_data = NULL;
                 char filename_buf[max_file_name + 1];
-                memset(filename_buf, 0, sizeof(filename_buf));
+                cgc_memset(filename_buf, 0, sizeof(filename_buf));
                 char file_size_buf[16];
                 char add_data_yn_buf[16];
                 unsigned int file_size;
@@ -323,7 +323,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
                     printf("Successfully added file" NL);
                     printf("Parent dir: " ESC "s" NL, input);
                     printf("New file name: ");
-                    PRINT_ARR_CHARS(filename_buf, strlen(filename_buf));
+                    PRINT_ARR_CHARS(filename_buf, cgc_strlen(filename_buf));
 
                     if (file_data)
                     {
@@ -340,7 +340,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
             {
                 const unsigned int max_dir_name = sizeof(((fs_file *)0)->name);
                 char dirname_buf[max_dir_name+1];
-                memset(dirname_buf, 0, sizeof(dirname_buf));
+                cgc_memset(dirname_buf, 0, sizeof(dirname_buf));
                 printf("Enter Parent Directory Of New Directory" NL);
                 printf(":> ");
                 fflush(stdout);
@@ -358,7 +358,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
                     printf("Successfully added directory" NL);
                     printf("Parent dir: " ESC "s" NL, input);
                     printf("New directory name: ");
-                    PRINT_ARR_CHARS(dirname_buf, strlen(dirname_buf));
+                    PRINT_ARR_CHARS(dirname_buf, cgc_strlen(dirname_buf));
                     fflush(stdout);
                 }
             }

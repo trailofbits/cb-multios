@@ -42,7 +42,7 @@ void addRoom(Object* (*room)[ROOM_HEIGHT][ROOM_WIDTH], const char room_string[RO
 */
 void sendKillMessage(const char* message) {
 
-	if(transmit_all(STDOUT, message, strlen(message)))
+	if(transmit_all(STDOUT, message, cgc_strlen(message)))
 		_terminate(TRANSMIT_ERROR);
 
 }
@@ -201,8 +201,8 @@ void addMove(Dungeon *dungeon, Object* player, int move) {
 #endif
 
 			// Copy old list to new space
-			len = strlen(old_list);
-			memcpy(dungeon->moveList, old_list, len);
+			len = cgc_strlen(old_list);
+			cgc_memcpy(dungeon->moveList, old_list, len);
 			bzero(old_list, len);
 
 			// If there is dungeon left to build
@@ -337,7 +337,7 @@ void playerDied(Dungeon dungeon) {
 	sprintf(buffer, " at position x:!U y:!U after !U moves\n",
 		player->position->x, player->position->y, player->moves);
 
-	len = strlen(buffer);
+	len = cgc_strlen(buffer);
 	if(transmit_all(STDOUT, buffer, len))
 		_terminate(TRANSMIT_ERROR);
 
@@ -356,18 +356,18 @@ char* getName() {
 	size_t len, bytes;
 
 	bzero(buffer, MAX_NAME_SIZE+1);
-	if(transmit_all(STDOUT, HIGHSCORE_MSG, strlen(HIGHSCORE_MSG)))
+	if(transmit_all(STDOUT, HIGHSCORE_MSG, cgc_strlen(HIGHSCORE_MSG)))
 		_terminate(TRANSMIT_ERROR);
 
 	if(read_until_delim_or_n(STDOUT, buffer, '\n', MAX_NAME_SIZE, &bytes))
 		_terminate(READ_ERROR);
 
-	len = strlen(buffer);
+	len = cgc_strlen(buffer);
 	if(!(name = malloc(len+1)))
 		_terminate(ALLOCATE_ERROR);
 
 	bzero(name, len+1);
-	memcpy(name, buffer, len);
+	cgc_memcpy(name, buffer, len);
 
 	return name;
 
@@ -444,13 +444,13 @@ void playerWon(Dungeon* dungeon) {
 	sprintf(buffer, "You found the treasure at position x:!U y:!U after !U moves\n",
 		player->position->x, player->position->y, player->moves);
 
-	len = strlen(buffer);
+	len = cgc_strlen(buffer);
 	if(transmit_all(STDOUT, buffer, len))
 		_terminate(TRANSMIT_ERROR);
 
-	len = strlen(MOVELIST_HDR);
-	len += strlen(dungeon->moveList);
-	len += strlen("\n");
+	len = cgc_strlen(MOVELIST_HDR);
+	len += cgc_strlen(dungeon->moveList);
+	len += cgc_strlen("\n");
 
 	if(!(ml_buffer = malloc(len+1))) {
 		_terminate(ALLOCATE_ERROR);
@@ -1022,7 +1022,7 @@ int makeMove(Dungeon* dungeon, char move) {
 		bzero(dungeon->moveList, EXTEND_MOVE*4+1);
 	}
 
-	len = strlen(dungeon->moveList);
+	len = cgc_strlen(dungeon->moveList);
 	sprintf(&dungeon->moveList[len], "!H", (unsigned char) move);
 
 	if(!(player = getObjectById(dungeon->start, PLAYER_NUM)))
@@ -1133,7 +1133,7 @@ void sendCurrentDungeonView(Room* start) {
 			_terminate(TRANSMIT_ERROR);
 
 
-		if(transmit_all(STDOUT, "\n", strlen("\n")))
+		if(transmit_all(STDOUT, "\n", cgc_strlen("\n")))
 			_terminate(TRANSMIT_ERROR);
 #endif
 	}
@@ -1281,7 +1281,7 @@ void destroyDungeon(Dungeon* dungeon) {
 
 	bzero((char *)&dungeon->moveTypes, sizeof(Moves));
 	if(dungeon->moveList) {
-		len = strlen(dungeon->moveList);
+		len = cgc_strlen(dungeon->moveList);
 		bzero(dungeon->moveList, len);
 		free(dungeon->moveList);		
 	}

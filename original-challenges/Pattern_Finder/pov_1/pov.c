@@ -71,12 +71,12 @@ char* sigs[][2] = {
 
 int send_string(int fd, char* s)
 {
-  unsigned l = strlen(s);
+  unsigned l = cgc_strlen(s);
 
   if (!l)
     return -1;
 
-  return transmit_all(1, s, strlen(s));
+  return transmit_all(1, s, cgc_strlen(s));
 }
 
 int send_n(int fd, char* b, size_t n)
@@ -89,7 +89,7 @@ char* unsigned_to_base10_string(unsigned x)
 #define BASE 10
 #define MAX_LEN 16
   char* s = malloc(MAX_LEN + 1);
-  memset(s, '0', MAX_LEN);
+  cgc_memset(s, '0', MAX_LEN);
   s[MAX_LEN] = '\0';
 
   size_t i = 0;
@@ -107,7 +107,7 @@ char* unsigned_to_base10_string(unsigned x)
 char* gen_string(long long n)
 {
   char* alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  unsigned alphabet_size = strlen(alphabet);
+  unsigned alphabet_size = cgc_strlen(alphabet);
   char* s = malloc(n / alphabet_size + 1);
   int i = n / alphabet_size;
 
@@ -128,7 +128,7 @@ char* gen_string(long long n)
 int send_sig(size_t i)
 {
   send_string(1, "1\n");
-  send_string(1, unsigned_to_base10_string(strlen(sigs[i][0])));
+  send_string(1, unsigned_to_base10_string(cgc_strlen(sigs[i][0])));
   send_string(1, "\n");
   send_string(1, sigs[i][0]);
   send_string(1, "\n16\n");

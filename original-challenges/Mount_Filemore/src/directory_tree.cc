@@ -137,13 +137,13 @@ void DirectoryTree::ListFiles(const char *path, bool recursive)
     if (!path || strcmp("/", path) == 0)
     {
         char rootdir[] = "";
-        ListFileHelper(this, (fs_file *)NULL, recursive, rootdir, strlen(rootdir), false);
+        ListFileHelper(this, (fs_file *)NULL, recursive, rootdir, cgc_strlen(rootdir), false);
         return;
     }
     else
     {
         if (FindFileHelper(this, path, &dir_tree, &file_meta))
-            ListFileHelper(dir_tree, file_meta, recursive, path, strlen(path), true);
+            ListFileHelper(dir_tree, file_meta, recursive, path, cgc_strlen(path), true);
     }
 }
 
@@ -241,7 +241,7 @@ void DirectoryTree::ListFileHelper(DirectoryTree *dirnode, const fs_file *file_i
     {
         cur_dir = new char[namelen + sizeof(((fs_file *)0)->name) + 1];
         cur_namelen = namelen;
-        memcpy(cur_dir, dirname, namelen);
+        cgc_memcpy(cur_dir, dirname, namelen);
 
         PrintDirectory(dirnode->directory_entry_, cur_dir, &cur_namelen, skip_path_update);
         if (!dirnode->subdirectories_.length() && !dirnode->file_list_.length())

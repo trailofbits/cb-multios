@@ -47,12 +47,12 @@ void Ticket::DeleteTicket(Ticket *ticket)
 Ticket::Ticket(char *email, char *desc, uint32_t entry_time, uint32_t duration, PRIORITY priority)
 {
     id_ = g_ticket_id++;
-    uint32_t email_len = strlen(email) >= MAX_EMAIL ? MAX_EMAIL - 1 : strlen(email);
-    uint32_t desc_len = strlen(desc) >= MAX_EMAIL ? MAX_EMAIL - 1 : strlen(desc);
-    memset(email_, 0, sizeof(email_));
-    memset(desc_, 0, sizeof(desc_));
-    memcpy(email_,  email, email_len);
-    memcpy(desc_,  desc, desc_len);
+    uint32_t email_len = cgc_strlen(email) >= MAX_EMAIL ? MAX_EMAIL - 1 : cgc_strlen(email);
+    uint32_t desc_len = cgc_strlen(desc) >= MAX_EMAIL ? MAX_EMAIL - 1 : cgc_strlen(desc);
+    cgc_memset(email_, 0, sizeof(email_));
+    cgc_memset(desc_, 0, sizeof(desc_));
+    cgc_memcpy(email_,  email, email_len);
+    cgc_memcpy(desc_,  desc, desc_len);
     entry_time_ = entry_time;
     status_ = OPEN;
     duration_ = duration;

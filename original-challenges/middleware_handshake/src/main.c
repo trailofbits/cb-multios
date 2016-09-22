@@ -130,14 +130,14 @@ static void free_product(product_t *p)
 static int send_response(priv_t *priv, unsigned int code, char *text)
 {
     char tmp[1024];
-    if (strlen(text) + 64 < sizeof(tmp))
+    if (cgc_strlen(text) + 64 < sizeof(tmp))
     {
         sprintf(tmp, "%d\t%s\b", code, text);
-        return silk_send(&priv->silk, (unsigned char *)tmp, strlen(tmp));
+        return silk_send(&priv->silk, (unsigned char *)tmp, cgc_strlen(tmp));
     }
     else
     {
-        char *tmp2 = malloc(strlen(text) + 64);
+        char *tmp2 = malloc(cgc_strlen(text) + 64);
         int result;
 
 #ifndef PATCHED
@@ -152,7 +152,7 @@ static int send_response(priv_t *priv, unsigned int code, char *text)
             return FAILURE;
 
         sprintf(tmp2, "%d\t%s\b", code, text);
-        result = silk_send(&priv->silk, (unsigned char *)tmp2, strlen(tmp2));
+        result = silk_send(&priv->silk, (unsigned char *)tmp2, cgc_strlen(tmp2));
         free(tmp2);
         return result;
     }
@@ -161,7 +161,7 @@ static int send_response(priv_t *priv, unsigned int code, char *text)
 /* convert %XX to \xXX */
 static void unescape(char *s)
 {
-    unsigned int i, j, len = strlen(s);
+    unsigned int i, j, len = cgc_strlen(s);
     for (i = 0, j = 0; i < len; i++, j++)
     {
         if (s[i] == '%' && i + 2 < len && isxdigit(s[i+1]) && isxdigit(s[i+2]))
@@ -286,7 +286,7 @@ int do_list(priv_t *priv, char *resource)
     for (iter = ht_first(&priv->products); iter != NULL; iter = ht_next(&priv->products, iter))
     {
         product_t *p = ht_node_value(iter);
-        unsigned int new_buf_size = strlen(p->name) + strlen(p->seller) + 128;
+        unsigned int new_buf_size = cgc_strlen(p->name) + cgc_strlen(p->seller) + 128;
         if (new_buf_size > buf_size)
         {
             char *new_buf = realloc(buf, new_buf_size);
@@ -298,7 +298,7 @@ int do_list(priv_t *priv, char *resource)
         sprintf(buf, "%s;%s;%d;%d", p->name, p->seller, p->price, p->quantity);
         if (send_response(priv, RESP_CONTINUE, buf) != SUCCESS)
             break;
-        //if (silk_send(&priv->silk, (unsigned char *)buf, strlen(buf)) != SUCCESS)
+        //if (silk_send(&priv->silk, (unsigned char *)buf, cgc_strlen(buf)) != SUCCESS)
         //    break;
     }
     free(buf);

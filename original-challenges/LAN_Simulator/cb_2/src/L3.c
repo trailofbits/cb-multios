@@ -372,7 +372,7 @@ uint8_t L3_RxPacket(int fd, unsigned char *Packet) {
 	#endif
 
 	// Copy the L3 packet bytes into the output buffer
-	memcpy(Packet, Frame+sizeof(L2Hdr), pL2->Len-sizeof(L2Ftr));
+	cgc_memcpy(Packet, Frame+sizeof(L2Hdr), pL2->Len-sizeof(L2Ftr));
 
 	return(1);
 }
@@ -389,7 +389,7 @@ uint8_t Enqueue(unsigned char *Frame, uint32_t L3Addr, uint8_t Id) {
 	for (i = 0; i < MAX_QUEUE_DEPTH; i++) {
 		if (Config.SendQueue[i].Valid == 0 && !Added) {
 			// add this Frame to the queue
-			memcpy(Config.SendQueue[i].Frame, Frame, MAX_FRAME_LEN);
+			cgc_memcpy(Config.SendQueue[i].Frame, Frame, MAX_FRAME_LEN);
 			Config.SendQueue[i].Age = 0;
 			Config.SendQueue[i].Id = Id;
 			Config.SendQueue[i].Valid = 1;
@@ -462,7 +462,7 @@ uint8_t L3_ForwardPacket(unsigned char *Packet) {
 	}
 
 	// Copy the L3 packet into the frame
-	memcpy(Frame+sizeof(L2Hdr), Packet, sizeof(L3Hdr)+pL3->Len);
+	cgc_memcpy(Frame+sizeof(L2Hdr), Packet, sizeof(L3Hdr)+pL3->Len);
 
 	// check the dst addr against our interfaces
 	for (Id = 0; Id < MaxInterfaces; Id++) {

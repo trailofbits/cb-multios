@@ -41,7 +41,7 @@ static void send_data(void *channel, unsigned int type, unsigned int length, uns
 {
     unsigned char *hdrdata = malloc(length + 1);
     hdrdata[0] = (10 << 4) | type;
-    memcpy(&hdrdata[1], data, length);
+    cgc_memcpy(&hdrdata[1], data, length);
     session_send(channel, length+1, hdrdata);
     free(hdrdata);
 }
@@ -78,7 +78,7 @@ static void handle_control_packet(void *channel, unsigned int length, unsigned c
     {
     case 1: // CONTROL
         if (param == 5) // UNPLUG
-            exit(0);
+            cgc_exit(0);
         break;
     case 4: // GET REPORT
         if (param == 1)
@@ -107,7 +107,7 @@ static void handle_control_packet(void *channel, unsigned int length, unsigned c
         else
         {
             if (length > 1)
-                memcpy(g_incoming_report, data+1, length-1 > sizeof(g_incoming_report) ? sizeof(g_incoming_report) : length-1);
+                cgc_memcpy(g_incoming_report, data+1, length-1 > sizeof(g_incoming_report) ? sizeof(g_incoming_report) : length-1);
             send_handshake(channel, 0);
             g_incoming_report_type = -1;
         }

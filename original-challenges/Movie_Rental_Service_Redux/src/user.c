@@ -171,7 +171,7 @@ int run_user_mode(int *user)
         return 1;
         break;
     default:
-        printf("[ERROR] Invalid menu. Please select again.\n");
+        printf("[ERROR] Invalid menu. Please cgc_select again.\n");
     }
 
     return 0;

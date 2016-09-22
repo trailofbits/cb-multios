@@ -51,7 +51,7 @@ int main() {
     put("Hi ");
     put(state->name);
     put(". ");
-    memcpy((char *)&seed, state->name, 4);
+    cgc_memcpy((char *)&seed, state->name, 4);
     hugsrand(state, seed);
     while(state->hugcount > 0) {
         if(state->hugcount > 1000000)

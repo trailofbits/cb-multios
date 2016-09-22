@@ -59,7 +59,7 @@ backlogItemType *PBIPtr;
 	newPBI->story_points = message->user_story_points;
 	newPBI->next = 0;
 
-	newPBI->description = calloc(strlen(&message->title)+1);
+	newPBI->description = calloc(cgc_strlen(&message->title)+1);
 
 	if (newPBI->description == 0)
 		_terminate(-1);
@@ -374,7 +374,7 @@ backlogItemType *sprintBIPtr;
 
 	free(SBIPtr->description);
 
-	SBIPtr->description = malloc(strlen(&message->desc)+1);
+	SBIPtr->description = malloc(cgc_strlen(&message->desc)+1);
 
 	if (SBIPtr->description == 0)
 		_terminate(-1);

@@ -42,7 +42,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
     *(unsigned int *)&ruleset[0] = 0;
     *(unsigned char *)&ruleset[4] = 0;
     *(unsigned int *)&ruleset[5] = 128;
-    memcpy(&ruleset[9], secret_page, 128);
+    cgc_memcpy(&ruleset[9], secret_page, 128);
 
     for (unsigned int i = 4; i < sizeof(ruleset); i++)
         cksum -= ruleset[i];

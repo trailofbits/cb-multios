@@ -35,7 +35,7 @@ THE SOFTWARE.
 #define FD_TO_ISH 7
 
 void print(char *s) {
-  send_all(s, strlen(s));
+  send_all(s, cgc_strlen(s));
 }
 
 int main(void) {
@@ -46,14 +46,14 @@ int main(void) {
   // Receive service request
   do {
     printf("frontdoor:");
-    memset(input, 0, sizeof(input));
+    cgc_memset(input, 0, sizeof(input));
     bytes_received = receive_until(input, sizeof(input), '\n');
     replace(input, ' ', '\0', 1);
     if (equals(input, "lookupd")) {
-      char *s = input +  strlen("lookupd ");
-      int s_len = bytes_received - strlen("lookupd ");
+      char *s = input +  cgc_strlen("lookupd ");
+      int s_len = bytes_received - cgc_strlen("lookupd ");
       if (s_len < 0) s_len = 0;
-      s_len = force_newline(s, sizeof(input) - strlen("lookupd "), s_len);
+      s_len = force_newline(s, sizeof(input) - cgc_strlen("lookupd "), s_len);
       send_all_fd(FD_TO_LOOKUPD, s, s_len);
       while ((bytes_received = receive_until_fd(FD_TO_MAIN, output, sizeof(output),'\n')) > 0) {
         if (output[0] == '\0') {
@@ -64,10 +64,10 @@ int main(void) {
       }
     }
     else if (equals(input, "mailsend")) {
-      char *s = input +  strlen("mailsend ");
-      int s_len = bytes_received - strlen("mailsend ");
+      char *s = input +  cgc_strlen("mailsend ");
+      int s_len = bytes_received - cgc_strlen("mailsend ");
       if (s_len < 0) s_len = 0;
-      s_len = force_newline(s, sizeof(input) - strlen("mailsend "), s_len);
+      s_len = force_newline(s, sizeof(input) - cgc_strlen("mailsend "), s_len);
       send_all_fd(FD_TO_MAILSEND, s, s_len);
       while ((bytes_received = receive_until_fd(FD_TO_MAIN, output, sizeof(output),'\n')) > 0) {
         if (output[0] == '\0') {
@@ -78,10 +78,10 @@ int main(void) {
       }
     }
     else if (equals(input, "ish")) {
-      char *s = input +  strlen("ish ");
-      int s_len = bytes_received - strlen("ish ");
+      char *s = input +  cgc_strlen("ish ");
+      int s_len = bytes_received - cgc_strlen("ish ");
       if (s_len < 0) s_len = 0;
-      s_len = force_newline(s, sizeof(input) - strlen("ish "), s_len);
+      s_len = force_newline(s, sizeof(input) - cgc_strlen("ish "), s_len);
       send_all_fd(FD_TO_ISH, s, s_len);
       while ((bytes_received = receive_until_fd(FD_TO_MAIN, output, sizeof(output),'\n')) > 0) {
         if (output[0] == '\0') {

@@ -79,7 +79,7 @@ int File::Read(size_t pos, size_t len, char **outBuf)
   *outBuf = (char *) calloc(len, sizeof(char));
   if (!*outBuf)
     return -20;
-  memcpy(*outBuf, &info.content[pos], len);
+  cgc_memcpy(*outBuf, &info.content[pos], len);
   return len;
 }
 
@@ -103,7 +103,7 @@ int File::Write(size_t pos, char *inBuf, size_t len)
     }
     size = pos + len;
   }
-  memcpy(&info.content[pos], inBuf, len);
+  cgc_memcpy(&info.content[pos], inBuf, len);
   return len;
 }
 

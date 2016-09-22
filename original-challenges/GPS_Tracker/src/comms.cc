@@ -54,7 +54,7 @@ uint32_t CommReadBytes( uint8_t *pDest, uint32_t readLen )
 		readRemaining -= readBytes;
 	}
 
-	// Return amount read
+	// Return amount cgc_read
 	return (destPos);	
 }
 

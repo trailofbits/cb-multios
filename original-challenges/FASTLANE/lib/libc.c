@@ -25,7 +25,7 @@
 // NOTE: not POSIX
 // MOD: it works in reverse
 // RETURN: void
-void memcpy(unsigned char *dst, const unsigned char *src, size_t n) {
+void cgc_memcpy(unsigned char *dst, const unsigned char *src, size_t n) {
 
     while (n) {
         dst[n-1] = src[n-1];
@@ -54,7 +54,7 @@ int memcmp(const char *s1, const char *s2, size_t n) {
 // NOTE: not POSIX
 // MOD: it works in reverse
 // RETURN: the first argument
-unsigned char * memset(unsigned char *b, unsigned char c, size_t len) {
+unsigned char * cgc_memset(unsigned char *b, unsigned char c, size_t len) {
 
     size_t i = 0;
     while (len) {
@@ -178,7 +178,7 @@ int recvline(int fd, char *buf, size_t size) {
     if (!buf)
         return -2;
 
-    // While we still have bytes to read...
+    // While we still have bytes to cgc_read...
     while (0 != cursize) {
 
         bytes_read = 0;
@@ -188,13 +188,13 @@ int recvline(int fd, char *buf, size_t size) {
         receive(fd, buf, 1, &bytes_read);
         buf += bytes_read;
 
-        // If we read 0 bytes, we assume EOF; break.
+        // If we cgc_read 0 bytes, we assume EOF; break.
         if (0 == bytes_read) { break; }
 
-        // If we just read a newline, we're done; break.
+        // If we just cgc_read a newline, we're done; break.
         if ( *(buf-1) == '\n' ) { break; }
 
-        // Subtract cursize by the number of bytes read.
+        // Subtract cursize by the number of bytes cgc_read.
         // This shouldn't underflow because we only request 1 byte at a time.
         cursize -= bytes_read;
     }

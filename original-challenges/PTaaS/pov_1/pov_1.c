@@ -107,14 +107,14 @@ int main(void) {
       pack.u.lo = vals.regval;
       dtostr(pack.d, dtostr_buf, sizeof(dtostr_buf));
 
-      write_00006 = append_buf(write_00006, &write_00006_len, (unsigned char *)dtostr_buf, strlen(dtostr_buf));
+      write_00006 = append_buf(write_00006, &write_00006_len, (unsigned char *)dtostr_buf, cgc_strlen(dtostr_buf));
 
       write_00006 = append_buf(write_00006, &write_00006_len, write_00006_00000, write_00006_00000_len);
 
       pack.u.lo = vals.ipval;
       dtostr(pack.d, dtostr_buf, sizeof(dtostr_buf));
 
-      write_00006 = append_buf(write_00006, &write_00006_len, (unsigned char *)dtostr_buf, strlen(dtostr_buf));
+      write_00006 = append_buf(write_00006, &write_00006_len, (unsigned char *)dtostr_buf, cgc_strlen(dtostr_buf));
 
       write_00006 = append_buf(write_00006, &write_00006_len, write_00006_00003, write_00006_00003_len);
       if (write_00006_len > 0) {
@@ -178,7 +178,7 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00000_delim[] = 
          "\x0a";
       read_00000 = NULL;
@@ -192,7 +192,7 @@ int main(void) {
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00001_delim[] = 
          "\x0a";
       read_00001 = NULL;
@@ -206,7 +206,7 @@ int main(void) {
       unsigned char *read_00002;
       unsigned int read_00002_len;
       unsigned int read_00002_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00002_delim[] = 
          "\x0a";
       read_00002 = NULL;

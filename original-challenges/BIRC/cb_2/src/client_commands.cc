@@ -625,7 +625,7 @@ bool ExitServer() {
     brc_resp = (BrcResponse *)pkt->GetProtocol();
     pcmd = (char *)brc_resp->msg();
     if (brc_resp->response_code() != EXIT_SERVER_ID) {
-        PRINTF("Received a failure response trying to exit\n");
+        PRINTF("Received a failure response trying to cgc_exit\n");
         goto finish;
     }
     exitted = true;
@@ -652,7 +652,7 @@ bool RemoteAdminTokenRequest(User *user, unsigned short page_idx, int *token) {
 
     APPEND_PARAM(pcmd, BrcGlobals::remote_admin_token_request_code(), sizeof(BrcGlobals::remote_admin_token_request_code()));
     APPEND_PARAM(pcmd, user->name(), user->name_length());
-    memcpy(pcmd, &page_idx, sizeof(page_idx));
+    cgc_memcpy(pcmd, &page_idx, sizeof(page_idx));
     pcmd += sizeof(page_idx);
     APPEND_EOM(pcmd);
     BrcCommand *bcmd = new BrcCommand(user->name(), cmd, user->name_length(), cmd_length);
@@ -679,7 +679,7 @@ bool RemoteAdminTokenRequest(User *user, unsigned short page_idx, int *token) {
         goto finish;
     }
 
-    memcpy(token, brc_resp->msg(), sizeof(*token));
+    cgc_memcpy(token, brc_resp->msg(), sizeof(*token));
     success = true;
 finish:
     delete pkt;

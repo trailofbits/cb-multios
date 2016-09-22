@@ -89,14 +89,14 @@ public:
     T& operator[] (unsigned int i)
     {
         if (i >= size)
-            exit(1);
+            cgc_exit(1);
         return items[i];
     }
 
     const T& operator[] (unsigned int i) const
     {
         if (i >= size)
-            exit(1);
+            cgc_exit(1);
         return items[i];
     }
 
@@ -113,7 +113,7 @@ public:
         {
             items = (T *)realloc(items, sizeof(T) * length);
             if (items == nullptr)
-                exit(1);
+                cgc_exit(1);
 
             T *start = std::addressof(items[allocated]);
             T *end = std::addressof(items[length]);

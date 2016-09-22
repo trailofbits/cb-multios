@@ -45,7 +45,7 @@ void init_sixer(struct sixer *s, const char *ais_msg) {
 
 unsigned int sixer_strlen(struct sixer *s) {
 	// ais_msg is 6bit ASCII encoded, so each byte/char has 6 bits of data encoded in it.
-	return (6 * strlen(s->p_idx)) - s->bits_used;
+	return (6 * cgc_strlen(s->p_idx)) - s->bits_used;
 }
 
 char get_msg_type(const char *ais_msg) {

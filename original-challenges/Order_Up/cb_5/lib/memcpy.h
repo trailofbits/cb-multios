@@ -31,6 +31,6 @@
  * @param cnt Number of bytes to copy
  * @return Number of bytes copied
  */
-unsigned int memcpy(void *dst, const void *src, unsigned int cnt);
+unsigned int cgc_memcpy(void *dst, const void *src, unsigned int cnt);
 
 #endif

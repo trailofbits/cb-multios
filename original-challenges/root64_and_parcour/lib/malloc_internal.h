@@ -11,7 +11,7 @@
 typedef struct block {
     unsigned int size;
     unsigned int free : 1;
-    unsigned int mmap : 1;
+    unsigned int cgc_mmap : 1;
 } block_t;
 
 typedef struct free_block {

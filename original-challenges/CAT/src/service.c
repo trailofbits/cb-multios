@@ -70,9 +70,9 @@ int packet_recv(packet_t *req) {
             rx_buf_cursor, sizeof(packet_t));
     }
 
-    // If we've read all the packets in the recv buffer, then:
+    // If we've cgc_read all the packets in the recv buffer, then:
     if (rx_buf_cursor == &rx_buf[BUF_RX_SZ]) {
-        // In this case, we need to read more off the wire...
+        // In this case, we need to cgc_read more off the wire...
         CHK_SUCCESS(
             recv_bytes(STDIN, (char *)&rx_buf, BUF_RX_SZ), 
             "failed to recv additional bytes\n");
@@ -80,8 +80,8 @@ int packet_recv(packet_t *req) {
         rx_buf_cursor = rx_buf;
     }
 
-    // We have at least one more packet_t to read out of the recv buffer.
-    memcpy(req, rx_buf_cursor, sizeof(packet_t));
+    // We have at least one more packet_t to cgc_read out of the recv buffer.
+    cgc_memcpy(req, rx_buf_cursor, sizeof(packet_t));
     rx_buf_cursor += sizeof(packet_t);
 
 bail:
@@ -115,7 +115,7 @@ int do_normal(packet_t *req, packet_t *resp) {
                 (byte_t *)req->inst.src, 
                 FLAG_PAGE_BGN, 
                 FLAG_PAGE_END)) {
-            dbg("attempt to read from FLAG page; returning error packet\n");
+            dbg("attempt to cgc_read from FLAG page; returning error packet\n");
             resp->status = S_ERROR;
             goto bail;
         }
@@ -139,7 +139,7 @@ int do_normal(packet_t *req, packet_t *resp) {
                 (byte_t *)req->inst.dst,
                 TEXT_BGN,
                 TEXT_END) 
-#ifndef PATCHED_1 // Data section write access only allowed on unpatched.
+#ifndef PATCHED_1 // Data section cgc_write access only allowed on unpatched.
             &&
             FALSE == access_check( // ...and it's not in the data section...
                 (byte_t *)req->inst.dst,
@@ -352,7 +352,7 @@ int main(void) {
             goto bail; 
         }
 
-        memset((void *)&resp, 0, sizeof(packet_t));
+        cgc_memset((void *)&resp, 0, sizeof(packet_t));
         resp.seq = req.seq;
 
         // Generic validation

@@ -28,14 +28,14 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00000_delim[] = 
          "\x0a";
       read_00000 = NULL;
       read_00000_len = 0;
       int read_00000_res = delimited_read(0, &read_00000, &read_00000_len, read_00000_delim, 1);
       if (read_00000_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00000_00000[] = 
          "\x4d\x65\x6e\x75\x0a";
       read_00000_ptr += data_match(read_00000 + read_00000_ptr, read_00000_len - read_00000_ptr, match_00000_00000, 5);
@@ -46,14 +46,14 @@ int main(void) {
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00001_delim[] = 
          "\x0a";
       read_00001 = NULL;
       read_00001_len = 0;
       int read_00001_res = delimited_read(0, &read_00001, &read_00001_len, read_00001_delim, 1);
       if (read_00001_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00001_00000[] = 
          "\x2d\x2d\x2d\x2d\x2d\x0a";
       read_00001_ptr += data_match(read_00001 + read_00001_ptr, read_00001_len - read_00001_ptr, match_00001_00000, 6);
@@ -64,12 +64,12 @@ int main(void) {
       unsigned char *read_00002;
       unsigned int read_00002_len;
       unsigned int read_00002_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00002_len = 13;
       read_00002 = (unsigned char*)malloc(read_00002_len);
       int read_00002_res = length_read(0, read_00002, read_00002_len);
       if (read_00002_res) {} //silence unused variable warning
-      //**** read assign to var "play" from pcre: Play game: (.*)
+      //**** cgc_read assign to var "play" from pcre: Play game: (.*)
 
       static char read_00002_regex[] = 
          "\x50\x6c\x61\x79\x20\x67\x61\x6d\x65\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -81,12 +81,12 @@ int main(void) {
       unsigned char *read_00003;
       unsigned int read_00003_len;
       unsigned int read_00003_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00003_len = 20;
       read_00003 = (unsigned char*)malloc(read_00003_len);
       int read_00003_res = length_read(0, read_00003, read_00003_len);
       if (read_00003_res) {} //silence unused variable warning
-      //**** read assign to var "instructions" from pcre: Get instructions: (.*)
+      //**** cgc_read assign to var "instructions" from pcre: Get instructions: (.*)
 
       static char read_00003_regex[] = 
          "\x47\x65\x74\x20\x69\x6e\x73\x74\x72\x75\x63\x74\x69\x6f\x6e\x73"
@@ -99,12 +99,12 @@ int main(void) {
       unsigned char *read_00004;
       unsigned int read_00004_len;
       unsigned int read_00004_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00004_len = 15;
       read_00004 = (unsigned char*)malloc(read_00004_len);
       int read_00004_res = length_read(0, read_00004, read_00004_len);
       if (read_00004_res) {} //silence unused variable warning
-      //**** read assign to var "highScore" from pcre: High Scores: (.*)
+      //**** cgc_read assign to var "highScore" from pcre: High Scores: (.*)
 
       static char read_00004_regex[] = 
          "\x48\x69\x67\x68\x20\x53\x63\x6f\x72\x65\x73\x3a\x20\x28\x2e\x2a"
@@ -117,12 +117,12 @@ int main(void) {
       unsigned char *read_00005;
       unsigned int read_00005_len;
       unsigned int read_00005_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00005_len = 13;
       read_00005 = (unsigned char*)malloc(read_00005_len);
       int read_00005_res = length_read(0, read_00005, read_00005_len);
       if (read_00005_res) {} //silence unused variable warning
-      //**** read assign to var "quit" from pcre: Quit game: (.*)
+      //**** cgc_read assign to var "quit" from pcre: Quit game: (.*)
 
       static char read_00005_regex[] = 
          "\x51\x75\x69\x74\x20\x67\x61\x6d\x65\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -157,14 +157,14 @@ int main(void) {
       unsigned char *read_00006;
       unsigned int read_00006_len;
       unsigned int read_00006_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00006_delim[] = 
          "\x0a";
       read_00006 = NULL;
       read_00006_len = 0;
       int read_00006_res = delimited_read(0, &read_00006, &read_00006_len, read_00006_delim, 1);
       if (read_00006_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00006_00000[] = 
          "\x47\x61\x6d\x65\x20\x6d\x6f\x76\x65\x73\x0a";
       read_00006_ptr += data_match(read_00006 + read_00006_ptr, read_00006_len - read_00006_ptr, match_00006_00000, 11);
@@ -175,14 +175,14 @@ int main(void) {
       unsigned char *read_00007;
       unsigned int read_00007_len;
       unsigned int read_00007_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00007_delim[] = 
          "\x0a";
       read_00007 = NULL;
       read_00007_len = 0;
       int read_00007_res = delimited_read(0, &read_00007, &read_00007_len, read_00007_delim, 1);
       if (read_00007_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00007_00000[] = 
          "\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x0a";
       read_00007_ptr += data_match(read_00007 + read_00007_ptr, read_00007_len - read_00007_ptr, match_00007_00000, 11);
@@ -193,12 +193,12 @@ int main(void) {
       unsigned char *read_00008;
       unsigned int read_00008_len;
       unsigned int read_00008_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00008_len = 8;
       read_00008 = (unsigned char*)malloc(read_00008_len);
       int read_00008_res = length_read(0, read_00008, read_00008_len);
       if (read_00008_res) {} //silence unused variable warning
-      //**** read assign to var "left" from pcre: Left: (.*)
+      //**** cgc_read assign to var "left" from pcre: Left: (.*)
 
       static char read_00008_regex[] = 
          "\x4c\x65\x66\x74\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -210,12 +210,12 @@ int main(void) {
       unsigned char *read_00009;
       unsigned int read_00009_len;
       unsigned int read_00009_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00009_len = 9;
       read_00009 = (unsigned char*)malloc(read_00009_len);
       int read_00009_res = length_read(0, read_00009, read_00009_len);
       if (read_00009_res) {} //silence unused variable warning
-      //**** read assign to var "right" from pcre: Right: (.*)
+      //**** cgc_read assign to var "right" from pcre: Right: (.*)
 
       static char read_00009_regex[] = 
          "\x52\x69\x67\x68\x74\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -227,12 +227,12 @@ int main(void) {
       unsigned char *read_00010;
       unsigned int read_00010_len;
       unsigned int read_00010_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00010_len = 8;
       read_00010 = (unsigned char*)malloc(read_00010_len);
       int read_00010_res = length_read(0, read_00010, read_00010_len);
       if (read_00010_res) {} //silence unused variable warning
-      //**** read assign to var "jump" from pcre: Jump: (.*)
+      //**** cgc_read assign to var "jump" from pcre: Jump: (.*)
 
       static char read_00010_regex[] = 
          "\x4a\x75\x6d\x70\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -244,12 +244,12 @@ int main(void) {
       unsigned char *read_00011;
       unsigned int read_00011_len;
       unsigned int read_00011_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00011_len = 13;
       read_00011 = (unsigned char*)malloc(read_00011_len);
       int read_00011_res = length_read(0, read_00011, read_00011_len);
       if (read_00011_res) {} //silence unused variable warning
-      //**** read assign to var "jumpleft" from pcre: Jump Left: (.*)
+      //**** cgc_read assign to var "jumpleft" from pcre: Jump Left: (.*)
 
       static char read_00011_regex[] = 
          "\x4a\x75\x6d\x70\x20\x4c\x65\x66\x74\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -261,12 +261,12 @@ int main(void) {
       unsigned char *read_00012;
       unsigned int read_00012_len;
       unsigned int read_00012_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00012_len = 14;
       read_00012 = (unsigned char*)malloc(read_00012_len);
       int read_00012_res = length_read(0, read_00012, read_00012_len);
       if (read_00012_res) {} //silence unused variable warning
-      //**** read assign to var "jumpright" from pcre: Jump Right: (.*)
+      //**** cgc_read assign to var "jumpright" from pcre: Jump Right: (.*)
 
       static char read_00012_regex[] = 
          "\x4a\x75\x6d\x70\x20\x52\x69\x67\x68\x74\x3a\x20\x28\x2e\x2a\x29"
@@ -279,12 +279,12 @@ int main(void) {
       unsigned char *read_00013;
       unsigned int read_00013_len;
       unsigned int read_00013_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00013_len = 8;
       read_00013 = (unsigned char*)malloc(read_00013_len);
       int read_00013_res = length_read(0, read_00013, read_00013_len);
       if (read_00013_res) {} //silence unused variable warning
-      //**** read assign to var "wait" from pcre: Wait: (.*)
+      //**** cgc_read assign to var "wait" from pcre: Wait: (.*)
 
       static char read_00013_regex[] = 
          "\x57\x61\x69\x74\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -296,12 +296,12 @@ int main(void) {
       unsigned char *read_00014;
       unsigned int read_00014_len;
       unsigned int read_00014_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00014_len = 13;
       read_00014 = (unsigned char*)malloc(read_00014_len);
       int read_00014_res = length_read(0, read_00014, read_00014_len);
       if (read_00014_res) {} //silence unused variable warning
-      //**** read assign to var "quit" from pcre: Quit game: (.*)
+      //**** cgc_read assign to var "quit" from pcre: Quit game: (.*)
 
       static char read_00014_regex[] = 
          "\x51\x75\x69\x74\x20\x67\x61\x6d\x65\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -313,14 +313,14 @@ int main(void) {
       unsigned char *read_00015;
       unsigned int read_00015_len;
       unsigned int read_00015_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00015_delim[] = 
          "\x0a";
       read_00015 = NULL;
       read_00015_len = 0;
       int read_00015_res = delimited_read(0, &read_00015, &read_00015_len, read_00015_delim, 1);
       if (read_00015_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00015_00000[] = 
          "\x4d\x65\x6e\x75\x0a";
       read_00015_ptr += data_match(read_00015 + read_00015_ptr, read_00015_len - read_00015_ptr, match_00015_00000, 5);
@@ -331,14 +331,14 @@ int main(void) {
       unsigned char *read_00016;
       unsigned int read_00016_len;
       unsigned int read_00016_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00016_delim[] = 
          "\x0a";
       read_00016 = NULL;
       read_00016_len = 0;
       int read_00016_res = delimited_read(0, &read_00016, &read_00016_len, read_00016_delim, 1);
       if (read_00016_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00016_00000[] = 
          "\x2d\x2d\x2d\x2d\x2d\x0a";
       read_00016_ptr += data_match(read_00016 + read_00016_ptr, read_00016_len - read_00016_ptr, match_00016_00000, 6);
@@ -349,12 +349,12 @@ int main(void) {
       unsigned char *read_00017;
       unsigned int read_00017_len;
       unsigned int read_00017_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00017_len = 13;
       read_00017 = (unsigned char*)malloc(read_00017_len);
       int read_00017_res = length_read(0, read_00017, read_00017_len);
       if (read_00017_res) {} //silence unused variable warning
-      //**** read assign to var "play" from pcre: Play game: (.*)
+      //**** cgc_read assign to var "play" from pcre: Play game: (.*)
 
       static char read_00017_regex[] = 
          "\x50\x6c\x61\x79\x20\x67\x61\x6d\x65\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -366,12 +366,12 @@ int main(void) {
       unsigned char *read_00018;
       unsigned int read_00018_len;
       unsigned int read_00018_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00018_len = 20;
       read_00018 = (unsigned char*)malloc(read_00018_len);
       int read_00018_res = length_read(0, read_00018, read_00018_len);
       if (read_00018_res) {} //silence unused variable warning
-      //**** read assign to var "instructions" from pcre: Get instructions: (.*)
+      //**** cgc_read assign to var "instructions" from pcre: Get instructions: (.*)
 
       static char read_00018_regex[] = 
          "\x47\x65\x74\x20\x69\x6e\x73\x74\x72\x75\x63\x74\x69\x6f\x6e\x73"
@@ -384,12 +384,12 @@ int main(void) {
       unsigned char *read_00019;
       unsigned int read_00019_len;
       unsigned int read_00019_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00019_len = 15;
       read_00019 = (unsigned char*)malloc(read_00019_len);
       int read_00019_res = length_read(0, read_00019, read_00019_len);
       if (read_00019_res) {} //silence unused variable warning
-      //**** read assign to var "highScore" from pcre: High Scores: (.*)
+      //**** cgc_read assign to var "highScore" from pcre: High Scores: (.*)
 
       static char read_00019_regex[] = 
          "\x48\x69\x67\x68\x20\x53\x63\x6f\x72\x65\x73\x3a\x20\x28\x2e\x2a"
@@ -402,12 +402,12 @@ int main(void) {
       unsigned char *read_00020;
       unsigned int read_00020_len;
       unsigned int read_00020_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00020_len = 13;
       read_00020 = (unsigned char*)malloc(read_00020_len);
       int read_00020_res = length_read(0, read_00020, read_00020_len);
       if (read_00020_res) {} //silence unused variable warning
-      //**** read assign to var "quit" from pcre: Quit game: (.*)
+      //**** cgc_read assign to var "quit" from pcre: Quit game: (.*)
 
       static char read_00020_regex[] = 
          "\x51\x75\x69\x74\x20\x67\x61\x6d\x65\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -10539,14 +10539,14 @@ int main(void) {
       unsigned char *read_00021;
       unsigned int read_00021_len;
       unsigned int read_00021_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00021_delim[] = 
          "\x0a";
       read_00021 = NULL;
       read_00021_len = 0;
       int read_00021_res = delimited_read(0, &read_00021, &read_00021_len, read_00021_delim, 1);
       if (read_00021_res) {} //silence unused variable warning
-      //**** read assign to var "user1" from pcre: You found the treasure at position x:([0-9]*) y:([0-9]*) after ([0-9]*) moves\n
+      //**** cgc_read assign to var "user1" from pcre: You found the treasure at position x:([0-9]*) y:([0-9]*) after ([0-9]*) moves\n
       static char read_00021_regex[] = 
          "\x59\x6f\x75\x20\x66\x6f\x75\x6e\x64\x20\x74\x68\x65\x20\x74\x72"
          "\x65\x61\x73\x75\x72\x65\x20\x61\x74\x20\x70\x6f\x73\x69\x74\x69"
@@ -10561,14 +10561,14 @@ int main(void) {
       unsigned char *read_00022;
       unsigned int read_00022_len;
       unsigned int read_00022_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00022_delim[] = 
          "\x0a";
       read_00022 = NULL;
       read_00022_len = 0;
       int read_00022_res = delimited_read(0, &read_00022, &read_00022_len, read_00022_delim, 1);
       if (read_00022_res) {} //silence unused variable warning
-      /* read match pcre:
+      /* cgc_read match pcre:
 Move list: (.*)\n
 */
       static char read_00022_00000_regex[] = 
@@ -10598,12 +10598,12 @@ Move list: (.*)\n
       unsigned char *read_00023;
       unsigned int read_00023_len;
       unsigned int read_00023_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00023_len = 24;
       read_00023 = (unsigned char*)malloc(read_00023_len);
       int read_00023_res = length_read(0, read_00023, read_00023_len);
       if (read_00023_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00023_00000[] = 
          "\x50\x6c\x65\x61\x73\x65\x20\x65\x6e\x74\x65\x72\x20\x79\x6f\x75"
          "\x72\x20\x6e\x61\x6d\x65\x3a\x20";
@@ -10658,14 +10658,14 @@ Move list: (.*)\n
       unsigned char *read_00024;
       unsigned int read_00024_len;
       unsigned int read_00024_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00024_delim[] = 
          "\x0a";
       read_00024 = NULL;
       read_00024_len = 0;
       int read_00024_res = delimited_read(0, &read_00024, &read_00024_len, read_00024_delim, 1);
       if (read_00024_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00024_00000[] = 
          "\x4d\x65\x6e\x75\x0a";
       read_00024_ptr += data_match(read_00024 + read_00024_ptr, read_00024_len - read_00024_ptr, match_00024_00000, 5);
@@ -10676,14 +10676,14 @@ Move list: (.*)\n
       unsigned char *read_00025;
       unsigned int read_00025_len;
       unsigned int read_00025_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00025_delim[] = 
          "\x0a";
       read_00025 = NULL;
       read_00025_len = 0;
       int read_00025_res = delimited_read(0, &read_00025, &read_00025_len, read_00025_delim, 1);
       if (read_00025_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00025_00000[] = 
          "\x2d\x2d\x2d\x2d\x2d\x0a";
       read_00025_ptr += data_match(read_00025 + read_00025_ptr, read_00025_len - read_00025_ptr, match_00025_00000, 6);
@@ -10694,12 +10694,12 @@ Move list: (.*)\n
       unsigned char *read_00026;
       unsigned int read_00026_len;
       unsigned int read_00026_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00026_len = 13;
       read_00026 = (unsigned char*)malloc(read_00026_len);
       int read_00026_res = length_read(0, read_00026, read_00026_len);
       if (read_00026_res) {} //silence unused variable warning
-      //**** read assign to var "play" from pcre: Play game: (.*)
+      //**** cgc_read assign to var "play" from pcre: Play game: (.*)
 
       static char read_00026_regex[] = 
          "\x50\x6c\x61\x79\x20\x67\x61\x6d\x65\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -10711,12 +10711,12 @@ Move list: (.*)\n
       unsigned char *read_00027;
       unsigned int read_00027_len;
       unsigned int read_00027_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00027_len = 20;
       read_00027 = (unsigned char*)malloc(read_00027_len);
       int read_00027_res = length_read(0, read_00027, read_00027_len);
       if (read_00027_res) {} //silence unused variable warning
-      //**** read assign to var "instructions" from pcre: Get instructions: (.*)
+      //**** cgc_read assign to var "instructions" from pcre: Get instructions: (.*)
 
       static char read_00027_regex[] = 
          "\x47\x65\x74\x20\x69\x6e\x73\x74\x72\x75\x63\x74\x69\x6f\x6e\x73"
@@ -10729,12 +10729,12 @@ Move list: (.*)\n
       unsigned char *read_00028;
       unsigned int read_00028_len;
       unsigned int read_00028_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00028_len = 15;
       read_00028 = (unsigned char*)malloc(read_00028_len);
       int read_00028_res = length_read(0, read_00028, read_00028_len);
       if (read_00028_res) {} //silence unused variable warning
-      //**** read assign to var "highScore" from pcre: High Scores: (.*)
+      //**** cgc_read assign to var "highScore" from pcre: High Scores: (.*)
 
       static char read_00028_regex[] = 
          "\x48\x69\x67\x68\x20\x53\x63\x6f\x72\x65\x73\x3a\x20\x28\x2e\x2a"
@@ -10747,12 +10747,12 @@ Move list: (.*)\n
       unsigned char *read_00029;
       unsigned int read_00029_len;
       unsigned int read_00029_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00029_len = 13;
       read_00029 = (unsigned char*)malloc(read_00029_len);
       int read_00029_res = length_read(0, read_00029, read_00029_len);
       if (read_00029_res) {} //silence unused variable warning
-      //**** read assign to var "quit" from pcre: Quit game: (.*)
+      //**** cgc_read assign to var "quit" from pcre: Quit game: (.*)
 
       static char read_00029_regex[] = 
          "\x51\x75\x69\x74\x20\x67\x61\x6d\x65\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -10787,14 +10787,14 @@ Move list: (.*)\n
       unsigned char *read_00030;
       unsigned int read_00030_len;
       unsigned int read_00030_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00030_delim[] = 
          "\x0a";
       read_00030 = NULL;
       read_00030_len = 0;
       int read_00030_res = delimited_read(0, &read_00030, &read_00030_len, read_00030_delim, 1);
       if (read_00030_res) {} //silence unused variable warning
-      /* read match pcre:
+      /* cgc_read match pcre:
 Dungeon conquered in ([0-9]*) moves (.*)\n
 */
       static char read_00030_00000_regex[] = 
@@ -10825,14 +10825,14 @@ Dungeon conquered in ([0-9]*) moves (.*)\n
       unsigned char *read_00031;
       unsigned int read_00031_len;
       unsigned int read_00031_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00031_delim[] = 
          "\x0a";
       read_00031 = NULL;
       read_00031_len = 0;
       int read_00031_res = delimited_read(0, &read_00031, &read_00031_len, read_00031_delim, 1);
       if (read_00031_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00031_00000[] = 
          "\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d"
          "\x2d\x2d\x2d\x0a";
@@ -10844,14 +10844,14 @@ Dungeon conquered in ([0-9]*) moves (.*)\n
       unsigned char *read_00032;
       unsigned int read_00032_len;
       unsigned int read_00032_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00032_delim[] = 
          "\x0a";
       read_00032 = NULL;
       read_00032_len = 0;
       int read_00032_res = delimited_read(0, &read_00032, &read_00032_len, read_00032_delim, 1);
       if (read_00032_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00032_00000[] = 
          "\x20\x6d\x6f\x76\x65\x73\x20\x20\x20\x7c\x20\x20\x20\x6e\x61\x6d"
          "\x65\x20\x20\x0a";
@@ -10863,14 +10863,14 @@ Dungeon conquered in ([0-9]*) moves (.*)\n
       unsigned char *read_00033;
       unsigned int read_00033_len;
       unsigned int read_00033_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00033_delim[] = 
          "\x0a";
       read_00033 = NULL;
       read_00033_len = 0;
       int read_00033_res = delimited_read(0, &read_00033, &read_00033_len, read_00033_delim, 1);
       if (read_00033_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00033_00000[] = 
          "\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d"
          "\x2d\x2d\x2d\x0a";
@@ -10882,14 +10882,14 @@ Dungeon conquered in ([0-9]*) moves (.*)\n
       unsigned char *read_00034;
       unsigned int read_00034_len;
       unsigned int read_00034_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00034_delim[] = 
          "\x0a";
       read_00034 = NULL;
       read_00034_len = 0;
       int read_00034_res = delimited_read(0, &read_00034, &read_00034_len, read_00034_delim, 1);
       if (read_00034_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00034_00000[] = 
          "\x4d\x65\x6e\x75\x0a";
       read_00034_ptr += data_match(read_00034 + read_00034_ptr, read_00034_len - read_00034_ptr, match_00034_00000, 5);
@@ -10900,14 +10900,14 @@ Dungeon conquered in ([0-9]*) moves (.*)\n
       unsigned char *read_00035;
       unsigned int read_00035_len;
       unsigned int read_00035_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00035_delim[] = 
          "\x0a";
       read_00035 = NULL;
       read_00035_len = 0;
       int read_00035_res = delimited_read(0, &read_00035, &read_00035_len, read_00035_delim, 1);
       if (read_00035_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00035_00000[] = 
          "\x2d\x2d\x2d\x2d\x2d\x0a";
       read_00035_ptr += data_match(read_00035 + read_00035_ptr, read_00035_len - read_00035_ptr, match_00035_00000, 6);
@@ -10918,12 +10918,12 @@ Dungeon conquered in ([0-9]*) moves (.*)\n
       unsigned char *read_00036;
       unsigned int read_00036_len;
       unsigned int read_00036_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00036_len = 13;
       read_00036 = (unsigned char*)malloc(read_00036_len);
       int read_00036_res = length_read(0, read_00036, read_00036_len);
       if (read_00036_res) {} //silence unused variable warning
-      //**** read assign to var "play" from pcre: Play game: (.*)
+      //**** cgc_read assign to var "play" from pcre: Play game: (.*)
 
       static char read_00036_regex[] = 
          "\x50\x6c\x61\x79\x20\x67\x61\x6d\x65\x3a\x20\x28\x2e\x2a\x29\x0a";
@@ -10935,12 +10935,12 @@ Dungeon conquered in ([0-9]*) moves (.*)\n
       unsigned char *read_00037;
       unsigned int read_00037_len;
       unsigned int read_00037_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00037_len = 20;
       read_00037 = (unsigned char*)malloc(read_00037_len);
       int read_00037_res = length_read(0, read_00037, read_00037_len);
       if (read_00037_res) {} //silence unused variable warning
-      //**** read assign to var "instructions" from pcre: Get instructions: (.*)
+      //**** cgc_read assign to var "instructions" from pcre: Get instructions: (.*)
 
       static char read_00037_regex[] = 
          "\x47\x65\x74\x20\x69\x6e\x73\x74\x72\x75\x63\x74\x69\x6f\x6e\x73"
@@ -10953,12 +10953,12 @@ Dungeon conquered in ([0-9]*) moves (.*)\n
       unsigned char *read_00038;
       unsigned int read_00038_len;
       unsigned int read_00038_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00038_len = 15;
       read_00038 = (unsigned char*)malloc(read_00038_len);
       int read_00038_res = length_read(0, read_00038, read_00038_len);
       if (read_00038_res) {} //silence unused variable warning
-      //**** read assign to var "highScore" from pcre: High Scores: (.*)
+      //**** cgc_read assign to var "highScore" from pcre: High Scores: (.*)
 
       static char read_00038_regex[] = 
          "\x48\x69\x67\x68\x20\x53\x63\x6f\x72\x65\x73\x3a\x20\x28\x2e\x2a"
@@ -10971,12 +10971,12 @@ Dungeon conquered in ([0-9]*) moves (.*)\n
       unsigned char *read_00039;
       unsigned int read_00039_len;
       unsigned int read_00039_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00039_len = 13;
       read_00039 = (unsigned char*)malloc(read_00039_len);
       int read_00039_res = length_read(0, read_00039, read_00039_len);
       if (read_00039_res) {} //silence unused variable warning
-      //**** read assign to var "quit" from pcre: Quit game: (.*)
+      //**** cgc_read assign to var "quit" from pcre: Quit game: (.*)
 
       static char read_00039_regex[] = 
          "\x51\x75\x69\x74\x20\x67\x61\x6d\x65\x3a\x20\x28\x2e\x2a\x29\x0a";

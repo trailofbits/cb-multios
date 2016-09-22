@@ -147,6 +147,6 @@ void *calloc(size_t s) {
     void *p = malloc(s);
     if (!p)
         return NULL;
-    memset(p, '\0', s);
+    cgc_memset(p, '\0', s);
     return p;
 }

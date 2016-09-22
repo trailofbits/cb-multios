@@ -65,7 +65,7 @@ void bookKeeping(carstate *drive)
 	validatePtr(drive);
 	if(drive->rpm > 6000)
 	{
-		//car explodes.  Just exit.
+		//car explodes.  Just cgc_exit.
 		transmit_all(STDOUT, "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff", 10);
 		_terminate(0);
 	}
@@ -92,7 +92,7 @@ void bookKeeping(carstate *drive)
 
 void raiseAlarm() {
 	char a;
-	memcpy(&a, "AAAAAAAAAAAAAAAA", 16);
+	cgc_memcpy(&a, "AAAAAAAAAAAAAAAA", 16);
 	validateRet();
 }
 
@@ -138,7 +138,7 @@ void updateBTMetadata(carstate *drive, char *userbuf) {
 	if(len > 31)
 		len = 31;
 	#endif
-	memcpy(drive->bt_metadata, tmp, len);
+	cgc_memcpy(drive->bt_metadata, tmp, len);
 	validateRet();
 }
 
@@ -193,12 +193,12 @@ void serviceLoop() {
 	drivestuff.drive = &drivestuff._drive;
 	char *ptr;
 	validatePtr(drivestuff.drive);
-	memset(drivestuff.drive, 0, sizeof(carstate));
+	cgc_memset(drivestuff.drive, 0, sizeof(carstate));
 	validatePtr(drivestuff.drive);
 	initCar(drivestuff.drive);
 
 	while(1) {
-		memset(drivestuff.ibuf, 0, sizeof(drivestuff.ibuf));
+		cgc_memset(drivestuff.ibuf, 0, sizeof(drivestuff.ibuf));
 		int got;
 		got = recvUntil(0, drivestuff.ibuf, 255, '\n');
 		if(got <= 0)

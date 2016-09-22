@@ -54,7 +54,7 @@ DefineFunction(Map, void, init, unsigned int w, unsigned int h)
 
     this->m_map = malloc(sizeof(unsigned char) * w * h);
     ASSERT_ALLOC(this->m_map);
-    memset(this->m_map, MAP_WALL_ID, sizeof(unsigned char) * w * h);
+    cgc_memset(this->m_map, MAP_WALL_ID, sizeof(unsigned char) * w * h);
 
     // starting point
     this->m_start_x = w/2;
@@ -182,7 +182,7 @@ DefineFunction(Map, void, display)
         }
         sprintf(buf_w++, "\n");
     }
-    send_n_bytes(STDOUT, strlen(buf), buf);
+    send_n_bytes(STDOUT, cgc_strlen(buf), buf);
     free(buf);
 }
 
@@ -312,7 +312,7 @@ DefineFunction(Map, void, deserialize, Buffer *buf)
 #endif
         ASSERT_OR_RAISE(count + i <= this->m_width * this->m_height, EXC_BAD_STATE);
 
-        memset(&this->m_map[i], id, count);
+        cgc_memset(&this->m_map[i], id, count);
         i += count;
     }
     // decode the objects

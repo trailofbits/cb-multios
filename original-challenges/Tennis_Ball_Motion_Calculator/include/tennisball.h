@@ -6,7 +6,7 @@ typedef unsigned long long uint64_t;
 
 #define PAGE_SIZE 4096
 
-#define printfstr(_fd, _s) write(_fd, _s, myStrLen(_s))
+#define printfstr(_fd, _s) cgc_write(_fd, _s, myStrLen(_s))
 
 static double POWERS_OF_TEN[10] = {
   1e0,

@@ -39,12 +39,12 @@ int copy_uri(char *buf_verb) {
 
     // Pull out the URI
 #ifndef PATCHED
-    memcpy(
+    cgc_memcpy(
         (unsigned char *)buf_verb, 
         (unsigned char *)buf_recv+pos_uri+1, 
         URI_BUF_SZ+1); // VULN: off-by-one
 #else
-    memcpy(
+    cgc_memcpy(
         (unsigned char *)buf_verb, 
         (unsigned char *)(buf_recv+pos_uri+1), 
         URI_BUF_SZ);
@@ -289,7 +289,7 @@ int main(void) {
 
         // This is where a crash _may_ occur.
         // Specifically, if TIP is overflown with \xfd, \xfe or \xff, this
-        // write will go off the end of the stack (@ 0xbaaaafff).
+        // cgc_write will go off the end of the stack (@ 0xbaaaafff).
         // This limited choice increases CRS difficulty.
         *ptr_crash = 0xdeadbeef;
     }

@@ -163,12 +163,12 @@ void handle_blub(client_state* c)
     fprintf(c->tx, "...: ");
     if (!client_ready(c) || freaduntil(tmp, BLUB_MAX, EOT_C, c->rx) < 0)
     {
-      dbg("Failed to read blub");
+      dbg("Failed to cgc_read blub");
       return;
     }
     tmp[BLUB_MAX] = '\0';
 
-    dbg("Recorded blub (%s) %d", tmp, strlen(tmp))
+    dbg("Recorded blub (%s) %d", tmp, cgc_strlen(tmp))
     c->blubber->record_blub(tmp);
   }
   else
@@ -176,7 +176,7 @@ void handle_blub(client_state* c)
     blub* b = c->blubber->gen_blub();
     if (b)
     {
-      dbg("Recorded blub (%s) %d", b->content, strlen(b->content));
+      dbg("Recorded blub (%s) %d", b->content, cgc_strlen(b->content));
       dbg("Genned blub (%s)", b->content);
     }
   }
@@ -187,7 +187,7 @@ void handle_reblub(server_state* s, client_state* c)
   char username[USERNAME_MAX + 1];
   if (!client_ready(c) || freaduntil(username, USERNAME_MAX, EOT_C, c->rx) < 0)
   {
-    dbg("Failed to read reblub username");
+    dbg("Failed to cgc_read reblub username");
     return;
   }
   username[USERNAME_MAX] = '\0';
@@ -196,7 +196,7 @@ void handle_reblub(server_state* s, client_state* c)
   char num[16];
   if (!client_ready(c) || freaduntil(num, sizeof(num) - 1, EOT_C, c->rx) < 0)
   {
-    dbg("Failed to read reblub number");
+    dbg("Failed to cgc_read reblub number");
     return;
   }
 
@@ -230,7 +230,7 @@ void handle_sub(server_state* s, client_state* c)
   char username[USERNAME_MAX + 1];
   if (!client_ready(c) || freaduntil(username, USERNAME_MAX, EOT_C, c->rx) < 0)
   {
-    dbg("Failed read sub username");
+    dbg("Failed cgc_read sub username");
     return;
   }
   username[USERNAME_MAX] = '\0';
@@ -266,7 +266,7 @@ int run_server(server_state* state)
     if (!c->registered && !state->finished)
     {
       char username[USERNAME_MAX + 1];
-      memset(username, 0, sizeof(username));
+      cgc_memset(username, 0, sizeof(username));
       if (!client_ready(c) || freaduntil(username, USERNAME_MAX, EOT_C, c->rx) < 0)
       {
         continue;

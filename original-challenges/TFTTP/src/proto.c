@@ -47,7 +47,7 @@ int recvdgram(int fd) {
     tfttp_frag *f = NULL;
     char curfrag[MAX_FRAG][MAX_FRAG_DATA_LEN] = {0};
 
-    memset(curpkt,'\0', TFTTP_STRUCT_SIZE); 
+    cgc_memset(curpkt,'\0', TFTTP_STRUCT_SIZE); 
 
     while(1) {
         RECVM((uint8_t*)curpkt, MAX_DATA_LEN, 0) 
@@ -83,7 +83,7 @@ int recvdgram(int fd) {
             return -6;
         }
 
-        memcpy(&curfrag[f->seqid], f->data, MAX_FRAG_DATA_LEN);
+        cgc_memcpy(&curfrag[f->seqid], f->data, MAX_FRAG_DATA_LEN);
         outstanding--;
         curfragid++;
 
@@ -91,7 +91,7 @@ int recvdgram(int fd) {
             //reassemble and return
             //curpkt is large enough to hold MAX_DATA_LEN*256
             curpkt->hdr.code = fragcode;
-            memcpy(curpkt->data, (char *)curfrag, MAX_PKT_SIZE);
+            cgc_memcpy(curpkt->data, (char *)curfrag, MAX_PKT_SIZE);
             curpkt->hdr.size = totalfrag*MAX_DATA_LEN;
             return 0;
         }
@@ -99,10 +99,10 @@ int recvdgram(int fd) {
 }
 
 void create_resp_pkt(tfttp_pkt* pkt, char *resp) {
-    memset(pkt,'\0', TFTTP_STRUCT_SIZE); 
+    cgc_memset(pkt,'\0', TFTTP_STRUCT_SIZE); 
     strcpy((char *)pkt->data, resp);
     pkt->hdr.code = RESP;
     //for now, fixed length responses until pollers can support otherwise
-    //pkt->size = sizeof(enum pkttype)+strlen(resp)+1; 
+    //pkt->size = sizeof(enum pkttype)+cgc_strlen(resp)+1; 
     pkt->hdr.size = 256; //-_-
 }

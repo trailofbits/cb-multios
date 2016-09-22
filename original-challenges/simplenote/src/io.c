@@ -78,7 +78,7 @@ int read_n_bytes(int fd, size_t n, char* buf)
 
 int transmit_string(int fd, char* s)
 {
-  size_t len = strlen(s);
+  size_t len = cgc_strlen(s);
   if (len == 0)
     return 0;
   else if (send_n_bytes(fd, len, s) != len)
@@ -89,20 +89,20 @@ int transmit_string(int fd, char* s)
 
 int read_until(int fd, size_t n, char terminator, char* buf)
 {
-  size_t read = 0;
-  while (read < n)
+  size_t cgc_read = 0;
+  while (cgc_read < n)
   {
     size_t tmp_read;
-    if (receive(fd, buf + read, 1, &tmp_read) != 0 || tmp_read == 0)
+    if (receive(fd, buf + cgc_read, 1, &tmp_read) != 0 || tmp_read == 0)
       return -1;
-    if (memchr(buf + read, terminator, tmp_read) != NULL)
+    if (memchr(buf + cgc_read, terminator, tmp_read) != NULL)
     {
-      *((char* )memchr(buf + read, terminator, tmp_read)) = '\0';
-      return read + tmp_read;
+      *((char* )memchr(buf + cgc_read, terminator, tmp_read)) = '\0';
+      return cgc_read + tmp_read;
     }
     else
     {
-      read += tmp_read;
+      cgc_read += tmp_read;
     }
   }
 

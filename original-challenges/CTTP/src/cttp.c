@@ -135,7 +135,7 @@ static void logreq(cttpreq_t *req, int level) {
         return;
     }
 
-    memcpy(lreq, req, sizeof(cttpreq_t));
+    cgc_memcpy(lreq, req, sizeof(cttpreq_t));
 
     if (lreq->path && lreq->psize) {
         lreq->path = calloc(lreq->psize);
@@ -145,7 +145,7 @@ static void logreq(cttpreq_t *req, int level) {
             return;
         }
 
-        memcpy(lreq->path, req->path, lreq->psize);
+        cgc_memcpy(lreq->path, req->path, lreq->psize);
     }
 
     if (lreq->body && lreq->bodysize) {
@@ -156,7 +156,7 @@ static void logreq(cttpreq_t *req, int level) {
             return;
         }
         
-        memcpy(lreq->body, req->body, lreq->bodysize);
+        cgc_memcpy(lreq->body, req->body, lreq->bodysize);
     }
 
     info = calloc(sizeof(logmsg_t));
@@ -291,7 +291,7 @@ static cttpresp_t *genericmsg(rcode_t code, const char *msg, size_t s) {
     }
 
     strcpy(resp->data, msg);
-    resp->rsize = strlen(resp->data)+1;
+    resp->rsize = cgc_strlen(resp->data)+1;
     resp->code = code;
     return resp;
 }
@@ -349,7 +349,7 @@ static cttpresp_t *handle_retrieve(cttpreq_t *req) {
         goto out_free;
     }
 
-    memcpy(resp->data, file->body, file->bodysize);
+    cgc_memcpy(resp->data, file->body, file->bodysize);
     resp->rsize = file->bodysize;
     resp->code = OK;
 
@@ -404,8 +404,8 @@ static cttpresp_t *handle_submit(cttpreq_t *req) {
     file->psize = req->psize;
     file->bodysize = req->bodysize;
 
-    memcpy(file->path, req->path, req->psize);
-    memcpy(file->body, req->body, req->bodysize);
+    cgc_memcpy(file->path, req->path, req->psize);
+    cgc_memcpy(file->body, req->body, req->bodysize);
 
     if (add_file(file)) {
         LOGINFO(req);
@@ -462,7 +462,7 @@ static cttpresp_t *handle_check(cttpreq_t *req) {
     }
 
     debug("found file\n");
-    memcpy(resp->data, &file->bodysize, sizeof(size_t));
+    cgc_memcpy(resp->data, &file->bodysize, sizeof(size_t));
 
     resp->rsize = sizeof(size_t);
     resp->code = OK;
@@ -554,12 +554,12 @@ static cttpresp_t *handle_auth(cttpreq_t *req) {
     }
 
 #ifndef PATCHED_2
-    memcpy(tmpbuf, file->body, s);
+    cgc_memcpy(tmpbuf, file->body, s);
     key = randint();
     for (i=0; i < s; i++)
         *(resp->data+i) = tmpbuf[i] ^ key;
 #else
-    memcpy(resp->data, file->body, s);
+    cgc_memcpy(resp->data, file->body, s);
     key = randint();
     for (i=0; i < s; i++)
         *(resp->data+i) ^= key;
@@ -697,7 +697,7 @@ bool do_challenge() {
     uint32_t etoken = token;
     uint32_t dtoken;
 
-    clen = strlen(challenge);
+    clen = cgc_strlen(challenge);
 
     encoded = calloc(clen+1);
 
@@ -790,7 +790,7 @@ bool handle_request() {
         }
 
         strcpy(resp->data, WAYTOOBIG);
-        resp->rsize = strlen(resp->data)+1;
+        resp->rsize = cgc_strlen(resp->data)+1;
         resp->code = NOK;
 
         LOGERR(&req);
@@ -849,9 +849,9 @@ bool handle_request() {
     if (resp) {
         size_t osize = resp->rsize;
         if(ISLE(&req)) {
-            memcpy(resp->hdr, LEHDR, sizeof(resp->hdr));
+            cgc_memcpy(resp->hdr, LEHDR, sizeof(resp->hdr));
         } else {
-            memcpy(resp->hdr, BEHDR, sizeof(resp->hdr));
+            cgc_memcpy(resp->hdr, BEHDR, sizeof(resp->hdr));
             SWAP32(resp->rsize);
             SWAP32(resp->code);
         }

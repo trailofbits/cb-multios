@@ -75,13 +75,13 @@ void match(const char *str) {
 //   printf("\n%s\n", gallows);
 
    char buf[4096];
-   int l = strlen(str);
+   int l = cgc_strlen(str);
    if (fread(buf, 1, l, stdin) != l) {
-      err("short read in match\n", 20, 1);
+      err("short cgc_read in match\n", 20, 1);
    }
    if (memcmp(buf, str, l) != 0) {
       transmit(2, "match fail expected:\n", 21, NULL);
-      err(str, strlen(str), 1);
+      err(str, cgc_strlen(str), 1);
    }
 }
 
@@ -263,7 +263,7 @@ void playToLose(int word, char **answer) {
    reset();
    getWord(word);
    while (1) {
-      int i = strlen(alpha) - 1;
+      int i = cgc_strlen(alpha) - 1;
       char guess = alpha[i];
       alpha[i] = 0;
       if (doTurn(guess, answer)) return;

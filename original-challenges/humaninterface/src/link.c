@@ -41,7 +41,7 @@ void link_send(unsigned channel, unsigned length, const unsigned char *payload)
     if (length > LINK_PAYLOAD_SIZE)
         length = LINK_PAYLOAD_SIZE;
 
-    memcpy(pkt.hdr.payload, payload, length);
+    cgc_memcpy(pkt.hdr.payload, payload, length);
     transmit(STDOUT, pkt.rawdata, length + sizeof(link_hdr_t), &bytes);
 }
 

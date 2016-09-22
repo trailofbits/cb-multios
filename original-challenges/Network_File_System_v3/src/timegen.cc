@@ -40,7 +40,7 @@ CTimeGen::CTimeGen( uint32_t *pGeneratorSource, uint32_t generatorSize )
 {
 	m_pGeneratorSource = new uint32_t[generatorSize];
 
-	memcpy( m_pGeneratorSource, pGeneratorSource, sizeof(uint32_t)*generatorSize );
+	cgc_memcpy( m_pGeneratorSource, pGeneratorSource, sizeof(uint32_t)*generatorSize );
 }
 
 CTimeGen::~CTimeGen( )

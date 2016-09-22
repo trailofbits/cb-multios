@@ -40,7 +40,7 @@ typedef struct {
         struct {
             uint32_t lba;
             uint32_t length;
-        } write;
+        } cgc_write;
     } in_state;
 } msc_t;
 

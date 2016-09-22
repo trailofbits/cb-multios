@@ -75,7 +75,7 @@ int recvline(int fd, char *buf, size_t size) {
     return total_read;
 }
 // copy cnt bytes from src into dst; src and dst cannot overlap!
-void * memcpy(void* dst, const void* src, size_t cnt) {
+void * cgc_memcpy(void* dst, const void* src, size_t cnt) {
 
     uint8_t *dst_ptr = (uint8_t *) dst;
     uint8_t *src_ptr = (uint8_t *) src;
@@ -105,7 +105,7 @@ char * itoaB10(int value){
     int tmp = value;
     
     if(value == 0){
-        memcpy(s, "0\x00", 2);
+        cgc_memcpy(s, "0\x00", 2);
         return s;
     }
     int neg = 0;
@@ -157,7 +157,7 @@ char* strcat(char *dest, const char* src)
 }
 
 // overwrites the first n chars of str with unsigned char ch.
-void * memset(void* str, int ch, size_t n) {
+void * cgc_memset(void* str, int ch, size_t n) {
     unsigned char *ch_ptr = str;
     while (n > 0) {
         *ch_ptr = (unsigned char)ch;
@@ -188,7 +188,7 @@ int transmit_all(int fd, const char *buf, const size_t size) {
     return 0;
 }
 
-size_t strlen(const char *string) {
+size_t cgc_strlen(const char *string) {
     size_t size = 0;
     
     while(1) {

@@ -32,7 +32,7 @@ static int handle_result()
     int result;
     size_t n;
 
-    memset(tmp, 0, sizeof(tmp));
+    cgc_memset(tmp, 0, sizeof(tmp));
     for (n = 0; n < sizeof(tmp) - 1; n++)
     {
         if (!read_all(&tmp[n], 1))
@@ -76,7 +76,7 @@ static int handle_sd()
     char tmp[16];
     size_t n;
 
-    memset(tmp, 0, sizeof(tmp));
+    cgc_memset(tmp, 0, sizeof(tmp));
     for (n = 0; n < sizeof(tmp) - 1; n++)
     {
         if (!read_all(&tmp[n], 1))

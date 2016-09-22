@@ -64,7 +64,7 @@ DefineFunction(Monster, void, copy, Monster *other)
 DefineFunction(Monster, void, set_name, const char *name)
 {
 #if PATCHED
-    if (strlen(name)+1 > MONSTER_NAME_LEN)
+    if (cgc_strlen(name)+1 > MONSTER_NAME_LEN)
         raise(EXC_BAD_STATE);
 #endif
     strcpy(this->m_name, name);

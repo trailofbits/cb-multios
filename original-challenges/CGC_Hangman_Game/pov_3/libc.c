@@ -187,7 +187,7 @@ int memcmp(const char *s1, const char *s2, unsigned int len) {
    return 0;
 }
 
-char *memcpy(char *s1, const char *s2, unsigned int len) {   
+char *cgc_memcpy(char *s1, const char *s2, unsigned int len) {   
    while (len) {
       *s1++ = *s2++;
       len--;
@@ -201,7 +201,7 @@ char *strcpy(char *dst, const char *src) {
    return dst;
 }
 
-size_t strlen(const char *str) {
+size_t cgc_strlen(const char *str) {
    size_t res = 0;
    while (*str++) {res++;}
    return res;
@@ -1039,7 +1039,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = strlen(s_arg);
+                  int len = cgc_strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

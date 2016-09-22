@@ -200,7 +200,7 @@ flags_done:
             break;
         case 's':
             pv = va_arg(ap, void *);
-            CONSUME((char *)pv, strlen((char *)pv));
+            CONSUME((char *)pv, cgc_strlen((char *)pv));
             fmt++;
             break;
         }
@@ -223,7 +223,7 @@ static int _consumer_fd(void *arg, const char *buf, size_t n)
 static int _consumer_string(void *arg, const char *buf, size_t n)
 {
     char **s = (char **)arg;
-    memcpy(*s, buf, n);
+    cgc_memcpy(*s, buf, n);
     (*s) += n;
     **s = '\0';
     return (int)n;
@@ -241,7 +241,7 @@ static int _consumer_string_checked(void *arg, const char *buf, size_t n)
         n = sinfo->bytes_remaining;
     if (n == 0)
         return 0;
-    memcpy(sinfo->buf, buf, n);
+    cgc_memcpy(sinfo->buf, buf, n);
     sinfo->buf += n;
     sinfo->buf[0] = '\0';
     sinfo->bytes_remaining -= n;

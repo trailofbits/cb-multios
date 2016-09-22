@@ -24,7 +24,7 @@
 #define RECV_UNTIL_DELIM_N_H 1
 
 /**
- * Receive delimiter terminated bytes from file descriptor and write into buffer.
+ * Receive delimiter terminated bytes from file descriptor and cgc_write into buffer.
  *
  * @param fd Source file descriptor
  * @param buf Destination buffer; may not be delim terminated

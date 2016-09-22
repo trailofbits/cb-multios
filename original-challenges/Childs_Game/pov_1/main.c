@@ -33,7 +33,7 @@ void read_until_game_prompt()
     int ready = 0;
     while (!ready) {
         delimited_read(STDIN, &resp, &resp_len, (unsigned char *)"\n", 1);
-        if (memcmp(resp, "Shall we play a game?", strlen("Shall we play a game?")) == 0) {
+        if (memcmp(resp, "Shall we play a game?", cgc_strlen("Shall we play a game?")) == 0) {
             ready = 1;
         }
     }
@@ -73,10 +73,10 @@ int play_ttt(int turn)
     //unsigned char *resp = NULL;
     char *select_guess_num_game = "3\n";
 
-    memset(len_resp, 0, 128);
+    cgc_memset(len_resp, 0, 128);
     read_until_game_prompt();
-    length_read(STDIN, len_resp, strlen("Game # "));
-    transmit_all(STDOUT, select_guess_num_game, strlen(select_guess_num_game));
+    length_read(STDIN, len_resp, cgc_strlen("Game # "));
+    transmit_all(STDOUT, select_guess_num_game, cgc_strlen(select_guess_num_game));
 
     if (turn == COMPUTER) {
         switch(find_corner()) {
@@ -124,14 +124,14 @@ int play_rps()
     char *select_guess_num_game = "1\n";
     char *hammer = "HAMMER\n";
 
-    memset(len_resp, 0, 128);
+    cgc_memset(len_resp, 0, 128);
     read_until_game_prompt();
-    length_read(STDIN, len_resp, strlen("Game # "));
-    transmit_all(STDOUT, select_guess_num_game, strlen(select_guess_num_game));
+    length_read(STDIN, len_resp, cgc_strlen("Game # "));
+    transmit_all(STDOUT, select_guess_num_game, cgc_strlen(select_guess_num_game));
 
-    memset(len_resp, 0, 128);
-    length_read(STDIN, len_resp, strlen("Choose [HAMMER, SHEET, SHEERS]: "));
-    transmit_all(STDOUT, hammer, strlen(hammer));
+    cgc_memset(len_resp, 0, 128);
+    length_read(STDIN, len_resp, cgc_strlen("Choose [HAMMER, SHEET, SHEERS]: "));
+    transmit_all(STDOUT, hammer, strlen.hammer));
     delimited_read(STDIN, &resp, &resp_len, (unsigned char *)"\n", 1);
     delimited_read(STDIN, &resp, &resp_len, (unsigned char *)"\n", 1);
     if(memcmp(resp, "You Win!", 8) == 0) {
@@ -167,15 +167,15 @@ int play_hi_lo(int scored_game)
     }
 
     read_until_game_prompt();
-    length_read(STDIN, len_resp, strlen("Game # "));
-    transmit_all(STDOUT, select_guess_num_game, strlen(select_guess_num_game));
-    length_read(STDIN, len_resp, strlen("Enter max value (Default=65535): "));
-    transmit_all(STDOUT, pov_guess_num, strlen(pov_guess_num));
+    length_read(STDIN, len_resp, cgc_strlen("Game # "));
+    transmit_all(STDOUT, select_guess_num_game, cgc_strlen(select_guess_num_game));
+    length_read(STDIN, len_resp, cgc_strlen("Enter max value (Default=65535): "));
+    transmit_all(STDOUT, pov_guess_num, cgc_strlen(pov_guess_num));
     if (!scored_game) {
         length_read(STDIN, len_resp, 1);
         if (len_resp[0] == 'E') {
-            length_read(STDIN, len_resp, strlen("nter max value (Default=65535): "));
-            transmit_all(STDOUT, normal_guess_num, strlen(normal_guess_num));
+            length_read(STDIN, len_resp, cgc_strlen("nter max value (Default=65535): "));
+            transmit_all(STDOUT, normal_guess_num, cgc_strlen(normal_guess_num));
             num_guesses = 16;
             guess_upper = 0xffff;
             guess_lower = 0;
@@ -188,13 +188,13 @@ int play_hi_lo(int scored_game)
     }
 
     while(num_guesses) {
-        memset(guess_buf, 0, 128);
-        memset(guess_msg, 0, 128);
-        memset(len_resp, 0, 128);
+        cgc_memset(guess_buf, 0, 128);
+        cgc_memset(guess_msg, 0, 128);
+        cgc_memset(len_resp, 0, 128);
         sprintf(guess_buf, "%d\n", guess);
         sprintf(guess_msg, "Guess the number [%d guesses left]: ", num_guesses--);
-        length_read(STDIN, len_resp, strlen(guess_msg));
-        transmit_all(STDOUT, guess_buf, strlen(guess_buf));
+        length_read(STDIN, len_resp, cgc_strlen(guess_msg));
+        transmit_all(STDOUT, guess_buf, cgc_strlen(guess_buf));
         delimited_read(STDIN, &resp, &resp_len, (unsigned char *)"\n", 1);
 
         if (memcmp(resp, "Too Low", 7) == 0) {
@@ -212,7 +212,7 @@ int play_hi_lo(int scored_game)
     if (!won) {
         delimited_read(STDIN, &resp, &resp_len, (unsigned char *)"\n", 1);
         if (memcmp(resp, "Sorry", 5) == 0) {
-            //transmit_all(STDOUT, exit, strlen(exit));
+            //transmit_all(STDOUT, cgc_exit, cgc_strlen(cgc_exit));
             return 0;
         }
     }
@@ -228,14 +228,14 @@ int main()
 
     char *register_player = "1\nPovPlayer, 1\n";
     char *reregister_player = "4\n1\n123456789012345678901234, 1\n";
-    char *exit = "4\n2\n";
+    char *cgc_exit = "4\n2\n";
 
-    transmit_all(STDOUT, register_player, strlen(register_player));
+    transmit_all(STDOUT, register_player, cgc_strlen(register_player));
     read_until_game_prompt();
-    transmit_all(STDOUT, reregister_player, strlen(reregister_player));
+    transmit_all(STDOUT, reregister_player, cgc_strlen(reregister_player));
 
     play_hi_lo(0);
 
-    transmit_all(STDOUT, exit, strlen(exit));
+    transmit_all(STDOUT, cgc_exit, cgc_strlen(cgc_exit));
     return 0;
 }

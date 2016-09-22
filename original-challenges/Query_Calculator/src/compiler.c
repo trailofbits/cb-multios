@@ -80,7 +80,7 @@ compiler* compile(lexer_list* lexemes) {
   }
 
   compiler* out = calloc(sizeof(compiler));
-  memcpy(out, &after_conclusion.clr, sizeof(compiler));
+  cgc_memcpy(out, &after_conclusion.clr, sizeof(compiler));
   
   return out;
 }
@@ -261,7 +261,7 @@ void compiler_free(compiler* compiler) {
 }
 
 compiler* compile_str(char* str) {
-  lexer_list* ll = lex_string(strlen(str), str);
+  lexer_list* ll = lex_string(cgc_strlen(str), str);
   return compile(ll);
 }
 

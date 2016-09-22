@@ -215,7 +215,7 @@ char *copyData( pstring str, int start, int end )
 
 	bzero( data, length + 1 );
 
-	memcpy( data, str->buffer + start, length );
+	cgc_memcpy( data, str->buffer + start, length );
 
 	return data;
 }
@@ -416,7 +416,7 @@ pstring initString( char *data )
 		goto end;
 	}	
 
-	length = strlen(data)+1;
+	length = cgc_strlen(data)+1;
 
 	if ( allocate( sizeof(string), 0, (void**)&newString) != 0 ) {
 		newString = NULL;
@@ -429,7 +429,7 @@ pstring initString( char *data )
 	}
 
 	bzero( newString->buffer, length );
-	memcpy( newString->buffer, data, length-1 );
+	cgc_memcpy( newString->buffer, data, length-1 );
 
 	newString->maxlength = length;
 	newString->index = 0;

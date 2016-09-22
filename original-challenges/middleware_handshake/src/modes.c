@@ -56,11 +56,11 @@ int _do_encode(mode_t *mode, unsigned char *b)
     }
     else if (mode->mode == MODE_XOM)
     {
-        memcpy(tmp, b, bytes);
+        cgc_memcpy(tmp, b, bytes);
         XOR(b, mode->state.xm, bytes)
         if (codes_encode(mode->code, b) != SUCCESS)
             return FAILURE;
-        memcpy(mode->state.xm, tmp, bytes);
+        cgc_memcpy(mode->state.xm, tmp, bytes);
         XOR(mode->state.xm, b, bytes)
     }
 #undef XOR
@@ -79,7 +79,7 @@ int _do_decode(mode_t *mode, unsigned char *b)
     }
     else if (mode->mode == MODE_XIM)
     {
-        memcpy(tmp, b, bytes);
+        cgc_memcpy(tmp, b, bytes);
         if (codes_decode(mode->code, b) != SUCCESS)
             return FAILURE;
         XOR(b, mode->state.xm, bytes)
@@ -87,12 +87,12 @@ int _do_decode(mode_t *mode, unsigned char *b)
     }
     else if (mode->mode == MODE_XOM)
     {
-        memcpy(tmp, b, bytes);
+        cgc_memcpy(tmp, b, bytes);
         if (codes_decode(mode->code, b) != SUCCESS)
             return FAILURE;
         XOR(b, mode->state.xm, bytes)
 
-        memcpy(mode->state.xm, tmp, bytes);
+        cgc_memcpy(mode->state.xm, tmp, bytes);
         XOR(mode->state.xm, b, bytes)
     }
 #undef XOR
@@ -106,7 +106,7 @@ int modes_init(mode_t *mode, unsigned int mode_id, code_t *code)
 
     mode->mode = mode_id;
     mode->code = code;
-    memset(&mode->state, 0, sizeof(mode->state));
+    cgc_memset(&mode->state, 0, sizeof(mode->state));
     return SUCCESS;
 }
 
@@ -133,14 +133,14 @@ int modes_encode(mode_t *mode, const unsigned char *inb, unsigned int inlen,
         unsigned int tocopy = bytes;
         if (inlen < tocopy)
             tocopy = inlen;
-        memcpy(&data[i], inb, tocopy);
+        cgc_memcpy(&data[i], inb, tocopy);
         inb += tocopy;
         inlen -= tocopy;
 
         if (tocopy < bytes)
         {
             pad = 1;
-            memset(&data[i + tocopy], tocopy, bytes - tocopy);
+            cgc_memset(&data[i + tocopy], tocopy, bytes - tocopy);
         }
 
         if (_do_encode(mode, &data[i]) != SUCCESS)
@@ -150,7 +150,7 @@ int modes_encode(mode_t *mode, const unsigned char *inb, unsigned int inlen,
     if (pad == 0)
     {
         // if there is no padding, append another block for padding
-        memset(&data[len], 0, bytes);
+        cgc_memset(&data[len], 0, bytes);
         if (_do_encode(mode, &data[len]) != SUCCESS)
             goto fail;
         len += bytes;
@@ -185,7 +185,7 @@ int modes_decode(mode_t *mode, const unsigned char *inb, unsigned int inlen,
     data = malloc(inlen);
     if (data == NULL)
         return FAILURE;
-    memcpy(data, inb, inlen);
+    cgc_memcpy(data, inb, inlen);
 
     for (i = 0; i < inlen; i += bytes)
     {

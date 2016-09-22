@@ -73,16 +73,16 @@ void send_request(void *req, enum cmd_t cmd)
       char *pb = packet->body;
       send_req_t *sr = (send_req_t *)req;
       size = sizeof(send_req_t) - sizeof(message_t *);
-      memcpy(pb, (char *)req, size);
+      cgc_memcpy(pb, (char *)req, size);
       pb += size;
       size = sizeof(message_t) - sizeof(char *);
-      memcpy(pb, (char *)(sr->msg), size);
+      cgc_memcpy(pb, (char *)(sr->msg), size);
       pb += size;
-      memcpy(pb, sr->msg->text, sr->msg->text_len);
+      cgc_memcpy(pb, sr->msg->text, sr->msg->text_len);
     }
     else
     {
-      memcpy(packet->body, (char *)req, packet->body_len);
+      cgc_memcpy(packet->body, (char *)req, packet->body_len);
     }
     packet->checksum = calc_checksum(packet);
     size = sizeof(packet_t) - sizeof(char *);

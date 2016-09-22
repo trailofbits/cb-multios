@@ -276,7 +276,7 @@ void do_exit(void) {
     DBG("\n");
     int ret = SUCCESS;
 
-    DBG("[D] got exit() message; terminating...\n");
+    DBG("[D] got cgc_exit() message; terminating...\n");
 
 bail:
     _terminate(ret);

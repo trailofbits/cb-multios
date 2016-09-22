@@ -92,7 +92,7 @@ int do_build() {
     uint32_t model_id = 0;
 
     assemble_result_t result;
-    memset(&result, 0, sizeof(assemble_result_t));
+    cgc_memset(&result, 0, sizeof(assemble_result_t));
 
     switch(command) {
 	case B_CMD_INIT_PANEL:

@@ -211,7 +211,7 @@ int InitManual(void) {
 	}
 	p = ManualRingBuffer;
 
-	// read in the manually entered packets
+	// cgc_read in the manually entered packets
 	printf("Enter the packets, one per line in this format:\n");
 	printf("time since last packet (s, ##.######),length (bytes 64-1500),priority (0-63)\n");
 	while (count--) {
@@ -249,7 +249,7 @@ int InitManual(void) {
 
 		// sanity check the inputs
 		// timestamp
-		for (i = 0; i < strlen(timestamp_s); i++) {
+		for (i = 0; i < cgc_strlen(timestamp_s); i++) {
 			if (!strchr("0123456789.", timestamp_s[i])) {
 				puts("Invalid timestamp");
 				return(-1);
@@ -261,7 +261,7 @@ int InitManual(void) {
 			return(-1);
 		}
 		// bytes
-		for (i = 0; i < strlen(bytes_s); i++) {
+		for (i = 0; i < cgc_strlen(bytes_s); i++) {
 			if (!strchr("0123456789", bytes_s[i])) {
 				puts("Invalid bytes");
 				return(-1);
@@ -273,7 +273,7 @@ int InitManual(void) {
 			return(-1);
 		}
 		// priority
-		for (i = 0; i < strlen(priority_s); i++) {
+		for (i = 0; i < cgc_strlen(priority_s); i++) {
 			if (!strchr("0123456789", priority_s[i])) {
 				puts("Invalid priority");
 				return(-1);

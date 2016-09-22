@@ -71,23 +71,23 @@ next_addr:
     buf[i++] = chars[0];
     *(unsigned int *)&buf[i] = addr;
     i += 4;
-    memcpy(&buf[i], tmp, 12);
+    cgc_memcpy(&buf[i], tmp, 12);
     i += 12;
     buf[i++] = chars[1];
     buf[i++] = chars[0];
     buf[i++] = chars[4];
     *(unsigned int *)&buf[i] = addr;
     i += 4;
-    memcpy(&buf[i], tmp, 12);
+    cgc_memcpy(&buf[i], tmp, 12);
     i += 12;
     buf[i++] = chars[1];
     buf[i++] = chars[0];
-    memcpy(&buf[i], tmp+12, 4);
+    cgc_memcpy(&buf[i], tmp+12, 4);
     i += 4;
     buf[i++] = chars[1];
     buf[i++] = chars[0];
     buf[i++] = chars[4];
-    memcpy(&buf[i], tmp+12, 4);
+    cgc_memcpy(&buf[i], tmp+12, 4);
     i += 4;
     buf[i++] = chars[1];
     buf[i++] = chars[0];
@@ -105,12 +105,12 @@ next_addr:
     transmit_all(STDOUT, buf, i);
     desc++;
 
-    memcpy(buf, "\x07\x01\x00\x00\x00\x00\x05\x04\x04\x84\x00\x01", 12);
+    cgc_memcpy(buf, "\x07\x01\x00\x00\x00\x00\x05\x04\x04\x84\x00\x01", 12);
     *(unsigned int *)&buf[1] = desc;
     transmit_all(STDOUT, buf, 12);
     desc++;
 
-    memcpy(buf, "\x06\x02\x00\x00\x00", 5);
+    cgc_memcpy(buf, "\x06\x02\x00\x00\x00", 5);
     *(unsigned int *)&buf[1] = desc;
     transmit_all(STDOUT, buf, 5);
 

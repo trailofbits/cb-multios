@@ -193,7 +193,7 @@ int request_document(char * path, size_t recusion_depth) {
 #endif    
 
     // Send request to the CRS
-    if (SUCCESS != (ret = transmit_with_term(STDOUT, path, strlen(path), NULL))) { 
+    if (SUCCESS != (ret = transmit_with_term(STDOUT, path, cgc_strlen(path), NULL))) { 
 #ifdef DEBUG
         fprintf(stderr, "[E] during request for '%s'\n", path);
 #endif
@@ -283,7 +283,7 @@ int request_document(char * path, size_t recusion_depth) {
     while (NULL != (open = strpos(open, TAG_SRC_OPEN))) {
 
         // Advance open beyond the tag.
-        open += strlen(TAG_SRC_OPEN);
+        open += cgc_strlen(TAG_SRC_OPEN);
 
         // We found the opening tag, now find the closing tag.
         clse = strpos(open, TAG_SRC_CLSE);

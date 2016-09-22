@@ -100,7 +100,7 @@ int validate_alu(state_t *state)
         return 0;
 
     if (insn->dst == REG_FRAME)
-        /* frame pointer is read-only */
+        /* frame pointer is cgc_read-only */
         return 0;
 
     if (insn->op.alu.source == SRC_REG)
@@ -121,7 +121,7 @@ int validate_alu(state_t *state)
     }
     else
     {
-        /* binary operators that read and modify dst */
+        /* binary operators that cgc_read and modify dst */
         unsigned int result = state->registers[insn->dst] | src;
         if (result & VALUE_UNKNOWN)
             /* any operations on UNKNOWN results in UNKNOWN */

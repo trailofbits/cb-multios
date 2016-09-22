@@ -39,7 +39,7 @@ void Push(t3DCPixel **px_list, t3DCPixel *px) {
 
     t3DCPixel *new = malloc(sizeof(t3DCPixel));
 
-    memcpy(new, px, sizeof(t3DCPixel));
+    cgc_memcpy(new, px, sizeof(t3DCPixel));
 
     for (i = 0; i <= MAX_PIXELS; i++) {
       if (px_list[i] == NULL) {
@@ -102,25 +102,25 @@ void NewFile(t3DCPixel **px_list, char *buf) {
   while (offset < maxSize) {
     tmp = px_list[i++];
 
-    memcpy(&tmp->x, buf+offset, sizeof(int16_t));
+    cgc_memcpy(&tmp->x, buf+offset, sizeof(int16_t));
     offset += sizeof(int16_t);
 
-    memcpy(&tmp->y, buf+offset, sizeof(int16_t));
+    cgc_memcpy(&tmp->y, buf+offset, sizeof(int16_t));
     offset += sizeof(int16_t);
 
-    memcpy(&tmp->z, buf+offset, sizeof(int16_t));
+    cgc_memcpy(&tmp->z, buf+offset, sizeof(int16_t));
     offset += sizeof(int16_t);
 
-    memcpy(&tmp->r, buf+offset, sizeof(uint8_t));
+    cgc_memcpy(&tmp->r, buf+offset, sizeof(uint8_t));
     offset += sizeof(uint8_t);
 
-    memcpy(&tmp->g, buf+offset, sizeof(uint8_t));
+    cgc_memcpy(&tmp->g, buf+offset, sizeof(uint8_t));
     offset += sizeof(uint8_t);
 
-    memcpy(&tmp->b, buf+offset, sizeof(uint8_t));
+    cgc_memcpy(&tmp->b, buf+offset, sizeof(uint8_t));
     offset += sizeof(uint8_t);
 
-    memcpy(&tmp->a, buf+offset, sizeof(uint8_t));
+    cgc_memcpy(&tmp->a, buf+offset, sizeof(uint8_t));
     offset += sizeof(uint8_t);
 
   }

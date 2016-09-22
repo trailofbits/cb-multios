@@ -164,7 +164,7 @@ int recvline(int fd, char *buf, size_t size) {
 // stdlib functions
 
 // return number of chars in str, not counting the '\0'
-unsigned int strlen(const char *str) {
+unsigned int cgc_strlen(const char *str) {
     unsigned int count = 0;
     while(*str != '\0') {
         count++;
@@ -175,7 +175,7 @@ unsigned int strlen(const char *str) {
 }
 
 // overwrites the first n chars of str with unsigned char ch.
-void * memset(void* str, int ch, unsigned int n) {
+void * cgc_memset(void* str, int ch, unsigned int n) {
     char *ch_ptr = (char*)str;
     while (n > 0) {
         *ch_ptr = (char)ch;
@@ -187,7 +187,7 @@ void * memset(void* str, int ch, unsigned int n) {
 }
 
 // copy cnt bytes from src into dst; src and dst cannot overlap!
-void * memcpy(void* dst, const void* src, size_t cnt) {
+void * cgc_memcpy(void* dst, const void* src, size_t cnt) {
 
     uint8_t *dst_ptr = (uint8_t *) dst;
     uint8_t *src_ptr = (uint8_t *) src;
@@ -261,7 +261,7 @@ int vsnprintf(char* buf, size_t buf_size, const char* fmt, va_list args) {
                     int_arg = va_arg(args, int);
                     int2str(tmp, 32, int_arg);
                     next_arg = tmp;
-                    arg_len = strlen(next_arg);
+                    arg_len = cgc_strlen(next_arg);
 
                     break; 
                 case 'c': // deal with char buffer (i.e. string)
@@ -269,7 +269,7 @@ int vsnprintf(char* buf, size_t buf_size, const char* fmt, va_list args) {
                     if (!next_arg) {
                         arg_len = 0;
                     } else { 
-                        arg_len = strlen(next_arg);
+                        arg_len = cgc_strlen(next_arg);
                     } 
 
                     break; 
@@ -288,10 +288,10 @@ int vsnprintf(char* buf, size_t buf_size, const char* fmt, va_list args) {
             if (fmt_spec == 'n' || fmt_spec == 'c') {
                 remaining = buf_size - buf_len;
                 if (arg_len <= remaining) {
-                    memcpy(&buf[buf_len], next_arg, arg_len);
+                    cgc_memcpy(&buf[buf_len], next_arg, arg_len);
                     buf_len += arg_len;
                 } else {
-                    memcpy(&buf[buf_len], next_arg, remaining);
+                    cgc_memcpy(&buf[buf_len], next_arg, remaining);
                     buf_len += remaining;
                 }
             }

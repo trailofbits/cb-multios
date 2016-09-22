@@ -37,7 +37,7 @@ bitset_init(struct bitset *bitset, size_t size)
 void
 bitset_clear(struct bitset *bitset)
 {
-    memset(bitset->data, '\0', ALIGN(bitset->size, 8) / 8);
+    cgc_memset(bitset->data, '\0', ALIGN(bitset->size, 8) / 8);
 }
 
 static int

@@ -29,7 +29,7 @@ int recvline(int fd, char *buf, size_t size);
 size_t strcpy(char *s1, char *s2);
 size_t strncpy(char *s1, char *s2, size_t n);
 char * strcat(char *s1, char *s2);
-size_t strlen(char *s);
+size_t cgc_strlen(char *s);
 int streq(char *s1, char *s2);
 int startswith(char *s1, char *s2);
 

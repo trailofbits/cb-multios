@@ -1,7 +1,7 @@
 #ifndef LIBC_H
 #define LIBC_H
 
-size_t strlen(const char *str);
+size_t cgc_strlen(const char *str);
 char *strcpy(char *dst, const char *src);
 int strcmp(const char *s1, const char *s2);
 char *strchr(const char *s, int c);

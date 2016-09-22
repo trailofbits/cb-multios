@@ -68,7 +68,7 @@ int main(void) {
             outmsg = INVALID_SENTENCE;
         }
 
-        send(outmsg, strlen(outmsg));
+        send(outmsg, cgc_strlen(outmsg));
 
         if (TRUE == reset) {
             reset_sentence_struct(&ss);

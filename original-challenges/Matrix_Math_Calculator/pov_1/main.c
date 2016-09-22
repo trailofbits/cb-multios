@@ -54,17 +54,17 @@ int main()
     char *multiply= "5\n";
     char *gen_random= "10\n1\n1\n2\n";
     char *print_secret= "2\n";
-    char *exit= "11\n";
+    char *cgc_exit= "11\n";
 
-    transmit_all(STDOUT, setup_m1, strlen(setup_m1));
-    transmit_all(STDOUT, setup_m2, strlen(setup_m2));
-    transmit_all(STDOUT, multiply, strlen(multiply));
-    transmit_all(STDOUT, gen_random, strlen(gen_random));
-    transmit_all(STDOUT, print_secret, strlen(print_secret));
-    transmit_all(STDOUT, exit, strlen(exit));
+    transmit_all(STDOUT, setup_m1, cgc_strlen(setup_m1));
+    transmit_all(STDOUT, setup_m2, cgc_strlen(setup_m2));
+    transmit_all(STDOUT, multiply, cgc_strlen(multiply));
+    transmit_all(STDOUT, gen_random, cgc_strlen(gen_random));
+    transmit_all(STDOUT, print_secret, cgc_strlen(print_secret));
+    transmit_all(STDOUT, cgc_exit, cgc_strlen(cgc_exit));
 
     unsigned char buf[64];
-    memset(buf, 0, 64);
+    cgc_memset(buf, 0, 64);
 
     int i;
     for (i = 0; i < 2780; i++)

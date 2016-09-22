@@ -61,7 +61,7 @@ void print_main_menu()
 int is_alphanum(const char *s)
 {
     int i;
-    for (i = 0; i < strlen(s) - 1; ++i)
+    for (i = 0; i < cgc_strlen(s) - 1; ++i)
     {
         if (!isalnum(s[i]))
             return 0;
@@ -409,7 +409,7 @@ void handle_quit()
 {
     printf("Bye.\n");
     fflush(stdout);
-    exit(0);
+    cgc_exit(0);
 }
 
 void do_random_action(ctf_t *ctf)

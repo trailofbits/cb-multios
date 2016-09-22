@@ -53,7 +53,7 @@ void xpk_reset(xpk_ctx_t *ctx, size_t size)
 {
     if (_xpk_resize(ctx, size) == 0)
     {
-        memset(ctx->buf, 0, ctx->len);
+        cgc_memset(ctx->buf, 0, ctx->len);
         ctx->idx = 0;
     }
 }
@@ -216,7 +216,7 @@ xpk_err xpk_write(xpk_ctx_t *ctx, const char *in, size_t len)
 {
     if (ctx->idx + len <= ctx->len || _xpk_resize(ctx, ctx->len * 2) == 0)
     {
-        memcpy(&ctx->buf[ctx->idx], in, len);
+        cgc_memcpy(&ctx->buf[ctx->idx], in, len);
         ctx->idx += len;
         return XPK_ERR_NONE;
     }
@@ -227,7 +227,7 @@ xpk_err xpk_read(xpk_ctx_t *ctx, char *out, size_t len)
 {
     if (ctx->idx + len <= ctx->len)
     {
-        memcpy(out, &ctx->buf[ctx->idx], len);
+        cgc_memcpy(out, &ctx->buf[ctx->idx], len);
         ctx->idx += len;
         return XPK_ERR_NONE;
     }
@@ -238,7 +238,7 @@ xpk_err xpk_peek(xpk_ctx_t *ctx, char *out, size_t len)
 {
     if (ctx->idx + len > ctx->len)
         return XPK_ERR_INTERNAL;
-    memcpy(out, &ctx->buf[ctx->idx], len);
+    cgc_memcpy(out, &ctx->buf[ctx->idx], len);
     return XPK_ERR_NONE;
 }
 
@@ -325,7 +325,7 @@ xpk_err xpk_pack_str(xpk_ctx_t *ctx, const char *str)
 {
     xpk_err err = XPK_ERR_NONE;
 
-    size_t len_b, len = strlen(str);
+    size_t len_b, len = cgc_strlen(str);
     if (len <= 0x1F)
     {
         uint8_t val = XPK_FIXSTRING | len;

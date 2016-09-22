@@ -148,7 +148,7 @@ static int _GatherTerminals(trie* Trie, trie*** Terminals, size_t* TerminalCount
     if (*TerminalCount == *TerminalMax)
     {
       trie** NewTerminals = xcalloc(sizeof(trie*), 2 * *TerminalMax);
-      memcpy(NewTerminals, *Terminals, *TerminalMax * sizeof(trie *));
+      cgc_memcpy(NewTerminals, *Terminals, *TerminalMax * sizeof(trie *));
       *TerminalMax = *TerminalMax * 2;
       free(*Terminals);
       *Terminals = NewTerminals;

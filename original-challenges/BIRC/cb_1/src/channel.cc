@@ -30,7 +30,7 @@
 Channel::Channel(const char *name, int name_length, User *creator)
     : admins_(ARRAY_LEN), users_(ARRAY_LEN), banned_users_(ARRAY_LEN), messages_(ARRAY_LEN) {
     name_length_ = name_length < MAX_LENGTH ? name_length : MAX_LENGTH;
-    memcpy(name_, name, name_length);
+    cgc_memcpy(name_, name, name_length);
     name_length_ = name_length;
     creator_ = creator;
     AddUserToChannel(creator_);

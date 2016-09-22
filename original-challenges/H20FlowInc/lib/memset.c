@@ -22,7 +22,7 @@
 #include "memset.h"
 
 // overwrites the first n chars of str with char ch.
-void * memset(void* str, int ch, unsigned int n) {
+void * cgc_memset(void* str, int ch, unsigned int n) {
     char *ch_ptr = (char*)str;
     while (n > 0) {
         *ch_ptr = (char)ch;

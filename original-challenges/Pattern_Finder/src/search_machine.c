@@ -57,7 +57,7 @@ int InitializeSearchMachine(search_machine* SearchMachine, trie* Trie)
   {
     SearchMachine->Goto[TrieIndex] = xcalloc(sizeof(trie*), UNIT_CARDINALITY);
     trie* TrieToCopy = FindInTrieByIdentifier(Trie, TrieIndex);
-    memcpy(SearchMachine->Goto[TrieIndex], TrieToCopy->Children, sizeof(trie*) * UNIT_CARDINALITY);
+    cgc_memcpy(SearchMachine->Goto[TrieIndex], TrieToCopy->Children, sizeof(trie*) * UNIT_CARDINALITY);
   }
 
   // g(ROOT, a) := ROOT forall a in SIGMA where a doesn't leave ROOT
@@ -140,7 +140,7 @@ match* FindMatches(search_machine *SearchMachine, trie_unit* Data, size_t DataSi
         size_t NewMaxMatches = MaxMatches * 2 + 1;
         Assert(NewMaxMatches > MaxMatches, "MATCH");
         match* NewMatches = xcalloc(sizeof(match), NewMaxMatches);
-        memcpy(NewMatches, Matches, sizeof(match) * MaxMatches);
+        cgc_memcpy(NewMatches, Matches, sizeof(match) * MaxMatches);
         MaxMatches = NewMaxMatches;
         free(Matches);
         Matches = NewMatches;

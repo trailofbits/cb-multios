@@ -280,7 +280,7 @@ bool CommandHandler::CmdDownloadDiveData( void )
     ReadUint32( depth );
     pNewDive->AddDiveBin( timeval, depth );
 
-    // Get remaining samples (exit on timeval of 0)
+    // Get remaining samples (cgc_exit on timeval of 0)
     for (;;)
     {
         ReadUint32( timeval );
@@ -651,7 +651,7 @@ bool CommandHandler::CmdDiverStatistics( void )
 
 bool CommandHandler::CmdExitApplication( void )
 {
-    // Return true to exit application
+    // Return true to cgc_exit application
     return (true);
 }
 

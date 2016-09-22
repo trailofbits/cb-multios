@@ -97,7 +97,7 @@ int main(void) {
   ReceiveFromCB(input, 10);
   char bytes[55] = "ish hostname +p password +l username dump 1128775680 \n";
   //print_integer(bytes + 42, t2vals.region_addr);
-  SendToCB(bytes, strlen(bytes));
+  SendToCB(bytes, cgc_strlen(bytes));
   unsigned int i = 0xffffffff;
   SendToCB("quit\n", 5);
   ReceiveFromCB((char *)&i, 4);

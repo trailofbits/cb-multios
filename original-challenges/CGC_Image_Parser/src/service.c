@@ -24,9 +24,9 @@ THE SOFTWARE.
 #include "service.h"
 
 /**
- * Reads two bytes from a user which specify length to read.
+ * Reads two bytes from a user which specify length to cgc_read.
  * If that length is less than 4096 then allocate a buffer and
- * read the specified size.
+ * cgc_read the specified size.
  * @param data Pointer to a char *that will receive the newly allocated buffer. Null on failure
  * @return Returns the length of the new buffer. Zero length on failure and the pointer is set to NULL
  **/
@@ -93,10 +93,10 @@ int selectRenderer( pimage_meta img )
 	image = img->data;
 	image_length = img->len;
 
-	memcpy( &magic, image, 4 );
+	cgc_memcpy( &magic, image, 4 );
 
 	if ( magic == FPAI_MAGIC ) {
-		memset( &fpai, 0, sizeof(tpai_image_data) );
+		cgc_memset( &fpai, 0, sizeof(tpai_image_data) );
 		fpai.buffer = image;
 		fpai.max = image_length;
 
@@ -104,7 +104,7 @@ int selectRenderer( pimage_meta img )
 			return 0;
 		}
 	} else if ( magic == 0x85eec724 ) { /// FPTI 
-		memset( &fpti, 0, sizeof(fpti_image_data) );
+		cgc_memset( &fpti, 0, sizeof(fpti_image_data) );
 		fpti.buffer = image;
 		fpti.max = image_length;
 
@@ -112,7 +112,7 @@ int selectRenderer( pimage_meta img )
 			return 0;
 		}
 	} else if ( magic == RPTI_MAGIC ) {
-		memset( &rpti, 0, sizeof(rpti_image_data) );
+		cgc_memset( &rpti, 0, sizeof(rpti_image_data) );
 		rpti.buffer = image;
 		rpti.max = image_length;
 
@@ -120,7 +120,7 @@ int selectRenderer( pimage_meta img )
 			return 0;
 		}
 	} else if ( magic == 0x76dfc4b0 ) { /// TBIR_MAGIC
-		memset( &tbir, 0, sizeof(tbir_image_data) );
+		cgc_memset( &tbir, 0, sizeof(tbir_image_data) );
 		tbir.buffer = image;
 		tbir.max = image_length;
 
@@ -128,7 +128,7 @@ int selectRenderer( pimage_meta img )
 			return 0;
 		}
 	} else if ( magic == 0x310f59cb ) { /// TPAI_MAGIC
-		memset( &tpai, 0, sizeof(tpai_image_data) );
+		cgc_memset( &tpai, 0, sizeof(tpai_image_data) );
 		tpai.buffer = image;
 		tpai.max = image_length;
 
@@ -167,7 +167,7 @@ int menu( void )
 		selection = 0;
 
 		if ( receive_until( (char*)&selection, '\n', 2 ) == 0 ) {
-			printf("[ERROR] Failed to read choice\n");
+			printf("[ERROR] Failed to cgc_read choice\n");
 			return 0;
 		}
 
@@ -181,7 +181,7 @@ int menu( void )
 					return 0;
 				}
 
-				memset( newimage, 0x00, sizeof(image_meta) );
+				cgc_memset( newimage, 0x00, sizeof(image_meta) );
 
 				/// Receive the name
 				printf("Image Name: ");
@@ -311,7 +311,7 @@ int main(void)
 	image_length = readData( &image );
 
 	if ( image_length == 0 ) {
-		printf("[ERROR] Failed to read image\n");
+		printf("[ERROR] Failed to cgc_read image\n");
 		return 0;
 	}
 

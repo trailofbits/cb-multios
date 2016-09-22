@@ -29,8 +29,8 @@
 Emulator::Emulator(void *sp, void *heap)
     : d_stack((unsigned char *)sp), d_heap((unsigned char *)heap)
 {
-    memset(d_reg, 0, sizeof(d_reg));
-    memset(d_dirty_pages, 0, sizeof(d_dirty_pages));
+    cgc_memset(d_reg, 0, sizeof(d_reg));
+    cgc_memset(d_dirty_pages, 0, sizeof(d_dirty_pages));
     d_reg[REG_sp] = (int)sp + STACK_SIZE;
     d_zf = 0;
     d_cf = 0;
@@ -44,13 +44,13 @@ void Emulator::reset()
 {
     // Clear heap and stack memory
     traverse_dirty([this] (int mem) {
-        memset(d_heap + mem, 0, 0x1000);
+        cgc_memset(d_heap + mem, 0, 0x1000);
     });
-    memset(d_stack, 0, STACK_SIZE);
+    cgc_memset(d_stack, 0, STACK_SIZE);
 
     // Reset registers
-    memset(d_reg, 0, sizeof(d_reg));
-    memset(d_dirty_pages, 0, sizeof(d_dirty_pages));
+    cgc_memset(d_reg, 0, sizeof(d_reg));
+    cgc_memset(d_dirty_pages, 0, sizeof(d_dirty_pages));
     d_reg[REG_sp] = (int)d_stack + STACK_SIZE;
     d_zf = 0;
     d_cf = 0;

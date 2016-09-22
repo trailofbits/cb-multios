@@ -40,7 +40,7 @@ struct service services[] = {
 void send_string(int fd, char *str) {
     size_t size = 0;
     if (str != NULL) {
-        size = strlen(str);
+        size = cgc_strlen(str);
     }
 
     transmit_all(fd, (char *) &size, sizeof(size));
@@ -54,7 +54,7 @@ void config_service(int service_id) {
     int err;
 
     if (services[service_id].has_config) {
-        memset(buf, 0, sizeof(buf));
+        cgc_memset(buf, 0, sizeof(buf));
         printf(STDOUT, "How do you want to configure '%s'?\n", services[service_id].name);
 
         err = read_until(STDIN, buf, sizeof(buf), '\n');
@@ -73,7 +73,7 @@ void send_config(int service_id) {
 }
 
 void send_service_fd(int service_id, int new_stdin, int new_stdout) {
-    printf(STDOUT, "Setting %s to read from %u and write to %u (via %u)\n", services[service_id].name, new_stdin, new_stdout, services[service_id].read_fd - 1);
+    printf(STDOUT, "Setting %s to cgc_read from %u and cgc_write to %u (via %u)\n", services[service_id].name, new_stdin, new_stdout, services[service_id].read_fd - 1);
     
     if (transmit_all(services[service_id].read_fd - 1, (char *)&new_stdout, sizeof(new_stdout)) == 0)
         return;
@@ -143,7 +143,7 @@ void terminate_service(int id) {
     send_service_fd(id, 0xFFFF, 0xFFFF);
 }
 
-void exit(int ret_code) {
+void cgc_exit(int ret_code) {
     int i;
     for (i = 0; services[i].name != NULL; i++) {
         terminate_service(i);
@@ -169,7 +169,7 @@ int enable_services(int service_count) {
 
         printf(STDOUT, "] (Enter an empty line to stop configuration)\n");
 
-        memset(buf, 0, sizeof(buf));
+        cgc_memset(buf, 0, sizeof(buf));
         err = read_until(STDIN, buf, sizeof(buf), '\n');
         if (buf[0] == 0)
             break;
@@ -178,12 +178,12 @@ int enable_services(int service_count) {
             current_id = buf[0] - '0';
         } else {
             printf(STDOUT, "Invalid function! %u\n", buf[0]);
-            exit(3);
+            cgc_exit(3);
         }
 
         if (services[current_id].configured) {
             printf(STDOUT, "this function is already included in the pipeline!\n");
-            exit(4);
+            cgc_exit(4);
         }
 
         services[current_id].configured = 1;
@@ -218,7 +218,7 @@ void setup_output(int enabled_count) {
 
 void terminate_unused(int service_count) {
     int i;
-    /* cause the servicse that are not to be setup to exit */
+    /* cause the servicse that are not to be setup to cgc_exit */
     for (i = 0; i < service_count; i++) {
         if (services[i].configured == 0) {
             terminate_service(i);
@@ -237,7 +237,7 @@ int main(void) {
 
     if (enabled_count == 0) {
         printf(STDOUT, "no functions configured.\n");
-        exit(5);
+        cgc_exit(5);
     }
 
     terminate_unused(service_count);

@@ -25,7 +25,7 @@
 
 char *strndup(const char *s1, size_t n)
 {
-  size_t len = strlen(s1);
+  size_t len = cgc_strlen(s1);
   if (len > n)
     len = n;
 
@@ -33,7 +33,7 @@ char *strndup(const char *s1, size_t n)
   if (!cpy)
     return NULL;
 
-  memcpy(cpy, s1, len);
+  cgc_memcpy(cpy, s1, len);
   cpy[len] = '\0';
 
   return cpy;

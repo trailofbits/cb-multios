@@ -124,7 +124,7 @@ void removeMap(Map **map, char* key) {
 	else
 		prev_map_ptr->next = map_ptr->next;
 
-	memset(map_ptr->key, 0, MAX_KEY_SIZE+1);
+	cgc_memset(map_ptr->key, 0, MAX_KEY_SIZE+1);
 	map_ptr->value = 0;
 	map_ptr->next = 0;
 

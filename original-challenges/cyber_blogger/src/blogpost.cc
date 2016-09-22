@@ -36,7 +36,7 @@ BlogPost::BlogPost(User *user, char *_title)
 {
     owner = user;
     strcpy(title, _title);
-    memset(post_order, 0, sizeof(post_order));
+    cgc_memset(post_order, 0, sizeof(post_order));
     total_views = 0;
 }
 
@@ -52,7 +52,7 @@ char *BlogPost::get_title()
 
 bool BlogPost::add_text_block(char *text)
 {
-    size_t len = strlen(post_order);
+    size_t len = cgc_strlen(post_order);
     if (!text || !*text) {
         printf("Can't add empty text\n");
         return false;
@@ -76,7 +76,7 @@ bool BlogPost::add_file(File *file)
         return false;
     }
 
-    len = strlen(post_order);
+    len = cgc_strlen(post_order);
     if (len >= sizeof(post_order)) {
         printf("Post is too big\n");
         return false;
@@ -107,7 +107,7 @@ void BlogPost::print_post()
     File *file;
 
     printf("---%s---\n", title);
-    for(size_t i = 0; i < strlen(post_order); i++) {
+    for(size_t i = 0; i < cgc_strlen(post_order); i++) {
         switch(post_order[i]) {
         case 't':
             printf("%s\n", text_blocks[text_idx++]); break;

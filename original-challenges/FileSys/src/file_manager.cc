@@ -28,7 +28,7 @@ FileManager::FileManager()
   numFiles = 0;
   numOpenedFiles = 0;
   rootDir = new File("/", File::FT_DIR, 0, 0);
-  memset(openedFiles, 0, sizeof(openedFiles));
+  cgc_memset(openedFiles, 0, sizeof(openedFiles));
   cwd = rootDir;
 }
 
@@ -84,7 +84,7 @@ int FileManager::CreateFile(const char* name)
   List<File *> *files = cwd->GetFiles();
   if (!files)
     return -2;
-  if (strlen(name) > 255)
+  if (cgc_strlen(name) > 255)
     return -4;
   if (!strcmp(name, ".") || !strcmp(name, "..") || !strcmp(name, "/"))
     return -3;
@@ -108,7 +108,7 @@ int FileManager::CreateDirectory(const char* name)
   List<File *> *files = cwd->GetFiles();
   if (!files)
     return -2;
-  if (strlen(name) > 255)
+  if (cgc_strlen(name) > 255)
     return -4;
   if (!strcmp(name, ".") || !strcmp(name, "..") || !strcmp(name, "/"))
     return -3;

@@ -35,13 +35,13 @@ BrcCommand::BrcCommand(const char *username, const char *cmd, unsigned short use
     set_token();
 
     char *pdata = raw_data_ + token_length();
-    memcpy(pdata, &username_length, sizeof(username_length));
+    cgc_memcpy(pdata, &username_length, sizeof(username_length));
     pdata += sizeof(username_length);
-    memcpy(pdata, &cmd_length, sizeof(cmd_length));
+    cgc_memcpy(pdata, &cmd_length, sizeof(cmd_length));
     pdata += sizeof(cmd_length);
-    memcpy(pdata, username, username_length);
+    cgc_memcpy(pdata, username, username_length);
     pdata += username_length;
-    memcpy(pdata, cmd, cmd_length);
+    cgc_memcpy(pdata, cmd, cmd_length);
 }
 
 BrcCommand::~BrcCommand() {

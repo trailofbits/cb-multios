@@ -191,7 +191,7 @@ int input_matrix(matrix_t *m, char *buf, int buf_size)
     int number_count = 1;
     int i, j;
 
-    for (i = 0; i < strlen(buf); i++)
+    for (i = 0; i < cgc_strlen(buf); i++)
     {
         if (buf[i] == ' ')
             number_count++;
@@ -369,9 +369,9 @@ int main(void)
             printf("Inputting Matrix Values:\n");
             m = choose_matrix(m1, m2, input, LINE_SIZE);
             if (!m)
-                goto exit;
+                goto cgc_exit;
             if (input_matrix(m, input, LINE_SIZE) == ERROR)
-                goto exit;
+                goto cgc_exit;
             break;
         case 2:
             printf("Print Matrices:\n");
@@ -393,10 +393,10 @@ int main(void)
             printf("Swap Rows in a  Matrix:\n");
             m = choose_matrix(m1, m2, input, LINE_SIZE);
             if (!m)
-                goto exit;
+                goto cgc_exit;
             retval = swap_matrix_row_col(m, SWAP_ROW, input, LINE_SIZE);
             if (retval == ERROR)
-                goto exit;
+                goto cgc_exit;
             if (retval == SUCCESS)
                 print_matrix("Swapped Rows", m);
             break;
@@ -404,10 +404,10 @@ int main(void)
             printf("Swap Columns in a  Matrix:\n");
             m = choose_matrix(m1, m2, input, LINE_SIZE);
             if (!m)
-                goto exit;
+                goto cgc_exit;
             retval = swap_matrix_row_col(m, SWAP_COL, input, LINE_SIZE);
             if (retval == ERROR)
-                goto exit;
+                goto cgc_exit;
             if (retval == SUCCESS)
                 print_matrix("Swapped Columns", m);
             break;
@@ -415,32 +415,32 @@ int main(void)
             printf("Transpose a Matrix:\n");
             m = choose_matrix(m1, m2, input, LINE_SIZE);
             if (!m)
-                goto exit;
+                goto cgc_exit;
             transpose_matrix(m);
             break;
         case 9:
             printf("Perform Reduced Row Echelon Form on Matrix\n");
             m = choose_matrix(m1, m2, input, LINE_SIZE);
             if (!m)
-                goto exit;
+                goto cgc_exit;
             rref_matrix(m, m_result);
             break;
         case 10:
             printf("Create a Random Matrix:\n");
             m = choose_matrix(m1, m2, input, LINE_SIZE);
             if (!m)
-                goto exit;
+                goto cgc_exit;
             if (random_matrix(m, input, LINE_SIZE, prandom_data) == ERROR)
-                goto exit;
+                goto cgc_exit;
             break;
         case 11:
-            goto exit;
+            goto cgc_exit;
         default:
             printf("Bad Selection\n");
         }
     }
 
-exit:
+cgc_exit:
     printf("Exiting...\n");
     return 0;
 }

@@ -58,10 +58,10 @@ void image_destroy(struct image *img);
 /**
  * Write a pixel to the image at a specific coordinate
  *
- * @param img The image to write to
- * @param x The x coordinate to write to
- * @param y The y coordinate to write to
- * @param pixel The color to write
+ * @param img The image to cgc_write to
+ * @param x The x coordinate to cgc_write to
+ * @param y The y coordinate to cgc_write to
+ * @param pixel The color to cgc_write
  * @return EXIT_SUCCESS on success, EXIT_FAILURE on failure
  */
 int image_write_pixel(struct image *img, unsigned x, unsigned y, struct pixel pixel);
@@ -69,9 +69,9 @@ int image_write_pixel(struct image *img, unsigned x, unsigned y, struct pixel pi
 /**
  * Get a pixel from the image at a specific coordinate
  *
- * @param img The image to read from
- * @param x The x coordinate to read from
- * @param y The y coordinate to read from
+ * @param img The image to cgc_read from
+ * @param x The x coordinate to cgc_read from
+ * @param y The y coordinate to cgc_read from
  * @param pixel Out parameter for the color
  * @return EXIT_SUCCESS on success, EXIT_FAILURE on failure
  */

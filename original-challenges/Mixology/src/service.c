@@ -64,7 +64,7 @@ int main(void) {
             if(cmd_func == NULL)
                 _terminate(10);
             // after tokenized
-            int args_offset = strlen(cmd_buf);
+            int args_offset = cgc_strlen(cmd_buf);
             if(args_offset > MAX_LINE_SZ)
                 _terminate(14);
 

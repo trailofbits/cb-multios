@@ -54,7 +54,7 @@ int32_t GetSimLength(void) {
         while (SIM_TIME <= 0.0) {
                 printf("For how long would you like to run the simulation? (s): ");
                 if (read_until(buf, "\n", 99) == -1) {
-                        // failed to read the input
+                        // failed to cgc_read the input
                         return(-1);
                 }
 		SIM_TIME = cgcatof(buf);

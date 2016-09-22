@@ -48,13 +48,13 @@ void AddToData(CGCMB_Data *data, uint8_t *source, uint32_t count)
   {
     data->data = calloc(count);
     data->count = count;
-    memcpy(data->data, source, count);
+    cgc_memcpy(data->data, source, count);
   } 
   else 
   { 
     uint8_t *newdata = calloc(data->count + count);
-    memcpy(newdata, data->data, data->count);
-    memcpy(newdata + data->count, source, count);
+    cgc_memcpy(newdata, data->data, data->count);
+    cgc_memcpy(newdata + data->count, source, count);
     data->count += count;
     free(data->data);
     data->data = newdata;
@@ -152,7 +152,7 @@ int ReadFromData(uint8_t *dest, CGCMB_Data *source, uint32_t length)
   {
     return -1;
   }
-  memcpy(dest, source->data + source->currentOffset, length);
+  cgc_memcpy(dest, source->data + source->currentOffset, length);
   source->currentOffset += length;
   return 0;
 }
@@ -990,20 +990,20 @@ void TransmitCGCMBMessage(CGCMB_Message *mbMessage)
   }
   tpMessage->data = calloc(tpMessage->size);
   uint8_t *pdata = tpMessage->data;
-  memcpy(pdata, &mbMessage->header->protocol, sizeof(mbMessage->header->protocol)); pdata += sizeof(mbMessage->header->protocol);
-  memcpy(pdata, &mbMessage->header->command, sizeof(mbMessage->header->command)); pdata += sizeof(mbMessage->header->command);
-  memcpy(pdata, &mbMessage->header->status, sizeof(mbMessage->header->status)); pdata += sizeof(mbMessage->header->status);
-  memcpy(pdata, &mbMessage->header->flags, sizeof(mbMessage->header->flags)); pdata += sizeof(mbMessage->header->flags);
-  memcpy(pdata, mbMessage->header->security, sizeof(mbMessage->header->security)); pdata += sizeof(mbMessage->header->security);
-  memcpy(pdata, &mbMessage->parameters->count, sizeof(mbMessage->parameters->count)); pdata += sizeof(mbMessage->parameters->count);
+  cgc_memcpy(pdata, &mbMessage->header->protocol, sizeof(mbMessage->header->protocol)); pdata += sizeof(mbMessage->header->protocol);
+  cgc_memcpy(pdata, &mbMessage->header->command, sizeof(mbMessage->header->command)); pdata += sizeof(mbMessage->header->command);
+  cgc_memcpy(pdata, &mbMessage->header->status, sizeof(mbMessage->header->status)); pdata += sizeof(mbMessage->header->status);
+  cgc_memcpy(pdata, &mbMessage->header->flags, sizeof(mbMessage->header->flags)); pdata += sizeof(mbMessage->header->flags);
+  cgc_memcpy(pdata, mbMessage->header->security, sizeof(mbMessage->header->security)); pdata += sizeof(mbMessage->header->security);
+  cgc_memcpy(pdata, &mbMessage->parameters->count, sizeof(mbMessage->parameters->count)); pdata += sizeof(mbMessage->parameters->count);
   if (mbMessage->parameters->count > 0)
   {
-    memcpy(pdata, mbMessage->parameters->data, mbMessage->parameters->count); pdata += mbMessage->parameters->count;
+    cgc_memcpy(pdata, mbMessage->parameters->data, mbMessage->parameters->count); pdata += mbMessage->parameters->count;
   }
-  memcpy(pdata, &mbMessage->data->count, sizeof(mbMessage->data->count)); pdata += sizeof(mbMessage->data->count);
+  cgc_memcpy(pdata, &mbMessage->data->count, sizeof(mbMessage->data->count)); pdata += sizeof(mbMessage->data->count);
   if (mbMessage->data->count > 0)
   {
-    memcpy(pdata, mbMessage->data->data, mbMessage->data->count); pdata += mbMessage->data->count;
+    cgc_memcpy(pdata, mbMessage->data->data, mbMessage->data->count); pdata += mbMessage->data->count;
   }
 
   SendTransportMessage(tpMessage);

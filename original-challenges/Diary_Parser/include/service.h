@@ -57,7 +57,7 @@ typedef struct
 	/* owned by chapter */
 	uint8_t entry;						// what type of entry is this? name, birth date
 	uint8_t format;						// format of offset_data
-	uint8_t len; // # bytes read from data_offset. if 0, data IS the data_offset value, of type 'format'
+	uint8_t len; // # bytes cgc_read from data_offset. if 0, data IS the data_offset value, of type 'format'
 	uint16_t offset_data;				// either holds data or an offset to the data
 	uint16_t offset_next_entry;			// file offset to next entry
 }Entry;
@@ -89,7 +89,7 @@ Entry_Info* entry_info_table[MAX_NUM_ENTRIES][MAX_ENTRY_PER_TITLE];
 Entry_Info* sub_entry_info_list[MAX_NUM_ENTRIES][MAX_ENTRY_PER_TITLE];
 
 uint8_t required_entries[MAX_ENTRY_PER_TITLE];  // store all required entries for this chapter, to be ticked off as they are received
-uint8_t prev_read_entries[MAX_ENTRY_PER_TITLE]; // keep track of which entries have been read in this chapter
+uint8_t prev_read_entries[MAX_ENTRY_PER_TITLE]; // keep track of which entries have been cgc_read in this chapter
 
 int8_t successful[5];
 uint16_t success_info[5][2];

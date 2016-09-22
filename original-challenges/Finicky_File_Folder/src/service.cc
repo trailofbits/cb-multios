@@ -32,7 +32,7 @@
 #endif
 #define err(s, ...) ({ \
     fprintf(stderr, "ERROR:\t" s "\n", ##__VA_ARGS__); \
-    exit(1); \
+    cgc_exit(1); \
 })
 #define assert(__x) ({ \
     if (!(__x)) err("failed assertion"); \
@@ -177,7 +177,7 @@ class Buffer
         return -1;
       }
 
-      memcpy(data + offset, bytes, len);
+      cgc_memcpy(data + offset, bytes, len);
       if (BUFFER_SZ - offset - len < left_)
       {
         left_ = BUFFER_SZ - offset - len;
@@ -293,7 +293,7 @@ class Chunk
     {
       len_ = len;
       bytes_ = (uint8_t*)calloc(sizeof(uint8_t), len);
-      memcpy(bytes_, bytes, len);
+      cgc_memcpy(bytes_, bytes, len);
     }
 
     ~Chunk(void)
@@ -366,7 +366,7 @@ class BytesReader
       else
       {
         ret = new uint8_t(len + 1);
-        memcpy(ret, (*chunk_)[index_], len);
+        cgc_memcpy(ret, (*chunk_)[index_], len);
         ret[len] = '\x00';
       }
 
@@ -408,7 +408,7 @@ class Response
         return -1;
       }
 
-      memcpy(Bytes + Length, bytes, len);
+      cgc_memcpy(Bytes + Length, bytes, len);
       Length += len;
 
       return 0;
@@ -471,12 +471,12 @@ class Pathname
   public:
     Pathname(const char* pathname)
     {
-      size_ = strlen((char *)pathname);
+      size_ = cgc_strlen((char *)pathname);
       size_t i;
       size_t start;
 
       data_ = new uint8_t[size_ + 1];
-      memcpy(data_, pathname, size_);
+      cgc_memcpy(data_, pathname, size_);
       start = i = 0;
       for (;i < size_; ++i)
       {
@@ -506,7 +506,7 @@ class Pathname
     {
       Pair<size_t>* p =  components_->Get(index);
       char* cpy = new char[p->snd - p->fst + 1];
-      memcpy(cpy, data_ + p->fst, p->snd - p->fst);
+      cgc_memcpy(cpy, data_ + p->fst, p->snd - p->fst);
       cpy[p->snd - p->fst] = '\0';
       return cpy;
     }
@@ -514,7 +514,7 @@ class Pathname
     char* AsString(void)
     {
       char* s = new char[size_ + 1];
-      memcpy(s, data_, size_);
+      cgc_memcpy(s, data_, size_);
       s[size_] = '\0';
       return s;
     }
@@ -631,7 +631,7 @@ class File
           cpy = min(len, BUFFER_SZ - (offset % BUFFER_SZ));
           if (bufp->SetContents(bytes + cnt, offset % BUFFER_SZ, cpy) != 0)
           {
-            err("Bad buffer write");
+            err("Bad buffer cgc_write");
           }
         }
         else
@@ -639,7 +639,7 @@ class File
           cpy = min((len - cnt), BUFFER_SZ);
           if (bufp->SetContents(bytes + cnt, 0, cpy) != 0)
           {
-            err("Bad buffer write");
+            err("Bad buffer cgc_write");
           }
         }
 
@@ -674,10 +674,10 @@ class File
         if (offset && buf == (offset / BUFFER_SZ))
         {
           cpy = min(len, BUFFER_SZ - (offset % BUFFER_SZ));
-          memcpy(bytes + cnt, bufp->data + (offset % BUFFER_SZ), cpy);
+          cgc_memcpy(bytes + cnt, bufp->data + (offset % BUFFER_SZ), cpy);
         } else {
           cpy = min((len - cnt), BUFFER_SZ);
-          memcpy(bytes + cnt, bufp->data, cpy);
+          cgc_memcpy(bytes + cnt, bufp->data, cpy);
         }
 
         cnt += cpy;
@@ -801,7 +801,7 @@ class FileHandle
   {
     if (file_.Read(bytes, offset_, len) != 0)
     {
-      err("Bad fh read");
+      err("Bad fh cgc_read");
     }
 
     offset_ += len;
@@ -822,7 +822,7 @@ class FileHandle
 
     if (file_.Write(bytes, offset_, len) != 0)
     {
-      err("Bad fh write");
+      err("Bad fh cgc_write");
     }
 
     offset_ += len;

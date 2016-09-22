@@ -83,7 +83,7 @@ void CNORFlash::Init( uint32_t blockSize, uint32_t blocksPerSector, uint32_t sec
 		_terminate( -1 );	// Allocate failed
 
 	// Flash memory -- erase to all 1's
-	memset( m_pFlashMemory, 0xFF, memorySize );
+	cgc_memset( m_pFlashMemory, 0xFF, memorySize );
 }
 
 int32_t CNORFlash::WriteData( uint32_t address, uint8_t *pData, uint32_t dataLen )
@@ -96,7 +96,7 @@ int32_t CNORFlash::WriteData( uint32_t address, uint8_t *pData, uint32_t dataLen
 	if ( (address+dataLen) > memorySize )
 		return (FLASH_INVALID_ADDRESS);
 
-	// Simulate a write to flash -- IE: we can only set bits to 0 -- they cannot be reset to 1
+	// Simulate a cgc_write to flash -- IE: we can only set bits to 0 -- they cannot be reset to 1
 	uint32_t curPos = 0;	
 	while ( dataLen > 0 )
 	{
@@ -120,7 +120,7 @@ int32_t CNORFlash::ReadData( uint32_t address, uint8_t *pData, uint32_t dataLen 
 	if ( (address+dataLen) > memorySize )
 		return (FLASH_INVALID_ADDRESS);
 
-	// Simulate a write to flash -- IE: we can only set bits to 0 -- they cannot be reset to 1
+	// Simulate a cgc_write to flash -- IE: we can only set bits to 0 -- they cannot be reset to 1
 	uint32_t curPos = 0;	
 	while ( dataLen > 0 )
 	{
@@ -139,7 +139,7 @@ int32_t CNORFlash::DeviceErase( void )
 	uint32_t memorySize = (m_blockSize * m_blocksPerSector * m_sectorCount);
 
 	// Flash memory -- erase to all 1's
-	memset( m_pFlashMemory, 0xFF, memorySize );
+	cgc_memset( m_pFlashMemory, 0xFF, memorySize );
 
 	return (FLASH_SUCCESS);
 }
@@ -155,7 +155,7 @@ int32_t CNORFlash::SectorErase( uint32_t sectorNum )
 	uint32_t sectorAddress = (sectorSize * sectorNum);
 
 	// Erase sector (All 1's)
-	memset( (m_pFlashMemory+sectorAddress), 0xFF, sectorSize );	
+	cgc_memset( (m_pFlashMemory+sectorAddress), 0xFF, sectorSize );	
 
 	return (FLASH_SUCCESS);
 }
@@ -168,7 +168,7 @@ int32_t CNORFlash::BlockErase( uint32_t blockNum )
 		return (FLASH_INVALID_BLOCK);
 
 	// Erase block (All 1's)
-	memset( (m_pFlashMemory+(m_blockSize*blockNum)), 0xFF, m_blockSize );
+	cgc_memset( (m_pFlashMemory+(m_blockSize*blockNum)), 0xFF, m_blockSize );
 
 	return (FLASH_SUCCESS);
 }

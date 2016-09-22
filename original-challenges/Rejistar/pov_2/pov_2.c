@@ -37,12 +37,12 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00000_len = 104;
       read_00000 = (unsigned char*)malloc(read_00000_len);
       int read_00000_res = length_read(0, read_00000, read_00000_len);
       if (read_00000_res) {} //silence unused variable warning
-      //**** read assign to var "TYPE2_VALUE" from pcre: Token=[0-9]{8};Expiration=[0-9]*;Use=AAAABBBBCCCCDDDDAAAABBBBCCCCD\?(.*)
+      //**** cgc_read assign to var "TYPE2_VALUE" from pcre: Token=[0-9]{8};Expiration=[0-9]*;Use=AAAABBBBCCCCDDDDAAAABBBBCCCCD\?(.*)
       static char read_00000_regex[] = 
          "\x54\x6f\x6b\x65\x6e\x3d\x5b\x30\x2d\x39\x5d\x7b\x38\x7d\x3b\x45"
          "\x78\x70\x69\x72\x61\x74\x69\x6f\x6e\x3d\x5b\x30\x2d\x39\x5d\x2a"

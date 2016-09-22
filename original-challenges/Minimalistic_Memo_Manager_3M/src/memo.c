@@ -33,7 +33,7 @@ memo_t* new_memo(memo_fn view_fn, memo_fn update_fn, memo_fn delete_fn)
   if ((memo = (memo_t *)malloc(sizeof(memo_t))) != NULL)
   {
     memo->id = -1;
-    memset(memo->subject, 0, sizeof(memo->subject));
+    cgc_memset(memo->subject, 0, sizeof(memo->subject));
     memo->date.year = 1970;
     memo->date.month = 1;
     memo->date.date = 1;
@@ -69,7 +69,7 @@ enum mresult_t default_view_memo(memo_t *memo)
         break;
     }
     printf("------------------------------\n");
-    size_t len = strlen(memo->body);
+    size_t len = cgc_strlen(memo->body);
     for (i = 0; i < len; ++i)
     {
       if (i % 29 == 0)
@@ -97,7 +97,7 @@ enum mresult_t default_update_memo(memo_t *o_memo)
     printf("subject? ");
     if ((bytes = read_until(STDIN, buf, MAX_MEMO_BODY, '\n')) < 0)
       goto fail;
-    if (strlen(buf) >= MAX_MEMO_SUBJECT)
+    if (cgc_strlen(buf) >= MAX_MEMO_SUBJECT)
       goto fail;
     if (buf[0] != '\0')
       strcpy(memo->subject, buf);
@@ -150,7 +150,7 @@ enum mresult_t default_update_memo(memo_t *o_memo)
 
     if (body[0] != '\0')
     {
-      char *new_body = realloc(memo->body, strlen(body) + 1);
+      char *new_body = realloc(memo->body, cgc_strlen(body) + 1);
       if (new_body == NULL)
         goto fail;
       memo->body = new_body;
@@ -166,8 +166,8 @@ enum mresult_t default_update_memo(memo_t *o_memo)
     if ((ret = validate_memo(memo)) != MRES_OK)
       goto fail;
 
-    memcpy(o_memo->subject, memo->subject, MAX_MEMO_SUBJECT);
-    memcpy(&o_memo->date, &memo->date, sizeof(memo->date));
+    cgc_memcpy(o_memo->subject, memo->subject, MAX_MEMO_SUBJECT);
+    cgc_memcpy(&o_memo->date, &memo->date, sizeof(memo->date));
 
     char *tmp = o_memo->body;
     o_memo->body = memo->body;
@@ -201,7 +201,7 @@ enum mresult_t validate_memo(memo_t *memo)
     int i;
     if (memo->id < 0 || memo->id >= MAX_MEMO_ID)
       return MRES_ERROR_MEMO_ID;
-    for (i = 0; i < strlen(memo->subject); ++i)
+    for (i = 0; i < cgc_strlen(memo->subject); ++i)
     {
       if (!isalnum(memo->subject[i]) && !isspace(memo->subject[i]))
         return MRES_ERROR_SUBJECT;
@@ -216,7 +216,7 @@ enum mresult_t validate_memo(memo_t *memo)
     if (memo->priority != PRI_LOW && memo->priority != PRI_NORMAL &&
         memo->priority != PRI_HIGH)
       return MRES_ERROR_PRIORITY;
-    size_t len = strlen(memo->body); // cache length
+    size_t len = cgc_strlen(memo->body); // cache length
     for (i = 0; i < len; ++i)
     {
       char c = memo->body[i];

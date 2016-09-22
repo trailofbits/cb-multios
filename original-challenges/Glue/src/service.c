@@ -62,8 +62,8 @@ void *xcalloc(size_t nmemb, size_t size)
   void* mem = calloc(nmemb, size);
   if (!mem)
   {
-    transmit(2, "calloc failed\n", strlen("calloc_failed\n"), NULL);
-    exit(1);
+    transmit(2, "calloc failed\n", cgc_strlen("calloc_failed\n"), NULL);
+    cgc_exit(1);
   }
 
   return mem;
@@ -129,9 +129,9 @@ size_t read_n(int fd, char* buf, size_t n, int* err)
 
 void reverse(char* s)
 {
-  char* tmp = xcalloc(strlen(s) + 1, 1);
+  char* tmp = xcalloc(cgc_strlen(s) + 1, 1);
   for (
-      int i = strlen(s) - 1, j = 0;
+      int i = cgc_strlen(s) - 1, j = 0;
       i >= 0;
       i--, j++
   )
@@ -258,22 +258,22 @@ glue_t* initialize(char* buf)
 
   glue_t* new = xcalloc(sizeof(glue_t), 1);
 
-  memcpy(new->f_name    , p, 100  ); p += 100;
-  memcpy(new->f_mode    , p, 8    ); p += 8;
-  memcpy(new->uid       , p, 8   ); p += 8;
-  memcpy(new->gid       , p, 8    ); p += 8;
-  memcpy(new->f_size    , p, 12   ); p += 12;
-  memcpy(new->mtime     , p, 12   ); p += 12;
-  memcpy(new->chk_sum   , p, 8    ); p += 8;
-  memcpy(new->type      , p, 1    ); p += 1;
-  memcpy(new->l_name    , p, 100  ); p += 100;
-  memcpy(new->indicator , p, 6    ); p += 6;
-  memcpy(new->version   , p, 2    ); p += 2;
-  memcpy(new->u_name    , p, 32   ); p += 32;
-  memcpy(new->g_name    , p, 32   ); p += 32;
-  memcpy(new->d_maj     , p, 8    ); p += 8;
-  memcpy(new->d_min     , p, 8    ); p += 8;
-  memcpy(new->f_prefix  , p, 100  ); p += 100;
+  cgc_memcpy(new->f_name    , p, 100  ); p += 100;
+  cgc_memcpy(new->f_mode    , p, 8    ); p += 8;
+  cgc_memcpy(new->uid       , p, 8   ); p += 8;
+  cgc_memcpy(new->gid       , p, 8    ); p += 8;
+  cgc_memcpy(new->f_size    , p, 12   ); p += 12;
+  cgc_memcpy(new->mtime     , p, 12   ); p += 12;
+  cgc_memcpy(new->chk_sum   , p, 8    ); p += 8;
+  cgc_memcpy(new->type      , p, 1    ); p += 1;
+  cgc_memcpy(new->l_name    , p, 100  ); p += 100;
+  cgc_memcpy(new->indicator , p, 6    ); p += 6;
+  cgc_memcpy(new->version   , p, 2    ); p += 2;
+  cgc_memcpy(new->u_name    , p, 32   ); p += 32;
+  cgc_memcpy(new->g_name    , p, 32   ); p += 32;
+  cgc_memcpy(new->d_maj     , p, 8    ); p += 8;
+  cgc_memcpy(new->d_min     , p, 8    ); p += 8;
+  cgc_memcpy(new->f_prefix  , p, 100  ); p += 100;
 
   return new;
 }

@@ -27,7 +27,7 @@
 
 void ftab_init1(freqtab_t *ftab)
 {
-    memset(ftab, 0, sizeof(freqtab_t));
+    cgc_memset(ftab, 0, sizeof(freqtab_t));
 }
 
 void ftab_init(freqtab_t *ftab, const char *word)

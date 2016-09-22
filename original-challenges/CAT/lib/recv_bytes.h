@@ -27,7 +27,7 @@
  * Reliably recv bytes.
  *
  * @param fd File descriptor where we will recv bytes.
- * @param buf Pointer to where we will write the bytes
+ * @param buf Pointer to where we will cgc_write the bytes
  * @param size The amount of bytes to recv.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */

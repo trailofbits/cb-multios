@@ -76,7 +76,7 @@ int recv_cards(struct card *r_cards[], uint8_t qty) {
 	int ret = 0;
 
 	// VULN:
-	// Need to allow enough data to be read in to reach
+	// Need to allow enough data to be cgc_read in to reach
 	// the vuln in parse_xml_cards. need min 5004 bytes
 	// because r_cards gets allocated adjacent to other
 	// heap allocations and can hold 624 card pointers

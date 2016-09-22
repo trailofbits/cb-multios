@@ -125,7 +125,7 @@ void * get_command_from_input(char *input){
 	if(possible_cmd == NULL)
 		return NULL;
 	for(int i = 0; i < NUM_CMDS; ++i){
-		if(memcmp(commands[i].cmd_name, possible_cmd, strlen(commands[i].cmd_name)) == 0 && commands[i].n_calls > 0){
+		if(memcmp(commands[i].cmd_name, possible_cmd, cgc_strlen(commands[i].cmd_name)) == 0 && commands[i].n_calls > 0){
 			commands[i].n_calls = commands[i].n_calls - 1;
 			return commands[i].cmd_func;
 		}
@@ -137,11 +137,11 @@ void * get_command_from_input(char *input){
 void copy_new_comp_name(mixed_compound_t *mc, char *newcomp){
 
 #ifndef PATCHED
-	memcpy(mc->compound_name, newcomp, MAX_NEW_CMPND_SZ);
+	cgc_memcpy(mc->compound_name, newcomp, MAX_NEW_CMPND_SZ);
 #endif
 
 #ifdef PATCHED
-	memcpy(mc->compound_name, newcomp, MAX_NEW_CMPND_SZ-1);
+	cgc_memcpy(mc->compound_name, newcomp, MAX_NEW_CMPND_SZ-1);
 #endif
 
 
@@ -159,14 +159,14 @@ char * gen_chem_name(mixed_compound_t *mc, compounds_sample_t *rcs){
 		chem_formula_t *cf = get_compound_by_idx(get_chem_ref_at_idx(rcs, i));
 		if(cf == NULL)
 			return NULL;
-		size_t cpsz = strlen(cf->compound_name);
+		size_t cpsz = cgc_strlen(cf->compound_name);
 		if(cpsz > block_sz)
 			cpsz = block_sz;
 		
-		memcpy(&(mc->compound_name[block_sz*i]), cf->compound_name, cpsz);
+		cgc_memcpy(&(mc->compound_name[block_sz*i]), cf->compound_name, cpsz);
 	}
 	char *outname = malloc(MAX_NEW_CMPND_SZ);
-	memcpy(outname, mc->compound_name, MAX_NEW_CMPND_SZ);
+	cgc_memcpy(outname, mc->compound_name, MAX_NEW_CMPND_SZ);
 
 	return outname;
 
@@ -232,29 +232,29 @@ int mix_cmd(char *args){
 
 	}
 	mc->moles = (unsigned int ) moles;
-	if(new_name == NULL || strlen(new_name) < 3) 
+	if(new_name == NULL || cgc_strlen(new_name) < 3) 
 		return CMDFAIL;
 	copy_new_comp_name(mc, new_name);
 
-	// todo replace strlen with MAX_NEW_CMPND_SZ in patch
+	// todo replace cgc_strlen with MAX_NEW_CMPND_SZ in patch
 	// this will fail as it overruns the malloc'd space as a result of hte overflow
 	char *outmsg = "New compound: ";
-	transmit_all(STDOUT, outmsg, strlen(outmsg));
+	transmit_all(STDOUT, outmsg, cgc_strlen(outmsg));
 
 	// this triggers the vuln if the compound name is right up on the edge and the multiplier is over
 
 	
 #ifndef PATCHED
-	size_t cpsz = strlen(mc->compound_name);
-	memcpy(last_compound, mc->compound_name, cpsz);
+	size_t cpsz = cgc_strlen(mc->compound_name);
+	cgc_memcpy(last_compound, mc->compound_name, cpsz);
 #endif
 
 #ifdef PATCHED
-	size_t cpsz = strlen(mc->compound_name);
+	size_t cpsz = cgc_strlen(mc->compound_name);
 	if(cpsz > MAX_NEW_CMPND_SZ)
 		cpsz = MAX_NEW_CMPND_SZ;
 
-	memcpy(last_compound, mc->compound_name, cpsz);
+	cgc_memcpy(last_compound, mc->compound_name, cpsz);
 #endif
 
 	// if(cpsz > MAX_NEW_CMPND_SZ)
@@ -275,7 +275,7 @@ int mix_cmd(char *args){
 
 int list_cmd(char *args){
 	// todo get page number from strtok
-	size_t cmd_len = strlen(args);
+	size_t cmd_len = cgc_strlen(args);
 	char * pg_num_txt = args;//\\\strtok(NULL, cmd_len);
 	if(pg_num_txt == NULL){
 		return CMDBADARG;
@@ -338,7 +338,7 @@ int transmit_compound_list_page(unsigned int pg_num){
 
 
 void transmit_line_nl(const char *buf){
-	transmit_all(STDOUT, buf, strlen(buf) );
+	transmit_all(STDOUT, buf, cgc_strlen(buf) );
 	transmit_all(STDOUT, "\n", 1);
 }
 
@@ -359,7 +359,7 @@ zoom_filter_t * make_compound_sample_zoom(compounds_sample_t *s){
 	zoom_filter_t *zf = new_zoom_filter(n_elements_from_sampsz(s->sample_size));
 	if(zf == NULL){
 		char * m = "failed new zdf";
-		transmit_all(STDOUT, m, strlen(m));
+		transmit_all(STDOUT, m, cgc_strlen(m));
 		return NULL;
 	}
 
@@ -369,13 +369,13 @@ zoom_filter_t * make_compound_sample_zoom(compounds_sample_t *s){
 		if(sample_idx > N_FORMULAS-1 ){
 			// todo free zf
 			char * m = "failed new zdf2";
-			transmit_all(STDOUT, m, strlen(m));
+			transmit_all(STDOUT, m, cgc_strlen(m));
 			zoom_free(zf);
 			return NULL;
 		}
 
 		char * cn = chem_formulas[sample_idx].compound_name;
-		hash_pair_t *hp = hash_pair_buf(cn, strlen(cn) );
+		hash_pair_t *hp = hash_pair_buf(cn, cgc_strlen(cn) );
 		zoom_add(hp, zf);
 		
 		// todo check number transmitted
@@ -418,7 +418,7 @@ int transmit_compound_sample_zoom(compounds_sample_t *s){
 
 int check_compound_idx_in_zoom(zoom_filter_t *zf, int compound_idx){
 	char * cn = chem_formulas[compound_idx].compound_name;
-	int sl = strlen(cn);
+	int sl = cgc_strlen(cn);
 	hash_pair_t * hp = hash_pair_buf(cn, sl);
 	int zc = zoom_check(hp, zf);
 	free(hp);
@@ -438,7 +438,7 @@ void free_sample_st(compounds_sample_t *p){
 compounds_sample_t *sample_compounds(const char *seed, const size_t sample_size){
 	if(sample_size > N_FORMULAS-1)
 		return NULL;
-	unsigned int h = crazy_hash(seed, strlen(seed), 0xcafeb4b4);
+	unsigned int h = crazy_hash(seed, cgc_strlen(seed), 0xcafeb4b4);
 
 	compounds_sample_t *sample = alloc_sample_st(sample_size);
 	// todo check alloc

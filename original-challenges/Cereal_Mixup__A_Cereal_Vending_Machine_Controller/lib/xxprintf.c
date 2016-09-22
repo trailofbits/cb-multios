@@ -70,7 +70,7 @@ int vsnprintf(char* buf, size_t buf_size, const char* fmt, va_list args) {
                     int_arg = va_arg(args, int);
                     int2str(tmp, 32, int_arg);
                     next_arg = tmp;
-                    arg_len = strlen(next_arg);
+                    arg_len = cgc_strlen(next_arg);
 
                     break; 
                 case 'c': // deal with char buffer (i.e. string)
@@ -78,7 +78,7 @@ int vsnprintf(char* buf, size_t buf_size, const char* fmt, va_list args) {
                     if (!next_arg) {
                         arg_len = 0;
                     } else { 
-                        arg_len = strlen(next_arg);
+                        arg_len = cgc_strlen(next_arg);
                     } 
 
                     break; 
@@ -105,10 +105,10 @@ int vsnprintf(char* buf, size_t buf_size, const char* fmt, va_list args) {
             if (fmt_spec == 'n' || fmt_spec == 'c') {
                 // remaining = buf_size - buf_len;
                 if (arg_len <= remaining) {
-                    memcpy(&buf[buf_len], next_arg, arg_len);
+                    cgc_memcpy(&buf[buf_len], next_arg, arg_len);
                     buf_len += arg_len;
                 } else {
-                    memcpy(&buf[buf_len], next_arg, remaining);
+                    cgc_memcpy(&buf[buf_len], next_arg, remaining);
                     buf_len += remaining;
                 }
             }

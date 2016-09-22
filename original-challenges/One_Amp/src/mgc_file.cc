@@ -49,8 +49,8 @@ bool MgcFile::ReadMgcFile(FILE *stream)
 
         fread(frame_buffer, MgcHeaderInfo::CalcFrameSize(&temp_frame), stream);
         mgc_frame *new_frame = (mgc_frame *)malloc(sizeof(mgc_frame) + MgcHeaderInfo::CalcFrameSize(&temp_frame));
-        memcpy(new_frame, &temp_frame, sizeof(temp_frame));
-        memcpy(new_frame->data, frame_buffer, MgcHeaderInfo::CalcFrameSize(&temp_frame));
+        cgc_memcpy(new_frame, &temp_frame, sizeof(temp_frame));
+        cgc_memcpy(new_frame->data, frame_buffer, MgcHeaderInfo::CalcFrameSize(&temp_frame));
         AddFrame(new_frame);
     } while(temp_frame.num_frames_left);
 
@@ -123,7 +123,7 @@ bool MgcFile::AddFrame(mgc_frame *mframe)
     {
         size_ *= 2;
         mgc_frame **doubled_list = new mgc_frame*[size_];
-        memcpy(doubled_list, frames_, sizeof(mgc_frame *) * num_frames_);
+        cgc_memcpy(doubled_list, frames_, sizeof(mgc_frame *) * num_frames_);
         delete frames_;
         frames_ = doubled_list;
     }

@@ -7,7 +7,7 @@ int fflush(FILE *stream)
 
     if (stream->rw == F_READ)
     {
-        /* drop the contents of the read buffer */
+        /* drop the contents of the cgc_read buffer */
         stream->idx = stream->length = 0;
         return 0;
     }

@@ -158,7 +158,7 @@ size_t itoa( int value, char *out )
 	return index;
 }
 
-size_t strlen( const char *str )
+size_t cgc_strlen( const char *str )
 {
         size_t len = 0;
         while ( *str++ != '\0' )
@@ -182,7 +182,7 @@ void bzero( char *buffer, size_t length)
 	return;
 }
 
-void memcpy( char *dst, char*src, size_t length)
+void cgc_memcpy( char *dst, char*src, size_t length)
 {
 	size_t index = 0;
 
@@ -205,7 +205,7 @@ char *strcat(char *restrict s1, const char *restrict s2) {
                 return(NULL);
         }
 
-        for (i = strlen(s1), j = 0; j < strlen(s2); i++, j++) {
+        for (i = cgc_strlen(s1), j = 0; j < cgc_strlen(s2); i++, j++) {
                 s1[i] = s2[j];
         }
         s1[i] = '\0';
@@ -341,9 +341,9 @@ int addqueue( int x, int y, pmap m, char *dirs )
 
 	pq->x = x;
 	pq->y = y;
-	pq->index = strlen(dirs);
+	pq->index = cgc_strlen(dirs);
 
-	memcpy( pq->directions, dirs, pq->index);
+	cgc_memcpy( pq->directions, dirs, pq->index);
 
 	/// Base case
 	if (m->root == NULL ) {
@@ -388,7 +388,7 @@ int findpath( pmap m )
 
 	while ( pq ) {
 		if ( pq->x == m->end_x && pq->y == m->end_y) {
-			memcpy( m->directions, pq->directions, strlen( pq->directions) );
+			cgc_memcpy( m->directions, pq->directions, cgc_strlen( pq->directions) );
 			return 1;
 		}
 
@@ -419,7 +419,7 @@ int fight_monster( )
 	int index;
 	int yodog = 0;
 
-	/// read the 26 lines
+	/// cgc_read the 26 lines
 	for ( index = 0; index < 26; index++) {
 		ReadUntil( STDIN, '\n', (char*)buffer, 1024);
 	}
@@ -514,12 +514,12 @@ void fight_boss( unsigned int type1_reg, unsigned int type1_ip )
 			SendBytes(STDOUT, "y\n", 2);
 			ReadBytes( STDIN, (char*)buffer, 10);
 
-			memcpy( buffer, "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrr\n", 73);
+			cgc_memcpy( buffer, "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrr\n", 73);
 
 			addr = 0xbaaa0000;
-			memcpy( buffer+32, (char*)&addr, 4 );
-			memcpy( buffer+36, (char*)&type1_reg, 4);
-			memcpy( buffer+44, (char*)&type1_ip, 4);
+			cgc_memcpy( buffer+32, (char*)&addr, 4 );
+			cgc_memcpy( buffer+36, (char*)&type1_reg, 4);
+			cgc_memcpy( buffer+44, (char*)&type1_ip, 4);
 
 			/// Send bug
 			SendBytes(STDOUT, buffer, 73);
@@ -610,7 +610,7 @@ void setname( void )
 		ReadBytes(STDIN, (char*)buffer, 1);
 	}
 
-	ReadBytes( STDIN, (char*)buffer + strlen((char*)buffer), 2 );
+	ReadBytes( STDIN, (char*)buffer + cgc_strlen((char*)buffer), 2 );
 
 	bzero( (char*)buffer, 1024);
 	buffer[0] = '\n', 
@@ -752,7 +752,7 @@ int main(void) {
 	/// Loop through all the directions
 	index = 0;
 
-	while ( index < strlen(m.directions) ) {
+	while ( index < cgc_strlen(m.directions) ) {
 		bzero((char*)inout, 1024);
 		ReadBytes( STDIN, (char*)inout, 2);
 

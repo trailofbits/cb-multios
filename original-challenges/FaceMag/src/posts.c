@@ -75,7 +75,7 @@ int postSize;
     // make sure its null terminated
     postText[MAXPOST_LEN-1] = 0;
 
-    postSize = strlen(postText);
+    postSize = cgc_strlen(postText);
 
     retcode = writeFile(fh, (void *)&postSize, sizeof(postSize), ROOT_ID );
 
@@ -138,7 +138,7 @@ int postSize;
     strncpy(commentText, comment, COMMENT_LEN);
     commentText[COMMENT_LEN-1] = 0;
 
-    postSize = strlen(commentText);
+    postSize = cgc_strlen(commentText);
 
     retcode = writeFile(fh, (void *)&postSize, sizeof(postSize), ROOT_ID );
 
@@ -347,16 +347,16 @@ unsigned int messageOffset;
 
     messageOffset = 0;
 
-    memcpy(*postMessage+messageOffset, &count, sizeof(count));
+    cgc_memcpy(*postMessage+messageOffset, &count, sizeof(count));
     messageOffset+=sizeof(count);
-    memcpy( *postMessage+messageOffset,fullname, count );
+    cgc_memcpy( *postMessage+messageOffset,fullname, count );
     messageOffset+=count;
-    memcpy( *postMessage+messageOffset, &postSize, sizeof(postSize) );
+    cgc_memcpy( *postMessage+messageOffset, &postSize, sizeof(postSize) );
     messageOffset+=sizeof(postSize);
-    memcpy( *postMessage+messageOffset, postText, postSize );
+    cgc_memcpy( *postMessage+messageOffset, postText, postSize );
     messageOffset+=postSize;
 
-   // read any comments stored with the post and then send also (if requested)
+   // cgc_read any comments stored with the post and then send also (if requested)
 
     commentCount = 0;
 
@@ -370,7 +370,7 @@ unsigned int messageOffset;
 
         retcode = readFile(fh, (void *)&commenterID, sizeof(commenterID), 0, 0, ROOT_ID);
 
-        // if nothing was read, it must not have any comments so just leave the loop
+        // if nothing was cgc_read, it must not have any comments so just leave the loop
         if (retcode != 0 ) {
 
             break;
@@ -423,25 +423,25 @@ unsigned int messageOffset;
         else {
 
             strcpy(commenter, "anonymous");
-            commenterNameLen = strlen(commenter);
+            commenterNameLen = cgc_strlen(commenter);
 
         }
 
         commentCount++;
 
-        memcpy(*postMessage+messageOffset, &commentCount, sizeof(commentCount));
+        cgc_memcpy(*postMessage+messageOffset, &commentCount, sizeof(commentCount));
         messageOffset+=sizeof(commentCount);
 
-        memcpy(*postMessage+messageOffset, &commenterNameLen, sizeof(count));
+        cgc_memcpy(*postMessage+messageOffset, &commenterNameLen, sizeof(count));
         messageOffset+=sizeof(count);
 
-        memcpy( *postMessage+messageOffset,commenter, commenterNameLen );
+        cgc_memcpy( *postMessage+messageOffset,commenter, commenterNameLen );
         messageOffset+=commenterNameLen;
 
-        memcpy( *postMessage+messageOffset, &commentSize, sizeof(commentSize) );
+        cgc_memcpy( *postMessage+messageOffset, &commentSize, sizeof(commentSize) );
         messageOffset+=sizeof(commentSize);
 
-        memcpy( *postMessage+messageOffset, comment, commentSize );
+        cgc_memcpy( *postMessage+messageOffset, comment, commentSize );
         messageOffset+=commentSize;        
 
     } // while (1)

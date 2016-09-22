@@ -48,7 +48,7 @@ session_t * find_session(uint32_t id) {
 int do_init(session_t **session) {
 
     int ret = SUCCESS;
-    memset(rx_buf, 0, BUF_RX_SZ);
+    cgc_memset(rx_buf, 0, BUF_RX_SZ);
     uint32_t requested_session_id = 0;
 
     #ifdef DEBUG
@@ -375,7 +375,7 @@ int do_exec(session_t *session) {
     fprintf(stderr, "[D] %s | ENTER; session expected: 0x%08x\n", __func__, session->id);
     #endif
 
-    // 0) read & verify (if PATCHED) session ID
+    // 0) cgc_read & verify (if PATCHED) session ID
     tmp = 0;
     if (SUCCESS != (ret = recv_bytes(STDIN, (char *)&tmp, sizeof(uint32_t)))) { 
         #ifdef DEBUG
@@ -454,7 +454,7 @@ int do_exec(session_t *session) {
         #endif
 
         tmp = (0xFFFFFF00 & (uint32_t)session->buf) >> 8;
-        memcpy(session->buf, &tmp, BASE_ADDR_SZ);
+        cgc_memcpy(session->buf, &tmp, BASE_ADDR_SZ);
     }
 
     #ifdef DEBUG
@@ -467,7 +467,7 @@ int do_exec(session_t *session) {
         __func__, tmp);
     #endif
 
-    // 2) read opcode buffer off the wire into the session's OPCODE buffer
+    // 2) cgc_read opcode buffer off the wire into the session's OPCODE buffer
     #ifdef DEBUG
     fprintf(stderr,
         "[D] %s | WARNING: about to copy 0x%04x (%d) bytes into session 0x%08x; session's sz: 0x%04x (%d)\n", 
@@ -484,7 +484,7 @@ int do_exec(session_t *session) {
         goto bail;
     }
     #ifdef DEBUG
-    fprintf(stderr, "[D] %s | successfully read opcode buffer\n", __func__);
+    fprintf(stderr, "[D] %s | successfully cgc_read opcode buffer\n", __func__);
     #endif
 
     // 3) execute bytecode

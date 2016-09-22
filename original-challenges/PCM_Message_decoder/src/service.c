@@ -160,7 +160,7 @@ unsigned char *ReadWav(unsigned char *pcm) {
   unsigned int total_size;
   struct pcm_header *p;
 
-  // read in the pcm header
+  // cgc_read in the pcm header
   if (recv(STDIN, pcm, 12, &size) != 0) {
     puts("Read error\n");
     _terminate(READ_ERROR);
@@ -198,7 +198,7 @@ unsigned char *ReadWav(unsigned char *pcm) {
   }
 #endif
 
-  // read in the data portion of the pcm
+  // cgc_read in the data portion of the pcm
   total_size = 0;
   while (total_size != p->DataSize) {
     if (receive(STDIN, pcm+12+total_size, (p->DataSize-total_size), &size) != 0) {
@@ -506,7 +506,7 @@ int main(void) {
     // init the language data structures
     InitLang(&lh, NULL);
 
-    // read in the pcm file
+    // cgc_read in the pcm file
     ReadWav(pcm);
 
     // Read in each symbol

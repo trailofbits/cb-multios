@@ -62,7 +62,7 @@ void add_memo()
     printf("subject? ");
     if ((bytes = read_until(STDIN, buf, MAX_MEMO_BODY, '\n')) < 0)
       goto fail;
-    if (strlen(buf) >= MAX_MEMO_SUBJECT)
+    if (cgc_strlen(buf) >= MAX_MEMO_SUBJECT)
       goto fail;
     strcpy(memo->subject, buf);
     printf("year? ");
@@ -193,7 +193,7 @@ void view_memo(int id)
 void quit()
 {
   printf("bye!\n");
-  exit(0);
+  cgc_exit(0);
 }
 
 void menu()
@@ -256,8 +256,8 @@ int main()
         remove_memo(memo_id);
         break;
       case 5:
-        memset(typo, 0, sizeof(typo));
-        memset(correct, 0, sizeof(correct));
+        cgc_memset(typo, 0, sizeof(typo));
+        cgc_memset(correct, 0, sizeof(correct));
         printf("typo? ");
         if ((bytes = read_until(STDIN, typo, sizeof(typo), '\n')) < 0)
           break;

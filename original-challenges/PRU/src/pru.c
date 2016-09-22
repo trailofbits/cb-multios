@@ -53,7 +53,7 @@ void execute(pruCPU *cpu) {
 	fmt2InstructionHeader fmt2Hdr;
 	while(1) {
 		int didBranch = 0;
-		memcpy(&inst, (aluInstruction *)&cpu->code[cpu->pc], 4);
+		cgc_memcpy(&inst, (aluInstruction *)&cpu->code[cpu->pc], 4);
 		switch(inst.opFmt) {
 			case 0b000:
 				switch(inst.aluOp) {
@@ -108,27 +108,27 @@ void execute(pruCPU *cpu) {
 				}
 				break;
 			case 0b001:
-				memcpy(&fmt2Hdr, &inst, sizeof(fmt2Hdr));
+				cgc_memcpy(&fmt2Hdr, &inst, sizeof(fmt2Hdr));
 				switch(fmt2Hdr.subOp)
 				{
 					case JMP:
 					case JAL:
 						;
 						fmt2BranchInstruction fmt2Branch;
-						memcpy(&fmt2Branch, &inst, 4);
+						cgc_memcpy(&fmt2Branch, &inst, 4);
 						doBranch(cpu, fmt2Branch);
 						didBranch = 1;
 						break;
 					case LDI:
 						;
 						fmt2LdiInstruction fmt2Ldi;
-						memcpy(&fmt2Ldi, &inst, 4);
+						cgc_memcpy(&fmt2Ldi, &inst, 4);
 						doLdi(cpu, fmt2Ldi);
 						break;
 					case LMBD:
 						;
 						fmt2LmbdInstruction fmt2Lmbd;
-						memcpy(&fmt2Lmbd, &inst, 4);
+						cgc_memcpy(&fmt2Lmbd, &inst, 4);
 						doLmbd(cpu, fmt2Lmbd);
 						break;
 					case HALT:
@@ -136,7 +136,7 @@ void execute(pruCPU *cpu) {
 					case SCAN:
 						;
 						fmt2ScanInstruction fmt2Scan;
-						memcpy(&fmt2Scan, &inst, 4);
+						cgc_memcpy(&fmt2Scan, &inst, 4);
 						doScan(cpu, fmt2Scan);
 						break;
 					case SLP:
@@ -155,7 +155,7 @@ void execute(pruCPU *cpu) {
 			case 0b11:
 				;
 				fmtQatbInstruction qatbInstruction;
-				memcpy(&qatbInstruction, &inst, 4);
+				cgc_memcpy(&qatbInstruction, &inst, 4);
 				doQATB(cpu, qatbInstruction);			
 			default:
 				return;
@@ -180,7 +180,7 @@ int recvInt() {
 			_terminate(0);
 		totRecvd+=recvd;
 	}
-	memcpy(&ret, tmp, 4);
+	cgc_memcpy(&ret, tmp, 4);
 	return ret;
 }
 int main() {
@@ -189,7 +189,7 @@ int main() {
 	int i;
 	pruCPU cpu;
 	cpu.numExecuted = 0;
-	memset(cpu.code, 0xff, 0x4000);
+	cgc_memset(cpu.code, 0xff, 0x4000);
 	numInstructions = recvInt();
 	for(i=0;i<numInstructions;i++) {
 		cpu.code[i] = recvInt();

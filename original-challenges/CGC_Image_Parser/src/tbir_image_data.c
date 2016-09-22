@@ -117,7 +117,7 @@ int tbir_read_pixels( ptbir_image_data tid )
 		return 0;
 	}
 
-	memset( tid->image, ' ', tid->image_length);
+	cgc_memset( tid->image, ' ', tid->image_length);
 	tid->image[ tid->image_length ] = '\x00';
 
 	count = 0;

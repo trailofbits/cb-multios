@@ -265,7 +265,7 @@ int main(void) {
     	////
 
         rx_bytes = 0;
-        memset(rx_buf, 0, BUF_RX_SZ);
+        cgc_memset(rx_buf, 0, BUF_RX_SZ);
         if (SUCCESS != (ret = receive_all(STDIN, (void *)&rx_buf, BUF_RX_SZ, &rx_bytes))) { 
 #ifdef DEBUG
             fprintf(stderr, "[E] main | failed pkt receive\n");
@@ -386,13 +386,13 @@ int main(void) {
         	// STATE_OTP simply copies buffer into OTP, advances to STATE_MSG.
         	case STATE_OTP:
 
-	            memcpy(((unsigned char **)ppotp)[0], rx_buf, sizeof(otp));
+	            cgc_memcpy(((unsigned char **)ppotp)[0], rx_buf, sizeof(otp));
 	            state = STATE_MSG;
 	            expected_rx_bytes = MSG_SZ;
 
 #ifdef DEBUG
 	            fprintf(stderr, 
-	            	"[D] main | STATE_OTP: memcpy()ed into OTP; advanced to STATE_MSG\n");
+	            	"[D] main | STATE_OTP: cgc_memcpy()ed into OTP; advanced to STATE_MSG\n");
 #endif 
 
 				if (SUCCESS != (ret = transmit_all(STDOUT, &PKT_OTP_ACK, sizeof(PKT_OTP_ACK)-1, NULL))) { 
@@ -454,7 +454,7 @@ int main(void) {
         		// We actually have to handle this one.
 	        	rx_index = 0;
 	        	ct_index = 0;
-	        	memset(ct, 0, sizeof(ct));
+	        	cgc_memset(ct, 0, sizeof(ct));
 	        	// Base condition: entire message is treated as fragments.
 	        	defrag(BUF_RX_SZ); 
 

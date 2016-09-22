@@ -32,7 +32,7 @@
  *
  * @param xml Char string with binary xml to parse
  * @param cards Array to hold the pointer to the resulting card.
- * @return Number of chars read or ERR_INVALID_CARD, 
+ * @return Number of chars cgc_read or ERR_INVALID_CARD, 
  *	ERR_INVALID_XML on error.
  */
 int parse_xml_card(char *xml, struct card *cards[]) {

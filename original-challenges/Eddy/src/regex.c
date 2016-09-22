@@ -30,7 +30,7 @@ typedef unsigned char char_set[CHAR_SET_SIZE];
 static void
 init_char_set(char_set set)
 {
-    memset(set, '\0', CHAR_SET_SIZE);
+    cgc_memset(set, '\0', CHAR_SET_SIZE);
 }
 
 static void
@@ -134,12 +134,12 @@ greedy_match_one(char *line, struct regex_element *element, int is_first, char *
         while (**next && get_bit(element->set, **next))
             (*next)++;
 
-        return !element->end_anchor || strlen(*next) == 0;
+        return !element->end_anchor || cgc_strlen(*next) == 0;
     }
 
     if (*line && get_bit(element->set, *line)) {
         (*next)++;
-        return !element->end_anchor || strlen(*next) == 0;
+        return !element->end_anchor || cgc_strlen(*next) == 0;
     }
 
     return 0;
@@ -186,7 +186,7 @@ regex_match(char *regex, char *line, char **begin, char **end)
     char *c = regex;
     struct regex_element element, **elements = NULL;
 
-    if (strlen(regex) > MAX_REGEX_LENGTH)
+    if (cgc_strlen(regex) > MAX_REGEX_LENGTH)
         goto out;
 
     while (parse_regex_element(c, &element, &c) == EXIT_SUCCESS)

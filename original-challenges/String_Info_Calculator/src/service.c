@@ -60,13 +60,13 @@ int main(void) {
         fprintf(stderr, "sent GIMME\n");
         #endif
 
-        memset(input, 0, INBUFSZ);
-        memset(&r, 0, sizeof(r));
+        cgc_memset(input, 0, INBUFSZ);
+        cgc_memset(&r, 0, sizeof(r));
 
         // get input
         // bug: 1048 > INBUFSZ
-        //  Allows overwrite of VA of _start and write OOB beyond input buf to cause SEGFAULT.
-        //  The bytes are read by the input parsing code, but not written to registers.
+        //  Allows overwrite of VA of _start and cgc_write OOB beyond input buf to cause SEGFAULT.
+        //  The bytes are cgc_read by the input parsing code, but not written to registers.
         //  Not a CFE POV.
         if (0 > (bytes_recv = recv_until_delim_n(STDIN, TERM, input, 1048))) {
             _terminate(20);

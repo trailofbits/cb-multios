@@ -90,16 +90,16 @@ ExecutableInMemory *LoadSharedLibrary(FileNode *file)
   sl->type = header->type;
   sl->functionCount = header->functionCount;
   sl->functionTable = calloc(header->functionCount * sizeof(FunctionTableEntry));
-  memcpy(sl->functionTable, file->contents + header->functionTableOffset, header->functionCount * sizeof(FunctionTableEntry));
+  cgc_memcpy(sl->functionTable, file->contents + header->functionTableOffset, header->functionCount * sizeof(FunctionTableEntry));
   for (int i = 0; i < sl->functionCount; i++)
   {
     sl->functionTable[i].offset -= header->functionsOffset;
   }
   sl->resourceCount = header->resourceCount;
   sl->resourceTable = calloc(header->resourceCount * sizeof(ResourceEntry));
-  memcpy(sl->resourceTable, file->contents + header->resourceOffset, header->resourceCount * sizeof(ResourceEntry));
+  cgc_memcpy(sl->resourceTable, file->contents + header->resourceOffset, header->resourceCount * sizeof(ResourceEntry));
   sl->functions = calloc(header->functionsSize);
-  memcpy(sl->functions, file->contents + header->functionsOffset, header->functionsSize);
+  cgc_memcpy(sl->functions, file->contents + header->functionsOffset, header->functionsSize);
 
   uint8_t *mainAddress = GetFunctionAddress("SharedLibraryMain", sl);
   ExecuteFunction(mainAddress);

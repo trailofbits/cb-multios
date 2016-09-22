@@ -68,7 +68,7 @@ uint16_t CResponse::GetResponseData( uint8_t *pDest, uint16_t destLen )
 
 	for ( CResponseElement *pCur = m_responseList.GetFirst(); pCur; pCur = m_responseList.GetNext( pCur ) )
 	{
-		memcpy( pDest+pos, pCur->GetData(), pCur->GetDataLength() );
+		cgc_memcpy( pDest+pos, pCur->GetData(), pCur->GetDataLength() );
 		pos += pCur->GetDataLength();
 	}
 

@@ -204,14 +204,14 @@ unsigned int read_all(int fd, char *buf, unsigned int size) {
 // stdlib functions
 
 // return number of chars in str, not counting the '\0'
-size_t strlen(const char *str) {
+size_t cgc_strlen(const char *str) {
    size_t res = 0;
    while (*str++) {res++;}
    return res;
 }
 
 // overwrites the first n chars of dst with char c.
-void *memset(void *dst, int c, unsigned int n) {
+void *cgc_memset(void *dst, int c, unsigned int n) {
    char *d = (char*)dst;
    while (n--) {*d++ = (char)c;}
    return dst;

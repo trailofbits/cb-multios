@@ -53,7 +53,7 @@ SFILE *open_sfile()
     new_sfp = malloc(sizeof(SFILE) + sfp->size + 1);
     if (!new_sfp)
         goto error;
-    memcpy(new_sfp, sfp, sizeof(SFILE));
+    cgc_memcpy(new_sfp, sfp, sizeof(SFILE));
 
 
     if (recvall(STDIN, &new_sfp->data[0], sfp->size) < 0)

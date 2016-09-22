@@ -38,33 +38,33 @@ typedef struct {
 } File;
 
 /**
-* Read from the socket until either a delimeter is ditected or n bytes are read
+* Read from the socket until either a delimeter is ditected or n bytes are cgc_read
 * 
-* @param socket The file descripter to read from
-* @param buffer The buffer to store the read bytes in
+* @param socket The file descripter to cgc_read from
+* @param buffer The buffer to store the cgc_read bytes in
 * @param delim The delimiter to detect 
-* @param size The maximum number of bytes to read
-* @param read The number of total bytes read
-* @return 0 if successful, -1 if the receive call returns an error, -2 if the receive call does not read a byte
+* @param size The maximum number of bytes to cgc_read
+* @param cgc_read The number of total bytes cgc_read
+* @return 0 if successful, -1 if the receive call returns an error, -2 if the receive call does not cgc_read a byte
 */
-int read_until_delim_or_n(unsigned int socket, char* buffer, char delim, size_t size, size_t* read);
+int read_until_delim_or_n(unsigned int socket, char* buffer, char delim, size_t size, size_t* cgc_read);
 
 /**
 * Read exactly n bytes from the socket
 * 
-* @param socket The file descripter to read from
-* @param buffer The buffer to store the read bytes in
-* @param size The maximum number of bytes to read
-* @param read The number of total bytes read
-* @return 0 if successful, -1 if the receive call returns an error, -2 if the receive call does not read a byte
+* @param socket The file descripter to cgc_read from
+* @param buffer The buffer to store the cgc_read bytes in
+* @param size The maximum number of bytes to cgc_read
+* @param cgc_read The number of total bytes cgc_read
+* @return 0 if successful, -1 if the receive call returns an error, -2 if the receive call does not cgc_read a byte
 */
-int read_n_bytes(unsigned int socket, char* buffer, size_t size, size_t* read);
+int read_n_bytes(unsigned int socket, char* buffer, size_t size, size_t* cgc_read);
 
 /**
 * Send size bytes to the socket
 * 
 * @param socket The file descripter to send to
-* @param buffer The buffer to store the read bytes in
+* @param buffer The buffer to store the cgc_read bytes in
 * @param size The maximum number of bytes to send
 * @return 0 if successful, -1 if the transmit call returns an error
 */

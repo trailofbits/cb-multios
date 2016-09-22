@@ -80,7 +80,7 @@ typedef __builtin_va_list va_list;
  * Note: 
  *	 If L is replaced by the term char, then there will be a 
  *	term char in the middle of the string. So uses of the resulting
- *	string will cause issues if strlen, etc are used.
+ *	string will cause issues if cgc_strlen, etc are used.
  *   If I (itoan) contains term char, then the string will get 
  *	the decimal representation of the term char in it.
  *
@@ -117,7 +117,7 @@ int vsnprintf(char * buf, size_t buf_size, const char fsm, const char term, cons
  * Note: 
  *	 If L is replaced by the term char, then there will be a 
  *	term char in the middle of the string. So uses of the resulting
- *	string will cause issues if strlen, etc are used.
+ *	string will cause issues if cgc_strlen, etc are used.
  *   If I (itoan) contains term char, then the string will get 
  *	the decimal representation of the term char in it.
  *

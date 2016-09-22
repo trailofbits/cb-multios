@@ -42,14 +42,14 @@ Subscription* newSubscription(char* name, unsigned index, char* deliveryType) {
 		return NULL;
 	}
 
-	channelNameLength  = strlen(name);
+	channelNameLength  = cgc_strlen(name);
 	if(!(subscription->name = malloc(channelNameLength+1))) {
 		free(subscription->deliveryType);
 		free(subscription);
 		return NULL;
 	}
 
-	memset(subscription->name, 0, channelNameLength+1);
+	cgc_memset(subscription->name, 0, channelNameLength+1);
 	strncpy(subscription->name, name, channelNameLength);
 	subscription->index = index;
 	subscription->next = NULL;
@@ -106,16 +106,16 @@ int setDeliveryType(Subscription** subscriptionPtr, char* deliveryType) {
 	   !strcmp(PRIORITY_MEDIUM_DELIVERY, deliveryType) ||
 	   !strcmp(PRIORITY_LOW_DELIVERY, deliveryType)) {
 
-		if(!(subscription->deliveryType = malloc(strlen(deliveryType)+1)))
+		if(!(subscription->deliveryType = malloc(cgc_strlen(deliveryType)+1)))
 			return 1;
 
-		memset(subscription->deliveryType, 0, strlen(deliveryType)+1);
+		cgc_memset(subscription->deliveryType, 0, cgc_strlen(deliveryType)+1);
 		strcpy(subscription->deliveryType, deliveryType);
 	} else if(atoi(deliveryType) > 0) {
-		if(!(subscription->deliveryType = malloc(strlen(deliveryType)+1)))
+		if(!(subscription->deliveryType = malloc(cgc_strlen(deliveryType)+1)))
 			return 1;
 
-		memset(subscription->deliveryType, 0, strlen(deliveryType)+1);
+		cgc_memset(subscription->deliveryType, 0, cgc_strlen(deliveryType)+1);
 		strcpy(subscription->deliveryType, deliveryType);			
 	} else {
 		return 1;
@@ -196,12 +196,12 @@ Channel* newChannel(char* name) {
 	if(!(channel = malloc(sizeof(Channel))))
 		return NULL;
 
-	nameSize = strlen(name);
+	nameSize = cgc_strlen(name);
 	if(!(channel->name = malloc(nameSize))) {
 		free(channel);
 		return NULL;
 	}
-	memset(channel->name, 0, nameSize);
+	cgc_memset(channel->name, 0, nameSize);
 	strcpy(channel->name, name);
 	channel->head = 0;
 	channel->tail = 0;

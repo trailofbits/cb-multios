@@ -20,10 +20,10 @@ String::String()
 
 String::String( const char *instr )
 {
-    size_t alloc_length = strlen( instr ) + 1;
+    size_t alloc_length = cgc_strlen( instr ) + 1;
     m_pData = new char[alloc_length];
 
-    memcpy( (void *)m_pData, (void *)instr, alloc_length-1 );
+    cgc_memcpy( (void *)m_pData, (void *)instr, alloc_length-1 );
     m_pData[alloc_length-1] = '\0';
 
     m_length = alloc_length-1;
@@ -34,7 +34,7 @@ String::String( const String &instr )
     size_t alloc_length = instr.m_length+1;
     m_pData = new char[ alloc_length ];
 
-    memcpy( m_pData, instr.m_pData, instr.m_length );
+    cgc_memcpy( m_pData, instr.m_pData, instr.m_length );
 
     m_pData[alloc_length-1] = '\0';
     m_length = instr.m_length;
@@ -51,8 +51,8 @@ String& String::operator+=( const String &rhs )
     size_t alloc_length = m_length + rhs.m_length + 1;
     char *pNewData = new char[alloc_length];
 
-    memcpy( pNewData, m_pData, m_length );
-    memcpy( pNewData+m_length, rhs.m_pData, rhs.m_length );
+    cgc_memcpy( pNewData, m_pData, m_length );
+    cgc_memcpy( pNewData+m_length, rhs.m_pData, rhs.m_length );
 
     if ( m_pData )
         delete [] m_pData;
@@ -172,7 +172,7 @@ void String::operator=( const String &rhs )
     size_t alloc_length = rhs.m_length+1;
     m_pData = new char[ alloc_length ];
 
-    memcpy( m_pData, rhs.m_pData, rhs.m_length );
+    cgc_memcpy( m_pData, rhs.m_pData, rhs.m_length );
 
     m_pData[alloc_length-1] = '\0';
     m_length = rhs.m_length;
@@ -183,10 +183,10 @@ void String::SetString( const char *pszBuffer )
     if ( m_pData )
         delete [] m_pData;
 
-    size_t alloc_length = strlen( pszBuffer ) + 1;
+    size_t alloc_length = cgc_strlen( pszBuffer ) + 1;
     m_pData = new char[alloc_length];
 
-    memcpy( (void *)m_pData, (void *)pszBuffer, alloc_length-1 );
+    cgc_memcpy( (void *)m_pData, (void *)pszBuffer, alloc_length-1 );
     m_pData[alloc_length-1] = '\0';
 
     m_length = alloc_length-1;

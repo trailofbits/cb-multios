@@ -102,7 +102,7 @@ static void output_write(char *s, size_t n)
         n = bytes_remaining;
     if (n > 0)
     {
-        memcpy(g_output_buf + g_output_len, s, n);
+        cgc_memcpy(g_output_buf + g_output_len, s, n);
         g_output_len += n;
     }
 }
@@ -146,9 +146,9 @@ int main()
     while (readuntil(STDIN, buf, sizeof(buf), '\n') == 0)
     {
         char *tok, *input = buf;
-        if (strlen(buf) == 0)
+        if (cgc_strlen(buf) == 0)
             break;
-        buf[strlen(buf)-1] = '\0'; /* remove newline */
+        buf[cgc_strlen(buf)-1] = '\0'; /* remove newline */
         tok = strsep(&input, " ");
         if (tok == NULL)
             break;
@@ -208,13 +208,13 @@ static int handle_set(char *input)
     char *arg_value = input;
     if (arg_value == NULL)
         return send_error(500);
-    variable_t *var = malloc(sizeof(variable_t) + strlen(arg_name) + strlen(arg_value) + 2);
+    variable_t *var = malloc(sizeof(variable_t) + cgc_strlen(arg_name) + cgc_strlen(arg_value) + 2);
     if (var == NULL)
         return send_error(500);
     char *data = var->data;
     strcpy(data, arg_name);
     var->name = data;
-    data += strlen(var->name) + 1;
+    data += cgc_strlen(var->name) + 1;
     strcpy(data, arg_value);
     var->value = data;
     var->next = variables;
@@ -279,9 +279,9 @@ static int page_root64(char *input)
     if (strcmp(mode, "encode") == 0)
     {
 #if PATCHED
-        if (strlen(data) * 4 / 3 <= sizeof(buf))
+        if (cgc_strlen(data) * 4 / 3 <= sizeof(buf))
 #else
-        if (strlen(data) / 3 * 4 <= sizeof(buf))
+        if (cgc_strlen(data) / 3 * 4 <= sizeof(buf))
 #endif
         {
             size_t n = root64_encode(buf, data);
@@ -295,7 +295,7 @@ static int page_root64(char *input)
     }
     else if (strcmp(mode, "decode") == 0)
     {
-        if (strlen(data) <= sizeof(buf))
+        if (cgc_strlen(data) <= sizeof(buf))
         {
             size_t n = root64_decode(buf, data);
             output_write(buf, n);
@@ -324,11 +324,11 @@ static int page_parcour(char *input)
         send_error(500);
         return 1;
     }
-    int keylen = strlen(key);
+    int keylen = cgc_strlen(key);
     if (keylen > 2)
         keylen = 2;
     parcour_init(key, keylen);
-    size_t i, n = strlen(data);
+    size_t i, n = cgc_strlen(data);
     for (i = 0; i < n; i++)
         data[i] ^= parcour_byte();
     output_write(data, n);

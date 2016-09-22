@@ -50,7 +50,7 @@ query *ParseQuery(char *inputBuffer)
   }
   query *pQuery = calloc(sizeof(query));
   pQuery->type = inputBuffer[0];
-  pQuery->length = strlen(&inputBuffer[1]);
+  pQuery->length = cgc_strlen(&inputBuffer[1]);
   pQuery->data = calloc(pQuery->length + 1);
   strcpy((char *)pQuery->data, &inputBuffer[1]);
   return pQuery;

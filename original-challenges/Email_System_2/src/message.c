@@ -82,7 +82,7 @@ int add_message(char *dest, char *src, char *msg, char draft)
 	{
 		current_user->first_login = 0;
 
-		// setting the target to the current msg_count allows a write past the end of the MAX_MESSAGES for this user
+		// setting the target to the current msg_count allows a cgc_write past the end of the MAX_MESSAGES for this user
 		// if this is the last user, it allows an overwrite of the function pointer 'printer'
 		#ifndef PATCHED
 		if (current_user->msg_count >= MAX_MESSAGES)
@@ -109,7 +109,7 @@ int add_message(char *dest, char *src, char *msg, char draft)
 	}
 label:
 	{
-		// without this check, users can write past the end of of their message queue
+		// without this check, users can cgc_write past the end of of their message queue
 		// very simple buffer overrun
 		if (target == -1)
 		{

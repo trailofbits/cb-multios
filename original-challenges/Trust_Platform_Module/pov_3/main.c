@@ -56,8 +56,8 @@ int main(void)
   type2_vals t2v;
   type2_negotiate(&t2v);
 
-  transmit_all(STDOUT, s, strlen(s));
-  transmit_all(STDOUT, p, strlen(p));
+  transmit_all(STDOUT, s, cgc_strlen(s));
+  transmit_all(STDOUT, p, cgc_strlen(p));
   length_read(STDIN, buf, 128);
   buf[8] = '\0';
   temp = hexStrToUint32(buf);

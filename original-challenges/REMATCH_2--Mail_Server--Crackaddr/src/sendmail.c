@@ -132,7 +132,7 @@ message *add_random_message(mail_queue *mq) {
     m->recipient = pick_address();
     m->subject = gen_random_string(5, 32);
     m->data = gen_random_string(5,256);
-    m->data_length = strlen(m->data);
+    m->data_length = cgc_strlen(m->data);
 
     if (mq->root != NULL) {
         message *next = mq->root;
@@ -167,7 +167,7 @@ char *make_string(char *str) {
     if (str == NULL) {
         return NULL;
     }
-    char *s = calloc(strlen(str) + 1);
+    char *s = calloc(cgc_strlen(str) + 1);
     strcpy(s, str);
     return s;
 }
@@ -235,7 +235,7 @@ void sendmail_post(char *line) {
         return;
     }
     msg->data = make_string(body);
-    msg->data_length = strlen(body);
+    msg->data_length = cgc_strlen(body);
     msg->subject = make_string(subject);
 
  

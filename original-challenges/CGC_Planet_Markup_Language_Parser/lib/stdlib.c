@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <stdlib.h>
 #include <stdint.h>
 
-int memcpy( void *dest, void *src, size_t n )
+int cgc_memcpy( void *dest, void *src, size_t n )
 {
 	size_t index = 0;
 
@@ -310,7 +310,7 @@ int strcmp( const char *s1, const char *s2 )
 
 char *strncat ( char *dest, const char *src, size_t n ) 
 {
-    size_t dest_len = strlen(dest);
+    size_t dest_len = cgc_strlen(dest);
     size_t i;
 
     if (dest == NULL || src == NULL) 
@@ -360,7 +360,7 @@ size_t strcat( char *dest, char*src )
         goto end;
     }
 
-    start = strlen( dest );
+    start = cgc_strlen( dest );
 
     for ( ; src[length] != 0x00 ; start++, length++ ) {
         dest[start] = src[length];
@@ -371,7 +371,7 @@ end:
     return length;
 }
 
-size_t strlen( char * str )
+size_t cgc_strlen( char * str )
 {
     size_t length = 0;
 
@@ -426,5 +426,5 @@ end:
 void puts( char *t )
 {
     size_t size;
-    transmit(STDOUT, t, strlen(t), &size);
+    transmit(STDOUT, t, cgc_strlen(t), &size);
 }

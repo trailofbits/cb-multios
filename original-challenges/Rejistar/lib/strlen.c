@@ -24,7 +24,7 @@
 /*F*************************/
 
 unsigned int
-strlen(str)
+cgc_strlen(str)
 
 const char *str;		/* null-terminated string */
 

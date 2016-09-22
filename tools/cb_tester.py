@@ -99,7 +99,7 @@ class Tester:
             score (Score): Object to store the results in
         """
         cb_cmd = ['./cb-test', '--directory', self.bin_dir, '--xml_dir', xml_dir,
-                  '--concurrent', '4', '--timeout', '5', '--negotiate_seed', '--cb'] + bin_names
+                  '--concurrent', '4', '--timeout', '15', '--negotiate_seed', '--cb'] + bin_names
         p = subprocess.Popen(cb_cmd, cwd=TEST_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = p.communicate()
 

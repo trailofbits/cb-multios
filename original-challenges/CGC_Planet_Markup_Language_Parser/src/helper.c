@@ -138,7 +138,7 @@ element elementNameToEnum( char * elementId )
                 goto end;
         }
 
-        length = strlen(elementId);
+        length = cgc_strlen(elementId);
 
         switch ( length ) {
 		case 3:

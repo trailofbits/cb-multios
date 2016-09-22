@@ -260,7 +260,7 @@ int main(void)
         }
         AddToResponse(pCurrentResponse, "admin:");
         char number[12];
-        memset(number, 0, sizeof(number));
+        cgc_memset(number, 0, sizeof(number));
         uint16_t adminPort = *(uint16_t *)((uint8_t *)FLAG_PAGE + instance->adminPortOffset);
         sprintf(number, "$x", (int)adminPort);
         AddToResponse(pCurrentResponse, number);

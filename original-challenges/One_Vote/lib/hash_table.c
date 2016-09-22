@@ -485,11 +485,11 @@ str_uint_pair_t *get_s_ui_pair(char *s, unsigned int i) {
 	str_uint_pair_t *pair = malloc(sizeof(str_uint_pair_t));
 	if (NULL == pair) _terminate(ERRNO_ALLOC);
 
-	unsigned int len = strlen(s, '\0') + 1;
+	unsigned int len = cgc_strlen(s, '\0') + 1;
 	pair->key = malloc(len * sizeof(char));
 	if (NULL == pair->key) _terminate(ERRNO_ALLOC);
 
-	memcpy(pair->key, s, len);
+	cgc_memcpy(pair->key, s, len);
 
 	pair->value = i;
 
@@ -502,11 +502,11 @@ str_int_pair_t *get_s_i_pair(char *s, int i) {
 	str_int_pair_t *pair = malloc(sizeof(str_int_pair_t));
 	if (NULL == pair) _terminate(ERRNO_ALLOC);
 
-	unsigned int len = strlen(s, '\0') + 1;
+	unsigned int len = cgc_strlen(s, '\0') + 1;
 	pair->key = malloc(len * sizeof(char));
 	if (NULL == pair->key) _terminate(ERRNO_ALLOC);
 
-	memcpy(pair->key, s, len);
+	cgc_memcpy(pair->key, s, len);
 
 	pair->value = i;
 

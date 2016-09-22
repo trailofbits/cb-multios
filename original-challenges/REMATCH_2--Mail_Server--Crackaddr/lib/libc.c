@@ -135,7 +135,7 @@ int buffered_receive(char *buf, int length)
     { 
       byte_to_copy = bytes_in_buffer;
     }
-    memcpy(buf, p_data, byte_to_copy);
+    cgc_memcpy(buf, p_data, byte_to_copy);
     bytes_remaining -= byte_to_copy;
     p_data += byte_to_copy;
     bytes_in_buffer -= byte_to_copy;
@@ -284,7 +284,7 @@ int getopt(int argc, char **argv, char *optstring, int *opt_index) {
   if (*opt_index >= argc || !argv[*opt_index]) {
     goto DONE;
   }
-  for (int i = 0; i < strlen(optstring); i++) {
+  for (int i = 0; i < cgc_strlen(optstring); i++) {
     if (*argv[*opt_index] == optstring[i]) {
       option = optstring[i];
       (*opt_index)++;
@@ -308,6 +308,6 @@ void bcopy(char *s, char *d, size_t size) {
 }
 
 
-void exit(int e) {
+void cgc_exit(int e) {
   _terminate(e);
 }

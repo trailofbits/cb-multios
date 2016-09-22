@@ -105,8 +105,8 @@ int _sc_compare(unsigned char *order, unsigned char *s1, unsigned char *s2, size
 sc_obj_t* sc_new(unsigned char *key)
 {
     sc_obj_t *sc = (sc_obj_t *) malloc(sizeof(sc_obj_t));
-    memset(sc, 0, sizeof(sc_obj_t));
-    memcpy(sc->order, key, 95);
+    cgc_memset(sc, 0, sizeof(sc_obj_t));
+    cgc_memcpy(sc->order, key, 95);
     sc->cmp = _sc_compare;
     return sc;
 }
@@ -161,7 +161,7 @@ int sc_set_data(sc_obj_t *sc, unsigned char *data, size_t data_len)
     if (sc->data)
         free(sc->data);
     sc->data = malloc(data_len);
-    memcpy(sc->data, data, data_len);
+    cgc_memcpy(sc->data, data, data_len);
     sc->data_len = data_len;
     return 0;
 }
@@ -210,7 +210,7 @@ void _merge(unsigned char **xs, unsigned char **ys, int lo, int mid, int hi, sc_
         ys[k] = xs[i];
     for (; j < hi; ++j, ++k)
         ys[k] = xs[j];
-    memcpy(&xs[lo], &ys[lo], (hi - lo) * sizeof(unsigned char *));
+    cgc_memcpy(&xs[lo], &ys[lo], (hi - lo) * sizeof(unsigned char *));
 }
 
 void _msort(unsigned char **xs, unsigned char **ys, int lo, int hi, sc_obj_t *sc)
@@ -247,12 +247,12 @@ unsigned char* sc_bwt(sc_obj_t *sc, int op, size_t *outlen)
     num_blocks = 0;
     unsigned char **rot_table = malloc(BLOCK_SIZE * sizeof(unsigned char *));
     unsigned char *out = malloc(*outlen);
-    memset(out, 0, *outlen);
+    cgc_memset(out, 0, *outlen);
 
     for (i = 0; i < BLOCK_SIZE; ++i)
     {
         rot_table[i] = malloc(BLOCK_SIZE);
-        memset(rot_table[i], 0, BLOCK_SIZE);
+        cgc_memset(rot_table[i], 0, BLOCK_SIZE);
     }
 
     if (!op)
@@ -263,12 +263,12 @@ unsigned char* sc_bwt(sc_obj_t *sc, int op, size_t *outlen)
             if (size >= sc->data_len)
                 break;
             to_copy = sc->data_len - size > 512 ? 512 : (sc->data_len - size);
-            memset(block, 0, sizeof(block));
-            memcpy(block, &sc->data[size], to_copy);
+            cgc_memset(block, 0, sizeof(block));
+            cgc_memcpy(block, &sc->data[size], to_copy);
 
             for (i = 0; i < to_copy; ++i)
             {
-                memcpy(rot_table[i], block, to_copy);
+                cgc_memcpy(rot_table[i], block, to_copy);
                 _rot_left(rot_table[i], to_copy, i);
             }
             _sort(rot_table, to_copy, sc);
@@ -300,10 +300,10 @@ unsigned char* sc_bwt(sc_obj_t *sc, int op, size_t *outlen)
             if (oidx > to_copy)
                 goto fail;
 #endif
-            memset(block, 0, sizeof(block));
-            memcpy(block, &sc->data[size], to_copy);
+            cgc_memset(block, 0, sizeof(block));
+            cgc_memcpy(block, &sc->data[size], to_copy);
             for (i = 0; i < BLOCK_SIZE; ++i)
-                memset(rot_table[i], 0, BLOCK_SIZE);
+                cgc_memset(rot_table[i], 0, BLOCK_SIZE);
 
             for (i = to_copy - 1; i >= 0; --i)
             {
@@ -343,11 +343,11 @@ unsigned char* sc_mtf(sc_obj_t *sc, int op, size_t *outlen)
         unsigned char *out = malloc(sc->data_len);
         unsigned char *out_c = malloc(sc->data_len * 2 + 4);
         *(size_t *)out_c = sc->data_len;
-        memset(out, 0, sc->data_len);
+        cgc_memset(out, 0, sc->data_len);
 
         for (i = 0; i < 32; ++i)
             list[i] = (unsigned char) i;
-        memcpy(&list[32], sc->order, 95);
+        cgc_memcpy(&list[32], sc->order, 95);
         for (i = 127; i < sizeof(list); ++i)
             list[i] = (unsigned char) i;
 
@@ -364,7 +364,7 @@ unsigned char* sc_mtf(sc_obj_t *sc, int op, size_t *outlen)
             memmove(&list[1], list, j);
             *list = sc->data[i];
         }
-        memset(out_c + 4, 0, sc->data_len * 2);
+        cgc_memset(out_c + 4, 0, sc->data_len * 2);
         bio_t *bio = bit_new(out_c + 4);
         for (i = 0; i < sc->data_len; ++i)
         {
@@ -399,7 +399,7 @@ unsigned char* sc_mtf(sc_obj_t *sc, int op, size_t *outlen)
         if (sz > MAX_DATA_SIZE)
             return NULL;
         unsigned char *out_d = malloc(sz);
-        memset(out, 0, sizeof(out));
+        cgc_memset(out, 0, sizeof(out));
 
         bio_t *bio = bit_new(sc->data + 4);
         for (i = 0; i < sz; ++i)
@@ -412,7 +412,7 @@ unsigned char* sc_mtf(sc_obj_t *sc, int op, size_t *outlen)
 
         for (i = 0; i < 32; ++i)
             list[i] = (unsigned char) i;
-        memcpy(&list[32], sc->order, 95);
+        cgc_memcpy(&list[32], sc->order, 95);
         for (i = 127; i < sizeof(list); ++i)
             list[i] = (unsigned char) i;
 

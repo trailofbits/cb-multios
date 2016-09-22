@@ -115,7 +115,7 @@ player_info *register_player(player_info *root_player)
         printf("Error allocating memory for new player\n");
         return root_player;
     }
-    memset(new_player, 0, sizeof(player_info));
+    cgc_memset(new_player, 0, sizeof(player_info));
     do
     {
         new_player->number = prng() & 0x7fffffff; // positive numbers only
@@ -192,7 +192,7 @@ int lookup(char byte)
 
 // Decodes a string of ascii characters into binary data.
 // Invalid input will terminate the program. 
-// Can write up to size bytes to *decoded.
+// Can cgc_write up to size bytes to *decoded.
 void decode(char *encoded, char *decoded, size_t size)
 {
     char *inp = encoded;
@@ -265,7 +265,7 @@ void programming_interface()
     decode(config_data, (char *)new_payouts, config_size);
 
     // Update payouts
-    memcpy(&payouts, &new_payouts, sizeof(payouts));
+    cgc_memcpy(&payouts, &new_payouts, sizeof(payouts));
 
     deallocate(config_data, config_size);
 }
@@ -288,15 +288,15 @@ int main(void) {
         _terminate(2);
     }
     name[bytes_read] = 0;
-    if (name[strlen(name)-1] == '\n')
+    if (name[cgc_strlen(name)-1] == '\n')
     {
-        name[strlen(name)-1] = '\0';
+        name[cgc_strlen(name)-1] = '\0';
     }
     printf("Hello, @s!\n", name);
 
     // Seed the PRNG
     uint64_t seed = 0;
-    for (int i = 0; i<strlen(name); i++)
+    for (int i = 0; i<cgc_strlen(name); i++)
     {
         seed = (seed << 8) | (((seed >> 56) ^ name[i]));
     }

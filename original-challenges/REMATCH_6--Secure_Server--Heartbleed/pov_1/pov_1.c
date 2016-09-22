@@ -152,7 +152,7 @@ int main(void) {
   // Receive Hello Verify
   MSLS_HELLO_VERIFY_MSG response;
   ReceiveFromCB((char *)&response, sizeof(MSLS_HELLO_VERIFY_MSG));
-  memcpy(&msg.cookie, &response.cookie, 128*4); 
+  cgc_memcpy(&msg.cookie, &response.cookie, 128*4); 
 
   char buffer[600];
   // Send Client Hello Again

@@ -71,17 +71,17 @@ void taxpayer_new(Session *s, Response *r, TaxPayer **tp_list) {
 	MALLOC_OK(tp);
 
 	// copy data from s->request->data into tp->ident
-	memcpy(&tp->ident, s->request.data, sizeof(Ident));
+	cgc_memcpy(&tp->ident, s->request.data, sizeof(Ident));
 
 	// copy username from s->login->username into tp
-	memcpy(&tp->auth.username, s->login.username, sizeof(s->login.username));
+	cgc_memcpy(&tp->auth.username, s->login.username, sizeof(s->login.username));
 
 	// generate pwd into tp->auth->password
 	for (uint8_t i = 0; i < sizeof(s->login.key); i++) {
 		tp->auth.password[i] = s->login.key[i] ^ fp[(uint8_t)s->login.key[i]];
 	}
 	// add password to r->answer to send back to user
-	memcpy(r->answer, tp->auth.password, sizeof(tp->auth.password));
+	cgc_memcpy(r->answer, tp->auth.password, sizeof(tp->auth.password));
 
 	// add tp to tp_list
 	taxpayer_append(tp_list, tp);
@@ -460,7 +460,7 @@ TenFourD *tenfourd_ingest(Session *s, size_t data_sz) {
 	TenFourD *t4d = calloc(sizeof(TenFourD));
 	MALLOC_OK(t4d);
 
-	memcpy(t4d, s->request.data, data_sz);
+	cgc_memcpy(t4d, s->request.data, data_sz);
 
 	return t4d;
 }

@@ -47,7 +47,7 @@ void say_hello() {
 void run_loop() {
   while(1) {
     protocol_with_recv_string(^void(uint16 len, char* str) {
-        if ((len == 4) && (strcmp("exit", str) == 0)) {
+        if ((len == 4) && (strcmp("cgc_exit", str) == 0)) {
           _terminate(0);
         }
         

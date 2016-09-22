@@ -32,7 +32,7 @@ int handle_repo( )
         return 0;
     }
    
-    memset(name, 0, 256);
+    cgc_memset(name, 0, 256);
     
     if ( recv(name, length) == 0 ) {
         return 0;
@@ -65,7 +65,7 @@ void handle_prnt( pfile base, char *st )
         } else {
             printf("Dir\n");
             
-            memset(nm, 0, 256);
+            cgc_memset(nm, 0, 256);
             
             strncpy( nm, st, 255 );
             strncat( nm, "/", 255);
@@ -83,7 +83,7 @@ int handle_recv( void )
 	char name[256];
 	pfile fd = NULL;
     
-	memset(name, 0, 256);
+	cgc_memset(name, 0, 256);
     
 	if ( recv( (char*)&name_length, 1 ) == 0 ) {
 		/// Send an error
@@ -123,7 +123,7 @@ int handle_ndir( void )
 	char name[256];
 	pfile new_dir = NULL;
 	
-	memset(name, 0, 256);
+	cgc_memset(name, 0, 256);
     
 	if ( recv( (char*)&name_length, 1 ) == 0 ) {
 		/// Send an error
@@ -174,7 +174,7 @@ int handle_send( void )
 	char *data = NULL;
 	pfile new_file = NULL;
 	
-	memset(name, 0, 256);
+	cgc_memset(name, 0, 256);
 
 	if ( recv( (char*)&name_length, 1 ) == 0 ) {
 		/// Send an error
@@ -205,7 +205,7 @@ int handle_send( void )
         return 0;
     }
     
-    memset( data, 0, file_length + 1);
+    cgc_memset( data, 0, file_length + 1);
     
     if ( recv( data, file_length ) == 0 ) {
         printf("[ERROR] Failed to recv data\n");

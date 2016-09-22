@@ -42,13 +42,13 @@ int abs( int );
 int strcmp( char *str1, char *str2 );
 char *strcpy( char *dest, char *src );
 char *strncpy( char *dest, const char *src, size_t num );
-size_t strlen( const char *str );
+size_t cgc_strlen( const char *str );
 int printf( const char *fmt, ... );
 int sprintf( char *str, const char *fmt, ... );
 size_t getline( char *buffer, size_t len );
 size_t receive_until( char *, char, size_t );
 
-void* memcpy( void *dest, void *src, size_t numbytes );
-void* memset( void *dest, int value, size_t num );
+void* cgc_memcpy( void *dest, void *src, size_t numbytes );
+void* cgc_memset( void *dest, int value, size_t num );
 
 #endif // __STDLIB_H__

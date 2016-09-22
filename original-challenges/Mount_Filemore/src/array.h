@@ -62,7 +62,7 @@ void Array<T>::Append(const T &item)
     if (length_ == size_) {
         size_ *= 2;
         T *data_copy = new T[size_];
-        memcpy(data_copy, data_, sizeof(T) * length_);
+        cgc_memcpy(data_copy, data_, sizeof(T) * length_);
         delete[] data_;
         data_ = data_copy;
     }

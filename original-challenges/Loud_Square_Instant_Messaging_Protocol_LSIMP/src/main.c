@@ -283,7 +283,7 @@ void process()
 void quit()
 {
   printf("QUIT\n");
-  exit(0);
+  cgc_exit(0);
 }
 
 int main()

@@ -48,7 +48,7 @@ void io_init_bytes(io_t *io, const char *str, unsigned int length)
 
 void io_init_string(io_t *io, const char *str)
 {
-    io_init_bytes(io, str, strlen(str));
+    io_init_bytes(io, str, cgc_strlen(str));
 }
 
 void io_mark(io_t *io)

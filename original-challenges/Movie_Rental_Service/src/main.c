@@ -74,9 +74,9 @@ void initialize()
     movie = (movie_t *) malloc(sizeof(movie_t));
     if (movie == NULL)
       goto fail;
-    memset(movie, '\0', sizeof(movie_t));
-    movie->title = (char *) malloc(strlen(default_movies[i].title) + 1);
-    movie->desc = (char *) malloc(strlen(default_movies[i].desc) + 1);
+    cgc_memset(movie, '\0', sizeof(movie_t));
+    movie->title = (char *) malloc(cgc_strlen(default_movies[i].title) + 1);
+    movie->desc = (char *) malloc(cgc_strlen(default_movies[i].desc) + 1);
     if (movie->title == NULL || movie->desc == NULL)
       goto fail;
     strcpy(movie->title, default_movies[i].title);
@@ -324,7 +324,7 @@ void add_movie()
   printf("Enter Title: ");
   if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
     goto fail;
-  movie->title = (char *) malloc(strlen(buf) + 1);
+  movie->title = (char *) malloc(cgc_strlen(buf) + 1);
   if (movie->title == NULL)
     goto fail;
   strcpy(movie->title, buf);
@@ -332,7 +332,7 @@ void add_movie()
   printf("Enter Description: ");
   if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
     goto fail;
-  movie->desc = (char *) malloc(strlen(buf) + 1);
+  movie->desc = (char *) malloc(cgc_strlen(buf) + 1);
   if (movie->desc == NULL)
     goto fail;
   strcpy(movie->desc, buf);
@@ -524,9 +524,9 @@ void update_movie()
   printf("Enter new title (current: [%s]): ", movie->title);
   if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
     return;
-  if (strlen(buf) != 0)
+  if (cgc_strlen(buf) != 0)
   {
-    new_title = (char *) malloc(strlen(buf) + 1);
+    new_title = (char *) malloc(cgc_strlen(buf) + 1);
     if (new_title == NULL)
       goto fail;
     strcpy(new_title, buf);
@@ -536,9 +536,9 @@ void update_movie()
   printf("Enter new description (current: [%s]): ", movie->desc);
   if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
     return;
-  if (strlen(buf) != 0)
+  if (cgc_strlen(buf) != 0)
   {
-    new_desc = (char *) malloc(strlen(buf) + 1);
+    new_desc = (char *) malloc(cgc_strlen(buf) + 1);
     if (new_desc == NULL)
       goto fail;
     strcpy(new_desc, buf);
@@ -550,7 +550,7 @@ void update_movie()
     printf("Enter new year (1800-2015) (current: [%d]): ", movie->year);
     if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
       goto fail;
-    if (strlen(buf) != 0)
+    if (cgc_strlen(buf) != 0)
     {
       int new_year = strtoul(buf, NULL, 10);
       if (new_year >= 1800 && new_year <= 2015)
@@ -569,7 +569,7 @@ void update_movie()
     printf("Enter new review score (0-100) (current: [%d/100]: ", movie->score);
     if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
       goto fail;
-    if (strlen(buf) != 0)
+    if (cgc_strlen(buf) != 0)
     {
       int new_score = strtoul(buf, NULL, 10);
       if (new_score >= 0 && new_score <= 100)
@@ -589,7 +589,7 @@ void update_movie()
     printf("Select a genre (current: [%s])\n 1. Action\n 2. Romance\n 3. Comeda\n 4. Horror\n 5. Other\nChoice: ", movie_g2s(movie->genre));
     if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
       goto fail;
-    if (strlen(buf) != 0)
+    if (cgc_strlen(buf) != 0)
     {
       unsigned int genre = strtoul(buf, NULL, 10);
       finish = 1;
@@ -621,7 +621,7 @@ void update_movie()
     printf("Select a film rating (current: [%s]\n 1. G\n 2. PG\n 3. PG-13\n 4. R\n 5. Unknown\nChoice: ", movie_r2s(movie->rating));
     if (readuntil(STDIN, buf, sizeof(buf), '\n') < 0)
       goto fail;
-    if (strlen(buf) != 0)
+    if (cgc_strlen(buf) != 0)
     {
       unsigned int rating = strtoul(buf, NULL, 10);
       finish = 1;
@@ -662,7 +662,7 @@ fail:
 void quit()
 {
   printf("Bye!\n");
-  exit(0);
+  cgc_exit(0);
 }
 
 int main()
@@ -699,7 +699,7 @@ int main()
           admin_mode = 0;
           break;
         default:
-          printf("[ERROR] Invalid menu. Please select again.\n");
+          printf("[ERROR] Invalid menu. Please cgc_select again.\n");
           break;
       }
     }
@@ -726,7 +726,7 @@ int main()
           quit();
           break;
         default:
-          printf("[ERROR] Invalid menu. Please select again.\n");
+          printf("[ERROR] Invalid menu. Please cgc_select again.\n");
           break;
       }
     }

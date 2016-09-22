@@ -48,7 +48,7 @@ extern "C"
 
 
 //
-//	read input, parse command, respond to command
+//	cgc_read input, parse command, respond to command
 //
 int main( void )
 {
@@ -171,14 +171,14 @@ int main( void )
 					break;
 				}
 
-				// in a loop, read each program variables into ctlr.m_controllerProgram[i]
+				// in a loop, cgc_read each program variables into ctlr.m_controllerProgram[i]
 
 				int num_nibbles_to_start = 16; // 8 bytes
 				int num_nibbles_for_each_program = 24; // 12 bytes
 
 
 				// keep original copy in the backup
-				// write all new values to the main program
+				// cgc_write all new values to the main program
 				// clear backup when done
 
 				ctlr.BackupProgram();

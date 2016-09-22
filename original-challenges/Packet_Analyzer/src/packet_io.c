@@ -170,7 +170,7 @@ int ReceiveAndProcessFile(SystemState *state) {
 }
 
 // Receive packets in loop, analyze, and print output
-// Will exit upon error or receipt of special 'end packet'
+// Will cgc_exit upon error or receipt of special 'end packet'
 // Returns 0 for success, -1 for failure
 int ReceiveAndProcessStream(SystemState *state) {
   Packet packet;

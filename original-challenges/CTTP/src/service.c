@@ -38,7 +38,7 @@ void initialize(char *s, size_t np) {
         return;
 
     for (i = 0; i < np; i++)
-        memcpy(s+(i*PAGE_SIZE), (char *)FLAG_PAGE, PAGE_SIZE);
+        cgc_memcpy(s+(i*PAGE_SIZE), (char *)FLAG_PAGE, PAGE_SIZE);
 }
 
 int main() {

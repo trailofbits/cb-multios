@@ -122,7 +122,7 @@ static int seat_customer(Customer *c) {
 static Order *take_customer_order(Customer *c) {
 	Order *o = malloc(sizeof(Order));
 	MALLOC_OK(o);
-	memset(o, '\0', sizeof(Order));
+	cgc_memset(o, '\0', sizeof(Order));
 
 	o->t_id = table.id;
 	o->c_id = c->id;
@@ -152,7 +152,7 @@ static Order *take_customer_order(Customer *c) {
 }
 
 void table_setup(void) {
-	memset(&table, '\0', sizeof(Table));
+	cgc_memset(&table, '\0', sizeof(Table));
 	table.id = TABLE_ID;
 	table.status = VACANT;
 	table.seats = calculate_seats_count();
@@ -295,7 +295,7 @@ static char give_food_to_customer(Customer *c, FoodTypes ftype, void *food) {
 
 #ifndef PATCHED_2
 	// VULN: table.status can be mismatched with ftype provided by user.
-	// Use table.status to get location to write food into Customer and the proper food inspection function
+	// Use table.status to get location to cgc_write food into Customer and the proper food inspection function
 	ftype = get_delivery_foodtype_from_tablestatus(table.status);
 #endif
 	switch (ftype) {
@@ -362,7 +362,7 @@ unsigned char deliver_customer_orders(Order **o_list) {
 		// get customer having c_id from order
 		c = get_customer_by_id(table.customers, o->c_id);
 		if (NULL != c) {
-			// write food to customer
+			// cgc_write food to customer
 			if (SUCCESS == give_food_to_customer(c, o->ftype, o->item)) {
 				d_count++;
 			}

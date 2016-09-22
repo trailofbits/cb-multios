@@ -442,7 +442,7 @@ uint8_t UpdateDevice(uint16_t DeviceId) {
 
 	switch (Devices[DeviceIndex].Type) {
 		case DEVICE_KEYPAD:
-			// read in the PIN
+			// cgc_read in the PIN
 			if (!ReadBytes((unsigned char *)&Pin, PIN_LEN)) {
 				return(0);
 			}
@@ -459,7 +459,7 @@ uint8_t UpdateDevice(uint16_t DeviceId) {
 			break;
 
 		case DEVICE_SWIPE:
-			// read in the Code
+			// cgc_read in the Code
 			if (!ReadBytes((unsigned char *)&Code, ACCESS_CODE_LEN)) {
 				return(0);
 			}
@@ -567,9 +567,9 @@ void SortCodes(pAuthorizedCodes Codes) {
 		for (i = 0; i < MAX_DEVICES-1; i++) {
 			res = strcmp(Codes->AccessCodes[i], Codes->AccessCodes[i+1]);
 			if (res > 0) {
-				memcpy(Temp, Codes->AccessCodes[i+1], 32);
-				memcpy(Codes->AccessCodes[i+1], Codes->AccessCodes[i], 32);
-				memcpy(Codes->AccessCodes[i], Temp, 32);
+				cgc_memcpy(Temp, Codes->AccessCodes[i+1], 32);
+				cgc_memcpy(Codes->AccessCodes[i+1], Codes->AccessCodes[i], 32);
+				cgc_memcpy(Codes->AccessCodes[i], Temp, 32);
 				Sorted = 0;
 			}
 		}
@@ -600,7 +600,7 @@ uint8_t ListValidAlarmCodes(uint16_t DeviceId) {
 	if ((codes = (pAuthorizedCodes)calloc(sizeof(AuthorizedCodes))) == NULL) {
 		return(0);
 	}
-	memcpy(codes, Devices[DeviceIndex].Attributes, sizeof(AuthorizedCodes));
+	cgc_memcpy(codes, Devices[DeviceIndex].Attributes, sizeof(AuthorizedCodes));
 	SortCodes(codes);
 
 	// once through to get a count of codes we'll be sending

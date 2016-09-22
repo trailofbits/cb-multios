@@ -46,7 +46,7 @@ bool Playlist::AddSong(const tag_and_file *song)
     {
         list_size_ *= 2;
         tag_and_file *doubled_list = new tag_and_file[list_size_];
-        memcpy(doubled_list, playlist_, sizeof(tag_and_file) * length_);
+        cgc_memcpy(doubled_list, playlist_, sizeof(tag_and_file) * length_);
         delete[] playlist_;
         playlist_ = doubled_list;
     }
@@ -244,6 +244,6 @@ void Playlist::SortHelper(tag_and_file *playlist, tag_and_file *duped_list, unsi
             duped_list[i] = playlist[right_idx++];
         }
     }
-    memcpy(&playlist[start_idx], &duped_list[start_idx], (end_idx - start_idx) * sizeof(playlist[0]));
+    cgc_memcpy(&playlist[start_idx], &duped_list[start_idx], (end_idx - start_idx) * sizeof(playlist[0]));
 }
 

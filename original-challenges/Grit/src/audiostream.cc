@@ -84,12 +84,12 @@ void AudioStream::enlarge(unsigned int length)
         }
 
         newsamples = new int32_t[size];
-        memcpy(newsamples, samples, this->length * sizeof(int32_t));
+        cgc_memcpy(newsamples, samples, this->length * sizeof(int32_t));
         delete[] samples;
         samples = newsamples;
     }
 
-    memset(&samples[this->length], 0, sizeof(int32_t) * (length - this->length));
+    cgc_memset(&samples[this->length], 0, sizeof(int32_t) * (length - this->length));
     this->length = length;
 }
 

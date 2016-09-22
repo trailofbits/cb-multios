@@ -22,7 +22,7 @@
  */
 #include <string.h>
 
-void *memcpy(void *dst, const void *src, size_t n)
+void *cgc_memcpy(void *dst, const void *src, size_t n)
 {
     unsigned char *udst = dst;
     const unsigned char *usrc = src;

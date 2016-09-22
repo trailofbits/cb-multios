@@ -61,7 +61,7 @@ int int_cmd(const char *s)
 
 int rev_cmd(const char *s)
 {
-  char *r = calloc(1, strlen(s) + 1);
+  char *r = calloc(1, cgc_strlen(s) + 1);
   strcpy(r, s);
   if (!strchr(r, '\0'))
     return -1;
@@ -130,7 +130,7 @@ int pont_cmd(const char *s)
 int part_cmd(const char *s)
 {
   printf("BYE!\n");
-  exit(0);
+  cgc_exit(0);
   return 0;
 }
 
@@ -170,12 +170,12 @@ int is_command(const char *s, list *cmds)
   if (!s)
     return 0;
 
-  if (!strlen(s))
+  if (!cgc_strlen(s))
     return 0;
 
   for (list *it = cmds; it; it = it->n) {
     cmd *x = (cmd *)it->d;
-    if (!strncmp(s, x->keyword, strlen(x->keyword)))
+    if (!strncmp(s, x->keyword, cgc_strlen(x->keyword)))
       return 1;
   }
 
@@ -189,7 +189,7 @@ cmd *get_command(const char *s, list *cmds)
 
   for (list *it = cmds; it; it = it->n) {
     cmd *x = (cmd *)it->d;
-    if (!strncmp(s, x->keyword, strlen(x->keyword)))
+    if (!strncmp(s, x->keyword, cgc_strlen(x->keyword)))
       return x;
   }
 
@@ -300,7 +300,7 @@ int tick_common(const char *s, list *cmds, const char *botname, unsigned ctyn)
     if (strchr(s, ' '))
         s = strchr(s, ' ') + 1;
     else
-        s = s + strlen(c->keyword);
+        s = s + cgc_strlen(c->keyword);
 
     c->fp(s);
     return 0;
@@ -389,7 +389,7 @@ int main(void)
 
     print_prompt();
 
-    memset(buf, '\0', BUF_SIZE + 1);
+    cgc_memset(buf, '\0', BUF_SIZE + 1);
     if ((readline(1, buf, BUF_SIZE, &rx) < 0) || rx == (size_t)NULL) {
       free(buf);
       continue;

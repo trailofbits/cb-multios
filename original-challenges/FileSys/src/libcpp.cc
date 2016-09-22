@@ -27,7 +27,7 @@ extern "C" {
 
 extern void terminate(int);
 extern "C" {
-  void __cxa_pure_virtual() { exit(0); }
+  void __cxa_pure_virtual() { cgc_exit(0); }
 };
 
 void *operator new(unsigned int sz) {

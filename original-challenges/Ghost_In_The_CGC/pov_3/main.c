@@ -14,7 +14,7 @@ char* msgs[25] = {
 "Can you give me an example?\n",
 "Ohh I see. Why don't you tell me about the lights.\n",
 "Is there a pattern to them?\n",
-"Well why don't you read some lights to me.\n",
+"Well why don't you cgc_read some lights to me.\n",
 "4347C003\n", //14
 "Sure\n",
 "4347C002\n", //16
@@ -144,13 +144,13 @@ int main(void)
 
   for (i = 0; i < 25; i++)
   {
-    transmit_all(STDOUT, msgs[i], strlen(msgs[i]));
+    transmit_all(STDOUT, msgs[i], cgc_strlen(msgs[i]));
     receive_until(STDIN, buf, 512, '\n');
 
     if ( (i == 14) || (i == 16) || (i == 18) || (i == 20) )
     {
       temp = (temp << 8) | parseByte(buf);
-      transmit_all(STDERR, buf, strlen(buf));
+      transmit_all(STDERR, buf, cgc_strlen(buf));
       receive_until(STDIN, buf, 512, '\n');
     }
 

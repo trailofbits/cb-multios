@@ -64,7 +64,7 @@ stamp_t *get_new_stamp(void) {
 	// make sure no valid stamp has the serial of BAD_STAMP
 	do {
 #ifndef PATCHED_1
-		if (sizeof(stamp_t) != memcpy(s->serial, &seed[seed_idx], sizeof(stamp_t)))
+		if (sizeof(stamp_t) != cgc_memcpy(s->serial, &seed[seed_idx], sizeof(stamp_t)))
 			return NULL;
 		seed_idx = (seed_idx + 3) % SEED_MAX;
 #else

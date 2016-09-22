@@ -53,7 +53,7 @@ struct token {
  *
  * @param str The string to tokenize
  * @param token The buffer to place the tokens, ensure it has enough room to
- *      receive up to strlen(str) tokens
+ *      receive up to cgc_strlen(str) tokens
  * @return The number of tokens in the stream on success, or EXIT_FAILURE on
  *      failure
  */

@@ -34,10 +34,10 @@ blub::blub(char* _author, char* data)
 {
   id = (uint32_t)this;
 
-  size_t l = strlen(_author);
+  size_t l = cgc_strlen(_author);
   strncpy(username, _author, l);
 
-  memcpy(content, data, BLUB_MAX);
+  cgc_memcpy(content, data, BLUB_MAX);
 
   ts = tick();
 }
@@ -58,14 +58,14 @@ blub* blubber::gen_blub(void)
   size_t rem = BLUB_MAX;
   int misses = 0;
 
-  memset(buf, 0, BLUB_MAX + 1);
+  cgc_memset(buf, 0, BLUB_MAX + 1);
 
   while (0 < rem && misses < 8)
   {
     const char* word = words[choice() % (sizeof(words) / sizeof(char *))];
-    if (strlen(word) + strlen(" ") <= rem)
+    if (cgc_strlen(word) + cgc_strlen(" ") <= rem)
     {
-      size_t offset = strlen(buf);
+      size_t offset = cgc_strlen(buf);
       if (offset > 0)
       {
         strcpy(buf + offset, " ");
@@ -76,7 +76,7 @@ blub* blubber::gen_blub(void)
         strcpy(buf + offset, word);
       }
 
-      rem = BLUB_MAX - strlen(buf);
+      rem = BLUB_MAX - cgc_strlen(buf);
     }
     else
     {

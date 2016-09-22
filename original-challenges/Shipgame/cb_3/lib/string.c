@@ -174,7 +174,7 @@ char* strrchr(char* haystack, char needle)
   return (temp);
 }
 
-size_t strlen(const char* str)
+size_t cgc_strlen(const char* str)
 {
   size_t ret = 0; 
   if (str == NULL)
@@ -190,7 +190,7 @@ size_t strlen(const char* str)
 
 /**
  * The maximum unsigned value is 4294967295 which is 0xFFFFFFFF
- * So the idea is to read in up to 9 digits and then convert that
+ * So the idea is to cgc_read in up to 9 digits and then convert that
  * into a uint64_t. We need a uint64_t because 9999999999 will overflow
  * uint32_t. 
  *

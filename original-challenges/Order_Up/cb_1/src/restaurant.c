@@ -253,7 +253,7 @@ static char do_order_up(void) {
 	for (unsigned char idx = 0; idx < order_count; idx++) {
 		o = malloc(sizeof(Order));
 		MALLOC_OK(o);
-		memset(o, '\x00', sizeof(Order));
+		cgc_memset(o, '\x00', sizeof(Order));
 
 		// recv t_id and c_id
 		RECV(STDIN, (char *)ids, sizeof(ids));
@@ -279,7 +279,7 @@ static char do_order_up(void) {
 				DBG("receiving appetizer...\n");
 				a = malloc(sizeof(Appetizer));
 				MALLOC_OK(a);
-				memset(a, '\x00', sizeof(Appetizer));
+				cgc_memset(a, '\x00', sizeof(Appetizer));
 				a->ftype = APP_TYPE;
 				RECV(STDIN, (char *)a->name, APP_NAME_SZ);
 				DBG("received appetizer\n");
@@ -290,7 +290,7 @@ static char do_order_up(void) {
 				DBG("receiving meal...\n");
 				m = malloc(sizeof(Meal));
 				MALLOC_OK(m);
-				memset(m, '\x00', sizeof(Meal));
+				cgc_memset(m, '\x00', sizeof(Meal));
 				m->ftype = MEAL_TYPE;
 				RECV(STDIN, (char *)m->name, MEAL_NAME_SZ + MEAL_MAIN_SZ + MEAL_VEG_SZ + MEAL_SIDE_SZ);
 				DBG("received meal\n");
@@ -301,7 +301,7 @@ static char do_order_up(void) {
 				DBG("receiving dessert...\n");
 				d = malloc(sizeof(Dessert));
 				MALLOC_OK(d);
-				memset(d, '\x00', sizeof(Dessert));
+				cgc_memset(d, '\x00', sizeof(Dessert));
 				d->ftype = DES_TYPE;
 				RECV(STDIN, (char *)d->name, DES_NAME_SZ);
 				DBG("received dessert\n");
@@ -313,7 +313,7 @@ static char do_order_up(void) {
 				free(o);
 				return -1;
 		}
-		// Note: if forget to check if table_id is valid, can write Order pointers throughout the stack
+		// Note: if forget to check if table_id is valid, can cgc_write Order pointers throughout the stack
 		append_order_to_list(&o_array[o->t_id], o);
 	}
 	DBG("done recving orders\n");

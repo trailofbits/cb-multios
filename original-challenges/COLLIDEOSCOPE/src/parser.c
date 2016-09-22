@@ -203,7 +203,7 @@ parse(struct token *tokens, size_t n, struct ast *out)
         if ((cur_node = pool_alloc(&out->pool)) == NULL)
             return EXIT_FAILURE;
 
-        memset(cur_node, '\0', sizeof(struct ast_node));
+        cgc_memset(cur_node, '\0', sizeof(struct ast_node));
 
         switch (tokens[i].type) {
         case TOK_CONSTANT:
@@ -213,7 +213,7 @@ parse(struct token *tokens, size_t n, struct ast *out)
             break;
         case TOK_VARIABLE:
             cur_node->type = AST_VARIABLE;
-            memset(cur_node->expr.variable, '\0', 4);
+            cgc_memset(cur_node->expr.variable, '\0', 4);
             strncpy(cur_node->expr.variable, tokens[i].val.s, 4);
             push_ast_node(&output_stack, cur_node);
             break;

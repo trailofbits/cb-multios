@@ -39,7 +39,7 @@ int tokenize(char *string, char delimiter, char **args[]) {
 int i;
 int count;
 
-	if (strlen(string) == 0) {
+	if (cgc_strlen(string) == 0) {
 
 		return 0;
 	}

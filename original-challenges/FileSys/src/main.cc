@@ -49,7 +49,7 @@ void init_commands()
   OpenCmd *open = new OpenCmd();
   CloseCmd *close = new CloseCmd();
   CloseAllCmd *closeAll = new CloseAllCmd();
-  ReadCmd *read = new ReadCmd();
+  ReadCmd *cgc_read = new ReadCmd();
   ModifyCmd *modify = new ModifyCmd();
   DeleteCmd *del = new DeleteCmd();
   CreateDirCmd *createDir = new CreateDirCmd();
@@ -64,7 +64,7 @@ void init_commands()
   cmdMan->InstallCommand(open);
   cmdMan->InstallCommand(close);
   cmdMan->InstallCommand(closeAll);
-  cmdMan->InstallCommand(read);
+  cmdMan->InstallCommand(cgc_read);
   cmdMan->InstallCommand(modify);
   cmdMan->InstallCommand(del);
   cmdMan->InstallCommand(createDir);

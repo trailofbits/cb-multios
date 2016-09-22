@@ -40,8 +40,6 @@
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE -1
 
-#define PAGE_SIZE (1 << 12)
-
 /**
  * If e doesn't return SUCCESS, return ret;
  *

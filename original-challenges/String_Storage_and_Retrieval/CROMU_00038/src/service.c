@@ -55,7 +55,7 @@ int i;
     swap_short = 0;
     swap_word = 0;
 
-    // read the first two bytes and check for the Start of Message marker
+    // cgc_read the first two bytes and check for the Start of Message marker
     ret_code = receive_bytes((unsigned char *)&SOM, sizeof(SOM));
 
     if (ret_code == -1 ) {
@@ -103,7 +103,7 @@ int i;
         }
 
 
-        // now read and discard the rest of the SAP0 header
+        // now cgc_read and discard the rest of the SAP0 header
         xif_data = malloc(segment_size-sizeof(segment_size));
 
         if ((int)xif_data == 0) {
@@ -112,19 +112,19 @@ int i;
             _terminate(-1);
         }
 
-        // read the rest of SAP0 and discard
+        // cgc_read the rest of SAP0 and discard
         ret_code=receive_bytes((unsigned char *)xif_data, segment_size-sizeof(segment_size));
 
         if (ret_code == -1) {
 
-            printf("unable to read SAP0 segment\n");
+            printf("unable to cgc_read SAP0 segment\n");
             _terminate(-1);
         }
 
         free(xif_data);
         xif_data = 0;
 
-        // now read the next marker, which should be SAP1
+        // now cgc_read the next marker, which should be SAP1
         ret_code = receive_bytes((unsigned char *)&marker, sizeof(marker));
 
         if (ret_code == -1 ) {
@@ -148,7 +148,7 @@ int i;
 
     }
 
-    // read the length of the overall segment
+    // cgc_read the length of the overall segment
     ret_code = receive_bytes((unsigned char *)&segment_size, sizeof(segment_size));
 
     if (ret_code == -1 ) {
@@ -177,7 +177,7 @@ int i;
 
     if (ret_code == -1) {
 
-        printf("unable to read SAP1 segment\n");
+        printf("unable to cgc_read SAP1 segment\n");
         _terminate(-1);
     }
 
@@ -256,7 +256,7 @@ int i;
             if (swap_word(IFD->Entry[i].Value) < segment_size - 8 && swap_word(IFD->Entry[i].Value) > 0)
 #ifdef PATCHED
 		{
-		if ( strlen( (char *)(tiff_hdr) + swap_word(IFD->Entry[i].Value)) > 2048) {
+		if ( cgc_strlen( (char *)(tiff_hdr) + swap_word(IFD->Entry[i].Value)) > 2048) {
 			((char *)(tiff_hdr))[swap_word(IFD->Entry[i].Value)+2048] = '\x00';
 		}
 #endif

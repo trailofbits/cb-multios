@@ -47,7 +47,7 @@ int handle_A_input()
 	// same for all users
 	// handle create user
 	// handle login
-	// handle exit
+	// handle cgc_exit
 	size_t l = 0;
 	while (l < 1)
 		l = receive_until( buf, '\n', 2);

@@ -97,7 +97,7 @@ bool CFlashFS::Init( CNORFlash *pFlash )
 		bFlashErased = true;
 	}
 	
-	memcpy( (void *)&m_fsHdr, (void *)&oFSHdr, sizeof(oFSHdr) );
+	cgc_memcpy( (void *)&m_fsHdr, (void *)&oFSHdr, sizeof(oFSHdr) );
 
 	// Get the file table address
 	m_fileTableAddress = (oFSHdr.fileTableBlockIdx * m_pFlash->GetBlockSize()) + oFSHdr.fileTableBlockOffset;
@@ -238,7 +238,7 @@ int32_t CFlashFS::WriteFile( int32_t fd, uint8_t *pData, uint32_t dataLen )
 		return (-1);
 	}
 
-	// Find proper position to write to
+	// Find proper position to cgc_write to
 	uint16_t dataID = oHdrData.dataID;
 
 	uint32_t filePos = oFDData.filePos;
@@ -255,7 +255,7 @@ int32_t CFlashFS::WriteFile( int32_t fd, uint8_t *pData, uint32_t dataLen )
 	// Remember file size
 	uint32_t fileSize = oHdrData.objSize;
 
-	// Find block to write to and offset of block to write to (starting)
+	// Find block to cgc_write to and offset of block to cgc_write to (starting)
 	uint32_t movePos = 0;
 	uint32_t baseBlockSize = (m_pFlash->GetBlockSize() - sizeof(tFlashDataHdr));
 
@@ -364,8 +364,8 @@ int32_t CFlashFS::WriteFile( int32_t fd, uint8_t *pData, uint32_t dataLen )
 				return (-1);
 			}
 
-			// Add in new data to write
-			memcpy( m_tempBlock+(curBlockOffset-sizeof(oPrevDataHdr)), pData+dataPos, dataToWriteInBlock );
+			// Add in new data to cgc_write
+			cgc_memcpy( m_tempBlock+(curBlockOffset-sizeof(oPrevDataHdr)), pData+dataPos, dataToWriteInBlock );
 
 			// Is there any data remaining in the block that wasn't written
 			if ( (curBlockOffset+dataToWriteInBlock) < blockSize )
@@ -481,7 +481,7 @@ int32_t CFlashFS::WriteFile( int32_t fd, uint8_t *pData, uint32_t dataLen )
 		// Update data position
 		dataPos += dataToWriteInBlock;
 
-		// Reduce amount of data left to write
+		// Reduce amount of data left to cgc_write
 		dataToWrite -= dataToWriteInBlock;	
 	}
 
@@ -548,7 +548,7 @@ int32_t CFlashFS::WriteFile( int32_t fd, uint8_t *pData, uint32_t dataLen )
 				m_fileDescriptorTable[i].hdrID = newHdrID;
 		}
 
-		// Lastly write the new file table block
+		// Lastly cgc_write the new file table block
 		uint32_t newHdrAddress = GetAddressForHeaderID( newHdrID );
 
 		if ( m_pFlash->WriteData( newHdrAddress, (uint8_t*)&oNewFileHdr, sizeof(oNewFileHdr) ) != sizeof(oNewFileHdr) )
@@ -589,7 +589,7 @@ int32_t CFlashFS::ReadFile( int32_t fd, uint8_t *pData, uint32_t dataLen )
 		return (-1);
 	}
 
-	// Find proper position to write to
+	// Find proper position to cgc_write to
 	uint16_t dataID = oHdrData.dataID;
 
 	uint32_t filePos = oFDData.filePos;
@@ -605,18 +605,18 @@ int32_t CFlashFS::ReadFile( int32_t fd, uint8_t *pData, uint32_t dataLen )
 		return (-1);
 	}
 
-	// Only read the amount remaining
+	// Only cgc_read the amount remaining
 	if ( filePos+dataLen > oHdrData.objSize )
 		dataLen = oHdrData.objSize - filePos;
 
-	// IF we don't have anything to read -- just return 0
+	// IF we don't have anything to cgc_read -- just return 0
 	if ( dataLen == 0 )
 		return (0);
 
 	// Remember file size
 	uint32_t fileSize = oHdrData.objSize;
 
-	// Find block to write to and offset of block to write to (starting)
+	// Find block to cgc_write to and offset of block to cgc_write to (starting)
 	uint32_t movePos = 0;
 	uint32_t baseBlockSize = (m_pFlash->GetBlockSize() - sizeof(tFlashDataHdr));
 
@@ -907,7 +907,7 @@ int32_t CFlashFS::OpenFile( const char *pszFilename, uint8_t openAttributes )
 		return (OPEN_FILE_ALREADY_OPEN);
 	}
 
-	// File found or file created for write mode
+	// File found or file created for cgc_write mode
 	m_fileDescriptorTable[newFD].hdrID = objID;
 
 	if ( openAttributes == OPEN_MODE_APPEND )
@@ -958,7 +958,7 @@ bool CFlashFS::FindFileInFlashTable( const char *pszFilename, uint16_t *pObjID, 
 {
 	char szFilenameTemp[256];
 	
-	uint8_t testFileLen = strlen( pszFilename );
+	uint8_t testFileLen = cgc_strlen( pszFilename );
 
 	// Read first file in file table
 	// Loop through file descriptor table
@@ -1355,7 +1355,7 @@ uint16_t CFlashFS::GetNextScratchSector( void )
 
 bool CFlashFS::CreateNewObject( const char *pszObjectName, uint16_t fileTableID, uint16_t hdrID )
 {
-	uint8_t objNameLen = strlen(pszObjectName);
+	uint8_t objNameLen = cgc_strlen(pszObjectName);
 
 	// Find new spot for object
 	for ( uint32_t i = 0; i < MAX_FILES; i++ )
@@ -1384,14 +1384,14 @@ bool CFlashFS::CreateNewObject( const char *pszObjectName, uint16_t fileTableID,
 
 	if ( m_pFlash->WriteData( dataAddress, (uint8_t*)&oDataHdr, sizeof(oDataHdr) ) != sizeof(oDataHdr) )
 	{
-		// Fail to write data
+		// Fail to cgc_write data
 		return (false);
 	}
 
 	// Write name
 	if ( m_pFlash->WriteData( (dataAddress+sizeof(oDataHdr)), (uint8_t*)pszObjectName, objNameLen ) != objNameLen )
 	{
-		// Fail to write data
+		// Fail to cgc_write data
 		return (false);
 	}
 	
@@ -1408,7 +1408,7 @@ bool CFlashFS::CreateNewObject( const char *pszObjectName, uint16_t fileTableID,
 
 	if ( m_pFlash->WriteData( hdrAddress, (uint8_t*)&oFileHdr, sizeof(oFileHdr) ) != sizeof(oFileHdr) )
 	{
-		// Fail to write header
+		// Fail to write.header
 		return (false);
 	}
 	

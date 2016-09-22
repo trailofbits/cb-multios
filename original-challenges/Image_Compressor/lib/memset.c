@@ -24,7 +24,7 @@
  */
 #include <libcgc.h>
 
-void *memset(void *dest, int src, size_t n)
+void *cgc_memset(void *dest, int src, size_t n)
 {
     size_t i;
     for (i = 0; i < n; i++)

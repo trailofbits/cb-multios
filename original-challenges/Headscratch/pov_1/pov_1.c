@@ -32,9 +32,9 @@ int main(void) {
   delimited_read(STDIN, &line, &linesize, (unsigned char *)"\n", 1);
   delimited_read(STDIN, &line, &linesize, (unsigned char *)"\n", 1);
 
-  // program to read one byte and inc ptr
+  // program to cgc_read one byte and inc ptr
   char* read_loop = "+[>,]\n";
-  transmit_all(STDOUT, read_loop, strlen(read_loop));
+  transmit_all(STDOUT, read_loop, cgc_strlen(read_loop));
 
   char *payload = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!&";
   char term = 0;

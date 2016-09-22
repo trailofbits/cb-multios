@@ -115,7 +115,7 @@ static int parse_length(uint8_t *b, element *e)
   size_t num_bytes, i;
   unsigned length;
   if (b[0] < 128) {
-    DBG("parsed short form length: length = %d, num_bytes = 1, read = 1", *b);
+    DBG("parsed short form length: length = %d, num_bytes = 1, cgc_read = 1", *b);
     e->length = b[0];
     return 1;
   }

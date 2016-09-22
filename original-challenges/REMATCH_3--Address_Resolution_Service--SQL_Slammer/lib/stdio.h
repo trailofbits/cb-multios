@@ -38,7 +38,7 @@ int vsprintf( char *buf, const char *format, va_list args );
 int puts( const char *s );
 
 // Receive length number of bytes into buffer
-// Returns number of bytes read or -1 for error. 
+// Returns number of bytes cgc_read or -1 for error. 
 int ReceiveBytes(char *buffer, int length);
 
 // Sends length bytes from buffer. 

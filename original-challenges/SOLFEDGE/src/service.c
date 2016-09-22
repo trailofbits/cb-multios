@@ -58,8 +58,8 @@ int main(void) {
             SENDSI(ret);
             return ret;
         } else {
-            memset((void *)syllables_buf_p, 0, BUFFER_LEN);
-            memset((void *)notes_buf_p, 0, BUFFER_LEN);
+            cgc_memset((void *)syllables_buf_p, 0, BUFFER_LEN);
+            cgc_memset((void *)notes_buf_p, 0, BUFFER_LEN);
         }
     }
     return ret;

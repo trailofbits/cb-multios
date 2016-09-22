@@ -67,7 +67,7 @@ int read_initial_words(main_t *state)
         if (words[i] == NULL)
             goto error;
 
-        if (strlen(words[i]) == 0)
+        if (cgc_strlen(words[i]) == 0)
             goto error;
     }
 
@@ -259,7 +259,7 @@ void cmd_play_game(main_t *state)
 int main()
 {
     main_t state;
-    memset(&state, 0, sizeof(main_t));
+    cgc_memset(&state, 0, sizeof(main_t));
 
     while (!read_initial_words(&state))
     {

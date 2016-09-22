@@ -9,7 +9,7 @@ int main()
     int i;
     size_t bytes;
 
-    memcpy(buf, "\x00\xff""HDR\x05\x00\x00\x00\x01\x00"
+    cgc_memcpy(buf, "\x00\xff""HDR\x05\x00\x00\x00\x01\x00"
                 "ALBM\x00\x00\x00\x38\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b""AAAAAAAAAAAA\x20\xc0\x47\x43""CCCCAAAAAAAAAAAA"
                 "TITL\x00\x00\x00\x38\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b""AAAAAAAAAAAA\x30\xc0\x47\x43""CCCCAAAAAAAAAAAA\x7f", 140);
 

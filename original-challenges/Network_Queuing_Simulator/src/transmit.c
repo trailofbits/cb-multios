@@ -164,7 +164,7 @@ void print_uint(char *buf, unsigned int val) {
 	l.p = l.outbuf;
 
 	strncpy(l.outbuf, buf, 31);
-	uint_to_str(val, l.outbuf+strlen(l.outbuf));
+	uint_to_str(val, l.outbuf+cgc_strlen(l.outbuf));
 	printf("@s\n", l.p);
 }
 

@@ -34,7 +34,7 @@ struct hand *create_hand() {
 
 void consolidate_hand(struct hand *h) {
 	uint8_t qty_in_place = 0; // number of cards that are verified consolidated
-	uint8_t r_idx = 0; // idx where card is read from
+	uint8_t r_idx = 0; // idx where card is cgc_read from
 	uint8_t w_idx = 0; // idx where card is written to
 
 	while ((r_idx < 52) && (qty_in_place < h->count)) {

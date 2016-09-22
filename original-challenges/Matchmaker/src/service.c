@@ -44,7 +44,7 @@ calculate_csum(char *line)
     for (i = 0; i < 1024; i++)
         ret ^= get_flag_byte(i);
 
-    len = strlen(line);
+    len = cgc_strlen(line);
     for (i = 0; i < len; i++)
         ret ^= line[i];
 
@@ -60,7 +60,7 @@ default_onmatch(void *data)
 static void __attribute__((regparm(1)))
 length_onmatch(void *data)
 {
-    printf("Got a match of length %u\n", strlen((char *)data));
+    printf("Got a match of length %u\n", cgc_strlen((char *)data));
 }
 
 static void __attribute__((regparm(1)))
@@ -128,7 +128,7 @@ main(void)
     dfa_init(&state.dfa);
 
     while (1) {
-        memset(state.line, '\0', sizeof(state.line));
+        cgc_memset(state.line, '\0', sizeof(state.line));
         if (fread_until(state.line, '\n', sizeof(state.line), stdin) == EXIT_FAILURE)
             return EXIT_FAILURE;
 

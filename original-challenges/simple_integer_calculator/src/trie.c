@@ -47,7 +47,7 @@ void insertInTrie(trie *root, char *key,  void* value) {
 
 	ptr = ptr->children;
 
-	for(i=0;i<=strlen(key);i++) {
+	for(i=0;i<=cgc_strlen(key);i++) {
 		while(ptr->next != NULL) {
 			if(ptr->tag == key[i]) {
 				break;
@@ -68,7 +68,7 @@ void insertInTrie(trie *root, char *key,  void* value) {
 			ptr->next = calloc(sizeof(trie), 1);
 			ptr->next->tag = key[i];
 			ptr = ptr->next;
-			while(i<strlen(key)) {
+			while(i<cgc_strlen(key)) {
 				ptr->children = calloc(sizeof(trie), 1);
 				ptr->children->tag = key[++i];
 				ptr = ptr->children;

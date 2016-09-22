@@ -182,7 +182,7 @@ addCommentMessageType *newComment;
 int sendResponse( void *message, int length ) {
 
 
-	if (write(STDOUT, message, length) != 0 ) {
+	if (cgc_write(STDOUT, message, length) != 0 ) {
 
 		return -1;
 	}

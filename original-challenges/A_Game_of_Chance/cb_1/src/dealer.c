@@ -366,7 +366,7 @@ int get_player_count(void) {
 }
 
 /**
- * Send the quit command to each player and then exit
+ * Send the quit command to each player and then cgc_exit
  *
  * @return SUCCESS on success, else -1 on error
  */

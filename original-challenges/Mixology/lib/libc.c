@@ -58,7 +58,7 @@ int malloc_init(){
 
 
 int buf_is_numeric(char *buf){
-    for(int i = 0; i < strlen(buf); ++i){
+    for(int i = 0; i < cgc_strlen(buf); ++i){
         if((buf[i] < '0' || buf[i] > '9') && buf[i] != '-'){
             return 0;
         }
@@ -73,7 +73,7 @@ int atoi(char *buf){
         dir = -1;
 
     int final = 0;
-    for(int i = start; i < strlen(buf); ++i ){
+    for(int i = start; i < cgc_strlen(buf); ++i ){
         final = final * 10 + buf[i] - '0';
     }
     final *= dir;
@@ -115,7 +115,7 @@ char *strtok(char *str, const char delim){
     }else{
         STRTOK = "";
     }
-    int sl = strlen(str);
+    int sl = cgc_strlen(str);
     if(sl == 0){
 
         return NULL;
@@ -189,7 +189,7 @@ int transmit_all(int fd, const char *buf, const size_t size) {
     return 0;
 }
 
-size_t strlen(const char *s){
+size_t cgc_strlen(const char *s){
     int i = 0;
     const char *p;
     for(p = s; *p; ++p){
@@ -202,14 +202,14 @@ size_t strlen(const char *s){
 #ifdef DEBUG
 void err(char *m){
 
-    transmit_all(STDOUT, m, strlen(m)); 
-    transmit_all(STDOUT, "\n", strlen("\n"));      
+    transmit_all(STDOUT, m, cgc_strlen(m)); 
+    transmit_all(STDOUT, "\n", cgc_strlen("\n"));      
 }
 #endif
 
 char *strcat(char * s1, char *s2){
-    size_t n = strlen(s1);
-    memcpy(&(s1[n]), s2, strlen(s2));
+    size_t n = cgc_strlen(s1);
+    cgc_memcpy(&(s1[n]), s2, cgc_strlen(s2));
 
     return s1;
 }
@@ -274,7 +274,7 @@ void free(void *p){
 #endif
 }
 
-void memcpy(void *d, const void *s, size_t size){
+void cgc_memcpy(void *d, const void *s, size_t size){
     char *dc = (char *)d;
     char *sc = (char *)s;
 
@@ -305,7 +305,7 @@ char * itoaB10(int value){
     int tmp = value;
     
     if(value == 0){
-        memcpy(s, "0\x00", 2);
+        cgc_memcpy(s, "0\x00", 2);
         return s;
     }
     int neg = 0;
@@ -327,7 +327,7 @@ char * itoaB10(int value){
         s[i+1] = '-';
 
     char *f = malloc(max_width);
-    int final_len = strlen(s);
+    int final_len = cgc_strlen(s);
     for(int j =0; j < final_len; ++j){
         f[j] = s[final_len-j-1];
     }

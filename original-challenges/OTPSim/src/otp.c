@@ -36,9 +36,9 @@ void _otp_populate(otp_t *o)
     char tmp[4096];
 
     idx = o->seed_idx % 4096;
-    memcpy(tmp, &secret[idx], 4096 - idx);
+    cgc_memcpy(tmp, &secret[idx], 4096 - idx);
     if (idx != 0)
-        memcpy(&tmp[4096 - idx], secret, idx);
+        cgc_memcpy(&tmp[4096 - idx], secret, idx);
 
     for (idx = i = o->data_len; i < MAX_OTP_LEN; ++i)
     {
@@ -55,7 +55,7 @@ void _otp_consume(otp_t *o, size_t sz)
     size_t i;
     if (o->data_len < sz)
         return;
-    memcpy(o->data, &o->data[sz], o->data_len - sz);
+    cgc_memcpy(o->data, &o->data[sz], o->data_len - sz);
     o->data_len -= sz;
 }
 
@@ -88,7 +88,7 @@ void otp_handshake(otp_t **o)
         goto fail;
 
     otp_t *otp = (otp_t *) malloc(sizeof(otp_t));
-    memset(otp, 0, sizeof(otp_t));
+    cgc_memset(otp, 0, sizeof(otp_t));
     otp->seed_value = sv;
     unsigned int *sp = (unsigned int *) secret;
     for (i = 0; i < 4096 / 4; ++i)
@@ -162,7 +162,7 @@ void otp_extend_session(otp_t *o)
 
     resp = malloc(sz + 1);
     resp[0] = '\x00';
-    memcpy(&resp[1], buf, sz);
+    cgc_memcpy(&resp[1], buf, sz);
     o->num_reqs = 3;
     fwrite(resp, sz + 1, stdout);
     free(resp);
@@ -186,7 +186,7 @@ void otp_set_seeds(otp_t *o)
     o->seed_value = sv;
     o->seed_idx = idx;
     o->data_len = 0;
-    memset(o->data, 0, MAX_OTP_LEN);
+    cgc_memset(o->data, 0, MAX_OTP_LEN);
     _otp_populate(o);
 
     fwrite("\x00", 1, stdout);
@@ -213,7 +213,7 @@ void otp_verify_otp(otp_t *o)
         goto fail;
 
     otp_t tmp;
-    memset(&tmp, 0, sizeof(otp_t));
+    cgc_memset(&tmp, 0, sizeof(otp_t));
     tmp.seed_value = sv;
     tmp.seed_idx = idx;
     _otp_populate(&tmp);

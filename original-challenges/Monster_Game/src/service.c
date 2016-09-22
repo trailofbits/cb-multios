@@ -104,7 +104,7 @@ size_t read_line( char *outbuf, size_t length )
 
 	while ( index < length && c != '\n') {
 		if ( receive( STDIN, &c, 1, &rx_bytes) != 0 ) {
-			printf("[ERROR] Failed to read byte\n");
+			printf("[ERROR] Failed to cgc_read byte\n");
 			_terminate(-3);
 		}
 
@@ -136,7 +136,7 @@ size_t read_line_u( char *outbuf )
 
 	while ( c != '\n' ) {
 		if ( receive( STDIN, &c, 1, &rx_bytes) != 0 ) {
-			printf("[ERROR] Failed to read byte\n");
+			printf("[ERROR] Failed to cgc_read byte\n");
 			_terminate(0);
 		}
 
@@ -690,7 +690,7 @@ int change_monster_name( pmonster pm )
 	}
 
 	bzero( final, index+1);
-	memcpy( final, new_name, index );
+	cgc_memcpy( final, new_name, index );
 
 	pm->type = final;
 
@@ -1117,7 +1117,7 @@ pplayer generate_player( )
 
 	/// If they just hit enter then they get a default
 	if ( result == 0 ) {
-		memcpy( player_one, "Player One", 10 );
+		cgc_memcpy( player_one, "Player One", 10 );
 	}
 
 	np = malloc( sizeof( player ) );
@@ -1129,7 +1129,7 @@ pplayer generate_player( )
 
 	bzero( np, sizeof(player) );
 
-	memcpy( np->name, player_one, 16 );
+	cgc_memcpy( np->name, player_one, 16 );
 
 	/// Generate 3 monsters for the player to fight with
 	for ( result = 0; result < 3; result++ ) {

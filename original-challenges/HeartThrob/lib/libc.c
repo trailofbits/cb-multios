@@ -121,7 +121,7 @@ char * strcat(char *s1, char *s2) {
     return s1;
 }
 
-size_t strlen(char *s){
+size_t cgc_strlen(char *s){
     char *tmp = s;
     while(*tmp) tmp++;
     return (size_t)(tmp-s);

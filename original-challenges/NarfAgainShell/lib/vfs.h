@@ -125,11 +125,11 @@ uid_t get_owner(const struct vfs *vfs, const char *path);
 /**
  * Read the contents of a file, respecting permissions.
  *
- * Note: In our current model, any user can read any file.
+ * Note: In our current model, any user can cgc_read any file.
  *
  * @param vfs The vfs
  * @param user The uid of the user
- * @param path The path to read
+ * @param path The path to cgc_read
  * @param contents Set to the contents of the file on success
  * @return 0 on success, -1 on failure
  */
@@ -140,7 +140,7 @@ int read_file(const struct vfs *vfs, uid_t user, const char *path, unsigned char
  *
  * @param vfs The vfs
  * @param user The uid of the user
- * @param path The path to read
+ * @param path The path to cgc_read
  * @param contents Buffer to set as the new file contents on success, will be
  *      freed on delete
  * @param size The new size of the file

@@ -73,12 +73,12 @@ int main(void) {
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00001_len = 48;
       read_00001 = (unsigned char*)malloc(read_00001_len);
       int read_00001_res = length_read(0, read_00001, read_00001_len);
       if (read_00001_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00001_00000[] = 
          "\x50\x54\x54\x43\xab\xaa\xaa\xba\x24\x00\x00\x00\x49\x66\x20\x61"
          "\x6e\x79\x6f\x6e\x65\x20\x61\x73\x6b\x73\x2c\x20\x79\x6f\x75\x27"
@@ -367,12 +367,12 @@ int main(void) {
       unsigned char *read_00002;
       unsigned int read_00002_len;
       unsigned int read_00002_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00002_len = 53;
       read_00002 = (unsigned char*)malloc(read_00002_len);
       int read_00002_res = length_read(0, read_00002, read_00002_len);
       if (read_00002_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00002_00000[] = 
          "\x50\x54\x54\x43\xaa\xaa\xaa\xba\x29\x00\x00\x00\x4f\x68\x2c\x20"
          "\x73\x75\x72\x65\x2e\x20\x4c\x65\x74\x20\x74\x68\x65\x20\x72\x6f"
@@ -410,7 +410,7 @@ int main(void) {
       unsigned int read_00004_ptr = 0;
       unsigned char ekey;
       unsigned int i;
-      //**** length read
+      //**** length cgc_read
       read_00004_len = 12+4096+8;
       read_00004 = (unsigned char*)malloc(read_00004_len);
       int read_00004_res = length_read(0, read_00004, read_00004_len);
@@ -709,12 +709,12 @@ int main(void) {
       unsigned char *read_00005;
       unsigned int read_00005_len;
       unsigned int read_00005_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00005_len = 53;
       read_00005 = (unsigned char*)malloc(read_00005_len);
       int read_00005_res = length_read(0, read_00005, read_00005_len);
       if (read_00005_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00005_00000[] = 
          "\x50\x54\x54\x43\xaa\xaa\xaa\xba\x29\x00\x00\x00\x4f\x68\x2c\x20"
          "\x73\x75\x72\x65\x2e\x20\x4c\x65\x74\x20\x74\x68\x65\x20\x72\x6f"
@@ -750,12 +750,12 @@ int main(void) {
       unsigned char *read_00007;
       unsigned int read_00007_len;
       unsigned int read_00007_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00007_len = 4164;
       read_00007 = (unsigned char*)malloc(read_00007_len);
       int read_00007_res = length_read(0, read_00007, read_00007_len);
       if (read_00007_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00007_00000[] = 
          "\x50\x54\x54\x43\xaa\xaa\xaa\xba\x38\x10\x00\x00\x41\x41\x41\x41"
          "\x41\x41\x41\x41\x41\x41\x41\x41\x41\x41\x41\x41\x41\x41\x41\x41"
@@ -1040,12 +1040,12 @@ int main(void) {
       unsigned char *read_00008;
       unsigned int read_00008_len;
       unsigned int read_00008_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00008_len = 4;
       read_00008 = (unsigned char*)malloc(read_00008_len);
       int read_00008_res = length_read(0, read_00008, read_00008_len);
       if (read_00008_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00008_00000[] = 
          "\x64\x6f\x6e\x65";
       read_00008_ptr += data_match(read_00008 + read_00008_ptr, read_00008_len - read_00008_ptr, match_00008_00000, 4);

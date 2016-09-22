@@ -45,11 +45,11 @@ int results;
 
 	apCode[0] = 0;
 
-	for (i=0; i < strlen(command); ++i) {
+	for (i=0; i < cgc_strlen(command); ++i) {
 
 		if (command[i] == '/') {
 
-			if (strlen(command+i+1) != 3)
+			if (cgc_strlen(command+i+1) != 3)
 				return BAD_COMMAND;	
 
 			strcpy(apCode, command+i+1);
@@ -125,7 +125,7 @@ connectionListType connections2add[MAX_CONNECTIONS];
 
 	delimiter_count = 0;
 
-	for (i=0; i < strlen(command); ++i) {
+	for (i=0; i < cgc_strlen(command); ++i) {
 
 		if (command[i] == '/')
 			++delimiter_count;
@@ -373,7 +373,7 @@ int i;
 
 	apCode[0] = 0;
 
-	for (i=0; i < strlen(command); ++i) {
+	for (i=0; i < cgc_strlen(command); ++i) {
 
 		if (command[i] == '/') {
 
@@ -383,7 +383,7 @@ int i;
 #else
 			strcpy(apCode, command+i+1);
 #endif
-			if (strlen(apCode) != 3)
+			if (cgc_strlen(apCode) != 3)
 				return BAD_COMMAND;
 
 			break;

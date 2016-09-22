@@ -82,7 +82,7 @@ FitnessSensor::FitnessSensor( uint16_t id, uint32_t mac, uint8_t *data, uint32_t
 		if (data_len != 0)
 		{
 			this->data = new uint8_t[ data_len + 1];
-			memcpy(this->data, data, data_len);
+			cgc_memcpy(this->data, data, data_len);
 		}
 	}
 
@@ -158,7 +158,7 @@ bool FitnessSensor::GenerateTypeValues()
 	// use magic page to initialize the type values for: heart, bike, band, scale, run sensors
 
 	// Goal: Get magic values for each of the sensor values to be stored in m_sensorArray
-	// Algorithm: Use magic_page values as offsets into the magic_page to select a random assortment of values
+	// Algorithm: Use magic_page values as offsets into the magic_page to cgc_select a random assortment of values
 
 	uint8_t *magic_page = ( uint8_t* )MAGIC_PAGE;
 

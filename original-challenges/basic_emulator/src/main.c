@@ -155,7 +155,7 @@ static void draw_screen(gb_t *gb)
         for (x = 0; x < 160; x += 2)
         {
             char *ch = block_6px_char(&gb->screen[y * 160 + x], 160);
-            transmit(STDOUT, ch, strlen(ch), &bytes);
+            transmit(STDOUT, ch, cgc_strlen(ch), &bytes);
         }
         transmit(STDOUT, "\n", 1, &bytes);
     }
@@ -260,7 +260,7 @@ int main()
     if (gb == NULL)
     {
         ERR("Unable to allocate memory.");
-        exit(1);
+        cgc_exit(1);
     }
 
     // clear the screen
@@ -269,7 +269,7 @@ int main()
     if (!load_rom(gb))
     {
         ERR("Unable to load ROM.");
-        exit(2);
+        cgc_exit(2);
     }
 
     // hide the cursor

@@ -304,7 +304,7 @@ void CPackageTracker::DoUpdateGeofence( uint8_t *pData, uint32_t dataLen )
 	}
 
 	uint32_t commandPos = 0;
-	memcpy( &oUpdateData, pData+commandPos, sizeof(oUpdateData) );
+	cgc_memcpy( &oUpdateData, pData+commandPos, sizeof(oUpdateData) );
 	commandPos += sizeof(oUpdateData);
 
 	switch ( oUpdateData.updateAction )
@@ -328,7 +328,7 @@ void CPackageTracker::DoUpdateGeofence( uint8_t *pData, uint32_t dataLen )
 				return;
 			}
 
-			memcpy( &oPointData, pData+commandPos, sizeof(oPointData) );
+			cgc_memcpy( &oPointData, pData+commandPos, sizeof(oPointData) );
 			commandPos += sizeof(oPointData);
 
 			m_geofencePoints[i].SetDistance( oPointData.distance );
@@ -370,7 +370,7 @@ void CPackageTracker::DoUpdateGeofence( uint8_t *pData, uint32_t dataLen )
 					return;
 				}
 
-				memcpy( &oPointData, pData+commandPos, sizeof(oPointData) );
+				cgc_memcpy( &oPointData, pData+commandPos, sizeof(oPointData) );
 				commandPos += sizeof(oPointData);
 
 				m_geofencePoints[i].SetDistance( oPointData.distance );
@@ -426,7 +426,7 @@ void CPackageTracker::DoUpdateGeofence( uint8_t *pData, uint32_t dataLen )
 
 #ifdef PATCHED_2
 		// Prevent an uninitialized variable from leaking data back
-		memset( oResponse.coordData, 0, 6 );
+		cgc_memset( oResponse.coordData, 0, 6 );
 #endif
 			
 		// Send response data	
@@ -460,7 +460,7 @@ void CPackageTracker::DoDebug( uint8_t *pData, uint32_t dataLen )
 	uint64_t expectedAuthToken = *((uint64_t*)m_pMagicPage) ^ 0xDEB4370331337A7F;
 	
 	uint32_t commandPos = 0;	
-	memcpy( &oDebugCommand, pData+commandPos, sizeof(oDebugCommand) );
+	cgc_memcpy( &oDebugCommand, pData+commandPos, sizeof(oDebugCommand) );
 	commandPos += sizeof(oDebugCommand);
 
 	

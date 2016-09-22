@@ -157,7 +157,7 @@ int main(void) {
 	ReadBytes(STDIN, buf, 4);
 	if (buf[0] != '\x03' || buf[1] != '\x00') {
 		// failure
-		transmit(STDERR, "write failed\n", 14, 0);
+		transmit(STDERR, "cgc_write failed\n", 14, 0);
 		return(-1);
 	}
 

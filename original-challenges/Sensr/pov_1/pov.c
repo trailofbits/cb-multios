@@ -6,12 +6,12 @@ int main(void) {
 
     negotiate_type2();
 
-    memcpy(pkt, "\x02\x00\x00\x00\x00", 5);
+    cgc_memcpy(pkt, "\x02\x00\x00\x00\x00", 5);
     random(pkt + 5, 12, &n);
     transmit_all(STDOUT, pkt, 17);
     length_read(STDIN, pkt, 17);
 
-    memcpy(pkt2, "\x02\xff\xff\xff\xff", 5);
+    cgc_memcpy(pkt2, "\x02\xff\xff\xff\xff", 5);
     random(pkt2 + 5, 12, &n);
     transmit_all(STDOUT, pkt2, 17);
     length_read(STDIN, pkt2, 17);

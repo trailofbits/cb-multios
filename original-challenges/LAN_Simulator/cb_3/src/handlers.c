@@ -35,7 +35,7 @@ extern Handlers Listeners[MAX_HANDLERS];
 
 uint8_t Echo(unsigned char *Data, uint8_t DataLen, unsigned char *Response, uint8_t *ResponseLen) {
 
-        memcpy(Response, Data, DataLen);
+        cgc_memcpy(Response, Data, DataLen);
         *ResponseLen = DataLen;
 
         return(1);
@@ -83,7 +83,7 @@ uint8_t Pwdgen(unsigned char *Data, uint8_t DataLen, unsigned char *Response, ui
 		sprintf((char *)Response, "$s$s\n", Response, Password);
 	}
 
-	*ResponseLen = strlen((char *)Response);
+	*ResponseLen = cgc_strlen((char *)Response);
 
 	return(1);
 }

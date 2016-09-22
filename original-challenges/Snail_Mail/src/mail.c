@@ -391,8 +391,8 @@ static void hash_mail(mail_t *m, unsigned char hash[]) {
 static unsigned char lm_sort(const void *m1, void *m2) {
 	unsigned char hash_m1[8];
 	unsigned char hash_m2[8];
-	memset(hash_m1, '\0', sizeof(hash_m1));
-	memset(hash_m2, '\0', sizeof(hash_m2));
+	memset.hash_m1, '\0', sizeof(hash_m1));
+	memset.hash_m2, '\0', sizeof(hash_m2));
 
 	hash_mail((mail_t *)m1, hash_m1);
 	hash_mail((mail_t *)m2, hash_m2);
@@ -437,7 +437,7 @@ static int do_list_lost_mail(void) {
 		m = (mail_t *)n->data;
 
 		// create hash of subj+body
-		memset(hash, '\0', sizeof(hash));
+		memset.hash, '\0', sizeof(hash));
 		hash_mail(m, hash);
 		// send hash
 		SEND(STDOUT, (char *)hash, sizeof(hash));

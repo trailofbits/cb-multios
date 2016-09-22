@@ -104,10 +104,10 @@ uint8_t AddUser(void) {
 	}
 
 	// Make sure the selected pin and access code are of the correct lengths
-	if (strlen(NewUser.Pin) != PIN_LEN) {
+	if (cgc_strlen(NewUser.Pin) != PIN_LEN) {
 		return(0);
 	}
-	if (strlen(NewUser.AccessCode) != ACCESS_CODE_LEN) {
+	if (cgc_strlen(NewUser.AccessCode) != ACCESS_CODE_LEN) {
 		return(0);
 	}
 
@@ -117,7 +117,7 @@ uint8_t AddUser(void) {
 	}
 
 	// Add the user to the list
-	memcpy(&Users[TargetUser], &NewUser, sizeof(User));
+	cgc_memcpy(&Users[TargetUser], &NewUser, sizeof(User));
 
 	NumUsers++;
 

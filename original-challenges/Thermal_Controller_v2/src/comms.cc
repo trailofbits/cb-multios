@@ -87,7 +87,7 @@ void OutgoingMessage::SendAsExtended()
 	// opposite of ConvertToHexChars
 	uint8_t* final_msg = ConvertBackHexChars( ( uint8_t * )message.c_str(), message.GetLength() );
 
-	int retval = write( final_msg, message.GetLength() / 2 );
+	int retval = cgc_write( final_msg, message.GetLength() / 2 );
 
 	if (retval == -1) 
 		_terminate(-1);
@@ -116,7 +116,7 @@ void OutgoingMessage::SendAsBasic()
 
 	// opposite of ConvertToHexChars
 	uint8_t* final_msg = ConvertBackHexChars( ( uint8_t * )message.c_str(), 24 );
-	int retval = write( final_msg, 12 );
+	int retval = cgc_write( final_msg, 12 );
 
 	if (retval == -1) 
 		_terminate(-1);
@@ -265,10 +265,10 @@ begin:
 		pos = 0;
 #endif
 		// after a55a, start reading
-		// read the length (which contains the checksum), then return
+		// cgc_read the length (which contains the checksum), then return
 		// further checking happens later
 
-		// read until first a5 is found, then start paying attention
+		// cgc_read until first a5 is found, then start paying attention
 		receive_bytes( &c, 1 );
 
 		if ( c == SEQ_START )
@@ -312,7 +312,7 @@ begin:
 			}
 
 			uint32_t given_checksum = *( uint32_t* )&input_chars[body_len];
-			memcpy( ( unsigned char * )&given_checksum, input_chars + body_len, 4 );
+			cgc_memcpy( ( unsigned char * )&given_checksum, input_chars + body_len, 4 );
 
 			if (checkval != given_checksum)
 				m_checksum_passed = false;

@@ -266,7 +266,7 @@ lexer_state lex_word(lexer_state in) {
   lexeme* content = new_tail->content = calloc(sizeof(lexeme));
   content->bytes_len = bytes_len;
   content->bytes = calloc(bytes_len + 1);
-  memcpy(content->bytes, start, bytes_len);
+  cgc_memcpy(content->bytes, start, bytes_len);
   content->flavor = get_flavor(content);
 
   out.remainder += bytes_len;
@@ -290,7 +290,7 @@ lexer_state lex_number(lexer_state in) {
   lexeme* content = new_tail->content = calloc(sizeof(lexeme));
   content->bytes_len = bytes_len;
   content->bytes = calloc(bytes_len + 1);
-  memcpy(content->bytes, start, bytes_len);
+  cgc_memcpy(content->bytes, start, bytes_len);
   content->flavor = F_INTEGER_LITERAL;
 
   out.remainder = cur;
@@ -306,7 +306,7 @@ lexer_state lexer_error(lexer_state in) {
   err->flavor = F_ERROR;
   err->bytes_len = (in.remainder - in.entire + 1);
   err->bytes = calloc(err->bytes_len + 1);
-  memcpy(err->bytes, in.remainder, err->bytes_len - 1);
+  cgc_memcpy(err->bytes, in.remainder, err->bytes_len - 1);
 
   return out;
 }
@@ -327,7 +327,7 @@ void assert_lexeme_flavor(lexeme_flavor desired, lexeme* lexeme) {
 }
 
 void assert_lex(lexeme_flavor desired, char* str) {
-  lexer_list* out = lex_string(strlen(str), str);
+  lexer_list* out = lex_string(cgc_strlen(str), str);
   if ((desired == F_ERROR) && (NULL == out)) return;
   lexeme_flavor actual = out->content->flavor;
 
@@ -367,7 +367,7 @@ void lexer_test() {
   assert_lex(F_CHARACTER_LITERAL, "'abc'");
 
   char* sample = "FIND 1 + 2 / 3 * 4 FROM my_cool_table_12345";
-  lexer_list* lexed = lex_string(strlen(sample), sample);
+  lexer_list* lexed = lex_string(cgc_strlen(sample), sample);
 
   assert_chase(F_FIND, 0);
   assert_chase(F_INTEGER_LITERAL, 1);
@@ -381,12 +381,12 @@ void lexer_test() {
   assert_chase(F_IDENTIFIER, 9);
 
   sample = "FIND 'abc' FROM rad_table";
-  lexed = lex_string(strlen(sample), sample);
+  lexed = lex_string(cgc_strlen(sample), sample);
 
   assert_chase(F_CHARACTER_LITERAL, 1);
 
   sample = "FIND func('abc', 1, 2) FROM cool_table";
-  lexed = lex_string(strlen(sample), sample);
+  lexed = lex_string(cgc_strlen(sample), sample);
 
   assert_chase(F_FIND, 0);
   assert_chase(F_IDENTIFIER, 1);

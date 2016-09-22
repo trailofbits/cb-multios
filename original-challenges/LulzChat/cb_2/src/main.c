@@ -46,7 +46,7 @@ user_t cur_user;
 int is_alnum_str(char *str)
 {
   int i, ret = 0;
-  for (i = 0; i < strlen(str); ++i)
+  for (i = 0; i < cgc_strlen(str); ++i)
     ret |= !isalnum(str[i] & 0xFF);
   return !ret;
 }
@@ -57,7 +57,7 @@ void quit()
   fdprintf(STDOUT, "[INFO] Bye!\n");
   q.code = 0;
   send_request(&q, CMD_QUIT);
-  exit(0);
+  cgc_exit(0);
 }
 
 void help()
@@ -100,7 +100,7 @@ void register_user()
       goto fail;
   if (p->body_len < 2 * sizeof(int))
       goto fail;
-  memcpy(&res, p->body, 2 * sizeof(int));
+  cgc_memcpy(&res, p->body, 2 * sizeof(int));
   if (res.data_len > 0)
       res.data = p->body + 2 * sizeof(int);
   handle_response(p->command, &res);
@@ -116,8 +116,8 @@ void logout_user()
     fdprintf(STDOUT, "[ERROR] Not logged in.\n");
   else
   {
-    memset(cur_user.username, 0, MAX_USERNAME_LEN);
-    memset(cur_user.password, 0, MAX_PASSWORD_LEN);
+    cgc_memset(cur_user.username, 0, MAX_USERNAME_LEN);
+    cgc_memset(cur_user.password, 0, MAX_PASSWORD_LEN);
     cur_user.user_id = 0;
     cur_user.auth_code = 0;
     fdprintf(STDOUT, "[INFO] Successfully logged out.\n");
@@ -145,7 +145,7 @@ void login_user()
       goto fail;
   if (p->body_len < 2 * sizeof(int))
       goto fail;
-  memcpy(&res, p->body, 2 * sizeof(int));
+  cgc_memcpy(&res, p->body, 2 * sizeof(int));
   if (res.data_len > 0)
       res.data = p->body + 2 * sizeof(int);
   if (handle_response(p->command, &res) == 0)
@@ -189,7 +189,7 @@ int list_messages()
       goto fail;
   if (p->body_len < 2 * sizeof(int))
       goto fail;
-  memcpy(&res, p->body, 2 * sizeof(int));
+  cgc_memcpy(&res, p->body, 2 * sizeof(int));
   if (res.data_len > 0)
       res.data = p->body + 2 * sizeof(int);
   if (handle_response(p->command, &res) == 0)
@@ -242,7 +242,7 @@ void display_message(message_t msg)
       fdprintf(STDOUT, "Message: N/A (Error occurred)\n");
       return;
     }
-    memset(unprotected, 0, MAX_TEXT_LEN + 1);
+    cgc_memset(unprotected, 0, MAX_TEXT_LEN + 1);
     strncpy(unprotected, msg.text, MAX_TEXT_LEN);
     key[0] = cur_user.auth_code;
     key[1] = cur_user.auth_code ^ cur_user.user_id;
@@ -259,7 +259,7 @@ void display_message(message_t msg)
 
   if (msg_text)
   {
-    fdprintf(STDOUT, "Length: %d byte(s)\n", strlen(msg_text));
+    fdprintf(STDOUT, "Length: %d byte(s)\n", cgc_strlen(msg_text));
     fdprintf(STDOUT, "Message: %s\n", msg_text);
   }
   else
@@ -315,7 +315,7 @@ void view_message()
       goto fail;
   if (p->body_len < 2 * sizeof(int))
       goto fail;
-  memcpy(&res, p->body, 2 * sizeof(int));
+  cgc_memcpy(&res, p->body, 2 * sizeof(int));
   if (res.data_len > 0)
       res.data = p->body + 2 * sizeof(int);
   if (handle_response(p->command, &res) == 0)
@@ -324,7 +324,7 @@ void view_message()
         res.data_len >= sizeof(message_t) - sizeof(char *))
     {
       message_t msg;
-      memcpy(&msg, res.data, sizeof(message_t) - sizeof(char *));
+      cgc_memcpy(&msg, res.data, sizeof(message_t) - sizeof(char *));
       msg.text = res.data + sizeof(message_t) - sizeof(char *);
       display_message(msg);
     }
@@ -360,7 +360,7 @@ void send_message()
   type = strtol(buf, &c, 10);
   if (buf == c)
     goto fail;
-  memset(buf, '\0', sizeof(buf));
+  cgc_memset(buf, '\0', sizeof(buf));
   fdprintf(STDOUT, " - Message: ");
   if ((msg_len = read_until(STDIN, buf, MAX_TEXT_LEN, '\n')) < 0)
     goto fail;
@@ -393,7 +393,7 @@ void send_message()
       goto fail;
   if (p->body_len < 2 * sizeof(int))
       goto fail;
-  memcpy(&res, p->body, 2 * sizeof(int));
+  cgc_memcpy(&res, p->body, 2 * sizeof(int));
   if (res.data_len > 0)
       res.data = p->body + 2 * sizeof(int);
   handle_response(p->command, &res);
@@ -443,7 +443,7 @@ void delete_message()
       goto fail;
   if (p->body_len < 2 * sizeof(int))
       goto fail;
-  memcpy(&res, p->body, 2 * sizeof(int));
+  cgc_memcpy(&res, p->body, 2 * sizeof(int));
   if (res.data_len > 0)
       res.data = p->body + 2 * sizeof(int);
   if (handle_response(p->command, &res) == 0)

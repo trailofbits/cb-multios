@@ -44,10 +44,10 @@
 static void WaitForInput(FILE* Stream, char* Input, u32 Max)
 {
   fflush(stdout);
-  memset(Input, Max, '\0');
+  cgc_memset(Input, Max, '\0');
   if (freaduntil(Input, Max, '\n', Stream) <= 0)
   {
-    exit(0);
+    cgc_exit(0);
   }
 }
 
@@ -198,7 +198,7 @@ struct Vector
     VectorCopy->_Capacity = _Capacity;
     VectorCopy->_Size = _Size;
     VectorCopy->_StepSize = _StepSize;
-    memcpy(VectorCopy->_Storage, _Storage, _Capacity * sizeof(t1));
+    cgc_memcpy(VectorCopy->_Storage, _Storage, _Capacity * sizeof(t1));
     return VectorCopy;
   }
 
@@ -207,7 +207,7 @@ struct Vector
     u32 NewCapacity = ((_Capacity / _StepSize) + 1) * _StepSize;
     t1* NewStorage = new t1[sizeof(t1) * NewCapacity];
 
-    memcpy(NewStorage, _Storage, sizeof(t1) * _Capacity);
+    cgc_memcpy(NewStorage, _Storage, sizeof(t1) * _Capacity);
 
     delete[] _Storage;
     _Storage = NewStorage;
@@ -219,7 +219,7 @@ struct Vector
     u32 NewCapacity = _Capacity - _StepSize;
     t1* NewStorage = new t1[sizeof(t1) * NewCapacity];
 
-    memcpy(NewStorage, _Storage, sizeof(t1) * NewCapacity);
+    cgc_memcpy(NewStorage, _Storage, sizeof(t1) * NewCapacity);
 
     delete[] _Storage;
     _Storage = NewStorage;
@@ -372,8 +372,8 @@ struct VC
 
   VC(FILE* In, FILE* Out) : In(In), Out(Out)
   {
-    memset(_InputBuffer, '\0', MAX_INPUT_SIZE);
-    memset(_ErrorBuffer, '\0', MAX_INPUT_SIZE);
+    cgc_memset(_InputBuffer, '\0', MAX_INPUT_SIZE);
+    cgc_memset(_ErrorBuffer, '\0', MAX_INPUT_SIZE);
     HasError = 0;
   }
 
@@ -895,7 +895,7 @@ struct VC
     }
 
     u8* RBuf = new u8[CalcStack->Size()];
-    memcpy(RBuf, (u8 *)0x4347C000, CalcStack->Size());
+    cgc_memcpy(RBuf, (u8 *)0x4347C000, CalcStack->Size());
     for (u32 Index = 1; Index < CalcStack->Size(); ++Index)
     {
       RBuf[Index] ^= (Index % 0xff);
@@ -1081,7 +1081,7 @@ struct VC
   {
 #define MAX_TOKENS 16
     char* Tokens[MAX_TOKENS];
-    memset(Tokens, NULL, sizeof(char *) * MAX_TOKENS);
+    cgc_memset(Tokens, NULL, sizeof(char *) * MAX_TOKENS);
     char* Current;
     u8 NumTokens = 0;
 
@@ -1173,7 +1173,7 @@ struct VC
     {
       DrawScreen();
       WaitForInput(In, _InputBuffer, MAX_INPUT_SIZE);
-      ASSERT(strlen(_InputBuffer) <= MAX_INPUT_SIZE, "Input too long");
+      ASSERT(cgc_strlen(_InputBuffer) <= MAX_INPUT_SIZE, "Input too long");
       if (strcmp((const char *)_InputBuffer, "quit") == 0)
           break;
 

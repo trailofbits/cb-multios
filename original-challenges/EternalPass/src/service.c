@@ -41,15 +41,15 @@
 #define MAX_NUM_PW 512
 #define MAX_PW_LEN 512
 
-#define NOUN(o,t,r,c) t = nouns_list[r](); strcat(o, t); c = (crc32(t,strlen(t))&0xff<<24)|(c>>8); free(t);
-#define VERB(o,t,r,c) t = verbs_list[r](); strcat(o, t);  c = (crc32(t,strlen(t))&0xff<<24)|(c>>8); free(t);
-#define ADJ(o,t,r,c) t = adjectives_list[r](); strcat(o, t); c = (crc32(t,strlen(t))&0xff<<24)|(c>>8); free(t);
-#define ADV(o,t,r,c) t = adverbs_list[r](); strcat(o, t); c = (crc32(t,strlen(t))&0xff<<24)|(c>>8); free(t);
+#define NOUN(o,t,r,c) t = nouns_list[r](); strcat(o, t); c = (crc32(t,cgc_strlen(t))&0xff<<24)|(c>>8); free(t);
+#define VERB(o,t,r,c) t = verbs_list[r](); strcat(o, t);  c = (crc32(t,cgc_strlen(t))&0xff<<24)|(c>>8); free(t);
+#define ADJ(o,t,r,c) t = adjectives_list[r](); strcat(o, t); c = (crc32(t,cgc_strlen(t))&0xff<<24)|(c>>8); free(t);
+#define ADV(o,t,r,c) t = adverbs_list[r](); strcat(o, t); c = (crc32(t,cgc_strlen(t))&0xff<<24)|(c>>8); free(t);
 
-#define NOUNS(o,t,r,c) t = nouns_list[r%4096](); strcat(o, t); c = (crc32(t,strlen(t))&0xff<<24)|(c>>8); free(t);
-#define VERBS(o,t,r,c) t = verbs_list[r%4096](); strcat(o, t);  c = (crc32(t,strlen(t))&0xff<<24)|(c>>8); free(t);
-#define ADJS(o,t,r,c) t = adjectives_list[r%4096](); strcat(o, t); c = (crc32(t,strlen(t))&0xff<<24)|(c>>8); free(t);
-#define ADVS(o,t,r,c) t = adverbs_list[r%4096](); strcat(o, t); c = (crc32(t,strlen(t))&0xff<<24)|(c>>8); free(t);
+#define NOUNS(o,t,r,c) t = nouns_list[r%4096](); strcat(o, t); c = (crc32(t,cgc_strlen(t))&0xff<<24)|(c>>8); free(t);
+#define VERBS(o,t,r,c) t = verbs_list[r%4096](); strcat(o, t);  c = (crc32(t,cgc_strlen(t))&0xff<<24)|(c>>8); free(t);
+#define ADJS(o,t,r,c) t = adjectives_list[r%4096](); strcat(o, t); c = (crc32(t,cgc_strlen(t))&0xff<<24)|(c>>8); free(t);
+#define ADVS(o,t,r,c) t = adverbs_list[r%4096](); strcat(o, t); c = (crc32(t,cgc_strlen(t))&0xff<<24)|(c>>8); free(t);
 
 unsigned int seed;
 unsigned int sseeds[4];
@@ -176,7 +176,7 @@ char *gen_rand_pass_secure() {
 
 void rc4init(unsigned char *s, unsigned char *k) {
     int i, j = 0, t = 0;
-    int len = strlen((char*)k);
+    int len = cgc_strlen((char*)k);
 
     for (i = 0; i < 256; i++)
         s[i] = i;
@@ -192,7 +192,7 @@ void rc4init(unsigned char *s, unsigned char *k) {
 void rc4crypt(unsigned char *s, unsigned char *d, int len) {
     int i, t, j = 0, k = 0;
     char xor[len];
-    memset(xor, 0, len);
+    cgc_memset(xor, 0, len);
 
     for (i=0; i < len; i++) {
         j = (j+1) % 256;
@@ -304,11 +304,11 @@ int main(void) {
         if (!SENDLINE(pw))
             return 17;
 
-        len = strlen(pw);
+        len = cgc_strlen(pw);
 
         rc4crypt(rc4state, (unsigned char*)pw, len);
 
-        memcpy(out, pw, len);
+        cgc_memcpy(out, pw, len);
 
         free(pw);
 

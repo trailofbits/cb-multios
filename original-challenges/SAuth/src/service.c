@@ -48,13 +48,13 @@ static size_t mystrndup(const char *str, size_t n, char **out)
 {
     char *result;
 
-    if (strlen(str) < n)
-        n = strlen(str);
+    if (cgc_strlen(str) < n)
+        n = cgc_strlen(str);
 
     if (n == 0 || (result = malloc(n + 1)) == NULL)
         return 0;
 
-    memcpy(result, str, n);
+    cgc_memcpy(result, str, n);
     result[n] = 0;
     *out = result;
 
@@ -226,7 +226,7 @@ static int write_string(server_t *server, const char *s, uint32 length)
     if (server->packet_len + length > PACKET_SIZE)
         return 0;
 
-    memcpy(&server->packet[server->packet_idx], s, length);
+    cgc_memcpy(&server->packet[server->packet_idx], s, length);
     server->packet_idx += length;
     if (server->packet_idx > server->packet_len)
         server->packet_len = server->packet_idx;
@@ -238,7 +238,7 @@ static int safe_memcpy(server_t *server, char *dst, unsigned short n)
     /* prevent reading past end of buffer */
     if (server->packet_idx + n > PACKET_SIZE)
         n = PACKET_SIZE - server->packet_idx;
-    memcpy(dst, &server->packet[server->packet_idx], n);
+    cgc_memcpy(dst, &server->packet[server->packet_idx], n);
     server->packet_idx += n;
     return 1;
 }
@@ -377,7 +377,7 @@ static int send_service_accept(server_t *server, const char *service_name)
 {
     init_packet(server);
     write_byte(server, MSG_SERVICE_ACCEPT);
-    write_string(server, service_name, strlen(service_name));
+    write_string(server, service_name, cgc_strlen(service_name));
     return send_packet(server);
 }
 
@@ -401,7 +401,7 @@ static int send_userauth_changereq(server_t *server, const char *prompt)
 {
     init_packet(server);
     write_byte(server, MSG_USERAUTH_PASSWD_CHANGEREQ);
-    write_string(server, prompt, strlen(prompt));
+    write_string(server, prompt, cgc_strlen(prompt));
     return send_packet(server);
 }
 
@@ -434,7 +434,7 @@ static int userauth_password(server_t *server, const char *username, const char 
     /* if successful, check if new_password is compliant and change it */
     if (success && new_password)
     {
-        if (strlen(new_password) < MIN_PASSWD)
+        if (cgc_strlen(new_password) < MIN_PASSWD)
             res = send_userauth_changereq(server, "Too short");
         else
         {
@@ -512,7 +512,7 @@ int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
     void *secret_page = (void *)secret_page_i;
     server_t server;
 
-    memset(&server, 0, sizeof(server));
+    cgc_memset(&server, 0, sizeof(server));
     init_creds(&server, secret_page);
 
     while (1)

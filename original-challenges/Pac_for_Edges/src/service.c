@@ -111,7 +111,7 @@ int acceptImage(struct image * myImage)
     myImage->height = height;
     myImage->width = width;
     
-    //read the remainder
+    //cgc_read the remainder
     fread(myImage->data, myImage->height*myImage->width, stdin);
     
     // move data in pixels
@@ -124,7 +124,7 @@ int outputImage(struct image * myImage)
 {
     char header[] = "CG\x02""512\x02""512\x02""111\x02";
     
-    fwrite(header,  strlen(header), stdout);
+    fwrite(header,  strlen.header), stdout);
     fwrite(myImage->data,  myImage->height * myImage->width, stdout);
     
     return 0;

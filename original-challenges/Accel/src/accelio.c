@@ -33,7 +33,7 @@
 int strtrim(char *str, size_t size, int sides)
 {
     int i, len;
-    len = strlen(str) + 1;
+    len = cgc_strlen(str) + 1;
     if (len > size)
         return -1;
     else if (len == 1)
@@ -43,7 +43,7 @@ int strtrim(char *str, size_t size, int sides)
         char *tmp = str;
         for (i = 0; i < len; i++, tmp++) {
             if (strchr(WHITESPACE, *tmp) == NULL) {
-                memcpy(str, tmp, len - i);
+                cgc_memcpy(str, tmp, len - i);
                 break;
             }
         }
@@ -67,7 +67,7 @@ int strtrim(char *str, size_t size, int sides)
 //row and col must be buffers of at least len 4
 int valid_cell_id(char *input)
 {
-    if (strlen(input) < 2)
+    if (cgc_strlen(input) < 2)
         return -1;
 
     size_t i = 0, is_num = 0;
@@ -110,7 +110,7 @@ int valid_cell_id(char *input)
 //row and col must be buffers of at least len 4
 int get_rowcol(char *input, char *row, char *col, char delim)
 {
-    if (strlen(input) < 2)
+    if (cgc_strlen(input) < 2)
         return -1;
 
     size_t i = 0, is_num = 0;
@@ -150,7 +150,7 @@ int get_rowcol(char *input, char *row, char *col, char delim)
 int sanitize_formula(char *formula, size_t size)
 {
     size_t i, j, len;
-    len = strlen(formula);
+    len = cgc_strlen(formula);
     if (len > size)
         return -1;
 
@@ -163,7 +163,7 @@ int sanitize_formula(char *formula, size_t size)
         if (strchr(WHITESPACE, formula[i]) == NULL)
             sanitized[j++] = formula[i];
     }
-    memcpy(formula, sanitized, size);
+    cgc_memcpy(formula, sanitized, size);
     free(sanitized);
     return 0;
 }

@@ -75,20 +75,20 @@ void auth_failure(char* resource) {
 	int ret;
 	size_t message_size; 
 
-	message_size = strlen(resource)+sizeof(FAILED_AUTH_STR)+sizeof(EOL);
+	message_size = cgc_strlen(resource)+sizeof(FAILED_AUTH_STR)+sizeof(EOL);
 
 	if(message_buf == NULL) {
 		message_buf = malloc(message_size);
 		if(message_buf == NULL)
 			_terminate(ALLOCATE_ERROR);
-		memset(message_buf, 0, message_size);
+		cgc_memset(message_buf, 0, message_size);
 	}
 
 	strcat(message_buf, FAILED_AUTH_STR);
 	strcat(message_buf, resource);
 	strcat(message_buf, EOL);
 
-	reportMessage(message_buf, strlen(message_buf));
+	reportMessage(message_buf, cgc_strlen(message_buf));
 
 #ifdef PATCHED
 	free(message_buf);
@@ -109,7 +109,7 @@ unsigned long auth_success(char* resource) {
 	int zero = 0; // Null terminates token
 	unsigned long token[] = {0,0};
 
-	message_size = sizeof(ACCESS_STR) + strlen(resource)+sizeof(SUCCESS_AUTH_STR)+sizeof(token)+sizeof(EOL);
+	message_size = sizeof(ACCESS_STR) + cgc_strlen(resource)+sizeof(SUCCESS_AUTH_STR)+sizeof(token)+sizeof(EOL);
 
 	// Vuln 1: Bypass check due to unititialized buffer
 	if(message_buf == NULL) {
@@ -120,14 +120,14 @@ unsigned long auth_success(char* resource) {
 
 	token[0] = getAuthVal();
 	// Vuln 1: Overflow buffer that is < message_size
-	memset(message_buf, 0, message_size);
+	cgc_memset(message_buf, 0, message_size);
 	strcat(message_buf, ACCESS_STR);
 	strcat(message_buf, resource);
 	strcat(message_buf, SUCCESS_AUTH_STR);
 	strcat(message_buf, (char *)token);
 	strcat(message_buf, EOL);
 
-	reportMessage(message_buf, strlen(message_buf));
+	reportMessage(message_buf, cgc_strlen(message_buf));
 
 #ifdef PATCHED
 	free(message_buf);
@@ -149,8 +149,8 @@ int do_auth(unsigned long val, unsigned long auth_attempt, char* res)
 	{
 		//Vuln 0: Copies message + auth_val for mem_leak
 		char resource[RESOURCE_SIZE];
-		memset(resource, 0, RESOURCE_SIZE);
-		memcpy(resource, res, strnlen(res, RESOURCE_SIZE));
+		cgc_memset(resource, 0, RESOURCE_SIZE);
+		cgc_memcpy(resource, res, strnlen(res, RESOURCE_SIZE));
 		auth_failure(resource);
 		return AUTH_FAIL;
 	} else {
@@ -184,7 +184,7 @@ void addResource(User** user, unsigned long token, char* resource) {
 	if(!newResource)
 		_terminate(ALLOCATE_ERROR);
 
-	memcpy(newResource->name, resource, RESOURCE_SIZE);
+	cgc_memcpy(newResource->name, resource, RESOURCE_SIZE);
 	newResource->token = token;
 	newResource->next = (*user)->resourceList;
 	(*user)->resourceList = newResource;
@@ -272,7 +272,7 @@ int main(void) {
 
 	while(1) {
 		User* user=NULL;
-		memset(command.input, 0, MAX_ARGS_SIZE);
+		cgc_memset(command.input, 0, MAX_ARGS_SIZE);
 		receiveCommand(&command);
 
 		user = getUser(userList, command.id);

@@ -171,19 +171,19 @@ void Engine::process_exe(unsigned char *data, unsigned int len)
     // initialize heap from data
     if ((hdr->ro_addr >> 30) != 0 || ((hdr->ro_addr + hdr->ro_size) >> 30) != 0 || hdr->ro_size > len)
         return;
-    memcpy(d_heap + hdr->ro_addr, data, hdr->ro_size);
+    cgc_memcpy(d_heap + hdr->ro_addr, data, hdr->ro_size);
     data += hdr->ro_size;
     len -= hdr->ro_size;
 
     if ((hdr->rw_addr >> 30) != 0 || ((hdr->rw_addr + hdr->rw_size) >> 30) != 0 || hdr->rw_size > len)
         return;
-    memcpy(d_heap + hdr->rw_addr, data, hdr->rw_size);
+    cgc_memcpy(d_heap + hdr->rw_addr, data, hdr->rw_size);
     data += hdr->rw_size;
     len -= hdr->rw_size;
 
     if ((hdr->zero_addr >> 30) != 0 || ((hdr->zero_addr + hdr->zero_size) >> 30) != 0)
         return;
-    memset(d_heap + hdr->zero_addr, 0, hdr->zero_size);
+    cgc_memset(d_heap + hdr->zero_addr, 0, hdr->zero_size);
 
     // initialize IP
     e.set_ip(hdr->ip);

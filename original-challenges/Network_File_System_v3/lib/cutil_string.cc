@@ -100,8 +100,8 @@ String& String::operator+=( const String &rhs )
 
 	char *pNewData = new char[new_stringlen+1];
 
-	memcpy( pNewData, m_pData, m_length );
-	memcpy( pNewData+m_length, rhs.m_pData, rhs.m_length );
+	cgc_memcpy( pNewData, m_pData, m_length );
+	cgc_memcpy( pNewData+m_length, rhs.m_pData, rhs.m_length );
 
 	// Keep a null terminator at the end for easy return of c_str
 	pNewData[m_length+rhs.m_length] = '\0';
@@ -230,11 +230,11 @@ void String::SetInternal( const char *pszStr )
 		return;
 	}
 
-	m_length = strlen( pszStr );
+	m_length = cgc_strlen( pszStr );
 
 	m_pData = new char[m_length+1];
 
-	memcpy( m_pData, pszStr, m_length );
+	cgc_memcpy( m_pData, pszStr, m_length );
 	m_pData[m_length] = '\0';
 }
 
@@ -247,6 +247,6 @@ void String::SetInternal( const String& str )
 
 	m_pData = new char[m_length+1];
 
-	memcpy( m_pData, str.m_pData, m_length );
+	cgc_memcpy( m_pData, str.m_pData, m_length );
 	m_pData[m_length] = '\0';
 }

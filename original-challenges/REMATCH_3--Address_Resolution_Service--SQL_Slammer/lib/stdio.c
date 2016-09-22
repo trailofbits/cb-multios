@@ -118,7 +118,7 @@ int puts( const char *s )
 	size_t s_len;
 	size_t total_sent = 0;
 
-	s_len = strlen(s);
+	s_len = cgc_strlen(s);
 
 	while (total_sent != s_len) {
 		if ( transmit( STDOUT, s+total_sent, s_len-total_sent, &tx_bytes ) != 0 ) {
@@ -613,7 +613,7 @@ size_t printf_helper_string( void *ctx, tPrintfWrapperFP fpOut, size_t pos, cons
 		return (pos);
 	}
 
-	size_t max_printlen = strlen( outStr );
+	size_t max_printlen = cgc_strlen( outStr );
 	size_t pad_length = 0;
 
 	if ( precision > 0 )
@@ -826,7 +826,7 @@ int BufferedReceive(char *buf, int length)
 		{	
 			bytesToCopy = bytesInBuffer;
 		}
-		memcpy(buf, pData, bytesToCopy);
+		cgc_memcpy(buf, pData, bytesToCopy);
 		bytesRemaining -= bytesToCopy;
 		pData += bytesToCopy;
 		bytesInBuffer -= bytesToCopy;

@@ -53,7 +53,7 @@ int AddPageVar(PageVar *varlist, char *cmd) {
     VerifyPointerOrTerminate(pagevar->next, "New PageVar");
     pagevar = pagevar->next;
   }
-  memcpy(pagevar->name, name, value - 1 - name);
+  cgc_memcpy(pagevar->name, name, value - 1 - name);
   #ifdef PATCHED
   if (end - value <= 0) {
     return -1;
@@ -61,7 +61,7 @@ int AddPageVar(PageVar *varlist, char *cmd) {
   #endif 
   pagevar->value = calloc(end - value + 1, 1);
   VerifyPointerOrTerminate(pagevar->value, "PageVar->value");
-  memcpy(pagevar->value, value, end - value);
+  cgc_memcpy(pagevar->value, value, end - value);
   return 1;
 }
 
@@ -129,9 +129,9 @@ int line_length;
 
 void FlushOutput() {
   printf("@s\n", line);
-  memset(line, '\0', sizeof(line));
+  cgc_memset(line, '\0', sizeof(line));
   if (in_a_box) {
-    memset(line, ' ', sizeof(line) - 1);
+    cgc_memset(line, ' ', sizeof(line) - 1);
     line[0] = '*';
     line[79] = '*';
     line_length = 2;
@@ -150,14 +150,14 @@ void OutputChar(char c) {
 }
 
 void OutputStr(char *s) {
-  if (strlen(s) + line_length > 80) {
+  if (cgc_strlen(s) + line_length > 80) {
     FlushOutput();
   }
-  if (strlen(s) > 80) {
+  if (cgc_strlen(s) > 80) {
     printf("@s\n", s);
   } else {
-    memcpy(&line[line_length],s, strlen(s));
-    line_length += strlen(s);
+    cgc_memcpy(&line[line_length],s, cgc_strlen(s));
+    line_length += cgc_strlen(s);
   }
 } 
 
@@ -169,7 +169,7 @@ int ServePageWithOverride(char *page, int page_size, PageVar *override_list) {
   PageVar *varlist = calloc(sizeof(PageVar), 1);
   VerifyPointerOrTerminate(varlist, "VarList initialization");
   in_a_box = 0;
-  memset(line, '\0', sizeof(line));
+  cgc_memset(line, '\0', sizeof(line));
   line_length = 0;
   
   #ifdef PATCHED
@@ -223,8 +223,8 @@ int ServePageWithOverride(char *page, int page_size, PageVar *override_list) {
         goto error;
       }
       // Process script commands
-      if (strncmp(page, "line", strlen("line")) == 0) {
-        page += strlen("line");
+      if (strncmp(page, "line", cgc_strlen("line")) == 0) {
+        page += cgc_strlen("line");
         if (*page != ':') {
           goto error;
         }
@@ -237,10 +237,10 @@ int ServePageWithOverride(char *page, int page_size, PageVar *override_list) {
           OutputChar(c);
         }
         page = close + 1;
-      } else if (strncmp(page, "var", strlen("var")) == 0) {
+      } else if (strncmp(page, "var", cgc_strlen("var")) == 0) {
         AddPageVar(varlist, page);
         page = close + 1;
-      } else if (strncmp(page, "box", strlen("box")) == 0) {
+      } else if (strncmp(page, "box", cgc_strlen("box")) == 0) {
         in_a_box = 1;
         FlushOutput();
         for (int i = 0; i < 80; i++) {

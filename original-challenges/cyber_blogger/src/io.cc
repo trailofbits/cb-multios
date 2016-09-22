@@ -86,7 +86,7 @@ int IO::readnum(size_t max_size)
 char *IO::iotextdup(size_t max_size)
 {
     size_t rx, i = 0, multiplier = 0;
-    size_t tilde_count = 0; //``` = exit str
+    size_t tilde_count = 0; //``` = cgc_exit str
     char *strbuf;
     if (max_size < 3)
         return NULL;
@@ -111,7 +111,7 @@ char *IO::iotextdup(size_t max_size)
                 return NULL;
             }
 
-            memcpy(temp, strbuf, MAX_IO_SIZE << multiplier);
+            cgc_memcpy(temp, strbuf, MAX_IO_SIZE << multiplier);
             delete[] strbuf;
             strbuf = temp;
         }
@@ -151,20 +151,20 @@ File *IO::upload_file()
     File *new_file = NULL;
 
 
-    memset(file_name, 0, sizeof(file_name));
+    cgc_memset(file_name, 0, sizeof(file_name));
     printf("Enter Filename: ");
     if (IO::readline()) {
-        if (strlen(IO::buf()) > 2 && strlen(IO::buf()) < 64) {
-            memcpy(file_name, IO::buf(), strlen(IO::buf()));
+        if (cgc_strlen(IO::buf()) > 2 && cgc_strlen(IO::buf()) < 64) {
+            cgc_memcpy(file_name, IO::buf(), cgc_strlen(IO::buf()));
         }
         else {
-            memcpy(file_name, IO::buf(), sizeof(file_name) - 1);
+            cgc_memcpy(file_name, IO::buf(), sizeof(file_name) - 1);
         }
     }
 
     printf("--Begin Uploading File--\n");
     if (!IO::readnbytes(sizeof(unsigned int), header)) {
-        printf("Could not read magic num\n");
+        printf("Could not cgc_read magic num\n");
         return NULL;
     }
 
@@ -178,14 +178,14 @@ File *IO::upload_file()
 
     if (ft->type == ASCIIART) {
         if (!IO::readnbytes(AsciiArt::find_header_size() - sizeof(magic), &header[sizeof(magic)])){
-            printf("Could not read header\n");
+            printf("Could not read.header\n");
             return NULL;
         }
 
         data_size = AsciiArt::find_data_size(header);
         data = new char[data_size];
         if (!IO::readnbytes(data_size, data)) {
-            printf("Could not read data\n");
+            printf("Could not cgc_read data\n");
             delete[] data;
             return NULL;
         }
@@ -201,7 +201,7 @@ File *IO::upload_file()
         return new_file;
     } else if (ft->type == PICTURE) {
         if (!IO::readnbytes(Picture::find_header_size() - sizeof(magic), &header[sizeof(magic)])){
-            printf("Could not read header\n");
+            printf("Could not read.header\n");
             return NULL;
         }
 
@@ -209,7 +209,7 @@ File *IO::upload_file()
 
         data = new char[data_size];
         if (!IO::readnbytes(data_size, data)) {
-            printf("Could not read data\n");
+            printf("Could not cgc_read data\n");
             delete[] data;
             return NULL;
         }

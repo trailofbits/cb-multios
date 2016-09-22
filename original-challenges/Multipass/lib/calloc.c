@@ -38,6 +38,6 @@ void *calloc(size_t nmemb, size_t size)
     void *ret = malloc((size_t)total);
     if (ret == NULL)
         return NULL;
-    memset(ret, 0, (size_t)total);
+    cgc_memset(ret, 0, (size_t)total);
     return ret;
 }

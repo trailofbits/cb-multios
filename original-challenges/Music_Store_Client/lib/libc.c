@@ -53,7 +53,7 @@ int transmit_all(int fd, const char *buf, const size_t size) {
     return 0;
 }
 
-size_t strlen(const char *string) {
+size_t cgc_strlen(const char *string) {
     size_t size = 0;
     
     while(1) {
@@ -64,7 +64,7 @@ size_t strlen(const char *string) {
 }
 
 // copy cnt bytes from src into dst; src and dst cannot overlap!
-void * memcpy(void* dst, const void* src, size_t cnt) {
+void * cgc_memcpy(void* dst, const void* src, size_t cnt) {
 
     uint8_t *dst_ptr = (uint8_t *) dst;
     uint8_t *src_ptr = (uint8_t *) src;
@@ -78,7 +78,7 @@ void * memcpy(void* dst, const void* src, size_t cnt) {
 }
 
 // overwrites the first n chars of str with unsigned char ch.
-void * memset(void* str, int ch, size_t n) {
+void * cgc_memset(void* str, int ch, size_t n) {
     unsigned char *ch_ptr = str;
     while (n > 0) {
         *ch_ptr = (unsigned char)ch;
@@ -147,7 +147,7 @@ char* strcat(char *dest, const char* src)
 int str2int(const char* str_buf) {
     int result = 0;
     int temp = 0;
-    int max_chars = 10; // max number of chars read from str_buf
+    int max_chars = 10; // max number of chars cgc_read from str_buf
     int i = 0;
     int sign = 1; // 1 for pos, -1 for neg
 

@@ -39,7 +39,7 @@ do_gallon_challenge(void)
     printf("Give me a countdown!\n");
     if (fread_until(buf, '\n', sizeof(buf), stdin) == EXIT_FAILURE)
         return EXIT_FAILURE;
-    if (strlen(buf) == 0 || strtou(buf, 16, &countdown) == EXIT_FAILURE)
+    if (cgc_strlen(buf) == 0 || strtou(buf, 16, &countdown) == EXIT_FAILURE)
         return EXIT_FAILURE;
 
     for (i = 0; i < game_state.games.gallon_challenge.tank_size; i++) {

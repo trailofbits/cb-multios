@@ -138,13 +138,13 @@ uint8_t ReadCmd(void) {
 	uint8_t NodeCount;
 	uint32_t *SPT;
 
-	// read in the basic command header
+	// cgc_read in the basic command header
 	if (ReadBytes((unsigned char *)&Cmd, sizeof(Command)) != sizeof(Command)) {
 		return(0);
 	}
 
 	if (Cmd.Action == CMD_SEND_NODES) {
-		// read in the indicated number of Nodes
+		// cgc_read in the indicated number of Nodes
 #ifdef PATCHED_1
 		if ((Cmd.NumElements + NumNodes) > MAX_NODES) {
 #else
@@ -197,7 +197,7 @@ uint8_t ReadCmd(void) {
 		free(NewNodeNames);
 
 	} else if (Cmd.Action == CMD_SEND_EDGES) {
-		// read in the indicated number of Edges
+		// cgc_read in the indicated number of Edges
 		if ((Cmd.NumElements + NumEdges) > MAX_EDGES) {
 			ReadNull(sizeof(EdgeArray)*Cmd.NumElements);
 			SendErrorResponse(RESP_ERROR_TOO_MANY_EDGES);

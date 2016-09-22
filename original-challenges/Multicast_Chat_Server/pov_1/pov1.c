@@ -68,14 +68,14 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00000_delim[] = 
          "\x0a";
       read_00000 = NULL;
       read_00000_len = 0;
       int read_00000_res = delimited_read(0, &read_00000, &read_00000_len, read_00000_delim, 1);
       if (read_00000_res) {} //silence unused variable warning
-      //**** read assign to var "flagPassword" from pcre: (.*)
+      //**** cgc_read assign to var "flagPassword" from pcre: (.*)
 
       static char read_00000_regex[] = 
          "\x28\x2e\x2a\x29\x0a";
@@ -136,14 +136,14 @@ int main(void) {
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00001_delim[] = 
          "\x0a";
       read_00001 = NULL;
       read_00001_len = 0;
       int read_00001_res = delimited_read(0, &read_00001, &read_00001_len, read_00001_delim, 1);
       if (read_00001_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00001_00000[] = 
          "\x2f\x74\x6f\x6b\x65\x6e\x2f\x46\x4c\x41\x47\x0a";
       read_00001_ptr += data_match(read_00001 + read_00001_ptr, read_00001_len - read_00001_ptr, match_00001_00000, 12);
@@ -154,14 +154,14 @@ int main(void) {
       unsigned char *read_00002;
       unsigned int read_00002_len;
       unsigned int read_00002_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00002_delim[] = 
          "\x0a";
       read_00002 = NULL;
       read_00002_len = 0;
       int read_00002_res = delimited_read(0, &read_00002, &read_00002_len, read_00002_delim, 1);
       if (read_00002_res) {} //silence unused variable warning
-      //**** read assign to var "signature" from pcre: 0:povuser:([0-9a-f]{8}):FLAG
+      //**** cgc_read assign to var "signature" from pcre: 0:povuser:([0-9a-f]{8}):FLAG
 
       static char read_00002_regex[] = 
          "\x30\x3a\x70\x6f\x76\x75\x73\x65\x72\x3a\x28\x5b\x30\x2d\x39\x61"
@@ -223,14 +223,14 @@ int main(void) {
       unsigned char *read_00003;
       unsigned int read_00003_len;
       unsigned int read_00003_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00003_delim[] = 
          "\x0a";
       read_00003 = NULL;
       read_00003_len = 0;
       int read_00003_res = delimited_read(0, &read_00003, &read_00003_len, read_00003_delim, 1);
       if (read_00003_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00003_00000[] = 
          "\x2f\x73\x75\x62\x73\x63\x72\x69\x62\x65\x2f\x46\x4c\x41\x47\x0a";
       read_00003_ptr += data_match(read_00003 + read_00003_ptr, read_00003_len - read_00003_ptr, match_00003_00000, 16);
@@ -241,14 +241,14 @@ int main(void) {
       unsigned char *read_00004;
       unsigned int read_00004_len;
       unsigned int read_00004_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00004_delim[] = 
          "\x0a";
       read_00004 = NULL;
       read_00004_len = 0;
       int read_00004_res = delimited_read(0, &read_00004, &read_00004_len, read_00004_delim, 1);
       if (read_00004_res) {} //silence unused variable warning
-      //**** read assign to var "token" from pcre: ([0-9a-zA-Z]{9}-[0-9a-zA-Z]{8}-[0-9a-zA-Z]{8}-[0-9a-zA-Z]{8}-[0-9a-zA-Z]{3}):latest
+      //**** cgc_read assign to var "token" from pcre: ([0-9a-zA-Z]{9}-[0-9a-zA-Z]{8}-[0-9a-zA-Z]{8}-[0-9a-zA-Z]{8}-[0-9a-zA-Z]{3}):latest
 
       static char read_00004_regex[] = 
          "\x28\x5b\x30\x2d\x39\x61\x2d\x7a\x41\x2d\x5a\x5d\x7b\x39\x7d\x2d"
@@ -337,14 +337,14 @@ int main(void) {
       unsigned char *read_00005;
       unsigned int read_00005_len;
       unsigned int read_00005_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00005_delim[] = 
          "\x0a";
       read_00005 = NULL;
       read_00005_len = 0;
       int read_00005_res = delimited_read(0, &read_00005, &read_00005_len, read_00005_delim, 1);
       if (read_00005_res) {} //silence unused variable warning
-      //**** read assign to var "TYPE2_VALUE" from pcre: (.*)
+      //**** cgc_read assign to var "TYPE2_VALUE" from pcre: (.*)
 
       static char read_00005_regex[] = 
          "\x28\x2e\x2a\x29\x0a";

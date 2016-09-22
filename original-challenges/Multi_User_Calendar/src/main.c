@@ -51,7 +51,7 @@ bool add_user()
         case ERROR:
             goto cleanup;
         case SUCCESS:
-            if (found_user || !strlen(line) || strlen(line) > MAX_USERNAME) {
+            if (found_user || !cgc_strlen(line) || cgc_strlen(line) > MAX_USERNAME) {
                 recv_status = FAIL;
             } else {
                 username = strdup(line);
@@ -229,7 +229,7 @@ bool add_user_event(user_t *user)
         if (recv_status == ERROR)
             return false;
 
-        if (date_str && !strlen(date_str)) {
+        if (date_str && !cgc_strlen(date_str)) {
             end_date = start_date;
         }
         else if (!strtodate(date_str, &end_date) || compare_date(&end_date, &start_date) < 0 ) {
@@ -250,7 +250,7 @@ bool add_user_event(user_t *user)
         if (recv_status == ERROR)
             return false;
 
-        if (is_all_day_str && !strlen(is_all_day_str)) {
+        if (is_all_day_str && !cgc_strlen(is_all_day_str)) {
             is_all_day = false;
         }
         else if (is_all_day_str) {
@@ -349,7 +349,7 @@ bool user_menu(bool *edit_calendar)
 {
     int choice = 0;
     char *cur_user;
-    if (!g_cur_user || !strlen(g_cur_user->username))
+    if (!g_cur_user || !cgc_strlen(g_cur_user->username))
         cur_user = "None";
     else
         cur_user = g_cur_user->username;
@@ -401,8 +401,8 @@ bool calendar_menu(bool *edit_calendar)
     date_t old_date;
     bool is_running;
 
-    if (!g_cur_user || !strlen(g_cur_user->username)) {
-        printf("Must select a user before viewing a calendar\n");
+    if (!g_cur_user || !cgc_strlen(g_cur_user->username)) {
+        printf("Must cgc_select a user before viewing a calendar\n");
         *edit_calendar = false;
         return true;
     } else {

@@ -114,7 +114,7 @@ int endIt;
     deleteFile(fh, ROOT_ID);
 
     // this file will allow us to get semi-random userID's from the magic page.  It is kept open and a new ID is 
-    // read whenever a new account is created
+    // cgc_read whenever a new account is created
     retcode = makeMemoryFile("UserIDs.mem", 0x4347C004, 1532, 1, ROOT_ID );
 
     if ( retcode != 0 ) {

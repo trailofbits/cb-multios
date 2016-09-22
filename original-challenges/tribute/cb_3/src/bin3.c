@@ -77,7 +77,7 @@ int run_program(inst_t *program, int size) {
    int op0;
    int op1;
    int result;
-   memset(&cpu, 0, sizeof(cpu));
+   cgc_memset(&cpu, 0, sizeof(cpu));
    PC = 0;
    current = NULL;
    op0 = 0;
@@ -210,14 +210,14 @@ int execute() {
    inst_t program[0x200];
    int PC;
 
-   memset(program, 0, sizeof(program));
+   cgc_memset(program, 0, sizeof(program));
    PC = 0;
 #ifdef DEBUG
    fprintf(stderr, "execute hitting illegal inst\n");
 #endif
 
 #ifdef DEBUG
-   fprintf(stderr, "child 3 entering read program loop\n");
+   fprintf(stderr, "child 3 entering cgc_read program loop\n");
 #endif
    do {
       nbytes = read_all(PIPEFD_IN, (char*)(program + PC), sizeof(inst_t));
@@ -229,11 +229,11 @@ int execute() {
           goto done;
       }
 #ifdef DEBUG
-      fprintf(stderr, "read %d bytes from pipe 12\n", sizeof(inst_t));
+      fprintf(stderr, "cgc_read %d bytes from pipe 12\n", sizeof(inst_t));
 #endif
    } while (++PC < 512);
 #ifdef DEBUG
-   fprintf(stderr, "child 3 leaving read program loop\n");
+   fprintf(stderr, "child 3 leaving cgc_read program loop\n");
 #endif
    if (nbytes != sizeof(inst_t) && nbytes != 0) {
       result = -1;

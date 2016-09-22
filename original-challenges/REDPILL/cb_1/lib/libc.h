@@ -16,7 +16,7 @@
 // Errors / statuses
 #define SUCCESS 0
 #define ERRNO_SEND (SERVICE_ID+1)
-#define ERR_RECV "[E] could not read or insufficient bytes\n"
+#define ERR_RECV "[E] could not cgc_read or insufficient bytes\n"
 #define ERRNO_RECV (SERVICE_ID+2)
 #define ERRNO_ALLOC (SERVICE_ID+3)
 #define ERRNO_INSUFFICIENT_BYTES (SERVICE_ID+4)
@@ -94,7 +94,7 @@ unsigned char pkt_get_src(struct packet *pkt);
 unsigned char pkt_get_msg(struct packet *pkt);
 int pkt_send(size_t tid, char src, char msg);
 
-unsigned char * memset(void *b, char c, size_t len);
+unsigned char * cgc_memset(void *b, char c, size_t len);
 
 // List related
 struct list {

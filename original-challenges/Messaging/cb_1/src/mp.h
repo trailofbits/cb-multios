@@ -49,7 +49,7 @@ void run##cls() \
         fread(&__next_selector, sizeof(int), __fp); \
         for (int i = 0; i < __nargs; i++) \
         { \
-            __args[i] = proxy_argument::read(__fp); \
+            __args[i] = proxy_argument::cgc_read(__fp); \
         } \
         ctx = (clsctx *)__id; \
         object self(__##cls##_fd, __id); \
@@ -107,7 +107,7 @@ public:
     const_string(const char *buf, unsigned int length) : d_buf(buf), d_length(length) {}
     const_string(const char *buf) : d_buf(buf)
     {
-        d_length = strlen(buf);
+        d_length = cgc_strlen(buf);
     }
     const_string(const string& s)
     {
@@ -193,7 +193,7 @@ public:
         }
     }
 
-    static proxy_argument read(FILE *f)
+    static proxy_argument cgc_read(FILE *f)
     {
         unsigned char t;
         fread(&t, 1, f);

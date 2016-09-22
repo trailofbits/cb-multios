@@ -26,7 +26,7 @@ THE SOFTWARE.
 #include <libcgc.h>
 #include "libc.h"
 
-int strlen(char * string) {
+int cgc_strlen(char * string) {
     char *tmp;
     tmp = string;
     while(*tmp) {
@@ -40,9 +40,9 @@ unsigned int atoi(char *number)
     int i;
     int ret = 0;
     int tmp;
-    if(strlen(number) > 8)
+    if(cgc_strlen(number) > 8)
         return 0;
-    for(i=0;i<strlen(number);i++)
+    for(i=0;i<cgc_strlen(number);i++)
     {
         tmp = number[i]-'0';
         if(i == 0) {
@@ -100,7 +100,7 @@ void bzero(char *what, int howmany) {
 
 int put(char *string) {
     int i;
-    size_t len = strlen(string);
+    size_t len = cgc_strlen(string);
     size_t tx_bytes;
     size_t total_sent = 0;
     int ret;
@@ -115,7 +115,7 @@ int put(char *string) {
     return 0;
 }
 
-int memcpy(char *dst, char *src, int size) {
+int cgc_memcpy(char *dst, char *src, int size) {
     while(size--)
         *dst++=*src++;
     return 0;

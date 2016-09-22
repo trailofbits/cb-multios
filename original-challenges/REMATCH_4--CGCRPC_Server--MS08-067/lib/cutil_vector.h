@@ -134,7 +134,7 @@ namespace CUtil
 	{
 		T *pTemp = new T[ m_vectorSize ];
 
-		memcpy( pTemp, m_pContainer, (m_vectorSize * sizeof(T)) );
+		cgc_memcpy( pTemp, m_pContainer, (m_vectorSize * sizeof(T)) );
 
 		delete [] m_pContainer;
 
@@ -142,7 +142,7 @@ namespace CUtil
 
 		m_allocSize += m_growSize;
 
-		memcpy( m_pContainer, pTemp, (m_vectorSize * sizeof(T)) );
+		cgc_memcpy( m_pContainer, pTemp, (m_vectorSize * sizeof(T)) );
 
 		delete [] pTemp;
 	}

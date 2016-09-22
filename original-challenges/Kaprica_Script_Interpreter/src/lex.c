@@ -65,7 +65,7 @@ static int is_assignable(int op);
 
 void program_init(program_t *prog, io_t *io)
 {
-    memset(prog, 0, sizeof(program_t));
+    cgc_memset(prog, 0, sizeof(program_t));
     prog->io = io;
 }
 
@@ -340,7 +340,7 @@ static int parse_statements(program_t *prog, stmt_t **result)
         if (io_getc(prog->io) != ';')
             goto fail;
     }
-    else if (strcmp(kw, "exit") == 0)
+    else if (strcmp(kw, "cgc_exit") == 0)
     {
         stmt->type = STMT_EXIT;
         skip_whitespace(prog);
@@ -633,7 +633,7 @@ static int parse_variable(program_t *prog, expr_t **result)
     expr_t *expr = NULL;
 
     name = parse_var(prog);
-    if (name == NULL || strlen(name) == 0 || is_keyword(name))
+    if (name == NULL || cgc_strlen(name) == 0 || is_keyword(name))
         goto fail;
 
     expr = init_expression(OP_VAR);
@@ -856,7 +856,7 @@ static int is_keyword(const char *s)
         strcmp(s, "for") == 0 || 
         strcmp(s, "break") == 0 ||
         strcmp(s, "next") == 0 ||
-        strcmp(s, "exit") == 0 ||
+        strcmp(s, "cgc_exit") == 0 ||
         strcmp(s, "print") == 0 ||
         strcmp(s, "printf") == 0)
     {
@@ -1262,7 +1262,7 @@ static void print_expression(expr_t *expr, const char *prefix)
 
     fdprintf(STDERR, "\n");
 
-    if (strlen(buf) < sizeof(buf)-1)
+    if (cgc_strlen(buf) < sizeof(buf)-1)
         strcat(buf, "\t");
 
     if (expr->op == OP_CONDITIONAL)
@@ -1320,7 +1320,7 @@ static void print_statement(stmt_t *stmt, const char *prefix)
     fdprintf(STDERR, "%s%s\n", prefix, stmt_to_name(stmt->type));
     
     strcpy(buf, prefix);
-    if (strlen(buf) < sizeof(buf) - 1)
+    if (cgc_strlen(buf) < sizeof(buf) - 1)
         strcat(buf, "\t");
 
     switch(stmt->type)

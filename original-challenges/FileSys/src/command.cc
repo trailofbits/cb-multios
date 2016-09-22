@@ -31,8 +31,8 @@ extern "C" {
 
 Command::Command(const char *name, const char *alias)
 {
-  memset(this->name, 0, sizeof(this->name));
-  memset(this->alias, 0, sizeof(this->alias));
+  cgc_memset(this->name, 0, sizeof(this->name));
+  cgc_memset(this->alias, 0, sizeof(this->alias));
 
   SetName(name);
   if (alias)
@@ -377,7 +377,7 @@ int ChangeDirCmd::Execute(FileManager *fm, int argc, char** argv)
 
 int QuitCmd::Execute(FileManager *fm, int argc, char** argv)
 {
-  exit(0);
+  cgc_exit(0);
   return 0;
 }
 

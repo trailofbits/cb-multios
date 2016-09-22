@@ -58,14 +58,14 @@ sprintEntryType *sprintPtr;
 
 	newSprint->ID = message->sprintID;
 
-	// add an extra byte since strlen doesn't count the null terminator
-	newSprint->title = calloc(strlen((char *)&message->title)+1);
+	// add an extra byte since cgc_strlen doesn't count the null terminator
+	newSprint->title = calloc(cgc_strlen((char *)&message->title)+1);
 
 	if (newSprint->title == 0)
 		_terminate(-1);
 
 
-	strncpy(newSprint->title, &message->title, strlen(&message->title));
+	strncpy(newSprint->title, &message->title, cgc_strlen(&message->title));
 
 	// set the default values, all 0 in this case
 	newSprint->duration = 0;

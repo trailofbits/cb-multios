@@ -28,7 +28,7 @@
 
 double atof(char *str, size_t size, int *bad_conversion)
 {
-    if (str == NULL || strlen(str) >= size || strlen(str) == 0)
+    if (str == NULL || cgc_strlen(str) >= size || cgc_strlen(str) == 0)
         goto error;
 
     double val = 0.0, exp = 0.0, dec_multiplier = 1.0;

@@ -40,7 +40,7 @@
 int prng_set_key(void *key);
 
  /**
- * Get count bytes of pesudo-random data and write it into the buffer pointed 
+ * Get count bytes of pesudo-random data and cgc_write it into the buffer pointed 
  * to by buf.
  *
  * Based on the the key schedule in the public domain Tiny Encryption Algorith.

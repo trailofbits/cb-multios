@@ -114,9 +114,9 @@ o        o         o      o     +\n\
   {
     kty_item_t *item = array_get(parser->nyan_says, i);
 #if PATCHED
-    int sz = (buf + sizeof(buf) - c) - strlen(item->item.i_string.s);
-    sz = sz > 0 ? strlen(item->item.i_string.s) : (buf + sizeof(buf) - c - 1);
-    memcpy(c, item->item.i_string.s, sz);
+    int sz = (buf + sizeof(buf) - c) - cgc_strlen(item->item.i_string.s);
+    sz = sz > 0 ? cgc_strlen(item->item.i_string.s) : (buf + sizeof(buf) - c - 1);
+    cgc_memcpy(c, item->item.i_string.s, sz);
 #else
     strcpy(c, item->item.i_string.s);
 #endif
@@ -128,7 +128,7 @@ o        o         o      o     +\n\
 void quit()
 {
   fdprintf(STDOUT, "\n\n=^.^=// Bye!\n\n");
-  exit(0);
+  cgc_exit(0);
 }
 
 void menu()
@@ -143,7 +143,7 @@ void menu()
 int main()
 {
   char buf[MAX_KTY_LENGTH];
-  char select[16];
+  char cgc_select[16];
   fdprintf(STDOUT, "KTY Pretty Printer v0.1\n");
 
   parser = (kty_parser_t *) malloc(sizeof(kty_parser_t));
@@ -154,9 +154,9 @@ int main()
   }
 
   menu();
-  while (read_until(STDIN, select, sizeof(select), '\n') > 0)
+  while (read_until(STDIN, cgc_select, sizeof(cgc_select), '\n') > 0)
   {
-    int menu = strtol(select, NULL, 10);
+    int menu = strtol(cgc_select, NULL, 10);
     switch (menu)
     {
       case 1:

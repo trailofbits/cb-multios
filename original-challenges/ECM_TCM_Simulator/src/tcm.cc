@@ -280,7 +280,7 @@ void CTCM::HandleReadDataMessage( uint8_t *pData, uint16_t length, CResponse *pR
 			*((uint16_t*)(readWheelSpeedResponse+1)) = (2+(sizeof(uint16_t)*wheelCount));
 			readWheelSpeedResponse[3] = READ_WHEELSPEED_RESPONSE;
 			readWheelSpeedResponse[4] = wheelCount;
-			memcpy( readWheelSpeedResponse+5, resultList, sizeof(uint16_t)*wheelCount );
+			cgc_memcpy( readWheelSpeedResponse+5, resultList, sizeof(uint16_t)*wheelCount );
 
 			pResponse->AddResponse( readWheelSpeedResponse, 5+(wheelCount*sizeof(uint16_t)) );
 		}	
@@ -338,7 +338,7 @@ void CTCM::HandleSetDataMessage( uint8_t *pData, uint16_t length, CResponse *pRe
 			*((uint16_t*)(setWheelSpeedResponse+1)) = 2+(3*wheelCount);
 			setWheelSpeedResponse[3] = SET_WHEELSPEED_RESPONSE;
 			setWheelSpeedResponse[4] = wheelCount;
-			memcpy( setWheelSpeedResponse+5, pData+2, 3*wheelCount );
+			cgc_memcpy( setWheelSpeedResponse+5, pData+2, 3*wheelCount );
 			
 			pResponse->AddResponse( setWheelSpeedResponse, 5+(wheelCount*3) );
 		}
