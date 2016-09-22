@@ -35,16 +35,16 @@ proc encode_uint32(x):
 
 proc read_uint16():
     var x
-    x = ord(cgc_read(1)) << 8
-    x = x | ord(cgc_read(1))
+    x = ord(read(1)) << 8
+    x = x | ord(read(1))
     return x
 
 proc read_uint32():
     var x
-    x = ord(cgc_read(1)) << 24
-    x = x | (ord(cgc_read(1)) << 16)
-    x = x | (ord(cgc_read(1)) << 8)
-    x = x | (ord(cgc_read(1)))
+    x = ord(read(1)) << 24
+    x = x | (ord(read(1)) << 16)
+    x = x | (ord(read(1)) << 8)
+    x = x | (ord(read(1)))
     return x
 
 proc main():
