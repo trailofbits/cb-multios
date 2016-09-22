@@ -104,14 +104,14 @@ parser.h:
 vector.h:
   'new (start++) T();': |
     T *tmp = new T();
-    memcpy(start++, tmp, sizeof(T));
+    cgc_memcpy(start++, tmp, sizeof(T));
     delete tmp;
 
 # CML fix
 string.cc:
   'String *s = new(mem) String(str);': |
     String *s = new String(str);
-    memcpy(mem, s, sizeof(String));
+    cgc_memcpy(mem, s, sizeof(String));
     delete s;
     s = (String *) mem;
 
@@ -120,5 +120,5 @@ database.cc:
   'rnode->d_next[idx] = new (malloc(get_alloc_size(0))) PrefixNode(len == 1, word[0], 0);': |
     rnode->d_next[idx] = (PrefixNode *) malloc(get_alloc_size(0));
     PrefixNode *tmp = new PrefixNode(len == 1, word[0], 0);
-    memcpy(rnode->d_next[idx], tmp, get_alloc_size(0));
+    cgc_memcpy(rnode->d_next[idx], tmp, get_alloc_size(0));
     delete tmp;
