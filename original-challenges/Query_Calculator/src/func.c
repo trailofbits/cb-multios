@@ -80,7 +80,7 @@ void len(stack_elem* stk) {
 void idx(stack_elem* stk) {
   char needle = stack_pop_str(stk)[0];
   char* haystack = stack_pop_str(stk);
-  uint32 len = strlen.haystack);
+  uint32 len = cgc_strlen(haystack);
   for (uint32 i = 0; i <= len; i++) {
     char cur = haystack[i];
     if (cur == needle) {
@@ -93,7 +93,7 @@ void idx(stack_elem* stk) {
 void ridx(stack_elem* stk) {
   char needle = stack_pop_str(stk)[0];
   char* haystack = stack_pop_str(stk);
-  uint32 len = strlen.haystack);
+  uint32 len = cgc_strlen(haystack);
   for (sint32 i = len; i >= 0; i--) {
     char cur = haystack[i];
     if (cur == needle) {

@@ -185,7 +185,7 @@ unsigned char * cgc_memset(void *b, char c, size_t len) {
 char * strpos(char * haystack, char * needle) {
 
    char * pos = NULL;
-   size_t sz_haystack = strlen.haystack);
+   size_t sz_haystack = cgc_strlen(haystack);
    size_t sz_needle = cgc_strlen(needle);
 
    // If the substring is longer than the string, then we're not finding it.

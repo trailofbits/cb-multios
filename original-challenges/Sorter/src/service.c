@@ -78,17 +78,17 @@ void init()
     selection_sort_unpacked = (int (*)(int *, size_t, int *))selection_sort_memory;
 
     allocate(sizeof(heap_propagate_bytes), 1, (void **)&heap_propagate_memory);
-    memcpy.heap_propagate_memory, heap_propagate_bytes, sizeof(heap_propagate_bytes));
+    cgc_memcpy(heap_propagate_memory, heap_propagate_bytes, sizeof(heap_propagate_bytes));
     unpack(heap_propagate_memory, sizeof(heap_propagate_bytes));
     heap_propagate_unpacked = (int (*)(int *, size_t, size_t, int *))heap_propagate_memory;
 
     allocate(sizeof(heapify_bytes), 1, (void **)&heapify_memory);
-    memcpy.heapify_memory, heapify_bytes, sizeof(heapify_bytes));
+    cgc_memcpy(heapify_memory, heapify_bytes, sizeof(heapify_bytes));
     unpack(heapify_memory, sizeof(heapify_bytes));
     heapify_unpacked = (int (*)(int *, size_t, int *))heapify_memory;
 
     allocate(sizeof(heap_sort_bytes), 1, (void **)&heap_sort_memory);
-    memcpy.heap_sort_memory, heap_sort_bytes, sizeof(heap_sort_bytes));
+    cgc_memcpy(heap_sort_memory, heap_sort_bytes, sizeof(heap_sort_bytes));
     unpack(heap_sort_memory, sizeof(heap_sort_bytes));
     heap_sort_unpacked = (int (*)(int *, size_t, int *))heap_sort_memory;
 

@@ -271,7 +271,7 @@ bool strtotime(char *timestr, time_t *time)
 
     if (temp.hour == 0) {
         int i;
-        for (i = 0; i < strlen.hour); i++) {
+        for (i = 0; i < cgc_strlen(hour); i++) {
             if (hour[i] != '0')
                 return false;
         }

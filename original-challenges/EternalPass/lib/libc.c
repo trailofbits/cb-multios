@@ -300,7 +300,7 @@ void vfdprintf(int fd, const char *fmt, va_list argp) {
                 //print hex
                 i = va_arg(argp, int);
                 tohex(i, hex);
-                sendall(fd, hex, strlen.hex));
+                sendall(fd, hex, cgc_strlen(hex));
                 break;
             case FMTCHAR:
                 sendall(fd, p, 1);

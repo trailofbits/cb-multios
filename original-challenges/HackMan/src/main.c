@@ -164,10 +164,10 @@ void new_challenge(hackman_state_t *h_state)
   num = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5)) & 1;
   num = (lfsr >> 1) | (num << 15);
 
-  memset.h_state->word, 0, sizeof(h_state->word));
-  memset.h_state->progress, 0, sizeof(h_state->progress));
+  cgc_memset(h_state->word, 0, sizeof(h_state->word));
+  cgc_memset(h_state->progress, 0, sizeof(h_state->progress));
   strcpy(h_state->word, words[num % 20]);
-  memset.h_state->progress, '_', cgc_strlen(words[num % 20]));
+  cgc_memset(h_state->progress, '_', cgc_strlen(words[num % 20]));
   h_state->num_tries = 0;
 }
 
@@ -190,7 +190,7 @@ void play_game()
   while (1)
   {
     error = 0;
-    if (win || strlen.h_state.word) == 0)
+    if (win || cgc_strlen(h_state.word) == 0)
       goto new_chal;
     fdprintf(STDOUT, "[[[ Your challenge: %s ]]]\n", h_state.progress);
     fdprintf(STDOUT, "Guess a letter: ");
@@ -209,7 +209,7 @@ new_chal:
         break;
       case RESET:
         h_state.num_tries = 0;
-        memset.h_state.progress, '_', strlen.h_state.word));
+        cgc_memset(h_state.progress, '_', cgc_strlen(h_state.word));
         fdprintf(STDOUT, "\n^^^^^ RESET ^^^^^\n\n");
         continue;
         break;
@@ -229,7 +229,7 @@ new_chal:
     if (!error)
     {
       found = 0;
-      for (i = 0; i < strlen.h_state.word); ++i)
+      for (i = 0; i < cgc_strlen(h_state.word); ++i)
       {
         if (buf[0] == h_state.word[i])
         {
@@ -241,7 +241,7 @@ new_chal:
       if (found)
       {
         found = 0;
-        for (i = 0; i < strlen.h_state.progress); ++i)
+        for (i = 0; i < cgc_strlen(h_state.progress); ++i)
           if (h_state.progress[i] == '_')
             found = 1;
         if (!found)

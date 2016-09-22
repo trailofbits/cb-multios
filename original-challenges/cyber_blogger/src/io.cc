@@ -178,7 +178,7 @@ File *IO::upload_file()
 
     if (ft->type == ASCIIART) {
         if (!IO::readnbytes(AsciiArt::find_header_size() - sizeof(magic), &header[sizeof(magic)])){
-            printf("Could not read.header\n");
+            printf("Could not read header\n");
             return NULL;
         }
 
@@ -201,7 +201,7 @@ File *IO::upload_file()
         return new_file;
     } else if (ft->type == PICTURE) {
         if (!IO::readnbytes(Picture::find_header_size() - sizeof(magic), &header[sizeof(magic)])){
-            printf("Could not read.header\n");
+            printf("Could not read header\n");
             return NULL;
         }
 

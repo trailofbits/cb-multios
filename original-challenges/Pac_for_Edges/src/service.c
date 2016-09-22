@@ -124,7 +124,7 @@ int outputImage(struct image * myImage)
 {
     char header[] = "CG\x02""512\x02""512\x02""111\x02";
     
-    fwrite(header,  strlen.header), stdout);
+    fwrite(header,  cgc_strlen(header), stdout);
     fwrite(myImage->data,  myImage->height * myImage->width, stdout);
     
     return 0;

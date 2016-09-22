@@ -131,7 +131,7 @@ int play_rps()
 
     cgc_memset(len_resp, 0, 128);
     length_read(STDIN, len_resp, cgc_strlen("Choose [HAMMER, SHEET, SHEERS]: "));
-    transmit_all(STDOUT, hammer, strlen.hammer));
+    transmit_all(STDOUT, hammer, cgc_strlen(hammer));
     delimited_read(STDIN, &resp, &resp_len, (unsigned char *)"\n", 1);
     delimited_read(STDIN, &resp, &resp_len, (unsigned char *)"\n", 1);
     if(memcmp(resp, "You Win!", 8) == 0) {
