@@ -44,6 +44,9 @@ endif()
 add_subdirectory(include)
 include_directories(include)
 
+# Build libpov
+add_subdirectory(include/libpov)
+
 function(build path target)
     message("Building ${target}")
 
