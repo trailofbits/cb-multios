@@ -296,7 +296,7 @@ void NegotiateType1Pov(unsigned int ipmask, unsigned int regmask, unsigned int r
 	// get the 4-byte value for eip
 	if (ReadBytes(3, (char *)type1_ip, 4) != 4) {
 		_terminate(-1);
-	} 
+	}
 	// get the 4-byte value for the register
 	if (ReadBytes(3, (char *)type1_reg, 4) != 4) {
 		_terminate(-1);
@@ -331,7 +331,7 @@ int addqueue( int x, int y, pmap m, char *dirs )
 
 	m->matrix[index] = 1;
 
-	pq = malloc( sizeof(queue));
+	pq = cgc_malloc( sizeof(queue));
 
 	if ( pq == NULL ) {
 		_terminate(-1);
@@ -348,7 +348,7 @@ int addqueue( int x, int y, pmap m, char *dirs )
 	/// Base case
 	if (m->root == NULL ) {
 		m->root = pq;
-	} else { 
+	} else {
 		// All others
 		walker = m->root;
 
@@ -402,7 +402,7 @@ int findpath( pmap m )
 		pq->directions[pq->index] = 'l';
 		addqueue( pq->x-1, pq->y, m, pq->directions);
 
-		free(pq);
+		cgc_free(pq);
 
 		pq = dequeue( m );
 
@@ -482,7 +482,7 @@ void fight_boss( unsigned int type1_reg, unsigned int type1_ip )
 		ReadUntil( STDIN, '\n', (char*)buffer, 1024);
 	}
 
-	
+
 	while ( success == 0 ) {
 		/// Read "Selection: "
 		ReadBytes( STDIN, (char*)buffer, 11);
@@ -590,8 +590,8 @@ void getvalues( pmap pm )
 
 	length = pm->width * pm->height;
 
-	pm->map_data = malloc( length );
-	pm->matrix = malloc( length );
+	pm->map_data = cgc_malloc( length );
+	pm->matrix = cgc_malloc( length );
 
 	bzero( (char*)pm->map_data, length );
 	bzero( (char*)pm->matrix, length);
@@ -613,7 +613,7 @@ void setname( void )
 	ReadBytes( STDIN, (char*)buffer + cgc_strlen((char*)buffer), 2 );
 
 	bzero( (char*)buffer, 1024);
-	buffer[0] = '\n', 
+	buffer[0] = '\n',
 	SendBytes(STDOUT, (char*)buffer, 1);
 
 	//player Data
@@ -707,7 +707,7 @@ void readmap( pmap pm )
 		} else {
 			pm->matrix[index] = 1;
 		}
-		
+
 		index += 1;
 	}
 
@@ -734,8 +734,8 @@ int main(void) {
 
 	type1_ip |= 0x01010101;
 	type1_reg |= 0x01010101;
-	
-	inout = malloc( 1024);
+
+	inout = cgc_malloc( 1024);
 
 	bzero(inout, 1024);
 
@@ -792,12 +792,12 @@ int main(void) {
 	for ( map_index = 0; map_index < m.height; map_index++) {
 		ReadUntil( STDIN, '\n', (char*)inout, 1024);
 	}
-	
+
 
 	/// This should be the boss
 	bzero((char*)inout, 1024);
 	ReadUntil( STDIN, '\n', (char*)inout, 1024);
-	
+
 	if ( inout[0] != 'r' && inout[1] != 'e') {
 		_terminate(-14);
 	}
