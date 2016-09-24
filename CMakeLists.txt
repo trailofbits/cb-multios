@@ -62,8 +62,8 @@ function(build path target)
     # Add patched defines
     target_compile_definitions(${target}_patched PUBLIC "${patch_defs}")
 
-    target_link_libraries(${target} LINK_PUBLIC libcgc)
-    target_link_libraries(${target}_patched LINK_PUBLIC libcgc)
+    target_link_libraries(${target} LINK_PUBLIC cgc)
+    target_link_libraries(${target}_patched LINK_PUBLIC cgc)
 endfunction()
 
 function(buildCB)
