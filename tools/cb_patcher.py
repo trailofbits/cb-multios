@@ -87,6 +87,9 @@ def patch_challenge(chal):
     dirs = listdir(os.path.join(CHALLENGE_PATH, chal))
     cbdirs = filter(lambda d: d.startswith('cb_'), dirs)
 
+    # Patch cfe-style povs
+    map(patch_files_in_dir, glob.glob(os.path.join(CHALLENGE_PATH, chal, 'pov_*')))
+
     if len(cbdirs) > 0:
         # Process each of these as a separate challenge binary
         for d in cbdirs:

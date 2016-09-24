@@ -67,7 +67,25 @@ function(build path target)
 
     target_link_libraries(${target} LINK_PUBLIC cgc)
     target_link_libraries(${target}_patched LINK_PUBLIC cgc)
-endfunction()
+endfunction(build)
+
+function(buildPOV path cb pov)
+    # Unique target name, i.e. "Palindrome2_pov_1",
+    # executable name kept as "pov_#.pov"
+    set(target "${cb}_${pov}")
+
+    # Gather sources
+    aux_source_directory("${path}/${pov}" pov_src)
+    add_executable(${target} ${pov_src})
+
+    # POVs are allowed to include challenge headers,
+    # but must have their own definitions
+    target_include_directories(${target} PUBLIC "${path}/${pov}" "${path}/include" "${path}/lib" "${path}/src")
+    set_target_properties(${target} PROPERTIES  COMPILE_FLAGS "${CFLAGS} "
+                                                LINK_FLAGS "${LDFLAGS} "
+                                                OUTPUT_NAME "${pov}.pov")
+    target_link_libraries(${target} LINK_PUBLIC cgc pov)
+endfunction(buildPOV)
 
 function(buildCB)
     # Generate all the patched #defines for this challenge
@@ -91,6 +109,15 @@ function(buildCB)
     else()
         # Build normally if there are no extra directories
         build(${cb_path} ${cb_id})
+    endif()
+
+    file(GLOB cb_povs "${cb_path}/pov_*")
+    if(cb_povs)
+        foreach(path ${cb_povs})
+            # Get the pov name, i.e. "pov_1"
+            get_filename_component(pov ${path} NAME)
+            buildPOV(${cb_path} ${cb_id} ${pov})
+        endforeach()
     endif()
 endfunction(buildCB)
 
