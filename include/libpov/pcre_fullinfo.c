@@ -107,22 +107,22 @@ switch (what)
   break;
 
   case PCRE_INFO_SIZE:
-  *((size_t *)where) = re->size;
+  *((cgc_size_t *)where) = re->size;
   break;
 
   case PCRE_INFO_STUDYSIZE:
-  *((size_t *)where) = (study == NULL)? 0 : study->size;
+  *((cgc_size_t *)where) = (study == NULL)? 0 : study->size;
   break;
 
   case PCRE_INFO_JITSIZE:
 #ifdef SUPPORT_JIT
-  *((size_t *)where) =
+  *((cgc_size_t *)where) =
       (extra_data != NULL &&
       (extra_data->flags & PCRE_EXTRA_EXECUTABLE_JIT) != 0 &&
       extra_data->executable_jit != NULL)?
     PRIV(jit_get_size)(extra_data->executable_jit) : 0;
 #else
-  *((size_t *)where) = 0;
+  *((cgc_size_t *)where) = 0;
 #endif
   break;
 

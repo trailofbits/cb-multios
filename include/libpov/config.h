@@ -347,4 +347,4 @@ sure both macros are undefined; an emulation function will then be used. */
 /* #undef int64_t */
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */
-/* #undef size_t */
+/* #undef cgc_size_t */

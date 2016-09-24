@@ -59,7 +59,7 @@ int type2_negotiate(type2_vals *t2vals) {
  * Submit the len bytes in the val buffer as the results of a type 2 POV
  * Returns 0 on success
  */
-int type2_submit(const unsigned char *val, size_t len) {
+int type2_submit(const unsigned char *val, cgc_size_t len) {
    return transmit_all(3, val, len);
 }
 
@@ -71,7 +71,7 @@ typedef struct _read_buffer {
 
 static read_buffer *ibufs[16];
 
-int buffered_receive(int fd, void *buf, size_t count, size_t *rx_bytes) {
+int buffered_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
    if (fd > 15) {
       return receive(fd, buf, count, rx_bytes);
    }
@@ -109,7 +109,7 @@ int buffered_receive(int fd, void *buf, size_t count, size_t *rx_bytes) {
             }
          }
       }
-      size_t rxb;
+      cgc_size_t rxb;
       rb->iptr = rb->eptr = 0;
       res = receive(fd, rb->buf, sizeof(rb->buf), &rxb);
       if (res != 0 || rxb == 0) {
@@ -121,15 +121,15 @@ int buffered_receive(int fd, void *buf, size_t count, size_t *rx_bytes) {
 }
 
 void delay(unsigned int msec) {
-   struct timeval timeout;
+   struct cgc_timeval timeout;
    timeout.tv_sec = msec / 1000;
    timeout.tv_usec = (msec % 1000) * 1000;
-   fdwait(0, NULL, NULL, &timeout, NULL);
+   cgc_fdwait(0, NULL, NULL, &timeout, NULL);
 }
 
 unsigned char *append_var(const char *var, unsigned char *buf, unsigned int *buflen) {
    unsigned char *newbuf = buf;
-   size_t varlen;
+   cgc_size_t varlen;
    unsigned char *varbuf = getenv(var, &varlen);
    if (varbuf != NULL) {
       newbuf = (unsigned char*)realloc(buf, *buflen + varlen);
@@ -142,7 +142,7 @@ unsigned char *append_var(const char *var, unsigned char *buf, unsigned int *buf
 
 unsigned char *append_slice(const char *var, int begin, int end, unsigned char *buf, unsigned int *buflen) {
    unsigned char *newbuf = buf;
-   size_t varlen;
+   cgc_size_t varlen;
    unsigned char *varbuf = getenv(var, &varlen);
    if (varbuf != NULL) {
       if (begin < 0) {
@@ -195,7 +195,7 @@ int delimited_read(int fd, unsigned char **buf, unsigned int *size, unsigned cha
    int haveDelim = 0;
    while (1) {
       unsigned char val;
-      size_t rlen;
+      cgc_size_t rlen;
       res = buffered_receive(fd, &val, 1, &rlen);
       if (res != 0 || rlen == 0) {
          //error or eof but might have had some data
@@ -235,7 +235,7 @@ int length_read(int fd, unsigned char *buf, unsigned int len) {
    unsigned int total = 0;
    while (total < len) {
       unsigned int need = len - total;
-      size_t rlen;
+      cgc_size_t rlen;
       if (buf != NULL) {
          //read directly into caller buffer
          if (buffered_receive(fd, buf + total, need, &rlen) != 0 || rlen == 0) {
@@ -260,9 +260,9 @@ int length_read(int fd, unsigned char *buf, unsigned int len) {
    return (int)total;
 }
 
-int transmit_all(int fd, const void *buf, const size_t size) {
-    size_t sent = 0;
-    size_t sent_now = 0;
+int transmit_all(int fd, const void *buf, const cgc_size_t size) {
+    cgc_size_t sent = 0;
+    cgc_size_t sent_now = 0;
     int ret;
 
     if (!buf)
@@ -330,7 +330,7 @@ void negotiate_type2() {
 }
 
 void submit_type2(const char *var) {
-   size_t vlen;
+   cgc_size_t vlen;
    unsigned char *vbuf = NULL;
    if (var != NULL) {
       //try to find callers var
@@ -347,9 +347,9 @@ void submit_type2(const char *var) {
    }
 }
 
-size_t var_match(const unsigned char *readbuf, unsigned int buflen, const char *varName) {
+cgc_size_t var_match(const unsigned char *readbuf, unsigned int buflen, const char *varName) {
    unsigned int result = 0;
-   size_t var_len;
+   cgc_size_t var_len;
    unsigned char *var = getenv(varName, &var_len);
    if (var != NULL && var_len <= buflen) {
       if (memcmp(readbuf, var, var_len) == 0) {

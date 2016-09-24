@@ -57,7 +57,7 @@ int type2_negotiate(type2_vals *t2vals);
  * Submit the len bytes in the val buffer as the results of a type 2 POV
  * Returns 0 on success
  */
-int type2_submit(const unsigned char *val, size_t len);
+int type2_submit(const unsigned char *val, cgc_size_t len);
 
 /*
  *------------------------------------------------------------------
@@ -75,7 +75,7 @@ unsigned char *append_buf(unsigned char *buf, unsigned int *buflen, unsigned cha
 
 int delimited_read(int fd, unsigned char **buf, unsigned int *size, unsigned char *delim, unsigned int delim_len);
 int length_read(int fd, unsigned char *buf, unsigned int len);
-int transmit_all(int fd, const void *buf, const size_t size);
+int transmit_all(int fd, const void *buf, const cgc_size_t size);
 
 typedef struct _match_result {
    unsigned int match_start;
@@ -90,7 +90,7 @@ void negotiate_type1(unsigned int ipmask, unsigned int regmask, unsigned int reg
 void negotiate_type2();
 void submit_type2(const char *var);
 
-size_t var_match(const unsigned char *readbuf, unsigned int buflen, const char *varName); 
+cgc_size_t var_match(const unsigned char *readbuf, unsigned int buflen, const char *varName); 
 unsigned int data_match(const unsigned char *readbuf, unsigned int buflen, const unsigned char *data, unsigned int datalen); 
 unsigned int pcre_match(const unsigned char *readbuf, unsigned int buflen, const char *regex);
 

@@ -31,19 +31,19 @@
 #define NULL ((void*)0)
 #endif
 
-void *memcpy(void *dst, const void *src, size_t n);
-int allocate(size_t len, int proti, void **addr);
-int deallocate(void *addr, size_t len);
-void *memset(void *b, int c, size_t len);
+void *memcpy(void *dst, const void *src, cgc_size_t n);
+int allocate(cgc_size_t len, int proti, void **addr);
+int deallocate(void *addr, cgc_size_t len);
+void *memset(void *b, int c, cgc_size_t len);
 
 typedef struct _CHUNK_HDR {
-   size_t prev_size;
-   size_t size;
+   cgc_size_t prev_size;
+   cgc_size_t size;
 } CHUNK_HDR;
 
 typedef struct _BLOCK_HDR {
    struct _BLOCK_HDR *next; //pointer to next heap block
-   size_t size;             //size of this block (always BLOCK_SIZE)
+   cgc_size_t size;             //size of this block (always BLOCK_SIZE)
 } BLOCK_HDR;
 
 static BLOCK_HDR *heap_base = NULL;
@@ -52,7 +52,7 @@ static CHUNK_HDR *get_chunk(void *ptr) {
    return (CHUNK_HDR*)(((char*)ptr) - sizeof(CHUNK_HDR));
 }
 
-static size_t get_chunk_size(void *ptr) {
+static cgc_size_t get_chunk_size(void *ptr) {
    return get_chunk(ptr)->size;
 }
 
@@ -66,7 +66,7 @@ static BLOCK_HDR *block_init(void) {
       blk->size = BLOCK_SIZE;
       chk = (CHUNK_HDR*)(chk->size + (char*)chk);
       chk->prev_size = BLOCK_SIZE - 2 * sizeof(BLOCK_HDR);
-      chk->size = (size_t)-1;
+      chk->size = (cgc_size_t)-1;
       return blk;
    }
    return NULL;
@@ -85,14 +85,14 @@ static void heap_init(void) {
  *   all requests > PAGE_SIZE are allocated using allocate
  *   all other requests are allocated by first fit scan through the heap
  */
-static void *alloc_main(size_t size, void *hint) {
+static void *alloc_main(cgc_size_t size, void *hint) {
    if (heap_base == NULL) {
       heap_init();
    }
    size = (size + 8 + 7) & ~7;
    if (hint != NULL) {
       CHUNK_HDR *c = get_chunk(hint);
-      size_t csize = c->size & ~7;
+      cgc_size_t csize = c->size & ~7;
       if (csize < PAGE_SIZE && size < PAGE_SIZE) {
          CHUNK_HDR *nc = (CHUNK_HDR*)(csize + (char*)c);
          if (size < csize) {
@@ -105,7 +105,7 @@ static void *alloc_main(size_t size, void *hint) {
             return hint;
          }
          else if ((nc->size & 1) == 0) {
-            size_t sz = csize + nc->size;
+            cgc_size_t sz = csize + nc->size;
             if (sz >= size) {
                CHUNK_HDR *c3 = (CHUNK_HDR*)(nc->size + (char*)nc);
                if (size == sz) {
@@ -148,8 +148,8 @@ static void *alloc_main(size_t size, void *hint) {
    BLOCK_HDR *blk = heap_base;
    CHUNK_HDR *c = (CHUNK_HDR *)(blk + 1);
    while (blk != NULL) {
-      while (c->size != (size_t)-1) {
-         size_t csize = c->size & ~7;
+      while (c->size != (cgc_size_t)-1) {
+         cgc_size_t csize = c->size & ~7;
          CHUNK_HDR *nc = (CHUNK_HDR*)(csize + (char*)c);
          if ((c->size & 1) == 0 && csize >= size) {
             if (csize == size) {
@@ -183,7 +183,7 @@ static void *alloc_main(size_t size, void *hint) {
    return c + 1;
 }
 
-void *malloc(size_t size) {
+void *malloc(cgc_size_t size) {
    return alloc_main(size, NULL);
 }
 
@@ -215,10 +215,10 @@ void free(void *ptr) {
    }
 }
 
-void *realloc(void *ptr, size_t size) {
+void *realloc(void *ptr, cgc_size_t size) {
    void *res = alloc_main(size, ptr);
    if (ptr != NULL) {
-      size_t chunk_size = get_chunk_size(ptr);
+      cgc_size_t chunk_size = get_chunk_size(ptr);
       if (res != NULL && res != ptr) {
          //block has been moved
          memcpy(res, ptr, chunk_size - sizeof(CHUNK_HDR));

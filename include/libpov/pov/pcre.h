@@ -63,7 +63,7 @@ don't change existing definitions of PCRE_EXP_DECL and PCRECPP_EXP_DECL. */
 #  define PCRE_EXP_DECL  extern
 #endif
 
-/* Have to include stdlib.h in order to ensure that size_t is defined;
+/* Have to include stdlib.h in order to ensure that cgc_size_t is defined;
 it is needed here for malloc. */
 
 #include <pov/stdlib.h>
@@ -459,44 +459,44 @@ that is triggered by the (?) regex item. For Virtual Pascal, these definitions
 have to take another form. */
 
 #ifndef VPCOMPAT
-PCRE_EXP_DECL void *(*pcre_malloc)(size_t);
+PCRE_EXP_DECL void *(*pcre_malloc)(cgc_size_t);
 PCRE_EXP_DECL void  (*pcre_free)(void *);
-PCRE_EXP_DECL void *(*pcre_stack_malloc)(size_t);
+PCRE_EXP_DECL void *(*pcre_stack_malloc)(cgc_size_t);
 PCRE_EXP_DECL void  (*pcre_stack_free)(void *);
 PCRE_EXP_DECL int   (*pcre_callout)(pcre_callout_block *);
 PCRE_EXP_DECL int   (*pcre_stack_guard)(void);
 
-PCRE_EXP_DECL void *(*pcre16_malloc)(size_t);
+PCRE_EXP_DECL void *(*pcre16_malloc)(cgc_size_t);
 PCRE_EXP_DECL void  (*pcre16_free)(void *);
-PCRE_EXP_DECL void *(*pcre16_stack_malloc)(size_t);
+PCRE_EXP_DECL void *(*pcre16_stack_malloc)(cgc_size_t);
 PCRE_EXP_DECL void  (*pcre16_stack_free)(void *);
 PCRE_EXP_DECL int   (*pcre16_callout)(pcre16_callout_block *);
 PCRE_EXP_DECL int   (*pcre16_stack_guard)(void);
 
-PCRE_EXP_DECL void *(*pcre32_malloc)(size_t);
+PCRE_EXP_DECL void *(*pcre32_malloc)(cgc_size_t);
 PCRE_EXP_DECL void  (*pcre32_free)(void *);
-PCRE_EXP_DECL void *(*pcre32_stack_malloc)(size_t);
+PCRE_EXP_DECL void *(*pcre32_stack_malloc)(cgc_size_t);
 PCRE_EXP_DECL void  (*pcre32_stack_free)(void *);
 PCRE_EXP_DECL int   (*pcre32_callout)(pcre32_callout_block *);
 PCRE_EXP_DECL int   (*pcre32_stack_guard)(void);
 #else   /* VPCOMPAT */
-PCRE_EXP_DECL void *pcre_malloc(size_t);
+PCRE_EXP_DECL void *pcre_malloc(cgc_size_t);
 PCRE_EXP_DECL void  pcre_free(void *);
-PCRE_EXP_DECL void *pcre_stack_malloc(size_t);
+PCRE_EXP_DECL void *pcre_stack_malloc(cgc_size_t);
 PCRE_EXP_DECL void  pcre_stack_free(void *);
 PCRE_EXP_DECL int   pcre_callout(pcre_callout_block *);
 PCRE_EXP_DECL int   pcre_stack_guard(void);
 
-PCRE_EXP_DECL void *pcre16_malloc(size_t);
+PCRE_EXP_DECL void *pcre16_malloc(cgc_size_t);
 PCRE_EXP_DECL void  pcre16_free(void *);
-PCRE_EXP_DECL void *pcre16_stack_malloc(size_t);
+PCRE_EXP_DECL void *pcre16_stack_malloc(cgc_size_t);
 PCRE_EXP_DECL void  pcre16_stack_free(void *);
 PCRE_EXP_DECL int   pcre16_callout(pcre16_callout_block *);
 PCRE_EXP_DECL int   pcre16_stack_guard(void);
 
-PCRE_EXP_DECL void *pcre32_malloc(size_t);
+PCRE_EXP_DECL void *pcre32_malloc(cgc_size_t);
 PCRE_EXP_DECL void  pcre32_free(void *);
-PCRE_EXP_DECL void *pcre32_stack_malloc(size_t);
+PCRE_EXP_DECL void *pcre32_stack_malloc(cgc_size_t);
 PCRE_EXP_DECL void  pcre32_stack_free(void *);
 PCRE_EXP_DECL int   pcre32_callout(pcre32_callout_block *);
 PCRE_EXP_DECL int   pcre32_stack_guard(void);

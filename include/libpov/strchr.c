@@ -3,7 +3,7 @@
 #define NULL ((void*)0)
 #endif
 
-typedef unsigned int size_t;
+typedef unsigned int cgc_size_t;
 
 char *strchr(const char *s, int c) {
    while (*s && *s != c) {s++;}

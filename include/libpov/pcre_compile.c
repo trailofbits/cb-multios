@@ -6022,8 +6022,8 @@ for (;; ptr++)
               while (cd->hwm > cd->start_workspace + cd->workspace_size -
                      WORK_SIZE_SAFETY_MARGIN - (this_hwm - save_hwm))
                 {
-                size_t save_offset = save_hwm - cd->start_workspace;
-                size_t this_offset = this_hwm - cd->start_workspace;
+                cgc_size_t save_offset = save_hwm - cd->start_workspace;
+                cgc_size_t this_offset = this_hwm - cd->start_workspace;
                 *errorcodeptr = expand_workspace(cd);
                 if (*errorcodeptr != 0) goto FAILED;
                 save_hwm = (pcre_uchar *)cd->start_workspace + save_offset;
@@ -6104,8 +6104,8 @@ for (;; ptr++)
           while (cd->hwm > cd->start_workspace + cd->workspace_size -
                  WORK_SIZE_SAFETY_MARGIN - (this_hwm - save_hwm))
             {
-            size_t save_offset = save_hwm - cd->start_workspace;
-            size_t this_offset = this_hwm - cd->start_workspace;
+            cgc_size_t save_offset = save_hwm - cd->start_workspace;
+            cgc_size_t this_offset = this_hwm - cd->start_workspace;
             *errorcodeptr = expand_workspace(cd);
             if (*errorcodeptr != 0) goto FAILED;
             save_hwm = (pcre_uchar *)cd->start_workspace + save_offset;
@@ -8797,7 +8797,7 @@ int errorcode = 0;
 int skipatstart = 0;
 BOOL utf;
 BOOL never_utf = FALSE;
-size_t size;
+cgc_size_t size;
 pcre_uchar *code;
 const pcre_uchar *codestart;
 const pcre_uchar *ptr;

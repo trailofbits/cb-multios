@@ -1,8 +1,8 @@
 
-typedef unsigned int size_t;
+typedef unsigned int cgc_size_t;
 
-size_t strlen(const char *str) {
-   size_t res = 0;
+cgc_size_t strlen(const char *str) {
+   cgc_size_t res = 0;
    while (*str++) {res++;}
    return res;
 }
