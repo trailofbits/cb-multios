@@ -170,8 +170,6 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
   return 0;
 }
 
-#define PAGE_ALIGN(x) (((x) + (PAGE_SIZE - 1)) & ~(PAGE_SIZE - 1))
-
 /* Going to ignore `is_executable`. It's not really used in the official CGC
  * challenges, and if it were used, then JITed code would likely be 32-bit, and
  * ideally, this code will also work on 64-bit.
@@ -233,7 +231,6 @@ void try_init_prng() {
 
     // Create the prng
     cgc_internal_prng = (cgc_prng *) malloc(sizeof(cgc_prng));
-    memset(cgc_internal_prng, 0, sizeof(cgc_prng));
     cgc_aes_state *seed = (cgc_aes_state *) prng_seed;
     cgc_init_prng(cgc_internal_prng, seed);
 }
