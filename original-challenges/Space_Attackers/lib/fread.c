@@ -56,7 +56,7 @@ ssize_t fread(void *ptr, size_t size, FILE *stream)
         if (rx > size)
             rx = size;
 
-        memcpy(buf, stream->buffer + stream->idx, rx);
+        cgc_memcpy(buf, stream->buffer + stream->idx, rx);
         idx += rx;
         stream->idx += rx;
 
@@ -64,7 +64,7 @@ ssize_t fread(void *ptr, size_t size, FILE *stream)
             stream->idx = stream->length = 0;
     }
 
-    /* read in the remaining bytes as quickly as possible */
+    /* cgc_read in the remaining bytes as quickly as possible */
     for (; idx < size; idx += rx)
     {
         if (receive(stream->fd, buf + idx, size - idx, &rx) != 0 || rx == 0)
@@ -81,14 +81,14 @@ static int _getc(FILE *stream)
 
     if (stream->idx == INVALID_IDX)
     {
-        /* unbuffered read */
+        /* unbuffered cgc_read */
         if (receive(stream->fd, &ch, 1, &rx) != 0 || rx == 0)
             return -1;
         return (int)(unsigned char)ch;
     }
     else
     {
-        /* buffered read */
+        /* buffered cgc_read */
         if (stream->idx == stream->length)
         {
             if (_refill(stream) < 0)

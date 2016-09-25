@@ -48,7 +48,7 @@ void handle_compress()
     if (fread(buf, sizeof(buf), stdin) != sizeof(buf))
         goto fail;
 
-    memset(data, 0, sizeof(data));
+    cgc_memset(data, 0, sizeof(data));
     for (i = 0; i < sizeof(buf); ++i)
     {
         if (buf[i] < 32 || buf[i] > 126)
@@ -58,14 +58,14 @@ void handle_compress()
     }
 
     printf("Data?\n");
-    memset(data, 0, sizeof(data));
+    cgc_memset(data, 0, sizeof(data));
     fflush(stdout);
     if (freaduntil((char *) data, sizeof(data), '\0', stdin) < 0)
         goto fail;
 
     sc = sc_new(buf);
     sc->data = data;
-    sc->data_len = strlen((char *)data);
+    sc->data_len = cgc_strlen((char *)data);
     if (sc_scompress(sc, &out, &outlen) < 0)
         goto fail;
     printf("Original Size: %d\n", sc->data_len);
@@ -98,7 +98,7 @@ void handle_decompress()
     if (fread(buf, sizeof(buf), stdin) != sizeof(buf))
         goto fail;
 
-    memset(data, 0, sizeof(data));
+    cgc_memset(data, 0, sizeof(data));
     for (i = 0; i < sizeof(buf); ++i)
     {
         if (buf[i] < 32 || buf[i] > 126)
@@ -108,7 +108,7 @@ void handle_decompress()
     }
 
     printf("Length?\n");
-    memset(data, 0, sizeof(data));
+    cgc_memset(data, 0, sizeof(data));
     fflush(stdout);
     if (freaduntil((char *) data, sizeof(data), '\n', stdin) < 0)
         goto fail;
@@ -117,7 +117,7 @@ void handle_decompress()
         goto fail;
 
     printf("Data?\n");
-    memset(data, 0, sizeof(data));
+    cgc_memset(data, 0, sizeof(data));
     if (fread((char *) data, len, stdin) < 0)
         goto fail;
 
@@ -127,7 +127,7 @@ void handle_decompress()
     if (sc_sdecompress(sc, &out, &outlen) < 0)
         goto fail;
     printf("Compressed Size: %d\n", sc->data_len);
-    printf("Original Size: %d\n", strlen((char *) out));
+    printf("Original Size: %d\n", cgc_strlen((char *) out));
     printf("Original Data: ");
     fwrite(out, outlen, stdout);
     fwrite("\n", 1, stdout);
@@ -167,7 +167,7 @@ int main()
             case 3:
                 printf("Bye.\n");
                 fflush(stdout);
-                exit(0);
+                cgc_exit(0);
                 break;
             default:
                 printf("Invalid menu.\n");

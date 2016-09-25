@@ -35,7 +35,7 @@ image_init(struct image *img, unsigned width, unsigned height)
 
     img->width = width;
     img->height = height;
-    memset(img->data, '\0', sizeof(struct pixel) * width * height);
+    cgc_memset(img->data, '\0', sizeof(struct pixel) * width * height);
     return EXIT_SUCCESS;
 }
 

@@ -6,7 +6,7 @@ int read_fd  = 10;
 int write_fd = 10;
 char *pattern;
 
-void exit(int i) {
+void cgc_exit(int i) {
     transmit_all(write_fd, "\x00\n", 2);
     _terminate(i);
 }
@@ -17,7 +17,7 @@ char get_byte(int fd) {
 
     size = receive_all(fd, (char *) &value, sizeof(value));
     if (size != sizeof(value))
-        exit(0);
+        cgc_exit(0);
     
     return value;
 }
@@ -90,5 +90,5 @@ int main(void) {
     setup();
     sleep(2);
     compress();
-    exit(0);
+    cgc_exit(0);
 }

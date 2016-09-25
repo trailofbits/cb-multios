@@ -69,7 +69,7 @@ static void send_string(const char *str)
 #ifdef DEBUG
     fdprintf(STDERR, "%s\n", str);
 #endif
-    modem_output((void *)str, strlen(str));
+    modem_output((void *)str, cgc_strlen(str));
 }
 
 void bbs_help()
@@ -329,7 +329,7 @@ void handle_menu(const char *str)
         break;
     case 'Q':
     case 'q':
-        exit(0);
+        cgc_exit(0);
         break;
     default:
         send_string("Bad input. Unknown command.\n");
@@ -346,10 +346,10 @@ void bbs_rx(const uint8_t *data, size_t count)
         count = sizeof(str)-1;
 #endif
 
-    memcpy(str, data, count);
+    cgc_memcpy(str, data, count);
     str[count] = 0; // make sure string is NULL-terminated
 
-    if (strlen(str) == 0)
+    if (cgc_strlen(str) == 0)
         return;
 
 #ifdef DEBUG

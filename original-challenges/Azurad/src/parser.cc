@@ -70,7 +70,7 @@ static const char *typeToString(TokenType type)
 Parser::Parser(const char *input_)
     : input(input_), root(nullptr)
 {
-    length = strlen(input);
+    length = cgc_strlen(input);
 }
 
 Parser::~Parser()
@@ -189,14 +189,14 @@ Token::Token(const char *str)
     : Token()
 {
     literal = str;
-    length = strlen(str);
+    length = cgc_strlen(str);
 }
 
 Token::Token(const char *str, TokenType type_)
     : Token(type_)
 {
     literal = str;
-    length = strlen(str);
+    length = cgc_strlen(str);
 }
 
 Token::Token(const char *str, size_t len, TokenType type_)
@@ -464,7 +464,7 @@ void Node::setLiteral(const char *start, size_t length)
     if (literal)
         delete[] literal;
     literal = new char [length + 1];
-    memcpy(literal, start, length);
+    cgc_memcpy(literal, start, length);
     literal[length] = 0;
     this->length = length;
 }

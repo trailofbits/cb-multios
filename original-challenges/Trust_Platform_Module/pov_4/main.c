@@ -51,7 +51,7 @@ int main(void)
   char buf[] = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBCCCC\n";
 
   unsigned int ipmask = 0xEEEEEEEE;
-  unsigned int orMask = 0x11111111; //We use this mask because the read is delimited
+  unsigned int orMask = 0x11111111; //We use this mask because the cgc_read is delimited
                                     // so we will or the requested value with this
                                     // to ensure 0x0a doesn't exist
   unsigned int regmask = 0xEEEEEEEE;

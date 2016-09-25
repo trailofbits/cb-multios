@@ -28,7 +28,7 @@ THE SOFTWARE.
 CCommandHandler::CCommandHandler()
     : m_cmdCount( 0 )
 {
-    memset( m_cmdTable, 0, sizeof(tCommandTableEntry) * MAX_COMMAND_ENTRIES );
+    cgc_memset( m_cmdTable, 0, sizeof(tCommandTableEntry) * MAX_COMMAND_ENTRIES );
 }
 
 CCommandHandler::~CCommandHandler()

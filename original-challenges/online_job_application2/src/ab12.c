@@ -59,7 +59,7 @@ int contains(const char *arr[], char *e)
 {
   const char **cur = arr;
   while (*cur != NULL) {
-    if (strncmp((char *)*cur, e, strlen(*cur)) == 0) {
+    if (strncmp((char *)*cur, e, cgc_strlen(*cur)) == 0) {
       return 1;
     } else {
       cur++;
@@ -102,7 +102,7 @@ int within(int min, int max, int x)
 
 int all_digits(char *input)
 {
-  for (size_t i = 0; i < strlen(input); i++)
+  for (size_t i = 0; i < cgc_strlen(input); i++)
     if (!isdigit(input[i])) {
       return 0;
     }
@@ -148,7 +148,7 @@ int validate_weight(char *input)
 
 int validate_name(char *input)
 {
-  for (size_t i = 0; i < strlen(input); i++)
+  for (size_t i = 0; i < cgc_strlen(input); i++)
     if (!isprint(input[i]) && input[i] != '\'')
       return 0;
 
@@ -160,10 +160,10 @@ int validate_email(char *input)
   int has_at = 0;
   char c;
 
-  if (strlen(input) < 3 || strlen(input) > 64)
+  if (cgc_strlen(input) < 3 || cgc_strlen(input) > 64)
     return 0;
 
-  for (size_t i = 0; i < strlen(input); i++) {
+  for (size_t i = 0; i < cgc_strlen(input); i++) {
     c = input[i];
 
     if (c == '@') {
@@ -184,10 +184,10 @@ int validate_email(char *input)
 
 int validate_street(char *input)
 {
-  if (strlen(input) > 32 || strlen(input) < 3)
+  if (cgc_strlen(input) > 32 || cgc_strlen(input) < 3)
     return 0;
 
-  for (size_t i = 0; i < strlen(input); i++)
+  for (size_t i = 0; i < cgc_strlen(input); i++)
     if (!(isalnum(input[i]) || isspace(input[i]) || ispunct(input[i])))
       return 0;
 
@@ -196,10 +196,10 @@ int validate_street(char *input)
 
 int validate_city(char *input)
 {
-  if (strlen(input) > 32 || strlen(input) < 4)
+  if (cgc_strlen(input) > 32 || cgc_strlen(input) < 4)
     return 0;
 
-  for (size_t i = 0; i < strlen(input); i++)
+  for (size_t i = 0; i < cgc_strlen(input); i++)
     if (!(isalnum(input[i]) || isspace(input[i]) || ispunct(input[i])))
       return 0;
 
@@ -208,7 +208,7 @@ int validate_city(char *input)
 
 int validate_zip(char *input)
 {
-  if (strlen(input) != 5)
+  if (cgc_strlen(input) != 5)
     return 0;
 
   for (int i = 0; i < 5; i++)
@@ -220,7 +220,7 @@ int validate_zip(char *input)
 
 int validate_phone(char *input)
 {
-  if (strlen(input) != 12)
+  if (cgc_strlen(input) != 12)
     return 0;
 
   for (int i = 0; i < 12; i++)
@@ -237,7 +237,7 @@ int validate_phone(char *input)
 
 int validate_sex(char *input)
 {
-  if (strlen(input) != 1)
+  if (cgc_strlen(input) != 1)
     return 0;
 
   if (input[0] != 'M' && input[0] != 'F')
@@ -248,7 +248,7 @@ int validate_sex(char *input)
 
 int validate_yes_no(char *input)
 {
-  if (strlen(input) != 1)
+  if (cgc_strlen(input) != 1)
     return 0;
 
   if (input[0] != 'Y' && input[0] != 'N')
@@ -259,7 +259,7 @@ int validate_yes_no(char *input)
 
 int validate_gpa(char *input)
 {
-  if (strlen(input) != 4)
+  if (cgc_strlen(input) != 4)
     return 0;
 
   for (int i = 0; i < 4; i++) {

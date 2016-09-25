@@ -53,7 +53,7 @@ typedef struct _contact {
 contact *head = NULL;
 
 void put(char *str) {
-	transmit(1, str, strlen(str), 0);
+	transmit(1, str, cgc_strlen(str), 0);
 }
 
 int validateName(char *name)
@@ -103,7 +103,7 @@ contact *createContact(char *first, char *last, char *phone, unsigned short offi
 		_terminate(-1);
 	}
 	if(validateName(first)) {
-		memcpy(ret->first, first, strlen(first));
+		cgc_memcpy(ret->first, first, cgc_strlen(first));
 	} else {
 		puts("Invalid first name.  Must begin with a capital letter.");
 		free(ret);
@@ -111,7 +111,7 @@ contact *createContact(char *first, char *last, char *phone, unsigned short offi
 		return NULL;
 	}
 	if(validateName(last)) {
-		memcpy(ret->last, last, strlen(last));
+		cgc_memcpy(ret->last, last, cgc_strlen(last));
 	} else {
 		puts("Invalid last name.  Must begin with a capital letter.");
 		free(ret);
@@ -119,7 +119,7 @@ contact *createContact(char *first, char *last, char *phone, unsigned short offi
 		return NULL;
 	}
 	if(validatePhone(phone)) {
-		memcpy(ret->phone, phone, strlen(phone));
+		cgc_memcpy(ret->phone, phone, cgc_strlen(phone));
 	} else {
 		puts("Invalid phone number...must look like (nnn)nnn-nnnn");
 		free(ret);
@@ -306,8 +306,8 @@ void promptAdd() {
 	char tmp[2];
 
 	contact *ptr;
-	memset(phone, 0, 16);
-	memset(officetmp, 0, 8);
+	cgc_memset(phone, 0, 16);
+	cgc_memset(officetmp, 0, 8);
 	ptr = NULL;
 	while(ptr == NULL) {
 		put("First: ");
@@ -317,7 +317,7 @@ void promptAdd() {
 		put("Phone Number: ");
 		recvUntil(phone, 14, '\n');
 		put("Office Number: ");
-		memset(officetmp, 0, 8);
+		cgc_memset(officetmp, 0, 8);
 		recvUntil(officetmp, 6, '\n');
 		officenum = (unsigned short)atoi(officetmp);
 		put("Gender: ");
@@ -395,8 +395,8 @@ void editUser(contact *ptr) {
 		data[31] = 0;
 #endif
 		if(data[0] != 0) {
-			memset(ptr->first, 0, 32);
-			memcpy(ptr->first, data, strlen(data));
+			cgc_memset(ptr->first, 0, 32);
+			cgc_memcpy(ptr->first, data, cgc_strlen(data));
 		}
 		put("New last name: ");
 		recvUntil(data, 32, '\n');
@@ -409,8 +409,8 @@ void editUser(contact *ptr) {
 			return;
 		}
 		if(data[0] != 0){
-			memset(ptr->last, 0, 32);
-			memcpy(ptr->last, data, strlen(data));
+			cgc_memset(ptr->last, 0, 32);
+			cgc_memcpy(ptr->last, data, cgc_strlen(data));
 		}
 		put("New phone number: ");
 		recvUntil(data, 14, '\n');
@@ -422,13 +422,13 @@ void editUser(contact *ptr) {
 			return;
 		}
 		if(data[0] != 0) {
-			memset(ptr->phone, 0, 16);
-			memcpy(ptr->phone, data, strlen(data));
+			cgc_memset(ptr->phone, 0, 16);
+			cgc_memcpy(ptr->phone, data, cgc_strlen(data));
 		}
 		put("New office number: ");
 		recvUntil(data, 6, '\n');
 		if(data[0]) {
-			memcpy(number, data, 5);
+			cgc_memcpy(number, data, 5);
 			ptr->officenum = atoi(number);
 		}
 		put("New gender: ");
@@ -453,7 +453,7 @@ void promptEdit() {
 	char data[32];
 	char number[8];
 
-	memset(number, 0, 8);
+	cgc_memset(number, 0, 8);
 	ptr = findContact();
 	if(ptr == NULL) {
 		puts("No such contact.");
@@ -472,10 +472,10 @@ void promptShow() {
 		puts("No such contact.");
 		return;
 	}
-	memset(useraction, 0, 2);
+	cgc_memset(useraction, 0, 2);
 	useraction[0] = 's';
 	while(useraction[0] != 'q') {
-		memset(office, 0, 6);
+		cgc_memset(office, 0, 6);
 		puts("****************************************");
 		put("First name:\t");
 		puts(ptr->first);
@@ -548,7 +548,7 @@ void inputLoop() {
 	char action[2];
 	while(1)
 	{
-		memset(action, 0, 2);
+		cgc_memset(action, 0, 2);
 		recvUntil(action, 2, '\n');
 		switch(action[0])
 		{

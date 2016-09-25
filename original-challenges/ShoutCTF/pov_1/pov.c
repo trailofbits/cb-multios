@@ -39,7 +39,7 @@ int main(void) {
     transmit_all(STDERR, out, 108);
 
     /* Select Register */
-    memcpy(&payload[p_len], "1\n", 2);
+    cgc_memcpy(&payload[p_len], "1\n", 2);
     p_len += 2;
     transmit_all(STDOUT, payload, p_len);
 

@@ -99,7 +99,7 @@ void Enqueue(queue* Queue, void* Element)
     Assert(NewCapacity > Queue->Capacity, "E2");
 
     void** NewElements = xcalloc(sizeof(void *), NewCapacity);
-    memcpy(NewElements, Queue->Elements, sizeof(void *) * Queue->Size);
+    cgc_memcpy(NewElements, Queue->Elements, sizeof(void *) * Queue->Size);
 
     free(Queue->Elements);
     Queue->Elements = NewElements;

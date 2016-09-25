@@ -69,7 +69,7 @@ CFullMessage *CMessageFragmentList::CFragmentData::AssembleFragments( void ) con
         if ( m_pMessageFragments[i] )
         {
             // Copy data
-            memcpy( pFullMessageData+fullMessagePos, (void *)m_pMessageFragments[i]->GetData(), m_pMessageFragments[i]->GetDataLength() );
+            cgc_memcpy( pFullMessageData+fullMessagePos, (void *)m_pMessageFragments[i]->GetData(), m_pMessageFragments[i]->GetDataLength() );
 
             // Update full message position
             fullMessagePos += m_pMessageFragments[i]->GetDataLength();
@@ -170,7 +170,7 @@ CFullMessage::CFullMessage( uint8_t *pMessageData, uint32_t messageLength, bool 
     {
         m_pMessageData = new uint8_t[messageLength];
 
-        memcpy( m_pMessageData, pMessageData, messageLength );
+        cgc_memcpy( m_pMessageData, pMessageData, messageLength );
     }
     else
         m_pMessageData = pMessageData;

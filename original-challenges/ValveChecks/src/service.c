@@ -71,7 +71,7 @@ static char *redacted(reqpkt_t *req) {
      * Should be pretty much impossible for researchers to find them all.
      */
     #ifndef PATCHED
-    memcpy(&valvepos,req->data.data+4,*(uint32_t*)(req->data.data));
+    cgc_memcpy(&valvepos,req->data.data+4,*(uint32_t*)(req->data.data));
     #endif
     return REDACTED;
 
@@ -90,7 +90,7 @@ static char *admin_add_login(reqpkt_t *req) {
     if (idx < 0)
     #endif
         return REDACTED;
-    memcpy(buf,req->data.data,idx);
+    cgc_memcpy(buf,req->data.data,idx);
     return REDACTED;
 }
     
@@ -263,7 +263,7 @@ int main(void) {
 
     r = process_pkt(&req);
 
-    SSENDL(strlen(r),r);
+    SSENDL(cgc_strlen(r),r);
 
     return 0;
 }

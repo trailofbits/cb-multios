@@ -117,7 +117,7 @@ void Dispatcher::ViewTickets(STATUS status)
 void Dispatcher::RecordFinished(Support* worker)
 {
   char buf[MAX_DESC + 1];
-  memcpy(buf, worker->CurrentTicket()->description(), MAX_DESC);
+  cgc_memcpy(buf, worker->CurrentTicket()->description(), MAX_DESC);
   Ticket::DeleteTicket(worker->RemoveTicket());
 
   printf("Ticket Finished\n");

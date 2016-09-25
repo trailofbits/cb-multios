@@ -152,7 +152,7 @@ commandResponseType message;
 	message.prefix = 0x87654321;
 	message.command_response = response_code;
 
-	write( STDOUT, (void *)&message, sizeof(message) );
+	cgc_write( STDOUT, (void *)&message, sizeof(message) );
 
 	return 0;
 	

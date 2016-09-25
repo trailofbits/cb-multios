@@ -163,7 +163,7 @@ int countyMenu( pCounty co )
 				co->city_count++;
 				break;
 			case 8:
-				/// select city
+				/// cgc_select city
 				for ( choice = 0; choice < COUNTYCITYMAX; choice++ ) {
 					if ( co->cities[choice] != NULL ) {
 						printf("@d) @s\n", choice + 1, co->cities[choice]);
@@ -393,7 +393,7 @@ pCounty countyTopLevel( pstring str )
 	while (tempChar != NULL ) {
 		el = elementNameToEnum( tempChar );
 
-		deallocate( tempChar, strlen(tempChar) + 1 );
+		deallocate( tempChar, cgc_strlen(tempChar) + 1 );
 
 		switch ( el ) {
 			case name:
@@ -406,7 +406,7 @@ pCounty countyTopLevel( pstring str )
 				bzero( newCounty->name, 20 );
 				strncpy( newCounty->name, tempChar, 19 );
 
-				deallocate( tempChar, strlen(tempChar) + 1 );
+				deallocate( tempChar, cgc_strlen(tempChar) + 1 );
 				tempChar = NULL;
 				break;
 			case seat:
@@ -419,7 +419,7 @@ pCounty countyTopLevel( pstring str )
 				bzero( newCounty->seat, 20 );
 				strncpy( newCounty->seat, tempChar, 19);
 
-				deallocate( tempChar, strlen(tempChar) + 1 );
+				deallocate( tempChar, cgc_strlen(tempChar) + 1 );
 				tempChar = NULL;
 				break;
 			case density:
@@ -525,11 +525,11 @@ pCounty countyTopLevel( pstring str )
 #endif
 
 	if ( strcmp( tempChar, "County" ) != 0 ) {
-		deallocate( tempChar, strlen(tempChar) + 1 );
+		deallocate( tempChar, cgc_strlen(tempChar) + 1 );
 		goto error;
 	}
 
-	deallocate( tempChar, strlen(tempChar) + 1 );
+	deallocate( tempChar, cgc_strlen(tempChar) + 1 );
 
 	skipWhiteSpace( str );
 	
@@ -607,12 +607,12 @@ int checkId ( pstring str, char *id, int ending )
 	}
 
 	if ( strcmp( temp, id ) != 0 ) {
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 
 		goto end;
 	}
 
-	deallocate( temp, strlen(temp) + 1 );
+	deallocate( temp, cgc_strlen(temp) + 1 );
 
 	skipWhiteSpace( str );
 	if ( str->buffer[str->index] != '}' ) {
@@ -726,12 +726,12 @@ double extractArea( pstring str )
 	}
 
 	if ( strcmp( temp, "Area" ) != 0 ) {
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 
 		goto end;
 	}
 
-	deallocate( temp, strlen(temp) + 1 );
+	deallocate( temp, cgc_strlen(temp) + 1 );
 
 	skipWhiteSpace( str );
 	if ( str->buffer[str->index] != '}' ) {
@@ -783,11 +783,11 @@ double extractArea( pstring str )
 	}
 
 	if ( strcmp( temp, "Area") != 0 ) {
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 		goto error;
 	}
 
-	deallocate( temp, strlen(temp) + 1 );
+	deallocate( temp, cgc_strlen(temp) + 1 );
 
 	skipWhiteSpace( str );
 	if ( !atChar( str, '}') ) {
@@ -847,11 +847,11 @@ char *extractSeat( pstring str )
 	}
 
 	if ( strcmp( temp, "Seat" ) != 0 ) {
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 		goto end;
 	}
 
-	deallocate( temp, strlen(temp) + 1 );
+	deallocate( temp, cgc_strlen(temp) + 1 );
 
 	skipWhiteSpace( str );
 	if ( str->buffer[str->index] != '}' ) {
@@ -907,11 +907,11 @@ char *extractSeat( pstring str )
 	}
 
 	if ( strcmp( temp, "Seat") != 0 ) {
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 		goto error;
 	}
 
-	deallocate( temp, strlen(temp) + 1 );
+	deallocate( temp, cgc_strlen(temp) + 1 );
 
 	skipWhiteSpace( str );
 	if ( !atChar( str, '}') ) {
@@ -924,7 +924,7 @@ char *extractSeat( pstring str )
 	
 error:
 	if ( seat ) {
-		deallocate( seat, strlen(seat) + 1 );
+		deallocate( seat, cgc_strlen(seat) + 1 );
 		seat = NULL;
 	}
 

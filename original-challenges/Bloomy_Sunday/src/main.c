@@ -45,7 +45,7 @@ uint8_t submit_lyrics(char *lyrics, size_t len)
   int i, nl = 0, n = 0;
   size_t olen = len;
   char line[128], *s = lyrics;
-  memset(lyrics, 0, len);
+  cgc_memset(lyrics, 0, len);
   while (1)
   {
     if (read_until(STDIN, line, sizeof(line), '\n') < 0)
@@ -72,7 +72,7 @@ uint8_t submit_lyrics(char *lyrics, size_t len)
           }
         }
 #if PATCHED
-        if (strlen(word) < len - 1)
+        if (cgc_strlen(word) < len - 1)
         {
 #endif
         if (!nl)
@@ -82,8 +82,8 @@ uint8_t submit_lyrics(char *lyrics, size_t len)
           len--;
         }
         strcat(s, word);
-        s += strlen(word);
-        len -= strlen(word);
+        s += cgc_strlen(word);
+        len -= cgc_strlen(word);
 #if PATCHED
         }
         else
@@ -95,7 +95,7 @@ uint8_t submit_lyrics(char *lyrics, size_t len)
       }
       else if (n == 0)
       {
-        if (strlen(word) < len - 1)
+        if (cgc_strlen(word) < len - 1)
         {
           if (!nl)
           {
@@ -104,8 +104,8 @@ uint8_t submit_lyrics(char *lyrics, size_t len)
             len--;
           }
           strcat(s, word);
-          s += strlen(word);
-          len -= strlen(word);
+          s += cgc_strlen(word);
+          len -= cgc_strlen(word);
         }
         else
         {
@@ -118,9 +118,9 @@ uint8_t submit_lyrics(char *lyrics, size_t len)
       nl = 0;
     }
 #ifdef PATCHED
-    if (strlen(lyrics) < olen - 1)
+    if (cgc_strlen(lyrics) < olen - 1)
 #else
-    if (strlen(lyrics) < olen)
+    if (cgc_strlen(lyrics) < olen)
 #endif
     {
       strcat(s, "\n");
@@ -144,7 +144,7 @@ void init()
   int i;
   bloomy = bloomy_new(128, moomoo, yooyoo, geegee);
   if (bloomy == NULL)
-    exit(-1);
+    cgc_exit(-1);
 
   for (i = 0; i < sizeof(depressing_words) / sizeof(char*); ++i)
     bloomy_add(bloomy, depressing_words[i]);
@@ -178,7 +178,7 @@ int main()
        break;
      case -3:
        printf("Don't let the sadness grow.\n\n");
-       exit(0);
+       cgc_exit(0);
        break;
      default:
        printf("Nope!\n");

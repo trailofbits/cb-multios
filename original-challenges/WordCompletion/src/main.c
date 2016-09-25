@@ -18,7 +18,7 @@ char gValidChars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 #define NEXT_WORD_MSG "Next Word: "
 #define FINAL_RND_MSG "Final Round. Chose another 2 digit number\n"
 
-size_t strlen(char* str)
+size_t cgc_strlen(char* str)
 {
   size_t ret = 0; 
   if (str == NULL)
@@ -57,7 +57,7 @@ size_t transmit_all(char* buf, size_t size)
 
 size_t transmit_str(char* buf)
 {
-  size_t len = strlen(buf);
+  size_t len = cgc_strlen(buf);
   return (transmit_all(buf, len));
 }
 
@@ -174,7 +174,7 @@ int init(int rot)
   int i = 0;
   for (i = 0; i < numWords; i++)
   {
-    total += strlen(gSeedWords[i]);
+    total += cgc_strlen(gSeedWords[i]);
     total += 1; //for the NULL character
   }
  
@@ -296,9 +296,7 @@ int strcmp(char* s1, char* s2)
   return (-1);
 }
 
-#define rand() RANDOM()
-
-void srand(uint32_t seed)
+void my_srand(uint32_t seed)
 {
   gRandRegister = seed;
 }
@@ -313,7 +311,7 @@ void scramble(char* dst, char* src, size_t len)
 #endif
 
   int i = 0;
-  uint32_t r = (rand() % 3) + 2;
+  uint32_t r = (RANDOM() % 3) + 2;
 
   while ( (src[i] != '\0') && (i < len) )
   {
@@ -342,7 +340,7 @@ int main(void)
 #define BUF_SIZE 64
 #define READLINE(_buf, _len) do { sret = readline(_buf, _len); if (sret == 0) { _terminate(1); } } while (0)
 
-  char buf[BUF_SIZE];
+  char buf[BUF_SIZE] = {};
   int i = 0;
   int ret = 0;
   int temp = 0;
@@ -359,7 +357,7 @@ int main(void)
   }
  
   //initialize the LFSR
-  srand(*((int*)buf));
+  my_srand(*((int*)buf));
   
   for (i = 0; i < NUM_ROUNDS; i++)
   {
@@ -372,7 +370,7 @@ int main(void)
       transmit_str(NEXT_WORD_MSG);
     }
 
-    temp = rand() % NUM_WORDS;
+    temp = RANDOM() % NUM_WORDS;
     scramble(buf, gWords[temp], BUF_SIZE);
     transmit_str(buf);
     transmit_all(&c, 1);

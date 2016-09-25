@@ -49,7 +49,7 @@ void Blog::register_user()
 
     printf("Enter username: ");
     if (IO::readline()) {
-        if (strlen(IO::buf()) > 2 && strlen(IO::buf()) < 16) {
+        if (cgc_strlen(IO::buf()) > 2 && cgc_strlen(IO::buf()) < 16) {
             strcpy(username, IO::buf());
         } else {
             printf("Error: Username must be between 3 and 15 characters\n");
@@ -67,7 +67,7 @@ void Blog::register_user()
     while(true) {
         printf("Enter password: ");
         if (IO::readline()) {
-            if (strlen(IO::buf()) > 4 && strlen(IO::buf()) < 16) {
+            if (cgc_strlen(IO::buf()) > 4 && cgc_strlen(IO::buf()) < 16) {
                 strcpy(pw, IO::buf());
                 break;
             } else {
@@ -81,7 +81,7 @@ void Blog::register_user()
     while(true) {
         printf("Friend code: ");
         if (IO::readline()) {
-            if (strlen(IO::buf()) > 4 && strlen(IO::buf()) < 16) {
+            if (cgc_strlen(IO::buf()) > 4 && cgc_strlen(IO::buf()) < 16) {
                 strcpy(friend_code, IO::buf());
                 break;
             } else {
@@ -103,7 +103,7 @@ User *Blog::log_in()
     User *user = NULL;
     printf("Username: ");
     if (IO::readline()) {
-        if (strlen(IO::buf()) > 4 && strlen(IO::buf()) < 16)
+        if (cgc_strlen(IO::buf()) > 4 && cgc_strlen(IO::buf()) < 16)
             strcpy(username, IO::buf());
     } else {
         printf("Bad input\n");
@@ -112,7 +112,7 @@ User *Blog::log_in()
 
     printf("Password: ");
     if (IO::readline()) {
-        if (strlen(IO::buf()) > 4 && strlen(IO::buf()) < 16)
+        if (cgc_strlen(IO::buf()) > 4 && cgc_strlen(IO::buf()) < 16)
             strcpy(pw, IO::buf());
     } else {
         printf("Bad input\n");
@@ -142,7 +142,7 @@ void Blog::add_friend(User *user)
 
     printf("Enter friend username: ");
     if (IO::readline()) {
-        if (strlen(IO::buf()) > 2 && strlen(IO::buf()) < 16) {
+        if (cgc_strlen(IO::buf()) > 2 && cgc_strlen(IO::buf()) < 16) {
             strcpy(username, IO::buf());
             new_friend = get_user(username);
         } else {
@@ -159,7 +159,7 @@ void Blog::add_friend(User *user)
     while(true) {
         printf("Friend code: ");
         if (IO::readline()) {
-            if (strlen(IO::buf()) > 4 && strlen(IO::buf()) < 16) {
+            if (cgc_strlen(IO::buf()) > 4 && cgc_strlen(IO::buf()) < 16) {
                 strcpy(friend_code, IO::buf());
                 break;
             } else {
@@ -182,7 +182,7 @@ void Blog::view_user_profile(User *user)
     if (!user) {
         printf("Enter username: ");
         if (IO::readline()) {
-            if (strlen(IO::buf()) > 2 && strlen(IO::buf()) < 16) {
+            if (cgc_strlen(IO::buf()) > 2 && cgc_strlen(IO::buf()) < 16) {
                 user = get_user(IO::buf());
             }
         }
@@ -201,7 +201,7 @@ void Blog::view_user_posts(User *reg_user, User *user, int post_selection)
     if (!user) {
         printf("Enter username: ");
         if (IO::readline()) {
-            if (strlen(IO::buf()) > 2 && strlen(IO::buf()) < 16) {
+            if (cgc_strlen(IO::buf()) > 2 && cgc_strlen(IO::buf()) < 16) {
                 user = get_user(IO::buf());
             }
         }

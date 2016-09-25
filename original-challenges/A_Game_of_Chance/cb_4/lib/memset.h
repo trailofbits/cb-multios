@@ -24,9 +24,9 @@
 /**
  * Write character ch into buf n times.
  *
- * @param buf Buffer to write into
+ * @param buf Buffer to cgc_write into
  * @param ch Character to use
- * @param n Number of times to write ch into buf
+ * @param n Number of times to cgc_write ch into buf
  * @return Number of times ch was written into buf
  */
-unsigned int memset(void *buf, unsigned char ch, unsigned int n);
+unsigned int cgc_memset(void *buf, unsigned char ch, unsigned int n);

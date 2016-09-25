@@ -161,7 +161,7 @@ uint32_t store_in_vault(uint32_t id, void *data, unsigned int n)
     if (copy == NULL)
         return 0;
 
-    memcpy(copy, data, n);
+    cgc_memcpy(copy, data, n);
     locker->data = copy;
     locker->len = n;
     return (uint32_t)locker;

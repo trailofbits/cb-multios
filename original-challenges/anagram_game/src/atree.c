@@ -328,7 +328,7 @@ char **atree_query(atree_t *tree, const char *word)
     if (result == NULL)
         return NULL;
 
-    memcpy(result, node->words, sizeof(const char *) * node->degree);
+    cgc_memcpy(result, node->words, sizeof(const char *) * node->degree);
     result[node->degree] = NULL;
     return result;
 }
@@ -350,7 +350,7 @@ static void _atree_gather_subset(atree_t *tree, freqtab_t *ftab, atree_node_t *n
         if (r == NULL)
             return;
         
-        memcpy(&r[*count], node->words, node->degree * sizeof(char *));
+        cgc_memcpy(&r[*count], node->words, node->degree * sizeof(char *));
         *results = r;
         *count += node->degree;
         return;

@@ -92,7 +92,7 @@ fileHandleType fh;
 
     strcpy(buffer, "Welcome to the interactive filesystem shell. ");
 
-    retcode = writeFile(fh, buffer, strlen(buffer), ROOT_ID);
+    retcode = writeFile(fh, buffer, cgc_strlen(buffer), ROOT_ID);
 
     if (retcode < 0 ) {
 
@@ -103,7 +103,7 @@ fileHandleType fh;
 
     strcpy(buffer, "Valid commands are make, makememfile, erase, list, copy, write, show, first, last, and perms.");
 
-    retcode = writeFile(fh, buffer, strlen(buffer), ROOT_ID);
+    retcode = writeFile(fh, buffer, cgc_strlen(buffer), ROOT_ID);
 
     if (retcode < 0 ) {
 
@@ -112,7 +112,7 @@ fileHandleType fh;
 
     }
 
-    // this should be read-only but needs to be writable so it can be deleted for the exploit
+    // this should be cgc_read-only but needs to be writable so it can be deleted for the exploit
     setPerms(fh, 3, ROOT_ID);
 
     closeFile(fh);
@@ -132,7 +132,7 @@ fileHandleType fh;
 
         retcode = receive_until(command, '\n', sizeof(command));
 
-        if (strlen(command) == 0) {
+        if (cgc_strlen(command) == 0) {
 
             continue;
         }
@@ -197,7 +197,7 @@ fileHandleType fh;
 
             }
 
-            if ( i == COMMAND_COUNT && strlen(args[0]) > 0 ) {
+            if ( i == COMMAND_COUNT && cgc_strlen(args[0]) > 0 ) {
 
                 printf("unknown command $s\n", args[0]);
 

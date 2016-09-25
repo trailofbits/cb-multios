@@ -126,7 +126,7 @@ void kty_object_to_string(kty_item_t *item, int depth)
       count++;
       print_indent(depth + 1);
       fdprintf(STDOUT, "\"");
-      print_escaped(entry->key, strlen(entry->key));
+      print_escaped(entry->key, cgc_strlen(entry->key));
       fdprintf(STDOUT, "\": ");
       kty_print_item(entry->val, depth + 1);
     }
@@ -258,7 +258,7 @@ char* parse_number(kty_item_t *item, char *str)
 
 char* parse_string(kty_item_t *item, char *str)
 {
-  int read = 0, len = 0;
+  int cgc_read = 0, len = 0;
   char *c = str + 1;
 
   item->type = KTY_STRING;
@@ -271,11 +271,11 @@ char* parse_string(kty_item_t *item, char *str)
     if (c[0] == '\\')
     {
       c++;
-      read++;
+      cgc_read++;
     }
     c++;
     len++;
-    read++;
+    cgc_read++;
   }
 
   if (len >= MAX_KTY_STRING)
@@ -285,7 +285,7 @@ char* parse_string(kty_item_t *item, char *str)
     return NULL;
 
   c = str + 1;
-  read += 2;
+  cgc_read += 2;
   len = 0;
   while (c[0] && c[0] != '\"')
   {
@@ -325,7 +325,7 @@ char* parse_string(kty_item_t *item, char *str)
   item->item.i_string.s[len] = '\0';
   item->item.i_string.len = len;
 
-  return str + read;
+  return str + cgc_read;
 }
 
 char* parse_array(kty_item_t *item, char *str)

@@ -33,7 +33,7 @@ THE SOFTWARE.
 #define F32_PRECISION       0.00001
 
 
-int memcpy( void *dest, void *src, size_t n )
+int cgc_memcpy( void *dest, void *src, size_t n )
 {
         size_t index = 0;
 
@@ -287,7 +287,7 @@ end:
     return;
 }
 
-void *memset(void *s, int c, size_t n)
+void *cgc_memset(void *s, int c, size_t n)
 {
     unsigned char *t = (unsigned char *)s;
     while (--n)
@@ -307,7 +307,7 @@ int strcmp( const char *s1, const char *s2 )
 
 char *strncat ( char *dest, const char *src, size_t n )
 {
-    size_t dest_len = strlen(dest);
+    size_t dest_len = cgc_strlen(dest);
     size_t i;
 
     if (dest == NULL || src == NULL)
@@ -388,7 +388,7 @@ size_t strcat( char *dest, char*src )
         goto end;
     }
 
-    start = strlen( dest );
+    start = cgc_strlen( dest );
 
     for ( ; src[length] != 0x00 ; start++, length++ ) {
         dest[start] = src[length];
@@ -399,7 +399,7 @@ end:
     return length;
 }
 
-size_t strlen( char * str )
+size_t cgc_strlen( char * str )
 {
     size_t length = 0;
 
@@ -454,7 +454,7 @@ end:
 void puts( char *t )
 {
     size_t size;
-    transmit(STDOUT, t, strlen(t), &size);
+    transmit(STDOUT, t, cgc_strlen(t), &size);
     transmit(STDOUT, "\n", 1, &size);
 }
 
@@ -507,11 +507,11 @@ char *strtok(char *str, const char *delim) {
 
 	// not been called before, so make a copy of the string
 	if (prev_str == NULL) {
-		if (strlen(str) > 4096) {
+		if (cgc_strlen(str) > 4096) {
 			// too big
 			return(NULL);
 		} 
-		prev_str_len = strlen(str);
+		prev_str_len = cgc_strlen(str);
 		if (allocate(prev_str_len, 0, (void *)&prev_str)) {
 			return(NULL);
 		}
@@ -531,8 +531,8 @@ char *strtok(char *str, const char *delim) {
 
 	// find the earliest next delimiter
 	start = str;
-	end = str+strlen(str);
-	for (i = 0; i < strlen((char *)delim); i++) {
+	end = str+cgc_strlen(str);
+	for (i = 0; i < cgc_strlen((char *)delim); i++) {
 		if ((t = strchr(start, delim[i]))) {
 			if (t != NULL && t < end) {
 				end = t;
@@ -549,7 +549,7 @@ char *strtok(char *str, const char *delim) {
 	return(token);
 }
 
-ssize_t write( const void *buf, size_t count )
+ssize_t cgc_write( const void *buf, size_t count )
 {
 	size_t size;
 
@@ -570,11 +570,11 @@ char *strdup(char *s)
                 return(NULL);
         }
 
-        if (allocate(strlen(s)+1, 0, (void *)&retval)) {
+        if (allocate(cgc_strlen(s)+1, 0, (void *)&retval)) {
                 return(NULL);
         }
 
-        bzero(retval, strlen(s)+1);
+        bzero(retval, cgc_strlen(s)+1);
         strcpy(retval, s);
 
         return(retval);
@@ -855,7 +855,7 @@ int vprintf( const char *fmt, va_list arg )
                 int_to_str( int_arg, temp_buf );
 
                 // is the output string shorter than the desired width?
-                pad_len = width - strlen(temp_buf);
+                pad_len = width - cgc_strlen(temp_buf);
 
                 // right justification
                 if (!left_justification) {
@@ -903,7 +903,7 @@ int vprintf( const char *fmt, va_list arg )
                 int_to_hex( int_arg, temp_buf );
 
                 // is the output string shorter than the desired width?
-                pad_len = width - strlen(temp_buf);
+                pad_len = width - cgc_strlen(temp_buf);
 
                 // right justification
                 if (!left_justification) {
@@ -953,7 +953,7 @@ int vprintf( const char *fmt, va_list arg )
                 float_to_str( float_arg, temp_buf, precision);
 
                 // is the output string shorter than the desired width?
-                pad_len = width - strlen(temp_buf);
+                pad_len = width - cgc_strlen(temp_buf);
 
                 // pad the output with spaces or zeros
                 if (!left_justification) {
@@ -985,11 +985,11 @@ int vprintf( const char *fmt, va_list arg )
                 char *string_arg = va_arg( arg, char * );
                 int output_strlen;
 
-                if (precision > 0 && precision < strlen(string_arg))
+                if (precision > 0 && precision < cgc_strlen(string_arg))
 
                     output_strlen = precision;
                 else
-                    output_strlen = strlen(string_arg);
+                    output_strlen = cgc_strlen(string_arg);
 
 
                 pad_len = width - output_strlen;
@@ -1161,7 +1161,7 @@ int vsprintf( char *str, const char *fmt, va_list arg )
                 int_to_str( int_arg, temp_buf );
 
                 // is the output string shorter than the desired width?
-                pad_len = width - strlen(temp_buf);
+                pad_len = width - cgc_strlen(temp_buf);
 
                 // right justification
                 if (!left_justification) {
@@ -1209,7 +1209,7 @@ int vsprintf( char *str, const char *fmt, va_list arg )
                 int_to_hex( int_arg, temp_buf );
 
                 // is the output string shorter than the desired width?
-                pad_len = width - strlen(temp_buf);
+                pad_len = width - cgc_strlen(temp_buf);
 
                 // right justification
                 if (!left_justification) {
@@ -1257,7 +1257,7 @@ int vsprintf( char *str, const char *fmt, va_list arg )
                 float_to_str( float_arg, temp_buf, precision);
 
                 // is the output string shorter than the desired width?
-                pad_len = width - strlen(temp_buf);
+                pad_len = width - cgc_strlen(temp_buf);
 
                 // pad the output with spaces or zeros
                 if (!left_justification) {
@@ -1289,11 +1289,11 @@ int vsprintf( char *str, const char *fmt, va_list arg )
                 char *string_arg = va_arg( arg, char * );
                 int output_strlen;
 
-                if (precision > 0 && precision < strlen(string_arg))
+                if (precision > 0 && precision < cgc_strlen(string_arg))
 
                     output_strlen = precision;
                 else
-                    output_strlen = strlen(string_arg);
+                    output_strlen = cgc_strlen(string_arg);
 
 
                 pad_len = width - output_strlen;
@@ -1385,7 +1385,7 @@ heap_metadata *heap_manager = NULL;
 void *calloc(size_t count, size_t size) {
     void *ret;
     ret = malloc(size * count);
-    memset(ret, 0, size * count);
+    cgc_memset(ret, 0, size * count);
     return ret;
 }
 
@@ -1411,7 +1411,7 @@ void *malloc(size_t size) {
         heap_manager->mem_inuse = sizeof(heap_manager);
         heap_manager->mem_free = 4096-heap_manager->mem_inuse;
         allocate(4096, 0, (void *)&heap_manager->blocks);
-        memset(heap_manager->blocks, 0, 4096);
+        cgc_memset(heap_manager->blocks, 0, 4096);
         blockHead = (heap_block_header *)heap_manager->blocks;
         blockHead->remaining_size = 4096-sizeof(heap_block_header);
         blockHead->next = NULL;

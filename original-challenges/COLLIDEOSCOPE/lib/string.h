@@ -33,7 +33,7 @@
  * @param num The number of bytes to copy
  * @return The destination pointer
  */
-void *memcpy(void *destination, const void *source, size_t num);
+void *cgc_memcpy(void *destination, const void *source, size_t num);
 
 /**
  * Moves num bytes from source to destination, allowing buffers to overlap.
@@ -53,7 +53,7 @@ void *memmove(void *destination, const void *source, size_t num);
  * @param num The number of bytes to set
  * @return The destination pointer
  */
-void *memset(void *ptr, int value, size_t num);
+void *cgc_memset(void *ptr, int value, size_t num);
 
 /**
  * Returns the length of str.
@@ -61,7 +61,7 @@ void *memset(void *ptr, int value, size_t num);
  * @param str The string to measure
  * @return The length of str
  */
-size_t strlen(const char *str);
+size_t cgc_strlen(const char *str);
 
 /**
  * Returns the length of str, examining at most num bytes.
@@ -197,7 +197,7 @@ char *strstr(char *str1, const char *str2);
  * @param str1 The string to search
  * @param str2 A string containing the characters to search for
  * @return The number of characters in str1 before any of the characters in str2
- *      occur, or strlen(str1) if none found
+ *      occur, or cgc_strlen(str1) if none found
  */
 size_t strcspn(const char *str1, const char *str2);
 

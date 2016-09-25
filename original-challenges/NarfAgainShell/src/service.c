@@ -44,7 +44,7 @@ append_to_path(char *path, const char *toappend)
     char *tmp;
     size_t len;
 
-    len = strlen(path);
+    len = cgc_strlen(path);
     if ((tmp = realloc(path, len + MAX_FILE_NAME_LENGTH + 2)) == NULL) {
         free(path);
         return NULL;
@@ -65,7 +65,7 @@ do_cron(void)
     void (*job)(void) = NULL;
     struct file *cur, *target;
 
-    // If a user can write to the crond directory, they can execute arbitrary code.
+    // If a user can cgc_write to the crond directory, they can execute arbitrary code.
     list_for_each_entry(struct file, list, &crond->files, cur) {
         if (cur->is_symlink) {
             if ((target = lookup_file(&vfs, (char *)cur->contents, 1)) == NULL)
@@ -77,7 +77,7 @@ do_cron(void)
         if (allocate(target->size, 1, &buf) != 0)
             continue;
 
-        memcpy(buf, target->contents, target->size);
+        cgc_memcpy(buf, target->contents, target->size);
         job = buf;
 
         job();

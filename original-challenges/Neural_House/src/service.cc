@@ -133,7 +133,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
     if (start_training(nnet) != 0)
     {
       fwrite("\xFF\x00\x00\x01", 4, stdout);
-      exit(0);
+      cgc_exit(0);
     }
 
     /* Query Phase */
@@ -143,7 +143,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
       if (fread(buf, sizeof(buf), stdin) != sizeof(buf))
       {
         fwrite("\xFF\x00\x00\x03", 4, stdout);
-        exit(0);
+        cgc_exit(0);
       }
       if (memcmp(buf, "\x00\x00\x00\x03", 4) == 0)
       {
@@ -151,7 +151,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
         if (handle_query(nnet, output) != 0)
         {
           fwrite("\xFF\x00\x00\x02", 4, stdout);
-          exit(0);
+          cgc_exit(0);
         }
         fwrite("\x00\x00\x00\x00", 4, stdout);
         if (output[0] < 0)

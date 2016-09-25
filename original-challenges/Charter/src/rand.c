@@ -9,7 +9,7 @@ uint32 seeded = 0;
 
 void seed() {
   uint32 seed_value;
-  read(&seed_value, sizeof(seed_value));
+  cgc_read(&seed_value, sizeof(seed_value));
 
   index = 0;
   mt[index] = seed_value;
@@ -26,7 +26,7 @@ void seed() {
 
 void noise() {
   uint32 noise_qty;
-  read(&noise_qty, sizeof(noise_qty));
+  cgc_read(&noise_qty, sizeof(noise_qty));
 
   uint32 noise_words = noise_qty / 4;
 

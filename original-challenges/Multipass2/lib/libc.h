@@ -66,8 +66,8 @@ unsigned int recv_all(char *res_buf, size_t res_buf_size);
 unsigned int read_all(int fd, char *buf, unsigned int size);
 
 // stdlib
-size_t strlen(const char *str);
-void *memset(void *dst, int c, unsigned int n);
+size_t cgc_strlen(const char *str);
+void *cgc_memset(void *dst, int c, unsigned int n);
 
 
 #endif

@@ -311,7 +311,7 @@ int heisenberg_hooey(void) {
 
     // Constify via syscall: deallocate()
     // Because rx_buf[CONST_SYSCALL_OFFSET] must be in [0, 255], any 
-    // deallocation would fail, resulting in a write of EINVAL into 
+    // deallocation would fail, resulting in a cgc_write of EINVAL into 
     // rx_buf[1+CONST_SYSCALL_OFFSET], constifying it.
     // Failsafe: deallocate() of length 0 should cause EINVAL.
     rx_buf[SYSCALL_CONST_OFF] = deallocate((void *)rx_buf[SYSCALL_CONST_OFF], 0);
@@ -425,8 +425,8 @@ int heisenberg_hooey(void) {
         }
 
         // Vuln: if the GATE_MAGIC is satisfied, mult is 0, otherwise 1.
-        // We attempt a write to rx_buf[VULN_OFF] * mult, which will cause an 
-        // attempt to write to the NULL page if the gate is satisfied.
+        // We attempt a cgc_write to rx_buf[VULN_OFF] * mult, which will cause an 
+        // attempt to cgc_write to the NULL page if the gate is satisfied.
         size_t mult = !!(GATE_MAGIC ^ gate);
 
         unsigned char *ptr = (unsigned char *)((size_t)&(rx_buf[VULN_OFF]) * mult);
@@ -548,7 +548,7 @@ int relativistic_jabberwock(void) {
         fprintf(stderr, "[D] jabberwock | gate PASSED\n");
 #endif 
 
-        // VULN: this can cause write outside of rx_buf, but can also affect 
+        // VULN: this can cause cgc_write outside of rx_buf, but can also affect 
         // something that goes into output.
         size_t offset = 0;
 #ifdef PATCHED
@@ -593,8 +593,8 @@ _bail_jabberwock:
 }
 
 
-// Exit the quantum calculator with provided exit code.
-void exit(void) {
+// Exit the quantum calculator with provided cgc_exit code.
+void cgc_exit(void) {
 
     int ret = SUCCESS;
     size_t MIN_RX_BYTES = 1;
@@ -605,7 +605,7 @@ void exit(void) {
 
     unsigned char exit_code = rx_buf[1];
 
-    // Reflect the exit code
+    // Reflect the cgc_exit code
     if (SUCCESS != (ret = transmit_all(STDOUT, &exit_code, 1, NULL))) { 
 #ifdef DEBUG
         fprintf(stderr, "[E] exit | during transmit_all()\n");
@@ -629,7 +629,7 @@ int dispatch(void) {
         case '\x07': causality_poppycock(); break;
         case '\x03': heisenberg_hooey(); break;
         case '\x04': relativistic_jabberwock(); break;
-        case '\x00': exit(); break;
+        case '\x00': cgc_exit(); break;
         default:
 #ifdef DEBUG
             fprintf(stderr, "[D] invalid operation: 0x%02x\n", op);
@@ -649,7 +649,7 @@ int main(void) {
     while(1) {
 
         rx_bytes = 0;
-        memset(rx_buf, 0, BUF_RX_SZ);
+        cgc_memset(rx_buf, 0, BUF_RX_SZ);
 
         if (SUCCESS != (ret = receive_all(STDIN, (void *)&rx_buf, BUF_RX_SZ, &rx_bytes))) { 
 #ifdef DEBUG
@@ -660,7 +660,7 @@ int main(void) {
         }
 
         // "zero indicates nothing was received or end-of-file"
-        // Not sending any more calculations is a way to exit the calculator.
+        // Not sending any more calculations is a way to cgc_exit the calculator.
         if (0 == rx_bytes) {
 #ifdef DEBUG
             fprintf(stderr, "[E] main | got no bytes; bailing...\n", rx_bytes);

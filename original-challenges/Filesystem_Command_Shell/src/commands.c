@@ -263,12 +263,12 @@ char text[1024];
 
         receive_until(text, '\n', sizeof(text));
 
-        if ( strlen(text) == 0 ) {
+        if ( cgc_strlen(text) == 0 ) {
 
             break;
         }
 
-        retcode = writeFile(fh, text, strlen(text), securityID);
+        retcode = writeFile(fh, text, cgc_strlen(text), securityID);
 
         if ( retcode < 0 ) {
 
@@ -357,7 +357,7 @@ unsigned int readcount;
 
     while ( retcode == 0 ) {
 
-        write(STDOUT, buffer, readcount);
+        cgc_write(STDOUT, buffer, readcount);
         bzero(buffer, sizeof(buffer));
         retcode = readFile(fh, buffer, sizeof(buffer), 0, &readcount, securityID);
     
@@ -458,14 +458,14 @@ fileInfoType fileinfo;
 
     if (readcount > 0 ) {
 
-        write(STDOUT, buffer, readcount);
+        cgc_write(STDOUT, buffer, readcount);
     }
 
     while ( retcode == 0 ) {
 
         bzero(buffer, sizeof(buffer));
         retcode = readFile(fh, buffer, sizeof(buffer), 0, &readcount, securityID);
-        write(STDOUT, buffer, readcount);
+        cgc_write(STDOUT, buffer, readcount);
     
     }
 
@@ -566,14 +566,14 @@ unsigned int totalRead;
     if (readCount > 0 ) {
 
         totalRead += readCount;
-        write(STDOUT, buffer, readCount);
+        cgc_write(STDOUT, buffer, readCount);
     }
 
     while ( retcode == 0 && totalRead < readTermCount ) {
 
         bzero(buffer, sizeof(buffer));
         retcode = readFile(fh, buffer, minimum(sizeof(buffer), readTermCount - totalRead), 0, &readCount, securityID);
-        write(STDOUT, buffer, readCount);
+        cgc_write(STDOUT, buffer, readCount);
         totalRead += readCount;
     
     }

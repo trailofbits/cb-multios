@@ -75,7 +75,7 @@ ssize_t receive_input(void) {
     MALLOC_OK(in);
 
     in->size = tmp.size;
-    memcpy(in->type, tmp.type, sizeof(INPUT_TYPE_SERIALIZED));
+    cgc_memcpy(in->type, tmp.type, sizeof(INPUT_TYPE_SERIALIZED));
 
     res = recv_all(in->content, in->size);
     if (res != in->size) {

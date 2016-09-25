@@ -94,7 +94,7 @@ unsigned char pkt_get_src(struct packet *pkt);
 unsigned char pkt_get_msg(struct packet *pkt);
 int pkt_send(size_t tid, char src, char msg);
 
-unsigned char * memset(void *b, char c, size_t len);
+unsigned char * cgc_memset(void *b, char c, size_t len);
 
 // List related
 struct list {

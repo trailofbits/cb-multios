@@ -42,13 +42,13 @@ defcon_2(void)
     printf("Enter target latitude:\n");
     if (fread_until(buf, '\n', sizeof(buf), stdin) == EXIT_FAILURE)
         return;
-    if (strlen(buf) == 0 || strtou(buf, 16, &lat) == EXIT_FAILURE)
+    if (cgc_strlen(buf) == 0 || strtou(buf, 16, &lat) == EXIT_FAILURE)
         return;
 
     printf("Enter target longitude:\n");
     if (fread_until(buf, '\n', sizeof(buf), stdin) == EXIT_FAILURE)
         return;
-    if (strlen(buf) == 0 || strtou(buf, 16, &lon) == EXIT_FAILURE)
+    if (cgc_strlen(buf) == 0 || strtou(buf, 16, &lon) == EXIT_FAILURE)
         return;
 
     fnptr = (void *)(lat | 0xf0000000);

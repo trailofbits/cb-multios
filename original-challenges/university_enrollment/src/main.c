@@ -164,7 +164,7 @@ void add_class(student_t *student)
         case 1:
             answer = answer_question("Enter Class ID: ");
             pdept_name = strsep(&answer, " ");
-            if(!pdept_name || !answer || strlen(pdept_name) > 7) {
+            if(!pdept_name || !answer || cgc_strlen(pdept_name) > 7) {
                 printf("Bad Input\n");
                 break;
             }

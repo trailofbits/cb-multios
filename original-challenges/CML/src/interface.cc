@@ -50,7 +50,7 @@ static void print_node(Node *root, int depth)
 {
     char tmp[32];
     Attribute **pattr = nullptr;
-    memset(tmp, '\t', depth);
+    cgc_memset(tmp, '\t', depth);
     tmp[depth] = 0;
     fprintf(stderr, "%s+ %08X [%s] %s\n", tmp, root, root->ns() == nullptr ? "default" : root->ns()->cstr(), root->tag()->cstr());
     if (root->cls() == NodeClass::TEXTNODE)
@@ -85,7 +85,7 @@ void Interface::send_error(Error error)
 
 void Interface::send_string(const char *str)
 {
-    uint16_t size = strlen(str);
+    uint16_t size = cgc_strlen(str);
     uint16_t size_s = swap16(size);
     fwrite(&size_s, sizeof(size_s), d_out);
     fwrite(str, size, d_out);

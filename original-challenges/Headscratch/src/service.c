@@ -129,8 +129,8 @@ size_t read_until_or_timeout(int fd, char* buf, size_t max, char term, struct ti
 size_t strip_program(char* buf, size_t max)
 {
   char* cpy = calloc(sizeof(char), max);
-  memcpy(cpy, buf, max);
-  memset(buf, '\0', max);
+  cgc_memcpy(cpy, buf, max);
+  cgc_memset(buf, '\0', max);
 
   char* p = buf;
   size_t i;
@@ -158,7 +158,7 @@ int execute_program(char* program, size_t max) {
   int depth = 0;
   int direction = 1;
 
-  memset(data, '\0', MAX_DATA_SIZE);
+  cgc_memset(data, '\0', MAX_DATA_SIZE);
 
   while (ip >= program && ip < program + max)
   {

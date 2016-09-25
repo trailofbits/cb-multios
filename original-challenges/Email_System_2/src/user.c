@@ -79,7 +79,7 @@ void create_user(int tries)
 
 	int found = -1;
 	// does this user already exist?
-	if (strlen(buf) < 1) 
+	if (cgc_strlen(buf) < 1) 
 	{
 		return;
 	}

@@ -78,7 +78,7 @@ void CallocAndRead(char **buf, uint8_t len) {
 #ifdef DEBUG
 	char debug[50];
 	sprintf(debug, "calloc($d)=$08x\n", len, *buf);
-	transmit(STDERR, debug, strlen(debug), 0);
+	transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 	len--;
 	ReadBytes(*buf, len);
@@ -96,7 +96,7 @@ pRequest ReceiveRequest(void) {
 #ifdef DEBUG
 	char debug[50];
 	sprintf(debug, "calloc($d)=$08x\n", sizeof(Request), pReq);
-	transmit(STDERR, debug, strlen(debug), 0);
+	transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 
 	// Receive until we have RequestHeader length bytes
@@ -110,10 +110,10 @@ pRequest ReceiveRequest(void) {
 			ReadBytes(buf+REQUEST_HEADER_LEN, sizeof(LoginHeader));
 			pLoginHeader pLoginHdr = (pLoginHeader)(buf+REQUEST_HEADER_LEN);
 
-			// allocate space to hold the username and read it in
+			// allocate space to hold the username and cgc_read it in
 			CallocAndRead(&(pReq->Username), pLoginHdr->UsernameLen);
 			
-			// allocate space to hold the password and read it in
+			// allocate space to hold the password and cgc_read it in
 			CallocAndRead(&(pReq->Password), pLoginHdr->PasswordLen);
 			
 			break;
@@ -126,10 +126,10 @@ pRequest ReceiveRequest(void) {
 			ReadBytes(buf+REQUEST_HEADER_LEN, sizeof(ReadHeader));
 			pReadHeader pReadHdr = (pReadHeader)(buf+REQUEST_HEADER_LEN);
 
-			// alocate space to hold the filename and read it in
+			// alocate space to hold the filename and cgc_read it in
 			CallocAndRead(&(pReq->Filename), pReadHdr->FilenameLen);
 
-			// Get the read Offset and Length values
+			// Get the cgc_read Offset and Length values
 			pReq->Offset = pReadHdr->Offset;
 			pReq->ReadWriteLength = pReadHdr->Length;
 
@@ -140,13 +140,13 @@ pRequest ReceiveRequest(void) {
 			ReadBytes(buf+REQUEST_HEADER_LEN, sizeof(WriteHeader));
 			pWriteHeader pWriteHdr = (pWriteHeader)(buf+REQUEST_HEADER_LEN);
 
-			// alocate space to hold the filename and read it in
+			// alocate space to hold the filename and cgc_read it in
 			CallocAndRead(&(pReq->Filename), pWriteHdr->FilenameLen);
 
 			// Get the Length value
 			pReq->ReadWriteLength = pWriteHdr->Length;
 
-			// read in the bytes to be written
+			// cgc_read in the bytes to be written
 			pReq->DataLen = pWriteHdr->Length;
 			CallocAndRead(&(pReq->Data), pWriteHdr->Length);
 
@@ -156,7 +156,7 @@ pRequest ReceiveRequest(void) {
 			ReadBytes(buf+REQUEST_HEADER_LEN, sizeof(DelHeader));
 			pDelHeader pDelHdr = (pDelHeader)(buf+REQUEST_HEADER_LEN);
 
-			// alocate space to hold the filename and read it in
+			// alocate space to hold the filename and cgc_read it in
 			CallocAndRead(&(pReq->Filename), pDelHdr->FilenameLen);
 
 			break;
@@ -165,10 +165,10 @@ pRequest ReceiveRequest(void) {
 			ReadBytes(buf+REQUEST_HEADER_LEN, sizeof(RenameHeader));
 			pRenameHeader pRenameHdr = (pRenameHeader)(buf+REQUEST_HEADER_LEN);
 
-			// alocate space to hold the original filename and read it in
+			// alocate space to hold the original filename and cgc_read it in
 			CallocAndRead(&(pReq->Filename), pRenameHdr->OldFilenameLen);
 			
-			// alocate space to hold the new filename and read it in
+			// alocate space to hold the new filename and cgc_read it in
 			CallocAndRead(&(pReq->Filename2), pRenameHdr->NewFilenameLen);
 			
 			break;
@@ -176,7 +176,7 @@ pRequest ReceiveRequest(void) {
 			// invalid type
 #ifdef DEBUG
 			sprintf(debug, "free($08x)\n", pReq);
-			transmit(STDERR, debug, strlen(debug), 0);
+			transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 			free(pReq);
 			pReq = NULL;
@@ -224,7 +224,7 @@ uint8_t HandleDir(pRequest pReq, pResponse pResp) {
 
 	// Send back the listing
 	pResp->Code = RESP_SUCCESS;
-	pResp->DataLen = strlen(Buf);
+	pResp->DataLen = cgc_strlen(Buf);
 	pResp->Data = Buf;
 
 	return(1);
@@ -278,10 +278,10 @@ uint8_t HandleRead(pRequest pReq, pResponse pResp) {
 #ifdef DEBUG
 	char debug[50];
 	sprintf(debug, "calloc($d)=$08x\n", pReq->ReadWriteLength, pResp);
-	transmit(STDERR, debug, strlen(debug), 0);
+	transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 	
-	// read the requested number of bytes
+	// cgc_read the requested number of bytes
 	if ((rx_bytes = fread(pResp->Data, pReq->ReadWriteLength, 1, in)) == 0) {
 		pResp->Code = RESP_SYSTEM_FAILURE;
 		fclose(in);
@@ -314,7 +314,7 @@ uint8_t HandleWrite(pRequest pReq, pResponse pResp) {
 		return(0);
 	}
 	
-	// write the requested number of bytes
+	// cgc_write the requested number of bytes
 	if (fwrite(pReq->Data, pReq->DataLen, 1, out) == 0) {
 		pResp->Code = RESP_SYSTEM_FAILURE;
 		fclose(out);
@@ -337,7 +337,7 @@ uint8_t HandleWriteAppend(pRequest pReq, pResponse pResp) {
 		return(0);
 	}
 
-	// read in the file's current contents
+	// cgc_read in the file's current contents
 	if (pReq->Filename == NULL) {
 		pResp->Code = RESP_INVALID_FILE;
 		return(0);
@@ -355,7 +355,7 @@ uint8_t HandleWriteAppend(pRequest pReq, pResponse pResp) {
 #ifdef DEBUG
 	char debug[50];
 	sprintf(debug, "calloc($d)=$08x\n", CurrFileLen, CurrContents);
-	transmit(STDERR, debug, strlen(debug), 0);
+	transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 	if (fread(CurrContents, CurrFileLen, 1, in) != CurrFileLen) {
 		pResp->Code = RESP_SYSTEM_FAILURE;
@@ -365,7 +365,7 @@ uint8_t HandleWriteAppend(pRequest pReq, pResponse pResp) {
 	}
 	fclose(in);
 
-	// write the current contents back to the file
+	// cgc_write the current contents back to the file
 	if ((out = fopen(pReq->Filename, "w")) == NULL) {
 		pResp->Code = RESP_SYSTEM_FAILURE;
 		free(CurrContents);
@@ -379,7 +379,7 @@ uint8_t HandleWriteAppend(pRequest pReq, pResponse pResp) {
 	}
 	free(CurrContents);
 	
-	// write the new data to the end of the file 
+	// cgc_write the new data to the end of the file 
 	if (fwrite(pReq->Data, pReq->DataLen, 1, out) == 0) {
 		pResp->Code = RESP_SYSTEM_FAILURE;
 		fclose(out);
@@ -438,7 +438,7 @@ pResponse HandleRequest(pRequest pReq) {
 #ifdef DEBUG
 	char debug[50];
 	sprintf(debug, "calloc($d)=$08x\n", sizeof(Response), pResp);
-	transmit(STDERR, debug, strlen(debug), 0);
+	transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 	pResp->Type = pReq->Type;
 
@@ -475,7 +475,7 @@ pResponse HandleRequest(pRequest pReq) {
 		default:
 #ifdef DEBUG
 			sprintf(debug, "free($08x)\n", pResp);
-			transmit(STDERR, debug, strlen(debug), 0);
+			transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 			free(pResp);
 			pResp = NULL;
@@ -525,7 +525,7 @@ uint8_t FreeRequest(pRequest pReq) {
 	if (pReq->Username) {
 #ifdef DEBUG
 		sprintf(debug, "free($08x)\n", pReq->Username);
-		transmit(STDERR, debug, strlen(debug), 0);
+		transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 		free(pReq->Username);
 		pReq->Username = NULL;
@@ -535,7 +535,7 @@ uint8_t FreeRequest(pRequest pReq) {
 	if (pReq->Password) {
 #ifdef DEBUG
 		sprintf(debug, "free($08x)\n", pReq->Password);
-		transmit(STDERR, debug, strlen(debug), 0);
+		transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 		free(pReq->Password);
 		pReq->Password = NULL;
@@ -545,7 +545,7 @@ uint8_t FreeRequest(pRequest pReq) {
 	if (pReq->Filename) {
 #ifdef DEBUG
 		sprintf(debug, "free($08x)\n", pReq->Filename);
-		transmit(STDERR, debug, strlen(debug), 0);
+		transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 		free(pReq->Filename);
 		pReq->Filename = NULL;
@@ -555,7 +555,7 @@ uint8_t FreeRequest(pRequest pReq) {
 	if (pReq->Filename2) {
 #ifdef DEBUG
 		sprintf(debug, "free($08x)\n", pReq->Filename2);
-		transmit(STDERR, debug, strlen(debug), 0);
+		transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 		free(pReq->Filename2);
 		pReq->Filename2 = NULL;
@@ -565,7 +565,7 @@ uint8_t FreeRequest(pRequest pReq) {
 	if (pReq->Data) {
 #ifdef DEBUG
 		sprintf(debug, "free($08x)\n", pReq->Data);
-		transmit(STDERR, debug, strlen(debug), 0);
+		transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 		free(pReq->Data);
 		pReq->Data = NULL;
@@ -573,7 +573,7 @@ uint8_t FreeRequest(pRequest pReq) {
 
 #ifdef DEBUG
 	sprintf(debug, "free($08x)\n", pReq);
-	transmit(STDERR, debug, strlen(debug), 0);
+	transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 	free(pReq);
 	pReq = NULL;
@@ -595,14 +595,14 @@ uint8_t FreeResponse(pResponse pResp) {
 #ifdef DEBUG
 		char debug[50];
 		sprintf(debug, "free($08x)\n", pResp->Data);
-		transmit(STDERR, debug, strlen(debug), 0);
+		transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 		free(pResp->Data);
 		pResp->Data = NULL;
 	}
 #ifdef DEBUG
 	sprintf(debug, "free($08x)\n", pResp);
-	transmit(STDERR, debug, strlen(debug), 0);
+	transmit(STDERR, debug, cgc_strlen(debug), 0);
 #endif
 	free(pResp);
 	pResp = NULL;

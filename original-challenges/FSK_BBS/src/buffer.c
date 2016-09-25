@@ -32,7 +32,7 @@ static void increment_read(buffer_t *buf, size_t n)
     if (buf->read_idx == buf->length * 8)
         buf->read_idx = 0;//-= buf->length * 8;
     else if (buf->read_idx > buf->length * 8)
-        exit(1);
+        cgc_exit(1);
 }
 
 static void increment_write(buffer_t *buf, size_t n)
@@ -42,7 +42,7 @@ static void increment_write(buffer_t *buf, size_t n)
         buf->write_idx -= buf->length * 8;
 }
 
-// read functions
+// cgc_read functions
 int buffer_read_bit(buffer_t *buf)
 {
     if (buf->read_idx == buf->write_idx)
@@ -83,7 +83,7 @@ void buffer_read_bytes(buffer_t *buf, uint8_t *output, size_t n)
     }
 }
 
-// write functions
+// cgc_write functions
 void buffer_write_bit(buffer_t *buf, int value)
 {
     uint8_t byte = buf->buffer[buf->write_idx / 8];
@@ -152,7 +152,7 @@ void buffer_write_seek(buffer_t *buf, uint64_t pos)
 
 void buffer_init(buffer_t *buf, uint8_t *data, size_t data_size)
 {
-    memset(buf, 0, sizeof(buffer_t));
+    cgc_memset(buf, 0, sizeof(buffer_t));
     buf->buffer = data;
     buf->length = data_size;
 }

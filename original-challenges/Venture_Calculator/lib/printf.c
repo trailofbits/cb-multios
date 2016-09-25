@@ -104,7 +104,7 @@ static int _vsfprintf(const char *fmt, va_list ap, FILE *stream, char *buf, size
         size_t cnt = buf_size - count; \
         if (cnt > sz) cnt = sz; \
         if (stream) fwrite(str, cnt, stream); \
-        if (buf) memcpy(buf + count, str, cnt); \
+        if (buf) cgc_memcpy(buf + count, str, cnt); \
         if ((size_t)(count + sz) < (count)) _terminate(1); \
         count += sz; \
     } while (0)
@@ -211,7 +211,7 @@ static int _vsfprintf(const char *fmt, va_list ap, FILE *stream, char *buf, size
                 _convert_unsigned(numbuf, uintarg, ch == 'u' ? 10 : 16, ch == 'X');
             }
 
-            numbuflen = strlen(numbuf);
+            numbuflen = cgc_strlen(numbuf);
             if (numbuflen < field_size)
             {
                 field_size -= numbuflen;
@@ -228,7 +228,7 @@ static int _vsfprintf(const char *fmt, va_list ap, FILE *stream, char *buf, size
             break;
         case 's':
             strarg = va_arg(ap, const char *);
-            OUTPUT_STRING(strarg, strlen(strarg));
+            OUTPUT_STRING(strarg, cgc_strlen(strarg));
             break;
 #ifdef PRINTF_N_CHAR
         case PRINTF_N_CHAR:

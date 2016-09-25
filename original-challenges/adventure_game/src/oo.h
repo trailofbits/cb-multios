@@ -42,7 +42,7 @@
 #define DefineClass(name,parent) \
     static void __init_##name () { \
         if (sizeof(__default_vtable_##parent)) \
-        memcpy(&__default_vtable_##name, &__default_vtable_##parent, sizeof(__default_vtable_##parent)); \
+        cgc_memcpy(&__default_vtable_##name, &__default_vtable_##parent, sizeof(__default_vtable_##parent)); \
     }; \
     const __init_array_t __init_array_##cls##_##name __attribute__((section(".rodata.init"))) = { __level_##name, __init_##name }; \
     name * __new_##name () { \

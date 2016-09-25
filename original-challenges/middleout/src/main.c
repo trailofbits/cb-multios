@@ -42,7 +42,7 @@ typedef uint64_t u64;
 #define err(s, ...) \
 ({ \
   fdprintf(STDERR, "DEBUG %s:%d:\t" s "\n", __FILE__, __LINE__, ##__VA_ARGS__); \
-  exit(1); \
+  cgc_exit(1); \
 })
 
 static size_t end_marker = 0xDEEDACED;
@@ -334,7 +334,7 @@ char* alnumspc_filter(char* input)
   if (!input)
     return NULL;
 
-  size_t input_len = strlen(input);
+  size_t input_len = cgc_strlen(input);
 
   if (!input_len)
     return NULL;
@@ -467,7 +467,7 @@ suffix_list* merge_sort(suffix_list* input)
 
 size_t* build_suffix_array(char* input)
 {
-  size_t length = strlen(input);
+  size_t length = cgc_strlen(input);
   size_t* sa = mcalloc(sizeof(size_t) * length);
 
   suffix_list* list = make_suffix_list(length);
@@ -689,14 +689,14 @@ int main(void)
       if (!filtered_input)
         return -1;
 
-      if (strlen(filtered_input) > DECOMPRESSED_SZ)
+      if (cgc_strlen(filtered_input) > DECOMPRESSED_SZ)
         return -1;
 
       size_t* sa = build_suffix_array(filtered_input);
       if (!sa)
         return -1;
 
-      size_t compressed_sz = compress(filtered_input, strlen(filtered_input), compressed, COMPRESSED_SZ, sa);
+      size_t compressed_sz = compress(filtered_input, cgc_strlen(filtered_input), compressed, COMPRESSED_SZ, sa);
       send_n_bytes(STDOUT, compressed_sz, compressed);
 
       free(filtered_input);
@@ -706,7 +706,7 @@ int main(void)
       char* input = read_until_sequence(STDIN, (char*)&end_marker, 4);
       if (!input)
         return -1;
-      memset(decompressed, 0, DECOMPRESSED_SZ);
+      cgc_memset(decompressed, 0, DECOMPRESSED_SZ);
       size_t decompressed_sz = decompress(input, decompressed, DECOMPRESSED_SZ);
       send_n_bytes(STDOUT, decompressed_sz, decompressed);
 

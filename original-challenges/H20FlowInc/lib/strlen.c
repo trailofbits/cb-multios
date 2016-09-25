@@ -25,7 +25,7 @@
 
 
 // return number of chars in str, not counting the '\0'
-unsigned int strlen(const char *str) {
+unsigned int cgc_strlen(const char *str) {
     unsigned int count = 0;
     while(*str != '\0') {
         count++;

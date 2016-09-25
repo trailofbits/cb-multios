@@ -6,7 +6,7 @@
 /**               LIBC related functions                  **/
 /***********************************************************/
 
-//Continues to read into a buffer until '\n' is read in
+//Continues to cgc_read into a buffer until '\n' is cgc_read in
 // this is the problem
 //inline should make this easier if needed since then we will remove
 // a function boundary
@@ -41,7 +41,7 @@ ssize_t readLine(int fd, char* buf, size_t len)
   //reset i to 0
   i = 0;
 
-  //loop until the character is read
+  //loop until the character is cgc_read
   do
   {
     FD_SET(fd, &fdsToWait);
@@ -103,7 +103,7 @@ size_t myStrLen(const char* str)
   return (i);
 }
 
-void write(int fd, const void* buf, size_t len) {
+void cgc_write(int fd, const void* buf, size_t len) {
    const void *end = buf + len;
    size_t n;
    while (buf < end) {

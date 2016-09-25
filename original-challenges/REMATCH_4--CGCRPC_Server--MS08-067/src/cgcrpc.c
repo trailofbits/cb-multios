@@ -121,7 +121,7 @@ uint32_t HandleCGCRPCMessage(void *data, uint32_t dataLength, void **output, uin
         return CGCRPC_ERROR_FORMAT;
       }
       char *name = calloc(nameLength + 1);
-      memcpy(name, data, nameLength);
+      cgc_memcpy(name, data, nameLength);
       data += nameLength;
       uint16_t version = *(uint16_t *)data;
       uint32_t bindID = BindEndpoint(name, version);
@@ -184,7 +184,7 @@ uint32_t HandleCGCRPCMessage(void *data, uint32_t dataLength, void **output, uin
       response += 4;
       *(uint16_t *)response = endpointDataLength;
       response += 2;
-      memcpy(response, endpointData, endpointDataLength);
+      cgc_memcpy(response, endpointData, endpointDataLength);
       
       free(endpointData);
       *outputLength = 2 + 4 + 2 + endpointDataLength;

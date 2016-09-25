@@ -130,8 +130,8 @@ int main(void) {
 	// send the List Codes command to dump the magic page
 	SendBytes(STDOUT, "\x08", 1); // CMD_LIST_ALARM_CODES
 	SendBytes(STDOUT, "\xff\xff", 2); // Our fake device entry's ID
-	ReadBytes(STDIN, Req, 1); // read the number of alarm codes we'll be receiving
-	ReadBytes(STDIN, Req, 4); // read the first 4 bytes of the first code
+	ReadBytes(STDIN, Req, 1); // cgc_read the number of alarm codes we'll be receiving
+	ReadBytes(STDIN, Req, 4); // cgc_read the first 4 bytes of the first code
 	
 	// Send the value
 	SendBytes(FRAMEWORK, Req, 4);

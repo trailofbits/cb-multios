@@ -66,14 +66,14 @@ void InitFilesystem(void) {
 	strcpy(FS[0].Group, "root");
 	FS[0].Perms = 0x700;
 	sprintf(FS[0].Data, "$s:secure:secure\ncrs:crs:crs\n$s:root:root", secure_passwd, root_passwd);
-	FS[0].Size = strlen(FS[0].Data);
+	FS[0].Size = cgc_strlen(FS[0].Data);
 
 	// confidential data file
 	strcpy(FS[1].Filename, "confidential");
 	strcpy(FS[1].Owner, "secure");
 	strcpy(FS[1].Group, "secure");
 	FS[1].Perms = 0x700;
-	// read starting at 4th byte since we already used the first 4 to seed the prng
+	// cgc_read starting at 4th byte since we already used the first 4 to seed the prng
 	// but don't use any 4-byte chunks that have NULL's or newlines
 	rand_page+=4;
 	i = 0;
@@ -126,12 +126,12 @@ pFILE fopen(char *Filename, char *Mode, uint8_t Suid) {
 		return(NULL);
 	}
 
-	if (strlen(Filename) > 31) {
+	if (cgc_strlen(Filename) > 31) {
 		return(NULL);
 	}
 
 	// make sure we only have 'r' or 'w' in Mode
-	if (strlen(Mode) > 1) {
+	if (cgc_strlen(Mode) > 1) {
 		return(NULL);
 	}
 	if (Mode[0] != 'r' && Mode[0] != 'w') {
@@ -284,10 +284,10 @@ size_t fread(void *restrict ptr, size_t size, size_t nitems, FILE *restrict stre
 	}
 
 	if (size*nitems > stream->fp->Size) {
-		memcpy(ptr, stream->fp->Data, stream->fp->Size);
+		cgc_memcpy(ptr, stream->fp->Data, stream->fp->Size);
 		return(stream->fp->Size);
 	} else {
-		memcpy(ptr, stream->fp->Data, size*nitems);
+		cgc_memcpy(ptr, stream->fp->Data, size*nitems);
 		return(size*nitems);
 	}
 
@@ -303,7 +303,7 @@ size_t fwrite(const void *restrict ptr, size_t size, size_t nitems, FILE *restri
 		return(0);
 	}
 
-	memcpy(stream->CurrPosition, ptr, size*nitems);
+	cgc_memcpy(stream->CurrPosition, ptr, size*nitems);
 	stream->fp->Size += size*nitems;
 
 	return(size*nitems);

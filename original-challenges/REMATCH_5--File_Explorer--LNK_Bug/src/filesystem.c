@@ -39,7 +39,7 @@ uint16_t *pNextFileID = (uint16_t *)MAGIC_PAGE;
 FileNode *InitializeFileSystem()
 {
   root = calloc(sizeof(FileNode));
-  memcpy((char *)&root->name, &"root", 4);
+  cgc_memcpy((char *)&root->name, &"root", 4);
   root->type = FILE_DIRECTORY;
   numFiles = 1;
   return root;
@@ -58,7 +58,7 @@ uint16_t NextFileID()
 
 int CreateFile(char *name, uint8_t type, uint32_t size, char *contents, FileNode *parent)
 {
-  int nameLength = strlen(name);
+  int nameLength = cgc_strlen(name);
   if (nameLength == 0)
   {
     return FS_ERROR_INVALID_INPUT;
@@ -92,14 +92,14 @@ int CreateFile(char *name, uint8_t type, uint32_t size, char *contents, FileNode
     size = 0;
   }
   FileNode *newNode = calloc(sizeof(FileNode));
-  memcpy(newNode->name, name, nameLength);
+  cgc_memcpy(newNode->name, name, nameLength);
   newNode->type = type;
   newNode->fileID = NextFileID();
   numFiles++;
   if ((size > 0)&&(contents != NULL))
   {
     newNode->contents = calloc(size);
-    memcpy(newNode->contents, contents, size);
+    cgc_memcpy(newNode->contents, contents, size);
     newNode->size = size;
   }
 
@@ -202,8 +202,8 @@ FileNode *FindFileAbsolute(char *name)
     {
       break;
     }
-    memset(folder, '\0', 65);
-    memcpy(folder, namePtr, (sepPtr - namePtr));
+    cgc_memset(folder, '\0', 65);
+    cgc_memcpy(folder, namePtr, (sepPtr - namePtr));
     namePtr = sepPtr + 1;
     cwd = FindFile(folder, cwd);
     if (cwd == NULL)
@@ -287,7 +287,7 @@ char *GetFilePath(FileNode *file)
   FileNode *parent = file->parent;
   while (parent != root)
   {
-    pathLength += strlen(parent->name) + 1;
+    pathLength += cgc_strlen(parent->name) + 1;
     parent = parent->parent;
   }
   char *path = calloc(pathLength + 1);
@@ -296,13 +296,13 @@ char *GetFilePath(FileNode *file)
   *--pathPtr = '%';
   while (parent != root)
   {
-    pathPtr -= strlen(parent->name);
-    memcpy(pathPtr, parent->name, strlen(parent->name));
+    pathPtr -= cgc_strlen(parent->name);
+    cgc_memcpy(pathPtr, parent->name, cgc_strlen(parent->name));
     pathPtr--;
     *pathPtr = '%';
     parent = parent->parent;
   }
-  memcpy(path, &"root", 4);
+  cgc_memcpy(path, &"root", 4);
   return path;
 }
 
@@ -329,7 +329,7 @@ char *ReadFile(FileNode *file)
   if (file->size > 0)
   {
     returnData = calloc(file->size + 1);
-    memcpy(returnData, file->contents, file->size);
+    cgc_memcpy(returnData, file->contents, file->size);
   }
   return returnData;
 }

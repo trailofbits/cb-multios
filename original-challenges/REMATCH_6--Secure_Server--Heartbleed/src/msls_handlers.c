@@ -58,7 +58,7 @@ void msls_handle_heartbeat(SLS_MESSAGE *msg)
   {
     hb_response->payload = calloc(hb_response->payload_length);
     debug_print("Reading heartbeats from $x to $x\n", request_payload, request_payload + hb_response->payload_length );
-    memcpy(hb_response->payload, request_payload, hb_response->payload_length);
+    cgc_memcpy(hb_response->payload, request_payload, hb_response->payload_length);
   }
   
   response->msg_length =  hb_response->payload_length + SLS_HEARTBEAT_HEADER_LEN;

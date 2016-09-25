@@ -113,7 +113,7 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00000_len = 2;
       read_00000 = (unsigned char*)malloc(read_00000_len);
       int read_00000_res = length_read(0, read_00000, read_00000_len);
@@ -151,7 +151,7 @@ int main(void) {
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00001_len = 4;
       read_00001 = (unsigned char*)malloc(read_00001_len);
       int read_00001_res = length_read(0, read_00001, read_00001_len);
@@ -163,7 +163,7 @@ int main(void) {
       unsigned char *read_00002;
       unsigned int read_00002_len;
       unsigned int read_00002_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00002_len = 4;
       read_00002 = (unsigned char*)malloc(read_00002_len);
       int read_00002_res = length_read(0, read_00002, read_00002_len);
@@ -175,12 +175,12 @@ int main(void) {
       unsigned char *read_00003;
       unsigned int read_00003_len;
       unsigned int read_00003_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00003_len = 145;
       read_00003 = (unsigned char*)malloc(read_00003_len);
       int read_00003_res = length_read(0, read_00003, read_00003_len);
       if (read_00003_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00003_00000[] = 
          "\x75\x4d\x68\x49\x65\x4e\x46\x51\x5a\x4b\x69\x7a\x62\x57\x6d\x41"
          "\x66\x53\x48\x70\x52\x62\x49\x56\x57\x4e\x56\x43\x66\x70\x51\x5a"
@@ -200,7 +200,7 @@ int main(void) {
       unsigned char *read_00004;
       unsigned int read_00004_len;
       unsigned int read_00004_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00004_len = 2;
       read_00004 = (unsigned char*)malloc(read_00004_len);
       int read_00004_res = length_read(0, read_00004, read_00004_len);
@@ -225,7 +225,7 @@ int main(void) {
       unsigned char *read_00005;
       unsigned int read_00005_len;
       unsigned int read_00005_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00005_len = 2;
       read_00005 = (unsigned char*)malloc(read_00005_len);
       int read_00005_res = length_read(0, read_00005, read_00005_len);

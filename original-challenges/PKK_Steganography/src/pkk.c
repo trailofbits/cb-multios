@@ -102,7 +102,7 @@ pkk_t* parse_pkk(char *data, unsigned int len)
   pkk->pixels = (pixel_t *) malloc(sizeof(pixel_t) * width * height);
   if (pkk->pixels == NULL)
     goto fail;
-  memcpy(pkk->pixels, c, sizeof(pixel_t) * width * height);
+  cgc_memcpy(pkk->pixels, c, sizeof(pixel_t) * width * height);
   return pkk;
 
 fail:
@@ -120,7 +120,7 @@ char* output_pkk(pkk_t *pkk, int *out_len)
   buffer = malloc(len);
   if (buffer == NULL)
     goto fail;
-  memset(buffer, '\0', len);
+  cgc_memset(buffer, '\0', len);
 
   cur = buffer;
   strcpy(cur, "PK\n");

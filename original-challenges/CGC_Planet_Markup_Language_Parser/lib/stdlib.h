@@ -38,7 +38,7 @@ int isalnum( int c );
 double atof(const char *str);
 int atoi(const char *str);
 
-int memcpy( void *dest, void *src, size_t n);
+int cgc_memcpy( void *dest, void *src, size_t n);
 int memcmp( void *dest, void *src, size_t n);
 char *strcpy( char *dest, char *src );
 char *strncpy( char *dest, char *src, size_t n );
@@ -48,7 +48,7 @@ int strcmp( const char *, const char * );
 char *strncat( char *dest, const char *src, size_t n );
 size_t receive_until( char *, char, size_t );
 size_t strcat( char *, char* );
-size_t strlen( char * );
+size_t cgc_strlen( char * );
 size_t itoa( char *, size_t, size_t );
 void puts( char *t );
 

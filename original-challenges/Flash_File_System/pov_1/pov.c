@@ -137,14 +137,14 @@ void NegotiateType2Pov(unsigned int *type2_addr, unsigned int *type2_size, unsig
 
 void SendLine( int fd, const char *pszLine )
 {
-	size_t line_len = strlen( pszLine );
+	size_t line_len = cgc_strlen( pszLine );
 
 	SendBytes( fd, (char *)pszLine, line_len );
 }	
 
 void SendCommand( const char *pszCommandData )
 {
-	size_t command_len = strlen( pszCommandData );
+	size_t command_len = cgc_strlen( pszCommandData );
 
 	SendBytes( 1, (char *)pszCommandData, command_len );
 }
@@ -184,7 +184,7 @@ void ConsumeLines( size_t lineCount )
 {
 	char szMaxLineLen[2048];
 
-	// Limitation -- only 2048 bytes until line is read!
+	// Limitation -- only 2048 bytes until line is cgc_read!
 	for ( size_t count = 0; count < lineCount; count++ )
 		RecvUntil( 0, '\n', szMaxLineLen, 2048 );
 }

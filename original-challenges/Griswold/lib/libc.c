@@ -118,7 +118,7 @@ node_t * get_last_node(list_t * lst) {
 }
 
 
-// write sz random bytes into buf
+// cgc_write sz random bytes into buf
 // returns 0 on success, non-zero on failure.
 int rand(char *buf, size_t sz) {
     size_t bytes = 0;
@@ -183,7 +183,7 @@ unsigned int read_all(int fd, char *buf, unsigned int size) {
 // stdlib functions
 
 // overwrites the first n chars of dst with char c.
-void *memset(void *dst, int c, unsigned int n) {
+void *cgc_memset(void *dst, int c, unsigned int n) {
    char *d = (char*)dst;
    while (n--) {*d++ = (char)c;}
    return dst;

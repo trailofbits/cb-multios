@@ -150,7 +150,7 @@ extern void *realloc(void *ptr, size_t size);
 extern void free(void *ptr);
 extern size_t malloc_size(void *ptr);
 
-static void exit(int ret)
+static void cgc_exit(int ret)
 {
     _terminate(ret);
 }
@@ -161,13 +161,13 @@ static void exit(int ret)
 
 
 
-extern void *memcpy(void *dest, const void *src, size_t n);
+extern void *cgc_memcpy(void *dest, const void *src, size_t n);
 extern void *memmove(void *dest, const void *src, size_t n);
-extern void *memset(void *dest, int c, size_t n);
+extern void *cgc_memset(void *dest, int c, size_t n);
 extern int memcmp(void *s1, const void *s2, size_t n);
 extern void *memchr(const void *s, int c, size_t n);
 
-extern size_t strlen(const char *s);
+extern size_t cgc_strlen(const char *s);
 extern char *strcpy(char *dest, const char *src);
 extern char *strncpy(char *dest, const char *src, size_t n);
 extern char *strchr(const char *s, int c);
@@ -232,28 +232,28 @@ note_t* new_note(char* title, char* data)
     return ((void *)0);
 
   note_t* note = calloc(sizeof(note_t), 1);
-  ({ if (note == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 75); exit(1); }); });
+  ({ if (note == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 75); cgc_exit(1); }); });
 
-  size_t data_size = strlen(data);
+  size_t data_size = cgc_strlen(data);
 
   if (data_size + 1 > (1024))
   {
     note->buf = calloc(sizeof(char), data_size + 1);
-    ({ if (note->buf == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 82); exit(1); }); });
+    ({ if (note->buf == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 82); cgc_exit(1); }); });
     note->size = note->cap = data_size;
     strcpy(note->buf, data);
   }
   else
   {
     note->buf = calloc(sizeof(char), (1024));
-    ({ if (note->buf == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 89); exit(1); }); });
+    ({ if (note->buf == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 89); cgc_exit(1); }); });
     note->size = data_size;
     note->cap = (1024);
     strcpy(note->buf, data);
   }
 
-  note->title = calloc(sizeof(char), strlen(title) + 1);
-  ({ if (note->title == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 96); exit(1); }); });
+  note->title = calloc(sizeof(char), cgc_strlen(title) + 1);
+  ({ if (note->title == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 96); cgc_exit(1); }); });
   strcpy(note->title, title);
 
   size_t i;
@@ -277,19 +277,19 @@ note_t* append_note(note_t* note, char* data)
   if (!note || !data)
     return ((void *)0);
 
-  if (strlen(data) + note->size + 1 > note->cap)
+  if (cgc_strlen(data) + note->size + 1 > note->cap)
   {
 #ifdef PATCHED
-    note->cap = (strlen(data) + note->size + 1) * 2;
+    note->cap = (cgc_strlen(data) + note->size + 1) * 2;
 #else
     note->cap *= 2;
 #endif
     note->buf = realloc(note->buf, note->cap);
-    ({ if (note->buf == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 124); exit(1); }); });
+    ({ if (note->buf == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 124); cgc_exit(1); }); });
   }
 
   strcat(note->buf, data);
-  note->size += strlen(data);
+  note->size += cgc_strlen(data);
   return note;
 }
 
@@ -341,20 +341,20 @@ thunk_t* new_thunk(thunk_fp_t fp, unsigned arity, char** argv)
     return ((void *)0);
 
   thunk_t* thunk = calloc(sizeof(thunk_t), 1);
-  ({ if (thunk == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 180); exit(1); }); });
+  ({ if (thunk == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 180); cgc_exit(1); }); });
 
   thunk->fp = fp;
   thunk->arity = arity;
   thunk->argv = calloc(sizeof(char *), thunk->arity);
-  ({ if (thunk->argv == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 185); exit(1); }); });
+  ({ if (thunk->argv == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 185); cgc_exit(1); }); });
 
   for (unsigned i = 0; i < thunk->arity; i++)
   {
     if (!argv[i])
       goto error;
 
-    thunk->argv[i] = calloc(sizeof(char), strlen(argv[i]) + 1);
-    ({ if (thunk->argv[i] == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 193); exit(1); }); });
+    thunk->argv[i] = calloc(sizeof(char), cgc_strlen(argv[i]) + 1);
+    ({ if (thunk->argv[i] == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 193); cgc_exit(1); }); });
 
     strcpy(thunk->argv[i], argv[i]);
   }
@@ -391,14 +391,14 @@ int append_thunk(char **argv, list_t** list)
 
   strncpy(tmp, content, (8192));
   tmp[(8192)] = '\0';
-  size_t rep_len = strlen("cloud");
+  size_t rep_len = cgc_strlen("cloud");
 
   size_t idx = 0;
   while (idx < (8192) - rep_len)
   {
     if (strncmp(tmp + idx, "cloud", rep_len) == 0)
     {
-      memcpy(tmp + idx, "butt ", rep_len);
+      cgc_memcpy(tmp + idx, "butt ", rep_len);
       idx += rep_len;
     }
     idx++;
@@ -406,8 +406,8 @@ int append_thunk(char **argv, list_t** list)
 
   if (strcmp(content, tmp))
   {
-    content = realloc(content, strlen(tmp) + 1);
-    ({ if (content == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 246); exit(1); }); });
+    content = realloc(content, cgc_strlen(tmp) + 1);
+    ({ if (content == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 246); cgc_exit(1); }); });
     strcpy(content, tmp);
   }
 
@@ -449,7 +449,7 @@ list_t* thunks = ((void *)0);
 list_t* new_list(list_t* prev, list_t* next, thunk_t* thunk)
 {
   list_t* new = calloc(sizeof(list_t), 1);
-  ({ if (new == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 288); exit(1); }); });
+  ({ if (new == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 288); cgc_exit(1); }); });
   new->prev = prev;
   new->next = next;
   new->thunk = thunk;
@@ -521,10 +521,10 @@ void yell(int fd)
 char* nth_word(unsigned n, char* input, int to_end)
 {
 
-  size_t len = strlen(input);
+  size_t len = cgc_strlen(input);
   char* word_start[128];
   char* p = input;
-  memset(word_start, '\0', 128 * sizeof(char *));
+  cgc_memset(word_start, '\0', 128 * sizeof(char *));
 
   for (size_t i = 0; i < 128; i++)
   {
@@ -550,10 +550,10 @@ char* nth_word(unsigned n, char* input, int to_end)
   if (!end)
     end = strchr(p, '\0');
   if (!end)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "malformed string" "\n", "src/main.c", 389); exit(1); });
+    ({ fdprintf(2, "ERROR %s:%d:\t" "malformed string" "\n", "src/main.c", 389); cgc_exit(1); });
 
   char* res = calloc(sizeof(char), end - p + 1);
-  ({ if (res == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 392); exit(1); }); });
+  ({ if (res == ((void *)0)) ({ fdprintf(2, "ERROR %s:%d:\t" "bad alloc" "\n", "src/main.c", 392); cgc_exit(1); }); });
   return strncpy(res, p, end - p);
 }
 
@@ -608,12 +608,12 @@ int main(void)
   for (;;)
   {
     prompt(1);
-    memset(input_buf, '\0', (16 * 1024));
+    cgc_memset(input_buf, '\0', (16 * 1024));
     if (read_until(0, (16 * 1024), '\n', input_buf) < 0)
       break;
 
     if (strncmp(input_buf, "quit", 4) == 0)
-        exit(0);
+        cgc_exit(0);
 
     char* command = nth_word(0, input_buf, 0);
     char** argv = ((void *)0);
@@ -626,7 +626,7 @@ int main(void)
       run_thunk(&thunks);
 #endif
 
-    if (strncmp(command, "new-note", strlen("new-note")) == 0)
+    if (strncmp(command, "new-note", cgc_strlen("new-note")) == 0)
     {
       run_thunk(&thunks);
       argv = make_argv(input_buf, 2);
@@ -639,7 +639,7 @@ int main(void)
         free_argv(argv, 2);
       }
     }
-    else if (strncmp(command, "append-note", strlen("append-note")) == 0)
+    else if (strncmp(command, "append-note", cgc_strlen("append-note")) == 0)
     {
       argv = make_argv(input_buf, 2);
       if (argv)
@@ -652,7 +652,7 @@ int main(void)
     }
 
 
-    else if (strncmp(command, "delete-note", strlen("delete-note")) == 0)
+    else if (strncmp(command, "delete-note", cgc_strlen("delete-note")) == 0)
     {
       argv = make_argv(input_buf, 1);
       if (argv)
@@ -663,7 +663,7 @@ int main(void)
         free_argv(argv, 1);
       }
     }
-    else if (strncmp(command, "get-note", strlen("get-note")) == 0)
+    else if (strncmp(command, "get-note", cgc_strlen("get-note")) == 0)
     {
       run_thunk(&thunks);
       argv = make_argv(input_buf, 1);

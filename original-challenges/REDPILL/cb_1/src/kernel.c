@@ -535,7 +535,7 @@ void _syscall_sendmsg(unsigned char recursions, unsigned char msg) {
 #define CLOBBER_LEN 0x80
 
    unsigned char clobber[CLOBBER_LEN];
-   memset(clobber, msg, CLOBBER_LEN);
+   cgc_memset(clobber, msg, CLOBBER_LEN);
 
 #ifdef DEBUG_SENDMSG
    fprintf(stderr, "%s: [D] _syscall_sendmsg(): i've clobbered %p - %p\n", 
@@ -967,7 +967,7 @@ int main() {
       fprintf(stderr, "%s: [D] syscall #%d\n", STR_THREAD_NAME, ++count_syscalls);
 #endif 
 
-      memset(buf, 0, sizeof(buf));
+      cgc_memset(buf, 0, sizeof(buf));
       char *curr = buf;
 
       // Read in the length of the syscall buffer

@@ -19,12 +19,12 @@ void RegisterUser(uint16_t user_id)
    unsigned char *read_00001;
    unsigned int read_00001_len;
    unsigned int read_00001_ptr = 0;
-   //**** length read
+   //**** length cgc_read
    read_00001_len = 9;
    read_00001 = (unsigned char*)malloc(read_00001_len);
    int read_00001_res = length_read(0, read_00001, read_00001_len);
    if (read_00001_res) {} //silence unused variable warning
-   //**** read match data
+   //**** cgc_read match data
    static unsigned char match_00001_00000[] = 
       "\xc3\x3c\x33\x00\x03\x00\x02\x00\x00";
    read_00001_ptr += data_match(read_00001 + read_00001_ptr, read_00001_len - read_00001_ptr, match_00001_00000, 9);
@@ -49,12 +49,12 @@ void ChangeUser(uint16_t user_id)
    unsigned char *read_00002;
    unsigned int read_00002_len;
    unsigned int read_00002_ptr = 0;
-   //**** length read
+   //**** length cgc_read
    read_00002_len = 9;
    read_00002 = (unsigned char*)malloc(read_00002_len);
    int read_00002_res = length_read(0, read_00002, read_00002_len);
    if (read_00002_res) {} //silence unused variable warning
-   //**** read match data
+   //**** cgc_read match data
    static unsigned char match_00002_00000[] = 
       "\xc3\x3c\x33\x00\x03\x00\x03\x00\x00";
    read_00002_ptr += data_match(read_00002 + read_00002_ptr, read_00002_len - read_00002_ptr, match_00002_00000, 9);
@@ -81,12 +81,12 @@ void RegisterSensor(uint16_t sensor_id, uint8_t sensor_mac)
    unsigned char *read_00003;
    unsigned int read_00003_len;
    unsigned int read_00003_ptr = 0;
-   //**** length read
+   //**** length cgc_read
    read_00003_len = 9;
    read_00003 = (unsigned char*)malloc(read_00003_len);
    int read_00003_res = length_read(0, read_00003, read_00003_len);
    if (read_00003_res) {} //silence unused variable warning
-   //**** read match data
+   //**** cgc_read match data
    static unsigned char match_00003_00000[] = 
       "\xc3\x3c\x33\x00\x03\x00\x01\x00\x00";
    read_00003_ptr += data_match(read_00003 + read_00003_ptr, read_00003_len - read_00003_ptr, match_00003_00000, 9);
@@ -117,13 +117,13 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00000_len = 11;
       read_00000 = (unsigned char*)malloc(read_00000_len);
       int read_00000_res = length_read(0, read_00000, read_00000_len);
       if (read_00000_res) {} //silence unused variable warning
-      memcpy(magicBytes, read_00000 + 6, 5);
-      //**** read match data
+      cgc_memcpy(magicBytes, read_00000 + 6, 5);
+      //**** cgc_read match data
       static unsigned char match_00000_00000[] = 
          "\xc3\x3c\x44\x77\x05\x00";
       free(read_00000);
@@ -163,12 +163,12 @@ int main(void) {
       unsigned char *read_00035;
       unsigned int read_00035_len;
       unsigned int read_00035_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00035_len = 9;
       read_00035 = (unsigned char*)malloc(read_00035_len);
       int read_00035_res = length_read(0, read_00035, read_00035_len);
       if (read_00035_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00035_00000[] = 
          "\xc3\x3c\x33\x00\x03\x00\x01\x00\x00";
       read_00035_ptr += data_match(read_00035 + read_00035_ptr, read_00035_len - read_00035_ptr, match_00035_00000, 9);
@@ -192,7 +192,7 @@ int main(void) {
       unsigned char *read_00037;
       unsigned int read_00037_len;
       unsigned int read_00037_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00037_len = 1;
       read_00037 = (unsigned char*)malloc(read_00037_len);
       int read_00037_res = length_read(0, read_00037, read_00037_len);

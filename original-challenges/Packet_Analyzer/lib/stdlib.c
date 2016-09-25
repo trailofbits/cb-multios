@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include "stdlib.h"
 #include "io.h"
 
-int strlen(char *s) {
+int cgc_strlen(char *s) {
   char *e = s;
   while (*e != '\0') e++;
   return (e - s);
@@ -40,7 +40,7 @@ void bzero(char *s, size_t length) {
   }
 }
 
-void memcpy(char *d, char *s, size_t num) {
+void cgc_memcpy(char *d, char *s, size_t num) {
   while(num > 0) {
     *d++ = *s++;
     num--;

@@ -27,14 +27,14 @@ ssize_t
 read_all(int fd, void *buf, size_t n)
 {
     ssize_t ret = 0;
-    size_t read;
+    size_t cgc_read;
 
     while (n) {
-        if (receive(fd, (char *)(buf + ret), n, &read) != 0)
+        if (receive(fd, (char *)(buf + ret), n, &cgc_read) != 0)
             return -1;
 
-        n -= read;
-        ret += read;
+        n -= cgc_read;
+        ret += cgc_read;
     }
 
     return ret;
@@ -65,13 +65,13 @@ read_line(int fd, char **buf)
 
     char c = '\0';
     ssize_t ret = 0;
-    size_t read;
+    size_t cgc_read;
 
     if (!buf)
         return -1;
 
     while (c != '\n' && ret < PAGE_SIZE - 1) {
-        if (receive(fd, &c, 1, &read) != 0 || read != 1)
+        if (receive(fd, &c, 1, &cgc_read) != 0 || cgc_read != 1)
             return -1;
 
         scratch_page[ret++] = c;
@@ -81,12 +81,12 @@ read_line(int fd, char **buf)
     if ((*buf = calloc(ret + 1)) == NULL)
         return -1;
 
-    memcpy(*buf, scratch_page, ret);
+    cgc_memcpy(*buf, scratch_page, ret);
     return ret;
 }
 
 void *
-memset(void *ptr_, int val, size_t n)
+cgc_memset(void *ptr_, int val, size_t n)
 {
     unsigned char *ptr = ptr_;
     while (n--)
@@ -95,7 +95,7 @@ memset(void *ptr_, int val, size_t n)
 }
 
 void *
-memcpy(void *dst_, const void *src_, size_t n)
+cgc_memcpy(void *dst_, const void *src_, size_t n)
 {
     unsigned char *dst = dst_;
     const unsigned char *src = src_;
@@ -136,7 +136,7 @@ memcmp(const void *a_, const void *b_, size_t n)
 }
 
 size_t
-strlen(const char *s) {
+cgc_strlen(const char *s) {
     size_t ret = 0;
     while (*s++)
         ret++;
@@ -194,7 +194,7 @@ char *
 strcat(char *dst, const char *src)
 {
     char *ret = dst;
-    dst += strlen(dst);
+    dst += cgc_strlen(dst);
     strcpy(dst, src);
     return ret;
 }
@@ -203,7 +203,7 @@ char *
 strncat(char *dst, const char *src, size_t n)
 {
     char *ret = dst;
-    dst += strlen(dst);
+    dst += cgc_strlen(dst);
     strncpy(dst, src, n);
     dst[n] = '\0';
     return ret;
@@ -236,7 +236,7 @@ strtok(char *s, char d)
     static char *prev = NULL;
     char *token, *ret;
     
-    if (s == NULL && (prev == NULL || strlen(prev) == 0))
+    if (s == NULL && (prev == NULL || cgc_strlen(prev) == 0))
         return NULL;
 
     if (s != NULL)
@@ -245,7 +245,7 @@ strtok(char *s, char d)
     while (*prev == d)
         prev++;
 
-    if (strlen(prev) == 0)
+    if (cgc_strlen(prev) == 0)
         return NULL;
 
     ret = prev;
@@ -1231,7 +1231,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = strlen(s_arg);
+                  int len = cgc_strlen(s_arg);
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

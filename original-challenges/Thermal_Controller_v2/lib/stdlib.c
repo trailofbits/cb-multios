@@ -133,7 +133,7 @@ char *strncpy( char *pDest, const char *pSrc, size_t maxlen )
 	return (pDest);
 }
 
-void *memcpy( void *pDest, const void *pSource, size_t nbytes )
+void *cgc_memcpy( void *pDest, const void *pSource, size_t nbytes )
 {
 	void *pDestReturn = pDest;
 
@@ -183,7 +183,7 @@ int receive_bytes (unsigned char *buffer, size_t count)
 
 }
 
-int write( void *buffer, size_t count )
+int cgc_write( void *buffer, size_t count )
 {
 	size_t written;
     int total_written;

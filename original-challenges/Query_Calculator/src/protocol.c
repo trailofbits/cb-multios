@@ -33,7 +33,7 @@ void tx(char* bytes, size_t count);
 void rx(char* byte_buf, size_t count);
 
 void protocol_send_str(char* str) {
-  uint16 len = strlen(str);
+  uint16 len = cgc_strlen(str);
   
   tx((char*)&(len), sizeof(len));
   tx(str, len);

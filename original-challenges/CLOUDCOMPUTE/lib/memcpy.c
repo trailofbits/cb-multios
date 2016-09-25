@@ -21,7 +21,7 @@
 */
 #include "memcpy.h"
 
-unsigned int memcpy(void *dst, const void *src, unsigned int cnt) {
+unsigned int cgc_memcpy(void *dst, const void *src, unsigned int cnt) {
 	unsigned char *p_dst = (unsigned char *)dst;
 	unsigned char *p_src = (unsigned char *)src;
 

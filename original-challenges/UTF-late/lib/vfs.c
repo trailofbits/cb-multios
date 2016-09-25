@@ -83,7 +83,7 @@ lookup_dir(const struct vfs *vfs, const utf8char *path)
     while (*path == '/')
         path++;
 
-    path_len = strlen(path);
+    path_len = cgc_strlen(path);
     if (path_len == 0)
         return vfs->root;
 
@@ -124,7 +124,7 @@ lookup_file(const struct vfs *vfs, const utf8char *path)
     size_t path_len;
     utf8char *path_dup, *name;
 
-    path_len = strlen(path);
+    path_len = cgc_strlen(path);
     if (path[path_len - 1] == '/')
         return NULL;
 
@@ -155,7 +155,7 @@ create_dir(struct vfs *vfs, const utf8char *path)
     size_t path_len;
     utf8char *path_dup, *name;
 
-    path_len = strlen(path);
+    path_len = cgc_strlen(path);
     if ((path_dup = calloc(path_len + 1)) == NULL)
         return NULL;
 
@@ -212,7 +212,7 @@ create_file(struct vfs *vfs, const utf8char *path)
     size_t path_len;
     utf8char *path_dup, *name;
 
-    path_len = strlen(path);
+    path_len = cgc_strlen(path);
     if (path[path_len - 1] == '/')
         return NULL;
 

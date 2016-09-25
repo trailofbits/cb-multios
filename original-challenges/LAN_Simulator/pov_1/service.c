@@ -30,7 +30,7 @@ THE SOFTWARE.
 
 unsigned char decoded_magic_page[500];
 
-void memcpy(unsigned char *Dst, unsigned char *Src, uint32_t Len) {
+void cgc_memcpy(unsigned char *Dst, unsigned char *Src, uint32_t Len) {
 	uint32_t i;
 	for (i = 0; i < Len; i++) {
 		Dst[i] = Src[i];
@@ -165,7 +165,7 @@ uint8_t BuildL2Frame(uint16_t L2Dst, uint16_t L2Src, uint8_t Vlan, unsigned char
 
 	Sum = Checksum(Frame);
 
-	memcpy(Frame+L2_HDR_LEN+L3_HDR_LEN+pL3->Len, (unsigned char *)&Sum, 4);
+	cgc_memcpy(Frame+L2_HDR_LEN+L3_HDR_LEN+pL3->Len, (unsigned char *)&Sum, 4);
 
 	return(L2_HDR_LEN+pL2->Len);
 }
@@ -189,7 +189,7 @@ uint8_t BuildL4Segment(unsigned char L4Dst, unsigned char L4Src, unsigned char *
 	pL4->Dst = L4Dst;
 	pL4->Src = L4Src;
 	pL4->Len = DataLen;
-	memcpy(Frame+L2_HDR_LEN+L3_HDR_LEN+L4_HDR_LEN, Data, DataLen);
+	cgc_memcpy(Frame+L2_HDR_LEN+L3_HDR_LEN+L4_HDR_LEN, Data, DataLen);
 
 	return(L4_HDR_LEN+pL4->Len);
 
@@ -215,7 +215,7 @@ uint8_t BuildAdpRequest(uint32_t L3AdpAddr, uint16_t L2Src, uint8_t Vlan, unsign
 
 	Sum = Checksum(Frame);
 
-	memcpy(Frame+L2_HDR_LEN+L2_ADJ_LEN, (unsigned char *)&Sum, 4);
+	cgc_memcpy(Frame+L2_HDR_LEN+L2_ADJ_LEN, (unsigned char *)&Sum, 4);
 
 	return(L2_HDR_LEN+L2_ADJ_LEN+L2_FTR_LEN);
 
@@ -241,7 +241,7 @@ uint8_t BuildAdpResponse(uint32_t L3AdpAddr, uint32_t L2AdpAddr, uint16_t L2Dst,
 
 	Sum = Checksum(Frame);
 
-	memcpy(Frame+L2_HDR_LEN+L2_ADJ_LEN, (unsigned char *)&Sum, 4);
+	cgc_memcpy(Frame+L2_HDR_LEN+L2_ADJ_LEN, (unsigned char *)&Sum, 4);
 
 	return(L2_HDR_LEN+L2_ADJ_LEN+L2_FTR_LEN);
 
@@ -310,7 +310,7 @@ int main(void) {
 	Len = BuildAdpResponse(0x0a010102, 0x1000, 0x0001, 0x1000, 0, Frame);
 	SendBytes(STDOUT, Frame, Len);
 
-	// read the echo response
+	// cgc_read the echo response
 	bzero(Frame, MAX_FRAME_SIZE);
 	ReadBytes(STDIN, Frame, EchoLen);
 
@@ -324,9 +324,9 @@ int main(void) {
 		SendBytes(STDOUT, Frame, Len);
 	
 		// receive the pwdgen response
-		// read in the L2hdr first
+		// cgc_read in the L2hdr first
 		ReadBytes(STDIN, Frame, L2_HDR_LEN);
-		// read in the rest of the Frame
+		// cgc_read in the rest of the Frame
 		ReadBytes(STDIN, Frame+L2_HDR_LEN, pL2->Len);
 	
 		// Parse the pwdgen response

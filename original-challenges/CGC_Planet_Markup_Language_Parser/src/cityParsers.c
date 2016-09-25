@@ -154,7 +154,7 @@ void freeCharPtr( char**buffer )
 		return;
 	}
 
-	deallocate(*buffer, strlen(*buffer) + 1 );
+	deallocate(*buffer, cgc_strlen(*buffer) + 1 );
 
 	*buffer = NULL;
 
@@ -339,11 +339,11 @@ pCity cityTopLevel( pstring str )
 	}
 
 	if ( strcmp( temp, "City") != 0 ) {
-		deallocate(temp, strlen(temp) + 1 );
+		deallocate(temp, cgc_strlen(temp) + 1 );
 		goto end;
 	}
 
-	deallocate(temp, strlen(temp) + 1 );
+	deallocate(temp, cgc_strlen(temp) + 1 );
 
 	skipWhiteSpace( str );
 	if ( !atChar( str, '}') ) {
@@ -367,7 +367,7 @@ pCity cityTopLevel( pstring str )
 	while ( temp != NULL ) {
 		el = elementNameToEnum( temp );
 
-		deallocate(temp, strlen(temp) + 1 );
+		deallocate(temp, cgc_strlen(temp) + 1 );
 
 		switch (el) {
 			case name:
@@ -385,7 +385,7 @@ pCity cityTopLevel( pstring str )
 				strncpy( newCity->name, temp, 19);
 
 				/// Free the buffer
-				deallocate( temp, strlen(temp) + 1 );
+				deallocate( temp, cgc_strlen(temp) + 1 );
 				temp = NULL;
 				break;
 			case mayor:
@@ -469,11 +469,11 @@ pCity cityTopLevel( pstring str )
 	}
 
 	if ( strcmp( temp, "City") != 0 ) {
-		deallocate(temp, strlen(temp) + 1 );
+		deallocate(temp, cgc_strlen(temp) + 1 );
 		goto error;
 	}
 
-	deallocate( temp, strlen(temp) + 1 );
+	deallocate( temp, cgc_strlen(temp) + 1 );
 	skipWhiteSpace(str);
 	if ( !atChar( str, '}') ) {
 		goto error;

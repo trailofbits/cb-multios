@@ -72,21 +72,21 @@ int ParseDimensions(char *buf) {
 		return(-1);
 	}
 
-	// read the X dimension
+	// cgc_read the X dimension
 	if ((x = strtok(buf, ",")) == NULL) {
 		puts("Invalid X dimension\n");
 		return(-1);
 	}
 	X = atoi(x);
 
-	// read the Y dimension
+	// cgc_read the Y dimension
 	if ((y = strtok(NULL, ",")) == NULL) {
 		puts("Invalid Y dimension\n");
 		return(-1);
 	}
 	Y = atoi(y);
 
-	// read the Z dimension
+	// cgc_read the Z dimension
 	if ((z = strtok(NULL, ",")) == NULL) {
 		puts("Invalid Z dimension\n");
 		return(-1);
@@ -332,7 +332,7 @@ int InitMaterial(void) {
 	while (material < 1 || material > 4) {
 		printf("Selection: ");
 		if (read_until(buf, "\n", 99) == -1) {
-			// failed to read the input
+			// failed to cgc_read the input
 			return(-1);
 		}
 
@@ -365,7 +365,7 @@ int InitMaterial(void) {
 	while (X == 0 || Y == 0 || Z == 0 || malloc_size > MAX_MALLOC) {
 		printf("How large is the material (X,Y,Z meters): ");
 		if (read_until(buf, "\n", 99) == -1) {
-			// failed to read the input
+			// failed to cgc_read the input
 			return(-1);
 		}
 		if (ParseDimensions(buf)) {
@@ -398,7 +398,7 @@ int InitMaterial(void) {
 	while (isothermic < 0) {
 		printf("Should the material be isothermic? (y,n): ");
 		if (read_until(buf, "\n", 3) == -1) {
-			// failed to read the input
+			// failed to cgc_read the input
 			free(TGrid);
 			return(-1);
 		}
@@ -418,7 +418,7 @@ int InitMaterial(void) {
 		while (temperature < MIN_TEMP || temperature > MAX_TEMP) {
 			printf("  What temperature? (@f - @f degrees C): ", MIN_TEMP, MAX_TEMP);
 			if (read_until(buf, "\n", 99) == -1) {
-				// failed to read the input
+				// failed to cgc_read the input
 				free(TGrid);
 				return(-1);
 			}
@@ -439,7 +439,7 @@ int InitMaterial(void) {
 		}
 
 	} else {
-		// Otherwise, read in a blob of data and use it to populate
+		// Otherwise, cgc_read in a blob of data and use it to populate
 		// the TGrid
 		printf("  Send the grid temperatures as a comma separated list of Celcius decimal values.\n");
 		printf("  The program will populate the X, then Y, then Z dimensions of the room.\n");
@@ -454,7 +454,7 @@ int InitMaterial(void) {
 	while (heat < 0) {
 		printf("Are there any constant energy sources in the room? (y,n): ");
 		if (read_until(buf, "\n", 3) == -1) {
-			// failed to read the input
+			// failed to cgc_read the input
 			free(TGrid);
 			return(-1);
 		}
@@ -475,7 +475,7 @@ int InitMaterial(void) {
 			return(-1);
 		}
 
-		// read in the data
+		// cgc_read in the data
 		printf("  Send the heat sources as temperatures in a comma separated list of Celcius decimal values.\n");
 		printf("  The program will populate the X, then Y, then Z dimensions of the room.\n");
 		printf("  Send @f for any grid location which doesn't have a heat source.\n", NO_HEAT);

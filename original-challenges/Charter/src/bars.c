@@ -10,9 +10,9 @@ void draw_row(char* chart_row_ptr, uint32 bar_character, uint32 use_columns);
 void bars(data_package data) {
   uint32 max_value, column_count, bar_character;
 
-  read(&max_value, sizeof(max_value));
-  read(&column_count, sizeof(column_count));
-  read(&bar_character, sizeof(bar_character));
+  cgc_read(&max_value, sizeof(max_value));
+  cgc_read(&column_count, sizeof(column_count));
+  cgc_read(&bar_character, sizeof(bar_character));
 
   draw_bars(data, max_value, column_count, bar_character);
 }

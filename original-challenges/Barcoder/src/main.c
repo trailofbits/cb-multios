@@ -69,7 +69,7 @@ barcode_128_t *select_from_cache()
         if (freaduntil(g_input, INPUT_SIZE, '\n', stdin) == -1) {
             printf("Invalid Selection\n");
             fflush(stdout);
-            exit(0);
+            cgc_exit(0);
         } else {
             choice = strtoul(g_input, NULL, 10);
             if (choice == 0)
@@ -97,7 +97,7 @@ void input_barcode()
         if (freaduntil(g_input, INPUT_SIZE, '\n', stdin) == -1) {
             printf("Invalid Selection\n");
             fflush(stdout);
-            exit(0);
+            cgc_exit(0);
         } else {
             choice = strtoul(g_input, NULL, 10);
         }
@@ -113,7 +113,7 @@ void input_barcode()
         if (freaduntil(g_input, INPUT_SIZE, '\n', stdin) == -1) {
             printf("Bad input\n");
             fflush(stdout);
-            exit(0);
+            cgc_exit(0);
         }
 
         new_barcode = create_barcode_from_str(g_input);
@@ -129,7 +129,7 @@ void input_barcode()
         if (freaduntil(g_input, INPUT_SIZE, '\n', stdin) == -1) {
             printf("Bad input\n");
             fflush(stdout);
-            exit(0);
+            cgc_exit(0);
         }
 
         new_barcode = create_barcode_from_encoded_data(g_input);
@@ -153,7 +153,7 @@ void input_barcode()
         }
 
         barcode_bmp = malloc(bmp_headers.header.file_size);
-        memcpy(barcode_bmp, &bmp_headers, sizeof(barcode_bmp_t));
+        cgc_memcpy(barcode_bmp, &bmp_headers, sizeof(barcode_bmp_t));
         fflush(stdout);
         if (fread(barcode_bmp->data, barcode_bmp->info.imagesize, stdin) == -1) {
             sprintf(message, "Bad input\n");
@@ -243,7 +243,7 @@ int main()
         if (freaduntil(g_input, INPUT_SIZE, '\n', stdin) == -1) {
             printf("Invalid Selection\n");
             fflush(stdout);
-            exit(0);
+            cgc_exit(0);
         }
 
         choice = strtol(g_input, NULL, 10);

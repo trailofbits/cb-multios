@@ -36,7 +36,7 @@ Gridder::Gridder()
 
 Gridder::Gridder(const Gridder &copy)
 {
-    memcpy(board_, copy.board_, sizeof(board_));
+    cgc_memcpy(board_, copy.board_, sizeof(board_));
 }
 
 bool Gridder::CopyGridder(unsigned int *pboard, int size)
@@ -44,7 +44,7 @@ bool Gridder::CopyGridder(unsigned int *pboard, int size)
     if (size < sizeof(board_))
         return false;
 
-    memcpy(board_, pboard, sizeof(board_));
+    cgc_memcpy(board_, pboard, sizeof(board_));
     return true;
 }
 
@@ -62,7 +62,7 @@ bool Gridder::GenerateNewGridder(int cell_idx, NumGen *pngen)
     int next_num = 0;
     int num_cached = 0;
     int valid_nums[SET_SIZE];
-    memset(valid_nums, UNUSED, sizeof(valid_nums));
+    cgc_memset(valid_nums, UNUSED, sizeof(valid_nums));
 
     while(pngen->AvailableNumbers())
     {
@@ -122,9 +122,9 @@ void Gridder::MakeGridderSolveable(int difficulty, NumGen *pngen)
         solution = orig.FindSolution(0);
         if (solution)
         {
-            bool exit = false;
+            bool cgc_exit = false;
             orig = *this;
-            if (!orig.HasUniqueSolution(0, solution, &exit))
+            if (!orig.HasUniqueSolution(0, solution, &cgc_exit))
                 board_[row][col] = prev_val;
         }
         else
@@ -194,11 +194,11 @@ Gridder *Gridder::FindSolution(int cell_idx)
     return (Gridder *)NULL;
 }
 
-bool Gridder::HasUniqueSolution(int cell_idx, const Gridder *s1, bool *exit)
+bool Gridder::HasUniqueSolution(int cell_idx, const Gridder *s1, bool *cgc_exit)
 {
     if (cell_idx == NUM_CELLS)
     {
-        *exit = true;
+        *cgc_exit = true;
         if (memcmp(board_, s1->board_, sizeof(board_)) != 0)
             return false;
         else
@@ -208,14 +208,14 @@ bool Gridder::HasUniqueSolution(int cell_idx, const Gridder *s1, bool *exit)
     int row = ROW(cell_idx);
     int col = COL(cell_idx);
     if (board_[row][col])
-        return HasUniqueSolution(cell_idx+1, s1, exit);
+        return HasUniqueSolution(cell_idx+1, s1, cgc_exit);
 
     for (int i = SET_SIZE; i > 0; i--)
     {
-        if (*exit)
+        if (*cgc_exit)
             return false;
         board_[row][col] = i;
-        if (ValidCell(row,col) && HasUniqueSolution(cell_idx+1, s1, exit))
+        if (ValidCell(row,col) && HasUniqueSolution(cell_idx+1, s1, cgc_exit))
             return true;
     }
 
@@ -225,7 +225,7 @@ bool Gridder::HasUniqueSolution(int cell_idx, const Gridder *s1, bool *exit)
 
 void Gridder::ResetBoard()
 {
-    memset(board_, UNUSED, sizeof(board_));
+    cgc_memset(board_, UNUSED, sizeof(board_));
 }
 
 bool Gridder::ValidAddNumber(int val, int row, int col)

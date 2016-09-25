@@ -56,12 +56,12 @@ DEFINE_CLASS(Packet, packet)
         {
             if (i == blocks - 1)
             {
-                memcpy(encoded, data.buffer() + i * 255, 255 - missing);
-                memset(encoded + 255 - missing, 0, missing);
+                cgc_memcpy(encoded, data.buffer() + i * 255, 255 - missing);
+                cgc_memset(encoded + 255 - missing, 0, missing);
             }
             else
             {
-                memcpy(encoded, data.buffer() + i * 255, 255);
+                cgc_memcpy(encoded, data.buffer() + i * 255, 255);
             }
 
             // TODO check return value
@@ -70,11 +70,11 @@ DEFINE_CLASS(Packet, packet)
 
             if (i == blocks - 1)
             {
-                memcpy(ctx->data + i * data_per_block, encoded + parity, data_per_block - missing);
+                cgc_memcpy(ctx->data + i * data_per_block, encoded + parity, data_per_block - missing);
             }
             else
             {
-                memcpy(ctx->data + i * data_per_block, encoded + parity, data_per_block);
+                cgc_memcpy(ctx->data + i * data_per_block, encoded + parity, data_per_block);
             }
         }
 

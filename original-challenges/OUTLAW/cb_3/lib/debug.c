@@ -825,7 +825,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = strlen(s_arg, '\0');
+                  int len = cgc_strlen(s_arg, '\0');
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;

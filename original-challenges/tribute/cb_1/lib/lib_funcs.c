@@ -30,9 +30,9 @@ unsigned int read_all(int fd, char *buf, unsigned int size) {
 
 /*
  * Read characters into buf until endchar is found. Stop reading when
- * endchar is read.  Returns the total number of chars read EXCLUDING
+ * endchar is cgc_read.  Returns the total number of chars cgc_read EXCLUDING
  * endchar.  endchar is NEVER copied into the buffer.  Note that it
- * is possible to perform size+1 reads as long as the last char read
+ * is possible to perform size+1 reads as long as the last char cgc_read
  * is endchar.
  */
 int read_until_delim(int fd, char *buf, unsigned int size, char endchar) {

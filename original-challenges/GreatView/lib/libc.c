@@ -48,7 +48,7 @@ static char *strtok_last = NULL;
 
 void promptc(char *buf, uint16_t  size, char *prompt) {
 
-    SSEND(strlen(prompt), prompt);
+    SSEND(cgc_strlen(prompt), prompt);
 
     SRECV((uint32_t)size, buf);
 }
@@ -178,7 +178,7 @@ char * strcat(char *s1, char *s2) {
     return s1;
 }
 
-size_t strlen(char *s) {
+size_t cgc_strlen(char *s) {
     char *tmp = s;
     while (*tmp) tmp++;
     return (size_t)(tmp-s);
@@ -297,7 +297,7 @@ int int2str(char* str_buf, int buf_size, int i) {
 
 uint32_t str2uint(const char* str_buf) {
     int result = 0;
-    int max_chars = 10; // max number of chars read from str_buf
+    int max_chars = 10; // max number of chars cgc_read from str_buf
     int i = 0;
 
     if (str_buf == NULL)
@@ -318,7 +318,7 @@ uint32_t str2uint(const char* str_buf) {
 
 int str2int(const char* str_buf) {
     int result = 0;
-    int max_chars = 10; // max number of chars read from str_buf
+    int max_chars = 10; // max number of chars cgc_read from str_buf
     int i = 0;
     int sign = 0;
 
@@ -347,7 +347,7 @@ int str2int(const char* str_buf) {
     return result;
 }
 
-void * memset(void *dst, char c, size_t n) {
+void * cgc_memset(void *dst, char c, size_t n) {
     size_t i;
     for (i=0; i<n; i++) {
         *((uint8_t*)dst+i) = c;
@@ -355,7 +355,7 @@ void * memset(void *dst, char c, size_t n) {
     return dst;
 }
 
-void * memcpy(void *dst, void *src, size_t n) {
+void * cgc_memcpy(void *dst, void *src, size_t n) {
     size_t i;
     for (i=0; i<n; i++) {
         *((uint8_t*)dst+i) = *((uint8_t*)src+i);
@@ -627,7 +627,7 @@ void *calloc(size_t size) {
     if (!(ptr = malloc(size)))
         return NULL;
 
-    memset(ptr,'\0',size);
+    cgc_memset(ptr,'\0',size);
     return ptr;
 }
 

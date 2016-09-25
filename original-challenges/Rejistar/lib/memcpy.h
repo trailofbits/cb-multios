@@ -30,4 +30,4 @@
 *
 * @return None
 */
-void *memcpy(void *dest, const void *src, size_t n);
+void *cgc_memcpy(void *dest, const void *src, size_t n);

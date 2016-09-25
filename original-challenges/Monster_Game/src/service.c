@@ -690,7 +690,7 @@ int change_monster_name( pmonster pm )
 	}
 
 	bzero( final, index+1);
-	memcpy( final, new_name, index );
+	cgc_memcpy( final, new_name, index );
 
 	pm->type = final;
 
@@ -1117,7 +1117,7 @@ pplayer generate_player( )
 
 	/// If they just hit enter then they get a default
 	if ( result == 0 ) {
-		memcpy( player_one, "Player One", 10 );
+		cgc_memcpy( player_one, "Player One", 10 );
 	}
 
 	np = malloc( sizeof( player ) );
@@ -1129,7 +1129,7 @@ pplayer generate_player( )
 
 	bzero( np, sizeof(player) );
 
-	memcpy( np->name, player_one, 16 );
+	cgc_memcpy( np->name, player_one, 16 );
 
 	/// Generate 3 monsters for the player to fight with
 	for ( result = 0; result < 3; result++ ) {

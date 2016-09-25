@@ -53,7 +53,7 @@ main(void)
         return -1;
 
     while (1) {
-        memset(command, '\0', COMMAND_SIZE);
+        cgc_memset(command, '\0', COMMAND_SIZE);
         read_all(STDIN, command, sizeof(struct command));
         if (command->size && command->size <= MAX_COMMAND_SIZE)
             read_all(STDIN, command->buf, command->size);

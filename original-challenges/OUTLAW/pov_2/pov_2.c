@@ -30,7 +30,7 @@ const msg msgNull = { 0 };
  * Reliably recv bytes.
  *
  * @param fd File descriptor where we will recv bytes.
- * @param buf Pointer to where we will write the bytes
+ * @param buf Pointer to where we will cgc_write the bytes
  * @param size The amount of bytes to recv.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
@@ -110,7 +110,7 @@ int main(void) {
 
   // General flow 2.0
   // CLIENT -true_req-> TAP -> POV (us)
-  //  we read true_req off the wire (consume it), never respond to CLIENT
+  //  we cgc_read true_req off the wire (consume it), never respond to CLIENT
   //  we make a mod_req intended to leak some bits of auth_token via SERVER response
   // POV -mod_req-> SERVER
   //  we send the mod_req to the server

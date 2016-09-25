@@ -83,7 +83,7 @@ static void malloc_init(void) {
     unsigned short available;
     unsigned short i;
     state.pages = 0;
-    memset(&state, 0, sizeof(state));
+    cgc_memset(&state, 0, sizeof(state));
     available = PAGE_SIZE - sizeof(chunk_header_t);
 
     for (i = 0; i < MAX_BUCKETS; i++) {
@@ -240,5 +240,5 @@ void * calloc(size_t nmemb, size_t size) {
 
     size *= nmemb;
     ptr = malloc(size);
-    return memset(ptr, 0, size);
+    return cgc_memset(ptr, 0, size);
 }

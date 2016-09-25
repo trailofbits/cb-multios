@@ -62,9 +62,9 @@ void make_board(tt_data * data, char * board) {
 
 // initialize game data
 void init_game_data(tt_data * data) {
-	memset(data->top, EMPTY, 3);
-	memset(data->middle, EMPTY, 3);
-	memset(data->bottom, EMPTY, 3);
+	cgc_memset(data->top, EMPTY, 3);
+	cgc_memset(data->middle, EMPTY, 3);
+	cgc_memset(data->bottom, EMPTY, 3);
 	data->moves = 0;
 	data->winner = EMPTY;
 }
@@ -253,7 +253,7 @@ void move_complete(tt_data * data) {
 	data->moves++;
 }
 
-// select a randomly generated valid move for the computer
+// cgc_select a randomly generated valid move for the computer
 void computer_move(tt_data * data, tt_move_coords * move) {
 	tt_move_coords tmp_move;
 	tmp_move.row = prng_get_next() % 3;

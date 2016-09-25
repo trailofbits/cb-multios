@@ -104,10 +104,10 @@ DefineFunction(Buffer, void, write_number, int data)
 
 DefineFunction(Buffer, void, write_string, const char *str)
 {
-    unsigned int size = strlen(str);
+    unsigned int size = cgc_strlen(str);
     $(this, write_number, (int) size);
     $(this, enlarge, this->m_pos + size);
-    memcpy(&this->m_buf[this->m_pos], str, size);
+    cgc_memcpy(&this->m_buf[this->m_pos], str, size);
     this->m_pos += size;
 }
 
@@ -115,7 +115,7 @@ DefineFunction(Buffer, void, write_bytes, const uint8_t *bytes, size_t size)
 {
     $(this, write_number, (int) size);
     $(this, enlarge, this->m_pos + size);
-    memcpy(&this->m_buf[this->m_pos], bytes, size);
+    cgc_memcpy(&this->m_buf[this->m_pos], bytes, size);
     this->m_pos += size;
 }
 
@@ -177,7 +177,7 @@ DefineFunction(Buffer, char *, read_string)
     char *result = malloc(size + 1);
     ASSERT_ALLOC(result);
 
-    memcpy(result, &this->m_buf[this->m_pos], size);
+    cgc_memcpy(result, &this->m_buf[this->m_pos], size);
     result[size] = 0;
     this->m_pos += size;
     return result;
@@ -194,7 +194,7 @@ DefineFunction(Buffer, size_t, read_bytes, uint8_t *buf, size_t limit)
     if (size > limit)
         size = limit;
 
-    memcpy(buf, &this->m_buf[this->m_pos], size);
+    cgc_memcpy(buf, &this->m_buf[this->m_pos], size);
     this->m_pos += retval;
     return retval;
 }
@@ -215,11 +215,11 @@ DefineFunction(Buffer, int, dearmor, const char *asc)
     size_t i;
     uint16_t sum;
 
-    if (strlen(asc) < 2)
+    if (cgc_strlen(asc) < 2)
         return 0;
 
     $(this, seek, SEEK_BEGIN);
-    for (i = 0; i < strlen(asc)-1; i += 2)
+    for (i = 0; i < cgc_strlen(asc)-1; i += 2)
     {
         uint8_t byte = (asc[i] - 'A') & 0xF;
         byte = (byte << 4) | ((asc[i+1] - 'A') & 0xF);

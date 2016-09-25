@@ -60,7 +60,7 @@ size_t transmit_string(int fd, char *string) {
     size_t count;
     int ret;
 
-    count = strlen(string);
+    count = cgc_strlen(string);
 
     ret = transmit_all(fd, string, count);
     if (ret != 0) {

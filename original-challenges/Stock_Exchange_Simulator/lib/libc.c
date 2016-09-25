@@ -24,7 +24,7 @@
 #define OK 0
 #define NOTOK 1
 
-void memcpy(void *src, void *dst, size_t l){
+void cgc_memcpy(void *src, void *dst, size_t l){
 	char * s = (char *) src;
 	char * d = (char *) dst;
 
@@ -37,7 +37,7 @@ void memcpy(void *src, void *dst, size_t l){
 
 }
 
-size_t strlen(char * s){
+size_t cgc_strlen(char * s){
 	for(int i = 0; i < 65535; i++){
 		if( s[i] == 0x0){
 			return i;

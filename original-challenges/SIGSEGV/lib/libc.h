@@ -87,7 +87,7 @@
  * Receives bytes into buffer
  * Terminates on error
  *
- * @param s Number of bytes to read into the buffer
+ * @param s Number of bytes to cgc_read into the buffer
  * @param b Buffer
  * @return Data in buffer
  */
@@ -118,8 +118,8 @@
  * Terminates on error
  *
  * @param b Buffer to store random data
- * @param s Count of random bytes to read
- * @param r Location to store number of bytes read
+ * @param s Count of random bytes to cgc_read
+ * @param r Location to store number of bytes cgc_read
  * @return Random data in b
  */
 #define RAND(b,s,r) if (random(b,s,r)){ SSENDL(sizeof(RNDERR)-1,RNDERR); _terminate(19);}
@@ -250,7 +250,7 @@ char * strcat(char *s1, char *s2);
  * @param s String
  * @return length of s
  */
-size_t strlen(char *s);
+size_t cgc_strlen(char *s);
 
 /**
  * Check if two strings are identical
@@ -287,7 +287,7 @@ int startswith(char *s1, char *s2);
  * @param n Number of times to copy character
  * @return dst
  */
-void * memset(void *dst, char c, size_t n); 
+void * cgc_memset(void *dst, char c, size_t n); 
 
 /**
  * Copy bytes from one buffer to another
@@ -297,7 +297,7 @@ void * memset(void *dst, char c, size_t n);
  * @param n Number of bytes to copy
  * @return dst
  */
-void * memcpy(void *dst, void *src, size_t n); 
+void * cgc_memcpy(void *dst, void *src, size_t n); 
 
 /**
  * Convert byte to hex character string

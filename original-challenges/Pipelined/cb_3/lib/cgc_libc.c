@@ -1,7 +1,7 @@
 #include "cgc_libc.h"
 #include "cgc_malloc.h"
 
-void *memset(void *b, int c, size_t len) {
+void *cgc_memset(void *b, int c, size_t len) {
     if (!b)
         return NULL;
 
@@ -86,11 +86,11 @@ size_t strlcat(char *dst, const char *src, const size_t dstsize) {
     if (!dstsize)
         return 0;
 
-    current_dst_len = strlen(dst);
+    current_dst_len = cgc_strlen(dst);
     return current_dst_len + strlcpy(dst + current_dst_len, src, dstsize - current_dst_len);
 }
 
-size_t strlen(const char *s) {
+size_t cgc_strlen(const char *s) {
     const char *p;
 
     /* less than good. */
@@ -193,11 +193,11 @@ char *strdup(const char *src) {
     if (!src)
         return 0;
 
-    len = strlen(src) + 1;
+    len = cgc_strlen(src) + 1;
     dst = malloc(len);
 
     if (dst)
-        memcpy(dst, src, len);
+        cgc_memcpy(dst, src, len);
 
     return dst;
 }
@@ -220,7 +220,7 @@ int transmit_all(int fd, const char *s, size_t size) {
 }
 
 int transmit_str(int fd, char *s) {
-    return transmit_all(fd, s, strlen(s));
+    return transmit_all(fd, s, cgc_strlen(s));
 }
 
 size_t receive_all(int fd, char *buf, const size_t size) {
@@ -265,7 +265,7 @@ void err(unsigned int id, char *str) {
     _terminate(id);
 }
 
-void *memcpy(void *dst, const void *src, size_t size) {
+void *cgc_memcpy(void *dst, const void *src, size_t size) {
     char *dst_char = (char *)dst;
     char *src_char = (char *)src;
 

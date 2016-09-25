@@ -132,7 +132,7 @@ message *add_random_message(mail_queue *mq) {
     m->recipient = pick_address();
     m->subject = gen_random_string(5, 32);
     m->data = gen_random_string(5,256);
-    m->data_length = strlen(m->data);
+    m->data_length = cgc_strlen(m->data);
 
     if (mq->root != NULL) {
         message *next = mq->root;
@@ -167,7 +167,7 @@ char *make_string(char *str) {
     if (str == NULL) {
         return NULL;
     }
-    char *s = calloc(strlen(str) + 1);
+    char *s = calloc(cgc_strlen(str) + 1);
     strcpy(s, str);
     return s;
 }
@@ -226,7 +226,7 @@ void mailsend_post(char *line) {
     msg->sender = lookup_name(sender);
     msg->recipient = lookup_name(recipient);
     msg->data = make_string(body);
-    msg->data_length = strlen(body);
+    msg->data_length = cgc_strlen(body);
     msg->subject = make_string(subject);
 
     if (msg->sender == NULL || msg->recipient == NULL) {
@@ -409,7 +409,7 @@ int main(void) {
     timeout.tv_usec = 0;
     int ret;
 
-    // read input
+    // cgc_read input
     while (1) {
         FD_ZERO(&fds);
         FD_SET(FD_FROM_MAIN, &fds);
@@ -446,6 +446,6 @@ int main(void) {
     } 
 
     EXIT:
-    // exit
+    // cgc_exit
     return 0;
 }

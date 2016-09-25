@@ -142,7 +142,7 @@ int add_sensor(pState state, unsigned short int sensorID, unsigned int sensorAdd
 		while (tempSensor != NULL){
 			thisSensor = tempSensor;
 			tempSensor = tempSensor->next;
-		}//write next and prev, then set thisSensor
+		}//cgc_write next and prev, then set thisSensor
 
 		thisSensor->next = malloc(sizeof(sSensor));
 		thisSensor->next->prev =  thisSensor;
@@ -223,7 +223,7 @@ int add_steps(pState state, unsigned int numSteps, pStep steps ){
 	if (numSteps>10){									
 		return 5;
 	}
-	//each step for numSteps must be read, checked and added to pstate->programList
+	//each step for numSteps must be cgc_read, checked and added to pstate->programList
 	for (unsigned int i=0;i<numSteps;i++){
 		// int allows bad type that isn't checked for valid timeval, allowing the
 		// program to run for indeterminated time, which writes off the end of history buffer
@@ -354,12 +354,12 @@ void get_sensors(pState state,unsigned int sensors[40*sizeof(int)]){
 		tempSensor = tempSensor->next;
 		i = i + 1;
 	}
-	memcpy(sensors,temp,(i*sizeof(int)*4));
+	cgc_memcpy(sensors,temp,(i*sizeof(int)*4));
 }
 
 
 void update_sensors(pState state){
-	//for each sensor in sensorlist write sensor.currentTemp = (state.currentTemp - sensor.currentTemp) * (0.5 + (sensor.coeff/20000))
+	//for each sensor in sensorlist cgc_write sensor.currentTemp = (state.currentTemp - sensor.currentTemp) * (0.5 + (sensor.coeff/20000))
 	pSensor tempSensor = state->sensorList;
 	while (tempSensor != NULL){
 		//sensor coeff of 10000 means sensor is not places in food

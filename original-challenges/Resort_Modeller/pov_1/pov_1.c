@@ -64,7 +64,7 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00000_len = 4;
       read_00000 = (unsigned char*)malloc(read_00000_len);
       int read_00000_res = length_read(0, read_00000, read_00000_len);
@@ -296,7 +296,7 @@ int main(void) {
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00001_len = 4;
       read_00001 = (unsigned char*)malloc(read_00001_len);
       int read_00001_res = length_read(0, read_00001, read_00001_len);
@@ -321,7 +321,7 @@ int main(void) {
       unsigned char *read_00002;
       unsigned int read_00002_len;
       unsigned int read_00002_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00002_len = 4;
       read_00002 = (unsigned char*)malloc(read_00002_len);
       int read_00002_res = length_read(0, read_00002, read_00002_len);
@@ -346,7 +346,7 @@ int main(void) {
       unsigned char *read_00003;
       unsigned int read_00003_len;
       unsigned int read_00003_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00003_len = 4;
       read_00003 = (unsigned char*)malloc(read_00003_len);
       int read_00003_res = length_read(0, read_00003, read_00003_len);
@@ -371,7 +371,7 @@ int main(void) {
       unsigned char *read_00004;
       unsigned int read_00004_len;
       unsigned int read_00004_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00004_len = 4;
       read_00004 = (unsigned char*)malloc(read_00004_len);
       int read_00004_res = length_read(0, read_00004, read_00004_len);

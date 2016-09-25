@@ -31,7 +31,7 @@ THE SOFTWARE.
 
 /**
  * Structure to hold the fpti image data.
- * It points to the current byte/bit to be read
+ * It points to the current byte/bit to be cgc_read
  **/
 typedef struct fpti_image_data {
         char *buffer;

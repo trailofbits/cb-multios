@@ -63,7 +63,7 @@ int main(void) {
         if (args[0][0]=='a' && arg_count==2 ) {
 
             // if the string to add is less than 10 chars, ignore the add command
-            if (strlen(args[1]) < 10) {
+            if (cgc_strlen(args[1]) < 10) {
 
                 free(args);
                 continue;
@@ -95,7 +95,7 @@ int main(void) {
             delete_matches(&head, arg_count, args);
 
         }
-        // time to exit
+        // time to cgc_exit
         else if (args[0][0]=='x') {
 
             return(0);

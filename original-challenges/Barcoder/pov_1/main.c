@@ -26,7 +26,7 @@
 #include "stdio.h"
 #include "povbarcode.h"
 
-#define transmit_str(_str) transmit_all(STDOUT, (_str), strlen((_str)))
+#define transmit_str(_str) transmit_all(STDOUT, (_str), cgc_strlen((_str)))
 #define transmit_type2_byte(_pov) transmit_all(3, (_pov), sizeof(char))
 #define transmit_type2_short(_pov) transmit_all(3, (_pov), sizeof(short))
 #define transmit_type2_int(_pov) transmit_all(3, (_pov), sizeof(int))
@@ -40,7 +40,7 @@ void read_until_line(char *line)
     while (!ready) {
         delimited_read(STDIN, &resp, &resp_len, (unsigned char *)"\n", 1);
         transmit_all(STDERR, resp, resp_len);
-        if (memcmp(resp, line, strlen(line)) == 0) {
+        if (memcmp(resp, line, cgc_strlen(line)) == 0) {
             ready = 1;
         }
     }
@@ -99,7 +99,7 @@ int main()
         else
             ex_count = 0;
     }
-    // read leaked bytes until exclamation
+    // cgc_read leaked bytes until exclamation
     while (i < 4)
     {
         if (length_read(STDIN, &c, 1) != 1)
@@ -113,7 +113,7 @@ int main()
     if (i < 4)
     {
         // we hit an exclamation mark
-        // read next byte to determine if it is NUL or exclamation
+        // cgc_read next byte to determine if it is NUL or exclamation
         if (length_read(STDIN, &c, 1) != 1)
             _terminate(0);
         if (c == '!') // NUL
@@ -169,8 +169,8 @@ int main()
     }
     transmit_all(3, (unsigned char *) type2_buf, 4);
 
-    char *exit = "6\n";
-    transmit_str(exit);
+    char *cgc_exit = "6\n";
+    transmit_str(cgc_exit);
 
     return 0;
 }

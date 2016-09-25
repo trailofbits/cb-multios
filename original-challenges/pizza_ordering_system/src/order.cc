@@ -60,7 +60,7 @@ char *Order::get_name()
 
 bool Order::set_name(char *name)
 {
-    if (strlen(name) >= NAME_SIZE)
+    if (cgc_strlen(name) >= NAME_SIZE)
         return false;
 
     strcpy(pickup_name, name);

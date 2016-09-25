@@ -69,7 +69,7 @@ init_bitboard(struct bitboard *board)
     enum color color;
     unsigned int i;
 
-    memset(board, '\0', sizeof(struct bitboard));
+    cgc_memset(board, '\0', sizeof(struct bitboard));
     board->can_castle[WHITE][KINGSIDE] = board->can_castle[BLACK][KINGSIDE] = 1;
     board->can_castle[WHITE][QUEENSIDE] = board->can_castle[BLACK][QUEENSIDE] = 1;
     board->ep_row = board->ep_col = -1;
@@ -651,7 +651,7 @@ parse_san(struct bitboard *board, enum color color, char *san, struct move *move
         DONE
     } state = PIECE;
 
-    memset(move, '\0', sizeof(struct move));
+    cgc_memset(move, '\0', sizeof(struct move));
     move->piece.color = color;
     move->src_row = move->src_col = -1;
     move->dst_row = move->dst_col = -1;

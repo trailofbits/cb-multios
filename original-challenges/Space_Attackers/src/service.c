@@ -280,7 +280,7 @@ int drawBoard() {
     // clear the screen for new game board to come down
     clearScreen();
     
-    // write the users name at the top
+    // cgc_write the users name at the top
     fprintf(stdout, "\tWelcome to Attackers General %s!\n", playerName);
     
     //draw current board

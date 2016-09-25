@@ -53,7 +53,7 @@ enum color_t {
   OFF_BOARD
 };
 
-#define error(__status) exit(__status)
+#define error(__status) cgc_exit(__status)
 
 #define BOARD_DIM 19
 #define NUM_PLAYERS 2
@@ -218,7 +218,7 @@ game_t* copy_game(game_t* game)
   game_t* copy = calloc(1, sizeof(game_t));
   if (!copy)
     error(1);
-  memcpy(copy, game, sizeof(game_t));
+  cgc_memcpy(copy, game, sizeof(game_t));
   return copy;
 }
 
@@ -300,7 +300,7 @@ int remove_captures(game_t* game, color_t color)
   game_t* frozen = copy_game(game);
   for (u8 y = 0; y < BOARD_DIM; y++) {
     for (u8 x = 0; x < BOARD_DIM; x++) {
-      memset(sboard, 0, sizeof(sboard));
+      cgc_memset(sboard, 0, sizeof(sboard));
       if (get_color(frozen->board, x, y) == color && !has_liberty(frozen, sboard, x, y, color)) {
         cnt++;
         SET_BOARD(game->board, x, y, EMPTY);
@@ -328,7 +328,7 @@ int score(game_t* game, u32* black, u32* white)
 
   for (u8 y = 0; y < BOARD_DIM; y++) {
     for (u8 x = 0; x < BOARD_DIM; x++) {
-      memset(sboard, 0, sizeof(sboard));
+      cgc_memset(sboard, 0, sizeof(sboard));
       color_t cur = get_color(game->board, x, y);
       if (cur == WHITE) {
         *white += 1;
@@ -496,13 +496,13 @@ int read_move(u8* x, u8* y, u8* pass)
   int ret = -1;
   char buf[INPUT_MAX + 1];
   *pass = 0;
-  memset(buf, 0, INPUT_MAX);
+  cgc_memset(buf, 0, INPUT_MAX);
   read_n_bytes(STDIN, INPUT_MAX, buf, 1, '\n');
   buf[INPUT_MAX] = '\0';
 
   char* p = NULL;
 
-  if (!strncmp("pass", buf, strlen("pass"))) {
+  if (!strncmp("pass", buf, cgc_strlen("pass"))) {
     *pass = 1;
     ret = 0; goto out;
   }
@@ -553,7 +553,7 @@ void end_game(game_t* game, char *name, u8 reason)
   fdprintf(STDOUT, name);
 #endif
 
-  exit(0);
+  cgc_exit(0);
   return;
 }
 
@@ -625,7 +625,7 @@ action_t calculate_move(game_t** game, u8* ox, u8* oy, color_t color)
   for (u8 y = 0; y < BOARD_DIM; y++) {
     for (u8 x = 0; x < BOARD_DIM; x++) {
       vote = 0;
-      memset(sboard, 0, sizeof(sboard));
+      cgc_memset(sboard, 0, sizeof(sboard));
 
       u8 neigh_cnt = 0;
       neigh_cnt += (get_color((*game)->board, x + 1, y) == color);
@@ -713,7 +713,7 @@ int main(void)
   fdprintf(STDOUT, "What is your name?\n");
   if (read_n_bytes(STDIN, NAME_LEN, name, 1, '\n') < 0) {
     printf("Need a name, bro\n");
-    exit(1);
+    cgc_exit(1);
   }
 
   printf("Hi, %s\n", name);

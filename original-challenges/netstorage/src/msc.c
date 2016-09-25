@@ -43,7 +43,7 @@ static int rbc_handle_data(msc_t *msc, uint8_t *data, size_t length);
 
 int msc_init(msc_t *msc)
 {
-    memset(msc, 0, sizeof(msc_t));
+    cgc_memset(msc, 0, sizeof(msc_t));
     msc->state = MSC_ST_IDLE;
     msc->memory = memory;
     return 1;
@@ -249,14 +249,14 @@ static int rbc_handle_packet(msc_t *msc, uint8_t *data, size_t length)
         else if (lba + len > NUM_BLOCKS)
             return 0;
         msc->state = MSC_ST_IN;
-        msc->in_state.write.lba = lba;
-        msc->in_state.write.length = len * BLOCK_SIZE;
+        msc->in_state.cgc_write.lba = lba;
+        msc->in_state.cgc_write.length = len * BLOCK_SIZE;
         break;
     }
     case 0x5A: /* MODE SENSE */
         if (data[2] == 0x3F || data[2] == 0x06)
         {
-            memset(buffer, 0, 18);
+            cgc_memset(buffer, 0, 18);
             *(uint16_t *)&buffer[0] = htobe16(16);
             buffer[8] = 0x86;
             buffer[9] = 0x08;
@@ -287,12 +287,12 @@ static int rbc_handle_data(msc_t *msc, uint8_t *data, size_t length)
     switch (msc->cbw.cb[0])
     {
     case 0x2A: /* WRITE (10) */
-        if (msc->count + length > msc->in_state.write.length)
-            length = msc->in_state.write.length - msc->count;
+        if (msc->count + length > msc->in_state.cgc_write.length)
+            length = msc->in_state.cgc_write.length - msc->count;
 
-        memcpy_fast(&msc->memory[msc->in_state.write.lba * BLOCK_SIZE + msc->count], data, length);
+        memcpy_fast(&msc->memory[msc->in_state.cgc_write.lba * BLOCK_SIZE + msc->count], data, length);
         msc->count += length;
-        if (msc->count == msc->in_state.write.length)
+        if (msc->count == msc->in_state.cgc_write.length)
             msc->state = MSC_ST_STATUS;
         break;
     default:

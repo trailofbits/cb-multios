@@ -42,7 +42,7 @@ bst_node_t *bst_create_node(int key) {
 }
 
 void bst_delete_node(bst_node_t **node) {
-	memset(*node, '\0', sizeof(bst_node_t));
+	cgc_memset(*node, '\0', sizeof(bst_node_t));
 	free(*node);
 }
 

@@ -67,8 +67,8 @@ identical:
 
 static int compare_line(lc_t *lline, lc_t *rline, int ignore_ws) {
     if (ignore_ws) {
-        if (strlen(lline->no_ws_line) && strlen(rline->no_ws_line)
-                && strlen(lline->no_ws_line) == strlen(rline->no_ws_line)
+        if (cgc_strlen(lline->no_ws_line) && cgc_strlen(rline->no_ws_line)
+                && cgc_strlen(lline->no_ws_line) == cgc_strlen(rline->no_ws_line)
                 && lline->no_ws_lhash.hash1 == rline->no_ws_lhash.hash1
                 && lline->no_ws_lhash.hash2 == rline->no_ws_lhash.hash2)
         {
@@ -76,8 +76,8 @@ static int compare_line(lc_t *lline, lc_t *rline, int ignore_ws) {
             return strcmp(left, right);
         }
     } else {
-        if (strlen(lline->pline) && strlen(rline->pline)
-                && strlen(lline->pline) == strlen(rline->pline)
+        if (cgc_strlen(lline->pline) && cgc_strlen(rline->pline)
+                && cgc_strlen(lline->pline) == cgc_strlen(rline->pline)
                 && lline->lhash.hash1 == rline->lhash.hash1
                 && lline->lhash.hash2 == rline->lhash.hash2) {
 
@@ -106,7 +106,7 @@ static match_ll_t *generate_matches(lcll_t *lfile_cmp, lcll_t *rfile_cmp, int ig
         while (rl_iter) {
             temp_ll = ll_iter;
             found_match = 0;
-            memset(&temp_match, 0, sizeof(match_t));
+            cgc_memset(&temp_match, 0, sizeof(match_t));
             while (temp_ll && rl_iter  && compare_line(temp_ll->lc, rl_iter->lc, ignore_ws) == 0) {
                 if (!found_match) {
                     temp_match.l_idx = l_idx;
@@ -126,7 +126,7 @@ static match_ll_t *generate_matches(lcll_t *lfile_cmp, lcll_t *rfile_cmp, int ig
                 new_match = malloc(sizeof(match_t));
                 if (!new_match)
                     return match_list;
-                memcpy(new_match, &temp_match, sizeof(match_t));
+                cgc_memcpy(new_match, &temp_match, sizeof(match_t));
 
                 new_ml_item = malloc(sizeof(match_ll_t));
                 if (!new_ml_item) {
@@ -308,7 +308,7 @@ static void print_diff()
 #ifndef PATCHED
                         strcpy(ee_str, ll_iter->lc->pline);
 #else
-                        if (strlen(ll_iter->lc->pline) < 4096)
+                        if (cgc_strlen(ll_iter->lc->pline) < 4096)
                             strcpy(ee_str, ll_iter->lc->pline);
                         else
                             ee = 0;
@@ -351,18 +351,18 @@ static void print_diff()
     }
 
     while (ll_iter) {
-        if (strlen(ll_iter->lc->pline))
+        if (cgc_strlen(ll_iter->lc->pline))
             printf("< %s\n", ll_iter->lc->pline);
         ll_iter = ll_iter->next;
     }
     while (rl_iter) {
-        if (strlen(rl_iter->lc->pline))
+        if (cgc_strlen(rl_iter->lc->pline))
             printf("> %s\n", rl_iter->lc->pline);
         rl_iter = rl_iter->next;
     }
 
     if (ee == EE_VAL)
-        if (strlen(ee_str))
+        if (cgc_strlen(ee_str))
             printf(":D = %s\n", ee_str);
 
 

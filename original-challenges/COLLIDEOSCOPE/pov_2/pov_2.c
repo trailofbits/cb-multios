@@ -30,12 +30,12 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00000_len = 2;
       read_00000 = (unsigned char*)malloc(read_00000_len);
       int read_00000_res = length_read(0, read_00000, read_00000_len);
       if (read_00000_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00000_00000[] = 
          "\x3e\x20";
       read_00000_ptr += data_match(read_00000 + read_00000_ptr, read_00000_len - read_00000_ptr, match_00000_00000, 2);
@@ -67,14 +67,14 @@ int main(void) {
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00001_delim[] = 
          "\x0a";
       read_00001 = NULL;
       read_00001_len = 0;
       int read_00001_res = delimited_read(0, &read_00001, &read_00001_len, read_00001_delim, 1);
       if (read_00001_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00001_00000[] = 
          "\x5f\x20\x3d\x20\x30\x0a";
       read_00001_ptr += data_match(read_00001 + read_00001_ptr, read_00001_len - read_00001_ptr, match_00001_00000, 6);
@@ -85,12 +85,12 @@ int main(void) {
       unsigned char *read_00002;
       unsigned int read_00002_len;
       unsigned int read_00002_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00002_len = 2;
       read_00002 = (unsigned char*)malloc(read_00002_len);
       int read_00002_res = length_read(0, read_00002, read_00002_len);
       if (read_00002_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00002_00000[] = 
          "\x3e\x20";
       read_00002_ptr += data_match(read_00002 + read_00002_ptr, read_00002_len - read_00002_ptr, match_00002_00000, 2);
@@ -122,7 +122,7 @@ int main(void) {
       unsigned char *read_00003;
       unsigned int read_00003_len;
       unsigned int read_00003_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00003_delim[] = 
          "\x0a";
       read_00003 = NULL;
@@ -136,12 +136,12 @@ int main(void) {
       unsigned char *read_00004;
       unsigned int read_00004_len;
       unsigned int read_00004_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00004_len = 2;
       read_00004 = (unsigned char*)malloc(read_00004_len);
       int read_00004_res = length_read(0, read_00004, read_00004_len);
       if (read_00004_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00004_00000[] = 
          "\x3e\x20";
       read_00004_ptr += data_match(read_00004 + read_00004_ptr, read_00004_len - read_00004_ptr, match_00004_00000, 2);
@@ -173,7 +173,7 @@ int main(void) {
       unsigned char *read_00005;
       unsigned int read_00005_len;
       unsigned int read_00005_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00005_delim[] = 
          "\x0a";
       read_00005 = NULL;
@@ -187,12 +187,12 @@ int main(void) {
       unsigned char *read_00006;
       unsigned int read_00006_len;
       unsigned int read_00006_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00006_len = 2;
       read_00006 = (unsigned char*)malloc(read_00006_len);
       int read_00006_res = length_read(0, read_00006, read_00006_len);
       if (read_00006_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00006_00000[] = 
          "\x3e\x20";
       read_00006_ptr += data_match(read_00006 + read_00006_ptr, read_00006_len - read_00006_ptr, match_00006_00000, 2);
@@ -224,7 +224,7 @@ int main(void) {
       unsigned char *read_00007;
       unsigned int read_00007_len;
       unsigned int read_00007_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00007_len = 4;
       read_00007 = (unsigned char*)malloc(read_00007_len);
       int read_00007_res = length_read(0, read_00007, read_00007_len);
@@ -237,7 +237,7 @@ int main(void) {
       unsigned char *read_00008;
       unsigned int read_00008_len;
       unsigned int read_00008_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00008_delim[] = 
          "\x0a";
       read_00008 = NULL;
@@ -255,12 +255,12 @@ int main(void) {
       unsigned char *read_00009;
       unsigned int read_00009_len;
       unsigned int read_00009_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00009_len = 2;
       read_00009 = (unsigned char*)malloc(read_00009_len);
       int read_00009_res = length_read(0, read_00009, read_00009_len);
       if (read_00009_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00009_00000[] = 
          "\x3e\x20";
       read_00009_ptr += data_match(read_00009 + read_00009_ptr, read_00009_len - read_00009_ptr, match_00009_00000, 2);

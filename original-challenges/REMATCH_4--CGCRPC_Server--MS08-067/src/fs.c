@@ -113,7 +113,7 @@ fs_file *CreateFile(fs_tree *tree, uint8_t *filename, uint32_t userID, uint32_t 
         // Create new file in open slot
         fs_file *newfile = calloc(sizeof(fs_file));
         newfile->fileID = rand() & 0xffff;
-        int len = strlen((char *)filename);
+        int len = cgc_strlen((char *)filename);
         if (len > MAX_FILENAME_LEN)
         {
           len = MAX_FILENAME_LEN;
@@ -159,7 +159,7 @@ int ReadFile(uint8_t *dest, fs_file *file, uint16_t offset, uint16_t length)
   {
     length = file->numBytes - offset;
   }
-  memcpy(dest, file->bytes + offset, length);
+  cgc_memcpy(dest, file->bytes + offset, length);
   return 0;
 }
 
@@ -181,13 +181,13 @@ int WriteFile(fs_file *file, uint8_t *source, uint16_t offset, uint16_t length)
     {
       if (file->numBytes >= offset)
       {
-        memcpy(file->bytes, oldData, offset);
+        cgc_memcpy(file->bytes, oldData, offset);
       } else {
-        memcpy(file->bytes, oldData, file->numBytes);
+        cgc_memcpy(file->bytes, oldData, file->numBytes);
       }
     }
   }
-  memcpy(file->bytes + offset, source, length);
+  cgc_memcpy(file->bytes + offset, source, length);
   file->numBytes = offset + length;
   free(oldData);
   return 0;

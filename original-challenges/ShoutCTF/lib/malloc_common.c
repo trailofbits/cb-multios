@@ -36,7 +36,7 @@
 int allocate(size_t length, int is_X, void **addr)
 {
     void *result;
-    result = mmap(NULL, length, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
+    result = cgc_mmap(NULL, length, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
 
     if (result == MAP_FAILED)
         return -1;
@@ -48,12 +48,12 @@ int allocate(size_t length, int is_X, void **addr)
 /* XXX replace with cgc deallocate */
 int deallocate(void *addr, size_t length)
 {
-    return munmap(addr, length);
+    return cgc_munmap(addr, length);
 }
 
 void _terminate(int ec)
 {
-    exit(ec);
+    cgc_exit(ec);
 }
 #endif
 
@@ -463,7 +463,7 @@ void *malloc_realloc(malloc_t *heap, void *ptr, size_t n)
     if (new_ptr == NULL)
         return NULL;
 
-    memcpy(new_ptr, ptr, malloc_size(heap, ptr));
+    cgc_memcpy(new_ptr, ptr, malloc_size(heap, ptr));
 
     malloc_free(heap, ptr);
     return new_ptr;

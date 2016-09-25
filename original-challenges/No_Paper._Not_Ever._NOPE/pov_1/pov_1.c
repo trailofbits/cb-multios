@@ -22,7 +22,7 @@
 #include <libpov.h>
 int main(void) {
    // set last 4 bytes of session.key in initial send to be consecutive
-   // read respones packet to failed login, read the session key and the
+   // cgc_read respones packet to failed login, cgc_read the session key and the
    // session answer. use the first 4 unused bytes in the session answer 
    // and xor them with the last 4 bytes of the session key to get 4 fp bytes.
    negotiate_type2();
@@ -93,7 +93,7 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00000_len = 148;
       read_00000 = (unsigned char*)malloc(read_00000_len);
       int read_00000_res = length_read(0, read_00000, read_00000_len);
@@ -117,21 +117,21 @@ int main(void) {
       free(write_00001);
    } while (0);
 
-   // read key
+   // cgc_read key
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00001_len = 12;
       read_00001 = (unsigned char*)malloc(read_00001_len);
       int read_00001_res = length_read(0, read_00001, read_00001_len);
       if (read_00001_res) {} //silence unused variable warning
 
-   do { // read answer
+   do { // cgc_read answer
       unsigned char *read_00002;
       unsigned int read_00002_len;
       unsigned int read_00002_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00002_len = 8;
       read_00002 = (unsigned char*)malloc(read_00002_len);
       int read_00002_res = length_read(0, read_00002, read_00002_len);
@@ -140,21 +140,21 @@ int main(void) {
       if (read_00002_ptr) {}  //silence unused variable warning if any
    } while (0);
 
-   // read answer bytes after answer
+   // cgc_read answer bytes after answer
       unsigned char *read_00003;
       unsigned int read_00003_len;
       unsigned int read_00003_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00003_len = 120;
       read_00003 = (unsigned char*)malloc(read_00003_len);
       int read_00003_res = length_read(0, read_00003, read_00003_len);
       if (read_00003_res) {} //silence unused variable warning
 
-   do { // read result
+   do { // cgc_read result
       unsigned char *read_00004;
       unsigned int read_00004_len;
       unsigned int read_00004_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00004_len = 8;
       read_00004 = (unsigned char*)malloc(read_00004_len);
       int read_00004_res = length_read(0, read_00004, read_00004_len);

@@ -79,7 +79,7 @@ bool Interface::menuMain()
     char line[100], *word, *buf;
     while (true)
     {
-        fwrite(menuMainPrompt, strlen(menuMainPrompt), stdout);
+        fwrite(menuMainPrompt, cgc_strlen(menuMainPrompt), stdout);
         if (freaduntil(line, sizeof(line), '\n', stdin) < 0)
             return false;
 
@@ -232,7 +232,7 @@ bool Interface::menuExport()
     char line[100];
     while (true)
     {
-        fwrite(menuExportPrompt, strlen(menuExportPrompt), stdout);
+        fwrite(menuExportPrompt, cgc_strlen(menuExportPrompt), stdout);
         if (freaduntil(line, sizeof(line), '\n', stdin) < 0)
             return false;
 
@@ -265,7 +265,7 @@ bool Interface::menuNew()
     AudioTrack *track;
     while (true)
     {
-        fwrite(menuNewPrompt, strlen(menuNewPrompt), stdout);
+        fwrite(menuNewPrompt, cgc_strlen(menuNewPrompt), stdout);
         if (freaduntil(line, sizeof(line), '\n', stdin) < 0)
             return false;
 
@@ -402,7 +402,7 @@ bool Interface::menuEffects()
     AudioTrack *track;
     while (true)
     {
-        fwrite(menuEffectsPrompt, strlen(menuEffectsPrompt), stdout);
+        fwrite(menuEffectsPrompt, cgc_strlen(menuEffectsPrompt), stdout);
         if (freaduntil(line, sizeof(line), '\n', stdin) < 0)
             return false;
 

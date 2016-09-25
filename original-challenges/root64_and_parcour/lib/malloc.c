@@ -41,7 +41,7 @@ static int allocate_span()
     free_block_t *block = (free_block_t *)span;
     block->hdr.size = SPAN_SIZE;
     block->hdr.free = 1;
-    block->hdr.mmap = 0;
+    block->hdr.cgc_mmap = 0;
     block->next = g_malloc.free_list[NUM_BUCKETS-1];
     block->prev = NULL;
     g_malloc.free_list[NUM_BUCKETS-1] = block;
@@ -75,7 +75,7 @@ void *malloc(size_t size)
             return NULL;
         block_t *block = (block_t *)ret;
         block->free = 0;
-        block->mmap = 1;
+        block->cgc_mmap = 1;
         block->size = min_size;
         return (void *)((intptr_t)ret + OVERHEAD_BYTES);
     }

@@ -59,7 +59,7 @@ int AddToResponse(response *pResponse, char *pString)
   {
     return -1;
   }
-  int newLength = strlen(pString);
+  int newLength = cgc_strlen(pString);
   if (pResponse->data != NULL) 
   {
     newLength += pResponse->size;

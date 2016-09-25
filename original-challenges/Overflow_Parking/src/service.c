@@ -223,7 +223,7 @@ void add_to_stats(void *d) {
 void do_stats(parkstats_t *stats) {
     parkresp_t resp = {0};
 
-    memset(stats, '\0', sizeof(*stats));
+    cgc_memset(stats, '\0', sizeof(*stats));
     stats->do_stats = do_stats;
 
     list_init(&ticketl, dontfree);

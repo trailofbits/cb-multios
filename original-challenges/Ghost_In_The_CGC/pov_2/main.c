@@ -90,7 +90,7 @@ int main(void)
   char msg1[] = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBCCCCDDDD\n";
 
   unsigned int ipmask = 0x0EEEEEEE;
-  unsigned int orMask = 0xF1111111; //We use this mask because the read is delimited
+  unsigned int orMask = 0xF1111111; //We use this mask because the cgc_read is delimited
                                     // so we will or the requested value with this
                                     // to ensure 0x0a doesn't exist
   unsigned int regmask = 0x0EEEEEEE;

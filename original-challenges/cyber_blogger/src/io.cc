@@ -86,7 +86,7 @@ int IO::readnum(size_t max_size)
 char *IO::iotextdup(size_t max_size)
 {
     size_t rx, i = 0, multiplier = 0;
-    size_t tilde_count = 0; //``` = exit str
+    size_t tilde_count = 0; //``` = cgc_exit str
     char *strbuf;
     if (max_size < 3)
         return NULL;
@@ -111,7 +111,7 @@ char *IO::iotextdup(size_t max_size)
                 return NULL;
             }
 
-            memcpy(temp, strbuf, MAX_IO_SIZE << multiplier);
+            cgc_memcpy(temp, strbuf, MAX_IO_SIZE << multiplier);
             delete[] strbuf;
             strbuf = temp;
         }
@@ -151,14 +151,14 @@ File *IO::upload_file()
     File *new_file = NULL;
 
 
-    memset(file_name, 0, sizeof(file_name));
+    cgc_memset(file_name, 0, sizeof(file_name));
     printf("Enter Filename: ");
     if (IO::readline()) {
-        if (strlen(IO::buf()) > 2 && strlen(IO::buf()) < 64) {
-            memcpy(file_name, IO::buf(), strlen(IO::buf()));
+        if (cgc_strlen(IO::buf()) > 2 && cgc_strlen(IO::buf()) < 64) {
+            cgc_memcpy(file_name, IO::buf(), cgc_strlen(IO::buf()));
         }
         else {
-            memcpy(file_name, IO::buf(), sizeof(file_name) - 1);
+            cgc_memcpy(file_name, IO::buf(), sizeof(file_name) - 1);
         }
     }
 

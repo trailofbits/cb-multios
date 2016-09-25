@@ -88,7 +88,7 @@ void add_course(course_t *course)
 
     if (add_item(g_all_courses, course) != 0) {
         printf("Out of Memory. Terminating\n");
-        exit(1);
+        cgc_exit(1);
     }
 }
 

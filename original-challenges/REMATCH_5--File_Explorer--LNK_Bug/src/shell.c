@@ -137,16 +137,16 @@ ExecutableInMemory *VerifyAndLoadFlavorFile(char *name, FileNode *parent)
 { 
   // check name fits with .listofiles added
   char listofiles[65];
-  memset(listofiles, 0, 65);
+  cgc_memset(listofiles, 0, 65);
   strncpy(listofiles, name, 64);
   char *sepIndex = strchr(listofiles, '_');
   if (sepIndex)
   {
     *sepIndex = 0;
   } else {
-    sepIndex = listofiles + strlen(listofiles);
+    sepIndex = listofiles + cgc_strlen(listofiles);
   }
-  if (strlen(listofiles) > 64 - strlen(".listofiles"))
+  if (cgc_strlen(listofiles) > 64 - cgc_strlen(".listofiles"))
   {
     return NULL;
   }

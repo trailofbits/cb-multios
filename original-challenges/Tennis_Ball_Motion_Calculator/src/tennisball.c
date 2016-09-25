@@ -91,7 +91,7 @@ int snprintfloat(char* str, size_t len, float num)
 
 /**
  * The maximum unsigned value is 4294967295 which is 0xFFFFFFFF
- * So the idea is to read in up to 9 digits and then convert that
+ * So the idea is to cgc_read in up to 9 digits and then convert that
  * into a uint64_t. We need a uint64_t because 9999999999 will overflow
  * uint32_t. 
  *

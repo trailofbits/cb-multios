@@ -33,12 +33,12 @@ static unsigned char *create_barcode_bmp_data(barcode_128_t *barcode, unsigned i
     *bmp_width = 0;
     char *barcode_ascii = create_barcode_ascii(barcode);
     char *barcode_ascii_start = barcode_ascii;
-    if (!barcode_ascii || strlen(barcode->raw_str) > MAX_BARCODE_LENGTH)
+    if (!barcode_ascii || cgc_strlen(barcode->raw_str) > MAX_BARCODE_LENGTH)
         return NULL;
-    *bytes_alloc = strlen(barcode_ascii) * PIXELW * PIXELH * 3;
+    *bytes_alloc = cgc_strlen(barcode_ascii) * PIXELW * PIXELH * 3;
     unsigned char *data = calloc(1, *bytes_alloc);
     unsigned char *pdata = data;
-    unsigned int width = strlen(barcode_ascii) * PIXELW * 3;
+    unsigned int width = cgc_strlen(barcode_ascii) * PIXELW * 3;
     *bmp_width = width;
 
     int j = 0, i = 0;
@@ -53,13 +53,13 @@ static unsigned char *create_barcode_bmp_data(barcode_128_t *barcode, unsigned i
         }
 
         for (i = 0; i < PIXELW; i++) {
-            memcpy(pdata, value, 3);
+            cgc_memcpy(pdata, value, 3);
             pdata += 3;
         }
         barcode_ascii++;
     }
     for (j = 1; j < PIXELH; j++)
-        memcpy(&data[(j * width)], &data[0], width);
+        cgc_memcpy(&data[(j * width)], &data[0], width);
 
     free(barcode_ascii_start);
     return data;
@@ -109,7 +109,7 @@ barcode_bmp_t *create_barcode_bmp(barcode_128_t *barcode)
     if (!bmp_data || !image_size)
         return NULL;
 
-    memcpy(bheader.magic, "BM", 2);
+    cgc_memcpy(bheader.magic, "BM", 2);
     bheader.reserved = 0;
     bheader.file_size = sizeof(barcode_bmp_t) + image_size;
     bheader.data_offset = sizeof(barcode_bmp_t);
@@ -127,9 +127,9 @@ barcode_bmp_t *create_barcode_bmp(barcode_128_t *barcode)
     binfo.imp_colors = 0;
 
     barcode_bmp_t *barcode_bmp = malloc(sizeof(barcode_bmp_t) + image_size);
-    memcpy(&barcode_bmp->header, &bheader, sizeof(bmp_header_t));
-    memcpy(&barcode_bmp->info, &binfo, sizeof(bmp_info_t));
-    memcpy(barcode_bmp->data, bmp_data, image_size);
+    cgc_memcpy(&barcode_bmp->header, &bheader, sizeof(bmp_header_t));
+    cgc_memcpy(&barcode_bmp->info, &binfo, sizeof(bmp_info_t));
+    cgc_memcpy(barcode_bmp->data, bmp_data, image_size);
     free(bmp_data);
     return barcode_bmp;
 }

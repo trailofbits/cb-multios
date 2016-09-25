@@ -121,7 +121,7 @@ DEF_LIST(sym, sym_t *);
     } else { \
       CONZ(&CDR(li), e, NULL); \
       if (CDR(li) == NULL) \
-        exit(1); \
+        cgc_exit(1); \
     } \
   } while (0)
 

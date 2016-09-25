@@ -55,7 +55,7 @@ private:
 		{
 			m_pData = new uint8_t[dataLen];
 
-			memcpy( m_pData, pData, dataLen );
+			cgc_memcpy( m_pData, pData, dataLen );
 			m_dataLen = dataLen;
 		}
 

@@ -30,11 +30,11 @@ extern "C" {
 AsciiArt::AsciiArt(void *_header, void *data, char *_filename)
 : File(sizeof(AsciiArtHeader), find_data_size(_header), _filename)
 {
-    memcpy(&header, _header, sizeof(AsciiArtHeader));
+    cgc_memcpy(&header, _header, sizeof(AsciiArtHeader));
     raw_header = (void *)&header;
 
     raw_data = new char[get_data_size() + 1];
-    memcpy(raw_data, data, get_data_size());
+    cgc_memcpy(raw_data, data, get_data_size());
     raw_data[get_data_size()] = '\0';
 
     if (!is_ascii((char *) data)) {
@@ -64,12 +64,12 @@ unsigned int AsciiArt::get_magic()
 bool AsciiArt::is_ascii(char *stream)
 {
     char *line = NULL;
-    char *_stream = new char[strlen(stream) + 1];
+    char *_stream = new char[cgc_strlen(stream) + 1];
     strcpy(_stream, stream);
     int num_lines = 0;
     size_t len, i;
     while ((line = strsep(&_stream, "\n")) && num_lines < header.num_lines) {
-        len = strlen(line) + 1;
+        len = cgc_strlen(line) + 1;
         if (len != header.line_width) {
             return false;
         } else {

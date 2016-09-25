@@ -30,13 +30,13 @@ static char *get_no_ws_line(char *line)
     if (line == NULL)
         return NULL;
 
-    size_t size = strlen(line) + 1, i;
+    size_t size = cgc_strlen(line) + 1, i;
     char *nline = NULL, *iter;
     nline = malloc(size);
     if (nline == NULL)
         return NULL;
 
-    memset(nline, 0, size);
+    cgc_memset(nline, 0, size);
     iter = nline;
     for (i = 0; i < size; i++) {
         if (strchr(" \t\n", line[i]) == NULL)
@@ -51,7 +51,7 @@ static size_t count_words(char *str) {
     if (!str)
         return 0;
 
-    int i, len = strlen(str);
+    int i, len = cgc_strlen(str);
     size_t words = 0;
     for (i = 0; i < len; i++) {
         if (strchr(" \t\r\n", str[i]) == NULL)
@@ -72,7 +72,7 @@ lcll_t *pre_process(SFILE *sfp, size_t *wordc, size_t *linec)
     lcll_t *head = NULL, *iter, *next;
 
     line = strsep(&data, "\n");
-    while (line && (strlen(line) || (data && strlen(data)))) {
+    while (line && (cgc_strlen(line) || (data && cgc_strlen(data)))) {
         next = malloc(sizeof(lcll_t));
         if (!next)
             return NULL;

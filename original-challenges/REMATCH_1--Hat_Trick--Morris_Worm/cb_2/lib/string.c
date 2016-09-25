@@ -26,7 +26,7 @@ THE SOFTWARE.
 #include <string.h>
 #include <stdint.h>
 
-size_t strlen( const char *str )
+size_t cgc_strlen( const char *str )
 {
 	size_t len = 0;
 	while ( *str++ != '\0' )
@@ -42,7 +42,7 @@ void bzero(void *s, size_t n) {
         ((char *)s)[n] = '\0';
 }
 
-void *memset( void *ptr, int value, size_t num )
+void *cgc_memset( void *ptr, int value, size_t num )
 {
 	void *ptr_temp = ptr;
 	uint8_t set_value_byte = (uint8_t)value;
@@ -70,7 +70,7 @@ char *strchr(char *s, int c) {
 	if (!s) {
 		return(NULL);
 	}
-	for (i = 0; i < strlen(s); i++) {
+	for (i = 0; i < cgc_strlen(s); i++) {
 		if (s[i] == c) {
 			return(s+i);
 		}
@@ -107,7 +107,7 @@ char *strtok(char *str, char *sep) {
 		return(NULL);
 	}
 
-	str_len = strlen(str);
+	str_len = cgc_strlen(str);
 	for (i = 0; i < str_len; i++) {
 		if (strchr(sep, str[i])) {
 			// found a sep character
@@ -168,7 +168,7 @@ char *strstr(char *s1, char *s2) {
 	if ((s1 == NULL) || (s2 == NULL)) {
 		return NULL;
 	}
-	int s2len = strlen(s2);
+	int s2len = cgc_strlen(s2);
 	while(*s1 != '\0') {
 		if (strncmp(s1, s2, s2len) == 0) {
 			return s1;
@@ -180,7 +180,7 @@ char *strstr(char *s1, char *s2) {
 
 
 char *rindex(char *source, char match) {
-	int length = strlen(source);
+	int length = cgc_strlen(source);
 	for(int i=length; i>=0; i--) {
 		if (source[i] == match) {
 			return (source + i);

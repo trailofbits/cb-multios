@@ -150,13 +150,13 @@ int add_entry(cmdb_entry_t *entry)
             g_cmdb = temp_db;
             return -1;
         }
-        memcpy(g_cmdb, temp_db, (sizeof(cmdb_entry_t) * g_list_size));
+        cgc_memcpy(g_cmdb, temp_db, (sizeof(cmdb_entry_t) * g_list_size));
 
         g_list_size <<= 1;
         free(temp_db);
     }
 
-    memcpy(&g_cmdb[g_list_length++], entry, sizeof(cmdb_entry_t));
+    cgc_memcpy(&g_cmdb[g_list_length++], entry, sizeof(cmdb_entry_t));
     return 0;
 }
 
@@ -173,7 +173,7 @@ int delete_entry(int id)
     free(g_cmdb[id].desc);
 
     if (id+1 < g_list_length)
-        memcpy(&g_cmdb[id], &g_cmdb[id+1], sizeof(cmdb_entry_t) * (g_list_length - (id+1)));
+        cgc_memcpy(&g_cmdb[id], &g_cmdb[id+1], sizeof(cmdb_entry_t) * (g_list_length - (id+1)));
 
     g_list_length--;
     printf("Successfully removed the movie!\n");

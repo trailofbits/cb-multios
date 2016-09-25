@@ -51,8 +51,8 @@
  *
  * @param fd A file descriptor
  * @param buf The destination buffer
- * @param n The number of bytes to read
- * @return The number of bytes read, or negative on failure
+ * @param n The number of bytes to cgc_read
+ * @return The number of bytes cgc_read, or negative on failure
  */
 ssize_t read_all(int fd, void *buf, size_t n);
 
@@ -61,7 +61,7 @@ ssize_t read_all(int fd, void *buf, size_t n);
  *
  * @param fd A file descriptor
  * @param buf The source buffer
- * @param n The number of bytes to write
+ * @param n The number of bytes to cgc_write
  * @return The number of bytes written, or negative on failure
  */
 ssize_t write_all(int fd, void *buf, size_t n);
@@ -74,7 +74,7 @@ ssize_t write_all(int fd, void *buf, size_t n);
  * @param n The number of bytes to set
  * @return ptr
  */
-void *memset(void *ptr, int val, size_t n);
+void *cgc_memset(void *ptr, int val, size_t n);
 
 /**
  * Copy a null-terminated string from src to dst.
@@ -121,7 +121,7 @@ char *strncat(char *dst, const char *src, size_t n);
  * @param s The string
  * @return The length of s
  */
-size_t strlen(const char *s);
+size_t cgc_strlen(const char *s);
 
 /**
  * Return the length of a null-terminated string, checking at most n bytes.
@@ -177,7 +177,7 @@ extern FILE *stderr;
 /**
  * Formatted output to a stream.
  *
- * @param stream The stream to write to
+ * @param stream The stream to cgc_write to
  * @param format The format specifier
  * @return number of bytes written
  */

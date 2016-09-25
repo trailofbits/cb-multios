@@ -197,7 +197,7 @@ char * print_subsets( psetArray r, int addName )
 	bzero( data, DATAMAX);
 
 	if (addName != 0 ) {
-		index = copymem( data, r->varName, index, strlen(r->varName) );
+		index = copymem( data, r->varName, index, cgc_strlen(r->varName) );
 		index = copymem( data, " = ", index, 3 );
 	}
 
@@ -213,11 +213,11 @@ char * print_subsets( psetArray r, int addName )
 			t = r->sElems[ei]->value;
 
 #ifdef PATCHED
-			if ( index + strlen(t) >= DATAMAX-1 ) {
+			if ( index + cgc_strlen(t) >= DATAMAX-1 ) {
 				goto end;
 			}
 #endif
-			index = copymem( data, t, index, strlen(t));
+			index = copymem( data, t, index, cgc_strlen(t));
 
 #ifdef PATCHED
 			if ( index < DATAMAX-1 )
@@ -237,14 +237,14 @@ char * print_subsets( psetArray r, int addName )
 			}
 
 #ifdef PATCHED
-			if ( index + strlen(t) >= DATAMAX-1 ) {
-				deallocate(t, strlen(t) + 1 );
+			if ( index + cgc_strlen(t) >= DATAMAX-1 ) {
+				deallocate(t, cgc_strlen(t) + 1 );
 				goto end;
 			}
 #endif
 
-			index = copymem( data, t, index, strlen(t));
-			deallocate(t, strlen(t) + 1 );	
+			index = copymem( data, t, index, cgc_strlen(t));
+			deallocate(t, cgc_strlen(t) + 1 );	
 		}
 
 #ifdef PATCHED
@@ -266,14 +266,14 @@ char * print_subsets( psetArray r, int addName )
 		}
 	}
 
-	if ( allocate( strlen(data) + 1, 0, (void*)&outbuff) != 0 ) {
+	if ( allocate( cgc_strlen(data) + 1, 0, (void*)&outbuff) != 0 ) {
 		outbuff = NULL;
 		goto end;
 	}
 
-	bzero( outbuff, strlen(data) + 1 );
+	bzero( outbuff, cgc_strlen(data) + 1 );
 
-	copymem( outbuff, data, 0, strlen(data) );
+	copymem( outbuff, data, 0, cgc_strlen(data) );
 
 end:
 	return outbuff;
@@ -346,7 +346,7 @@ void exec_command( char *cmd )
 #endif 
         if ( ps != NULL ) {
         	printf("@s\n", ps);
-		deallocate(ps, strlen(ps)+1);
+		deallocate(ps, cgc_strlen(ps)+1);
 	}
     } else if ( strcmp( cmd, ".p") == 0 ) {
         print_sets();
@@ -473,7 +473,7 @@ psetArray parse_set( char *setstring)
                         goto end;
                     }
 
-                    memcpy( temp, var_start, right-var_start);
+                    cgc_memcpy( temp, var_start, right-var_start);
                     t = retrieve_set( temp );
 
                     if ( t == NULL ) {
@@ -522,7 +522,7 @@ psetArray parse_set( char *setstring)
                         goto end;
                     }
 
-                    memcpy( temp, var_start, right-var_start);
+                    cgc_memcpy( temp, var_start, right-var_start);
                     se = create_element( temp, VALUE );
 
                     if ( se == NULL ) {
@@ -571,7 +571,7 @@ psetArray parse_set( char *setstring)
                         goto end;
                     }
 
-                    memcpy( temp, var_start, right-var_start);
+                    cgc_memcpy( temp, var_start, right-var_start);
                     se = create_element( temp, SET );
 
                     if ( se == NULL ) {
@@ -616,7 +616,7 @@ psetArray parse_set( char *setstring)
                         goto end;
                     }
 
-                    memcpy( temp, var_start, right-var_start);
+                    cgc_memcpy( temp, var_start, right-var_start);
                     se = create_element( temp, SET );
 
                     if ( se == NULL ) {
@@ -968,7 +968,7 @@ psetArray parse_operations( char *setName, char *setData )
                 goto end;
             }
 
-            memcpy( setval, setstart, nlen );
+            cgc_memcpy( setval, setstart, nlen );
 
             if ( setone == NULL ) {
                 setone = retrieve_set( setval );
@@ -1205,7 +1205,7 @@ void command_loop( void )
         } else {
             psc = parse_command_line( cmd );
 
-            /// If command line parsing failed then exit
+            /// If command line parsing failed then cgc_exit
             if ( psc == NULL ) {
 		_terminate(0);
                 continue;

@@ -92,13 +92,13 @@ Border *extractBorder( pstring str )
 	/// If the element id is not "Border" then this is the wrong function
 	if ( strcmp( temp, "Border") != 0 ) {
 		printf("!!Element id is not \"Border\"\n");
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 		temp = NULL;
 		goto error;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, strlen(temp) + 1);
+	deallocate(temp, cgc_strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -270,11 +270,11 @@ Border *extractBorder( pstring str )
 
 	if ( strcmp( temp, "Border") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, strlen(temp)+1);
+		deallocate(temp, cgc_strlen(temp)+1);
 		goto error;
 	}
 
-	deallocate(temp, strlen(temp)+1);
+	deallocate(temp, cgc_strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -356,13 +356,13 @@ int extractPopulation( pstring str )
 	/// If the element id is not "Population" then this is the wrong function
 	if ( strcmp( temp, "Population") != 0 ) {
 		printf("!!Element id is not \"Population\"\n");
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 		temp = NULL;
 		return -1;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, strlen(temp) + 1);
+	deallocate(temp, cgc_strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -440,11 +440,11 @@ int extractPopulation( pstring str )
 
 	if ( strcmp( temp, "Population") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, strlen(temp)+1);
+		deallocate(temp, cgc_strlen(temp)+1);
 		return -1;
 	}
 
-	deallocate(temp, strlen(temp)+1);
+	deallocate(temp, cgc_strlen(temp)+1);
 
 	skipWhiteSpace( str );
 
@@ -467,7 +467,7 @@ int extractPopulation( pstring str )
 
 	pop = atoi( temp );
 
-	deallocate( temp, strlen(temp) + 1 );
+	deallocate( temp, cgc_strlen(temp) + 1 );
 
 	return pop;
 }
@@ -537,13 +537,13 @@ char *extractName( pstring str )
 	/// If the element id is not "Name" then this is the wrong function
 	if ( strcmp( temp, "Name") != 0 ) {
 		printf("!!Element id is not \"Name\"\n");
-		deallocate( temp, strlen(temp) + 1 );
+		deallocate( temp, cgc_strlen(temp) + 1 );
 		temp = NULL;
 		return NULL;
 	}
 
 	/// The buffer is no longer needed so free it
-	deallocate(temp, strlen(temp) + 1);
+	deallocate(temp, cgc_strlen(temp) + 1);
 
 	/// Skip to the end of the element id
 	skipWhiteSpace( str );
@@ -621,11 +621,11 @@ char *extractName( pstring str )
 
 	if ( strcmp( temp, "Name") != 0 ) {
 		printf("!!Invalid closing element id: @s\n", temp);
-		deallocate(temp, strlen(temp)+1);
+		deallocate(temp, cgc_strlen(temp)+1);
 		return NULL;
 	}
 
-	deallocate(temp, strlen(temp)+1);
+	deallocate(temp, cgc_strlen(temp)+1);
 
 	skipWhiteSpace( str );
 

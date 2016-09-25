@@ -68,7 +68,7 @@ void send_pov_packet( void )
 	uint32_t samples_sent = 0;
 	uint32_t i;
 
-	memset( emptySpace, 0, 4 );
+	cgc_memset( emptySpace, 0, 4 );
 
 	// Preamble 1010 1010 1010 1010 1010...
 	packet_header_data[0] = 0xAA;
@@ -84,7 +84,7 @@ void send_pov_packet( void )
 	// Length	
 	packet_header_data[7] = init_data_len + 12;
 
-	memset( init_data, 0xAA, 49 );
+	cgc_memset( init_data, 0xAA, 49 );
 	init_data[0] = 3;
 	init_data[4] = 0xAA;
 
@@ -107,7 +107,7 @@ void send_pov_packet( void )
 	free( packet_data );
 
 	// Send 256-bytes of NULL to seed FIR filter
-	memset( firFilterInit, 0, 256 );
+	cgc_memset( firFilterInit, 0, 256 );
 
 	for ( uint32_t t = 0; t < 2; t++ )
 	{
@@ -172,7 +172,7 @@ int main(void)
 		unsigned char *read_00000;
 		unsigned int read_00000_len;
 		unsigned int read_00000_ptr = 0;
-		//**** delimited read
+		//**** delimited cgc_read
 		static unsigned char read_00000_delim[] = 
 		 "\x0a";
 		read_00000 = NULL;

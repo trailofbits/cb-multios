@@ -22,7 +22,7 @@
 #include <libcgc.h>
 #include "strlen.h"
 
-unsigned int strlen(const char *str, const char term) {
+unsigned int cgc_strlen(const char *str, const char term) {
 
 	if (NULL == str) {
 		return 0;

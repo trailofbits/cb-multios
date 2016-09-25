@@ -103,7 +103,7 @@ int log_dives(logbook_type *Info)  {
 		strncpy(next_dive->dive_time, buffer2, count);
 
 	strncat(buffer, " ", 1);
-	strncat(buffer, buffer2, strlen(buffer2));
+	strncat(buffer, buffer2, cgc_strlen(buffer2));
 
 	datetime_struct_type tm;
 	next_dive->timestamp =  str2datetime(buffer, &tm);

@@ -3,10 +3,10 @@
 
 char *strdup(const char *str)
 {
-    size_t n = strlen(str) + 1;
+    size_t n = cgc_strlen(str) + 1;
     char *dup = malloc(n);
     if (dup == NULL)
         return NULL;
-    memcpy(dup, str, n);
+    cgc_memcpy(dup, str, n);
     return dup;
 }

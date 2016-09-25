@@ -98,7 +98,7 @@ int main(void) {
     eip = append_var("TYPE1_IP", eip, &eip_len);
     reg = append_var("TYPE1_REG", reg, &reg_len);
 
-    memset(exploit, 0, sizeof(exploit));
+    cgc_memset(exploit, 0, sizeof(exploit));
     bio_t *bio = bit_new(exploit);
 
     for (i = 0; i < 2316; ++i)

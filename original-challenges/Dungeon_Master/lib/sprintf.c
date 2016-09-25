@@ -144,7 +144,7 @@ va_list args;			/* list of arguments */
 			case 'X': 			// null-terminated string
 				x = va_arg(args, char *);
 				if (!x) x = "|BAD|";
-				len = strlen(x);
+				len = cgc_strlen(x);
 				for(i = len; i > 0; i--) 
 					str[d++] = x[len-i];
 				continue; 

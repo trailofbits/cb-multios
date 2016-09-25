@@ -84,7 +84,7 @@ size_t i, j;
 
 		bzero(padded_input_data, padded_input_size);
 
-		memcpy(padded_input_data, data, data_size);
+		cgc_memcpy(padded_input_data, data, data_size);
 
 		output_data = malloc(output_size);
 

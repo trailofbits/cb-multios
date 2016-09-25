@@ -58,7 +58,7 @@ static int readline(int fd, char *line, size_t line_size)
 
     for (i = 0; i < line_size; i++) {
         if (receive(fd, line, 1, &rx) != 0 || rx == 0)
-            exit(0);
+            cgc_exit(0);
         if (*line == '\n')
             break;
         line++;
@@ -86,31 +86,31 @@ static int parse_line(char *line)
     if (strtrim(line, LINE_SIZE, TRIM_FRONT) == -1)
         return BAD_INPUT;
 
-    memcpy(tmp, line, strlen(SHOW));
-    for (i = 0; i < strlen(SHOW); i++)
+    cgc_memcpy(tmp, line, cgc_strlen(SHOW));
+    for (i = 0; i < cgc_strlen(SHOW); i++)
         tmp[i] = toupper(tmp[i]);
 
-    if (memcmp(tmp, SHOW, strlen(SHOW)) == 0)
+    if (memcmp(tmp, SHOW, cgc_strlen(SHOW)) == 0)
         goto show_cmd;
 
-    memcpy(tmp, line, strlen(REPR));
-    for (i = 0; i < strlen(REPR); i++)
+    cgc_memcpy(tmp, line, cgc_strlen(REPR));
+    for (i = 0; i < cgc_strlen(REPR); i++)
         tmp[i] = toupper(tmp[i]);
 
-    if (memcmp(tmp, REPR, strlen(REPR)) == 0) {
+    if (memcmp(tmp, REPR, cgc_strlen(REPR)) == 0) {
         is_repr = 1;
         goto show_cmd;
     }
 
-    memcpy(tmp, line, strlen(CLEAR));
-    for (i = 0; i < strlen(CLEAR); i++)
+    cgc_memcpy(tmp, line, cgc_strlen(CLEAR));
+    for (i = 0; i < cgc_strlen(CLEAR); i++)
         tmp[i] = toupper(tmp[i]);
 
-    if (memcmp(tmp, CLEAR, strlen(CLEAR)) == 0)
+    if (memcmp(tmp, CLEAR, cgc_strlen(CLEAR)) == 0)
         goto clear_cmd;
 
-    // Use sizeof to include null terminator (vs strlen)
-    memcpy(tmp, line, sizeof(EXIT));
+    // Use sizeof to include null terminator (vs cgc_strlen)
+    cgc_memcpy(tmp, line, sizeof(EXIT));
     for (i = 0; i < sizeof(EXIT); i++)
         tmp[i] = toupper(tmp[i]);
 
@@ -121,16 +121,16 @@ static int parse_line(char *line)
 
 show_cmd:
     strtrim(line, LINE_SIZE, TRIM_BACK);
-    memcpy(tmp, &line[strlen(SHOW)], sizeof(TABLE));
+    cgc_memcpy(tmp, &line[cgc_strlen(SHOW)], sizeof(TABLE));
     for (i = 0; i < sizeof(TABLE); i++)
         tmp[i] = toupper(tmp[i]);
 
-    // Use sizeof to include null terminator (vs strlen)
+    // Use sizeof to include null terminator (vs cgc_strlen)
     if (memcmp(tmp, TABLE, sizeof(TABLE)) == 0) {
         print_table();
         return CMD_SUCCESS;
-    } else if (valid_cell_id(&line[strlen(SHOW)]) != -1) {
-        cell_str = show_cell(&line[strlen(SHOW)], is_repr, val_str, LINE_SIZE);
+    } else if (valid_cell_id(&line[cgc_strlen(SHOW)]) != -1) {
+        cell_str = show_cell(&line[cgc_strlen(SHOW)], is_repr, val_str, LINE_SIZE);
         if (is_repr)
             printf("Cell Repr: %s\n", cell_str);
         else
@@ -141,7 +141,7 @@ show_cmd:
     }
 
 clear_cmd:
-    if (clear_cell(&line[strlen(CLEAR)]) != 0)
+    if (clear_cell(&line[cgc_strlen(CLEAR)]) != 0)
         return BAD_CLEAR_CMD;
 
     return CMD_SUCCESS;
@@ -163,7 +163,7 @@ exit_cmd:
 int main(void) {
     char line[LINE_SIZE];
     init_sheet();
-    int exit = 0;
+    int cgc_exit = 0;
     int line_status;
 
     do {
@@ -191,14 +191,14 @@ int main(void) {
                 printf("Success.\n");
                 break;
             case EXIT_CODE:
-                exit = 1;
+                cgc_exit = 1;
                 printf("Exiting...\n");
                 return 0;
             default:
                 printf("Unknown Input\n");
                 break;
         }
-    } while (!exit);
+    } while (!cgc_exit);
 
     printf("Unsupported signal. Exiting...\n");
     return 0;

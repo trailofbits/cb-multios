@@ -37,10 +37,10 @@ int main(void)
   char *buf = malloc(MAX_EXPRESSION_LENGTH + 1);
 
   if (buf == NULL)
-    exit(1);
+    cgc_exit(1);
 
   for (;;) {
-    memset(buf, '\0', MAX_EXPRESSION_LENGTH + 1);
+    cgc_memset(buf, '\0', MAX_EXPRESSION_LENGTH + 1);
 
     printf("> ");
     if (read_balanced_expression(STDIN, buf, MAX_EXPRESSION_LENGTH) != 0) {

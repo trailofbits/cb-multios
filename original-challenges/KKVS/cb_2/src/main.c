@@ -128,7 +128,7 @@ extern void *realloc(void *ptr, size_t size);
 extern void free(void *ptr);
 extern size_t malloc_size(void *ptr);
 
-static void exit(int ret)
+static void cgc_exit(int ret)
 {
     _terminate(ret);
 }
@@ -139,13 +139,13 @@ static void exit(int ret)
 
 
 
-extern void *memcpy(void *dest, const void *src, size_t n);
+extern void *cgc_memcpy(void *dest, const void *src, size_t n);
 extern void *memmove(void *dest, const void *src, size_t n);
-extern void *memset(void *dest, int c, size_t n);
+extern void *cgc_memset(void *dest, int c, size_t n);
 extern int memcmp(void *s1, const void *s2, size_t n);
 extern void *memchr(const void *s, int c, size_t n);
 
-extern size_t strlen(const char *s);
+extern size_t cgc_strlen(const char *s);
 extern char *strcpy(char *dest, const char *src);
 extern char *strncpy(char *dest, const char *src, size_t n);
 extern char *strchr(const char *s, int c);
@@ -256,23 +256,23 @@ store_tree_t* make_tree(store_tree_t* l, store_tree_t* r, char* key, char* val)
 
   store_tree_t* new = calloc(sizeof(store_tree_t), 1);
   if (!new)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 57); exit(1); });
+    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 57); cgc_exit(1); });
   if (l)
     new->l = l;
   if (r)
     new->r = r;
 
-  new->klen = strlen(key);
+  new->klen = cgc_strlen(key);
   new->key = calloc(sizeof(char), new->klen + 1);
   if (!new->key)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 66); exit(1); });
+    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 66); cgc_exit(1); });
   else
     strcpy(new->key, key);
 
-  new->vlen = strlen(val);
+  new->vlen = cgc_strlen(val);
   new->val = calloc(sizeof(char), new->vlen + 1);
   if (!new->val)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 73); exit(1); });
+    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 73); cgc_exit(1); });
   else
     strcpy(new->val, val);
 
@@ -378,10 +378,10 @@ int append_tree_val(store_tree_t* node, char* append_val)
   if (!append_val || !node)
     return -1;
 
-  node->vlen += strlen(append_val);
+  node->vlen += cgc_strlen(append_val);
   node->val = realloc(node->val, node->vlen + 1);
   if (!node->val)
-      ({ fdprintf(2, "ERROR %s:%d:\t" "bad realloc" "\n", "src/main.c", 182); exit(1); });
+      ({ fdprintf(2, "ERROR %s:%d:\t" "bad realloc" "\n", "src/main.c", 182); cgc_exit(1); });
   strcat(node->val, append_val);
   return 0;
 }
@@ -392,11 +392,11 @@ int update_tree_val(store_tree_t* node, char* new_val)
     return -1;
 
   free(node->val);
-  node->val = calloc(sizeof(char), strlen(new_val) + 1);
+  node->val = calloc(sizeof(char), cgc_strlen(new_val) + 1);
   if (!node->val)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 195); exit(1); });
+    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 195); cgc_exit(1); });
   strcpy(node->val, new_val);
-  node->vlen = strlen(new_val);
+  node->vlen = cgc_strlen(new_val);
   return 0;
 }
 
@@ -408,14 +408,14 @@ unsigned char* read_command(int fd)
     return ((void *)0);
 
   if (strncmp("quit", (char *)&size, 4) == 0)
-    exit(0);
+    cgc_exit(0);
 
   if (size > (16 * 1024) || size < 0)
     return ((void *)0);
 
   unsigned char* command = calloc(sizeof(unsigned char), size);
   if (!command)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 216); exit(1); });
+    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 216); cgc_exit(1); });
 
   if (read_n_bytes(fd, size, (char* )command) != size)
   {
@@ -430,30 +430,30 @@ command_t* unserialize_command(unsigned char* serialized)
 {
   command_t* command = calloc(sizeof(command_t), 1);
   if (!command)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 231); exit(1); });
+    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 231); cgc_exit(1); });
 
   unsigned char* cur = serialized;
 
-  memcpy(&command->type, cur, sizeof(command->type));
+  cgc_memcpy(&command->type, cur, sizeof(command->type));
   cur += sizeof(command->type);
 
-  memcpy(&command->arity, cur, sizeof(command->arity));
+  cgc_memcpy(&command->arity, cur, sizeof(command->arity));
   cur += sizeof(command->arity);
 
   if (command->arity > 0)
   {
     command->argv = calloc(sizeof(char *), command->arity);
     if (!command->argv)
-      ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 245); exit(1); });
+      ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 245); cgc_exit(1); });
   }
 
   for (size_t i = 0; i < command->arity; i++)
   {
-    command->argv[i] = calloc(sizeof(char), strlen((char *)cur) + 1);
+    command->argv[i] = calloc(sizeof(char), cgc_strlen((char *)cur) + 1);
     if (!command->argv[i])
-      ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 252); exit(1); });
+      ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 252); cgc_exit(1); });
     strcpy(command->argv[i], (char* )cur);
-    cur += strlen(command->argv[i]) + 1;
+    cur += cgc_strlen(command->argv[i]) + 1;
   }
 
   return command;
@@ -477,14 +477,14 @@ char* handle_append(command_t* command)
 
   char *res = calloc(sizeof(char), 32);
   if (!res)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 278); exit(1); });
-  sprintf(res, "%d", (int)strlen(node->val));
+    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 278); cgc_exit(1); });
+  sprintf(res, "%d", (int)cgc_strlen(node->val));
   return res;
 }
 
 char* handle_auth(command_t* command)
 {
-  if (strncmp(command->argv[0], "password", strlen("password")) != 0)
+  if (strncmp(command->argv[0], "password", cgc_strlen("password")) != 0)
     return (char *)AUTH_ERR;
 
   authed = 1;
@@ -502,15 +502,15 @@ char* handle_bitcount(command_t* command)
 
   char *p = node->val;
 
-  while (strlen(p) >= 4)
+  while (cgc_strlen(p) >= 4)
   {
     bitcount += __builtin_popcount(*(unsigned int *)p);
     p += 4;
   }
 
-  if (strlen(p) > 0)
+  if (cgc_strlen(p) > 0)
   {
-    int i = strlen(p);
+    int i = cgc_strlen(p);
     unsigned mask = 0;
     for (int ii = 0; ii < i; ii++)
       mask |= (0xFF << (ii * 8));
@@ -519,7 +519,7 @@ char* handle_bitcount(command_t* command)
 
 done:
   if (!res)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 320); exit(1); });
+    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 320); cgc_exit(1); });
   sprintf(res, "%d", bitcount);
   return res;
 }
@@ -529,7 +529,7 @@ char safe_str_index(char* s, size_t i, char def)
   if (!s)
     return def;
 
-  size_t max = strlen(s);
+  size_t max = cgc_strlen(s);
 
   if (i >= max)
     return def;
@@ -575,12 +575,12 @@ char* handle_bitop(command_t* command)
 #endif
     return (char *)_false;
 
-  size_t llen = strlen(s1) > strlen(s2) ? strlen(s1) : strlen(s2);
+  size_t llen = cgc_strlen(s1) > cgc_strlen(s2) ? cgc_strlen(s1) : cgc_strlen(s2);
   char *res = calloc(sizeof(char), llen + 1);
   if (!res)
-      ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 375); exit(1); });
+      ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 375); cgc_exit(1); });
 
-  if (strlen(s1) > strlen(s2))
+  if (cgc_strlen(s1) > cgc_strlen(s2))
     strcpy(res, s1);
   else
     strcpy(res, s2);
@@ -608,7 +608,7 @@ char* handle_bitop(command_t* command)
   char* bytestring = calloc(sizeof(char), 16 * llen);
   size_t offset = 0;
   if (!bytestring)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 405); exit(1); });
+    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 405); cgc_exit(1); });
 
   for (size_t i = 0; i < llen; i++)
   {
@@ -643,11 +643,11 @@ char* handle_cr(command_t* command, int diff)
   val += diff;
 
   char NUM_BUF[32];
-  memset(NUM_BUF, 0, 32);
+  cgc_memset(NUM_BUF, 0, 32);
   sprintf(NUM_BUF, "%d", val);
   update_tree_val(node, NUM_BUF);
 
-  char* res = calloc(sizeof(char), strlen(NUM_BUF) + strlen("num is ") + 1);
+  char* res = calloc(sizeof(char), cgc_strlen(NUM_BUF) + cgc_strlen("num is ") + 1);
   strcat(res, "num is ");
   strcat(res, NUM_BUF);
 
@@ -682,9 +682,9 @@ char* handle_get(command_t* command)
   if (!node)
     return (char *)nil;
 
-  char *res = calloc(sizeof(char), strlen(node->val) + 12);
+  char *res = calloc(sizeof(char), cgc_strlen(node->val) + 12);
   if (!res)
-    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 481); exit(1); });
+    ({ fdprintf(2, "ERROR %s:%d:\t" "bad calloc" "\n", "src/main.c", 481); cgc_exit(1); });
 
   sprintf(res, "val is \"%s\"", node->val);
   return res;
@@ -705,21 +705,21 @@ void preorder_walk(store_tree_t* root, char** buffer, size_t max)
     return;
 
   preorder_walk(root->l, buffer, max);
-  if (root->key && strlen(root->key))
+  if (root->key && cgc_strlen(root->key))
   {
-    if (strlen(*buffer) + strlen(root->key) + 4 >= max)
+    if (cgc_strlen(*buffer) + cgc_strlen(root->key) + 4 >= max)
     {
 
 
 #ifdef PATCHED
-      max = (strlen(*buffer) + strlen(root->key) + 4);
+      max = (cgc_strlen(*buffer) + cgc_strlen(root->key) + 4);
 #else
-      max = (strlen(*buffer) + strlen(root->key));
+      max = (cgc_strlen(*buffer) + cgc_strlen(root->key));
 #endif
 
       *buffer = realloc(*buffer, max);
       if (!*buffer)
-        ({ fdprintf(2, "ERROR %s:%d:\t" "bad realloc" "\n", "src/main.c", 513); exit(1); });
+        ({ fdprintf(2, "ERROR %s:%d:\t" "bad realloc" "\n", "src/main.c", 513); cgc_exit(1); });
     }
 
       strcat(*buffer, "\"");
@@ -735,7 +735,7 @@ char* handle_keys(command_t* command)
 
   char* buffer = calloc(sizeof(char), 1024);
   preorder_walk(groot, &buffer, 1024);
-  if (strlen(buffer) == 0)
+  if (cgc_strlen(buffer) == 0)
     return "empty";
   return buffer;
 }
@@ -855,16 +855,16 @@ int main(void)
     if (command->type != CMD_AUTH && !authed)
     {
       if (transmit_string(tx, "unauthed\n") != 0)
-        ({ fdprintf(2, "ERROR %s:%d:\t" "send failed" "\n", "src/main.c", 649); exit(1); });
+        ({ fdprintf(2, "ERROR %s:%d:\t" "send failed" "\n", "src/main.c", 649); cgc_exit(1); });
       continue;
     }
 
     char* result = call_command(command);
                                       ;
     if (transmit_string(tx, result) != 0)
-      ({ fdprintf(2, "ERROR %s:%d:\t" "send failed" "\n", "src/main.c", 656); exit(1); });
+      ({ fdprintf(2, "ERROR %s:%d:\t" "send failed" "\n", "src/main.c", 656); cgc_exit(1); });
     if (transmit_string(tx, "\n") != 0)
-      ({ fdprintf(2, "ERROR %s:%d:\t" "send failed" "\n", "src/main.c", 658); exit(1); });
+      ({ fdprintf(2, "ERROR %s:%d:\t" "send failed" "\n", "src/main.c", 658); cgc_exit(1); });
 
     switch (command->type)
     {

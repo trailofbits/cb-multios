@@ -70,7 +70,7 @@ size_t sendall(int fd, char *buf, size_t s) {
     return s;
 }
 
-void *memset(void *s, int c, size_t n) {
+void *cgc_memset(void *s, int c, size_t n) {
     size_t i;
 
     for (i=0; i < n; i++)
@@ -85,7 +85,7 @@ int streq(char *s1, char *s2) {
     return (*(s1-1) == *(s2-1));
 }
 
-int strlen(const char *s) {
+int cgc_strlen(const char *s) {
     const char *o = s;
 
     while(*s++);
@@ -97,7 +97,7 @@ void strcpy(char *s1, const char *s2) {
     while ((*s1++ = *s2++));
 }
 
-void memcpy(void *dest, void *src, size_t len) {
+void cgc_memcpy(void *dest, void *src, size_t len) {
     int i = 0;
 
     for (i = 0; i < len; i++)
@@ -162,14 +162,14 @@ void vsprintf(char *buf, const char *fmt, va_list argp) {
                 //char buffer
                 s = va_arg(argp, char *);
                 strcpy(buf, s);
-                buf += strlen(s);
+                buf += cgc_strlen(s);
                 break;
             case 'i':
                 //print hex
                 i = va_arg(argp, int);
                 tohex(i, num);
                 strcpy(buf, num);
-                buf += strlen(num);
+                buf += cgc_strlen(num);
                 break;
             case FMTCHAR:
                 *buf++ = *p;
@@ -207,13 +207,13 @@ void vfdprintf(int fd, const char *fmt, va_list argp) {
             case 'b':
                 //char buffer
                 s = va_arg(argp, char *);
-                sendall(fd, s, strlen(s));
+                sendall(fd, s, cgc_strlen(s));
                 break;
             case 'h':
                 //print hex
                 i = va_arg(argp, int);
                 tohex(i, hex);
-                sendall(fd, hex, strlen(hex));
+                sendall(fd, hex, cgc_strlen(hex));
                 break;
             case FMTCHAR:
                 sendall(fd, p, 1);

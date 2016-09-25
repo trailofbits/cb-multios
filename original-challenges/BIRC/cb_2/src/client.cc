@@ -52,7 +52,7 @@
         if (_length <= 1024) { \
             fread(_input, _length, stdin); \
             _parambuf = new char[_length]; \
-            memcpy(_parambuf, _input, _length); \
+            cgc_memcpy(_parambuf, _input, _length); \
         } else {\
             _length = 0; \
         } \
@@ -65,7 +65,7 @@
         if (_length <= 1048) { \
             fread(_input, _length, stdin); \
             _parambuf = new char[_length]; \
-            memcpy(_parambuf, _input, _length); \
+            cgc_memcpy(_parambuf, _input, _length); \
         } else {\
             _length = 0; \
         } \

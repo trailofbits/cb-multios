@@ -202,7 +202,7 @@ int silk_kx(silk_t *silk)
     if (priv->ksize == 0)
     {
         // ksize==0, so no real kx
-        memset(&param, 0, sizeof(param));
+        cgc_memset(&param, 0, sizeof(param));
         if (_send(PKT_KX_PARAM, &param, sizeof(param)) != SUCCESS)
             return FAILURE;
 
@@ -389,7 +389,7 @@ int silk_recv(silk_t *silk, unsigned char *out, unsigned int cnt)
         }
 
         to_copy = cnt > priv->recvbuf_len ? priv->recvbuf_len : cnt;
-        memcpy(out, &priv->recvbuf[priv->recvbuf_idx], to_copy);
+        cgc_memcpy(out, &priv->recvbuf[priv->recvbuf_idx], to_copy);
         out += to_copy;
         cnt -= to_copy;
         priv->recvbuf_idx += to_copy;

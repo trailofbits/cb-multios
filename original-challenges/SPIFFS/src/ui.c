@@ -35,7 +35,7 @@ THE SOFTWARE.
 #define DELIM 0x0A 	//\n
 
 int strict_atoi(char *a){
-	for(int i = 0;i<strlen(a);i++){
+	for(int i = 0;i<cgc_strlen(a);i++){
 		if ( ( a[i] > 0x39 ) || ( a[i] < 0x30 ) ){
 			return 0x0;
 		}
@@ -89,7 +89,7 @@ int parse_arg(char arg[16][MAXCOMMAND], char *command){
 		int lpos = 0;
 		int lspace = 1; //last position was space
 		int i;
-		int cmdSize = strlen(command);
+		int cmdSize = cgc_strlen(command);
 		//tokenize command 
 		for (i = 0;i < cmdSize;i++){
 			if (command[i] == 32){
@@ -712,9 +712,9 @@ void main_loop(pDataStruct workingData){
 				break;//end delete
 				
 
-			case 4 ://exit
+			case 4 ://cgc_exit
 				puts("exiting");
-				goto exit;
+				goto cgc_exit;
 				break;
 
 			case 5 ://help
@@ -733,7 +733,7 @@ void main_loop(pDataStruct workingData){
 					tempFileChunk = tempFile->head;
 					puts("-----Begin File-----");//five - 
 					while ( tempFileChunk != NULL ){
-						if (tempFileChunk->chunkSize != write(tempFileChunk,tempFileChunk->chunkSize)){
+						if (tempFileChunk->chunkSize != cgc_write(tempFileChunk,tempFileChunk->chunkSize)){
 							puts("file write failed");
 						}
 /*
@@ -773,7 +773,7 @@ void main_loop(pDataStruct workingData){
 				
 		}
 	}
-	exit:
+	cgc_exit:
 	return;
 }
 

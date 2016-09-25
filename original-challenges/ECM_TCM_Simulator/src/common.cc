@@ -110,7 +110,7 @@ CUtil::String ReadLine( void )
                 g_lineLength += num_bytes;
         }
 
-        memcpy( pszLine, g_szLineBuffer, lastScanPos );
+        cgc_memcpy( pszLine, g_szLineBuffer, lastScanPos );
         pszLine[lastScanPos] = '\0';
 
         CUtil::String sLine = pszLine;

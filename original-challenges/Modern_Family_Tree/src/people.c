@@ -167,13 +167,13 @@ Person *new_person(char *input) {
 	idx += sizeof(uint16_t);
 
 	shift = 10*sizeof(uint8_t);
-	memcpy(&p->name.fname, idx, shift);
+	cgc_memcpy(&p->name.fname, idx, shift);
 	idx += shift;
 
-	memcpy(&p->name.mname, idx, shift);
+	cgc_memcpy(&p->name.mname, idx, shift);
 	idx += shift;
 
-	memcpy(&p->name.lname, idx, shift);
+	cgc_memcpy(&p->name.lname, idx, shift);
 	idx += shift;
 
 	p->shift = shift_relation;

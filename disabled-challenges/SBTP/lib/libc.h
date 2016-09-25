@@ -100,7 +100,7 @@ typedef __builtin_va_list va_list;
  * Get random bytes.
  *
  * @param s Number of random bytes to return.
- * @param b Buffer to write random bytes to.
+ * @param b Buffer to cgc_write random bytes to.
  * @return Bytes in b.
  */
 #define RANDOM(s,b)  if(random(b, s, NULL)) DIE(RANDFAIL)
@@ -116,7 +116,7 @@ typedef __builtin_va_list va_list;
 /**
  * Read in data from stdin
  *
- * @param s struct to read into
+ * @param s struct to cgc_read into
  * @return 1 on success, 0 on failure
  */
 #define READDATA(s) (sizeof(s) == readall(stdin,(char *)&s,sizeof(s)) ? 1 : 0)
@@ -124,7 +124,7 @@ typedef __builtin_va_list va_list;
 /**
  * Send data to stdout
  *
- * @param s struct to write
+ * @param s struct to cgc_write
  * @return 1 on success, 0 on failure
  */
 #define SENDDATA(s) (sizeof(s) == sendall(stdout,(char *)&s,sizeof(s)) ? 1 : 0)
@@ -132,15 +132,15 @@ typedef __builtin_va_list va_list;
 /**
  * Send a string to stdout
  *
- * @param s string to write
+ * @param s string to cgc_write
  * @return 1 on success, 0 on failure
  */
-#define SENDSTR(s) (strlen(s) == sendall(stdout,s,strlen(s)) ? 1 : 0)
+#define SENDSTR(s) (cgc_strlen(s) == sendall(stdout,s,cgc_strlen(s)) ? 1 : 0)
 
 /**
  * Send a string followed by newline to stdout
  *
- * @param s string to write
+ * @param s string to cgc_write
  * @return 1 on success, 0 on failre
  */
 #define SENDLINE(s) (SENDSTR(s) && SENDSTR("\n"))
@@ -155,28 +155,28 @@ typedef __builtin_va_list va_list;
 /**
  * Read until NEWLINE is hit
  *
- * @param fd File descriptor to read from.
- * @param buf Buffer to write read bytes to.
- * @param s Maximum number of bytes to read
- * @return Number of bytes read
+ * @param fd File descriptor to cgc_read from.
+ * @param buf Buffer to cgc_write cgc_read bytes to.
+ * @param s Maximum number of bytes to cgc_read
+ * @return Number of bytes cgc_read
  */
 size_t readline(int fd, char *buf, size_t s);
 
 /**
- * Attempt to read a fixed number of bytes
+ * Attempt to cgc_read a fixed number of bytes
  *
- * @param fd File descriptor to read from.
- * @param buf Buffer to write read bytes to.
- * @param s Maximum number of bytes to read
- * @return Number of bytes read 
+ * @param fd File descriptor to cgc_read from.
+ * @param buf Buffer to cgc_write cgc_read bytes to.
+ * @param s Maximum number of bytes to cgc_read
+ * @return Number of bytes cgc_read 
  */
 size_t readall(int fd, char *buf, size_t s);
 
 /**
  * Attempt to send a fixed number of bytes
  *
- * @param fd File descriptor to write to
- * @param buf Buffer to read bytes from
+ * @param fd File descriptor to cgc_write to
+ * @param buf Buffer to cgc_read bytes from
  * @param s Number of bytes to send
  * @return Number of bytes sent.
  */
@@ -190,7 +190,7 @@ size_t sendall(int fd, char *buf, size_t s);
  * @param n Number of bytes to set
  * @return Pointer to buffer
  */
-void *memset(void *s, int c, size_t n);
+void *cgc_memset(void *s, int c, size_t n);
 
 /**
  * Compare two strings for equality.
@@ -207,7 +207,7 @@ int streq(char *s1, char *s2);
  * @param s1 Input string.
  * @return Length of string, not including NULL terminator..
  */
-int strlen(const char *s); 
+int cgc_strlen(const char *s); 
 
 /**
  * Format string and store in buffer
@@ -300,7 +300,7 @@ char * strcat(char *dest, const char *src);
  * @param len length
  * @return None.
  */
-void memcpy(void *dest, void *src, size_t len); 
+void cgc_memcpy(void *dest, void *src, size_t len); 
 
 /**
  * Check if two buffers are equal

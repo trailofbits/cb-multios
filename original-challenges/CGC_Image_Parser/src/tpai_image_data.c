@@ -91,7 +91,7 @@ int tpai_display_image( ptpai_image_data tid )
 		return 0;
 	}
 
-	memset( image, ' ', image_length);
+	cgc_memset( image, ' ', image_length);
 	image[image_length] = '\x00';
 
 	while ( tpai_read_pixel( tid, &pixel) != 0 ) {

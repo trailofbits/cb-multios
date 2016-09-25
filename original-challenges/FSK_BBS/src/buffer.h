@@ -33,12 +33,12 @@ typedef struct {
     size_t length;
 } buffer_t;
 
-// read functions
+// cgc_read functions
 int buffer_read_bit(buffer_t *);
 unsigned int buffer_read_bits(buffer_t *, unsigned int count);
 void buffer_read_bytes(buffer_t *, uint8_t *, size_t);
 
-// write functions
+// cgc_write functions
 void buffer_write_bit(buffer_t *, int value);
 void buffer_write_bits(buffer_t *, unsigned int value, unsigned int count);
 void buffer_write_bytes(buffer_t *, uint8_t *, size_t);

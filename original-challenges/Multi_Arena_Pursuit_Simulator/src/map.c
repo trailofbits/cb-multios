@@ -170,7 +170,7 @@ void addCoordinate(Map** map_ptr, int x, int y) {
 
 /**
  * Set the value of a Coordinate
- * Note: If the coordinate does not exit in the Map, the coordinate will be added
+ * Note: If the coordinate does not cgc_exit in the Map, the coordinate will be added
  * @param map_ptr The address of the Map containing the Coordinate
  * @param x       The X-coordinate of the coordinate to set
  * @param y       The Y-coordinate of the coordinate to set

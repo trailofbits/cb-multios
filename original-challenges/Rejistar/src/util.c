@@ -70,16 +70,16 @@ void initializeAttributes(char* body) {
 		if(!(new_attr = malloc(sizeof(Attribute))))
 			_terminate(1);
 		bzero((char *)new_attr, sizeof(Attribute));
-		size = strlen(key);
+		size = cgc_strlen(key);
 		if(!(new_attr->key = malloc(size+1)))
 			_terminate(1);
 		bzero(new_attr->key, size+1);
-		memcpy(new_attr->key, key, size);
-		size = strlen(value);
+		cgc_memcpy(new_attr->key, key, size);
+		size = cgc_strlen(value);
 		if(!(new_attr->value = malloc(size+1)))
 			_terminate(1);
 		bzero(new_attr->value, size+1);
-		memcpy(new_attr->value, value, size);
+		cgc_memcpy(new_attr->value, value, size);
 		new_attr->next = attributes;
 		attributes = new_attr;
 	} while((key = strtok(0, "=")));
@@ -97,12 +97,12 @@ void sendErrorResponse(const char* response) {
 	size_t bytes;
 	int ret;
 
-	if(!(buffer = malloc(sizeof(RESPONSE_HDR)+strlen(response)+1)))
+	if(!(buffer = malloc(sizeof(RESPONSE_HDR)+cgc_strlen(response)+1)))
 		_terminate(1);
 
-	bzero(buffer, sizeof(RESPONSE_HDR)+strlen(response)+1);
+	bzero(buffer, sizeof(RESPONSE_HDR)+cgc_strlen(response)+1);
 	sprintf(buffer, "!X=!X?", RESPONSE_HDR, response);
-	if((ret = transmit_all(STDOUT, buffer, strlen(buffer)))) 
+	if((ret = transmit_all(STDOUT, buffer, cgc_strlen(buffer)))) 
 		_terminate(1);
 
 	free(buffer);
@@ -121,8 +121,8 @@ void getStringAttribute(char** buffer_ptr, const char* name) {
 	size_t size, size1, size2;
 
 	for(attr_ptr=attributes; attr_ptr != NULL; attr_ptr = attr_ptr->next) {
-		size1 = strlen(attr_ptr->key);
-		size2 = strlen(name);
+		size1 = cgc_strlen(attr_ptr->key);
+		size2 = cgc_strlen(name);
 		size = size1 > size2 ? size1 : size2;
 		if(!strncmp(attr_ptr->key, name, size)) {
 			*buffer_ptr = attr_ptr->value;

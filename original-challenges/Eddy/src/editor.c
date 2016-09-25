@@ -95,13 +95,13 @@ do_insert(struct command *command, struct result **result, int append)
     // We always ensure that commands end with at least one NULL byte
     tok = strtok(command->buf, '\n');
     while (tok != NULL) {
-        if (strlen(tok) > MAX_LINE_SIZE)
+        if (cgc_strlen(tok) > MAX_LINE_SIZE)
             return EXIT_FAILURE;
 
         if (++line_count > MAX_LINE_COUNT)
             return EXIT_FAILURE;
 
-        if ((newline = calloc(sizeof(struct line) + strlen(tok) + 1)) == NULL)
+        if ((newline = calloc(sizeof(struct line) + cgc_strlen(tok) + 1)) == NULL)
             return EXIT_FAILURE;
 
         strcpy(newline->buf, tok);
@@ -206,7 +206,7 @@ join_command(struct command *command, struct result **result)
     // Calculate our size
     for (cur = start; cur && cur != list_entry(struct line, list, end->list.next);
             cur = list_entry(struct line, list, cur->list.next))
-        size += strlen(cur->buf);
+        size += cgc_strlen(cur->buf);
 
     if ((newline = calloc(sizeof(struct line) + size + 1)) == NULL)
         return EXIT_FAILURE;
@@ -227,7 +227,7 @@ join_command(struct command *command, struct result **result)
         }
 
         strcpy(c, cur->buf);
-        c += strlen(cur->buf);
+        c += cgc_strlen(cur->buf);
     }
 
     // Insert the new line, remove old start line
@@ -293,7 +293,7 @@ get_mark_command(struct command *command, struct result **result)
         return EXIT_FAILURE;
 
     (*result)->size = sizeof(unsigned int);
-    memcpy((*result)->buf, &state.marks[index], sizeof(unsigned int));
+    cgc_memcpy((*result)->buf, &state.marks[index], sizeof(unsigned int));
 
     // Update special marks
     state.marks[-DOT_MARK - 1] = state.marks[index];
@@ -324,7 +324,7 @@ list_command(struct command *command, struct result **result)
     // Calculate our size
     for (cur = start; cur && cur != list_entry(struct line, list, end->list.next);
             cur = list_entry(struct line, list, cur->list.next))
-        size += strlen(cur->buf) + 1;
+        size += cgc_strlen(cur->buf) + 1;
 
     if ((*result = calloc(sizeof(struct result) + size + 1)) == NULL)
         return EXIT_FAILURE;
@@ -336,7 +336,7 @@ list_command(struct command *command, struct result **result)
 
         strcpy(c, cur->buf);
         strcat(c, "\n");
-        c += strlen(cur->buf) + 1;
+        c += cgc_strlen(cur->buf) + 1;
     }
 
     // Update special marks
@@ -375,9 +375,9 @@ num_command(struct command *command, struct result **result)
     for (cur = start; cur && cur != list_entry(struct line, list, end->list.next);
             cur = list_entry(struct line, list, cur->list.next))
 #ifdef PATCHED_2
-        size += strlen(cur->buf) + 5;
+        size += cgc_strlen(cur->buf) + 5;
 #else
-        size += strlen(cur->buf) + 4;
+        size += cgc_strlen(cur->buf) + 4;
 #endif
 
     if ((*result = calloc(sizeof(struct result) + size + 1)) == NULL)
@@ -396,10 +396,10 @@ num_command(struct command *command, struct result **result)
         strcat(c, " ");
         strcat(c, cur->buf);
         strcat(c, "\n");
-        c += strlen(c);
+        c += cgc_strlen(c);
     }
     strcpy((*result)->buf, buf);
-    (*result)->size = strlen((*result)->buf);
+    (*result)->size = cgc_strlen((*result)->buf);
 
     free(buf);
 
@@ -433,9 +433,9 @@ do_search_command(struct command *command, struct result **result, int invert)
     for (cur = start; cur && cur != list_entry(struct line, list, end->list.next);
             cur = list_entry(struct line, list, cur->list.next))
         if (!invert && regex_match(command->buf, cur->buf, &match_begin, &match_end) == EXIT_SUCCESS)
-            size += strlen(cur->buf) + 1;
+            size += cgc_strlen(cur->buf) + 1;
         else if (invert && regex_match(command->buf, cur->buf, &match_begin, &match_end) == EXIT_FAILURE)
-            size += strlen(cur->buf) + 1;
+            size += cgc_strlen(cur->buf) + 1;
 
     if (size == 0)
         return EXIT_FAILURE;
@@ -451,11 +451,11 @@ do_search_command(struct command *command, struct result **result, int invert)
         if (!invert && regex_match(command->buf, cur->buf, &match_begin, &match_end) == EXIT_SUCCESS) {
             strcpy(c, cur->buf);
             strcat(c, "\n");
-            c += strlen(cur->buf) + 1;
+            c += cgc_strlen(cur->buf) + 1;
         } else if (invert && regex_match(command->buf, cur->buf, &match_begin, &match_end) == EXIT_FAILURE) {
             strcpy(c, cur->buf);
             strcat(c, "\n");
-            c += strlen(cur->buf) + 1;
+            c += cgc_strlen(cur->buf) + 1;
         }
     }
 

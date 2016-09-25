@@ -73,7 +73,7 @@ void list()
     while (res.status == SUCCESS)
     {
 #ifdef PATCHED
-        if (strlen(buf) + strlen((char*)res.rec.data->k.data.data) + 30 > sizeof(buf))
+        if (cgc_strlen(buf) + cgc_strlen((char*)res.rec.data->k.data.data) + 30 > sizeof(buf))
             break;
 #endif
         item_details *d = (item_details *)res.rec.data->data.data;
@@ -81,7 +81,7 @@ void list()
             (int)(d->price / 100), abs(d->price % 100), d->count);
         res = db_next(res.rec.data->k);
     }
-    transmit(STDOUT, buf, strlen(buf), &bytes);
+    transmit(STDOUT, buf, cgc_strlen(buf), &bytes);
 }
 
 void buy()
@@ -91,7 +91,7 @@ void buy()
     result res;
 
     read_until(STDIN, name, 200, '\n');
-    k.data.count = strlen(name) + 1;
+    k.data.count = cgc_strlen(name) + 1;
     k.data.data = (opaque *)name;
 
     res = db_lookup(k);
@@ -132,7 +132,7 @@ void sell()
     read_until(STDIN, tmp, sizeof(tmp), '\n');
     d.count = strtoul(tmp, NULL, 10);
     
-    rec.k.data.count = strlen(name) + 1;
+    rec.k.data.count = cgc_strlen(name) + 1;
     rec.k.data.data = (opaque *)name;
     rec.data.count = sizeof(d);
     rec.data.data = (opaque *)&d;
@@ -156,11 +156,11 @@ void init_db()
 {
     int i;
     record rec;
-    memset(&rec, 0, sizeof(rec));
+    cgc_memset(&rec, 0, sizeof(rec));
 
     for (i = 0; i < sizeof(g_items) / sizeof(g_items[0]); i++)
     {
-        rec.k.data.count = strlen(g_items[i].name) + 1;
+        rec.k.data.count = cgc_strlen(g_items[i].name) + 1;
         rec.k.data.data = (opaque *)g_items[i].name;
         rec.data.count = sizeof(g_items[i].details);
         rec.data.data = (opaque *)&g_items[i].details;

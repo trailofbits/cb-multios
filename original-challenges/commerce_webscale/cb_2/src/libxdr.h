@@ -13,7 +13,7 @@ typedef char string;
 } while (0)
 
 #define ASSERT_RESULT() do { \
-    if (_result < 0) exit(1); \
+    if (_result < 0) cgc_exit(1); \
 } while (0)
 
 static int _checked_calloc(void **ptr, unsigned int count, size_t size)

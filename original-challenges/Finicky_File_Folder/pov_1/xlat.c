@@ -58,7 +58,7 @@ int xlat_transmit_all(int fd, const void *buf, const size_t size)
     {
         unsigned int cnt = size - i;
         if (cnt > sizeof(tmp)) cnt = sizeof(tmp);
-        memcpy(tmp, ucbuf + i, cnt);
+        cgc_memcpy(tmp, ucbuf + i, cnt);
         for (i = 0; i < cnt; i++)
             tmp[i] = xlat_map[tmp[i]];
         retval = transmit_all(fd, tmp, cnt);

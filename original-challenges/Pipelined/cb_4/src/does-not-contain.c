@@ -52,7 +52,7 @@ void do_config(void) {
 }
 
 int search(char *buffer, int buffer_size) {
-    size_t size = strlen(pattern);
+    size_t size = cgc_strlen(pattern);
     size_t offset = 0;
 
     while (size + offset <= buffer_size) {
@@ -64,7 +64,7 @@ int search(char *buffer, int buffer_size) {
     return 0;
 }
 
-void exit(int i) {
+void cgc_exit(int i) {
     transmit_all(write_fd, "\x00\n", 2);
     _terminate(i);
 }
@@ -78,22 +78,22 @@ int main(void) {
     sleep(2);
 
     while (1) {
-        memset(buf, 0, sizeof(buf));
+        cgc_memset(buf, 0, sizeof(buf));
         ret = read_until(read_fd, buf, sizeof(buf), '\n');
         if (ret == -1)
-            exit(4);
+            cgc_exit(4);
 
         if (ret > 0) {
 
             if (buf[0] == 0) {
-                exit(0);
+                cgc_exit(0);
             }
 
-            ret = search(buf, strlen(buf));
+            ret = search(buf, cgc_strlen(buf));
             if (ret != 1) {
                 printf(write_fd, "%s\n", buf);
             }
         }
     }
-    exit(1);
+    cgc_exit(1);
 }

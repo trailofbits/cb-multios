@@ -139,7 +139,7 @@ static void cmd_deliver_orders(void) {
 	while (0 < o_count) {
 		o = malloc(sizeof(Order));
 		MALLOC_OK(o);
-		memset(o, '\x00', sizeof(Order));
+		cgc_memset(o, '\x00', sizeof(Order));
 
 		o->t_id = TABLE_ID;
 		// recv c->id
@@ -155,7 +155,7 @@ static void cmd_deliver_orders(void) {
 			case APP_TYPE:
 				app = malloc(sizeof(Appetizer));
 				MALLOC_OK(app);
-				memset(app, '\x00', sizeof(Appetizer));
+				cgc_memset(app, '\x00', sizeof(Appetizer));
 				app->ftype = o->ftype;
 				DBG("receiving appetizer\n");
 				RECV(T_STDIN, (char *)app->name, APP_NAME_SZ);
@@ -166,7 +166,7 @@ static void cmd_deliver_orders(void) {
 			case MEAL_TYPE:
 				meal = malloc(sizeof(Meal));
 				MALLOC_OK(meal);
-				memset(meal, '\x00', sizeof(Meal));
+				cgc_memset(meal, '\x00', sizeof(Meal));
 				meal->ftype = o->ftype;
 				DBG("receiving meal\n");
 				RECV(T_STDIN, (char *)meal->name, MEAL_NAME_SZ + MEAL_MAIN_SZ + MEAL_VEG_SZ + MEAL_SIDE_SZ);
@@ -177,7 +177,7 @@ static void cmd_deliver_orders(void) {
 			case DES_TYPE:
 				des = malloc(sizeof(Dessert));
 				MALLOC_OK(des);
-				memset(des, '\x00', sizeof(Dessert));
+				cgc_memset(des, '\x00', sizeof(Dessert));
 				des->ftype = o->ftype;
 				DBG("receiving dessert\n");
 				RECV(T_STDIN, (char *)des->name, DES_NAME_SZ);

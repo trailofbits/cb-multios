@@ -61,14 +61,14 @@ static int send(void *data, size_t length)
 
 static int read_fully(void *dest, size_t length)
 {
-    size_t read = 0, bytes;
-    while (read < length)
+    size_t cgc_read = 0, bytes;
+    while (cgc_read < length)
     {
-        if (receive(STDIN, (uint8_t *)dest + read, length - read, &bytes) != 0)
+        if (receive(STDIN, (uint8_t *)dest + cgc_read, length - cgc_read, &bytes) != 0)
             return 1;
         if (bytes == 0)
             return 1;
-        read += bytes;
+        cgc_read += bytes;
     }
     return 0;
 }
@@ -89,8 +89,8 @@ static void send_error(STATUS status, char *msg)
     if (transaction)
         transaction->status = status;
 
-    // according to the spec, exit on error
-    exit(0);
+    // according to the spec, cgc_exit on error
+    cgc_exit(0);
 }
 
 static int enlarge_transactions_array(size_t new_length)
@@ -166,7 +166,7 @@ static int handle_issue()
     card_info_list = card;
 
     packet_head_t hdr;
-    memset(&hdr, 0, sizeof(hdr));
+    cgc_memset(&hdr, 0, sizeof(hdr));
     hdr.card_id = card->card_id;
     hdr.auth_code = card->auth_code;
     hdr.pkt_type = INIT;
@@ -253,7 +253,7 @@ static transaction_t *new_transaction()
         return NULL;
 
     transaction_t *t = &transactions_array[transactions_idx++];
-    memset(t, 0, sizeof(transaction_t));
+    cgc_memset(t, 0, sizeof(transaction_t));
     t->id = (uint32_t) t;
     t->op_code = pkthdr.op_code;
     t->state = pkthdr.pkt_type;
@@ -348,7 +348,7 @@ static int handle_balance()
     send(&hdr, sizeof(hdr));
 
     packet_data_balance_t *data = transaction->data;
-    memset(data, 0, sizeof(packet_data_balance_t));
+    cgc_memset(data, 0, sizeof(packet_data_balance_t));
     data->balance = card->value;
     send(data, sizeof(packet_data_balance_t));
 
@@ -393,7 +393,7 @@ static int handle_history()
         transaction_t *t = &transactions_array[i-1];
 
         packet_data_transaction_t dt;
-        memset(&dt, 0, sizeof(dt));
+        cgc_memset(&dt, 0, sizeof(dt));
         dt.op_code = t->op_code;
         dt.state = t->state;
         dt.status = t->status;

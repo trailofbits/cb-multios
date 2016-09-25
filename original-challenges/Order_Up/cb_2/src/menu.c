@@ -35,7 +35,7 @@
 Menu todays_menu;
 
 void menu_setup(void) {
-    memset(&todays_menu, '\0', sizeof(Menu));
+    cgc_memset(&todays_menu, '\0', sizeof(Menu));
     load_menu(&todays_menu);
 }
 

@@ -49,11 +49,11 @@ tfttp_pkt* do_put() {
     }
     
     key  = (char *)curpkt->data;
-    if(strlen(key) >= 128) {
+    if(cgc_strlen(key) >= 128) {
         return NULL;
     }
-    data = key+strlen(key)+1;
-    if(strlen(data) >= 256){
+    data = key+cgc_strlen(key)+1;
+    if(cgc_strlen(data) >= 256){
         return NULL;
     }
 
@@ -163,7 +163,7 @@ tfttp_pkt* do_rand() {
 tfttp_pkt* do_get() {
     /*
      * the GET command lets you specify a NULL delimited string that specifies
-     * the episode to randomly select an item from
+     * the episode to randomly cgc_select an item from
      */
     int i = 0;
 

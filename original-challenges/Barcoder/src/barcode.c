@@ -163,7 +163,7 @@ barcode_128_lut_t *find_entry_by_bin_rep(char *bin_rep)
 
 barcode_128_t *create_barcode_from_str(char *barcode_str)
 {
-    if (!barcode_str || !strlen(barcode_str) || strlen(barcode_str) > MAX_BARCODE_LENGTH)
+    if (!barcode_str || !cgc_strlen(barcode_str) || cgc_strlen(barcode_str) > MAX_BARCODE_LENGTH)
         return NULL;
 
     barcode_128_t *new_barcode = malloc(sizeof(barcode_128_t));
@@ -172,7 +172,7 @@ barcode_128_t *create_barcode_from_str(char *barcode_str)
     int is_type_c = 1;
     char *type_c_str = NULL;
     char digits[3] = { '\0', '\0', '\0' };
-    for (i = 0; i < strlen(barcode_str); i++) {
+    for (i = 0; i < cgc_strlen(barcode_str); i++) {
         if (!isdigit(barcode_str[i])) {
             is_type_c = 0;
         }
@@ -187,10 +187,10 @@ barcode_128_t *create_barcode_from_str(char *barcode_str)
     if (is_type_c) {
         int type_c_idx = 0;
         new_barcode->encoding_type = TYPE_C;
-        if (strlen(barcode_str) % 2 != 0) {
-            type_c_str = malloc(strlen(barcode_str) + 2);
+        if (cgc_strlen(barcode_str) % 2 != 0) {
+            type_c_str = malloc(cgc_strlen(barcode_str) + 2);
             type_c_str[0] = '0';
-            memcpy(&type_c_str[1], barcode_str, strlen(barcode_str) + 1);
+            cgc_memcpy(&type_c_str[1], barcode_str, cgc_strlen(barcode_str) + 1);
             barcode_str = type_c_str;
             new_barcode->raw_str = type_c_str;
         } else {
@@ -198,11 +198,11 @@ barcode_128_t *create_barcode_from_str(char *barcode_str)
         }
 
         new_barcode->checksum = 105;
-        new_barcode->length = (BARCODE_OVERHEAD_LENGTH + strlen(barcode_str)/2);
+        new_barcode->length = (BARCODE_OVERHEAD_LENGTH + cgc_strlen(barcode_str)/2);
         new_barcode->encoded_data = malloc(sizeof(barcode_128_lut_t *) * new_barcode->length);
         new_barcode->encoded_data[idx++] = g_blut_quiet;
         new_barcode->encoded_data[idx++] = g_blut_startc;
-        for (i = 0; i < strlen(barcode_str); i+=2) {
+        for (i = 0; i < cgc_strlen(barcode_str); i+=2) {
             digits[0] = barcode_str[i];
             digits[1] = barcode_str[i+1];
             type_c_idx = strtoul(digits, NULL, 10);
@@ -218,11 +218,11 @@ barcode_128_t *create_barcode_from_str(char *barcode_str)
         new_barcode->raw_str = strdup(barcode_str);
 
         new_barcode->checksum = 104;
-        new_barcode->length = (BARCODE_OVERHEAD_LENGTH + strlen(barcode_str));
+        new_barcode->length = (BARCODE_OVERHEAD_LENGTH + cgc_strlen(barcode_str));
         new_barcode->encoded_data = malloc(sizeof(barcode_128_lut_t *) * new_barcode->length);
         new_barcode->encoded_data[idx++] = g_blut_quiet;
         new_barcode->encoded_data[idx++] = g_blut_startb;
-        for (i = 0; i < strlen(barcode_str); i++) {
+        for (i = 0; i < cgc_strlen(barcode_str); i++) {
             if (barcode_str[i] == '\t')
                 type_b_idx = 100;
             else if (barcode_str[i] == '\xC0')
@@ -252,8 +252,8 @@ char * find_stop_code(char *encoded_data)
 {
     char *stop = (char *)g_blut_stop->binary_rep;
 
-    int i = strlen(stop) - 1;
-    int j = strlen(encoded_data) - 1;
+    int i = cgc_strlen(stop) - 1;
+    int j = cgc_strlen(encoded_data) - 1;
 
     while(j >= 0 && encoded_data[j] == ' ')
         j--;
@@ -292,7 +292,7 @@ barcode_128_t *create_barcode_from_encoded_data(char *encoded_data)
     new_barcode->encoding_type = 0;
 
     find_encode[11] = '\0';
-    memcpy(find_encode, &encoded_data[i], 11);
+    cgc_memcpy(find_encode, &encoded_data[i], 11);
     entry = find_entry_by_bin_rep(find_encode);
     if (!entry)
         goto error;
@@ -311,7 +311,7 @@ barcode_128_t *create_barcode_from_encoded_data(char *encoded_data)
 
     i += 11;
     while (i < checksum_idx) {
-        memcpy(find_encode, &encoded_data[i], 11);
+        cgc_memcpy(find_encode, &encoded_data[i], 11);
         entry = find_entry_by_bin_rep(find_encode);
         if (!entry)
             goto error;
@@ -327,7 +327,7 @@ barcode_128_t *create_barcode_from_encoded_data(char *encoded_data)
     }
 
     find_encode[11] = '\0';
-    memcpy(find_encode, &encoded_data[i], 11);
+    cgc_memcpy(find_encode, &encoded_data[i], 11);
     entry = find_entry_by_bin_rep(find_encode);
     new_barcode->checksum %= 103;
     if (!entry || entry != &g_barcode_lut[new_barcode->checksum])

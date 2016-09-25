@@ -35,7 +35,7 @@ Chat::Chat() {
 Chat::Chat(char *msg, unsigned short msg_length, User *from) {
     msg_length_ = msg_length <= MAX_MSG_LENGTH ? msg_length : MAX_MSG_LENGTH;
     msg_ = new char[msg_length_];
-    memcpy(msg_, msg, msg_length_);
+    cgc_memcpy(msg_, msg, msg_length_);
     from_ = from;
 }
 

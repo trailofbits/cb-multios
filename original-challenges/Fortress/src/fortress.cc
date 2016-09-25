@@ -29,7 +29,7 @@
 CFortress::CFortress() : m_supply(50), m_day(1), m_numSuccessfulMissions(0), m_numTotalMissions(0),
                          m_totalSupplySpent(0), m_totalSupplyEarned(0)
 {
-    memset(m_owner, 0, sizeof(m_owner));
+    cgc_memset(m_owner, 0, sizeof(m_owner));
 }
 
 CFortress::~CFortress()

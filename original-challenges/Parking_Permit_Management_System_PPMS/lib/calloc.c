@@ -42,5 +42,5 @@ void *calloc(size_t nmemb, size_t size)
   if (ptr == NULL)
     return NULL;
 
-  return memset(ptr, 0, tot);
+  return cgc_memset(ptr, 0, tot);
 }

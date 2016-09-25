@@ -71,13 +71,13 @@ unsigned int getToken() {
 */
 int isTokenCommand(char* command) {
 
-	if(!strncmp(command, TOKEN_CMD, strlen(TOKEN_CMD)))
+	if(!strncmp(command, TOKEN_CMD, cgc_strlen(TOKEN_CMD)))
 		return 1;
 
-	if(!strncmp(command, REFRESH_CMD, strlen(REFRESH_CMD)))
+	if(!strncmp(command, REFRESH_CMD, cgc_strlen(REFRESH_CMD)))
 		return 1;
 
-	if(!strncmp(command, REVOKE_TOKEN_CMD, strlen(REVOKE_TOKEN_CMD)))
+	if(!strncmp(command, REVOKE_TOKEN_CMD, cgc_strlen(REVOKE_TOKEN_CMD)))
 		return 1;
 
 	return 0;
@@ -96,18 +96,18 @@ size_t calculateTokenSize(Token *token) {
 
 	bzero(buffer, 20);
 	sprintf(buffer, "!U", token->value);
-	token_val_sz = strlen(buffer);
+	token_val_sz = cgc_strlen(buffer);
 
 	bzero(buffer, 20);
 	sprintf(buffer, "!U", token->expiration);
-	token_exp_sz = strlen(buffer);
+	token_exp_sz = cgc_strlen(buffer);
 
-	size = strlen(TOKEN_HDR)+ 1;
+	size = cgc_strlen(TOKEN_HDR)+ 1;
 	size += token_val_sz + 1;
-	size += strlen(TOKEN_EXP_HDR)+ 1;
+	size += cgc_strlen(TOKEN_EXP_HDR)+ 1;
 	size += token_exp_sz + 1;
 	size += sizeof(TOKEN_USE_HDR) + 1;
-	size += strlen(token->use);
+	size += cgc_strlen(token->use);
 
 	return size;
 }
@@ -150,7 +150,7 @@ void sendToken(unsigned int id, Token *token) {
 		TOKEN_EXP_HDR, token->expiration,
 		TOKEN_USE_HDR, token->use);
 
-	tokenSize = strlen(buffer);
+	tokenSize = cgc_strlen(buffer);
 	if((ret = transmit_all(STDOUT, buffer, tokenSize))) 
 		_terminate(1);
 	free(buffer);
@@ -339,11 +339,11 @@ int checkTokenUse(char* command, char* useList) {
 
 	use = strtok(useList,":");
 	do {
-		size1 = strlen(command);
-		size2 = strlen(use);
+		size1 = cgc_strlen(command);
+		size2 = cgc_strlen(use);
 		size = size1 > size2 ? size1 : size2;
-		if(!strncmp(command, use, strlen(command)) ||
-			!strncmp(REVOKE_TOKEN_CMD, command, strlen(REVOKE_TOKEN_CMD)))
+		if(!strncmp(command, use, cgc_strlen(command)) ||
+			!strncmp(REVOKE_TOKEN_CMD, command, cgc_strlen(REVOKE_TOKEN_CMD)))
 			return 1;
 
 		use = strtok(0, ":");

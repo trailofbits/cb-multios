@@ -26,7 +26,7 @@
 * @param str null-teriminated string to determine the length of
 * @return The number of characters before the first null byte
 */
-unsigned int strlen(const char *str);
+unsigned int cgc_strlen(const char *str);
 
 /**
 * Set all bytes in buffer to zero

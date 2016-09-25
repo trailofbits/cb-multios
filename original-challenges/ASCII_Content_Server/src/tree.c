@@ -98,10 +98,10 @@ int InitializeTree() {
     TreeNode *node = calloc(sizeof(TreeNode), 1);
     VerifyPointerOrTerminate(node, "TreeNode during initialization");
     strncpy(node->name, InitialInfo[i].name, sizeof(node->name));
-    node->page_size = strlen(InitialInfo[i].data) + 1;
+    node->page_size = cgc_strlen(InitialInfo[i].data) + 1;
     node->page = calloc(node->page_size, 1);
     VerifyPointerOrTerminate(node->page, "node->page during initialization");
-    memcpy(node->page, InitialInfo[i].data, node->page_size);
+    cgc_memcpy(node->page, InitialInfo[i].data, node->page_size);
     if (InsertNodeInTree(node) != 0) {
       free(node->page);
       free(node);
@@ -190,7 +190,7 @@ int DeleteNode(char *name) {
   }
   // Lookup parent node
   char local_name[64];
-  memcpy(local_name, name, sizeof(local_name));
+  cgc_memcpy(local_name, name, sizeof(local_name));
   char *last_part = strrchr(local_name, '.');
   if (last_part == NULL) {
     parent = root;
@@ -229,7 +229,7 @@ TreeNode *LookupNode(char *name) {
   TreeNode *node = root->child;
   // Make a local copy of the name and walk its subparts
   char local_name[64];
-  memcpy(local_name, name, sizeof(local_name));
+  cgc_memcpy(local_name, name, sizeof(local_name));
   char *part = local_name;
   char *next_part = strchr(local_name, '.');
   if (next_part != NULL) {
@@ -274,7 +274,7 @@ int InsertNodeInTree(TreeNode *node) {
   }
    // Lookup parent node
   char local_name[64];
-  memcpy(local_name, node->name, sizeof(local_name));
+  cgc_memcpy(local_name, node->name, sizeof(local_name));
   char *last_part = strrchr(local_name, '.');
   TreeNode *insert_location = root;
   // If no subparts in name, insert as child to root

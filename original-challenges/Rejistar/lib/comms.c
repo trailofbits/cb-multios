@@ -51,10 +51,10 @@ int get_char(char *ch) {
 
 }
 
-int read_until_delim_or_n(unsigned int socket, char* buffer, char delim, size_t size, size_t* read) {
+int read_until_delim_or_n(unsigned int socket, char* buffer, char delim, size_t size, size_t* cgc_read) {
 
 	size_t tmp=0;
-	*read = 0;
+	*cgc_read = 0;
 	char tmp_char;
 	int result=0;
 
@@ -72,14 +72,14 @@ int read_until_delim_or_n(unsigned int socket, char* buffer, char delim, size_t 
 			return 0;
 
 		buffer[i] = tmp_char;
-		*read += 1;
+		*cgc_read += 1;
 	}
 
 	return 0;
 }
 
-int read_n_bytes(unsigned int socket, char* buffer, size_t size, size_t* read) {
-	return read_until_delim_or_n(socket, buffer, 0, size, read);
+int read_n_bytes(unsigned int socket, char* buffer, size_t size, size_t* cgc_read) {
+	return read_until_delim_or_n(socket, buffer, 0, size, cgc_read);
 }
 
 int transmit_all(int fd, const void *buf, const size_t size) {

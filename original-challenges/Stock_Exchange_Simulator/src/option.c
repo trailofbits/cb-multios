@@ -173,7 +173,7 @@ OP_ERR add_to_order_book(option_order_t *o, uint32_t acct_id, OP_TYPE direction)
 	for(int i = 0; i < NUM_ORDERS; ++i){
 		if(ORDERBOOK[i].contract.symbol[0] == 0x0){
 			char * obsym = ORDERBOOK[i].contract.symbol;
-			memcpy(o->symbol, obsym, SYM_SIZE);
+			cgc_memcpy(o->symbol, obsym, SYM_SIZE);
 			ORDERBOOK[i].contract.qty = o->qty;
 			ORDERBOOK[i].contract.price = o->price;
 			ORDERBOOK[i].acct_id = acct_id;
@@ -214,7 +214,7 @@ size_t gen_order_fill_msg(packet_t *resp, OP_TYPE ot, char * sym, uint32_t qty, 
 	if(ot != BUY && ot != SELL)
 		_terminate(99);
 	orderfill_t *of = (orderfill_t *) &(resp->op_data);
-	memcpy(sym, &(of->symbol), SYM_SIZE);
+	cgc_memcpy(sym, &(of->symbol), SYM_SIZE);
 	of->qty = qty;
 	return sizeof(orderfill_t)-sizeof(void *);
 }

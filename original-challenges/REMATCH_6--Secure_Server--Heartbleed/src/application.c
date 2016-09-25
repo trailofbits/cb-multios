@@ -173,7 +173,7 @@ void msls_handle_application(SERVER_STATE *state, CLIENT_CONTEXT *connection,  S
       {
         sprintf((char *)ar_msg->message, "INVALID MESSAGE");
       } else {
-        memcpy((char *)ar_msg->message, APPLICATION_MSG_BOARD[read_msg->msg_num], APPLICATION_MSG_LENGTH);
+        cgc_memcpy((char *)ar_msg->message, APPLICATION_MSG_BOARD[read_msg->msg_num], APPLICATION_MSG_LENGTH);
       }
       msls_encrypt(ap_response->contents, ap_response->length, connection);
       msls_send_msg(response);
@@ -188,7 +188,7 @@ void msls_handle_application(SERVER_STATE *state, CLIENT_CONTEXT *connection,  S
 
 void clear_message_board()
 {
-  memset(APPLICATION_MSG_BOARD, 0, sizeof(APPLICATION_MSG_BOARD));
+  cgc_memset(APPLICATION_MSG_BOARD, 0, sizeof(APPLICATION_MSG_BOARD));
   numMessages = 0;
 }
 
@@ -199,10 +199,10 @@ int delete_message(uint8_t msg_num)
   {
     return -1;
   }
-  memset(APPLICATION_MSG_BOARD[msg_num], 0, APPLICATION_MSG_LENGTH);
+  cgc_memset(APPLICATION_MSG_BOARD[msg_num], 0, APPLICATION_MSG_LENGTH);
   for (int i = msg_num; i < APPLICATION_MAX_MESSAGES - 1; i++)
   {
-    memcpy(APPLICATION_MSG_BOARD[i], APPLICATION_MSG_BOARD[i+1], APPLICATION_MSG_LENGTH);
+    cgc_memcpy(APPLICATION_MSG_BOARD[i], APPLICATION_MSG_BOARD[i+1], APPLICATION_MSG_LENGTH);
   }
   numMessages--;
   return 1;
@@ -214,7 +214,7 @@ int post_new_message(uint8_t *message)
   {
     return -1;
   }
-  memcpy(APPLICATION_MSG_BOARD[numMessages], message, APPLICATION_MSG_LENGTH);
+  cgc_memcpy(APPLICATION_MSG_BOARD[numMessages], message, APPLICATION_MSG_LENGTH);
   numMessages++;
   return 1;
 }

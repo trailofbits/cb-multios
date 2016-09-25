@@ -102,7 +102,7 @@ unsigned int filter_execute(filter_t *filter, unsigned char *ctx, unsigned int c
     vm = malloc(sizeof(vm_t));
     vm->filter = filter;
     vm->pc = 0;
-    memset(vm->registers, 0, sizeof(vm->registers));
+    cgc_memset(vm->registers, 0, sizeof(vm->registers));
 
     /* setup ctx and frame pointers */
     vm->registers[0].ptr = ctx;
@@ -110,7 +110,7 @@ unsigned int filter_execute(filter_t *filter, unsigned char *ctx, unsigned int c
     vm->registers[15].ptr = stack;
     vm->registers[15].mem = new_mem(&vm->stack_mem, stack, STACK_SIZE);
 
-    memset(stack, 0, STACK_SIZE);
+    cgc_memset(stack, 0, STACK_SIZE);
 
     while (1)
     {

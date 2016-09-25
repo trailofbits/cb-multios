@@ -24,7 +24,7 @@
 #include <libpov.h>
 #include "xlat.h"
 
-#define transmit_str(_str) transmit_all(STDOUT, (_str), strlen((const char *)(_str)))
+#define transmit_str(_str) transmit_all(STDOUT, (_str), cgc_strlen((const char *)(_str)))
 #define transmit_type2_byte(_pov) transmit_all(3, (_pov), sizeof(char))
 #define transmit_type2_short(_pov) transmit_all(3, (_pov), sizeof(short))
 #define transmit_type2_int(_pov) transmit_all(3, (_pov), sizeof(int))
@@ -32,7 +32,7 @@
 
 // STOLEN FROM CROMU sample (not owned by Kaprica)
 // itoa - Does not check output buffer size.
-// Can potentially write up to 12 characters ("-2147483648\0") to str.
+// Can potentially cgc_write up to 12 characters ("-2147483648\0") to str.
 void itoa(char *str, int i)
 {
     char buffer[11];
@@ -75,7 +75,7 @@ void read_until_line(char *line)
     while (!ready) {
         delimited_read(STDIN, &resp, &resp_len, (unsigned char *)"\n", 1);
         transmit_all(STDERR, resp, resp_len);
-        if (memcmp(resp, line, strlen(line)) == 0) {
+        if (memcmp(resp, line, cgc_strlen(line)) == 0) {
             ready = 1;
         }
     }
@@ -128,11 +128,11 @@ int main()
     transmit_all(STDOUT, "1234", 4); // dummy
     transmit_all(STDOUT, "1\n", 2);
     strcpy(pkt, "-1198485360, ");
-    itoa(&pkt[strlen(pkt)], t1.ipval);
-    strcpy(&pkt[strlen(pkt)], ", -1148153712, ");
-    itoa(&pkt[strlen(pkt)], t1.regval);
-    strcpy(&pkt[strlen(pkt)], ", -1869553409, -1869574000, -1869574000, -1869574000,;;\n");
-    transmit_all(STDOUT, pkt, strlen(pkt));
+    itoa(&pkt[cgc_strlen(pkt)], t1.ipval);
+    strcpy(&pkt[cgc_strlen(pkt)], ", -1148153712, ");
+    itoa(&pkt[cgc_strlen(pkt)], t1.regval);
+    strcpy(&pkt[cgc_strlen(pkt)], ", -1869553409, -1869574000, -1869574000, -1869574000,;;\n");
+    transmit_all(STDOUT, pkt, cgc_strlen(pkt));
     transmit_all(STDOUT, "2\n", 2);
     transmit_all(STDOUT, "131;\n", 5);
     transmit_all(STDOUT, "6\n", 2);

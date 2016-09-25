@@ -20,7 +20,7 @@ int transmit_string(int fd, char* buf);
 #define err(s, ...) \
 ({ \
   fdprintf(STDERR, "ERROR %s:%d:\t" s "\n", __FILE__, __LINE__, ##__VA_ARGS__); \
-  exit(1); \
+  cgc_exit(1); \
 })
 
 #endif

@@ -182,15 +182,15 @@ static page_option get_response()
 
     if (i > 2 && response[0] == '*' && response[1] == '*') {
         //parse command
-        if( memcmp(&response[2], "prev", strlen("prev")) == 0 )
+        if( memcmp(&response[2], "prev", cgc_strlen("prev")) == 0 )
             return PREV;
-        if( memcmp(&response[2], "next", strlen("next")) == 0 )
+        if( memcmp(&response[2], "next", cgc_strlen("next")) == 0 )
             return NEXT;
-        if( memcmp(&response[2], "update ", strlen("update ")) == 0 )
+        if( memcmp(&response[2], "update ", cgc_strlen("update ")) == 0 )
             return UPDATE;
-        if( memcmp(&response[2], "help", strlen("help")) == 0 )
+        if( memcmp(&response[2], "help", cgc_strlen("help")) == 0 )
             return HELP;
-        if( memcmp(&response[2], "exit", strlen("exit")) == 0 )
+        if( memcmp(&response[2], "cgc_exit", cgc_strlen("exit")) == 0 )
             return EXIT;
     }
 
@@ -278,7 +278,7 @@ page_option_selected:
 
 int update_field(char *field, app_input_t form_questions[], int num_fields)
 {
-    if (field == NULL || strlen(field) < 1) {
+    if (field == NULL || cgc_strlen(field) < 1) {
         printf("Bad field\n");
         return -1;
     }
@@ -287,8 +287,8 @@ int update_field(char *field, app_input_t form_questions[], int num_fields)
     page_option pg_opt;
     for (i = 0; i < num_fields; i++) {
         app_input_t *form_question = &form_questions[i];
-        if (strlen(field) != strlen(form_question->text_field) ||
-            memcmp(field, form_question->text_field, strlen(form_question->text_field)) != 0)
+        if (cgc_strlen(field) != cgc_strlen(form_question->text_field) ||
+            memcmp(field, form_question->text_field, cgc_strlen(form_question->text_field)) != 0)
             continue;
 
         printf("%s%s: ", form_question->text_field, form_question->input_specification);
@@ -297,14 +297,14 @@ int update_field(char *field, app_input_t form_questions[], int num_fields)
             printf("Bad command\n");
             return -2;
         } else if (!form_question->is_required && memcmp(g_user_resp, "", 1) == 0) {
-            memset(form_question->input, 0, form_question->max_input_length);
+            cgc_memset(form_question->input, 0, form_question->max_input_length);
             return 0;
         } else if (form_question->verify_input(g_user_resp, form_question->max_input_length) != 0) {
             printf("Bad input.\n");
             return -4;
         }
 
-        memset(form_question->input, 0, form_question->max_input_length);
+        cgc_memset(form_question->input, 0, form_question->max_input_length);
         strcpy(form_question->input, g_user_resp);
         return 0;
     }

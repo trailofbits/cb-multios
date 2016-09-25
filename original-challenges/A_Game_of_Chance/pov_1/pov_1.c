@@ -358,7 +358,7 @@ int main(void) {
       SEND(1, (char *)deal_cmd, cmd_sz);
       read_ok();
 
-      /* Send round data cmd and read wagers + results */
+      /* Send round data cmd and cgc_read wagers + results */
       SEND(1, (char *)data_cmd, cmd_sz);
 
       RECV(0, (char *)wagers_and_results, sizeof(wagers_and_results));

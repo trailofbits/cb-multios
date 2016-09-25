@@ -42,7 +42,7 @@ parse_variable(char *str, struct token *token)
 
     token->type = TOK_VARIABLE;
 
-    memset(token->val.s, '\0', 4);
+    cgc_memset(token->val.s, '\0', 4);
     strncpy(token->val.s, start, end - start);
 
     return end - start;

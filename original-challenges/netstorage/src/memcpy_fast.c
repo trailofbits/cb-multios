@@ -31,7 +31,7 @@ typedef unsigned int uint128_t __attribute__((__vector_size__(16)));
 void *memcpy_fast(void *dst, void *src, size_t length)
 {
     if ((length % 16) || ((intptr_t)dst % 16) || ((intptr_t)src % 16))
-        return memcpy(dst, src, length);
+        return cgc_memcpy(dst, src, length);
 
 #if PATCHED
     if (length == 0)

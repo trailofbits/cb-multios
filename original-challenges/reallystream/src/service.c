@@ -60,7 +60,7 @@ int main(void) {
 
         for (i = 0; i < sizeof(alist)/sizeof(action); i++) {
             if (startswith(recv, alist[i].name)) {
-                alist[i].action(recv+strlen(alist[i].name));
+                alist[i].action(recv+cgc_strlen(alist[i].name));
                 break;
             }
         }

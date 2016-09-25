@@ -236,7 +236,7 @@ int strcmp( const char *s1, const char *s2 )
 
 char *strncat ( char *dest, const char *src, size_t n ) 
 {
-    size_t dest_len = strlen(dest);
+    size_t dest_len = cgc_strlen(dest);
     size_t i;
 
     if (dest == NULL || src == NULL) 
@@ -286,7 +286,7 @@ size_t strcat( char *dest, char*src )
         goto end;
     }
 
-    start = strlen( dest );
+    start = cgc_strlen( dest );
 
     for ( ; src[length] != 0x00 ; start++, length++ ) {
         dest[start] = src[length];
@@ -297,7 +297,7 @@ end:
     return length;
 }
 
-size_t strlen( char * str )
+size_t cgc_strlen( char * str )
 {
     size_t length = 0;
 
@@ -352,11 +352,11 @@ end:
 void puts( char *t )
 {
     size_t size;
-    transmit(STDOUT, t, strlen(t), &size);
+    transmit(STDOUT, t, cgc_strlen(t), &size);
     transmit(STDOUT, "\n", 1, &size);
 }
 
-void *memcpy(void *dest, void*src, unsigned int len) {
+void *cgc_memcpy(void *dest, void*src, unsigned int len) {
     void *ret;
     ret = dest;
     while(len) {
@@ -366,7 +366,7 @@ void *memcpy(void *dest, void*src, unsigned int len) {
     return ret;
 }
 
-void *memset(void *dest, char c, unsigned int len) {
+void *cgc_memset(void *dest, char c, unsigned int len) {
     void *ret = dest;
     while(len--) {
         *(char *)dest++=c;
@@ -395,7 +395,7 @@ heap_metadata *heap_manager = NULL;
 void *calloc(size_t count, size_t size) {
     void *ret;
     ret = malloc(size * count);
-    memset(ret, 0, size * count);
+    cgc_memset(ret, 0, size * count);
     return ret;
 }
 
@@ -421,7 +421,7 @@ void *malloc(size_t size) {
         heap_manager->mem_inuse = sizeof(heap_manager);
         heap_manager->mem_free = 4096-heap_manager->mem_inuse;
         allocate(4096, 0, (void *)&heap_manager->blocks);
-        memset(heap_manager->blocks, 0, 4096);
+        cgc_memset(heap_manager->blocks, 0, 4096);
         blockHead = (heap_block_header *)heap_manager->blocks;
         blockHead->remaining_size = 4096-sizeof(heap_block_header);
         blockHead->next = NULL;

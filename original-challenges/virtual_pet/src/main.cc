@@ -66,12 +66,12 @@ public:
 	void Debug();
 	void Name(const char *s) {
 #ifdef PATCHED
-		if (strlen(s) < sizeof(name))
+		if (cgc_strlen(s) < sizeof(name))
 			strlcat(name, s, sizeof(name));
 #else
-		if (strlen(s) < sizeof(name)) {
-			char *n = name + strlen(name);
-			memcpy(n, s, strlen(s) + 1);
+		if (cgc_strlen(s) < sizeof(name)) {
+			char *n = name + cgc_strlen(name);
+			cgc_memcpy(n, s, cgc_strlen(s) + 1);
 		}
 #endif
 	}
@@ -346,7 +346,7 @@ bad_num:
 	}
 
 	name = &opt[i + 1];
-	if (opt[i] == '\0' || strlen(name) == 0) {
+	if (opt[i] == '\0' || cgc_strlen(name) == 0) {
 		put("missing name\n");
 		return;
 	}
@@ -436,7 +436,7 @@ do_line(char *line) {
 	const char *number = NULL;
 	const char *cmd = NULL;
 	const char *opt = NULL;
-	int nextiscmd = 0, nextisopt = 0, len = strlen(line);
+	int nextiscmd = 0, nextisopt = 0, len = cgc_strlen(line);
 
 	number = line;
 	for (int i = 0; i < len; i++) {
@@ -511,7 +511,7 @@ main() {
 		if (c == '\n') {
 			buf[nbuf] = '\0';
 			do_line(buf);
-			memset(buf, 0, sizeof(buf));
+			cgc_memset(buf, 0, sizeof(buf));
 			nbuf = 0;
 		} else
 			buf[nbuf++] = c;

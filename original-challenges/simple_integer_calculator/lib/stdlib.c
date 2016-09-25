@@ -69,11 +69,11 @@ char *strdup(char *s)
                 return(NULL);
         }
 
-        if (allocate(strlen(s)+1, 0, (void *)&retval)) {
+        if (allocate(cgc_strlen(s)+1, 0, (void *)&retval)) {
                 return(NULL);
         }
 
-        bzero(retval, strlen(s)+1);
+        bzero(retval, cgc_strlen(s)+1);
         strcpy(retval, s);
 
         return(retval);
@@ -115,11 +115,11 @@ char *strtok(char *str, const char *delim) {
 
     // not been called before, so make a copy of the string
     if (prev_str == NULL) {
-        if (strlen(str) > 4096) {
+        if (cgc_strlen(str) > 4096) {
             // too big
             return(NULL);
         } 
-        prev_str_len = strlen(str);
+        prev_str_len = cgc_strlen(str);
         if (allocate(prev_str_len, 0, (void *)&prev_str)) {
             return(NULL);
         }
@@ -139,8 +139,8 @@ char *strtok(char *str, const char *delim) {
 
     // find the earliest next delimiter
     start = str;
-    end = str+strlen(str);
-    for (i = 0; i < strlen((char *)delim); i++) {
+    end = str+cgc_strlen(str);
+    for (i = 0; i < cgc_strlen((char *)delim); i++) {
         if ((t = strchr(start, delim[i]))) {
             if (t != NULL && t < end) {
                 end = t;
@@ -160,7 +160,7 @@ char *strtok(char *str, const char *delim) {
 void puts( char *t )
 {
     size_t size;
-    transmit(STDOUT, t, strlen(t), &size);
+    transmit(STDOUT, t, cgc_strlen(t), &size);
     transmit(STDOUT, "\n", 1, &size);
 }
 
@@ -279,7 +279,7 @@ int flush_input( int fd )
 
     while (1)
     {
-        memset( (void *)&read_fds, 0, sizeof(read_fds) );
+        cgc_memset( (void *)&read_fds, 0, sizeof(read_fds) );
         FD_SET( fd, &read_fds );
 
         tv.tv_sec = 0;
@@ -342,7 +342,7 @@ end:
 }
 
 
-void *memcpy( void *dest, void *src, size_t numbytes )
+void *cgc_memcpy( void *dest, void *src, size_t numbytes )
 {
     size_t bytes_copied = 0;
     if ( numbytes >= 4 )
@@ -357,7 +357,7 @@ void *memcpy( void *dest, void *src, size_t numbytes )
     return dest;
 }
 
-void *memset( void *dest, int value, size_t numbytes )
+void *cgc_memset( void *dest, int value, size_t numbytes )
 {
     size_t bytes_copied = 0;
     uint8_t byte_set_value = (uint8_t)value;
@@ -437,7 +437,7 @@ int atoi(const char* str)
     return (sign * integer_part);
 }
 
-size_t strlen( const char *str )
+size_t cgc_strlen( const char *str )
 {
     size_t length = 0;
 

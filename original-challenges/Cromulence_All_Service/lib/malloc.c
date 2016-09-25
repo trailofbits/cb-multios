@@ -44,7 +44,7 @@ void *calloc( size_t count, size_t obj_size )
 
     pMemBuffer = malloc( allocation_size );
 
-    memset( pMemBuffer, 0, allocation_size );
+    cgc_memset( pMemBuffer, 0, allocation_size );
 
     return (pMemBuffer);
 }
@@ -185,7 +185,7 @@ void *malloc( size_t alloc_size )
 
 
             // Clear the allocation
-            memset( (void *)(pFreeCur + sizeof(tMallocAllocHdr)), 0, alloc_size );
+            cgc_memset( (void *)(pFreeCur + sizeof(tMallocAllocHdr)), 0, alloc_size );
 
             // Return the allocated memory
             return (pFreeCur+sizeof(tMallocAllocHdr));

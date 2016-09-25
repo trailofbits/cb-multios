@@ -44,7 +44,7 @@ int main(void)
   while (1) {
     print_prompt(&af86, with_title, done);
     with_title = 0;
-    memset(line_buf, 0, LINE_SIZE);
+    cgc_memset(line_buf, 0, LINE_SIZE);
     if (read_line(line_buf) < 0)
       break;
 

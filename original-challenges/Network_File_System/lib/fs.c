@@ -34,7 +34,7 @@ THE SOFTWARE.
 This library implements a single-directory filesystem with basic
 user permissions. Users are stored in a root-owned 'passwd' file
 in the file systems.  Groups are not implemented, so file permissions
-are owner read-write and other read-write only.
+are owner cgc_read-cgc_write and other cgc_read-cgc_write only.
 
 Example usage:
 
@@ -65,7 +65,7 @@ int main(void) {
 		_terminate(0);
 	}
 
-	if ((fwrite("asdf\n", strlen("asdf\n"), 1, fp)) != strlen("asdf\n")) {
+	if ((fwrite("asdf\n", cgc_strlen("asdf\n"), 1, fp)) != cgc_strlen("asdf\n")) {
 		puts(FsError());
 		_terminate(0);
 	}
@@ -288,7 +288,7 @@ pInode CreateEmptyFile(char *Filename, uint8_t Mode) {
 		}
 
 		// set the filename
-		if ((FS->Inodes[i]->Filename = calloc(strlen(Filename)+1)) == NULL) {
+		if ((FS->Inodes[i]->Filename = calloc(cgc_strlen(Filename)+1)) == NULL) {
 			SetFsError("calloc failed");
 			free(FS->Inodes[i]);
 			FS->Inodes[i] = NULL;
@@ -342,7 +342,7 @@ FILE *fopen(char *Filename, char *Mode) {
 		SetFsError("Invalid filename or mode");
 		return(NULL);
 	}
-	if (strlen(Mode) > 1) {
+	if (cgc_strlen(Mode) > 1) {
 		SetFsError("Invalid mode");
 		return(NULL);
 	}
@@ -484,7 +484,7 @@ uint8_t fclose(FILE *fp) {
 }
 	
 // reads the specified number of items of a particular size from the specified file
-//   returns the number of bytes read
+//   returns the number of bytes cgc_read
 uint32_t fread(char *buf, uint32_t size, uint32_t nitems, FILE *fp) {
 
 	if (!buf || !fp) {
@@ -497,12 +497,12 @@ uint32_t fread(char *buf, uint32_t size, uint32_t nitems, FILE *fp) {
 	}
 
 	if (size*nitems > (fp->Inode->FileSize - fp->CurrPosition)) {
-		memcpy(buf, fp->Inode->Data + fp->CurrPosition, fp->Inode->FileSize - fp->CurrPosition);
+		cgc_memcpy(buf, fp->Inode->Data + fp->CurrPosition, fp->Inode->FileSize - fp->CurrPosition);
 		fp->CurrPosition += (fp->Inode->FileSize - fp->CurrPosition);
 		ClearFsError();
 		return(fp->Inode->FileSize - fp->CurrPosition);
 	} else {
-		memcpy(buf, fp->Inode->Data + fp->CurrPosition, size*nitems);
+		cgc_memcpy(buf, fp->Inode->Data + fp->CurrPosition, size*nitems);
 		fp->CurrPosition += size*nitems;
 		ClearFsError();
 		return(size*nitems);
@@ -525,13 +525,13 @@ uint32_t fwrite(char *buf, uint32_t size, uint32_t nitems, FILE *fp) {
 		return(0);
 	}
 
-	// write the current data to the new buffer
+	// cgc_write the current data to the new buffer
 	if (fp->Inode->Data) {
-		memcpy(NewData, fp->Inode->Data, fp->Inode->FileSize);
+		cgc_memcpy(NewData, fp->Inode->Data, fp->Inode->FileSize);
 	}
 
-	// write the new data to the new buffer
-	memcpy(NewData+fp->Inode->FileSize, buf, size*nitems);
+	// cgc_write the new data to the new buffer
+	cgc_memcpy(NewData+fp->Inode->FileSize, buf, size*nitems);
 	
 	fp->Inode->FileSize += size*nitems;
 
@@ -566,7 +566,7 @@ char *fgets(char *buf, uint32_t size, FILE *fp) {
 		return(NULL);
 	}
 
-	// read in one character at a time
+	// cgc_read in one character at a time
 	while ((fp->CurrPosition < fp->Inode->FileSize) && (TotalBytes < size-1)) {
 		buf[TotalBytes++] = fp->Inode->Data[fp->CurrPosition++];
 		// if the character is a newline, we're done
@@ -592,7 +592,7 @@ uint8_t ListFiles(char **Buf) {
 		return(0);
 	}
 
-	// if we've been passed a Buf pointer, then write the list
+	// if we've been passed a Buf pointer, then cgc_write the list
 	// to a newly allocated buffer rather than stdout
 	// But first we need to calculate how much buffer we'll need
 	if (Buf) {
@@ -605,13 +605,13 @@ uint8_t ListFiles(char **Buf) {
 				continue;
 			}
 
-			if ((NewLen = strlen(FS->Inodes[i]->Filename)) < 32) {
+			if ((NewLen = cgc_strlen(FS->Inodes[i]->Filename)) < 32) {
 				TotalLen += 32;
 			} else {
 				TotalLen += NewLen;
 			}
 			TotalLen++;
-			if ((NewLen = strlen(FS->Inodes[i]->Owner)) < 32) {
+			if ((NewLen = cgc_strlen(FS->Inodes[i]->Owner)) < 32) {
 				TotalLen += 32;
 			} else {
 				TotalLen += NewLen;
@@ -659,7 +659,7 @@ uint8_t ListFiles(char **Buf) {
 				FS->Inodes[i]->FileSize);
 		}
 		// print the mode
-		memset(Mode, '-', 5);	
+		cgc_memset(Mode, '-', 5);	
 		Mode[4] = '\0';
 		if (FS->Inodes[i]->Mode & FS_OWNER_READ)
 			Mode[0] = 'r';
@@ -788,7 +788,7 @@ uint8_t RenameFile(char *OldFilename, char *NewFilename) {
 	}
 
 	// rename the file
-	if ((TempFilename = calloc(strlen(NewFilename)+1)) == NULL) {
+	if ((TempFilename = calloc(cgc_strlen(NewFilename)+1)) == NULL) {
 		SetFsError("calloc failed");
 		return(0);
 	}	
@@ -866,7 +866,7 @@ uint8_t ChangeOwner(char *Filename, char *NewOwner) {
 	}
 
 	// calloc some space for the new owner name
-	if ((TempOwner = calloc(strlen(NewOwner)+1)) == NULL) {
+	if ((TempOwner = calloc(cgc_strlen(NewOwner)+1)) == NULL) {
 		SetFsError("calloc failed");
 		return(0);
 	}
@@ -896,7 +896,7 @@ uint8_t Login(char *Username) {
 	}
 
 	// copy the requested username 
-	if ((NewUsername = calloc(strlen(Username)+1)) == NULL) {
+	if ((NewUsername = calloc(cgc_strlen(Username)+1)) == NULL) {
 		SetFsError("calloc failed");
 		return(0);
 	}
@@ -950,9 +950,9 @@ uint8_t InitPasswd(char *RootPassword) {
 		return(0);
 	}
 
-	// write the root user
+	// cgc_write the root user
 	fwrite("root:", 5, 1, fp);
-	fwrite(RootPassword, strlen(RootPassword), 1, fp);
+	fwrite(RootPassword, cgc_strlen(RootPassword), 1, fp);
 
 	// close the file
 	fclose(fp);
@@ -979,7 +979,7 @@ uint8_t UserExists(char *Username) {
 		return(0);
 	}
 
-	// read in each line
+	// cgc_read in each line
 	while (fgets(line, 127, in)) {
 		// see if it's the target username
 		if ((User = strtok(line, ":")) == NULL) {
@@ -1019,11 +1019,11 @@ uint8_t AddUser(char *Username, char *Password) {
 		SetFsError("Must be root");
 		return(0);
 	}
-	if (strlen(Username) > MAX_USER_LEN) {
+	if (cgc_strlen(Username) > MAX_USER_LEN) {
 		SetFsError("Invalid username");
 		return(0);
 	}
-	if (strlen(Password) > MAX_PASSWD_LEN) {
+	if (cgc_strlen(Password) > MAX_PASSWD_LEN) {
 		SetFsError("Invalid password");
 		return(0);
 	}
@@ -1047,17 +1047,17 @@ uint8_t AddUser(char *Username, char *Password) {
 		return(0);
 	}
 
-	// read in each line of the passwd file
+	// cgc_read in each line of the passwd file
 	while (fgets(line, 127, passwd) != NULL) {
-		// write it out to the temp passwd file
-		if (fwrite(line, strlen(line), 1, newpasswd) != strlen(line)) {
+		// cgc_write it out to the temp passwd file
+		if (fwrite(line, cgc_strlen(line), 1, newpasswd) != cgc_strlen(line)) {
 			fclose(passwd);
 			fclose(newpasswd);
 			SetFsError("Unable to write tmp passwd file");
 			DeleteFile("~passwd");
 			return(0);
 		}
-		if (line[strlen(line)-1] != '\n') {
+		if (line[cgc_strlen(line)-1] != '\n') {
 			if (fwrite("\n", 1, 1, newpasswd) != 1) {
 				fclose(passwd);
 				fclose(newpasswd);
@@ -1068,9 +1068,9 @@ uint8_t AddUser(char *Username, char *Password) {
 		}
 	}
 
-	// write the new passwd entry
+	// cgc_write the new passwd entry
 	sprintf(line, "$s:$s", Username, Password);
-	fwrite(line, strlen(line), 1, newpasswd);
+	fwrite(line, cgc_strlen(line), 1, newpasswd);
 
 	// close the passwd file
 	fclose(passwd);
@@ -1122,13 +1122,13 @@ uint8_t DeleteUser(char *Username) {
 		return(0);
 	}
 
-	// read in each line of the passwd file
+	// cgc_read in each line of the passwd file
 	while (fgets(line, 127, passwd) != NULL) {
 		// skip blank lines
-		if (strlen(line) == 0) {
+		if (cgc_strlen(line) == 0) {
 			continue;
 		}
-		// write it out to the temp passwd file
+		// cgc_write it out to the temp passwd file
 		// if it's not the user we're deleting
 		if ((User = strtok(line, ":")) == NULL) {
 			SetFsError("Failed to parse passwd file");
@@ -1138,16 +1138,16 @@ uint8_t DeleteUser(char *Username) {
 			return(0);
 		}
 		if (!strcmp(User, Username)) {
-			// found it, so don't write the user
+			// found it, so don't cgc_write the user
 			Found = 1;
 			continue;
 		}
 
 		// restore the delimiter strtok would have removed
-		line[strlen(User)] = ':';
+		line[cgc_strlen(User)] = ':';
 
-		// write the line to the temp passwd file
-		if (fwrite(line, strlen(line), 1, newpasswd) != strlen(line)) {
+		// cgc_write the line to the temp passwd file
+		if (fwrite(line, cgc_strlen(line), 1, newpasswd) != cgc_strlen(line)) {
 			fclose(passwd);
 			fclose(newpasswd);
 			SetFsError("Unable to write tmp passwd file");
@@ -1197,7 +1197,7 @@ uint8_t ChangePasswd(char *Username, char *NewPasswd) {
 		SetFsError("Invalid password");
 		return(0);
 	}
-	if (strlen(NewPasswd) > MAX_PASSWD_LEN) {
+	if (cgc_strlen(NewPasswd) > MAX_PASSWD_LEN) {
 		SetFsError("Invalid password");
 		return(0);
 	}
@@ -1220,13 +1220,13 @@ uint8_t ChangePasswd(char *Username, char *NewPasswd) {
 		return(0);
 	}
 
-	// read in each line of the passwd file
+	// cgc_read in each line of the passwd file
 	while (fgets(line, 127, passwd) != NULL) {
 		// skip blank lines
-		if (strlen(line) == 0) {
+		if (cgc_strlen(line) == 0) {
 			continue;
 		}
-		// write it out to the temp passwd file
+		// cgc_write it out to the temp passwd file
 		// if it's not the user we're deleting
 		if ((User = strtok(line, ":")) == NULL) {
 			SetFsError("Failed to parse passwd file");
@@ -1236,9 +1236,9 @@ uint8_t ChangePasswd(char *Username, char *NewPasswd) {
 			return(0);
 		}
 		if (!strcmp(User, Username)) {
-			// found it, write the new passwd
+			// found it, cgc_write the new passwd
 			sprintf(line, "$s:$s\n", Username, NewPasswd);
-			if (fwrite(line, strlen(line), 1, newpasswd) != strlen(line)) {
+			if (fwrite(line, cgc_strlen(line), 1, newpasswd) != cgc_strlen(line)) {
 				fclose(passwd);
 				fclose(newpasswd);
 				SetFsError("Unable to write tmp passwd file");
@@ -1249,10 +1249,10 @@ uint8_t ChangePasswd(char *Username, char *NewPasswd) {
 		}
 
 		// restore the delimiter strtok would have removed
-		line[strlen(User)] = ':';
+		line[cgc_strlen(User)] = ':';
 
 		// restore the delimiter strtok would have removed
-		if (fwrite(line, strlen(line), 1, newpasswd) != strlen(line)) {
+		if (fwrite(line, cgc_strlen(line), 1, newpasswd) != cgc_strlen(line)) {
 			SetFsError("Unable to write tmp passwd file");
 			fclose(passwd);
 			fclose(newpasswd);
@@ -1304,7 +1304,7 @@ uint8_t CheckPasswd(char *Username, char *Password) {
 		SetFsError("Invalid password");
 		return(0);
 	}
-	if (strlen(Password) > MAX_PASSWD_LEN) {
+	if (cgc_strlen(Password) > MAX_PASSWD_LEN) {
 		SetFsError("Invalid password");
 		return(0);
 	}
@@ -1313,7 +1313,7 @@ uint8_t CheckPasswd(char *Username, char *Password) {
 	// save the current logged in user
 	if (CurrentUser) {
 		if (strcmp(CurrentUser, "root") != 0) {
-			if ((OldUser = calloc(strlen(CurrentUser)+1)) == NULL) {
+			if ((OldUser = calloc(cgc_strlen(CurrentUser)+1)) == NULL) {
 				SetFsError("calloc failed");
 				return(0);
 			}
@@ -1340,15 +1340,15 @@ uint8_t CheckPasswd(char *Username, char *Password) {
 		return(0);
 	}
 
-	// read in each line of the passwd file
+	// cgc_read in each line of the passwd file
 	while (fgets(line, 127, passwd) != NULL) {
 		// skip blank lines
-		if (strlen(line) == 0) {
+		if (cgc_strlen(line) == 0) {
 			continue;
 		}
 		// remove any newlines
-		if (line[strlen(line)-1] == '\n') {
-			line[strlen(line)-1] = '\0';
+		if (line[cgc_strlen(line)-1] == '\n') {
+			line[cgc_strlen(line)-1] = '\0';
 		}
 		// parse the username field
 		if ((User = strtok(line, ":")) == NULL) {

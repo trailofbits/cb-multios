@@ -53,13 +53,13 @@ int main(void) {
    type1_vals t1vals;
    type1_negotiate(0x00ffffff, 0xffffffff, 2, &t1vals);
 
-   transmit_all(0, setup, strlen(setup));
+   transmit_all(0, setup, cgc_strlen(setup));
 
    itoa(t1vals.regval, num);
-   transmit_all(0, num, strlen(num));
+   transmit_all(0, num, cgc_strlen(num));
 
    itoa(0x80000000|(t1vals.ipval&0x00ffffff), num);
-   transmit_all(0, num, strlen(num));
+   transmit_all(0, num, cgc_strlen(num));
 
    transmit_all(0, "0\n", 2);
 

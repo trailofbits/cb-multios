@@ -2785,14 +2785,14 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00000_delim[] = 
          "\x0a";
       read_00000 = NULL;
       read_00000_len = 0;
       int read_00000_res = delimited_read(0, &read_00000, &read_00000_len, read_00000_delim, 1);
       if (read_00000_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00000_00000[] = 
          "\x44\x6f\x63\x75\x6d\x65\x6e\x74\x20\x49\x44\x3a\x20\x37\x0a";
       read_00000_ptr += data_match(read_00000 + read_00000_ptr, read_00000_len - read_00000_ptr, match_00000_00000, 15);
@@ -2803,7 +2803,7 @@ int main(void) {
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00001_delim[] = 
          "\x43\x43\x43\x43\x43\x43\x43\x43\x43\x4c\x58\x58\x58\x56\x49\x49"
          "\x49";
@@ -2811,7 +2811,7 @@ int main(void) {
       read_00001_len = 0;
       int read_00001_res = delimited_read(0, &read_00001, &read_00001_len, read_00001_delim, 17);
       if (read_00001_res) {} //silence unused variable warning
-      /* read match pcre:
+      /* cgc_read match pcre:
 [=]{100}
 .*([IXVMDCL]+. kUeuKn\s*
 |\s[0-9]+
@@ -2849,14 +2849,14 @@ int main(void) {
       unsigned char *read_00002;
       unsigned int read_00002_len;
       unsigned int read_00002_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00002_delim[] = 
          "\x2e";
       read_00002 = NULL;
       read_00002_len = 0;
       int read_00002_res = delimited_read(0, &read_00002, &read_00002_len, read_00002_delim, 1);
       if (read_00002_res) {} //silence unused variable warning
-      //**** read assign to var "TYPE2_VALUE" from slice
+      //**** cgc_read assign to var "TYPE2_VALUE" from slice
       assign_from_slice("TYPE2_VALUE", read_00002, read_00002_len - read_00002_ptr, 0, 0, 1);
       free(read_00002);
       if (read_00002_ptr) {}  //silence unused variable warning if any

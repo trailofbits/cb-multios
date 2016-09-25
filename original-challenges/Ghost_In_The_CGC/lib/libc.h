@@ -21,8 +21,8 @@ void receive_all(int fd, void* buf, size_t len);
  * Receives data from the buffer either until the delim is seen or until 
  *   the buffer is full.
  * Since this function adds a NULL character at the end, we will actually
- *   only read len-1 chars.
- * Returns the number of characters read (to include the delim). Note that
+ *   only cgc_read len-1 chars.
+ * Returns the number of characters cgc_read (to include the delim). Note that
  *  the user must check to see that buf[count-1] is actually delim, and not
  *  because it just ended due to the max size
 **/
@@ -38,7 +38,7 @@ static inline size_t strcpy(char* dst, const char* src)
 }
 
 
-static inline size_t strlen(const char* str)
+static inline size_t cgc_strlen(const char* str)
 {
   size_t i = 0; 
   if (str == NULL)
@@ -56,7 +56,7 @@ static inline void fprintStr(int fd, const char* str)
     return;
   }
 
-  transmit_all(fd, str, strlen(str));
+  transmit_all(fd, str, cgc_strlen(str));
 }
 
 #endif//LIBC_H

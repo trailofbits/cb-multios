@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <stdlib.h>
 #include <stdint.h>
 
-size_t strlen( const char *str )
+size_t cgc_strlen( const char *str )
 {
 	size_t len = 0;
 	while ( *str++ != '\0' )
@@ -43,7 +43,7 @@ void bzero(void *s, size_t n) {
         ((char *)s)[n] = '\0';
 }
 
-void *memset( void *ptr, int value, size_t num )
+void *cgc_memset( void *ptr, int value, size_t num )
 {
 	void *ptr_temp = ptr;
 	uint8_t set_value_byte = (uint8_t)value;
@@ -70,7 +70,7 @@ char *strchr(char *s, int c) {
 	if (!s) {
 		return(NULL);
 	}
-	for (i = 0; i < strlen(s); i++) {
+	for (i = 0; i < cgc_strlen(s); i++) {
 		if (s[i] == c) {
 			return(s+i);
 		}
@@ -107,7 +107,7 @@ char *strtok(char *str, char *sep) {
 		return(NULL);
 	}
 
-	str_len = strlen(str);
+	str_len = cgc_strlen(str);
 	for (i = 0; i < str_len; i++) {
 		if (strchr(sep, str[i])) {
 			// found a sep character
@@ -175,7 +175,7 @@ char *strcat(char *restrict s1, const char *restrict s2) {
 		return(NULL);
 	}
 
-	for (i = strlen(s1), j = 0; j < strlen(s2); i++, j++) {
+	for (i = cgc_strlen(s1), j = 0; j < cgc_strlen(s2); i++, j++) {
 		s1[i] = s2[j];
 	}
 	s1[i] = '\0';

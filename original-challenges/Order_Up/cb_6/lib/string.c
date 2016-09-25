@@ -25,7 +25,7 @@
 
 int streq(const char *str1, const char *str2, const char term) {
 
-    if (strlen(str1, term) != strlen(str2, term))
+    if (cgc_strlen(str1, term) != cgc_strlen(str2, term))
         return -1;
 
     while(*str1 != term) {
@@ -52,7 +52,7 @@ int strcmp(const char *str1, const char *str2, const char term) {
     }
 }
 
-unsigned int strlen(const char *str, const char term) {
+unsigned int cgc_strlen(const char *str, const char term) {
 
 	if (NULL == str) {
 		return 0;

@@ -182,7 +182,7 @@ int fpti_display_img( pfpti_image_data fid )
 		return 0;
 	}
 
-	memset( image, ' ', image_length);
+	cgc_memset( image, ' ', image_length);
 	image[image_length] = '\x00';
 
 	while ( fpti_read_pixel( fid, &x, &y) ) {

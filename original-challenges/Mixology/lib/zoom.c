@@ -89,11 +89,11 @@ size_t n_elements_from_sampsz(size_t sz){
 }
 
 zoom_filter_t * load_zoom_filter(char *fromwire, unsigned int num_bits){
-	size_t encoded_sz = strlen(fromwire);
+	size_t encoded_sz = cgc_strlen(fromwire);
 	char *decstr = decode(fromwire, encoded_sz);
 	if(decstr == NULL)
 		return NULL;
-	size_t datalen = strlen(fromwire)/BLOCK_SZ; 
+	size_t datalen = cgc_strlen(fromwire)/BLOCK_SZ; 
 	zoom_filter_t *zf = malloc(sizeof(zoom_filter_t));
 	// todo check math based on new_zoom_filter_above
 	zf->data_len = datalen;

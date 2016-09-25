@@ -225,7 +225,7 @@ int CheckFileExists(char *fname, inode **file_inode) {
 		f = NULL;
 		retval = 0;
 
-		// read the directory contents to see 
+		// cgc_read the directory contents to see 
 		// if our current token is in there
 		if ((i2 = FindDirEntry(i, tok))) {
 			// found this token
@@ -344,7 +344,7 @@ int SplitPath(char *full_name, char *path, char *fname) {
 	}
 
 	strcpy(path, full_name);
-	for (i = strlen(path); i > 0; i--) {
+	for (i = cgc_strlen(path); i > 0; i--) {
 		if (path[i] == '/') {
 			// grab the file name portion while we're here
 			strcpy(fname, path+i+1);
@@ -392,7 +392,7 @@ inode *CreateFile(char *full_name, char *contents) {
 	bzero(path, MAX_CMD);
 	bzero(fname, MAX_CMD);
 
-	if (strlen(fname) > MAX_FILE_NAME_LEN-1) {
+	if (cgc_strlen(fname) > MAX_FILE_NAME_LEN-1) {
 		puts("file name too large");
 		return(NULL);
 	}
@@ -416,8 +416,8 @@ inode *CreateFile(char *full_name, char *contents) {
 	}
 
 	// how many blocks will this content require
-	block_count = strlen(contents)/fs.blocksize;
-	if (strlen(contents) % fs.blocksize != 0) {
+	block_count = cgc_strlen(contents)/fs.blocksize;
+	if (cgc_strlen(contents) % fs.blocksize != 0) {
 		block_count++;
 	}
 	// in case someone is creating an empty file
@@ -442,7 +442,7 @@ inode *CreateFile(char *full_name, char *contents) {
 			inode_head = in;
 		}
 		in->type = INODE_FILE;
-		in->fsize = strlen(contents);
+		in->fsize = cgc_strlen(contents);
 		in->num_blocks = block_count;
 		if (last_inode) {
 			last_inode->indirect_inode = in;
@@ -476,8 +476,8 @@ inode *CreateFile(char *full_name, char *contents) {
 		in2->blocks[index] = b;
 
 		// copy the data into each block
-		len = strlen(contents+(DATA_BLOCK_SIZE*i));
-		memcpy(b, contents+(DATA_BLOCK_SIZE*i), (len > DATA_BLOCK_SIZE) ? 512 : len);
+		len = cgc_strlen(contents+(DATA_BLOCK_SIZE*i));
+		cgc_memcpy(b, contents+(DATA_BLOCK_SIZE*i), (len > DATA_BLOCK_SIZE) ? 512 : len);
 
 	}
 
@@ -558,10 +558,10 @@ int ReadFile(char *full_name) {
 			return(0);
 		}
 		if (fsize >= DATA_BLOCK_SIZE) {
-			write(b, DATA_BLOCK_SIZE);
+			cgc_write(b, DATA_BLOCK_SIZE);
 			fsize -= DATA_BLOCK_SIZE;
 		} else {
-			write(b, fsize);
+			cgc_write(b, fsize);
 		}
 	}	
 	puts("");
@@ -607,7 +607,7 @@ int mkdir(char *pathname) {
 
 	// make sure the parent directory exists
 	SplitPath(pathname, path, fname);
-	if (strlen(fname) > MAX_FILE_NAME_LEN-1) {
+	if (cgc_strlen(fname) > MAX_FILE_NAME_LEN-1) {
 		puts("file name too large");
 		return(-1);
 	}
@@ -999,7 +999,7 @@ FILE *fopen(char *path, const char *mode) {
 }
 
 /*
-   read from the file specified by stream (previously opened with fopen)
+   cgc_read from the file specified by stream (previously opened with fopen)
 */
 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	uint32_t i;
@@ -1022,7 +1022,7 @@ size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	b = in2->blocks[index];
 	b_index = stream->b_index;
 
-	// try to read in the specified number of bytes
+	// try to cgc_read in the specified number of bytes
 	for (i = 0; i < size*nmemb && stream->pos < stream->i->fsize; i++) {
 		if (b_index && (b_index % DATA_BLOCK_SIZE == 0)) {
 			// move on to the next block
@@ -1030,7 +1030,7 @@ size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 				// move on to the next inode
 				if (!(in2 = in2->indirect_inode)) {
 					// indirect_inode is null, that's bad
-					// return what has been read so far
+					// return what has been cgc_read so far
 					stream->curr_pos_inode = in2;
 					stream->index = index;
 					stream->b_index = b_index;
@@ -1042,7 +1042,7 @@ size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 			b = in2->blocks[index];
 			if (!b) {
 				// block is empty, that's bad
-				// return what has been read so far
+				// return what has been cgc_read so far
 				stream->curr_pos_inode = in2;
 				stream->index = index;
 				stream->b_index = b_index;
@@ -1060,7 +1060,7 @@ size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 }
 
 /*
-   write to the file specified by stream (previously opened with fopen)
+   cgc_write to the file specified by stream (previously opened with fopen)
 */
 size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	int i;
@@ -1082,7 +1082,7 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream) {
 		return(0);
 	}
 
-	// write size*nmemb bytes from ptr to the file
+	// cgc_write size*nmemb bytes from ptr to the file
 	in2 = stream->curr_pos_inode;
 	index = stream->index;
 	b = in2->blocks[index];
@@ -1250,7 +1250,7 @@ int ls(char *pathname) {
 
 	printf("Directory listing of @s\n", pathname);
 
-	// read each directory entry
+	// cgc_read each directory entry
 	for (i = 0; i < MAX_DIR_INODES && (in = dir->inodes[i]); i++) {
 		if (in->type == INODE_DIRECTORY) {
 			printf("d ");
@@ -1259,7 +1259,7 @@ int ls(char *pathname) {
 		}
 
 		printf("@s", in->fname);
-		len = strlen(in->fname);
+		len = cgc_strlen(in->fname);
 		len = 50-len;
 		while (len-- > 0) {
 			printf(" ");

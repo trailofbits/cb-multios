@@ -48,7 +48,7 @@ int add_item(ptrlist_t *ptrlist, void *pdata)
         if (!expanded_list )
             return -1;
 
-        memcpy(expanded_list , ptrlist->datalist, sizeof(void *) * (ptrlist->size));
+        cgc_memcpy(expanded_list , ptrlist->datalist, sizeof(void *) * (ptrlist->size));
         free(ptrlist->datalist);
         ptrlist->size *= 2;
         ptrlist->datalist = expanded_list ;

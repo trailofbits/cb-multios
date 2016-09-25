@@ -29,7 +29,7 @@ size_t g_user_id = 0;
 
 user_t *create_user(char *username, char *about)
 {
-    if (!username || !strlen(username) || !about || !strlen(about))
+    if (!username || !cgc_strlen(username) || !about || !cgc_strlen(about))
         return NULL;
 
     user_t *user = calloc(1, sizeof(user_t));

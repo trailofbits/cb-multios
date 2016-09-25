@@ -45,19 +45,19 @@ Request* newRequest(char* type, char* channelArg) {
 		return NULL;
 	}
 
-	if(!(subscriptionRequest->type = malloc(strlen(type)+1))) {
+	if(!(subscriptionRequest->type = malloc(cgc_strlen(type)+1))) {
 		free(subscriptionRequest);
 		return NULL;
 	}
-	memset(subscriptionRequest->type, 0, strlen(type)+1);
+	cgc_memset(subscriptionRequest->type, 0, cgc_strlen(type)+1);
 	strcpy(subscriptionRequest->type, type);
 
-	if(!(subscriptionRequest->channel = malloc(strlen(channelName)+1))) {
+	if(!(subscriptionRequest->channel = malloc(cgc_strlen(channelName)+1))) {
 		free(subscriptionRequest->type);
 		free(subscriptionRequest);
 		return NULL;
 	}
-	memset(subscriptionRequest->channel, 0, strlen(channelName)+1);
+	cgc_memset(subscriptionRequest->channel, 0, cgc_strlen(channelName)+1);
 	strcpy(subscriptionRequest->channel, channelName);
 
 	if(!(buffer = malloc(1024))) {
@@ -67,9 +67,9 @@ Request* newRequest(char* type, char* channelArg) {
 		return NULL;
 	}
 
-	memset(buffer, 0, 1024);
+	cgc_memset(buffer, 0, 1024);
 	fgets(buffer, 1023, stdin);
-	bufferSize = strlen(buffer);
+	bufferSize = cgc_strlen(buffer);
 	if(bufferSize == -1)
 		_terminate(1);
 	if(bufferSize == 0)
@@ -78,19 +78,19 @@ Request* newRequest(char* type, char* channelArg) {
 	bufferPtr = buffer;
 	if(!(argument = strtok(bufferPtr, ':')))
 		return NULL;
-	if(!(subscriptionRequest->token = malloc(strlen(argument)+1))) {
+	if(!(subscriptionRequest->token = malloc(cgc_strlen(argument)+1))) {
 		free(subscriptionRequest->channel);
 		free(subscriptionRequest->type);
 		free(subscriptionRequest);
 		free(buffer);
 		return NULL;		
 	}
-	memset(subscriptionRequest->token, 0, strlen(argument)+1);
+	cgc_memset(subscriptionRequest->token, 0, cgc_strlen(argument)+1);
 	strcpy(subscriptionRequest->token, argument);
 
 	if(!(argument = strtok(NULL, '\n')))
 		return NULL;
-	if(!(subscriptionRequest->arguments = malloc(strlen(argument)+1))) {
+	if(!(subscriptionRequest->arguments = malloc(cgc_strlen(argument)+1))) {
 		free(subscriptionRequest->channel);
 		free(subscriptionRequest->type);
 		free(subscriptionRequest->token);
@@ -98,7 +98,7 @@ Request* newRequest(char* type, char* channelArg) {
 		free(buffer);
 		return NULL;		
 	}
-	memset(subscriptionRequest->arguments, 0, strlen(argument)+1);
+	cgc_memset(subscriptionRequest->arguments, 0, cgc_strlen(argument)+1);
 	strcpy(subscriptionRequest->arguments, argument);
 
 	//free(buffer);
@@ -115,20 +115,20 @@ Request* parseCommand(char* command) {
 	Request *request=NULL;
 	size_t commandSize;
 
-	if(!strncmp(SUBSCRIBE_CMD, command, strlen(SUBSCRIBE_CMD))) {
-		commandSize = strlen(SUBSCRIBE_CMD);
+	if(!strncmp(SUBSCRIBE_CMD, command, cgc_strlen(SUBSCRIBE_CMD))) {
+		commandSize = cgc_strlen(SUBSCRIBE_CMD);
 		request = newRequest(SUBSCRIBE_CMD, &command[commandSize]);
-	} else if(!strncmp(OUT_CMD, command, strlen(OUT_CMD))) {
-		commandSize = strlen(OUT_CMD);
+	} else if(!strncmp(OUT_CMD, command, cgc_strlen(OUT_CMD))) {
+		commandSize = cgc_strlen(OUT_CMD);
 		request = newRequest(OUT_CMD, &command[commandSize]);
-	} else if(!strncmp(AUTH_CMD, command, strlen(AUTH_CMD))) {
-		commandSize = strlen(AUTH_CMD);
+	} else if(!strncmp(AUTH_CMD, command, cgc_strlen(AUTH_CMD))) {
+		commandSize = cgc_strlen(AUTH_CMD);
 		request = newRequest(AUTH_CMD, &command[commandSize]);
-	} else if(!strncmp(TOKEN_CMD, command, strlen(TOKEN_CMD))) {
-		commandSize = strlen(TOKEN_CMD);
+	} else if(!strncmp(TOKEN_CMD, command, cgc_strlen(TOKEN_CMD))) {
+		commandSize = cgc_strlen(TOKEN_CMD);
 		request = newRequest(TOKEN_CMD, &command[commandSize]);
-	} else if(!strncmp(IN_CMD, command, strlen(IN_CMD))) {
-		commandSize = strlen(IN_CMD);
+	} else if(!strncmp(IN_CMD, command, cgc_strlen(IN_CMD))) {
+		commandSize = cgc_strlen(IN_CMD);
 		request = newRequest(IN_CMD, &command[commandSize]);
 	}
 
@@ -146,9 +146,9 @@ char* getCommand() {
 	if(!(buffer = malloc(1024)))
 		return NULL;
 
-	memset(buffer, 0, 1024);
+	cgc_memset(buffer, 0, 1024);
 	fgets(buffer, 1023, stdin);
-	bufferSize = strlen(buffer);
+	bufferSize = cgc_strlen(buffer);
 	if(bufferSize == -1)
 		_terminate(1);
 	if(bufferSize == 0)
@@ -173,7 +173,7 @@ char* getRandomString(unsigned int size) {
 	if(!(string = malloc(size+1)))
 		return NULL;
 
-	memset(string, 0, size+1);
+	cgc_memset(string, 0, size+1);
 
 
 	for(int c=0; c<size; c++) {
@@ -212,8 +212,8 @@ void sendAllPriorityMessages(Channel* channel, Subscription* userSubscription, S
 	for(;message!=NULL;message=message->next) {
 
 		if(!strcmp(message->priority, userSubscription->deliveryType)) {
-			transmit_all(STDOUT, message->body, strlen(message->body));
-			transmit_all(STDOUT, "\n", strlen("\n"));			
+			transmit_all(STDOUT, message->body, cgc_strlen(message->body));
+			transmit_all(STDOUT, "\n", cgc_strlen("\n"));			
 		}
 
 		userSubscription->index = message->id;
@@ -236,8 +236,8 @@ void sendAllMessages(Channel* channel, Subscription* userSubscription, Subscript
 		return;
 
 	for(;message!=NULL;message=message->next) {
-		transmit_all(STDOUT, message->body, strlen(message->body));
-		transmit_all(STDOUT, "\n", strlen("\n"));
+		transmit_all(STDOUT, message->body, cgc_strlen(message->body));
+		transmit_all(STDOUT, "\n", cgc_strlen("\n"));
 
 		userSubscription->index = message->id;
 		channelSubscription->index = message->id;		
@@ -261,8 +261,8 @@ void sendLatestMessage(Channel* channel, Subscription* userSubscription, Subscri
 	if(message->id == userSubscription->index)
 		return;
 
-	transmit_all(STDOUT, message->body, strlen(message->body));
-	transmit_all(STDOUT, "\n", strlen("\n"));
+	transmit_all(STDOUT, message->body, cgc_strlen(message->body));
+	transmit_all(STDOUT, "\n", cgc_strlen("\n"));
 
 	userSubscription->index = message->id;
 	channelSubscription->index = message->id;
@@ -282,8 +282,8 @@ void sendNextMessage(Channel* channel, Subscription* userSubscription, Subscript
 	if(!(message = getMessageById(channel->queue, userSubscription->index+1)))
 		return;
 
-	transmit_all(STDOUT, message->body, strlen(message->body));
-	transmit_all(STDOUT, "\n", strlen("\n"));
+	transmit_all(STDOUT, message->body, cgc_strlen(message->body));
+	transmit_all(STDOUT, "\n", cgc_strlen("\n"));
 
 	userSubscription->index = message->id;
 	channelSubscription->index = message->id;
@@ -376,36 +376,36 @@ void sendMessage(Channel* channelList, Request* request, User* user) {
 	if(!(argument = strtok(arguments, ':')))
 		return;
 
-	messageSize = strlen(argument);
+	messageSize = cgc_strlen(argument);
 	if(!(message->body = malloc(messageSize+1))) {
 		free(message);
 		return;
 	}
 
-	memset(message->body, 0, messageSize+1);
+	cgc_memset(message->body, 0, messageSize+1);
 	strcpy(message->body, argument);
 
 	if(!(argument = strtok(NULL, ':')))
 		return;
 
-	prioritySize = strlen(argument);
+	prioritySize = cgc_strlen(argument);
 	if(!(message->priority = malloc(prioritySize+1))) {
 		free(message->body);
 		free(message);
 		return;
 	}
 
-	memset(message->priority, 0, prioritySize+1);
+	cgc_memset(message->priority, 0, prioritySize+1);
 	strcpy(message->priority, argument);
 
-	sendNameSize = strlen(user->name);
+	sendNameSize = cgc_strlen(user->name);
 	if(!(message->sender = malloc(sendNameSize+1))) {
 		free(message->body);
 		free(message);
 		return;
 	}
 
-	memset(message->sender, 0, sendNameSize+1);
+	cgc_memset(message->sender, 0, sendNameSize+1);
 	strcpy(message->sender, user->name);
 
 	if(!(lastMessage = getLastMessage(channel->queue))) {
@@ -416,7 +416,7 @@ void sendMessage(Channel* channelList, Request* request, User* user) {
 	channel->tail++;
 	message->id = channel->tail;
 
-	sendNameSize = strlen(user->name);
+	sendNameSize = cgc_strlen(user->name);
 	message->next = NULL;
 	channelSubscription->index = channel->tail;
 	userSubscription->index = channel->tail;
@@ -452,21 +452,21 @@ void sendAuthRequest(Request* request) {
 	char* authRequestString;
 	size_t authRequestStringSize=0;
 
-	authRequestStringSize += strlen(AUTH_CMD);
-	authRequestStringSize += strlen("/");
-	authRequestStringSize += strlen(request->channel);
-	authRequestStringSize += strlen("\n");
+	authRequestStringSize += cgc_strlen(AUTH_CMD);
+	authRequestStringSize += cgc_strlen("/");
+	authRequestStringSize += cgc_strlen(request->channel);
+	authRequestStringSize += cgc_strlen("\n");
 
 	if(!(authRequestString = malloc(authRequestStringSize+1)))
 		return;
 
-	memset(authRequestString, 0, authRequestStringSize);
+	cgc_memset(authRequestString, 0, authRequestStringSize);
 	strcpy(authRequestString, AUTH_CMD);
 	strcat(authRequestString, "/");
 	strcat(authRequestString, request->channel);
 	strcat(authRequestString, "\n");
 
-	transmit_all(STDOUT, authRequestString, strlen(authRequestString));
+	transmit_all(STDOUT, authRequestString, cgc_strlen(authRequestString));
 	free(authRequestString);
 
 }
@@ -521,7 +521,7 @@ AuthResponse* parseAuthResponse(char* responseStr) {
 
 	response->subscriptions = NULL;
 	name = strtok(responseString, ':');
-	nameSize = strlen(name);
+	nameSize = cgc_strlen(name);
 	if(!nameSize) {
 		free(response);
 		return NULL;
@@ -532,11 +532,11 @@ AuthResponse* parseAuthResponse(char* responseStr) {
 		return NULL;
 	}
 
-	memset(response->name, 0, nameSize+1);
+	cgc_memset(response->name, 0, nameSize+1);
 	strncpy(response->name, name, nameSize);
 
 	signature = strtok(NULL, ':');
-	signatureSize = strlen(signature);
+	signatureSize = cgc_strlen(signature);
 	if(!signatureSize) {
 		free(response->name);
 		free(response);
@@ -549,7 +549,7 @@ AuthResponse* parseAuthResponse(char* responseStr) {
 		return NULL;
 	}
 
-	memset(response->signature, 0, signatureSize+1);
+	cgc_memset(response->signature, 0, signatureSize+1);
 	strncpy((char*)response->signature, signature, signatureSize);
 
 	for(char* channel=strtok(NULL, ','); channel!=NULL; channel=strtok(NULL, ',')) {
@@ -565,7 +565,7 @@ AuthResponse* parseAuthResponse(char* responseStr) {
 			return NULL;
 		}
 
-		channelNameSize = strlen(channel);
+		channelNameSize = cgc_strlen(channel);
 
 		if(!(subscription->name = malloc(channelNameSize+1))) {
 			free(subscription);
@@ -575,10 +575,10 @@ AuthResponse* parseAuthResponse(char* responseStr) {
 			return NULL;
 		}
 
-		memset(subscription->name, 0, channelNameSize+1);
+		cgc_memset(subscription->name, 0, channelNameSize+1);
 		strncpy(subscription->name, channel, channelNameSize);
 
-		deliveryTypeNameSize = strlen(FRESH_DELIVERY);
+		deliveryTypeNameSize = cgc_strlen(FRESH_DELIVERY);
 
 		if(!(subscription->deliveryType = malloc(deliveryTypeNameSize+1))) {
 			free(subscription->name);
@@ -589,7 +589,7 @@ AuthResponse* parseAuthResponse(char* responseStr) {
 			return NULL;
 		}
 
-		memset(subscription->deliveryType, 0, deliveryTypeNameSize+1);
+		cgc_memset(subscription->deliveryType, 0, deliveryTypeNameSize+1);
 		strncpy(subscription->deliveryType, FRESH_DELIVERY, deliveryTypeNameSize);
 
 		subscription->next = response->subscriptions;
@@ -609,25 +609,25 @@ void sendAuthResponse(User* user, char* channel) {
 	char* signatureString;
 	size_t authResponseStringSize=0;
 
-	authResponseStringSize += strlen(TOKEN_CMD);
-	authResponseStringSize += strlen("/") + strlen(channel) + strlen("\n");
+	authResponseStringSize += cgc_strlen(TOKEN_CMD);
+	authResponseStringSize += cgc_strlen("/") + cgc_strlen(channel) + cgc_strlen("\n");
 
-	authResponseStringSize += strlen("0") + strlen(":");
-	authResponseStringSize += strlen(user->name) + strlen(":");
+	authResponseStringSize += cgc_strlen("0") + cgc_strlen(":");
+	authResponseStringSize += cgc_strlen(user->name) + cgc_strlen(":");
 	if(!(signatureString = computeSignature(user)))
 		return;
 
-	authResponseStringSize += strlen(signatureString) + strlen(":"); 
+	authResponseStringSize += cgc_strlen(signatureString) + cgc_strlen(":"); 
 
 	for(Subscription* subscription=user->subscriptions; subscription!=NULL; subscription=subscription->next) {
-		authResponseStringSize += strlen(subscription->name) + strlen(",");
+		authResponseStringSize += cgc_strlen(subscription->name) + cgc_strlen(",");
 	}
 
-	authResponseStringSize += strlen("\n");
+	authResponseStringSize += cgc_strlen("\n");
 
 	if(!(authResponseString = malloc(authResponseStringSize+1)))
 		return;
-	memset(authResponseString, 0, authResponseStringSize+1);
+	cgc_memset(authResponseString, 0, authResponseStringSize+1);
 
 	strcat(authResponseString, TOKEN_CMD);
 	strcat(authResponseString, "/");
@@ -647,7 +647,7 @@ void sendAuthResponse(User* user, char* channel) {
 	}
 
 	strcat(authResponseString, "\n");
-	transmit_all(STDOUT, authResponseString, strlen(authResponseString));
+	transmit_all(STDOUT, authResponseString, cgc_strlen(authResponseString));
 
 	free(signatureString);
 	free(authResponseString);
@@ -662,15 +662,15 @@ void sendTokenResponse(User* user, Subscription* subscription) {
 	char* tokenResponseString;
 	size_t tokenResponseSize=0;
 
-	tokenResponseSize += strlen(SUBSCRIBE_CMD);
-	tokenResponseSize += strlen("/") + strlen(subscription->name) + strlen("\n");
+	tokenResponseSize += cgc_strlen(SUBSCRIBE_CMD);
+	tokenResponseSize += cgc_strlen("/") + cgc_strlen(subscription->name) + cgc_strlen("\n");
 
-	tokenResponseSize += strlen(user->token) + strlen(":");
-	tokenResponseSize += strlen(subscription->deliveryType) + strlen("\n");
+	tokenResponseSize += cgc_strlen(user->token) + cgc_strlen(":");
+	tokenResponseSize += cgc_strlen(subscription->deliveryType) + cgc_strlen("\n");
 
 	if(!(tokenResponseString = malloc(tokenResponseSize+1)))
 		return;
-	memset(tokenResponseString, 0, tokenResponseSize+1);
+	cgc_memset(tokenResponseString, 0, tokenResponseSize+1);
 
 	strcat(tokenResponseString, SUBSCRIBE_CMD);
 	strcat(tokenResponseString, "/");
@@ -681,7 +681,7 @@ void sendTokenResponse(User* user, Subscription* subscription) {
 	strcat(tokenResponseString, subscription->deliveryType);
 	strcat(tokenResponseString, "\n");
 
-	transmit_all(STDOUT, tokenResponseString, strlen(tokenResponseString));
+	transmit_all(STDOUT, tokenResponseString, cgc_strlen(tokenResponseString));
 
 	free(tokenResponseString);
 }
@@ -700,7 +700,7 @@ void freeResponse(AuthResponse* response) {
  * Send an invalid signature error message to the user
  */
 void sendInvalidSignatureError() {
-	transmit_all(STDOUT, INVALID_SIG_MESSAGE, strlen(INVALID_SIG_MESSAGE));
+	transmit_all(STDOUT, INVALID_SIG_MESSAGE, cgc_strlen(INVALID_SIG_MESSAGE));
 }
 
 /**
@@ -718,16 +718,16 @@ void processTokenRequest(User** usersPtr, Request* request) {
 	if(!(user = getUserByName(*usersPtr, response->name)))
 		return;
 
-	signingKeySize = strlen((char*)user->signingKey);
+	signingKeySize = cgc_strlen((char*)user->signingKey);
 
 	if(verifySignature(response, user->signingKey)) {
-		memset(user->signingKey, 0, signingKeySize);
+		cgc_memset(user->signingKey, 0, signingKeySize);
 		free(user->signingKey);
 		user->signingKey = 0;
 		freeResponse(response);
 	 	user = newToken(user);
 	} else {
-		memset(user->signingKey, 0, signingKeySize);
+		cgc_memset(user->signingKey, 0, signingKeySize);
 		free(user->signingKey);
 		user->signingKey = 0;
 		freeResponse(response);
@@ -753,16 +753,16 @@ void sendWrongPasswordMessage() {
 	size_t messageSize;
 
 	if(!message) {
-		messageSize = strlen(WRONG_PASSWORD_MESSAGE);
+		messageSize = cgc_strlen(WRONG_PASSWORD_MESSAGE);
 		message = malloc(messageSize+1);
-		memset(message, 0, messageSize+1);
+		cgc_memset(message, 0, messageSize+1);
 		strcpy(message, WRONG_PASSWORD_MESSAGE);
 	} else {
-		messageSize = strlen(message);
+		messageSize = cgc_strlen(message);
 	}
 
 	transmit_all(STDOUT, message, messageSize);
-	transmit_all(STDOUT, "\n", strlen("\n"));
+	transmit_all(STDOUT, "\n", cgc_strlen("\n"));
 
 	return;
 }
@@ -819,12 +819,12 @@ void initFlagChannel(Channel** channelListPtr, User** usersPtr) {
 	size_t usernameSize;
 
 	password = getRandomString(900);
-	usernameSize = strlen("admin");
+	usernameSize = cgc_strlen("admin");
 
 	if(!(username = malloc(usernameSize+1)))
 		_terminate(1);
 
-	memset(username, 0, usernameSize+1);
+	cgc_memset(username, 0, usernameSize+1);
 	strcpy(username, "admin");
 
 	if(!(user = newUser(usersPtr, username, password)))
@@ -851,7 +851,7 @@ void sendMessageToFlagChannel(Channel* channelList, User* userList) {
 
 	if(!(flag_buf = malloc(40+1)))
 		_terminate(1);
-	memset(flag_buf, 0, 40+1);
+	cgc_memset(flag_buf, 0, 40+1);
 
 	for (unsigned int i = 0; i < 40; i++) {
 		flag_buf[i++] = to_hex((unsigned char) *flag / 16 % 16);
@@ -862,17 +862,17 @@ void sendMessageToFlagChannel(Channel* channelList, User* userList) {
 	if(!(request = malloc(sizeof(Request))))
 		return;
 
-	channelNameSize = strlen(FLAG_CHANNEL);
+	channelNameSize = cgc_strlen(FLAG_CHANNEL);
 	if(!(request->channel = malloc(channelNameSize+1)))
 		return;
 
-	memset(request->channel, 0, channelNameSize);
+	cgc_memset(request->channel, 0, channelNameSize);
 	strcpy(request->channel, FLAG_CHANNEL);
 
-	argumentSize = strlen(flag_buf) + strlen(":") + strlen(PRIORITY_HIGH_DELIVERY) + strlen("\n");
+	argumentSize = cgc_strlen(flag_buf) + cgc_strlen(":") + cgc_strlen(PRIORITY_HIGH_DELIVERY) + cgc_strlen("\n");
 	if(!(request->arguments = malloc(argumentSize+1)))
 		return;
-	memset(request->arguments, 0, argumentSize+1);
+	cgc_memset(request->arguments, 0, argumentSize+1);
 	strcat(request->arguments, flag_buf);
 	strcat(request->arguments, ":");
 	strcat(request->arguments, PRIORITY_HIGH_DELIVERY);

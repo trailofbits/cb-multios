@@ -64,16 +64,16 @@ int step_count = 0;
 		}
 
 #ifdef PATCHED
-		memset(recipe->Instructions, 0, sizeof(char *)*4);
+		cgc_memset(recipe->Instructions, 0, sizeof(char *)*4);
 #else
-		memset(recipe->Instructions, 0, sizeof(char *)*2);
+		cgc_memset(recipe->Instructions, 0, sizeof(char *)*2);
 #endif
 
 
 #ifdef PATCHED
-		temp_step=malloc(strlen(buffer)+1);
+		temp_step=malloc(cgc_strlen(buffer)+1);
 #else
-		temp_step=malloc(strlen(buffer));
+		temp_step=malloc(cgc_strlen(buffer));
 #endif
 
 		if (temp_step == 0) {
@@ -84,7 +84,7 @@ int step_count = 0;
 		}
 
 #ifdef PATCHED
-		memset( temp_step, 0, strlen(buffer) + 1 );
+		cgc_memset( temp_step, 0, cgc_strlen(buffer) + 1 );
 #endif
 
 		strcpy(temp_step, buffer);
@@ -114,17 +114,17 @@ int step_count = 0;
 			}
 
 #ifdef PATCHED
-			memset(step_list, 0, sizeof(char *)*(step_count+4));
+			cgc_memset(step_list, 0, sizeof(char *)*(step_count+4));
 #else
-			memset(step_list, 0, sizeof(char *)*(step_count+2));
+			cgc_memset(step_list, 0, sizeof(char *)*(step_count+2));
 #endif
 
-			memcpy(step_list, recipe->Instructions, sizeof(char *)*(step_count+1));
+			cgc_memcpy(step_list, recipe->Instructions, sizeof(char *)*(step_count+1));
 
 #ifdef PATCHED
-			temp_step=malloc(strlen(buffer)+1);
+			temp_step=malloc(cgc_strlen(buffer)+1);
 #else
-			temp_step=malloc(strlen(buffer));
+			temp_step=malloc(cgc_strlen(buffer));
 #endif
 
 			if (temp_step == 0) {
@@ -135,7 +135,7 @@ int step_count = 0;
 			}
 
 #ifdef PATCHED
-			memset( temp_step, 0, strlen(buffer)+ 1);
+			cgc_memset( temp_step, 0, cgc_strlen(buffer)+ 1);
 #endif
 			strcpy(temp_step, buffer);
 

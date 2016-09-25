@@ -181,7 +181,7 @@ void moveCriminalInBoat(Position* criminal) {
    char send_buffer[1024];
    bzero(send_buffer, 1024);
    sprintf(send_buffer, "Criminal moves. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-   if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+   if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
       _terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -262,7 +262,7 @@ void moveCriminalInCar(Position* criminal) {
    char send_buffer[1024];
    bzero(send_buffer, 1024);
    sprintf(send_buffer, "Criminal moves. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-   if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+   if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
       _terminate(TRANSMIT_ERROR);
 #endif
 
@@ -283,7 +283,7 @@ void moveLeftInBoat(Position* criminal) {
    char send_buffer[1024];
    bzero(send_buffer, 1024);
    sprintf(send_buffer, "Move Left. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-   if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+   if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
       _terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -300,7 +300,7 @@ void moveForwardInBoat(Position* criminal) {
    char send_buffer[1024];
    bzero(send_buffer, 1024);
    sprintf(send_buffer, "Move Forward. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-   if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+   if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
       _terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -321,7 +321,7 @@ void moveRightInBoat(Position* criminal) {
    char send_buffer[1024];
    bzero(send_buffer, 1024);
    sprintf(send_buffer, "Move Right. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-   if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+   if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
       _terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -337,7 +337,7 @@ void moveForwardInCar(Position* criminal) {
    char send_buffer[1024];
    bzero(send_buffer, 1024);
    sprintf(send_buffer, "Move Forward. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-   if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+   if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
       _terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -357,7 +357,7 @@ void moveRightInCar(Position* criminal) {
    char send_buffer[1024];
    bzero(send_buffer, 1024);
    sprintf(send_buffer, "Move Right. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-   if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+   if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
       _terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -462,7 +462,7 @@ char makeMoveInBoat(Position* criminal) {
    char send_buffer[1024];
    bzero(send_buffer, 1024);
    sprintf(send_buffer, "Value: !U\n", value);
-   if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+   if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
       _terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -491,14 +491,14 @@ char makeMoveInCar(Position* criminal) {
  * @param length   length of the move_str
  */
 void sendMoveString(unsigned char* move_str, unsigned int length) {
-   unsigned char *write = NULL;
+   unsigned char *cgc_write = NULL;
    unsigned int write_len = 0;
 
-   write = append_buf(write, &write_len, move_str, length);
+   cgc_write = append_buf(cgc_write, &write_len, move_str, length);
    if(length > 0) {
-      transmit_all(1, write, write_len);
+      transmit_all(1, cgc_write, write_len);
    }
-   free(write);
+   free(cgc_write);
 }
 
 /**
@@ -508,14 +508,14 @@ void readCaughtMessage() {
       unsigned char *read_00201;
       unsigned int read_00201_len;
       unsigned int read_00201_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00201_delim[] = 
          "\x0a";
       read_00201 = NULL;
       read_00201_len = 0;
       int read_00201_res = delimited_read(0, &read_00201, &read_00201_len, read_00201_delim, 1);
       if (read_00201_res) {} //silence unused variable warning
-      /* read match pcre:
+      /* cgc_read match pcre:
 Criminal caught in ([0-9]*) moves
 
 */
@@ -552,14 +552,14 @@ void readX() {
       unsigned char *read_00200;
       unsigned int read_00200_len;
       unsigned int read_00200_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00200_delim[] = 
          "\x2c";
       read_00200 = NULL;
       read_00200_len = 0;
       int read_00200_res = delimited_read(0, &read_00200, &read_00200_len, read_00200_delim, 1);
       if (read_00200_res) {} //silence unused variable warning
-      //**** read assign to var "criminalX" from pcre: Criminal at \((-?\d+),
+      //**** cgc_read assign to var "criminalX" from pcre: Criminal at \((-?\d+),
       static char read_00200_regex[] = 
          "\x43\x72\x69\x6d\x69\x6e\x61\x6c\x20\x61\x74\x20\x5c\x28\x28\x2d"
          "\x3f\x5c\x64\x2b\x29\x2c";
@@ -576,14 +576,14 @@ void readY() {
       unsigned char *read_00201;
       unsigned int read_00201_len;
       unsigned int read_00201_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00201_delim[] = 
          "\x0a";
       read_00201 = NULL;
       read_00201_len = 0;
       int read_00201_res = delimited_read(0, &read_00201, &read_00201_len, read_00201_delim, 1);
       if (read_00201_res) {} //silence unused variable warning
-      //**** read assign to var "criminalY" from pcre:  (-?\d+)\)\n
+      //**** cgc_read assign to var "criminalY" from pcre:  (-?\d+)\)\n
       static char read_00201_regex[] = 
          "\x20\x28\x2d\x3f\x5c\x64\x2b\x29\x5c\x29\x5c\x6e";
       assign_from_pcre("criminalY", read_00201, read_00201_len - read_00201_ptr, read_00201_regex, 1);
@@ -642,7 +642,7 @@ void catchCriminalInCar() {
          move_str[moves*2+1] = '#';
          moves++;
       }
-      length = strlen((char*)move_str);
+      length = cgc_strlen((char*)move_str);
       sendMoveString(move_str, length);
       readCaughtMessage();
    }
@@ -687,7 +687,7 @@ void catchCriminalInBoat() {
       move_str[moves*2+1] = '#';
       moves++;  
    }
-   length = strlen((char*)move_str);
+   length = cgc_strlen((char*)move_str);
    sendMoveString(move_str, length);
    readCaughtMessage();
 }
@@ -699,12 +699,12 @@ void readFlag() {
    unsigned char *read_00202;
    unsigned int read_00202_len;
    unsigned int read_00202_ptr = 0;
-   //**** length read
+   //**** length cgc_read
    read_00202_len = 16;
    read_00202 = (unsigned char*)malloc(read_00202_len);
    int read_00202_res = length_read(0, read_00202, read_00202_len);
    if (read_00202_res) {} //silence unused variable warning
-   //**** read assign to var "flag" from pcre: (.*)
+   //**** cgc_read assign to var "flag" from pcre: (.*)
    static char read_00202_regex[] = 
       "\x28\x2e\x2a\x29";
    assign_from_pcre("flag", read_00202, read_00202_len - read_00202_ptr, read_00202_regex, 1);

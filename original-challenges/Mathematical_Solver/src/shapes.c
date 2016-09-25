@@ -43,7 +43,7 @@ int request_perimeter()
 		case 0:
 		{
 			// circle
-			// select radius 
+			// cgc_select radius 
 			int radius = random_in_range(0,34567); 
 			
 			// peri = 2*PI*r
@@ -72,7 +72,7 @@ int request_perimeter()
 		case 1:
 		{
 			// rectangle
-			// select side, base
+			// cgc_select side, base
 			int side = random_in_range(0,34567); 
 			int base = random_in_range(0,34567); 
 
@@ -101,7 +101,7 @@ int request_perimeter()
 		case 2:
 		{
 			// boxy
-			// select side, base
+			// cgc_select side, base
 			int num_sides = random_in_range(0,1234); 
 			int length_of_side = random_in_range(0,34567); 
 
@@ -135,14 +135,14 @@ int request_perimeter()
 // Returns FAIL if the user enters an incorrect answer
 int request_2d_peri_dim()
 {
-	// select type of shape (rectangle, circle, arbitrary-sided shape)
+	// cgc_select type of shape (rectangle, circle, arbitrary-sided shape)
 	int rnum = random_in_range(0,2);
 	switch (rnum)
 	{
 		case 0:
 		{
 			// circle
-			// select radius 
+			// cgc_select radius 
 			int radius = random_in_range(0,34567); 
 
 			// peri = 2*PI*r
@@ -182,7 +182,7 @@ int request_2d_peri_dim()
 		case 1:
 		{
 			// rectangle
-			// select side, base
+			// cgc_select side, base
 			int side = random_in_range(0,34567); 
 			int base = random_in_range(0,34567); 
 
@@ -228,7 +228,7 @@ int request_2d_peri_dim()
 		case 2:
 		{
 			// boxy
-			// select side, base
+			// cgc_select side, base
 			int num_sides = random_in_range(0,1234); 
 			int length_of_side = random_in_range(0,34567); 
 
@@ -281,7 +281,7 @@ int request_2d_peri_dim()
 // Returns FAIL if the user enters an incorrect answer
 int request_area()
 {
-	// select the type of shape (circle, rectangle, square)
+	// cgc_select the type of shape (circle, rectangle, square)
 	int rnum = random_in_range(0,2);
 	switch (rnum)
 	{
@@ -289,7 +289,7 @@ int request_area()
 		{
 			// circle
 
-			// select radius
+			// cgc_select radius
 			int radius = random_in_range(0,15000); 
 
 			// area = PI*r*r
@@ -318,7 +318,7 @@ int request_area()
 		{
 			// rectangle
 
-			// select side, base
+			// cgc_select side, base
 			int side = random_in_range(0,34567); 
 			int base = random_in_range(0,34567); 
 
@@ -348,7 +348,7 @@ int request_area()
 		{
 			// square
 
-			// select side
+			// cgc_select side
 			int side = random_in_range(0,34567); 
 
 			// area = side * side
@@ -389,7 +389,7 @@ int request_2d_area_dim()
 		case 0:
 		{
 			// circle
-			// select radius 
+			// cgc_select radius 
 			int radius = random_in_range(0,15000);
 
 			int area = PI * radius * radius;
@@ -427,7 +427,7 @@ int request_2d_area_dim()
 		case 1:
 		{
 			// rectangle
-			// select side, base
+			// cgc_select side, base
 			int side = random_in_range(0,34567); 
 			int base = random_in_range(0,34567); 
 
@@ -477,7 +477,7 @@ int request_2d_area_dim()
 // Returns FAIL if the user enters an incorrect answer
 int request_volume()
 {
-	// select the type of shape (sphere, rectangular prism, cube)
+	// cgc_select the type of shape (sphere, rectangular prism, cube)
 	int rnum = random_in_range(0,2);
 	switch (rnum)
 	{
@@ -511,7 +511,7 @@ int request_volume()
 		{
 			// rectangular prism
 
-			// select side, base, height
+			// cgc_select side, base, height
 			int side = random_in_range(0,1288); 
 			int base = random_in_range(0,1288); 
 			int height = random_in_range(0,1288); 
@@ -540,7 +540,7 @@ int request_volume()
 		{
 			// cube
 
-			// select side
+			// cgc_select side
 			int side = random_in_range(0,1288); 
 
 			int vol = side * side * side;
@@ -618,7 +618,7 @@ int request_3d_dim_vol()
 		{
 			// rectangular prism
 
-			// select side, base, height
+			// cgc_select side, base, height
 			int side = random_in_range(0,1288); 
 			int base = random_in_range(0,1288); 
 			int height = random_in_range(0,1288);
@@ -668,7 +668,7 @@ int request_3d_dim_vol()
 		{
 			// cube
 
-			// select side
+			// cgc_select side
 			int side = random_in_range(0,1288); 
 
 			int vol = side * side * side;

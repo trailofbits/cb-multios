@@ -193,7 +193,7 @@ void process_result(char *send_buf) {
     char cs[4] = {0};
 	struct result r;
 
-	// read result
+	// cgc_read result
 	#ifdef DEBUG
 		fprintf(stderr, "RESULTS...");
 	#endif
@@ -287,13 +287,13 @@ int main(void) {
 		_terminate(6);
 	}
 
-	memset(secret, 0, RAND_PG_SZ);
-	memset(found, 0, RAND_PG_SZ);
+	cgc_memset(secret, 0, RAND_PG_SZ);
+	cgc_memset(found, 0, RAND_PG_SZ);
 
 	// loop until have enough consecutive bytes
 	while (get_consecutive_cnt() < vals[2]) {
 
-		memset(send_buf, 0, CONTENT_LEN);
+		cgc_memset(send_buf, 0, CONTENT_LEN);
 
 		get_gimme_banner();
 

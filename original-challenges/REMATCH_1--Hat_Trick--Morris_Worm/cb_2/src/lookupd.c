@@ -139,7 +139,7 @@ int main(void) {
         num_users++;
     }
 
-    // read input
+    // cgc_read input
     while (1) {
         FD_ZERO(&fds);
         FD_SET(FD_FROM_MAIN, &fds);
@@ -157,6 +157,6 @@ int main(void) {
     } 
 
     EXIT:
-    // exit
+    // cgc_exit
     return 0;
 }

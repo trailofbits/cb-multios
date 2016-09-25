@@ -91,12 +91,12 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00000_len = 20;
       read_00000 = (unsigned char*)malloc(read_00000_len);
       int read_00000_res = length_read(0, read_00000, read_00000_len);
       if (read_00000_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00000_00000[] = 
          "\x92\x10\x00\x00\x11\xd1\xe0\xa4\xec\xdf\x01\xbb\xba\xfd\xff\x03"
          "\x3a\xcc\x00\xe8";
@@ -108,7 +108,7 @@ int main(void) {
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00001_len = 4;
       read_00001 = (unsigned char*)malloc(read_00001_len);
       int read_00001_res = length_read(0, read_00001, read_00001_len);

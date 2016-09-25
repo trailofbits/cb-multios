@@ -35,6 +35,6 @@ void *calloc(size_t count, size_t size)
     if (ptr == NULL)
         return NULL;
 
-    memset(ptr, 0, n);
+    cgc_memset(ptr, 0, n);
     return ptr;
 }

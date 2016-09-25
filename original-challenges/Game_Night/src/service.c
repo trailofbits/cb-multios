@@ -49,7 +49,7 @@ main(void)
 
         if (fread_until(buf, '\n', sizeof(buf), stdin) == EXIT_FAILURE)
             break;
-        if (strlen(buf) == 0 || strtou(buf, 10, &game) == EXIT_FAILURE)
+        if (cgc_strlen(buf) == 0 || strtou(buf, 10, &game) == EXIT_FAILURE)
             continue;
 
         if (game == 1) {

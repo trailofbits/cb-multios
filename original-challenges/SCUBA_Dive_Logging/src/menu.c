@@ -85,7 +85,7 @@ int find_char(char c, char *string)  {
 
 	int i;
 
-	for (i=0; i< strlen(string); ++i) {
+	for (i=0; i< cgc_strlen(string); ++i) {
 
 		if (string[i]== c)
 			return 1;

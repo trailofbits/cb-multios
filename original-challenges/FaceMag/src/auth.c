@@ -61,7 +61,7 @@ unsigned int count;
 
 	    retcode = readFileUntil( fh, username, sizeof(username), ':', &count, ROOT_ID);
 
-	    // if no data was read we must be at the end of the file or its empty
+	    // if no data was cgc_read we must be at the end of the file or its empty
 	    if (retcode == 0 ) {
 
 	    	break;
@@ -153,7 +153,7 @@ char line[1024];
 
 	    retcode = readFileUntil( fh, username, sizeof(username), ':', &count, ROOT_ID);
 
-	    // if no data was read we must be at the end of the file or its empty
+	    // if no data was cgc_read we must be at the end of the file or its empty
 	    if (retcode == 0 )
 	    	break;
 
@@ -180,7 +180,7 @@ char line[1024];
     // at the end of the file and didn't find a username collision
     sprintf(line, "$s:$s:$d\n", name, password, newID);
 
-    retcode = writeFile(fh, line, strlen(line), ROOT_ID );
+    retcode = writeFile(fh, line, cgc_strlen(line), ROOT_ID );
 
     if (retcode < 0 ) {
 
@@ -214,13 +214,13 @@ char line[1024];
     real_name[REALNAME_LEN] = 0;
 #endif
 
-    // initial values for last read and last written posts
+    // initial values for last cgc_read and last written posts
     count = 0;
 
     writeFile( fh3, (char *)&count, sizeof(count), ROOT_ID );
     writeFile( fh3, (char *)&count, sizeof(count), ROOT_ID );
 
-    count = strlen(real_name);
+    count = cgc_strlen(real_name);
     writeFile( fh3, (char *)&count, sizeof(count), ROOT_ID );
 
     writeFile( fh3, real_name, count, ROOT_ID );

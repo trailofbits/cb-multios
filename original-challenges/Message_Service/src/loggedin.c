@@ -37,24 +37,24 @@ void SendMessage(void) {
 	char message[MAX_MESSAGE_LEN];
 	int i, j;
 
-	// read in the To:
+	// cgc_read in the To:
 	zero(user, MAX_USER_NAME_LEN+1);
 	print("To: ");
 	if (read_until(user, '\n', MAX_USER_NAME_LEN+1) == -1) {
 		_terminate(-1);
 	}
 
-	if (strlen(user) == 0) {
+	if (cgc_strlen(user) == 0) {
 		return;
 	}
 
-	// read in the Message:
+	// cgc_read in the Message:
 	zero(message, MAX_MESSAGE_LEN);
 	print("Message: ");
 	if (read_until(message, '\n', MAX_MESSAGE_LEN) == -1) {
 		_terminate(-1);
 	}
-	if (strlen(message) == 0) {
+	if (cgc_strlen(message) == 0) {
 		return;
 	}
 
@@ -88,13 +88,13 @@ void ReadMessage(void) {
 	char id[4];
 	int id_val;
 
-	// read in the ID:
+	// cgc_read in the ID:
 	zero(id, 4);
 	print("ID: ");
 	if (read_until(id, '\n', 4) == -1) {
 		_terminate(-1);
 	}
-	if (strlen(id) == 0) {
+	if (cgc_strlen(id) == 0) {
 		return;
 	}
 
@@ -149,13 +149,13 @@ void DeleteMessage(void) {
 	char id[4];
 	int id_val;
 
-	// read in the ID:
+	// cgc_read in the ID:
 	zero(id, 4);
 	print("ID: ");
 	if (read_until(id, '\n', 4) == -1) {
 		_terminate(-1);
 	}
-	if (strlen(id) == 0) {
+	if (cgc_strlen(id) == 0) {
 		return;
 	}
 

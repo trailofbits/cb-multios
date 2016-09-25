@@ -34,7 +34,7 @@ class Gridder
     bool GenerateNewGridder(int cell_idx, NumGen *pngen);
     void MakeGridderSolveable(int difficulty, NumGen *pngen);
     Gridder *FindSolution(int cell_idx);
-    bool HasUniqueSolution(int cell_idx, const Gridder *s1, bool *exit);
+    bool HasUniqueSolution(int cell_idx, const Gridder *s1, bool *cgc_exit);
     bool ValidateGridder(const Gridder &master);
     void Serialize(FILE *out);
     unsigned int *GetRawGridder(int *size);

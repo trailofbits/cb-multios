@@ -51,7 +51,7 @@ int strcmp(const char* str1, const char* str2, const char term);
  * @param term String termination char
  * @returns Number of bytes preceeding the term char.
  */
-unsigned int strlen(const char *str, const char term);
+unsigned int cgc_strlen(const char *str, const char term);
 
 #endif
 

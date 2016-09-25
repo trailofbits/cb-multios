@@ -69,14 +69,14 @@ int vsnprintf(char* buf, size_t buf_size, const char fsm, const char term, const
                     int_arg = va_arg(args, int);
                     itostr(tmp, 32, int_arg, term);
                     next_arg = tmp;
-                    arg_len = strlen(next_arg, term);
+                    arg_len = cgc_strlen(next_arg, term);
 
                     break;
                 case 'U': // deal with unsigned number
                     int_arg = va_arg(args, int);
                     utostr(tmp, 32, int_arg, term);
                     next_arg = tmp;
-                    arg_len = strlen(next_arg, term);
+                    arg_len = cgc_strlen(next_arg, term);
 
                     break;
                 case 'S': // deal with char buffer (i.e. string)
@@ -84,7 +84,7 @@ int vsnprintf(char* buf, size_t buf_size, const char fsm, const char term, const
                     if (!next_arg) {
                         arg_len = 0;
                     } else { 
-                        arg_len = strlen(next_arg, term);
+                        arg_len = cgc_strlen(next_arg, term);
                     }
 
                     break; 
@@ -110,10 +110,10 @@ int vsnprintf(char* buf, size_t buf_size, const char fsm, const char term, const
 
             if (fmt_spec == 'I' || fmt_spec == 'S' || fmt_spec == 'U') {
                 if (arg_len <= remaining) {
-                    memcpy(&buf[buf_len], next_arg, arg_len);
+                    cgc_memcpy(&buf[buf_len], next_arg, arg_len);
                     buf_len += arg_len;
                 } else {
-                    memcpy(&buf[buf_len], next_arg, remaining);
+                    cgc_memcpy(&buf[buf_len], next_arg, remaining);
                     buf_len += remaining;
                 }
             }

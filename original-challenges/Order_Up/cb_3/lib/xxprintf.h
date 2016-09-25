@@ -81,7 +81,7 @@ typedef __builtin_va_list va_list;
  * Note: 
  *	 If L is replaced by the term char, then there will be a 
  *	term char in the middle of the string. So uses of the resulting
- *	string will cause issues if strlen, etc are used.
+ *	string will cause issues if cgc_strlen, etc are used.
  *   If I (itoan) contains term char, then the string will get 
  *	the decimal representation of the term char in it.
  *
@@ -119,7 +119,7 @@ int vsnprintf(char * buf, size_t buf_size, const char fsm, const char term, cons
  * Note: 
  *	 If L is replaced by the term char, then there will be a 
  *	term char in the middle of the string. So uses of the resulting
- *	string will cause issues if strlen, etc are used.
+ *	string will cause issues if cgc_strlen, etc are used.
  *   If I (itoan) contains term char, then the string will get 
  *	the decimal representation of the term char in it.
  *
@@ -154,7 +154,7 @@ int snprintf(char * buf, size_t buf_size, const char fsm, const char term, const
  * Note: 
  *	 If L is replaced by the term char, then there will be a 
  *	term char in the middle of the string. So uses of the resulting
- *	string will cause issues if strlen, etc are used.
+ *	string will cause issues if cgc_strlen, etc are used.
  *   If I (itoan) contains term char, then the string will get 
  *	the decimal representation of the term char in it.
  *
@@ -169,7 +169,7 @@ int snprintf(char * buf, size_t buf_size, const char fsm, const char term, const
  * Note: vfdprintf does not call va_end, because it takes a va_list, 
  *  caller does so.
  *
- * @param fd file descriptor to write to
+ * @param fd file descriptor to cgc_write to
  * @param fsm Format string marker
  * @param term String termination char
  * @param fmt Null-terminated format string
@@ -191,7 +191,7 @@ int vfdprintf(int fd, const char fsm, const char term, const char *fmt, va_list 
  * Note: 
  *	 If L is replaced by the term char, then there will be a 
  *	term char in the middle of the string. So uses of the resulting
- *	string will cause issues if strlen, etc are used.
+ *	string will cause issues if cgc_strlen, etc are used.
  *   If I (itoan) contains term char, then the string will get 
  *	the decimal representation of the term char in it.
  *
@@ -203,7 +203,7 @@ int vfdprintf(int fd, const char fsm, const char term, const char *fmt, va_list 
  * For each format specifier, it will take a value from args
  *  and insert it at that location as that type.
  *
- * @param fd file descriptor to write to
+ * @param fd file descriptor to cgc_write to
  * @param fsm Format string marker
  * @param term String termination char
  * @param fmt Null-terminated format string
@@ -225,7 +225,7 @@ int fdprintf(int fd, const char fsm, const char term, const char *fmt, ...);
  * Note: 
  *	 If L is replaced by the term char, then there will be a 
  *	term char in the middle of the string. So uses of the resulting
- *	string will cause issues if strlen, etc are used.
+ *	string will cause issues if cgc_strlen, etc are used.
  *   If I (itoan) contains term char, then the string will get 
  *	the decimal representation of the term char in it.
  *

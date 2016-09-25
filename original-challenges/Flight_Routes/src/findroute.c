@@ -56,7 +56,7 @@ int results;
 	// make sure the command line is semi formatted properly by having enough fields
 	delimiter_count = 0;
 
-	for (i=0; i < strlen(command); ++i) {
+	for (i=0; i < cgc_strlen(command); ++i) {
 
 		if (command[i] == '/')
 			++delimiter_count;

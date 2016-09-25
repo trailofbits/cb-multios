@@ -51,11 +51,11 @@ int32_t ParseCli(char *buf, Command *pCmd) {
 	while ((tok = strtok(buf, " ")) && pCmd->argc <= MAX_ARGS) {
 		buf = NULL;
 		if (FoundQuote) {
-			if (tok[strlen(tok)-1] == '"') {
+			if (tok[cgc_strlen(tok)-1] == '"') {
 				// found the close quote at the end of tok
 				// copy this token onto the argv and move on
-				tok[strlen(tok)-1] = '\0';
-				if (strlen(pCmd->argv[pCmd->argc]) + strlen(tok) + 1 > MAX_ARGLEN) {
+				tok[cgc_strlen(tok)-1] = '\0';
+				if (cgc_strlen(pCmd->argv[pCmd->argc]) + cgc_strlen(tok) + 1 > MAX_ARGLEN) {
 					// parse error
 					return(1);
 				}
@@ -74,7 +74,7 @@ int32_t ParseCli(char *buf, Command *pCmd) {
 
 			if (strchr(tok, '"') == NULL) {
 				// add this tok to the argv
-				if (strlen(pCmd->argv[pCmd->argc]) + strlen(tok) + 1 > MAX_ARGLEN) {
+				if (cgc_strlen(pCmd->argv[pCmd->argc]) + cgc_strlen(tok) + 1 > MAX_ARGLEN) {
 					// parse error
 					return(1);
 				}
@@ -90,9 +90,9 @@ int32_t ParseCli(char *buf, Command *pCmd) {
 		}
 		if (tok[0] == '\"') {
 			// found an open quote
-			if (tok[strlen(tok)-1] == '"') {
+			if (tok[cgc_strlen(tok)-1] == '"') {
 				// found the end quote
-				tok[strlen(tok)-1] = '\0';
+				tok[cgc_strlen(tok)-1] = '\0';
 				// copy everything between the quotes into the argv
 				strncpy(pCmd->argv[pCmd->argc++], tok+1, MAX_ARGLEN);
 			} else {
@@ -253,7 +253,7 @@ uint8_t HandlePrint(Command *pCmd) {
 			printf("Unable to open file '$s'\n\r", RedirectFile);
 			return(0);
 		}
-		if (fwrite(pCmd->argv[1], strlen(pCmd->argv[1]), 1, stream) != strlen(pCmd->argv[1])) {
+		if (fwrite(pCmd->argv[1], cgc_strlen(pCmd->argv[1]), 1, stream) != cgc_strlen(pCmd->argv[1])) {
 			fclose(stream);
 			return(0);
 		}

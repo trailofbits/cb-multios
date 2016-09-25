@@ -146,12 +146,12 @@ CMessagePacket *CMessagePacket::ParseStream( CDataStream *pRxStream )
             {
                 if ( readBit == 1 )
                 {
-                    // We've read two 1's
+                    // We've cgc_read two 1's
                     byteLockPos = 3;
                 }
                 else
                 {
-                    // We've read two 1's and a zero
+                    // We've cgc_read two 1's and a zero
                     byteLockPos = 4;
                 }
             }
@@ -218,7 +218,7 @@ CMessagePacket *CMessagePacket::ParseStream( CDataStream *pRxStream )
         pNewPacket->SetDataByteAt( data_pos, read_byte );
     }
 
-    // Now read in checksum
+    // Now cgc_read in checksum
     if ( pNewPacket->IsLargeChecksum() )
     {
         // Read in a large checksum!
@@ -261,6 +261,6 @@ CMessagePacket *CMessagePacket::ParseStream( CDataStream *pRxStream )
     printf( "Packet received\n" );
 #endif
 
-    // Return newly read packet
+    // Return newly cgc_read packet
     return (pNewPacket);
 }

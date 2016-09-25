@@ -80,7 +80,7 @@ unsigned int recv_all(char *res_buf, size_t res_buf_size);
 unsigned int read_all(int fd, char *buf, unsigned int size);
 
 // stdlib
-void *memset(void *dst, int c, unsigned int n);
+void *cgc_memset(void *dst, int c, unsigned int n);
 
 
 #endif

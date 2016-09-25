@@ -74,7 +74,7 @@ void simon_command(char *t) {
     return;
   }
 
-  if (strlen(t) < 8) {
+  if (cgc_strlen(t) < 8) {
     return;
   }
 

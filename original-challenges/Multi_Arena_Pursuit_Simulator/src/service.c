@@ -308,7 +308,7 @@ void moveCriminalInBoat(Position* criminal, Map* map) {
 	char send_buffer[1024];
 	bzero(send_buffer, 1024);
 	sprintf(send_buffer, "Criminal moves. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-	if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+	if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 		_terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -366,7 +366,7 @@ void moveCriminalInCar(Position* criminal, Map* map) {
 	char send_buffer[1024];
 	bzero(send_buffer, 1024);
 	sprintf(send_buffer, "Criminal moves. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-	if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+	if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 		_terminate(TRANSMIT_ERROR);
 #endif
 
@@ -387,7 +387,7 @@ void moveLeftInBoat(Position* criminal) {
 	char send_buffer[1024];
 	bzero(send_buffer, 1024);
 	sprintf(send_buffer, "Move Left. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-	if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+	if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 		_terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -404,7 +404,7 @@ void moveForwardInBoat(Position* criminal) {
 	char send_buffer[1024];
 	bzero(send_buffer, 1024);
 	sprintf(send_buffer, "Move Forward. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-	if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+	if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 		_terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -425,7 +425,7 @@ void moveRightInBoat(Position* criminal) {
 	char send_buffer[1024];
 	bzero(send_buffer, 1024);
 	sprintf(send_buffer, "Move Right. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-	if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+	if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 		_terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -441,7 +441,7 @@ void moveForwardInCar(Position* criminal) {
 	char send_buffer[1024];
 	bzero(send_buffer, 1024);
 	sprintf(send_buffer, "Move Forward. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-	if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+	if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 		_terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -461,7 +461,7 @@ void moveRightInCar(Position* criminal) {
 	char send_buffer[1024];
 	bzero(send_buffer, 1024);
 	sprintf(send_buffer, "Move Right. Criminal at (!I, !I)\n", criminal->x, criminal->y);
-	if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+	if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 		_terminate(TRANSMIT_ERROR);
 #endif
 }
@@ -925,7 +925,7 @@ int main(void) {
 		initCarChase(&criminal);
 		bzero(send_buffer, SEND_SZ);
 		sprintf(send_buffer, "Criminal at (!I, !I)\n", criminal.x, criminal.y);
-		if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+		if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 			_terminate(TRANSMIT_ERROR);
 
 		do {
@@ -937,7 +937,7 @@ int main(void) {
 
 				bzero(send_buffer, SEND_SZ);
 				sprintf(send_buffer, "Criminal caught in !U moves\n", moves);
-				if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+				if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 					_terminate(TRANSMIT_ERROR);	
 				moves = 0;
 				break;
@@ -946,12 +946,12 @@ int main(void) {
 				moveCriminalInCar(&criminal, cityMap);
 
 				if(getsAway(criminal, cityMap)) {
-					if(transmit_all(STDOUT, "Got away\n", strlen("Got away\n")))
+					if(transmit_all(STDOUT, "Got away\n", cgc_strlen("Got away\n")))
 						_terminate(TRANSMIT_ERROR);
 					initCarChase(&criminal);
 					bzero(send_buffer, SEND_SZ);
 					sprintf(send_buffer, "Criminal at (!I, !I)\n", criminal.x, criminal.y);
-					if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+					if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 						_terminate(TRANSMIT_ERROR);
 				}			
 			}
@@ -966,7 +966,7 @@ int main(void) {
 		initHarborChase(&criminal);
 		bzero(send_buffer, SEND_SZ);
 		sprintf(send_buffer, "Criminal at (!I, !I)\n", criminal.x, criminal.y);
-		if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+		if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 			_terminate(TRANSMIT_ERROR);
 
 		do {
@@ -978,7 +978,7 @@ int main(void) {
 				caught++;
 				bzero(send_buffer, SEND_SZ);
 				sprintf(send_buffer, "Criminal caught in !U moves\n", moves);
-				if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+				if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 					_terminate(TRANSMIT_ERROR);	
 				moves = 0;
 				break;
@@ -989,12 +989,12 @@ int main(void) {
 				
 				if(getsAway(criminal, harborMap)) {
 					gotAway++;
-					if(transmit_all(STDOUT, "Got away\n", strlen("Got away\n")))
+					if(transmit_all(STDOUT, "Got away\n", cgc_strlen("Got away\n")))
 						_terminate(TRANSMIT_ERROR);
 					initHarborChase(&criminal);
 					bzero(send_buffer, SEND_SZ);
 					sprintf(send_buffer, "Criminal at (!I, !I)\n", criminal.x, criminal.y);
-					if(transmit_all(STDOUT, send_buffer, strlen(send_buffer)))
+					if(transmit_all(STDOUT, send_buffer, cgc_strlen(send_buffer)))
 						_terminate(TRANSMIT_ERROR);
 				}
 				

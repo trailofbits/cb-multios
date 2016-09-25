@@ -63,7 +63,7 @@ void free_element( psetElement element )
 		goto end;
 	}
 
-	deallocate( element->value, strlen( element->value) + 1 );
+	deallocate( element->value, cgc_strlen( element->value) + 1 );
 	deallocate( element, sizeof(setElement) );
 
 end:
@@ -118,7 +118,7 @@ void free_set_array( psetArray psa )
 	}
 
 	for ( index = 0; index < psa->varCount; index++){
-		deallocate( psa->sElems[index]->value, strlen(psa->sElems[index]->value) + 1 );
+		deallocate( psa->sElems[index]->value, cgc_strlen(psa->sElems[index]->value) + 1 );
 		deallocate( psa->sElems[index], sizeof( setElement) );
 		psa->sElems[index] = NULL;
 	}
@@ -149,7 +149,7 @@ psetElement copy_element( psetElement element )
 		goto end;
 	}
 
-	vlen = strlen( element->value ) + 1;
+	vlen = cgc_strlen( element->value ) + 1;
 
 	if ( allocate( vlen, 0, (void**)&copy->value) != 0 ) {
 		deallocate( copy, sizeof(psetElement) );
@@ -158,7 +158,7 @@ psetElement copy_element( psetElement element )
 	}
 
 	bzero( copy->value, vlen );
-	memcpy( copy->value, element->value, vlen-1 );
+	cgc_memcpy( copy->value, element->value, vlen-1 );
 	copy->type = element->type;
 
 end:
@@ -252,7 +252,7 @@ psetElement create_element( char* value, int type )
                 goto end;
         }
 
-        vlen = strlen(value);
+        vlen = cgc_strlen(value);
 
         if ( allocate( vlen + 1, 0, (void**)&(pse->value)) != 0 ) {
                 deallocate( pse, sizeof(setElement) );
@@ -260,7 +260,7 @@ psetElement create_element( char* value, int type )
                 goto end;
         }
 
-        memcpy( pse->value, value, vlen );
+        cgc_memcpy( pse->value, value, vlen );
 
         pse->value[vlen] = 0x00;
         pse->type = type;

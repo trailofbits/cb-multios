@@ -52,13 +52,13 @@ void getWord() {
    unsigned int w;
    printf("Choose your word seed. Please send 4 bytes\n");
    if (fread(&w, sizeof(w), 1, stdin) != 1) {
-      //read failure just quit
+      //cgc_read failure just quit
       _terminate(1);
    }
    unsigned int magic_index = w % 4093;
    w = *(unsigned int*)(secret + magic_index);
    strcpy(word, words[w % NUM_WORDS]);
-   for (w = 0; w < strlen(word); w++) {
+   for (w = 0; w < cgc_strlen(word); w++) {
       current[w] = '_';
    }
    current[w] = 0;
@@ -107,14 +107,14 @@ int isValid(char c) {
 int makeGuess(char c) {
    int i;
    int found = 0;
-   for (i = 0; i < strlen(word); i++) {
+   for (i = 0; i < cgc_strlen(word); i++) {
       if (word[i] == c) {
          current[i] = c;
          found = 1;
       }
    }
    if (found) {
-      for (i = 0; i < strlen(word); i++) {
+      for (i = 0; i < cgc_strlen(word); i++) {
          if (current[i] == '_') {
             printf("\nMiraculously, you have manage to prolong Tuco's life.\n");
             return 0;
@@ -173,7 +173,7 @@ int doTurn() {
    if (getchar() == '\n') {
       c = tolower(c);
       if (isValid(c)) {
-         used[strlen(used)] = c;
+         used[cgc_strlen(used)] = c;
          return makeGuess(c);
       }
    }

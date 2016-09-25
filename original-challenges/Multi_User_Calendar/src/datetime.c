@@ -229,11 +229,11 @@ bool datetime_within(duration_t d, datetime_t dt)
 
 bool strtodate(char *datestr, date_t *date)
 {
-    if (!datestr || !date || strlen(datestr) < 8)
+    if (!datestr || !date || cgc_strlen(datestr) < 8)
         return false;
 
     date_t temp;
-    memset(&temp, 0, sizeof(date_t));
+    cgc_memset(&temp, 0, sizeof(date_t));
     char *year, *month, *day;
     if ((month = strsep(&datestr, "-")) == NULL)
         return false;
@@ -256,7 +256,7 @@ bool strtodate(char *datestr, date_t *date)
 
 bool strtotime(char *timestr, time_t *time)
 {
-    if (!timestr || !time || strlen(timestr) < 4)
+    if (!timestr || !time || cgc_strlen(timestr) < 4)
         return false;
 
     time_t temp;
@@ -271,7 +271,7 @@ bool strtotime(char *timestr, time_t *time)
 
     if (temp.hour == 0) {
         int i;
-        for (i = 0; i < strlen(hour); i++) {
+        for (i = 0; i < cgc_strlen(hour); i++) {
             if (hour[i] != '0')
                 return false;
         }
@@ -279,7 +279,7 @@ bool strtotime(char *timestr, time_t *time)
 
     if (temp.minute == 0) {
         int i;
-        for (i = 0; i < strlen(minute); i++) {
+        for (i = 0; i < cgc_strlen(minute); i++) {
             if (minute[i] != '0')
                 return false;
         }

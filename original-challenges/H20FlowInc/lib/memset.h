@@ -32,6 +32,6 @@
  * @param n Number of times to copy character
  * @return Updated buffer in str.
  */
-void *memset(void *str, int ch, unsigned int n);
+void *cgc_memset(void *str, int ch, unsigned int n);
 
 #endif

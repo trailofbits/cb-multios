@@ -35,11 +35,11 @@
 #define ERRNO_CANON BASE_ID+4
 #define ERRNO_RECUSION BASE_ID+5
 
-unsigned char * memset(void *b, char c, size_t len);
+unsigned char * cgc_memset(void *b, char c, size_t len);
 int recv_until_delim(int fd, char *buf, size_t size);
 int strcmp(const char *s1, const char *s2);
 int strncmp(const char *s1, const char *s2, size_t len);
-size_t strlen(const char *str);
+size_t cgc_strlen(const char *str);
 char * strpos(char * haystack, char * needle);
 char * strncat(char *s1, const char *s2, size_t n);
 char * strncpy(char *dest, const char *src, size_t n);

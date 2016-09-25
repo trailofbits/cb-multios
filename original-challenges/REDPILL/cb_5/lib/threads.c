@@ -49,7 +49,7 @@ int loop() {
 #endif
       }
 
-      // the fd is ready; read it, advance state, ACK to kernel
+      // the fd is ready; cgc_read it, advance state, ACK to kernel
       receive_all(PIPE_RECV, &pkt, sizeof(pkt), NULL);
       state = pkt_get_msg(&pkt);
       ack_state(state);

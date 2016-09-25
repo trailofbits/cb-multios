@@ -28,7 +28,7 @@ int main(void) {
     } while(0);
 
     do {
-        //**** delimited read
+        //**** delimited cgc_read
         static unsigned char read_00000_delim[] = 
             "\x0a";
         unsigned char *read_00000 = NULL;
@@ -38,7 +38,7 @@ int main(void) {
     } while (0);
     
     do {
-        //**** delimited read
+        //**** delimited cgc_read
         static unsigned char read_00001_delim[] = 
             "\x0a";
         unsigned char *read_00001 = NULL;
@@ -48,7 +48,7 @@ int main(void) {
     } while (0);
     
     do {
-        //**** delimited read
+        //**** delimited cgc_read
         static unsigned char read_00002_delim[] = 
             "\x0a";
         unsigned char *read_00002 = NULL;
@@ -58,7 +58,7 @@ int main(void) {
     } while (0);
     
     do {
-        //**** length read
+        //**** length cgc_read
         unsigned char *read_00003 = (unsigned char*)malloc(37);
         unsigned int read_00003_len = 37;
         int read_00003_res = length_read(0, read_00003, 37);

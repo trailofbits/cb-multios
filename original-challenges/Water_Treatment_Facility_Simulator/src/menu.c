@@ -436,7 +436,7 @@ void PrintRenameMenu(void) {
 					if (read_until(buf, '\n', 255) == -1) {
 						_terminate(-1);
 					}
-					len = strlen(buf);
+					len = cgc_strlen(buf);
 					if (len < 31) {
 						strcpy(DisinfectionOutputValve.Name, buf);
 					}

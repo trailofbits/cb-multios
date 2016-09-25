@@ -54,7 +54,7 @@ int PMPGenerate(PMP_File *pmp, Canvas *c) {
   if (allocate(pmp->data_size, 0, (void **)&pmp->data) != 0) {
     _terminate(-1);
   } 
-  memset(pmp->data, 0, pmp->data_size); 
+  cgc_memset(pmp->data, 0, pmp->data_size); 
 
   pmp->info.size = sizeof(PMP_Info);
   pmp->info.y_size = c->y_size;
@@ -72,7 +72,7 @@ int PMPGenerate(PMP_File *pmp, Canvas *c) {
   for (y = c->y_size - 1; y >= 0; y--) {
     for (x = 0; x < c->x_size; x++) {
       RGB_Color *color = GetColor(c, y, x, 0);
-      memcpy(data, color, sizeof(RGB_Color));
+      cgc_memcpy(data, color, sizeof(RGB_Color));
       data += sizeof(RGB_Color);
     }
     data += row_pad;

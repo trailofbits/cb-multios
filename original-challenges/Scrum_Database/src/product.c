@@ -81,13 +81,13 @@ productDefType *newProduct;
 	newProduct->sprintList = 0;
 
 	// allocate memory for the title
-	newProduct->title = calloc(strlen((char *)&msg->title)+1);
+	newProduct->title = calloc(cgc_strlen((char *)&msg->title)+1);
 
 	if (newProduct->title == 0)
 		_terminate(-1);
 
 
-	strncpy(newProduct->title, (char *)&msg->title, strlen(&msg->title));
+	strncpy(newProduct->title, (char *)&msg->title, cgc_strlen(&msg->title));
 
 	return 0;
 }

@@ -284,7 +284,7 @@ void do_sample( tBasebandState *pState, uint8_t sample_in )
 				pState->packetState.packetDataBitPos = 0;
 
 				// Zero packet data
-				memset( pState->packetState.packetData, 0, 255 );
+				cgc_memset( pState->packetState.packetData, 0, 255 );
 			}
 		}	
 	}

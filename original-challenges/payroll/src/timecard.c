@@ -204,7 +204,7 @@ void initialize_employee(pemployee empl)
 		empl->paychecks[i].calculate_overtime = &exempt_overtime;
 		empl->paychecks[i].payroll_tax.dollars = 0;
 		empl->paychecks[i].payroll_tax.cents = 0;
-		memset(empl->paychecks[i].paycheck, 0, sizeof(empl->paychecks[i].paycheck));
+		cgc_memset(empl->paychecks[i].paycheck, 0, sizeof(empl->paychecks[i].paycheck));
 	}
 }
 
@@ -375,7 +375,7 @@ int get_key_value(char *inbuf, size_t length, char **key, char **value)
 	{
 		return READ_ERROR;
 	}
-	memcpy((char *)inbuf, (char *)&buffer, 80);
+	cgc_memcpy((char *)inbuf, (char *)&buffer, 80);
 
 	if (inbuf[0] == '\n')
 	{

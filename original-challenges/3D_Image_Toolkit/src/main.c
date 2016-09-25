@@ -74,7 +74,7 @@ void menu() {
   uint16_t pixelCount = MAGIC_PAGE_SIZE / sizeof(t3DCPixel);
 
   t3DCPixel **px_list = malloc(pixelCount * sizeof(t3DCPixel*));
-  memset(px_list, 0, pixelCount * sizeof(t3DCPixel*));
+  cgc_memset(px_list, 0, pixelCount * sizeof(t3DCPixel*));
 
   ReadFile(px_list);
 
@@ -85,7 +85,7 @@ void menu() {
       case NEW_FILE:
       {
         printf("NEW_FILE selected\n");
-        memset(new_init, 0, 4096);
+        cgc_memset(new_init, 0, 4096);
         NewFile(px_list, new_init);
         break;
       }
@@ -179,7 +179,7 @@ void menu() {
         uint8_t *decompressed = malloc(MAX_FILE_SIZE);
         Decompress(in_data, decompressed, &compress_len);
         WriteOut(px_list, decompressed, compress_len);
-        memcpy(out_data, decompressed, compress_len);
+        cgc_memcpy(out_data, decompressed, compress_len);
 
         free(decompressed);
         decompress_flag = 1;
@@ -194,7 +194,7 @@ void menu() {
         if (val < pixelCount && val >= 0) {
 
           t3DCPixel *tmp = malloc(sizeof(t3DCPixel));
-          memcpy(tmp, px_list[val], sizeof(t3DCPixel));
+          cgc_memcpy(tmp, px_list[val], sizeof(t3DCPixel));
           ShowPixel(tmp);
           last_shown = px_list[val];
           free(tmp);

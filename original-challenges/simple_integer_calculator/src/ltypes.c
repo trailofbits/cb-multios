@@ -35,7 +35,7 @@ ltype *lint(char *name, char *val) {
 	ret->value = (void *)atoi(val);
 	ret->type = "Integer";
 	ret->name = strdup(name);
-	ret->len = strlen(val);
+	ret->len = cgc_strlen(val);
 	return ret;
 }
 
@@ -45,7 +45,7 @@ ltype *lstring(char *name, char *val) {
 	ret->value = strdup(val);
 	ret->type = "String";
 	ret->name = strdup(name);
-	ret->len = strlen(val);
+	ret->len = cgc_strlen(val);
 	return ret;
 }
 

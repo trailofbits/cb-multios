@@ -77,7 +77,7 @@ int doGet(const char* page, int in, int out)
   
   msg.type = PROTO_GET;
 
-  msg.msgLen = strlen(page);
+  msg.msgLen = cgc_strlen(page);
 
   sendMsg(out, &msg, sizeof(msg));
 
@@ -121,7 +121,7 @@ int parseAndGetPage(char* buf, char** pStart, char** pEnd, const char* uidStr)
     return (-1);
   }
 
-  start = buf + strlen(uidStr);
+  start = buf + cgc_strlen(uidStr);
   if (strstr(start, gGet1) != start)
   {
     return (-1);

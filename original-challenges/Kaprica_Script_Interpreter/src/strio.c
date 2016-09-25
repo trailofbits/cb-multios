@@ -64,7 +64,7 @@ int strio_init(strio_t *s)
 void strio_free(strio_t *s)
 {
     free(s->buf);
-    memset(s, 0, sizeof(strio_t));
+    cgc_memset(s, 0, sizeof(strio_t));
 }
 
 int strio_append_char(strio_t *s, char c)

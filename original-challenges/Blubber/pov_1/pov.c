@@ -86,7 +86,7 @@ static void _convert_signed(char *buf, int x, int base, int upper)
 
 static void send_string(int fd, const char* s)
 {
-  transmit_all(fd, s, strlen(s));
+  transmit_all(fd, s, cgc_strlen(s));
 }
 
 static void strcat(char* s1, const char* s2)
@@ -149,8 +149,8 @@ int main(void)
   strcat(tosend, EOT_S);
   send_string(1, tosend);
   send_string(1, read_blubs);
-  const char* exit = "e" EOT_S;
-  send_string(1, exit);
+  const char* cgc_exit = "e" EOT_S;
+  send_string(1, cgc_exit);
 
 #ifndef TESTING
   length_read(0, (unsigned char*)buf, 336);

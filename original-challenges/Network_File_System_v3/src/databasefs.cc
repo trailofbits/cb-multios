@@ -121,7 +121,7 @@ uint8_t CDBFile::WriteData( int32_t writePos, uint8_t *pData, uint32_t writeLeng
 			bzero( m_pChunks[chunkPos]->chunkData, FILE_CHUNK_SIZE );
 		}
 
-		memcpy( m_pChunks[chunkPos]->chunkData+chunkOffset, pData+fromPos, chunkToWrite );
+		cgc_memcpy( m_pChunks[chunkPos]->chunkData+chunkOffset, pData+fromPos, chunkToWrite );
 		
 		writeAmount -= chunkToWrite;
 		fromPos += chunkToWrite;
@@ -170,7 +170,7 @@ uint8_t CDBFile::ReadData( int32_t readPos, uint8_t *pData, uint32_t readLength,
 			return (FILE_READ_ERROR);
 		}
 
-		memcpy( pData+fromPos, m_pChunks[chunkPos]->chunkData+chunkOffset, chunkToRead );
+		cgc_memcpy( pData+fromPos, m_pChunks[chunkPos]->chunkData+chunkOffset, chunkToRead );
 
 		readAmount -= chunkToRead;
 		fromPos += chunkToRead;
@@ -491,7 +491,7 @@ CDBFSOpenFile *CDBFS::OpenFile( CUtil::String sFilename, const char *pszMode )
 		return (NULL);
 	}
 
-	if ( strlen(pszMode) != 1 )
+	if ( cgc_strlen(pszMode) != 1 )
 	{
 		SetError( "Invalid mode" );
 		return (NULL);
@@ -519,7 +519,7 @@ CDBFSOpenFile *CDBFS::OpenFile( CUtil::String sFilename, const char *pszMode )
 		return (NULL);
 	}
 
-	// If we are creating a file (write mode)
+	// If we are creating a file (cgc_write mode)
 	if ( !pFile )
 	{
 		// Creating file

@@ -57,9 +57,9 @@ ppring_t* pring_new(int num_permits, ppermit_t permits[])
   {
     int i;
     ppermit_t *permit;
-    memset(pring, 0, sizeof(ppring_t));
+    cgc_memset(pring, 0, sizeof(ppring_t));
     for (i = 0; i < num_permits; ++i)
-      memcpy(&pring->permits[i], &permits[i], sizeof(ppermit_t));
+      cgc_memcpy(&pring->permits[i], &permits[i], sizeof(ppermit_t));
     pring->num_permits = num_permits;
   }
   return pring;
@@ -83,7 +83,7 @@ ppring_t* pring_refactor(ppring_t *pring)
           count++;
           for (j = i; j < pring->num_permits - 1; ++j)
           {
-            memcpy(&pring->permits[j], &pring->permits[j + 1], sizeof(ppermit_t));
+            cgc_memcpy(&pring->permits[j], &pring->permits[j + 1], sizeof(ppermit_t));
           }
           pring->num_permits--;
           break;
@@ -91,7 +91,7 @@ ppring_t* pring_refactor(ppring_t *pring)
       }
     }
     if (count > 0)
-      memset(&pring->permits[n - count], 0, count * sizeof(ppermit_t));
+      cgc_memset(&pring->permits[n - count], 0, count * sizeof(ppermit_t));
   }
   return pring;
 }
@@ -111,9 +111,9 @@ int _validate_permit_token(char *token)
 int _validate_license_number(char *license_number)
 {
   int i, count = 0;
-  if (strlen(license_number) > 9)
+  if (cgc_strlen(license_number) > 9)
     return -1;
-  for (i = 0; i < strlen(license_number); ++i)
+  for (i = 0; i < cgc_strlen(license_number); ++i)
   {
     if (!isalnum(license_number[i] & 0xFF))
       return -1;

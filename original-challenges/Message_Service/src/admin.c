@@ -72,21 +72,21 @@ void SendBroadcastMessage(void) {
 #ifdef PATCHED
 	char message[MAX_MESSAGE_LEN];
 
-	// read in the Message:
+	// cgc_read in the Message:
 	zero(message, MAX_MESSAGE_LEN);
 	print("Message: ");
 	if (read_until(message, '\n', MAX_MESSAGE_LEN) == -1) {
 #else
 	char message[1024];
 
-	// read in the Message:
+	// cgc_read in the Message:
 	zero(message, 1024);
 	print("Message: ");
 	if (read_until(message, '\n', 1024) == -1) {
 #endif
 		_terminate(-1);
 	}
-	if (strlen(message) == 0) {
+	if (cgc_strlen(message) == 0) {
 		return;
 	}
 

@@ -46,15 +46,15 @@ bool CMessageRenderer::RenderFooter( void )
 uint32_t add_render_buffer( uint8_t *pBuffer, uint32_t bufferPos, const char *pszString, uint32_t maxBufferPos )
 {
 #ifdef PATCHED
-    uint32_t lenToAdd = strlen( pszString );
+    uint32_t lenToAdd = cgc_strlen( pszString );
 
     if ( (bufferPos + lenToAdd) > maxBufferPos )
         return 0;
 #endif
 
-    memcpy( (uint8_t*)pBuffer+bufferPos, (uint8_t*)pszString, strlen( pszString ) );
+    cgc_memcpy( (uint8_t*)pBuffer+bufferPos, (uint8_t*)pszString, cgc_strlen( pszString ) );
 
-    return strlen( pszString );
+    return cgc_strlen( pszString );
 }
 
 bool CMessageRenderer::RenderMessage( CFullMessage *pMessage )
@@ -266,7 +266,7 @@ bool CMessageRenderer::RenderMessage( CFullMessage *pMessage )
                     break;
                 }
 
-                // Check for exit condition
+                // Check for cgc_exit condition
                 if ( bExit )
                     break;
             }

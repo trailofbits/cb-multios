@@ -37,9 +37,9 @@ void send_response(response_t *res, enum cmd_t cmd)
   packet->body = malloc(packet->body_len);
   if (packet->body)
   {
-    memcpy(packet->body, (char *)res, 2 * sizeof(int));
+    cgc_memcpy(packet->body, (char *)res, 2 * sizeof(int));
     if (res->data_len > 0 && res->data != NULL)
-      memcpy(packet->body + 2 * sizeof(int), res->data, res->data_len);
+      cgc_memcpy(packet->body + 2 * sizeof(int), res->data, res->data_len);
     packet->checksum = calc_checksum(packet);
     size_t size = sizeof(packet_t) - sizeof(char *) + packet->body_len;
     transmit(STDOUT, (char *)packet, size, NULL);

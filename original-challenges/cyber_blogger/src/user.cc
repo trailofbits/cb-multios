@@ -26,9 +26,9 @@
 User::User(char *_username, char *_pw, char *_friend_code)
 {
     profile = NULL;
-    memcpy(username, _username, sizeof(username));
-    memcpy(pw, _pw, sizeof(pw));
-    memcpy(friend_code, _friend_code, sizeof(friend_code));
+    cgc_memcpy(username, _username, sizeof(username));
+    cgc_memcpy(pw, _pw, sizeof(pw));
+    cgc_memcpy(friend_code, _friend_code, sizeof(friend_code));
     total_likes = 0;
 
 }
@@ -177,7 +177,7 @@ size_t User::num_posts()
 void User::print_profile()
 {
     printf("User %s's profile:\n", username);
-    if (profile && strlen(profile))
+    if (profile && cgc_strlen(profile))
         printf("%s\n", profile);
     else
         printf("No profile yet!\n");

@@ -39,14 +39,14 @@ int main(void) {
       unsigned char *read_00000;
       unsigned int read_00000_len;
       unsigned int read_00000_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00000_delim[] = 
          "\x0a";
       read_00000 = NULL;
       read_00000_len = 0;
       int read_00000_res = delimited_read(0, &read_00000, &read_00000_len, read_00000_delim, 1);
       if (read_00000_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00000_00000[] = 
          "\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d"
          "\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d\x3d"
@@ -59,14 +59,14 @@ int main(void) {
       unsigned char *read_00001;
       unsigned int read_00001_len;
       unsigned int read_00001_ptr = 0;
-      //**** delimited read
+      //**** delimited cgc_read
       static unsigned char read_00001_delim[] = 
          "\x0a";
       read_00001 = NULL;
       read_00001_len = 0;
       int read_00001_res = delimited_read(0, &read_00001, &read_00001_len, read_00001_delim, 1);
       if (read_00001_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00001_00000[] = 
          "\x52\x30\x3a\x09\x30\x78\x32\x32\x32\x37\x35\x38\x30\x30\x09\x52"
          "\x31\x3a\x09\x30\x78\x30\x30\x30\x30\x30\x30\x35\x38";
@@ -78,12 +78,12 @@ int main(void) {
       unsigned char *read_00002;
       unsigned int read_00002_len;
       unsigned int read_00002_ptr = 0;
-      //**** length read
+      //**** length cgc_read
       read_00002_len = 21;
       read_00002 = (unsigned char*)malloc(read_00002_len);
       int read_00002_res = length_read(0, read_00002, read_00002_len);
       if (read_00002_res) {} //silence unused variable warning
-      //**** read match data
+      //**** cgc_read match data
       static unsigned char match_00002_00000[] = 
          "\x52\x32\x3a\x09\x30\x78\x30\x30\x30\x30\x30\x30\x30\x30\x09\x52"
          "\x33\x3a\x09\x30\x78";
@@ -98,13 +98,13 @@ int main(void) {
       char gimme[10];
       int read_00003_res;
 
-      //**** length read
+      //**** length cgc_read
 /*      read_00003_len = 8;
       read_00003 = (unsigned char*)malloc(read_00003_len);
       int read_00003_res = length_read(0, read_00003, read_00003_len);
       if (read_00003_res) {} //silence unused variable warning
 */
-      //**** read assign to var "ASCII_TYPE2_VALUE" from slice
+      //**** cgc_read assign to var "ASCII_TYPE2_VALUE" from slice
       read_00003_res = length_read(0, (unsigned char *)gimme, 8);
       gimme[8] = 0;
       if (read_00003_res) {}

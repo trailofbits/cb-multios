@@ -381,7 +381,7 @@
  Any errors in the server will cause the server to send to the client:
  1. Common Packet Header with status set to the error status value.
  2. Error Data with the message associated with error status value.
- 3. Then the server will exit.
+ 3. Then the server will cgc_exit.
 
 	* Error status codes *
 	// this enum is used as 1 byte (0-255)

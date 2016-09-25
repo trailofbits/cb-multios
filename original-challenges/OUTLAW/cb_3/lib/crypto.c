@@ -80,7 +80,7 @@ bail:
 int prng_set_key(void *key) {
 	DBG("\n");
 	int ret = SUCCESS;
-	memcpy(prng_key, key, sizeof(prng_key));
+	cgc_memcpy(prng_key, key, sizeof(prng_key));
 bail:
 	return ret;
 }

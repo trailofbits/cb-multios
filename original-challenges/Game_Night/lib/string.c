@@ -23,7 +23,7 @@
 #include "string.h"
 
 void *
-memcpy(void *destination, const void *source, size_t num)
+cgc_memcpy(void *destination, const void *source, size_t num)
 {
     unsigned char *destination_ = destination;
     const unsigned char *source_ = source;
@@ -46,7 +46,7 @@ memmove(void *destination, const void *source, size_t num)
 }
 
 void *
-memset(void *ptr, int value, size_t num)
+cgc_memset(void *ptr, int value, size_t num)
 {
     unsigned char *ptr_ = ptr;
     while (num--)
@@ -55,7 +55,7 @@ memset(void *ptr, int value, size_t num)
 }
 
 size_t
-strlen(const char *str)
+cgc_strlen(const char *str)
 {
     size_t ret = 0;
     while (*str++)
@@ -96,14 +96,14 @@ strncpy(char *destination, const char *source, size_t num)
 char *
 strcat(char *destination, const char *source)
 {
-    strcpy(destination + strlen(destination), source);
+    strcpy(destination + cgc_strlen(destination), source);
     return destination;
 }
 
 char *
 strncat(char *destination, const char *source, size_t num)
 {
-    destination += strlen(destination);
+    destination += cgc_strlen(destination);
     strncpy(destination, source, num);
     destination[num] = '\0';
     return destination;
@@ -181,7 +181,7 @@ strpbrk(char *str1, const char *str2)
 char *
 strrchr(char *str, int character)
 {
-    str += strlen(str) - 1;
+    str += cgc_strlen(str) - 1;
     while (*str)
         if (*str == (char)character)
             return str;
@@ -196,7 +196,7 @@ strstr(char *str1, const char *str2)
 {
     size_t str2_len;
 
-    str2_len = strlen(str2);
+    str2_len = cgc_strlen(str2);
     while (*str1)
         if (strncmp(str1, str2, str2_len) == 0)
             return str1;
@@ -212,7 +212,7 @@ strcspn(const char *str1, const char *str2)
     const char *match;
 
     if ((match = strpbrk((char *)str1, str2)) == NULL)
-        return strlen(str1);
+        return cgc_strlen(str1);
     else
         return match - str1;
 }
@@ -232,10 +232,10 @@ strtok(char *str, const char *delimiters)
     char *ret;
     static char *last = NULL;
 
-    if (str == NULL && (last == NULL || strlen(last) == 0))
+    if (str == NULL && (last == NULL || cgc_strlen(last) == 0))
         return NULL;
 
-    if (last == NULL || strlen(last) == 0)
+    if (last == NULL || cgc_strlen(last) == 0)
         last = str;
 
     while (strchr((char *)delimiters, *last) != NULL)

@@ -58,7 +58,7 @@ void daystostr(days_t days, char *output)
     if (!output)
         return;
 
-    memset(output, 0, 9);
+    cgc_memset(output, 0, 9);
     if(days & M)
         strcat(output, "M");
     if(days & T)

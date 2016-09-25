@@ -54,11 +54,11 @@ int syslog(int priority, const char *format, ...) {
     int log_entry_len;
     va_list args;
 
-    // write priority to log_entry buffer
+    // cgc_write priority to log_entry buffer
     log_entry_len = snprintf(log_entry_idx, MAX_SYSLOG_LEN, "~c: ", pri_str);
     log_entry_idx += log_entry_len;
 
-    // process format string and write it to log_entry buffer
+    // process format string and cgc_write it to log_entry buffer
     va_start(args, format);
     log_entry_len += vsnprintf(log_entry_idx, MAX_SYSLOG_LEN - log_entry_len, format, args);
     va_end(args);

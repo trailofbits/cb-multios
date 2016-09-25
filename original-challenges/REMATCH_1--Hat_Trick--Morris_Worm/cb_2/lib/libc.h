@@ -39,6 +39,6 @@ int replace(char *s, char find, char replace, int num);
 int force_newline(char *s, int size, int bytes);
 int getopt(int argc, char **argv, char *optstring, int *opt_index);
 void bcopy(char *s, char *d, size_t size);
-void exit(int e);
+void cgc_exit(int e);
 
 #endif

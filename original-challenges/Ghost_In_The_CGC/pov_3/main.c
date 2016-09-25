@@ -144,13 +144,13 @@ int main(void)
 
   for (i = 0; i < 25; i++)
   {
-    transmit_all(STDOUT, msgs[i], strlen(msgs[i]));
+    transmit_all(STDOUT, msgs[i], cgc_strlen(msgs[i]));
     receive_until(STDIN, buf, 512, '\n');
 
     if ( (i == 14) || (i == 16) || (i == 18) || (i == 20) )
     {
       temp = (temp << 8) | parseByte(buf);
-      transmit_all(STDERR, buf, strlen(buf));
+      transmit_all(STDERR, buf, cgc_strlen(buf));
       receive_until(STDIN, buf, 512, '\n');
     }
 

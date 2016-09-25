@@ -83,11 +83,11 @@ static int normalize_infix(unsigned char **pinfix, size_t size)
 
             unions[i] = '\0';
             unions[--i] = RPAREN;
-            new_str = malloc(strlen(t) + strlen(unions) + 1);
-            memcpy(new_str, t, s - t);
-            memcpy(new_str + (s - t), unions, strlen(unions));
-            memcpy(new_str + ((s - t) + strlen(unions)), e, strlen(e) + 1);
-            infix = new_str + ((s - t) + strlen(unions)) - 1;
+            new_str = malloc(cgc_strlen(t) + cgc_strlen(unions) + 1);
+            cgc_memcpy(new_str, t, s - t);
+            cgc_memcpy(new_str + (s - t), unions, cgc_strlen(unions));
+            cgc_memcpy(new_str + ((s - t) + cgc_strlen(unions)), e, cgc_strlen(e) + 1);
+            infix = new_str + ((s - t) + cgc_strlen(unions)) - 1;
             free(t);
             t = new_str;
         }
@@ -111,7 +111,7 @@ static int is_nonconcat_char(unsigned char c)
 
 void debug_print_re(unsigned char* re)
 {
-    unsigned char *temp = malloc(strlen(re) + 1);
+    unsigned char *temp = malloc(cgc_strlen(re) + 1);
     unsigned char *ptemp = temp, *pre = re;
     for( ; *re; re++)
         *temp++ = *re > CHAR_OFFSET ? *re - CHAR_OFFSET : *re;
@@ -125,15 +125,15 @@ void debug_print_re(unsigned char* re)
 int retorpn(unsigned char *infix, size_t size, unsigned char **rpn)
 {
     *rpn = NULL;
-    if(strlen(infix) == 0)
+    if(cgc_strlen(infix) == 0)
         return BAD_RE;
-    else if(strlen(infix) > MAX_RE_SIZE)
+    else if(cgc_strlen(infix) > MAX_RE_SIZE)
         return RE_TOO_LONG;
-    else if(strlen(infix) > size)
+    else if(cgc_strlen(infix) > size)
         return BUF_OVERFLOW;
 
-    unsigned char *output = calloc(1, (strlen(infix) * 2) + 1); // Factor in all the concats
-    unsigned char *operators = calloc(1, strlen(infix) + 1);
+    unsigned char *output = calloc(1, (cgc_strlen(infix) * 2) + 1); // Factor in all the concats
+    unsigned char *operators = calloc(1, cgc_strlen(infix) + 1);
     unsigned char *out_iter = output;
     unsigned char *op_iter = operators;
     unsigned char *ninfix = malloc(size);

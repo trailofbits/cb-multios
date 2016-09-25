@@ -50,7 +50,7 @@ uint32_t db_add_record( char *pszUserName, char *pszFirstName, char *pszLastName
     strncpy( g_ddapDatabase[g_recordCount].szLastName, pszLastName, MAX_STRING_LENGTH );
     strncpy( g_ddapDatabase[g_recordCount].szUserName, pszUserName, MAX_STRING_LENGTH );
 
-    memcpy( &g_ddapDatabase[g_recordCount].birthDate, &birthDate, sizeof(tDateTime) );
+    cgc_memcpy( &g_ddapDatabase[g_recordCount].birthDate, &birthDate, sizeof(tDateTime) );
 
     g_recordCount++;
 
@@ -66,7 +66,7 @@ uint32_t db_update_record( uint32_t index, char *pszUserName, char *pszFirstName
     strncpy( g_ddapDatabase[index].szLastName, pszLastName, MAX_STRING_LENGTH );
     strncpy( g_ddapDatabase[index].szUserName, pszUserName, MAX_STRING_LENGTH );
 
-    memcpy( &g_ddapDatabase[index].birthDate, &birthDate, sizeof(tDateTime) );
+    cgc_memcpy( &g_ddapDatabase[index].birthDate, &birthDate, sizeof(tDateTime) );
 
     return (1);
 }
@@ -90,7 +90,7 @@ uint32_t db_remove_record( uint32_t index )
         strcpy( g_ddapDatabase[i].szLastName, g_ddapDatabase[i+1].szLastName );
         strcpy( g_ddapDatabase[i].szUserName, g_ddapDatabase[i+1].szUserName );
 
-        memcpy( &g_ddapDatabase[i].birthDate, &g_ddapDatabase[i+1].birthDate, sizeof(tDateTime) );
+        cgc_memcpy( &g_ddapDatabase[i].birthDate, &g_ddapDatabase[i+1].birthDate, sizeof(tDateTime) );
     }
 
     // 1 for successly deleting record

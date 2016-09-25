@@ -122,12 +122,12 @@ void Deque::Expand()
 
     if (idx_0_ + size_ > cap_)
     {
-        memcpy(new_array, &tickets_[idx_0_], sizeof(Ticket *) * (cap_ - idx_0_));
-        memcpy(&new_array[cap_ - idx_0_], tickets_, sizeof(Ticket *) * (size_ - (cap_ - idx_0_)));
+        cgc_memcpy(new_array, &tickets_[idx_0_], sizeof(Ticket *) * (cap_ - idx_0_));
+        cgc_memcpy(&new_array[cap_ - idx_0_], tickets_, sizeof(Ticket *) * (size_ - (cap_ - idx_0_)));
     }
     else
     {
-        memcpy(new_array, &tickets_[idx_0_], sizeof(Ticket *) * size_);
+        cgc_memcpy(new_array, &tickets_[idx_0_], sizeof(Ticket *) * size_);
     }
     delete tickets_;
     tickets_ = new_array;
@@ -145,12 +145,12 @@ void Deque::TryShrink()
 
     if (idx_0_ + size_ > cap_)
     {
-        memcpy(new_array, &tickets_[idx_0_], sizeof(Ticket *) * (cap_ - idx_0_));
-        memcpy(&new_array[cap_ - idx_0_], tickets_, sizeof(Ticket *) * (size_ - (cap_ - idx_0_)));
+        cgc_memcpy(new_array, &tickets_[idx_0_], sizeof(Ticket *) * (cap_ - idx_0_));
+        cgc_memcpy(&new_array[cap_ - idx_0_], tickets_, sizeof(Ticket *) * (size_ - (cap_ - idx_0_)));
     }
     else
     {
-        memcpy(new_array, &tickets_[idx_0_], sizeof(Ticket *) * size_);
+        cgc_memcpy(new_array, &tickets_[idx_0_], sizeof(Ticket *) * size_);
     }
 
     delete tickets_;

@@ -22,7 +22,7 @@
 #pragma once
 
 /**
- * Receive size bytes from file descriptor and write into buffer.
+ * Receive size bytes from file descriptor and cgc_write into buffer.
  *
  * @param fd Source file descriptor
  * @param buf Destination buffer; will not be NULL terminated

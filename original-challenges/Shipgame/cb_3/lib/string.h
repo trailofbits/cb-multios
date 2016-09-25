@@ -18,7 +18,7 @@ char* strrstr(char* haystack, const char* needle);
 
 char* strrchr(char* haystack, char needle);
 
-size_t strlen(const char* str);
+size_t cgc_strlen(const char* str);
 
 uint32_t strToUint32(const char* str);
 #endif//STRING_H

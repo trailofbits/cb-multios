@@ -334,7 +334,7 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 	///	is required.
 	if ( frame_type == 0 ) {
 		/// Set the base image to all spaces
-		memset( newFrame->image, 0x20, length );
+		cgc_memset( newFrame->image, 0x20, length );
 
 		xbits = 0;
 		while ( xbits < pixel_count ) {
@@ -376,7 +376,7 @@ int parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 			return 0;
 		}
 
-		memcpy( newFrame->image, pNewImage->renderedFrames[ pNewImage->rCount-1 ]->image, length );
+		cgc_memcpy( newFrame->image, pNewImage->renderedFrames[ pNewImage->rCount-1 ]->image, length );
 
 		/// Read index and then pixel
 		for ( int i = 0; i < pixel_count; i++ ) {
@@ -492,9 +492,9 @@ int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int index )
 		return 0;
 	}
 
-	memset( pixelArray, 0, pixelCount + 1 );
+	cgc_memset( pixelArray, 0, pixelCount + 1 );
 
-	/// Loop to read the specified number of pixels
+	/// Loop to cgc_read the specified number of pixels
 	for (unsigned int i = 0; i < pixelCount; i++) {
 		if ( readBits( pbs, 8, &t) == 0 ) {
 			printf("[ERROR] Failed to read custom pixel dictionary\n");
@@ -507,7 +507,7 @@ int parseCVFPixelDict( pBitStream pbs, pcvf pNewImage, int index )
 		t = 0;
 	}
 
-	memset( &pNewImage->pds[index], 0, sizeof(pixelDict) );
+	cgc_memset( &pNewImage->pds[index], 0, sizeof(pixelDict) );
 
 	pNewImage->pds[index].charCount = pixelCount;
 	pNewImage->pds[index].pixelArray = pixelArray;
@@ -577,7 +577,7 @@ int parseCVFName( pBitStream pbs, pcvf pNewImage )
 		return 0;
 	}
 
-	/// If the name has already been read then error out
+	/// If the name has already been cgc_read then error out
 	if ( pNewImage->name[0] != '\x00' ) {
 		return 0;
 	}
@@ -686,7 +686,7 @@ int parseCVFHeader( pBitStream pbs, pcvf pNewImage )
 		return 0;
 	}
 
-	memset( pNewImage->renderedFrames, 0x00, sizeof(pframe) * pNewImage->frameCount); 
+	cgc_memset( pNewImage->renderedFrames, 0x00, sizeof(pframe) * pNewImage->frameCount); 
 
 	return 1;
 }
@@ -719,9 +719,9 @@ void renderCVF( pBitStream pbs )
 
 	/// This loop starts by reading 2 bytes. Those two bytes
 	///	should be the section type such as 0x1111 for the header
-	///	Depending on this value the proper function is called to read and
+	///	Depending on this value the proper function is called to cgc_read and
 	///	parse the data.
-	/// The loop stops when there is nothing left to read.
+	/// The loop stops when there is nothing left to cgc_read.
 	tdata = 0;
 
 	while( readBits( pbs, 16, &tdata) != 0 ) {
@@ -803,7 +803,7 @@ pcvf initCVF( void )
 		return nc;
 	}
 
-	memset( nc, 0, sizeof(cvf) );
+	cgc_memset( nc, 0, sizeof(cvf) );
 
 	return nc;
 }

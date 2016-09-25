@@ -48,7 +48,7 @@ main(void)
     if (length_read(STDIN, (unsigned char *)buf, INITIAL_BOARD_LEN) != INITIAL_BOARD_LEN)
         return -1;
 
-    len = strlen(pov);
+    len = cgc_strlen(pov);
     if (transmit_all(STDOUT, pov, len) != 0)
         return -1;
 
@@ -63,7 +63,7 @@ main(void)
     if (transmit_all(NEGOTIATE_FD, &flag, sizeof(flag)) != 0)
         return -1;
 
-    len = strlen(quit);
+    len = cgc_strlen(quit);
     if (transmit_all(STDOUT, quit, len) != 0)
         return -1;
 

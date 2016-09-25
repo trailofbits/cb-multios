@@ -149,7 +149,7 @@ char __attribute__((regparm(2))) inspect_dessert(void *d, unsigned int cid) {
 }
 
 void accept_food(void *food, void *buf, unsigned int bufsz) {
-	memcpy(buf, (const void *)food, bufsz);
+	cgc_memcpy(buf, (const void *)food, bufsz);
 }
 
 void print_customer(Customer *c) {

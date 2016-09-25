@@ -86,13 +86,13 @@ int run_seg(segnode_t *curnode) {
         //could overflow if not patched
         strcpy(n,curnode->s->name);
         strcpy(d,curnode->s->desc);
-        SSENDL(strlen(n),n);
-        SSENDL(strlen(d),d);
+        SSENDL(cgc_strlen(n),n);
+        SSENDL(cgc_strlen(d),d);
         //note, this may not work on some platforms without a cache flush
         //surprisingly, this can indeed crash if f()
         //contains unsafe code.
         i = curnode->f();
-        SSENDL(strlen(responses[i-1]),responses[i-1]); //gogogo
+        SSENDL(cgc_strlen(responses[i-1]),responses[i-1]); //gogogo
     } while ((curnode = curnode->next));
 
     free(n);
@@ -107,7 +107,7 @@ int load_seg(segnode_t *curnode) {
 
         ALLOC(1,(void**)&(curnode->f),MEMBERSIZE(seg_t,code));
 
-        memcpy((void *)curnode->f,curnode->s->code,MEMBERSIZE(seg_t,code));
+        cgc_memcpy((void *)curnode->f,curnode->s->code,MEMBERSIZE(seg_t,code));
 
     } while ((curnode = curnode->next));
 
@@ -115,7 +115,7 @@ int load_seg(segnode_t *curnode) {
 }
 
 int sanitycheck(seg_t *s) {
-    return !(strlen(s->name) > 0 && strlen(s->desc) > 0);
+    return !(cgc_strlen(s->name) > 0 && cgc_strlen(s->desc) > 0);
 }
 
 int validate_seg(segnode_t *curnode) {
@@ -135,7 +135,7 @@ int validate_seg(segnode_t *curnode) {
         #endif
         }
 
-        memset(res,0,sizeof(res));
+        cgc_memset(res,0,sizeof(res));
         scramble(curnode->s->code, res, MEMBERSIZE(seg_t,code));
 
         #ifndef PATCHED_1

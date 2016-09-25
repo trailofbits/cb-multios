@@ -32,7 +32,7 @@ String::String(const char *str)
 
 String *String::create(const char *str)
 {
-    unsigned int length = strlen(str) + 1;
+    unsigned int length = cgc_strlen(str) + 1;
     void *mem = safe_malloc(sizeof(String) + length);
     String *s = new(mem) String(str);
     return s;

@@ -42,7 +42,7 @@
 int is_alnum_str(char *str)
 {
   int i, ret = 0;
-  for (i = 0; i < strlen(str); ++i)
+  for (i = 0; i < cgc_strlen(str); ++i)
     ret |= !isalnum(str[i] & 0xFF);
   return !ret;
 }
@@ -218,7 +218,7 @@ int main()
               send_login_res(STATUS_BAD, NULL);
               goto fail;
             }
-            memcpy(&login, packet->body, sizeof(login));
+            cgc_memcpy(&login, packet->body, sizeof(login));
 
             login.username[MAX_USERNAME_LEN - 1] = '\0';
             login.password[MAX_PASSWORD_LEN - 1] = '\0';
@@ -253,7 +253,7 @@ int main()
               send_register_res(STATUS_BAD, NULL);
               goto fail;
             }
-            memcpy(&reg, packet->body, sizeof(reg));
+            cgc_memcpy(&reg, packet->body, sizeof(reg));
             if ((new_user = find_user(users, reg.username)) != NULL)
             {
               fdprintf(STDERR, "[ERROR] Username already exists.\n");
@@ -290,7 +290,7 @@ int main()
               send_list_res(STATUS_BAD, NULL, 0);
               goto fail;
             }
-            memcpy(&list, packet->body, sizeof(list));
+            cgc_memcpy(&list, packet->body, sizeof(list));
             cur_user = get_user(users, list.user_id, list.auth_code);
             list_messages(cur_user, messages);
             cur_user = NULL;
@@ -304,7 +304,7 @@ int main()
               send_view_res(STATUS_BAD, NULL);
               goto fail;
             }
-            memcpy(&view, packet->body, sizeof(view));
+            cgc_memcpy(&view, packet->body, sizeof(view));
             cur_user = get_user(users, view.user_id, view.auth_code);
             view_message(cur_user, messages, view.message_id);
             cur_user = NULL;
@@ -319,7 +319,7 @@ int main()
               send_send_res(STATUS_BAD);
               goto fail;
             }
-            memcpy(&send, packet->body, read_sz);
+            cgc_memcpy(&send, packet->body, read_sz);
 
             if ((cur_user = get_user(users, send.user_id, send.auth_code)) == NULL)
             {
@@ -353,7 +353,7 @@ int main()
               send_delete_res(STATUS_BAD, 0);
               goto fail;
             }
-            memcpy(&delete, packet->body, sizeof(delete));
+            cgc_memcpy(&delete, packet->body, sizeof(delete));
             cur_user = get_user(users, delete.user_id, delete.auth_code);
             delete_message(cur_user, &messages, delete.message_id);
             cur_user = NULL;
@@ -361,7 +361,7 @@ int main()
           break;
         case CMD_QUIT:
           {
-            exit(0);
+            cgc_exit(0);
           }
           break;
         default:

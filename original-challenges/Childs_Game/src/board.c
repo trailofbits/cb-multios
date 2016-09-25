@@ -34,7 +34,7 @@ board_t *create_board()
 
 void clear_board(board_t *board)
 {
-    memset(board->ttt_board, BLANK, BOARD_WIDTH * BOARD_HEIGHT * sizeof(char));
+    cgc_memset(board->ttt_board, BLANK, BOARD_WIDTH * BOARD_HEIGHT * sizeof(char));
     board->num_moves = 0;
     board->winner = 0;
 }

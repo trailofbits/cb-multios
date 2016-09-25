@@ -106,7 +106,7 @@ vars_t *CreateVARSObject(char *name, uint8_t type, void *value) {
 	if (type == STRING) {
 		strncpy((char *)pm->value, value, MAX_VALUE_LEN-1);
 	} else if (type == INT32) {
-		memcpy(pm->value, value, 4);
+		cgc_memcpy(pm->value, value, 4);
 	}
 
 	return(pm);
@@ -193,7 +193,7 @@ vars_t *UpdateVARSObject(char *name, uint8_t type, void *value) {
 		strncpy((char *)pm->value, value, MAX_VALUE_LEN-1);
 
 	} else if (type == INT32) {
-		memcpy(pm->value, value, 4);
+		cgc_memcpy(pm->value, value, 4);
 	}
 
 	return(pm);

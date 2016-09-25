@@ -121,7 +121,7 @@ void addLine(Program *program, char* buf) {
 	}
 
     program->lineNumber++;
-	memcpy(&program->lines[program->lineNumber*MAX_LINE_SIZE], buf, MAX_LINE_SIZE);
+	cgc_memcpy(&program->lines[program->lineNumber*MAX_LINE_SIZE], buf, MAX_LINE_SIZE);
 
 }
 
@@ -152,7 +152,7 @@ void executeProgram(Program* program) {
 			element = (char *) popElement(&stack);
 
 			len = strnlen(element, MAX_ARG_SIZE);
-			memset(element, 0, len);
+			cgc_memset(element, 0, len);
 
 			program->lineNumber++;
 		}
@@ -172,12 +172,12 @@ void executeProgram(Program* program) {
 			a_str = itoaB10(a); 
 
 			len = strnlen(a_element, MAX_ARG_SIZE);
-			memset(a_element, 0, len);
+			cgc_memset(a_element, 0, len);
 
 			len = strnlen(b_element, MAX_ARG_SIZE);
-			memset(b_element, 0, len);
+			cgc_memset(b_element, 0, len);
 
-			len = strlen(a_str);
+			len = cgc_strlen(a_str);
 			pushElement(&stack, a_str);
 			
 			ret = deallocate(a_str, len); 
@@ -199,7 +199,7 @@ void executeProgram(Program* program) {
 				_terminate(15);	
 
 			len = strnlen(element, MAX_ARG_SIZE);
-			memset(element, 0, len);
+			cgc_memset(element, 0, len);
 
 			program->lineNumber++;
 		}

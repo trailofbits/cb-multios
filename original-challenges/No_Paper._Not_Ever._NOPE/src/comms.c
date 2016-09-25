@@ -35,7 +35,7 @@ void session_append(Session **s_list, Session *s) {
 	Session *prev = *s_list;
 	Session *new = calloc(sizeof(Session));
 	MALLOC_OK(new);
-	memcpy(new, s, sizeof(Session) - 2*sizeof(char *));
+	cgc_memcpy(new, s, sizeof(Session) - 2*sizeof(char *));
 
 	if (NULL == tmp) {
 		*s_list = new;

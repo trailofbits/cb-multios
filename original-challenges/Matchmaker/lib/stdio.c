@@ -198,7 +198,7 @@ fread(void *ptr, size_t size, FILE *stream)
     if (stream->bufsize > 0) {
         buffered = MIN(size, stream->bufsize);
 
-        memcpy(ptr_, &stream->buf[stream->bufpos], buffered);
+        cgc_memcpy(ptr_, &stream->buf[stream->bufpos], buffered);
         stream->bufsize -= buffered;
         stream->bufpos = stream->bufsize ? stream->bufpos + buffered : 0;
         size -= buffered;
@@ -228,7 +228,7 @@ fread(void *ptr, size_t size, FILE *stream)
     }
 
     // Read the remainder, attempting to overread to fill buffer but breaking
-    // once all of our data has been read
+    // once all of our data has been cgc_read
     if (!stream->buf && allocate_buffer(stream) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 
@@ -244,7 +244,7 @@ fread(void *ptr, size_t size, FILE *stream)
     if (stream->bufsize >= size) {
         buffered = MIN(size, stream->bufsize);
 
-        memcpy(ptr_, &stream->buf[stream->bufpos], buffered);
+        cgc_memcpy(ptr_, &stream->buf[stream->bufpos], buffered);
         stream->bufsize -= buffered;
         stream->bufpos = stream->bufsize ? stream->bufpos + buffered : 0;
         ret += buffered;
@@ -265,7 +265,7 @@ fread_until(void *ptr, unsigned char delim, size_t size, FILE *stream)
         return EXIT_FAILURE;
 
     // Read the remainder, attempting to overread to fill buffer but breaking
-    // once all of our data has been read
+    // once all of our data has been cgc_read
     if (!stream->buf && allocate_buffer(stream) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 
@@ -278,7 +278,7 @@ fread_until(void *ptr, unsigned char delim, size_t size, FILE *stream)
 
             buffered = MIN(size - 1, buffered);
 
-            memcpy(ptr_, &stream->buf[stream->bufpos], buffered);
+            cgc_memcpy(ptr_, &stream->buf[stream->bufpos], buffered);
             stream->bufsize -= buffered;
             stream->bufpos = stream->bufsize ? stream->bufpos + buffered : 0;
             size -= buffered;
@@ -319,7 +319,7 @@ fwrite(const void *ptr, size_t size, FILE *stream)
     if (stream->buf) {
         buffered = MIN(size, PAGE_SIZE - stream->bufpos - stream->bufsize);
 
-        memcpy(&stream->buf[stream->bufpos + stream->bufsize], ptr_, buffered);
+        cgc_memcpy(&stream->buf[stream->bufpos + stream->bufsize], ptr_, buffered);
         stream->bufsize += buffered;
         size -= buffered;
         ptr_ += buffered;
@@ -355,7 +355,7 @@ fwrite(const void *ptr, size_t size, FILE *stream)
     if (!stream->buf && allocate_buffer(stream) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 
-    memcpy(stream->buf, ptr_, size);
+    cgc_memcpy(stream->buf, ptr_, size);
     stream->bufsize = size;
     ret += size;
 
@@ -366,14 +366,14 @@ int
 fgetc(FILE *stream)
 {
     char c;
-    ssize_t read;
+    ssize_t cgc_read;
 
     if (stream->bufsize)
-        read = fread(&c, 1, stream);
+        cgc_read = fread(&c, 1, stream);
     else
-        read = read_all(stream->fd, &c, 1);
+        cgc_read = read_all(stream->fd, &c, 1);
 
-    return read < 0 ? read : c;
+    return cgc_read < 0 ? cgc_read : c;
 }
 
 int
@@ -430,9 +430,9 @@ printf_core(const char *format, void (*printfn)(char c, void *data),
                     return EXIT_FAILURE;
 
                 // Pad out with 8 zeros
-                if ((buflen = strlen(buf)) < 2 * sizeof(unsigned int)) {
+                if ((buflen = cgc_strlen(buf)) < 2 * sizeof(unsigned int)) {
                     memmove(buf + (2 * sizeof(unsigned int) - buflen), buf, buflen + 1);
-                    memset(buf, '0', 2 * sizeof(unsigned int) - buflen);
+                    cgc_memset(buf, '0', 2 * sizeof(unsigned int) - buflen);
                 }
 
                 s = buf;

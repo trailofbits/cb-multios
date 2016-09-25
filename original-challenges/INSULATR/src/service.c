@@ -795,7 +795,7 @@ int serialize(void) {
 #endif      
         }
 
-        // CRS will read until here.
+        // CRS will cgc_read until here.
         tx_buf[consumed] = '\n';
 
         // We've built a line.
@@ -822,7 +822,7 @@ bail:
 // 1B: command
 //  - deserialize
 //  - serialize
-//  - exit
+//  - cgc_exit
 // if command is deserialize, then JSON follows:
 // 2B: length of JSON
 // ?B: JSON data
@@ -832,9 +832,9 @@ int main(void) {
     size_t rx_bytes = 0;
     size_t tx_bytes = 0;
 
-    memset((void *)&ns, 0, sizeof(ns));
+    cgc_memset((void *)&ns, 0, sizeof(ns));
 
-    // Keep processing commands until told to exit (or error occurs).
+    // Keep processing commands until told to cgc_exit (or error occurs).
     while (TRUE) {
 
         // Keep trying to get a command byte.

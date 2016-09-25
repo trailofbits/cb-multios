@@ -48,14 +48,14 @@ char *word_list_to_str(const list *l)
   const list *p = l;
 
   while (p && p->d) {
-    size_t cur_len = strlen(flat);
-    if (strlen(flat) + strlen(p->d) + strlen(word_sep) + 1 > cur_size) {
-      cur_size = (strlen(flat) + strlen(p->d) + strlen(word_sep) + 1) * 2;
+    size_t cur_len = cgc_strlen(flat);
+    if (cgc_strlen(flat) + cgc_strlen(p->d) + cgc_strlen(word_sep) + 1 > cur_size) {
+      cur_size = (cgc_strlen(flat) + cgc_strlen(p->d) + cgc_strlen(word_sep) + 1) * 2;
       flat = realloc(flat, cur_size);
       if (!flat)
         error(EALLOC);
 
-      memset(flat + cur_len, 0, cur_size - cur_len);
+      cgc_memset(flat + cur_len, 0, cur_size - cur_len);
     }
 
     strcat(flat, p->d);
@@ -83,12 +83,12 @@ list *split_words(const char *line, int add_term)
   if (!line)
     return NULL;
 
-  p = calloc(1, strlen(line) + 1);
+  p = calloc(1, cgc_strlen(line) + 1);
   char *to_free = p;
   if (!p)
     error(EALLOC);
-  strncpy(p, line, strlen(line));
-  line_end = p + strlen(line);
+  strncpy(p, line, cgc_strlen(line));
+  line_end = p + cgc_strlen(line);
 
   while (p < line_end) {
     while(isspace(*p))
@@ -101,14 +101,14 @@ list *split_words(const char *line, int add_term)
       word_end++;
     *word_end = '\0';
 
-    char *wc = calloc(1, strlen(word_start) + 1);
+    char *wc = calloc(1, cgc_strlen(word_start) + 1);
     strcpy(wc, word_start);
     append_list(&words, wc, 1);
     p = word_end + 1;
   }
 
   if (add_term) {
-    char *wc = calloc(1, strlen(chain_term) + 1);
+    char *wc = calloc(1, cgc_strlen(chain_term) + 1);
     strcpy(wc, chain_term);
     append_list(&words, chain_term, 1);
   }
@@ -199,7 +199,7 @@ int insert_wordlists(const list *word_lists, tree **t)
 
 list *str_to_wordlists(const char *s)
 {
-  size_t len = strlen(s);
+  size_t len = cgc_strlen(s);
   char *x = calloc(1, len + 1);
   strncpy(x, s, len);
   x[len] = '\0';

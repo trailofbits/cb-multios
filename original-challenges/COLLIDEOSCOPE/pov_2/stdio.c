@@ -160,11 +160,11 @@ int
 fgetc(FILE *stream)
 {
     char c;
-    ssize_t read;
+    ssize_t cgc_read;
 
-    read = fread(&c, 1, stream);
-    if (read < 0)
-        return read;
+    cgc_read = fread(&c, 1, stream);
+    if (cgc_read < 0)
+        return cgc_read;
 
     return c;
 }
@@ -223,9 +223,9 @@ printf_core(const char *format, void (*printfn)(char c, void *data),
                     return EXIT_FAILURE;
 
                 // Pad out with 8 zeros
-                if ((buflen = strlen(buf)) < 2 * sizeof(unsigned int)) {
+                if ((buflen = cgc_strlen(buf)) < 2 * sizeof(unsigned int)) {
                     memmove(buf + (2 * sizeof(unsigned int) - buflen), buf, buflen + 1);
-                    memset(buf, '0', 2 * sizeof(unsigned int) - buflen);
+                    cgc_memset(buf, '0', 2 * sizeof(unsigned int) - buflen);
                 }
 
                 s = buf;

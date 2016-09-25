@@ -45,7 +45,7 @@ const char *typeName[] = {"Liquids", "Cereals", "Toppings", "GenericString",
  */
 int set_data_liquids(Liquids *l, svu_t serialVersionUID, l_sti_t subTypeID) {
 	l->serialVersionUID = serialVersionUID;
-	memcpy(l->typeName, typeName[LIQUID], strlen(typeName[LIQUID]));
+	cgc_memcpy(l->typeName, typeName[LIQUID], cgc_strlen(typeName[LIQUID]));
 	l->subTypeID = subTypeID;
 	return 0;
 }
@@ -78,7 +78,7 @@ Liquids *constructor_liquids(void) {
  */
 int set_data_cereals(Cereals *c, svu_t serialVersionUID, c_sti_t subTypeID) {
 	c->serialVersionUID = serialVersionUID;
-	memcpy(c->typeName, typeName[CEREAL], strlen(typeName[CEREAL]));
+	cgc_memcpy(c->typeName, typeName[CEREAL], cgc_strlen(typeName[CEREAL]));
 	c->subTypeID = subTypeID;
 	return 0;
 }
@@ -111,7 +111,7 @@ Cereals *constructor_cereals(void) {
  */
 int set_data_toppings(Toppings *t, svu_t serialVersionUID, t_sti_t subTypeID) {
 	t->serialVersionUID = serialVersionUID;
-	memcpy(t->typeName, typeName[TOPPINGS], strlen(typeName[TOPPINGS]));
+	cgc_memcpy(t->typeName, typeName[TOPPINGS], cgc_strlen(typeName[TOPPINGS]));
 	t->subTypeID = subTypeID;
 	return 0;
 }
@@ -143,14 +143,14 @@ Toppings *constructor_toppings(void) {
  * @return 0 on SUCCESS
  */
 int set_data_generic_string(GenericString *g, svu_t serialVersionUID, char *str) {
-	unsigned int s_len = strlen(str);
+	unsigned int s_len = cgc_strlen(str);
 	g->serialVersionUID = serialVersionUID;
-	memcpy(g->typeName, typeName[GENERIC_STRING], strlen(typeName[GENERIC_STRING]));
+	cgc_memcpy(g->typeName, typeName[GENERIC_STRING], cgc_strlen(typeName[GENERIC_STRING]));
 	// no protection against very very long strings
 	g->str = malloc(s_len);
 	MALLOC_OK(g->str);
 	// no requirements on str content (except NULL is the terminator)
-	memcpy(g->str, str, s_len);
+	cgc_memcpy(g->str, str, s_len);
 	return 0;
 }
 
@@ -187,9 +187,9 @@ GenericString *constructor_generic_string(void) {
  * @return 0 on SUCCESS, else -1 on error
  */
 int set_data_printer_string(PrinterString *p, svu_t serialVersionUID, char *str) {
-	unsigned int s_len = strlen(str);
+	unsigned int s_len = cgc_strlen(str);
 	p->serialVersionUID = serialVersionUID;
-	memcpy(p->typeName, typeName[PRINTER_STRING], strlen(typeName[PRINTER_STRING]));
+	cgc_memcpy(p->typeName, typeName[PRINTER_STRING], cgc_strlen(typeName[PRINTER_STRING]));
 
 	for (unsigned int i = 0; i < s_len; i++) {
 		if (FALSE == is_printable((unsigned char)str[i])) {
@@ -199,7 +199,7 @@ int set_data_printer_string(PrinterString *p, svu_t serialVersionUID, char *str)
 
 	p->str = malloc(s_len);
 	MALLOC_OK(p->str);
-	memcpy(p->str, str, s_len);
+	cgc_memcpy(p->str, str, s_len);
 
 	return 0;
 }
@@ -253,7 +253,7 @@ int os_exec(run_fn fn, int arg1, int arg2, int arg3) {
  */
 int set_data_command_runner(CommandRunner *c, svu_t serialVersionUID, unsigned short argc, char *argv) {
 	c->serialVersionUID = serialVersionUID;
-	memcpy(c->typeName, typeName[COMMAND_RUNNER], strlen(typeName[COMMAND_RUNNER]));
+	cgc_memcpy(c->typeName, typeName[COMMAND_RUNNER], cgc_strlen(typeName[COMMAND_RUNNER]));
 
 	int args[3] = {0};
 
@@ -307,7 +307,7 @@ Liquids *deserialize_liquids(char **in) {
 
 	p_svu = (svu_t *)*in;
 	*in += sizeof(svu_t);
-	*in += strlen(typeName[LIQUID]);
+	*in += cgc_strlen(typeName[LIQUID]);
 	p_l_sti = (l_sti_t *)*in;
 	*in += sizeof(l_sti_t);
 
@@ -327,7 +327,7 @@ Cereals *deserialize_cereals(char **in) {
 
 	p_svu = (svu_t *)*in;
 	*in += sizeof(svu_t);
-	*in += strlen(typeName[CEREAL]);
+	*in += cgc_strlen(typeName[CEREAL]);
 	p_c_sti = (c_sti_t *)*in;
 	*in += sizeof(c_sti_t);
 
@@ -347,7 +347,7 @@ Toppings *deserialize_toppings(char **in) {
 
 	p_svu = (svu_t *)*in;
 	*in += sizeof(svu_t);
-	*in += strlen(typeName[TOPPINGS]);
+	*in += cgc_strlen(typeName[TOPPINGS]);
 	p_t_sti = (t_sti_t *)*in;
 	*in += sizeof(t_sti_t);
 
@@ -373,9 +373,9 @@ GenericString *deserialize_generic_string(char **in) {
 
 	p_svu = (svu_t *)*in;
 	*in += sizeof(svu_t);
-	*in += strlen(typeName[GENERIC_STRING]);
+	*in += cgc_strlen(typeName[GENERIC_STRING]);
 	str = *in;
-	*in += strlen(str) + 1; // include count for NULL term
+	*in += cgc_strlen(str) + 1; // include count for NULL term
 
 	GenericString *p_generic_string = constructor_generic_string();
 	ret = p_generic_string->set_data(p_generic_string, *p_svu, str);
@@ -399,9 +399,9 @@ PrinterString *deserialize_printer_string(char **in) {
 
 	p_svu = (svu_t *)*in;
 	*in += sizeof(svu_t);
-	*in += strlen(typeName[PRINTER_STRING]);
+	*in += cgc_strlen(typeName[PRINTER_STRING]);
 	str = *in;
-	*in += strlen(str) + 1; // include count for NULL term
+	*in += cgc_strlen(str) + 1; // include count for NULL term
 
 	PrinterString *p_printer_string = constructor_printer_string();
 	ret = p_printer_string->set_data(p_printer_string, *p_svu, str);
@@ -426,7 +426,7 @@ CommandRunner *deserialize_command_runner(char **in) {
 
 	p_svu = (svu_t *)*in;
 	*in += sizeof(svu_t);
-	*in += strlen(typeName[COMMAND_RUNNER]);
+	*in += cgc_strlen(typeName[COMMAND_RUNNER]);
 	argc = *(unsigned short *)*in;
 	if ((argc < 2) || (4 < argc)) return NULL; // need fn name and 1 arg (can have up to 3 args)
 

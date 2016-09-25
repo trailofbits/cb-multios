@@ -47,7 +47,7 @@ size_t receiveIt( void *data, size_t length )
 }
 
 /**
- * This function provides the ability to read in the size of the video stream followed by the specified number of bytes for the image data. The maximum size for a video is 4096 bytes and the minimum is 8
+ * This function provides the ability to cgc_read in the size of the video stream followed by the specified number of bytes for the image data. The maximum size for a video is 4096 bytes and the minimum is 8
  * @return Returns a readable bitstream of the newly received data.
  **/
 pBitStream readImageData( void )
@@ -81,7 +81,7 @@ pBitStream readImageData( void )
 		return NULL;
 	}
 
-	memset( newData, 0, length );	
+	cgc_memset( newData, 0, length );	
 
 	bytes_read = receiveIt( newData, length );
 

@@ -15,12 +15,12 @@ int read_until_END() {
    int counter = 0;
    char buf[256];
    
-   memset(buf, 0, sizeof(buf));
+   cgc_memset(buf, 0, sizeof(buf));
 #ifdef DEBUG
    fprintf(stderr, "read_until_END hitting illegal inst\n");
 #endif
 
-   //read a service password
+   //cgc_read a service password
    nbytes = read_until_delim(0, buf, sizeof(buf), '\n');
    if (nbytes > 0) {
       buf[nbytes] = 0;
@@ -50,7 +50,7 @@ int read_until_END() {
             }
          }
          if (write_all(PIPEFD_OUT, buf, nbytes) != nbytes) {
-            //short write, things are borked
+            //short cgc_write, things are borked
             break;
          }
 #ifdef DEBUG

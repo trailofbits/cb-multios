@@ -39,7 +39,7 @@ static int ok_for_sym(char c)
 
 tok_list *tokenize(char *expr)
 {
-  size_t len = strlen(expr);
+  size_t len = cgc_strlen(expr);
   size_t i = 0;
 
   tok_list *l = malloc(sizeof(tok_list));

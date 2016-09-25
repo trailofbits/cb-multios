@@ -62,8 +62,8 @@ extern FILE *stdin, *stdout, *stderr;
  * Read exactly size bytes from FILE pointer into ptr, buffered.
  *
  * @param ptr The output buffer
- * @param size The size to read
- * @param stream The FILE pointer to read from
+ * @param size The size to cgc_read
+ * @param stream The FILE pointer to cgc_read from
  * @return size on success, else EXIT_FAILURE
  */
 ssize_t fread(void *ptr, size_t size, FILE *stream);
@@ -73,8 +73,8 @@ ssize_t fread(void *ptr, size_t size, FILE *stream);
  *
  * @param ptr The output buffer
  * @param delim The byte to stop on
- * @param size The size to read
- * @param stream The FILE pointer to read from
+ * @param size The size to cgc_read
+ * @param stream The FILE pointer to cgc_read from
  * @return size on success, else EXIT_FAILURE
  */
 ssize_t fread_until(void *ptr, unsigned char delim, size_t size, FILE *stream);
@@ -125,7 +125,7 @@ ssize_t fread_until(void *ptr, unsigned char delim, size_t size, FILE *stream);
  * Get random bytes.
  *
  * @param s Number of random bytes to return.
- * @param b Buffer to write random bytes to.
+ * @param b Buffer to cgc_write random bytes to.
  * @return Bytes in b.
  */
 #define RANDOM(s,b)  if(random(b, s, NULL)) DIE(RANDFAIL)
@@ -141,7 +141,7 @@ ssize_t fread_until(void *ptr, unsigned char delim, size_t size, FILE *stream);
 /**
  * Read in data from stdin
  *
- * @param s struct to read into
+ * @param s struct to cgc_read into
  * @return 1 on success, 0 on failure
  */
 #define READDATA(s) (sizeof(s) == readall(STDIN,(char *)&s,sizeof(s)) ? 1 : 0)
@@ -149,7 +149,7 @@ ssize_t fread_until(void *ptr, unsigned char delim, size_t size, FILE *stream);
 /**
  * Send data to stdout
  *
- * @param s struct to write
+ * @param s struct to cgc_write
  * @return 1 on success, 0 on failure
  */
 #define SENDDATA(s) (sizeof(s) == sendall(STDOUT,(char *)&s,sizeof(s)) ? 1 : 0)
@@ -157,15 +157,15 @@ ssize_t fread_until(void *ptr, unsigned char delim, size_t size, FILE *stream);
 /**
  * Send a string to stdout
  *
- * @param s string to write
+ * @param s string to cgc_write
  * @return 1 on success, 0 on failure
  */
-#define SENDSTR(s) (strlen(s) == sendall(STDOUT,s,strlen(s)) ? 1 : 0)
+#define SENDSTR(s) (cgc_strlen(s) == sendall(STDOUT,s,cgc_strlen(s)) ? 1 : 0)
 
 /**
  * Send a string followed by newline to stdout
  *
- * @param s string to write
+ * @param s string to cgc_write
  * @return 1 on success, 0 on failre
  */
 #define SENDLINE(s) (SENDSTR(s) && SENDSTR("\n"))
@@ -180,28 +180,28 @@ ssize_t fread_until(void *ptr, unsigned char delim, size_t size, FILE *stream);
 /**
  * Read until NEWLINE is hit
  *
- * @param fd File descriptor to read from.
- * @param buf Buffer to write read bytes to.
- * @param s Maximum number of bytes to read
- * @return Number of bytes read
+ * @param fd File descriptor to cgc_read from.
+ * @param buf Buffer to cgc_write cgc_read bytes to.
+ * @param s Maximum number of bytes to cgc_read
+ * @return Number of bytes cgc_read
  */
 size_t readline(int fd, char *buf, size_t s);
 
 /**
- * Attempt to read a fixed number of bytes
+ * Attempt to cgc_read a fixed number of bytes
  *
- * @param fd File descriptor to read from.
- * @param buf Buffer to write read bytes to.
- * @param s Maximum number of bytes to read
- * @return Number of bytes read 
+ * @param fd File descriptor to cgc_read from.
+ * @param buf Buffer to cgc_write cgc_read bytes to.
+ * @param s Maximum number of bytes to cgc_read
+ * @return Number of bytes cgc_read 
  */
 size_t readall(int fd, char *buf, size_t s);
 
 /**
  * Attempt to send a fixed number of bytes
  *
- * @param fd File descriptor to write to
- * @param buf Buffer to read bytes from
+ * @param fd File descriptor to cgc_write to
+ * @param buf Buffer to cgc_read bytes from
  * @param s Number of bytes to send
  * @return Number of bytes sent.
  */
@@ -215,7 +215,7 @@ size_t sendall(int fd, char *buf, size_t s);
  * @param n Number of bytes to set
  * @return Pointer to buffer
  */
-void *memset(void *s, int c, size_t n);
+void *cgc_memset(void *s, int c, size_t n);
 
 /**
  * Compare two strings for equality.
@@ -232,7 +232,7 @@ int streq(char *s1, char *s2);
  * @param s1 Input string.
  * @return Length of string, not including NULL terminator..
  */
-int strlen(const char *s); 
+int cgc_strlen(const char *s); 
 
 /**
  * Format string and store in buffer
@@ -325,7 +325,7 @@ char * strcat(char *dest, const char *src);
  * @param len length
  * @return None.
  */
-void memcpy(void *dest, void *src, size_t len); 
+void cgc_memcpy(void *dest, void *src, size_t len); 
 
 /**
  * Check if two buffers are equal

@@ -53,7 +53,7 @@ do_hugman(void)
     char c;
 
     char board[11][31];
-    memcpy(board, new_board, sizeof(board));
+    cgc_memcpy(board, new_board, sizeof(board));
 
     char graveyard[53] = { 0 };
 

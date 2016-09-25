@@ -114,7 +114,7 @@ int IsMemberPiece(char *PIECES, char piece) {
 	if (t == NULL) {
 		return(0);
 	} else {
-		if (t == PIECES+strlen(PIECES)) {
+		if (t == PIECES+cgc_strlen(PIECES)) {
 			return(0);
 		} else {
 			return(1);
@@ -249,8 +249,8 @@ int AcceptMove(char b[X_MAX][Y_MAX], char *srcx, char *srcy, char *dstx, char *d
 			}
 		}
 
-		if (s.input[strlen(s.input)-1] == '\n') {
-			s.input[strlen(s.input)-1] = '\0';
+		if (s.input[cgc_strlen(s.input)-1] == '\n') {
+			s.input[cgc_strlen(s.input)-1] = '\0';
 		}
 
 		// see if the player just wants to display the board
@@ -259,12 +259,12 @@ int AcceptMove(char b[X_MAX][Y_MAX], char *srcx, char *srcy, char *dstx, char *d
 			continue;
 		}
 
-		// see if the player wants to exit
+		// see if the player wants to cgc_exit
 		if (!strcmp("666", s.input)) {
 			return(0);
 		}	
 
-		if (strlen(s.input) > 7) {
+		if (cgc_strlen(s.input) > 7) {
 			puts("incorrect input");
 			puts("Not a legal move format");
 			continue;
@@ -272,7 +272,7 @@ int AcceptMove(char b[X_MAX][Y_MAX], char *srcx, char *srcy, char *dstx, char *d
 
 		// try to parse move 
 		coord1 = coord2 = NULL;
-		for (i = 0; i < strlen(s.input); i++) {
+		for (i = 0; i < cgc_strlen(s.input); i++) {
 			if (s.input[i] == ' ') {
 				s.input[i] = '\0';
 				coord2 = s.input+i+1;
@@ -289,7 +289,7 @@ int AcceptMove(char b[X_MAX][Y_MAX], char *srcx, char *srcy, char *dstx, char *d
 		if (!strchr(s.allowed_chars, coord1[0]) || 
 		    (coord1[1] != ',') ||
 		    !strchr(s.allowed_chars, coord1[2]) ||
-		    strlen(coord1) != 3) {
+		    cgc_strlen(coord1) != 3) {
 			puts("incorrect input");
 			puts("Not a legal move format");
 			continue;
@@ -299,7 +299,7 @@ int AcceptMove(char b[X_MAX][Y_MAX], char *srcx, char *srcy, char *dstx, char *d
 		if (!strchr(s.allowed_chars, coord2[0]) || 
 		    (coord2[1] != ',') ||
 		    !strchr(s.allowed_chars, coord2[2]) ||
-		    strlen(coord2) != 3) {
+		    cgc_strlen(coord2) != 3) {
 			puts("incorrect input");
 			puts("Not a legal move format");
 			continue;

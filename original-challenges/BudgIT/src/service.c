@@ -46,7 +46,7 @@ void receiveKey(char* key) {
 	int bytes_read;
 
 	//tmpKey = (char *)malloc(MAX_KEY_SIZE+1);
-	memset(key, 0, MAX_KEY_SIZE+1);
+	cgc_memset(key, 0, MAX_KEY_SIZE+1);
 	bytes_read = recvline(STDIN, key, MAX_KEY_SIZE);
 	if(bytes_read < 0)
 		_terminate(RECEIVE_ERROR);
@@ -74,7 +74,7 @@ void sendReport(Map *map) {
 		ret = transmit_all(STDOUT, report_buf, sizeof(report_buf));
 		if(ret != 0)
 			_terminate(TRANSMIT_ERROR);
-		memset(report_buf, 0, sizeof(report_buf));
+		cgc_memset(report_buf, 0, sizeof(report_buf));
 		mapPtr = mapPtr->next;
 
 	}
@@ -126,7 +126,7 @@ int main(void) {
 			budget -= value;
 			setMap(&map, key, budget);
 			if(budget < 0) {
-				ret = transmit_all(STDOUT, key, strlen(key));
+				ret = transmit_all(STDOUT, key, cgc_strlen(key));
 				if(ret != 0)
 					_terminate(TRANSMIT_ERROR);	
 				ret = transmit_all(STDOUT, OVERBUDGET_STR, sizeof(OVERBUDGET_STR)-1);

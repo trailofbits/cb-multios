@@ -42,7 +42,7 @@ int transmit_all(int fd, const char *buf, const size_t size) {
     return 0;
 }
 
-void * memset(void *dst, char c, size_t n) {
+void * cgc_memset(void *dst, char c, size_t n) {
     size_t i;
     for(i=0; i<n; i++){
         *((unsigned char*)dst+i) = c;

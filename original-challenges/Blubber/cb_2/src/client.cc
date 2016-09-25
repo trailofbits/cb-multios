@@ -79,8 +79,8 @@ int handle_read(FILE* rx, FILE* tx, vector* read_blubs)
   dbg("Reading %d blubs", to_read);
   for (size_t i = 0; i < to_read; ++i)
   {
-    memset(username, 0, sizeof(username));
-    memset(content, 0, sizeof(content));
+    cgc_memset(username, 0, sizeof(username));
+    cgc_memset(content, 0, sizeof(content));
 
     if (fread(&id, sizeof(id), rx) != sizeof(id))
     {
@@ -108,8 +108,8 @@ int handle_read(FILE* rx, FILE* tx, vector* read_blubs)
 
     blub_artifact* b = new blub_artifact;
     b->id = id;
-    memcpy(b->username, username, sizeof(username));
-    memcpy(b->blub, content, sizeof(content));
+    cgc_memcpy(b->username, username, sizeof(username));
+    cgc_memcpy(b->blub, content, sizeof(content));
     read_blubs->add(b);
   }
 
@@ -202,7 +202,7 @@ extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
       dbg("Got prompt...");
       switch (choice() % 3)
       {
-        case 0: // read
+        case 0: // cgc_read
           {
             dbg("Doing read");
             handle_read(rx, tx, &read_blubs);

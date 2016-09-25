@@ -41,9 +41,9 @@ typedef unsigned char UINT8;
 #define ERRNO_RECV BASE_ID+2
 #define ERRNO_ALLOC BASE_ID+3
 
-void memcpy(unsigned char *dst, const unsigned char *src, size_t n);
+void cgc_memcpy(unsigned char *dst, const unsigned char *src, size_t n);
 int memcmp(const char *s1, const char *s2, size_t n);
-unsigned char * memset(unsigned char *b, unsigned char c, size_t len);
+unsigned char * cgc_memset(unsigned char *b, unsigned char c, size_t len);
 size_t findchar(char *haystack, char needle);
 void pause(size_t usec);
 int sendallnulltrunc(int fd, const char *buf, size_t size);

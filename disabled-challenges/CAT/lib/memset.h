@@ -19,18 +19,19 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include "memset.h"
 
-unsigned int memset(void *buf, unsigned char ch, unsigned int n) {
 
-	if (0 == n) {
-		return 0;
-	}
+#ifndef MEMSET_H
+#define MEMSET_H 1
 
-	unsigned char *p_buf = (unsigned char *)buf;
-	for (unsigned int i = 0; i < n; i++) {
-		p_buf[i] = ch;
-	}
+/**
+ * Write character ch into buf n times.
+ *
+ * @param buf Buffer to cgc_write into
+ * @param ch Character to use
+ * @param n Number of times to cgc_write ch into buf
+ * @return Number of times ch was written into buf
+ */
+unsigned int cgc_memset(void *buf, unsigned char ch, unsigned int n);
 
-	return n;
-}
+#endif

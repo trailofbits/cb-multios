@@ -60,13 +60,13 @@ int enqueue_copy(queue_t **queue, char *data, size_t size)
     if (data == NULL)
         return -1;
 
-    int data_len = strlen(data) + 1;
+    int data_len = cgc_strlen(data) + 1;
     if (data_len > size)
         return -1;
 
     queue_t *back = malloc(sizeof(queue_t));
     back->data = malloc(data_len);
-    memcpy(back->data, data, data_len);
+    cgc_memcpy(back->data, data, data_len);
     back->next = NULL;
 
     if(*queue == NULL) {

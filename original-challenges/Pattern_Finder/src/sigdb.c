@@ -45,13 +45,13 @@ int InitializeSignature(signature* Signature, int Severity, trie_unit* Data, siz
   Signature->Severity = Severity;
 
   Signature->Data = xcalloc(DataSize + 1, sizeof(trie_unit));
-  memcpy(Signature->Data, Data, DataSize * sizeof(trie_unit));
+  cgc_memcpy(Signature->Data, Data, DataSize * sizeof(trie_unit));
   Signature->DataSize = DataSize * sizeof(trie_unit);
   fprintf(stderr, "(%s)\n", Signature->Data);
 
   Signature->PathSize = PathSize;
   Signature->Path = xcalloc(sizeof(char), PathSize + 1);
-  memcpy(Signature->Path, Path, PathSize);
+  cgc_memcpy(Signature->Path, Path, PathSize);
 
   return 0;
 }
@@ -125,7 +125,7 @@ int InitializeSignatureDatabase(signature_db* SignatureDatabase)
     return -1;
 
   SignatureDatabase->SignatureCount = 0;
-  memset(SignatureDatabase->Signatures, 0, sizeof(signature *) * MAX_SIGNATURES);
+  cgc_memset(SignatureDatabase->Signatures, 0, sizeof(signature *) * MAX_SIGNATURES);
 
   SignatureDatabase->Trie = NULL;
   SignatureDatabase->SearchMachine = xcalloc(1, sizeof(search_machine));

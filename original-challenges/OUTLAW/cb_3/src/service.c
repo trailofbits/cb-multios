@@ -28,7 +28,7 @@ void do_exit(msg *exit_msg) {
     DBG("\n");
     int ret = SUCCESS;
 
-    // We got an exit() command from the CRS.  Propagate it to both CBs.
+    // We got an cgc_exit() command from the CRS.  Propagate it to both CBs.
     
     DBG("[D] shutting down CLIENT; exit_msg = 0x%08x\n", *exit_msg);
     if (SUCCESS != (ret = send_bytes(PIPE_CB1_A, (char *)exit_msg, sizeof(msg)))) {

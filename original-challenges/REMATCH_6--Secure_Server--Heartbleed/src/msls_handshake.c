@@ -124,7 +124,7 @@ void msls_handle_handshake(SERVER_STATE *state, SLS_MESSAGE *msg)
 
       // Read the client key from the message
       connection->client_key = calloc(sizeof(uint32_t) *PUBLIC_KEY_LEN);
-      memcpy((uint8_t *)connection->client_key, (uint8_t *)hs_keyx_msg->key, sizeof(uint32_t) *PUBLIC_KEY_LEN);
+      cgc_memcpy((uint8_t *)connection->client_key, (uint8_t *)hs_keyx_msg->key, sizeof(uint32_t) *PUBLIC_KEY_LEN);
       connection->have_key = 1;
       
       // Read pre-master secret from message
@@ -391,8 +391,8 @@ CLIENT_CONTEXT *msls_get_connection(SERVER_STATE *state, uint32_t client_id)
       state->connections[i] = connection;
       uint32_t *cookie = calloc(MSLS_COOKIE_SIZE * sizeof(uint32_t));
       uint32_t *magic = calloc(MSLS_COOKIE_SIZE * sizeof(uint32_t));
-      memcpy(cookie, (uint8_t *)COOKIE_BASE1, MSLS_COOKIE_SIZE * sizeof(uint32_t));
-      memcpy(magic, (uint8_t *)COOKIE_BASE2 , MSLS_COOKIE_SIZE * sizeof(uint32_t));
+      cgc_memcpy(cookie, (uint8_t *)COOKIE_BASE1, MSLS_COOKIE_SIZE * sizeof(uint32_t));
+      cgc_memcpy(magic, (uint8_t *)COOKIE_BASE2 , MSLS_COOKIE_SIZE * sizeof(uint32_t));
       for (int j = 0; j < MSLS_COOKIE_SIZE; j++)
       {
         cookie[j] = (cookie[j] ^ magic[j]) ^ client_id;

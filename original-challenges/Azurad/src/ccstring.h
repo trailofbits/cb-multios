@@ -85,7 +85,7 @@ public:
         {
             size_t len = length() + 1;
             _ptr.reset(new char [len]);
-            memcpy(_ptr.get(), ptr, len);
+            cgc_memcpy(_ptr.get(), ptr, len);
             ptr = _ptr.get();
         }
         return *this;
@@ -99,7 +99,7 @@ public:
     size_t hash() const;
     size_t length() const
     {
-        return strlen(ptr);
+        return cgc_strlen(ptr);
     }
 private:
     const char *ptr;

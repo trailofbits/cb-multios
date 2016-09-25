@@ -36,7 +36,7 @@ void free(void *mem)
     free_block_t *block = (free_block_t *)((intptr_t)mem - OVERHEAD_BYTES);
     if (block->hdr.free != 0)
         _terminate(1);
-    if (block->hdr.mmap)
+    if (block->hdr.cgc_mmap)
     {
         deallocate(block, block->hdr.size);
         return;

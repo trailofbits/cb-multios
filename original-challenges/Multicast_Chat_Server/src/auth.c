@@ -59,7 +59,7 @@ char* generateRandomToken(unsigned int tokenSize) {
 	if(!(token = malloc(tokenSize+1)))
 		return NULL;
 
-	memset(token, 0, tokenSize+1);
+	cgc_memset(token, 0, tokenSize+1);
 
 	if(random((void*)randomBuffer, sizeof(randomBuffer), &rnd_bytes))
 		return NULL;
@@ -106,19 +106,19 @@ User* newUser(User** usersPtr, char* name, char* password) {
 		return NULL;
 	}
 
-	if(!(user->name = malloc(strlen(name)+1))) {
+	if(!(user->name = malloc(cgc_strlen(name)+1))) {
 		free(user);
 		return NULL;
 	}
-	memset(user->name, 0, strlen(name)+1);
+	cgc_memset(user->name, 0, cgc_strlen(name)+1);
 	strcpy(user->name, name);
 
-	if(!(user->password = malloc(strlen(password)+1))) {
+	if(!(user->password = malloc(cgc_strlen(password)+1))) {
 		free(user->name);
 		free(user);
 		return NULL;
 	}
-	memset(user->password, 0, strlen(password)+1);
+	cgc_memset(user->password, 0, cgc_strlen(password)+1);
 	strcpy(user->password, password);
 
 	user->token = NULL;
@@ -191,7 +191,7 @@ unsigned char* generateSigningKey(size_t keySize) {
 	if(!(signingKey = malloc(keySize+1)))
 		return NULL;
 
-	memset(signingKey, 0, keySize+1);
+	cgc_memset(signingKey, 0, keySize+1);
 
 	if(random((void*)signingKey, keySize, &rnd_bytes))
 		return NULL;
@@ -234,7 +234,7 @@ unsigned int verifySignature(AuthResponse* response, unsigned char* signingKey) 
 	for(Subscription* subscription=response->subscriptions; subscription!=NULL; subscription=subscription->next) {
 		size_t stringSize;
 
-		stringSize = strlen(subscription->name);
+		stringSize = cgc_strlen(subscription->name);
 		for(int c=0; c<stringSize; c++) {
 			unsigned char sigChar;
 
@@ -258,7 +258,7 @@ char* computeSignature(User* user) {
 	size_t signatureSize=0, signatureStringSize=0;
 
 	for(Subscription* subscription=user->subscriptions; subscription!=NULL; subscription=subscription->next) {
-		signatureSize += strlen(subscription->name);
+		signatureSize += cgc_strlen(subscription->name);
 	}
 
 	if(!(user->signingKey = generateSigningKey(signatureSize)))
@@ -267,7 +267,7 @@ char* computeSignature(User* user) {
 	if(!(signature = malloc(signatureSize+1)))
 		return NULL;
 
-	memset(signature, 0, signatureSize+1);
+	cgc_memset(signature, 0, signatureSize+1);
 
 	for(Subscription* subscription=user->subscriptions; subscription!=NULL; subscription=subscription->next) {
 		strcat(signature, subscription->name);
@@ -281,7 +281,7 @@ char* computeSignature(User* user) {
 	if(!(signatureString = malloc(signatureStringSize+1)))
 		return NULL;
 
-	memset(signatureString, 0, signatureStringSize+1);
+	cgc_memset(signatureString, 0, signatureStringSize+1);
 
 	for(unsigned int i=0; i < signatureSize*2; i++) {
 		signatureString[i++] = to_hex((unsigned char) *signature / 16 % 16);

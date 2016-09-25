@@ -21,12 +21,12 @@ size_t receive_all(int fd, char *buf, const size_t size);
 size_t strcspn(const char *s1, const char *s2);
 size_t strlcat(char *dst, const char *src, const size_t size);
 size_t strlcpy(char *dst, const char *src, const size_t size);
-size_t strlen(const char *s);
+size_t cgc_strlen(const char *s);
 size_t strspn(const char *s1, const char *s2);
 void *calloc(size_t count, size_t size);
 void err(unsigned int id, char *str); // __attribute__((noreturn));
-void *memcpy(void *dst, const void *src, size_t size);
-void *memset(void *b, int c, size_t len);
+void *cgc_memcpy(void *dst, const void *src, size_t size);
+void *cgc_memset(void *b, int c, size_t len);
 void sleep(int amount);
 
 #endif /* _EXTERNAL_API_H */

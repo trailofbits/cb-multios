@@ -48,7 +48,7 @@ extern uint32_t ARGC;
 extern char CWD[];
 
 /*
-   read input until the specified delim char is seen or 
+   cgc_read input until the specified delim char is seen or 
    we reach the max length
  */
 int readUntil(char *buf, int max, char delim) {
@@ -100,7 +100,7 @@ int MkdirHandler() {
 	} else {
 		// we need to prepend the CWD
 		bzero(pathname, MAX_CMD);
-		if ((strlen(CWD)+strlen(ARGV[1]) + 1) > MAX_CMD-1) {
+		if ((cgc_strlen(CWD)+cgc_strlen(ARGV[1]) + 1) > MAX_CMD-1) {
 			puts("command too long");
 			return(0);
 		}
@@ -129,7 +129,7 @@ int RmdirHandler() {
 	} else {
 		// we need to prepend the CWD
 		bzero(pathname, MAX_CMD);
-		if ((strlen(CWD)+strlen(ARGV[1]) + 1) > MAX_CMD-1) {
+		if ((cgc_strlen(CWD)+cgc_strlen(ARGV[1]) + 1) > MAX_CMD-1) {
 			puts("command too long");
 			return(0);
 		}
@@ -162,7 +162,7 @@ int LsHandler() {
 	} else {
 		// we need to prepend the CWD
 		bzero(pathname, MAX_CMD);
-		if ((strlen(CWD)+strlen(ARGV[1]) + 1) > MAX_CMD-1) {
+		if ((cgc_strlen(CWD)+cgc_strlen(ARGV[1]) + 1) > MAX_CMD-1) {
 			puts("command too long");
 			return(0);
 		}
@@ -192,7 +192,7 @@ int RmHandler() {
 	} else {
 		// we need to prepend the CWD
 		bzero(pathname, MAX_CMD);
-		if ((strlen(CWD)+strlen(ARGV[1]) + 1) > MAX_CMD-1) {
+		if ((cgc_strlen(CWD)+cgc_strlen(ARGV[1]) + 1) > MAX_CMD-1) {
 			puts("command too long");
 			return(0);
 		}
@@ -227,7 +227,7 @@ int EchoHandler() {
 			puts("unable to write to file");
 			return(-1);
 		}
-		write(outstr, len);
+		cgc_write(outstr, len);
 		return(0);
 	}
 
@@ -235,13 +235,13 @@ int EchoHandler() {
 		// redirecting to a file
 		bzero(pathname, MAX_CMD);
 		if (ARGV[3][0] == '/') {
-			if (strlen(ARGV[3]) > MAX_CMD-1) {
+			if (cgc_strlen(ARGV[3]) > MAX_CMD-1) {
 				puts("invalid file name");
 				return(-1);
 			}
 			strcpy(pathname, ARGV[3]);
 		} else {
-			if ((strlen(CWD)+strlen(ARGV[3]) + 1) > MAX_CMD-1) {
+			if ((cgc_strlen(CWD)+cgc_strlen(ARGV[3]) + 1) > MAX_CMD-1) {
 				puts("command too long");
 				return(0);
 			}
@@ -250,7 +250,7 @@ int EchoHandler() {
 		}
 			
 		if (!strcmp(ARGV[2], ">")) {
-			// write to file
+			// cgc_write to file
 			if ((out = fopen(pathname, "w")) == NULL) {
 				puts("unable to write to file");
 				return(-1);
@@ -306,7 +306,7 @@ int CatHandler() {
 	} else {
 		// we need to prepend the CWD
 		bzero(pathname, MAX_CMD);
-		if ((strlen(CWD)+strlen(ARGV[1]) + 1) > MAX_CMD-1) {
+		if ((cgc_strlen(CWD)+cgc_strlen(ARGV[1]) + 1) > MAX_CMD-1) {
 			puts("command too long");
 			return(0);
 		}
@@ -329,7 +329,7 @@ int HelpHandler() {
 	c = cmds;
 	while (c->command) {
 		printf("@s", c->command);
-		len = 20-strlen(c->command);
+		len = 20-cgc_strlen(c->command);
 		while (len-- > 0) {
 			printf(" ");
 		}

@@ -21,7 +21,7 @@
 */
 #include "memset.h"
 
-unsigned int memset(void *buf, unsigned char ch, unsigned int n) {
+unsigned int cgc_memset(void *buf, unsigned char ch, unsigned int n) {
 
 	if (0 == n) {
 		return 0;

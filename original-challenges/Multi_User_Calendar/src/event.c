@@ -30,7 +30,7 @@ int g_event_id = 0;
 
 event_t *create_event(struct user *owner, char *name, char *desc, duration_t *duration, bool is_all_day)
 {
-    if (!owner || !name || !strlen(name) || !desc || !strlen(desc) || !duration)
+    if (!owner || !name || !cgc_strlen(name) || !desc || !cgc_strlen(desc) || !duration)
         return NULL;
 
     event_t *event = malloc(sizeof(event_t));

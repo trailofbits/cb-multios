@@ -45,7 +45,7 @@ void CreateUser(void) {
 	}
 
 	// did we get one?
-	if (strlen(buf) == 0) {
+	if (cgc_strlen(buf) == 0) {
 		// nope
 		return;
 	}
@@ -91,7 +91,7 @@ void Login(void) {
 	}
 
 	// did we get one?
-	if (strlen(buf) == 0) {
+	if (cgc_strlen(buf) == 0) {
 		// nope
 		return;
 	}

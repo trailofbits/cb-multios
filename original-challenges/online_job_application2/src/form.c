@@ -45,9 +45,9 @@ static int handler_index(form_t *form, char *buf)
     p++;
 
   for (i = 0; i < NUM_CMDS; i++) {
-    memcpy(cmd_buf, p, strlen(cmd_lbls[i]));
-    cmd_buf[strlen(cmd_lbls[i])] = '\0';
-    if (strncasecmp(cmd_buf, cmd_lbls[i], strlen(cmd_lbls[i])) == 0)
+    cgc_memcpy(cmd_buf, p, cgc_strlen(cmd_lbls[i]));
+    cmd_buf[cgc_strlen(cmd_lbls[i])] = '\0';
+    if (strncasecmp(cmd_buf, cmd_lbls[i], cgc_strlen(cmd_lbls[i])) == 0)
       return i;
   }
 
@@ -88,12 +88,12 @@ static void print_title(form_t *form)
 
 static int handle_cmd(form_t *form, char *buf)
 {
-  char *arg = malloc(strlen(buf) + 1);
+  char *arg = malloc(cgc_strlen(buf) + 1);
   int ret;
   if (arg == NULL)
     return -1;
   strcpy(arg, buf);
-  arg[strlen(buf)] = '\0';
+  arg[cgc_strlen(buf)] = '\0';
   char *cmd = strsep(&arg, " ");
   int i = handler_index(form, cmd);
   if (i < 0) {
@@ -118,7 +118,7 @@ static int handle_answer(form_t *form, char *input)
     free(form->cur_question->answer);
   }
 
-  form->cur_question->answer = malloc(strlen(input) + 1);
+  form->cur_question->answer = malloc(cgc_strlen(input) + 1);
   if (form->cur_question->answer == NULL)
     return -1;
 
@@ -227,7 +227,7 @@ int handle_next(form_t *form, char *arg)
 int handle_exit(form_t *form, char *arg)
 {
   printf("Thank you!\n");
-  exit(0);
+  cgc_exit(0);
   return 0;
 }
 
@@ -268,7 +268,7 @@ int handle_update(form_t *form, char *arg)
 
   cur = form->cur_page->questions;
   for(; cur != NULL; cur = cur->next)
-    if (strncmp(cur->title, arg, strlen(cur->title)) == 0)
+    if (strncmp(cur->title, arg, cgc_strlen(cur->title)) == 0)
       break;
 
   if (cur == NULL) {
@@ -285,7 +285,7 @@ int handle_update(form_t *form, char *arg)
   if (read_line(input_buf) < 0)
     return -1;
 
-  if ((strlen(input_buf) == 0) && cur->optional) {
+  if ((cgc_strlen(input_buf) == 0) && cur->optional) {
     if (input_buf != NULL) {
       free(input_buf);
     }
@@ -311,9 +311,9 @@ int handle_update(form_t *form, char *arg)
   if (cur->answer == NULL) {
     cur->answer = input_buf;
 #ifdef PATCHED
-  } else if (strncmp(cur->answer, input_buf, strlen(input_buf)) == 0) {
+  } else if (strncmp(cur->answer, input_buf, cgc_strlen(input_buf)) == 0) {
 #else
-  } else if (strncmp(cur->answer, input_buf, strlen(cur->answer)) == 0) {
+  } else if (strncmp(cur->answer, input_buf, cgc_strlen(cur->answer)) == 0) {
 #endif
     strcpy(cur->answer, input_buf);
     free(input_buf);
@@ -356,7 +356,7 @@ int handle_line(form_t *form, char *buf)
     return 1;
   }
 
-  if (strlen(buf) == 0) {
+  if (cgc_strlen(buf) == 0) {
     if (!form->cur_question->optional)
       return 0;
   } else {

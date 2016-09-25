@@ -42,14 +42,14 @@ void AddData(DataSet *ds, uint8_t *newData, uint16_t length)
   if (ds->data == NULL)
   {
     ds->data = calloc(length);
-    memcpy(ds->data, newData, length);
+    cgc_memcpy(ds->data, newData, length);
     ds->length = length;
     ds->offset = 0;
   } else {
     uint8_t *oldData = ds->data;
     ds->data = calloc(ds->length + length);
-    memcpy(ds->data, oldData, ds->length);
-    memcpy(ds->data + ds->length, newData, length);
+    cgc_memcpy(ds->data, oldData, ds->length);
+    cgc_memcpy(ds->data + ds->length, newData, length);
     ds->length += length;
     free(oldData);
   }
@@ -66,7 +66,7 @@ int ReadData(DataSet *ds, uint8_t *dest, uint16_t length)
   {
     return -1;
   }
-  memcpy(dest, ds->data + ds->offset, length);
+  cgc_memcpy(dest, ds->data + ds->offset, length);
   ds->offset += length;
   return 0;
 }
@@ -218,7 +218,7 @@ uint8_t ServiceEnum(uint8_t *data, uint16_t length, DataSet *outputds)
   AddData(outputds, (uint8_t *)&numServices, sizeof(numServices));
   for (int i= 0; i < numServices; i++)
   {
-    AddData(outputds, (uint8_t *)serviceTypes[i], strlen(serviceTypes[i]) + 1);
+    AddData(outputds, (uint8_t *)serviceTypes[i], cgc_strlen(serviceTypes[i]) + 1);
   }
   return NETSTUFF_SUCCESS;
 }
@@ -234,7 +234,7 @@ uint8_t FileStat(uint8_t *data, uint16_t length, DataSet *outputds)
     return NETSTUFF_ERROR_FORMAT;
   }
   servicename = calloc(separator - data + 1);
-  memcpy(servicename, data, separator - data);
+  cgc_memcpy(servicename, data, separator - data);
   length -= separator - data - 1;
   data = separator + 1;
 
@@ -245,11 +245,11 @@ uint8_t FileStat(uint8_t *data, uint16_t length, DataSet *outputds)
     return NETSTUFF_ERROR_FORMAT;
   }
   treename = calloc(separator - data + 1);
-  memcpy(treename, data, separator - data);
+  cgc_memcpy(treename, data, separator - data);
   length -= separator - data - 1;
   data = separator + 1;
   filename = calloc(length + 1);
-  memcpy(filename, data, length);
+  cgc_memcpy(filename, data, length);
  
   fs_tree *tree = FindTreeByPath(0, (uint8_t *)treename, (uint8_t *)servicename);
   if (tree == NULL)
@@ -306,7 +306,7 @@ uint8_t NetPathType(uint8_t *path, uint16_t length)
   {
     return 0xff;
   }
-  memcpy(serviceName, path, serviceEnd - path);
+  cgc_memcpy(serviceName, path, serviceEnd - path);
   for (int i=0; i< MAX_SERVICE_TYPES; i++)
   {
     if (BufCmp(serviceName, (uint8_t *)serviceTypes[i]) == 0)
@@ -325,14 +325,14 @@ uint8_t CanonicalizePathName(uint8_t *path, uint16_t length, uint8_t *output, ui
   uint32_t cookie = *(uint32_t *)(FLAG_PAGE + 1024);
   uint8_t *serviceName = NULL;
   uint8_t buffer[428];
-  memset(&buffer, 0, sizeof(buffer));
+  cgc_memset(&buffer, 0, sizeof(buffer));
 
   if (length > sizeof(buffer))
   {
     goto ERROR;
   }
   uint8_t *tmpPath = calloc(length + 1);
-  memcpy(tmpPath, path, length);
+  cgc_memcpy(tmpPath, path, length);
 
   uint8_t *separator = FindChar(tmpPath, length, NETSTUFF_SERVICE_CHAR);
   if (separator == 0)
@@ -340,7 +340,7 @@ uint8_t CanonicalizePathName(uint8_t *path, uint16_t length, uint8_t *output, ui
     goto ERROR;
   }
   serviceName = calloc(separator - tmpPath + 1);
-  memcpy(serviceName, tmpPath, separator - tmpPath);
+  cgc_memcpy(serviceName, tmpPath, separator - tmpPath);
   BufCat(buffer, serviceName);
   separator++;
 
@@ -367,7 +367,7 @@ uint8_t CanonicalizePathName(uint8_t *path, uint16_t length, uint8_t *output, ui
 
   free(serviceName);
   *outputLength = Length(buffer);
-  memcpy(output, buffer, *outputLength);
+  cgc_memcpy(output, buffer, *outputLength);
   output[*outputLength] = 0;
   if (cookie != *(uint32_t *)(FLAG_PAGE + 1024))
   {

@@ -36,7 +36,7 @@ CLANMessage::CLANMessage( uint8_t srcID, uint8_t destID, uint8_t *pMessageData, 
 {
 	m_pMessageData = new uint8_t[m_messageLen];
 
-	memcpy( m_pMessageData, pMessageData, messageLen );
+	cgc_memcpy( m_pMessageData, pMessageData, messageLen );
 }
 
 CLANMessage::~CLANMessage( )

@@ -63,7 +63,7 @@ int main()
 
     /* Initialize printers */
     printers = (printer_t *) malloc(NUM_PRINTERS * sizeof(printer_t));
-    memset(printers, 0, NUM_PRINTERS * sizeof(printer_t));
+    cgc_memset(printers, 0, NUM_PRINTERS * sizeof(printer_t));
     for (i = 0; i < NUM_PRINTERS; ++i)
     {
         if (i == 0)
@@ -179,7 +179,7 @@ int main()
                 {
                     char *agent = strsep(&tmp, " ");
                     unsigned int job_id = 0;
-                    if (strlen(tmp) > 0)
+                    if (cgc_strlen(tmp) > 0)
                         job_id = strtoul(tmp, NULL, 10);
                     if (cmd_remove_jobs(printer, agent, job_id) == 0)
                     {
@@ -190,7 +190,7 @@ int main()
                 transmit(STDOUT, "\xFF", 1, NULL);
                 break;
             case 7:
-                exit(0);
+                cgc_exit(0);
                 break;
             default:
                 transmit(STDOUT, "\xFF", 1, NULL);

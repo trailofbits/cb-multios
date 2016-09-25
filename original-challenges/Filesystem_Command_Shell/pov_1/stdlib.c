@@ -170,7 +170,7 @@ char *strncpy( char *pDest, const char *pSrc, size_t maxlen )
 	return (pDest);
 }
 
-void *memcpy( void *pDest, const void *pSource, size_t nbytes )
+void *cgc_memcpy( void *pDest, const void *pSource, size_t nbytes )
 {
 	void *pDestReturn = pDest;
 

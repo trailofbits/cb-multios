@@ -280,7 +280,7 @@ COMMAND read_command(FILE* f, char*** components, size_t* num_components)
   for (size_t i = 0; i < MAX_COMPONENTS; ++i)
   {
     component = new char[MAX_COMPONENT + 1];
-    memset(component, 0, MAX_COMPONENT + 1);
+    cgc_memset(component, 0, MAX_COMPONENT + 1);
     c = COMMAND_ERROR;
 
     int ret = freaduntil(component, MAX_COMPONENT, COMPONENT_DELIM, f);

@@ -1760,14 +1760,14 @@ int main(void) {
         unsigned char *read_00000;
         unsigned int read_00000_len;
         unsigned int read_00000_ptr = 0;
-        //**** delimited read
+        //**** delimited cgc_read
         static unsigned char read_00000_delim[] = 
             "\x0a";
         read_00000 = NULL;
         read_00000_len = 0;
         int read_00000_res = delimited_read(0, &read_00000, &read_00000_len, read_00000_delim, 1);
         if (read_00000_res) {} //silence unused variable warning
-        //**** read match data
+        //**** cgc_read match data
         static unsigned char match_00000_00000[] = 
             "\x4f\x6b\x2c\x20\x6d\x61\x74\x63\x68\x69\x6e\x67\x20\x69\x6e\x70"
             "\x75\x74\x20\x6e\x6f\x77";
@@ -1810,14 +1810,14 @@ int main(void) {
         unsigned char *read_00001;
         unsigned int read_00001_len;
         unsigned int read_00001_ptr = 0;
-        //**** delimited read
+        //**** delimited cgc_read
         static unsigned char read_00001_delim[] = 
             "\x0a";
         read_00001 = NULL;
         read_00001_len = 0;
         int read_00001_res = delimited_read(0, &read_00001, &read_00001_len, read_00001_delim, 1);
         if (read_00001_res) {} //silence unused variable warning
-        /* read match pcre:
+        /* cgc_read match pcre:
            Got a match! ".*"
            */
         static char read_00001_00000_regex[] = 

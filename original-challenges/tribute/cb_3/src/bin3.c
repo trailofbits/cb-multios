@@ -77,7 +77,7 @@ int run_program(inst_t *program, int size) {
    int op0;
    int op1;
    int result;
-   memset(&cpu, 0, sizeof(cpu));
+   cgc_memset(&cpu, 0, sizeof(cpu));
    PC = 0;
    current = NULL;
    op0 = 0;
@@ -210,7 +210,7 @@ int execute() {
    inst_t program[0x200];
    int PC;
 
-   memset(program, 0, sizeof(program));
+   cgc_memset(program, 0, sizeof(program));
    PC = 0;
 #ifdef DEBUG
    fprintf(stderr, "execute hitting illegal inst\n");

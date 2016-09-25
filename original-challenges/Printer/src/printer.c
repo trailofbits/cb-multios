@@ -64,7 +64,7 @@ int cmd_abort_job(printer_t *printer)
         {
             if (jobs[i].data)
                 free(jobs[i].data);
-            memset(&jobs[i], 0, sizeof(job_t));
+            cgc_memset(&jobs[i], 0, sizeof(job_t));
             jobs[i].state = JS_INVALID;
         }
         else if (jobs[i].state == JS_PRINTING)
@@ -122,11 +122,11 @@ int cmd_recv_control_file(printer_t *printer, char *buf)
         switch (line[0])
         {
             case 'C':
-                if (strlen(line) - 1 < sizeof(job->cls))
+                if (cgc_strlen(line) - 1 < sizeof(job->cls))
                     strcpy(job->cls, &line[1]);
                 break;
             case 'H':
-                if (strlen(line) - 1 < sizeof(job->host))
+                if (cgc_strlen(line) - 1 < sizeof(job->host))
                     strcpy(job->host, &line[1]);
                 break;
             case 'I':
@@ -135,31 +135,31 @@ int cmd_recv_control_file(printer_t *printer, char *buf)
                     job->indent = 0;
                 break;
             case 'J':
-                if (strlen(line) - 1 < sizeof(job->name))
+                if (cgc_strlen(line) - 1 < sizeof(job->name))
                     strcpy(job->name, &line[1]);
                 break;
             case 'L':
-                if (strlen(line) - 1 < sizeof(job->banner_user))
+                if (cgc_strlen(line) - 1 < sizeof(job->banner_user))
                     strcpy(job->banner_user, &line[1]);
                 job->banner_flag = 1;
                 break;
             case 'M':
-                if (strlen(line) - 1 < sizeof(job->mail_user))
+                if (cgc_strlen(line) - 1 < sizeof(job->mail_user))
                     strcpy(job->mail_user, &line[1]);
                 job->mail_flag = 1;
                 break;
             case 'N':
-                if (strlen(line) - 1 < sizeof(job->source))
+                if (cgc_strlen(line) - 1 < sizeof(job->source))
                     strcpy(job->source, &line[1]);
                 break;
             case 'P':
-                if (strlen(line) - 1 < sizeof(job->owner))
+                if (cgc_strlen(line) - 1 < sizeof(job->owner))
                     strcpy(job->owner, &line[1]);
                 break;
             case 'S':
                 ptr = line;
                 device_s = strsep(&ptr, " ");
-                if (device_s && ptr && strlen(device_s) > 1 && strlen(ptr) > 1)
+                if (device_s && ptr && cgc_strlen(device_s) > 1 && cgc_strlen(ptr) > 1)
                 {
                     job->device_num = strtoul(&device_s[1], NULL, 10);
                     job->inode_num = strtoul(ptr, NULL, 10);
@@ -167,7 +167,7 @@ int cmd_recv_control_file(printer_t *printer, char *buf)
                 break;
             case 'T':
 #ifdef PATCHED_1
-                if (strlen(line) - 1 < sizeof(job->title))
+                if (cgc_strlen(line) - 1 < sizeof(job->title))
 #endif
                     strcpy(job->title, &line[1]);
                 break;
@@ -187,7 +187,7 @@ int cmd_recv_control_file(printer_t *printer, char *buf)
         }
     }
 
-    if (strlen(job->host) < 1 || strlen(job->owner) < 1)
+    if (cgc_strlen(job->host) < 1 || cgc_strlen(job->owner) < 1)
         return -1;
 
     if (job->state == JS_INVALID)
@@ -238,7 +238,7 @@ int cmd_recv_data_file(printer_t *printer, char *buf)
 
     /* Data */
     data = malloc(count + 1);
-    memset(data, 0, count + 1);
+    cgc_memset(data, 0, count + 1);
     if (read_n(STDIN, data, count + 1) <= 0 || data[count])
     {
         free(data);
@@ -283,16 +283,16 @@ int cmd_send_queue_state(printer_t *printer)
             strcpy(buf, jobs[i].owner);
             buf[10] = '\0';
             printf("%s", buf);
-            print_ws(12 - strlen(buf));
+            print_ws(12 - cgc_strlen(buf));
             printf("%s", jstate_str(jobs[i].state));
-            print_ws(12 - strlen(jstate_str(jobs[i].state)));
+            print_ws(12 - cgc_strlen(jstate_str(jobs[i].state)));
             strcpy(buf, jobs[i].source);
             buf[18] = '\0';
             printf("%s", buf);
-            print_ws(20 - strlen(buf));
+            print_ws(20 - cgc_strlen(buf));
             sprintf(num, "%03d", i);
             printf("%s", num);
-            print_ws(12 - strlen(num));
+            print_ws(12 - cgc_strlen(num));
             printf("%d\n", jobs[i].data_len);
         }
     }
@@ -312,7 +312,7 @@ int cmd_remove_jobs(printer_t *printer, char *agent, unsigned int job_id)
     {
         if (jobs[job_id].data)
             free(jobs[job_id].data);
-        memset(&jobs[job_id], 0, sizeof(job_t));
+        cgc_memset(&jobs[job_id], 0, sizeof(job_t));
         jobs[job_id].state = JS_INVALID;
         return 0;
     }
@@ -338,7 +338,7 @@ void printer_tick(printer_t *printer)
                 {
                     if (jobs[i].data)
                         free(jobs[i].data);
-                    memset(&jobs[i], 0, sizeof(job_t));
+                    cgc_memset(&jobs[i], 0, sizeof(job_t));
                     jobs[i].state = JS_INVALID;
                 }
             }
@@ -352,7 +352,7 @@ void print_ws(int n)
 {
     char tmp[n+1];
     int i;
-    memset(tmp, ' ', n);
+    cgc_memset(tmp, ' ', n);
     tmp[n] = 0;
     printf(tmp);
 }

@@ -136,7 +136,7 @@ bool CCLF::LoadFile( uint8_t *pFileData, uint32_t fileSize )
 		m_pSections[i].pSectionData = new uint8_t[pSectionHeader->sectionSize];
 
 		// Copy in data
-		memcpy( m_pSections[i].pSectionData, pFileData+pSectionHeader->fileOffset, pSectionHeader->sectionSize );		
+		cgc_memcpy( m_pSections[i].pSectionData, pFileData+pSectionHeader->fileOffset, pSectionHeader->sectionSize );		
 	}
 
 	return (true);

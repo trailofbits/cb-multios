@@ -79,7 +79,7 @@ int main(void) {
   int uid = offset / gid + 1;
 
   glue_t *block = malloc(sizeof(glue_t));
-  memset(block, '\0', sizeof(glue_t));
+  cgc_memset(block, '\0', sizeof(glue_t));
 
   for (int i = 8 - 2; i >= 0; i--)
   {
@@ -103,7 +103,7 @@ int main(void) {
   transmit_all(1, zero, BLOCK_SIZE - sizeof(glue_t));
 
   // 2 empty blocks
-  memset(block, '\0', sizeof(glue_t));
+  cgc_memset(block, '\0', sizeof(glue_t));
 
   transmit_all(1, block, sizeof(glue_t));
   transmit_all(1, zero, BLOCK_SIZE - sizeof(glue_t));

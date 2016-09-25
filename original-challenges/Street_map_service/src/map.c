@@ -62,7 +62,7 @@ proad add_road(pmap thisMap, char roadName[32], double roadLength){
 	thisNode = insert_double_list_node(thisMap->roadList, lastRoadNode);
 	thisRoad = (proad)thisNode->data;
 	strcpy(thisRoad->name, roadName);
-	thisRoad->name[strlen(roadName)] = 0;
+	thisRoad->name[cgc_strlen(roadName)] = 0;
 	thisRoad->length = roadLength;
 	thisRoad->addressList = create_double_list();
 	thisRoad->intersectionList = create_double_list();
@@ -142,7 +142,7 @@ paddress add_address ( int number, char resident[32], proad thisRoad, pintersect
 	thisAddress->nextIntersection = nextIntersection;
 	thisAddress->distance_to_next = distance_to_next;
 	thisAddress->self = thisNode;
-	memcpy( thisNode->data, thisAddress, sizeof(address) );
+	cgc_memcpy( thisNode->data, thisAddress, sizeof(address) );
 	return (paddress)thisNode->data;
 }
 

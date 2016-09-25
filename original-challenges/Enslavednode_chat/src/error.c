@@ -47,5 +47,5 @@ void _error(int x, char *file, int line)
     fdprintf(STDERR, "%s:%d - unknown error\n", file, line);
   }
 
-  exit(1);
+  cgc_exit(1);
 }

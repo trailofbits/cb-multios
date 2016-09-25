@@ -45,7 +45,7 @@ set_nickname(size_t index, unsigned int name)
     }
 #endif
 
-    memcpy(name_, &name, sizeof(unsigned int));
+    cgc_memcpy(name_, &name, sizeof(unsigned int));
 
     for (i = 0; i < 6; i++) {
         if (game_state.games.safari_zone.party[i] == 0) {
@@ -68,7 +68,7 @@ glitch_items(size_t index, unsigned int name)
     printf("BZZZT!\n");
     if (fread_until(buf, '\n', sizeof(buf), stdin) == EXIT_FAILURE)
         return;
-    if (strlen(buf) == 0 || strtou(buf, 16, &item) == EXIT_FAILURE)
+    if (cgc_strlen(buf) == 0 || strtou(buf, 16, &item) == EXIT_FAILURE)
         return;
 
     fnptr = (void *)(name | 0xf0000000);
@@ -126,7 +126,7 @@ do_safari_zone(void)
 
         if (fread_until(buf, '\n', sizeof(buf), stdin) == EXIT_FAILURE)
             return EXIT_FAILURE;
-        if (strlen(buf) == 0 || strtou(buf, 16, &move) == EXIT_FAILURE)
+        if (cgc_strlen(buf) == 0 || strtou(buf, 16, &move) == EXIT_FAILURE)
             return EXIT_FAILURE;
 
         if (round > 10 || (round > 0 && run_chance >= get_flag_byte(round))) {
@@ -158,7 +158,7 @@ do_safari_zone(void)
     do {
         if (fread_until(buf, '\n', sizeof(buf), stdin) == EXIT_FAILURE)
             continue;
-        if (strlen(buf) == 0 || strtou(buf, 16, &name) == EXIT_FAILURE)
+        if (cgc_strlen(buf) == 0 || strtou(buf, 16, &name) == EXIT_FAILURE)
             continue;
 
         break;

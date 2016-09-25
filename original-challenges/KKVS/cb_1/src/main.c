@@ -62,7 +62,7 @@ int parse_args(char* args, size_t len, char** argv, size_t max_args)
   {
     if (args[i] != '\0') {
       argv[arg_num++] = &args[i];
-      i += strlen(&args[i]);
+      i += cgc_strlen(&args[i]);
     }
     else
     {
@@ -81,7 +81,7 @@ command_t* parse_command(char* line)
   if (!cmd || !argv)
     err("bad calloc");
 
-  int num_args = parse_args(line, strlen(line), argv, MAX_ARGS);
+  int num_args = parse_args(line, cgc_strlen(line), argv, MAX_ARGS);
 
   if (num_args < 0)
     goto error;
@@ -91,7 +91,7 @@ command_t* parse_command(char* line)
     if (argv[0] && strcasecmp(commands[i].symbol, argv[0]) == 0 &&
         num_args - 1 == commands[i].arity)
     {
-      memcpy(cmd, &commands[i], sizeof(command_t));
+      cgc_memcpy(cmd, &commands[i], sizeof(command_t));
       cmd->argv = argv + 1;
       goto done;
     }
@@ -105,7 +105,7 @@ error:
   return NULL;
 done:
   for (size_t i = 0; i < cmd->arity; i ++)
-    if (strlen(cmd->argv[i]) > 512)
+    if (cgc_strlen(cmd->argv[i]) > 512)
       goto error;
 
   return cmd;
@@ -116,7 +116,7 @@ int serialize_command(command_t* command, unsigned char** serialized)
   size_t size = sizeof(int) * 2;
   for (size_t i = 0; command->argv[i]; i++)
   {
-    size += strlen(command->argv[i]) + 1;
+    size += cgc_strlen(command->argv[i]) + 1;
   }
 
   *serialized = calloc(sizeof(unsigned char), size);
@@ -125,16 +125,16 @@ int serialize_command(command_t* command, unsigned char** serialized)
 
   unsigned char* cur = *serialized;
 
-  memcpy(cur, (void *)&command->type, sizeof(command->type));
+  cgc_memcpy(cur, (void *)&command->type, sizeof(command->type));
   cur += sizeof(command->type);
 
-  memcpy(cur, (void *)&command->arity, sizeof(command->arity));
+  cgc_memcpy(cur, (void *)&command->arity, sizeof(command->arity));
   cur += sizeof(command->arity);
 
   for (size_t i = 0; i < command->arity; i++)
   {
     strcpy((char *)cur, command->argv[i]);
-    cur += strlen((char *)cur) + 1;
+    cur += cgc_strlen((char *)cur) + 1;
   }
 
   return size;
@@ -153,12 +153,12 @@ int main(void)
 
   for (;;)
   {
-    memset(line, 0, LINE_SIZE);
+    cgc_memset(line, 0, LINE_SIZE);
     transmit_string(STDOUT, "hackdis> ");
     if (read_until(STDIN, LINE_SIZE, '\n', line) < 0)
     {
       if (++failed_cnt > 10)
-        exit(0);
+        cgc_exit(0);
       if (transmit_string(STDOUT, "\n") != 0)
         err("send failed");
       continue;
@@ -166,12 +166,12 @@ int main(void)
     failed_cnt = 0;
     dbg("read line: %s", line);
 
-    if (strncmp("quit", line, strlen("quit")) == 0)
+    if (strncmp("quit", line, cgc_strlen("quit")) == 0)
     {
       send_n_bytes(tx, 4, "quit");
       if (transmit_string(STDOUT, "bye\n") != 0)
         err("send failed");
-      exit(0);
+      cgc_exit(0);
     }
 
     command_t* command = parse_command(line);
@@ -187,7 +187,7 @@ int main(void)
     send_n_bytes(tx, sizeof(ssize), (char* )&ssize);
     send_n_bytes(tx, ssize, (char *)serialized_command);
     dbg("done sending");
-    memset(resp, 0, LINE_SIZE);
+    cgc_memset(resp, 0, LINE_SIZE);
     if (read_until(rx, LINE_SIZE, '\n', resp) < 0)
     {
       dbg("bad response");

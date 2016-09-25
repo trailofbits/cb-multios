@@ -76,7 +76,7 @@ route_mem_t **g_route_memory;
 static void print(const char *s)
 {
     size_t bytes;
-    transmit(STDOUT, s, strlen(s), &bytes);
+    transmit(STDOUT, s, cgc_strlen(s), &bytes);
 }
 
 static char *readline(const char *prompt)
@@ -290,7 +290,7 @@ static route_t *allocate_route()
     }
     route_t *route = &avail_mem->routes[avail_mem->free_head - 1];
     avail_mem->free_head = route->ip;
-    memset(route, 0, sizeof(route_t));
+    cgc_memset(route, 0, sizeof(route_t));
     return route;
 }
 
@@ -310,16 +310,16 @@ static void free_route(route_t *route)
             return;
         }
     }
-    exit(9);
+    cgc_exit(9);
 }
 
 static void delete_route(route_t *route, route_t *parent)
 {
     if (parent == NULL)
         if (lookup_route(route->ip, route->length + 1, &parent) == NULL)
-            exit(1);
+            cgc_exit(1);
     if (parent == NULL)
-        exit(2);
+        cgc_exit(2);
 
     route_t *sibling, **slot;
     if (parent->left == route)
@@ -334,7 +334,7 @@ static void delete_route(route_t *route, route_t *parent)
     }
     else
     {
-        exit(3);
+        cgc_exit(3);
     }
 
     route->asn = INVALID_ASN;
@@ -637,7 +637,7 @@ static void cmd_add_router(char *line)
     if (valid_router(router))
         goto bad_arguments;
 
-    memset(router, 0, sizeof(router_t));
+    cgc_memset(router, 0, sizeof(router_t));
     router->asn = asn;
     prompt_edit_router(router);
     return;

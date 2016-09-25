@@ -94,7 +94,7 @@ int parse_sentence(const char *buf, struct sentence_struct *ss) {
 	end = get_next_field(p_buf) - 1;
 
 #if PATCHED
-	if (MAX_SENTENCE_LEN < (end-p_buf+strlen(ss->ais_msg))) {
+	if (MAX_SENTENCE_LEN < (end-p_buf+cgc_strlen(ss->ais_msg))) {
 		return ERR_INVALID_SENTENCE;
 	}
 #endif
@@ -121,7 +121,7 @@ void reset_sentence_struct(struct sentence_struct *ss) {
  	ss->session_id = 0;
 	ss->msg_status = EMPTY;
 	ss->msg_type = 0;
-	memset((void *)ss->ais_msg, 0, MAX_SENTENCE_LEN);
+	cgc_memset((void *)ss->ais_msg, 0, MAX_SENTENCE_LEN);
  	ss->p_ais_msg_idx = ss->ais_msg;
  }
 

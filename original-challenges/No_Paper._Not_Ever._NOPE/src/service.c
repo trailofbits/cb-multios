@@ -176,17 +176,17 @@ int we_have_a_winner(Session *s, Response *r) {
             rec->tp = tp;
             add_auditrecord_to_audit_list(rec);
             // have 1 or more tax forms to audit YOU WIN
-            memcpy(r->answer, YOU_WIN, sizeof(YOU_WIN)-1);
-            memcpy(r->answer + sizeof(YOU_WIN)-1, rec->tax_years, sizeof(rec->tax_years));
+            cgc_memcpy(r->answer, YOU_WIN, sizeof(YOU_WIN)-1);
+            cgc_memcpy(r->answer + sizeof(YOU_WIN)-1, rec->tax_years, sizeof(rec->tax_years));
         } else {
             // have no tax forms to audit, LUCKY DAY!
-            memcpy(r->answer, LUCKY_DAY, sizeof(LUCKY_DAY)-1);
+            cgc_memcpy(r->answer, LUCKY_DAY, sizeof(LUCKY_DAY)-1);
         }
 
         return SUCCESS;
     }
 
-    memcpy(r->answer, AUDIT_FAIL, sizeof(AUDIT_FAIL)-1);
+    cgc_memcpy(r->answer, AUDIT_FAIL, sizeof(AUDIT_FAIL)-1);
     return -1;
 }
 
@@ -194,7 +194,7 @@ int we_have_a_winner(Session *s, Response *r) {
  * Receive the data buffer for each command
  *
  * @param s                 Pointer to session which has an element to store the data buffer
- * @param expected_bytes    Number of bytes to read and store in data buffer
+ * @param expected_bytes    Number of bytes to cgc_read and store in data buffer
  * @return SUCCESS on success, else -1
  */
 int recv_cmd_data(Session *s, size_t expected_bytes) {
@@ -240,7 +240,7 @@ int session_auth(Session *s, Response *r) {
  */
 void response_set_key(Session *s, Response *r) {
     // copy session key to response
-    memcpy(r->session_key, s->login.key, sizeof(s->login.key));
+    cgc_memcpy(r->session_key, s->login.key, sizeof(s->login.key));
 }
 
 
@@ -262,13 +262,13 @@ int get_refund(Session *s, Response *r) {
         ret = taxpayer_get_refund(tp, s, year_buf, &bytes_written);
 
         if ((SUCCESS == ret) && (bytes_written < (sizeof(year_buf) - sizeof(GET_REFUND_OK) - 1))) {
-            memcpy(r->answer, GET_REFUND_OK, sizeof(GET_REFUND_OK)-1);
-            memcpy(r->answer + sizeof(GET_REFUND_OK)-1, year_buf, bytes_written);
+            cgc_memcpy(r->answer, GET_REFUND_OK, sizeof(GET_REFUND_OK)-1);
+            cgc_memcpy(r->answer + sizeof(GET_REFUND_OK)-1, year_buf, bytes_written);
             return SUCCESS;
         }
     }
 
-    memcpy(r->answer, GET_REFUND_FAIL, sizeof(GET_REFUND_FAIL)-1);
+    cgc_memcpy(r->answer, GET_REFUND_FAIL, sizeof(GET_REFUND_FAIL)-1);
     return -1;
 }
 
@@ -292,17 +292,17 @@ int pay_taxes(Session *s, Response *r) {
             ret = taxpayer_pay_taxes(tp, s, year_buf, &bytes_written);
 
             if ((SUCCESS == ret) && (bytes_written < (sizeof(year_buf) - sizeof(PAY_TAXES_OK) - 1))) {
-                memcpy(r->answer, PAY_TAXES_OK, sizeof(PAY_TAXES_OK)-1);
+                cgc_memcpy(r->answer, PAY_TAXES_OK, sizeof(PAY_TAXES_OK)-1);
                 // VULN: year_buf is 128 and so is r->answer
-                // memcpy will go OOB if bytes_written > 128-sizeof(TAXES_SUBMITTED_OK)-1
+                // cgc_memcpy will go OOB if bytes_written > 128-sizeof(TAXES_SUBMITTED_OK)-1
                 // Would that do any harm?
-                memcpy(r->answer + sizeof(PAY_TAXES_OK)-1, year_buf, bytes_written);
+                cgc_memcpy(r->answer + sizeof(PAY_TAXES_OK)-1, year_buf, bytes_written);
                 return SUCCESS;
             }
         }
     }
 
-    memcpy(r->answer, PAY_TAXES_FAIL, sizeof(PAY_TAXES_FAIL)-1);
+    cgc_memcpy(r->answer, PAY_TAXES_FAIL, sizeof(PAY_TAXES_FAIL)-1);
     return -1;
 }
 
@@ -314,11 +314,11 @@ int pay_taxes(Session *s, Response *r) {
  * @param bytes_written Number of bytes to copy from year_buf into r.answer
  */
 void copy_yr_list_into_answer(Response *r, char *year_buf, size_t bytes_written) {
-    memcpy(r->answer, TAXES_SUBMITTED_OK, sizeof(TAXES_SUBMITTED_OK)-1);
+    cgc_memcpy(r->answer, TAXES_SUBMITTED_OK, sizeof(TAXES_SUBMITTED_OK)-1);
     // VULN: year_buf is 128 and so is r->answer
-    // memcpy will go OOB if bytes_written > 128-sizeof(TAXES_SUBMITTED_OK)-1
-    // Not POV-able because it will write into Session struct which doesn't hurt anything.
-    memcpy(r->answer + sizeof(TAXES_SUBMITTED_OK)-1, year_buf, bytes_written);
+    // cgc_memcpy will go OOB if bytes_written > 128-sizeof(TAXES_SUBMITTED_OK)-1
+    // Not POV-able because it will cgc_write into Session struct which doesn't hurt anything.
+    cgc_memcpy(r->answer + sizeof(TAXES_SUBMITTED_OK)-1, year_buf, bytes_written);
 }
 
 /**
@@ -344,7 +344,7 @@ int taxes_submitted(Session *s, Response *r) {
     if (SUCCESS == ret) {
         tp = taxpayer_get_by_username(tp_list, s);
         if (NULL != tp) {
-            // VULN: year_buf has no protection from OOB write
+            // VULN: year_buf has no protection from OOB cgc_write
             ret = taxpayer_list_submitted_tax_years(tp, s, year_buf, &bytes_written);
 
             if (SUCCESS == ret) {
@@ -354,7 +354,7 @@ int taxes_submitted(Session *s, Response *r) {
         }
     }
 
-    memcpy(r->answer, TAXES_SUBMITTED_FAIL, sizeof(TAXES_SUBMITTED_FAIL)-1);
+    cgc_memcpy(r->answer, TAXES_SUBMITTED_FAIL, sizeof(TAXES_SUBMITTED_FAIL)-1);
     return -1;
 }
 
@@ -379,15 +379,15 @@ int taxes_due(Session *s, Response *r) {
             ret = taxpayer_sum_taxes_due(tp, s, &sum);
 
             if (SUCCESS == ret) {
-                memcpy(r->answer, TAXES_DUE_OK, sizeof(TAXES_DUE_OK)-1);
-                memcpy(r->answer + sizeof(TAXES_DUE_OK)-1, &sum, sizeof(int32_t));
+                cgc_memcpy(r->answer, TAXES_DUE_OK, sizeof(TAXES_DUE_OK)-1);
+                cgc_memcpy(r->answer + sizeof(TAXES_DUE_OK)-1, &sum, sizeof(int32_t));
                 return SUCCESS;
             }
         }
     }
 
-    memcpy(r->answer, TAXES_DUE_FAIL, sizeof(TAXES_DUE_FAIL)-1);
-    memcpy(r->answer + sizeof(TAXES_DUE_FAIL)-1, &sum, sizeof(int32_t));
+    cgc_memcpy(r->answer, TAXES_DUE_FAIL, sizeof(TAXES_DUE_FAIL)-1);
+    cgc_memcpy(r->answer + sizeof(TAXES_DUE_FAIL)-1, &sum, sizeof(int32_t));
     return -1;
 }
 
@@ -410,7 +410,7 @@ int upload_form(Session *s, Response *r) {
             ret = taxpayer_add_tenfourdee(tp, s, data_sz);
 
             if (SUCCESS == ret) {
-                memcpy(r->answer, UPLOAD_OK, sizeof(UPLOAD_OK)-1);
+                cgc_memcpy(r->answer, UPLOAD_OK, sizeof(UPLOAD_OK)-1);
                 return SUCCESS;
             }
         }
@@ -430,7 +430,7 @@ int upload_form(Session *s, Response *r) {
     sendall(2, "\n", 1);
 #endif
 
-    memcpy(r->answer, UPLOAD_FAIL, sizeof(UPLOAD_FAIL)-1);
+    cgc_memcpy(r->answer, UPLOAD_FAIL, sizeof(UPLOAD_FAIL)-1);
     return -1;
 }
 
@@ -459,13 +459,13 @@ int login(Session *s, Response *r) {
         session_append(&s_list, s);
 
         // add LOGIN_OK to r->answer to send back to user
-        memcpy(r->answer, LOGIN_OK, sizeof(LOGIN_OK)-1);
+        cgc_memcpy(r->answer, LOGIN_OK, sizeof(LOGIN_OK)-1);
 
         return SUCCESS;
     }
 l_fail:
     // add LOGIN_FAIL to r->answer to send back to user
-    memcpy(r->answer, LOGIN_FAIL, sizeof(LOGIN_FAIL)-1);
+    cgc_memcpy(r->answer, LOGIN_FAIL, sizeof(LOGIN_FAIL)-1);
 
     return -1;
 }
@@ -490,7 +490,7 @@ int logout(Session *s_cur, Response *r) {
     }
 
     // add LOGOUT_OK to r->answer to send back to user
-    memcpy(r->answer, LOGOUT_OK, sizeof(LOGOUT_OK)-1);
+    cgc_memcpy(r->answer, LOGOUT_OK, sizeof(LOGOUT_OK)-1);
 
     return SUCCESS;
 }
@@ -580,7 +580,7 @@ int main(void) {
 
             } else {
                 // add NICE_TRY to r->answer to send back to user
-                memcpy(r.answer, NICE_TRY, sizeof(NICE_TRY)-1);
+                cgc_memcpy(r.answer, NICE_TRY, sizeof(NICE_TRY)-1);
                 ret = -1;
             }
 
@@ -595,15 +595,15 @@ int main(void) {
         // auth failed, not creating account, not login => junk
         } else {
             // add NICE_TRY to r->answer to send back to user
-            memcpy(r.answer, NICE_TRY, sizeof(NICE_TRY)-1);
+            cgc_memcpy(r.answer, NICE_TRY, sizeof(NICE_TRY)-1);
             ret = -1;
         }
 
         if (0 <= ret) {
-            memcpy(r.result, OK, sizeof(OK));
+            cgc_memcpy(r.result, OK, sizeof(OK));
             response_set_key(&s, &r);
         } else {
-            memcpy(r.result, ERR, sizeof(ERR));
+            cgc_memcpy(r.result, ERR, sizeof(ERR));
             // VULN: no setting of Response.key on error, so can get previous session keys if the
             // response isn't initialized to 0's.
 

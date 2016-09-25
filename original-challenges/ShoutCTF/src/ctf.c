@@ -210,7 +210,7 @@ error_t ctf_get_ranks(ctf_t *ctf, team_t ***ranks, size_t *page)
     *page = p;
     *ranks = (team_t **) malloc(n * sizeof(team_t *));
     team_t **temp = (team_t **) malloc(ctf->num_teams * sizeof(team_t *));
-    memcpy(temp, ctf->teams, ctf->num_teams * sizeof(team_t *));
+    cgc_memcpy(temp, ctf->teams, ctf->num_teams * sizeof(team_t *));
     for (i = p, j = 0; i < ctf->num_teams && j < n; ++i, ++j)
         (*ranks)[j] = ctf_select_nth(temp, ctf->num_teams, i);
     free(temp);

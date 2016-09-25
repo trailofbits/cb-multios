@@ -71,7 +71,7 @@ int main() {
     insertInTrie(root, "len", lfunc("len", &len));
  
     while(1) {
-        memset(line, 0, 256);
+        cgc_memset(line, 0, 256);
 
         transmit(STDOUT, "> ", 2, NULL);
         if(receive_until(line, '\n', 255) == 0)
@@ -88,12 +88,12 @@ void process(char *input) {
     char *save;
     tmp = strtok(input, " ");
     while(tmp) {
-        if(isdigit(tmp[0]) || (tmp[0] == '-' && strlen(tmp) > 1)) {
+        if(isdigit(tmp[0]) || (tmp[0] == '-' && cgc_strlen(tmp) > 1)) {
             //variables can't start with number.  Make sure the rest is a number.
-            for(i=1;i<strlen(tmp);i++)
+            for(i=1;i<cgc_strlen(tmp);i++)
                 if(!isdigit(tmp[i]))
                     break;
-            if(i < strlen(tmp))
+            if(i < cgc_strlen(tmp))
                 puts("NOT A NUMBER");
             else {
                 foo = lint("", tmp);
@@ -315,8 +315,8 @@ void add() {
         char *tmp;
         tmp = calloc(oper1->len + oper2->len + 1, 1);
         if(tmp) {
-            memcpy(tmp, oper2->value, oper2->len);
-            memcpy(tmp+(oper2->len), oper1->value, oper1->len);
+            cgc_memcpy(tmp, oper2->value, oper2->len);
+            cgc_memcpy(tmp+(oper2->len), oper1->value, oper1->len);
             push(operStack, lstring("", tmp));
             free(tmp);
         } else {
@@ -330,8 +330,8 @@ void add() {
         int_to_str((int)oper1->value, result);
         tmp = calloc(oper2->len + oper1->len + 1, 1);
         if(tmp) {
-            memcpy(tmp, oper2->value, oper2->len);
-            memcpy(tmp+oper2->len, result, strlen(result));
+            cgc_memcpy(tmp, oper2->value, oper2->len);
+            cgc_memcpy(tmp+oper2->len, result, cgc_strlen(result));
             push(operStack, lstring("", tmp));
             free(tmp);
         } else {
@@ -358,7 +358,7 @@ void _int() {
         else if(strcmp(oper->type, "String") == 0)
         {
             tmp = oper->value;
-            for(i=0;i<strlen(tmp);i++)
+            for(i=0;i<cgc_strlen(tmp);i++)
             {
                 if(!isdigit(tmp[i]))
                 {
@@ -414,7 +414,7 @@ void mul() {
             if(tmp)
             {
                 while(times--) {
-                    memcpy(tmp, oper2->value, oper2->len);
+                    cgc_memcpy(tmp, oper2->value, oper2->len);
                     tmp+=oper2->len;
                 }
                 push(operStack, lstring("", orig));

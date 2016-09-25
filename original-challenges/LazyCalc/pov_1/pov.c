@@ -34,7 +34,7 @@ int main(void)
   transmit_all(STDOUT, &i, sizeof(unsigned int));
 
   /* Fill */
-  memset(payload, 0, sizeof(payload));
+  cgc_memset(payload, 0, sizeof(payload));
   for (i = 0; i < 38; ++i)
   {
     random(&arg1, sizeof(int), NULL);

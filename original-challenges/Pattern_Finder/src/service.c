@@ -38,18 +38,18 @@ static void ReportMatches(FILE* Stream, list** MatchArray, size_t MatchArraySize
 #define MAX_REPORT_SIZE 512
   char ReportContents[MAX_REPORT_SIZE];
   size_t ReportContentsIndex = 0;
-  memset(ReportContents, 0, MAX_REPORT_SIZE);
+  cgc_memset(ReportContents, 0, MAX_REPORT_SIZE);
   list** Array = MatchArray;
 
   for (size_t MatchArrayIndex = 0; MatchArrayIndex < MatchArraySize; ++MatchArrayIndex)
   {
     signature* Signature = Array[MatchArrayIndex]->Value;
 #ifdef PATCHED_1
-    size_t Len = Signature->PathSize + 3 + strlen(SeverityString(Signature->Severity)) + 11;
+    size_t Len = Signature->PathSize + 3 + cgc_strlen(SeverityString(Signature->Severity)) + 11;
     if (ReportContentsIndex + Len < ReportContentsIndex || ReportContentsIndex + Len > MAX_REPORT_SIZE)
       break;
 #endif
-    memcpy(ReportContents + ReportContentsIndex, Signature->Path, Signature->PathSize);
+    cgc_memcpy(ReportContents + ReportContentsIndex, Signature->Path, Signature->PathSize);
 
     ReportContentsIndex += Signature->PathSize;
     ReportContentsIndex += sprintf(ReportContents + ReportContentsIndex, " - %s - %x\n",
@@ -62,7 +62,7 @@ static void ReportMatches(FILE* Stream, list** MatchArray, size_t MatchArraySize
 
 static int ReadLine(FILE* Stream, char* Buf, size_t Max)
 {
-  memset(Buf, 0, Max);
+  cgc_memset(Buf, 0, Max);
 
   fflush(stdout);
   ssize_t Read = freaduntil(Buf, Max, '\n', Stream);
@@ -135,9 +135,9 @@ static int SortArray(char* Array, size_t ElementSize, size_t NumElements, int (*
     {
       if (cmp(Array + ((ArrayIndex - 1) * ElementSize), Array + (ArrayIndex * ElementSize)) > 0)
       {
-        memcpy(&Scratch, Array + ((ArrayIndex - 1) * ElementSize), ElementSize);
-        memcpy(Array + ((ArrayIndex - 1) * ElementSize), Array + (ArrayIndex * ElementSize), ElementSize);
-        memcpy(Array + (ArrayIndex * ElementSize), &Scratch, ElementSize);
+        cgc_memcpy(&Scratch, Array + ((ArrayIndex - 1) * ElementSize), ElementSize);
+        cgc_memcpy(Array + ((ArrayIndex - 1) * ElementSize), Array + (ArrayIndex * ElementSize), ElementSize);
+        cgc_memcpy(Array + (ArrayIndex * ElementSize), &Scratch, ElementSize);
 
         SwapIndex = ArrayIndex;
       }
@@ -228,7 +228,7 @@ int __attribute__((fastcall)) main(int SecretPageI, char *Unused[]) {
       goto done;
 
     Path = xcalloc(sizeof(char), PathSize + 1);
-    memcpy(Path, LineBuf, PathSize);
+    cgc_memcpy(Path, LineBuf, PathSize);
 
     DataSize = ReadUnsigned(stdin, LineBuf, MAX_LINE_SIZE);
     if (DataSize < 1 || DataSize > MAX_SIGD_SIZE)

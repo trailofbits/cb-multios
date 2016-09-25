@@ -158,7 +158,7 @@ int ReadFromTransportMessage(TransportMessage *tpMessage, uint8_t *buffer, int s
   {
     return -1;
   }
-  memcpy(buffer, (uint8_t *)tpMessage->data + tpMessage->currentOffset, size);
+  cgc_memcpy(buffer, (uint8_t *)tpMessage->data + tpMessage->currentOffset, size);
   tpMessage->currentOffset += size;
 
   return 0;

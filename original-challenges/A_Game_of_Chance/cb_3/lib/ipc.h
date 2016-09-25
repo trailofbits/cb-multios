@@ -30,8 +30,8 @@ in graphic form...
 
 ID	    0	1	2	3	4
 __________________________________________
-read	4	6	8	10	12
-write	3	5	7	9	11
+cgc_read	4	6	8	10	12
+cgc_write	3	5	7	9	11
 
 As an example
 

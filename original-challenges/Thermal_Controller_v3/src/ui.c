@@ -55,7 +55,7 @@ void get_bytes(unsigned char *buf, unsigned int num){
 void prime_buf(unsigned char *buf){
 	bzero(buf, MAX_MESSAGE_LEN+8);
 	unsigned char ok[12] = { 0xa5, 0x5a, 0x0a, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-	memcpy(buf,ok,12);
+	cgc_memcpy(buf,ok,12);
 	return;
 }
 
@@ -222,8 +222,8 @@ int get_command(pState state){
 			buf[6]=7;
 			get_program(state, &lenz, program);
 			lenz = lenz*3*sizeof(int);
-			memcpy(buf+8,&lenz,sizeof(int));
-			memcpy(buf+12,program,lenz);
+			cgc_memcpy(buf+8,&lenz,sizeof(int));
+			cgc_memcpy(buf+12,program,lenz);
 			send(buf,lenz + 12);
 			break;
 		}
@@ -235,8 +235,8 @@ int get_command(pState state){
 			unsigned int status[6];
 			int len = 24;
 			ret = get_status(state,status);
-			memcpy(buf+8,&len,sizeof(int));
-			memcpy(buf+12,status,24); 
+			cgc_memcpy(buf+8,&len,sizeof(int));
+			cgc_memcpy(buf+12,status,24); 
 			send(buf,36);
 			break;
 		}
@@ -251,7 +251,7 @@ int get_command(pState state){
 			unsigned int setTemp = state->setTemp;
 			if (ret == 0 ){
 				buf[6] = 9;
-				memcpy(buf+8, &currentTime ,sizeof(int));
+				cgc_memcpy(buf+8, &currentTime ,sizeof(int));
 				send(buf,12);
 			}
 			if(ret == 2){
@@ -264,13 +264,13 @@ int get_command(pState state){
 				
 				new_state(state);
 				if (historyListSize > 0){
-					memcpy(buf+8, &historyListSize, sizeof(historyListSize));
-					memcpy(buf+12, pHistoryList, histSize);
+					cgc_memcpy(buf+8, &historyListSize, sizeof(historyListSize));
+					cgc_memcpy(buf+12, pHistoryList, histSize);
 					bufsize = histSize + 12;
 				}
-				memcpy(buf+bufsize, &ambientTemp, sizeof(unsigned int));
+				cgc_memcpy(buf+bufsize, &ambientTemp, sizeof(unsigned int));
 				bufsize+=4;
-				memcpy(buf+bufsize, &setTemp, sizeof(unsigned int));
+				cgc_memcpy(buf+bufsize, &setTemp, sizeof(unsigned int));
 				bufsize+=4;
 				send(buf, bufsize);
 				//new_state(state);
@@ -286,11 +286,11 @@ int get_command(pState state){
 			buf[4]=1;
 			buf[6]=0xa;
 			buf[8]=4;
-			memcpy(buf+12, &fw,sizeof(int) );
+			cgc_memcpy(buf+12, &fw,sizeof(int) );
 			send(buf, 16);
 			break;
 		}
-		case 0xb:{//read sensor list
+		case 0xb:{//cgc_read sensor list
 			prime_buf(buf);
 			int len = 0;
 			buf[4]=1;
@@ -299,8 +299,8 @@ int get_command(pState state){
 			//buff is filled with sensor bytes
 			unsigned int sensorList[40*sizeof(int)];
 			get_sensors(state,sensorList);
-			memcpy(buf+8,&len,sizeof(int));
-			memcpy(buf+12,sensorList,len);
+			cgc_memcpy(buf+8,&len,sizeof(int));
+			cgc_memcpy(buf+12,sensorList,len);
 			send(buf, len+12);
 			break;
 		}

@@ -19,8 +19,8 @@ static double POWERS_OF_TEN[10] = {
   1e9,
 };
 
-//reads in a new line and returns the number of characters read
-// Returns the number of characters read otherwise it will return 0
+//reads in a new line and returns the number of characters cgc_read
+// Returns the number of characters cgc_read otherwise it will return 0
 // or an errno on error
 // errno can be
 // The errno from fdwait or receive

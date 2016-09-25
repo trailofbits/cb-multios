@@ -164,7 +164,7 @@ static void output_byte(uint8_t byte)
 {
 #ifdef PATCHED
     if (encoder.output_idx >= sizeof(encoder.output_buffer))
-        exit(2);
+        cgc_exit(2);
 #endif
     encoder.output_buffer[encoder.output_idx++] = byte;
 }
@@ -253,8 +253,8 @@ int main()
     huffman_decode_table(&encoder.ht_dc[1], HT_DC_C);
     huffman_decode_table(&encoder.ht_ac[0], HT_AC_L);
     huffman_decode_table(&encoder.ht_ac[1], HT_AC_C);
-    memcpy(encoder.qt[0], Q50_L, 64);
-    memcpy(encoder.qt[1], Q50_C, 64);
+    cgc_memcpy(encoder.qt[0], Q50_L, 64);
+    cgc_memcpy(encoder.qt[1], Q50_C, 64);
     set_quality(encoder.qt[0], quality);
     set_quality(encoder.qt[1], quality);
     

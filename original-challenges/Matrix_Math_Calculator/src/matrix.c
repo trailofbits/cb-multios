@@ -145,9 +145,9 @@ static void print_matrix(matrix_t *m)
         sprintf(buf, "%s|", buf);
         for (j = 0; j < m->num_cols; j++)
         {
-            if (strlen(buf) > sizeof(buf) - 1000)
+            if (cgc_strlen(buf) > sizeof(buf) - 1000)
             {
-                transmitall(buf, strlen(buf));
+                transmitall(buf, cgc_strlen(buf));
                 buf[0] = 0;
             }
             if (m->ptype != FLOAT)
@@ -183,7 +183,7 @@ static void print_matrix(matrix_t *m)
     }
     if (buf[0] != 0)
     {
-        transmitall(buf, strlen(buf));
+        transmitall(buf, cgc_strlen(buf));
         buf[0] = 0;
     }
 }
@@ -399,7 +399,7 @@ int m_transpose(matrix_t *m)
     }
 
     m->set_rows_cols(m, old_cols, old_rows);
-    memcpy(m->data, mt->data, old_cols * old_rows * data_width);
+    cgc_memcpy(m->data, mt->data, old_cols * old_rows * data_width);
     free(mt);
     return SUCCESS;
 }

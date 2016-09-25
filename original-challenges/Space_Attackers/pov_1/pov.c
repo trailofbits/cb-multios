@@ -56,7 +56,7 @@ int main(void) {
 		strcat((char *)buf, "\n");
 	}
 
-	transmit_all(STDOUT, buf, strlen((char *)buf));
+	transmit_all(STDOUT, buf, cgc_strlen((char *)buf));
 
 	for (n = 0; n < 280 - 12; n++)
 	{

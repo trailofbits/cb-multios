@@ -36,14 +36,14 @@ htbl_t* htbl_create(int size, free_value_fn *fptr)
   htbl_t *table = (htbl_t *) malloc(sizeof(htbl_t));
   if (table == NULL || fptr == NULL)
     goto fail;
-  memset(table, 0, sizeof(htbl_t));
+  cgc_memset(table, 0, sizeof(htbl_t));
   table->free_value = fptr;
   table->size = size > 0 ? size : 16;
   table->count = 0;
   table->table = (entry_t **) malloc(table->size * sizeof(entry_t *));
   if (table->table == NULL)
     goto fail;
-  memset(table->table, 0x00, table->size * sizeof(entry_t *));
+  cgc_memset(table->table, 0x00, table->size * sizeof(entry_t *));
   return table;
 
 fail:
@@ -60,7 +60,7 @@ int _htbl_hash(htbl_t *tab, char *key)
 {
   int i;
   unsigned int hash = MAGIC_PRIME;
-  for (i = 0; i < strlen(key); ++i)
+  for (i = 0; i < cgc_strlen(key); ++i)
   {
     hash += key[i];
     hash = hash << 5;
@@ -77,7 +77,7 @@ int _htbl_double_size(htbl_t *tab)
   tmp = (entry_t **) realloc(tab->table, tab->size * 2 * sizeof(entry_t *));
   if (tmp == NULL)
     return -1;
-  memset(&tmp[tab->size], 0, tab->size * sizeof(entry_t *));
+  cgc_memset(&tmp[tab->size], 0, tab->size * sizeof(entry_t *));
   tab->table = tmp;
   tab->size *= 2;
   return 0;

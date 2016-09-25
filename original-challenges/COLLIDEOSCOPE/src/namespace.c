@@ -92,7 +92,7 @@ insert_variable(struct namespace *ns, const char *name, enum variable_type type)
             if (last_var)
                 return last_var;
 
-            memset(var->name, '\0', 4);
+            cgc_memset(var->name, '\0', 4);
             strncpy(var->name, name, 4);
             var->type = type;
             return var;

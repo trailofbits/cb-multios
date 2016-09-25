@@ -91,5 +91,5 @@ void write_bytes(void *_buf, size_t n)
 
 void write_string(char *buf)
 {
-    write_bytes(buf, strlen(buf));
+    write_bytes(buf, cgc_strlen(buf));
 }

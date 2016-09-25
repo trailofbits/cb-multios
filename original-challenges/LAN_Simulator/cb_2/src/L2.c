@@ -121,7 +121,7 @@ uint8_t L2_VerifyChecksum(unsigned char *Frame) {
 
 	sum = L2_CalculateChecksum(Frame);
 
-	memcpy(&FrameChksum, Frame+sizeof(L2Hdr)+((pL2->Len)-4), 4);
+	cgc_memcpy(&FrameChksum, Frame+sizeof(L2Hdr)+((pL2->Len)-4), 4);
 	if (sum == FrameChksum) {
 		return(1);
 	}
@@ -202,7 +202,7 @@ uint8_t L2_RxFrame(int fd, unsigned char *Frame) {
 
 	// Update the checksum since we changed the Vlan tag
 	FrameChksum = L2_CalculateChecksum(Frame);
-	memcpy(Frame+sizeof(L2Hdr)+pL2->Len-4, &FrameChksum, 4);
+	cgc_memcpy(Frame+sizeof(L2Hdr)+pL2->Len-4, &FrameChksum, 4);
 	
 	// populate the CAM
 	L2_PopulateCAM(pL2->Src, fd, pL2->Vlan);
@@ -250,7 +250,7 @@ uint8_t L2_ForwardFrame(unsigned char *Frame) {
 			// remove the VLAN tag
 			pL2->Vlan = 0;
 			FrameChksum = L2_CalculateChecksum(Frame);
-			memcpy(Frame+sizeof(L2Hdr)+pL2->Len-4, &FrameChksum, 4);
+			cgc_memcpy(Frame+sizeof(L2Hdr)+pL2->Len-4, &FrameChksum, 4);
 
 			if (SendBytes(FD_CRS+1, Len, Frame) != Len) {
 				return(0);
@@ -261,7 +261,7 @@ uint8_t L2_ForwardFrame(unsigned char *Frame) {
 			// remove the VLAN tag
 			pL2->Vlan = 0;
 			FrameChksum = L2_CalculateChecksum(Frame);
-			memcpy(Frame+sizeof(L2Hdr)+pL2->Len-4, &FrameChksum, 4);
+			cgc_memcpy(Frame+sizeof(L2Hdr)+pL2->Len-4, &FrameChksum, 4);
 			
 			if (SendBytes(FD_CB3, Len, Frame) != Len) {
 				return(0);
@@ -276,7 +276,7 @@ uint8_t L2_ForwardFrame(unsigned char *Frame) {
 	if (Dst_CAM->L2Port == FD_CRS) {
 		pL2->Vlan = 0;
 		FrameChksum = L2_CalculateChecksum(Frame);
-		memcpy(Frame+sizeof(L2Hdr)+pL2->Len-4, &FrameChksum, 4);
+		cgc_memcpy(Frame+sizeof(L2Hdr)+pL2->Len-4, &FrameChksum, 4);
 
 		// also handle the difference in which FD we use for the CRS
 		// versus the rest of the CB's
@@ -288,7 +288,7 @@ uint8_t L2_ForwardFrame(unsigned char *Frame) {
 	} else if (Dst_CAM->L2Port == FD_CB3) {
 		pL2->Vlan = 0;
 		FrameChksum = L2_CalculateChecksum(Frame);
-		memcpy(Frame+sizeof(L2Hdr)+pL2->Len-4, &FrameChksum, 4);
+		cgc_memcpy(Frame+sizeof(L2Hdr)+pL2->Len-4, &FrameChksum, 4);
 	}
 
 	if (SendBytes(Dst_CAM->L2Port, Len, Frame) != Len) {

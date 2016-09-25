@@ -66,11 +66,11 @@ int strcmp( const char *, const char * );
 char *strncat( char *dest, const char *src, size_t n );
 size_t receive_until( char *, char, size_t );
 size_t strcat( char *, char* );
-size_t strlen( char * );
+size_t cgc_strlen( char * );
 size_t itoa( char *, size_t, size_t );
 void puts( char *t );
-void *memcpy(void *dest, void*src, unsigned int len);
-void *memset(void *dest, char c, unsigned int len);
-size_t strlen( char * str );
+void *cgc_memcpy(void *dest, void*src, unsigned int len);
+void *cgc_memset(void *dest, char c, unsigned int len);
+size_t cgc_strlen( char * str );
 
 #endif // __STDLIB_H__

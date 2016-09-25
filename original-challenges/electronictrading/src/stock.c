@@ -422,7 +422,7 @@ cmd_list_orders(const struct stock_state *state, const char *name)
     strncat(buf, stock->name, STOCK_NAME_MAX_LEN);
     strcat(buf, "\nID\tSIDE\tQTY\tPRICE\tQTY\tSIDE\n"); 
 
-    len = strlen(buf);
+    len = cgc_strlen(buf);
     if (write_all(STDOUT, buf, len) != len)
         return -1;
 
@@ -435,7 +435,7 @@ cmd_list_orders(const struct stock_state *state, const char *name)
 
         order_to_str(cur, buf);
 
-        len = strlen(buf);
+        len = cgc_strlen(buf);
         if (write_all(STDOUT, buf, len) != len)
             return -1;
     }
@@ -449,7 +449,7 @@ cmd_list_orders(const struct stock_state *state, const char *name)
 
         order_to_str(cur, buf);
 
-        len = strlen(buf);
+        len = cgc_strlen(buf);
         if (write_all(STDOUT, buf, len) != len)
             return -1;
     }
@@ -480,7 +480,7 @@ cmd_check_order(const struct stock_state *state, unsigned int id)
 
     order_to_str(order, buf);
 
-    len = strlen(buf);
+    len = cgc_strlen(buf);
     if (write_all(STDOUT, buf, len) != len)
         return -1;
 

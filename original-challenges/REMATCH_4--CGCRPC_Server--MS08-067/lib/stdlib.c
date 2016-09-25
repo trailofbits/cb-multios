@@ -39,7 +39,7 @@ uint64_t mult;
 
 void srand(void)
 {
-	memcpy((uint8_t *)&randState, (uint8_t *)0x4347c000, sizeof(randState));
+	cgc_memcpy((uint8_t *)&randState, (uint8_t *)0x4347c000, sizeof(randState));
 	randIndex = 0;
 	a = 12;
 	b = 25;
@@ -179,7 +179,7 @@ char *strncpy( char *pDest, const char *pSrc, size_t maxlen )
 	return (pDest);
 }
 
-void *memcpy( void *pDest, const void *pSource, size_t nbytes )
+void *cgc_memcpy( void *pDest, const void *pSource, size_t nbytes )
 {
 	void *pDestReturn = pDest;
 

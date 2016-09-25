@@ -62,7 +62,7 @@ int32_t vgf_parse_data( uint8_t *pData, uint32_t dataLen, tVGFParsedFile **pPars
     // Clear parsed file... set when parsing complete
     (*pParsedFile) = NULL;
 
-    // Reset read position
+    // Reset cgc_read position
     readPos = 0;
 
     pFileHeader = (tVGFHeader *)pData;
@@ -85,7 +85,7 @@ int32_t vgf_parse_data( uint8_t *pData, uint32_t dataLen, tVGFParsedFile **pPars
     if ( pFileHeader->vgfLayerCount > VGF_MAX_LAYER )
         return (VGF_ERROR_INVALID_FILE);
 
-    // Advance read position
+    // Advance cgc_read position
     readPos += sizeof(tVGFHeader);
 
     // Allocated data for parsed file
@@ -95,12 +95,12 @@ int32_t vgf_parse_data( uint8_t *pData, uint32_t dataLen, tVGFParsedFile **pPars
     pParsedData->pColorTable = NULL;
 
     // Load file header
-    memcpy( &(pParsedData->file_header), pFileHeader, sizeof(tVGFHeader) );
+    cgc_memcpy( &(pParsedData->file_header), pFileHeader, sizeof(tVGFHeader) );
 
     // Remember last object to order list
     tVGFObjectTable *pLastObjEntry = NULL;
 
-    // Now read in objects
+    // Now cgc_read in objects
     for ( ;; )
     {
         uint8_t do_end = 0;
@@ -227,7 +227,7 @@ int32_t vgf_parse_data( uint8_t *pData, uint32_t dataLen, tVGFParsedFile **pPars
                 goto exit_cleanup;
             }
 
-            memcpy( &(pParsedData->pColorTable[idx]), (pData+readPos), sizeof(tVGFColorHeader) );
+            cgc_memcpy( &(pParsedData->pColorTable[idx]), (pData+readPos), sizeof(tVGFColorHeader) );
 
             readPos += sizeof(tVGFColorHeader);
         }

@@ -53,7 +53,7 @@ static char tmp_string[1024];
 int i;
 
 
-	for (i=0; i< strlen(input_string); i++)
+	for (i=0; i< cgc_strlen(input_string); i++)
 		tmp_string[i] = input_string[i] ^ 0xa9;
 
 	tmp_string[i] = 0;
