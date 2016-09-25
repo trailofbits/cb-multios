@@ -6,6 +6,7 @@ import socket
 import subprocess
 import sys
 import time
+import thread
 from SocketServer import ForkingTCPServer, StreamRequestHandler
 import signal
 
@@ -18,9 +19,15 @@ def alarm_handler(signum, frame):
     raise TimeoutError()
 
 
+def stdout_flush(s):
+    sys.stdout.write(s)
+    sys.stdout.flush()
+
+
 class ChallengeHandler(StreamRequestHandler):
     challenges = []
     chal_timeout = 2
+    use_signals = False
 
     def handle(self):
         # Setup fds for all challenges according to:
@@ -31,14 +38,18 @@ class ChallengeHandler(StreamRequestHandler):
         # [record count (1)] [record type (1)] [record size (48)] [seed]
         seed = self.rfile.read(60)[12:].encode('hex')
 
+        # cb-test needs this to check the result
+        stdout_flush('seed: {}\n'.format(seed))
+
         # Get the pid of cb-replay
         # This will be used to send a signal when challenges are ready
-        replay_pid = self.rfile.readline()
-        try:
-            replay_pid = int(replay_pid)
-        except ValueError:
-            sys.stderr.write("Invalid cb-replay pid: {}".format(replay_pid))
-            return
+        if self.use_signals:
+            replay_pid = self.rfile.readline()
+            try:
+                replay_pid = int(replay_pid)
+            except ValueError:
+                sys.stderr.write("Invalid cb-replay pid: {}".format(replay_pid))
+                return
 
         # This is the first fd after all of the challenges
         last_fd = 2 * len(self.challenges) + 3
@@ -84,7 +95,8 @@ class ChallengeHandler(StreamRequestHandler):
         # This forces cb-replay to wait until all binaries are running,
         # avoiding the race condition where the replay starts too early
         # Using SIGILL here because SIGUSR1 is invalid on Windows
-        os.kill(replay_pid, signal.SIGILL)
+        if self.use_signals:
+            os.kill(replay_pid, signal.SIGILL)
 
         # Continue until any of the processes die
         # TODO: SIGALRM is invalid on Windows
@@ -111,6 +123,25 @@ class ChallengeHandler(StreamRequestHandler):
         os.dup2(saved[0], 0)
         os.dup2(saved[1], 1)
 
+        # TODO: Need to exit the server with correct return code
+
+
+class LimitedForkServer(ForkingTCPServer):
+    def __init__(self, server_address, handler, max_connections):
+        self.max_connections = max_connections
+        ForkingTCPServer.__init__(self, server_address, handler)
+
+    def process_request(self, request, client_address):
+        # Only the parent (server) will return from this
+        ForkingTCPServer.process_request(self, request, client_address)
+
+        # Check if we need to shutdown now
+        self.max_connections -= 1
+        stdout_flush('Client connected! {} remaining\n'.format(self.max_connections))
+        if self.max_connections <= 0:
+            stdout_flush('No more connections allowed, shutting down!\n')
+            thread.start_new_thread(self.shutdown, ())
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -119,9 +150,14 @@ def main():
                         help='TCP port used for incoming connections')
     parser.add_argument('-d', '--directory', required=True,
                         help='Directory containing the challenge binaries')
+    parser.add_argument('-m', '--max-connections', required=False,
+                        type=int, default=0,
+                        help='The number of connections this server will handle before shutting down')
     parser.add_argument('-t', '--timeout', type=int,
                         help='The time in seconds that challenges are allowed to run before quitting'
                         ' (default is {} seconds)'.format(ChallengeHandler.chal_timeout))
+    parser.add_argument('--use-signals', action='store_true',
+                        help='Use signals to coordinate starting the challenges with another process')
     parser.add_argument('challenge_binaries', nargs='+',
                         help='List of challenge binaries to run on the server')
 
@@ -136,11 +172,18 @@ def main():
     if args.timeout and args.timeout > 0:
         ChallengeHandler.chal_timeout = args.timeout
 
+    # Set how the handler will start challenges
+    ChallengeHandler.use_signals = args.use_signals
+
     # Start the challenge server
     ForkingTCPServer.allow_reuse_address = True
-    srv = ForkingTCPServer(('localhost', args.port), ChallengeHandler)
+    if args.max_connections > 0:
+        srv = LimitedForkServer(('localhost', args.port), ChallengeHandler, args.max_connections)
+    else:
+        srv = ForkingTCPServer(('localhost', args.port), ChallengeHandler)
+
     try:
-        print('Starting server at localhost:{}'.format(args.port))
+        stdout_flush('Starting server at localhost:{}\n'.format(args.port))
         srv.serve_forever()
     except KeyboardInterrupt:
         pass

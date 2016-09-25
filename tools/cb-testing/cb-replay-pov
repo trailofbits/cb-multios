@@ -98,7 +98,7 @@ def launch_gdb_proxy(pid, attach_port):
         subprocess.call(['/usr/bin/gdbserver', ':%d' % attach_port, '--attach', '%d' % pid])
         exit(0)
     else:
-        # ugh.  
+        # ugh.
         time.sleep(2)
         result = os.waitpid(gdb_pid, os.WNOHANG)
         if result != (0, 0):
@@ -207,12 +207,12 @@ class Throw(object):
         MIN_BITS = 20
         if not self.is_pov():
             return
-        
-        if self.debug:         
+
+        if self.debug:
             self.log("negotiating")
         connection, address = self.negotiate_fd.accept()
 
-        # as soon as we've accepted one, drop this server.  
+        # as soon as we've accepted one, drop this server.
         self.negotiate_fd.close()
 
         data = self.recv_all(connection, 4)
@@ -247,7 +247,7 @@ class Throw(object):
 
                 pov_values = struct.pack('<LL', ip, reg)
                 connection.sendall(pov_values)
- 
+
         if pov_type == 2:
             PAGE_ADDR = 0x4347C000
             PAGE_LENGTH = 0x1000
@@ -342,11 +342,6 @@ class Throw(object):
             self.log_fail('negotiate failed.  expected to send %d, sent %d' % (len(encoded), sent))
             return -1
 
-        response_packed = self._read_len(4)
-        response = struct.unpack('<L', response_packed)[0]
-        if response != 1:
-            return -1
-
         return 0
 
     def run(self):
@@ -380,7 +375,12 @@ class Throw(object):
         # handle PRNG negotiation with cb-server
         self.cb_negotiate()
 
-        # get a socket pair
+        # Send our pid to the server so we can wait for the ready signal
+        self._send_all('{}\n'.format(os.getpid()))
+
+        # Wait for the signal to start the replay
+        signal.signal(signal.SIGILL, lambda sig, frame: 0)  # Dummy handler
+        signal.pause()
 
         queue = multiprocessing.Queue()
         gdb_pid = None
@@ -449,7 +449,7 @@ def run_pov(src, dst, pov, timeout, debug, negotiate, cb_seed, attach, max_send,
         negotate: Should PRNG be negotiated with the CB
         cb_seed: seed to use in the CB
         attach: should the POV be run under gdbserver
-        max_send: maximum amount of transmit/receive 
+        max_send: maximum amount of transmit/receive
         pov_seed: the POV seed to use
 
     Returns:
@@ -491,7 +491,7 @@ def main():
                         help='Specify the CB Seed')
     parser.add_argument('--pov_seed', required=False, type=str,
                         help='Specify the POV Seed')
-    parser.add_argument('--attach_port', required=False, type=int, 
+    parser.add_argument('--attach_port', required=False, type=int,
                         help='Attach with gdbserver prior to launching the '
                         'POV on the specified port')
 

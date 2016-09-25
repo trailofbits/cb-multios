@@ -399,9 +399,6 @@ class Runner(object):
         self._remote = True
         self._test_id = str(uuid.uuid4())
         self._tmp_dir = '/tmp/%s' % self._test_id
-        #        if self.ids_rules is None:
-        #            self.ip_address = self.server_cb
-        #        else:
         self.ip_address = self.server_ids
 
         for node in [server_cb, server_pov, server_ids]:
@@ -585,66 +582,6 @@ class Runner(object):
                 return name
         return 'UNKNOWN'
 
-        #    def start_server(self, connection_count):
-        #        """ Start cb-server in the background
-
-        #        Arguments:
-        #            connection_count: The maximum number of connections that cb-server
-        #                should handle before exiting
-
-        #        Returns:
-        #            A handle to the Background() instance of cb-server
-
-        #        Raises:
-        #            None
-        #        """
-        #        assert connection_count > 0
-
-        #        server_cmd = ['cb-server', '--insecure', '-p', "%d" % self.port,
-        #                     '-m', "%d" % connection_count]
-
-        #        if self._remote:
-        #            cb_paths = [os.path.join(self.directory, x) for x in self.cb_list]
-        #            self.remote_upload(self.server_cb, cb_paths)
-
-        #            server_cmd = ['ssh', self.server_cb] + server_cmd
-        #            server_cmd += ['-d', self._tmp_dir]
-        #        else:
-        #            server_cmd += ['-d', self.directory]
-
-        #        if self.negotiate_seed:
-        #            server_cmd += ['--negotiate']
-
-        #        if self.cb_no_attach:
-        #            server_cmd += ['--no_attach']
-
-        #        if self.cb_seed is not None and self.negotiate_seed is None:
-        #            server_cmd += ['-s', self.cb_seed]
-
-        #        if self.cb_seed_skip is not None:
-        #            server_cmd += ['-S', '%d' % self.cb_seed_skip]
-
-        #        if self.timeout > 0:
-        #            server_cmd += ['-t', '%d' % self.timeout]
-
-        #        if self.max_send is not None and self.max_send > 0:
-        #            server_cmd += ['-M', '%d' % self.max_send]
-
-        #        if self.should_debug:
-        #            server_cmd += ['--debug']
-        #        else:
-        #            server_cmd += ['-c', '0']
-
-        #        if self.wrapper:
-        #            server_cmd += ['-w', self.wrapper]
-
-        #        server_cmd += self.cb_list
-
-    # server_cmd = ["socat", "TCP-LISTEN:4141,reuseaddr,fork", "EXEC:./../cb-multios/cqe-challenges/CADET_00001/bin/CADET_00001_patched"]
-    # print server_cmd
-    #        return self.background(server_cmd, 'socat')
-
-
     def start_server(self, connection_count):
         """Start single challenge binary using socat instead of cb-server
 
@@ -653,14 +590,13 @@ class Runner(object):
 
         """
         assert connection_count > 0
-        # server_cmd = ['socat', 'TCP-Listen:%d,reuseaddr,fork' % (self.port),
-        #               'EXEC:%s' % (os.path.join(self.directory, self.cb_list[0]))]
-        # return self.background(server_cmd, 'socat')
-        server_cmd = ['../cb_simple_server.py', '-p', str(self.port),
+        server_cmd = ['../cb_simple_server.py',
+                      '-p', str(self.port),
                       '-t', str(self.timeout),
+                      '-m', str(connection_count),
+                      '--use-signals',
                       '-d', self.directory] + self.cb_list
         return self.background(server_cmd, 'cb_simple_server.py')
-        # print server_cmd
 
     def start_ids(self, connection_count):
         """ Start cb-proxy in the background
@@ -1028,7 +964,7 @@ class Runner(object):
         pcap = self.start_pcap()
         for xml_list in xml_sets:
             server = self.start_server(len(xml_list))
-            ids = self.start_ids(len(xml_list))
+            # ids = self.start_ids(len(xml_list))
             replay_result = self.start_replay(xml_list)
 
             # if server.process.poll() is None:
@@ -1038,13 +974,12 @@ class Runner(object):
 
             # wait a maximum of 30 seconds after our replay and socket cleanup
             # finishes before terminating cb-server if it hasn't returned yet.
-            # try:
-            #     with Timeout(3):
-            #         server_result = server.wait()
-            # except TimeoutException:
-            #     server.terminate()
-            server.terminate()
-            ids.terminate()
+            try:
+                with Timeout(30):
+                    server_result = server.wait()
+            except TimeoutException:
+                server.terminate()
+            # ids.terminate()
 
             result = self.check_result(replay_result, server_result, xml_list)
             if result != 0:
