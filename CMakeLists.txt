@@ -41,11 +41,8 @@ if(WIN32)
 endif()
 
 # Build all libraries
-add_subdirectory(include)
 include_directories(include)
-
-# Build libpov
-add_subdirectory(include/libpov)
+add_subdirectory(include)
 
 function(build path target)
     message("Building ${target}")
@@ -81,9 +78,7 @@ function(buildPOV path cb pov)
     # POVs are allowed to include challenge headers,
     # but must have their own definitions
     target_include_directories(${target} PUBLIC "${path}/${pov}" "${path}/include" "${path}/lib" "${path}/src")
-    set_target_properties(${target} PROPERTIES  COMPILE_FLAGS "${CFLAGS} "
-                                                LINK_FLAGS "${LDFLAGS} "
-                                                OUTPUT_NAME "${pov}.pov")
+    set_target_properties(${target} PROPERTIES OUTPUT_NAME "${pov}.pov")
     target_link_libraries(${target} LINK_PUBLIC cgc pov)
 endfunction(buildPOV)
 

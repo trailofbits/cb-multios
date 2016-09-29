@@ -4,3 +4,6 @@ target_link_libraries(cgc LINK_PUBLIC tiny-AES128-C)
 
 # Build tiny-AES128-C
 add_subdirectory(tiny-AES128-C)
+
+# Build libpov
+add_subdirectory(libpov)
