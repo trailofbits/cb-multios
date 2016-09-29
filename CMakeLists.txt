@@ -2,14 +2,13 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(cb_porting)
-include_directories(include)  # necessary libraries shared by all challenge binaries
 
 # Needed for newer challenges
 enable_language(ASM)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 11)
 
-# Default flags
+# Default flags for everything
 add_compile_options(
     -fno-builtin
     -Wno-int-to-pointer-cast
@@ -18,7 +17,7 @@ add_compile_options(
     -m32
 )
 
-# Link everything 32-bit
+# Link everything 32-bit (until we have a 64-bit option)
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
 
@@ -49,6 +48,7 @@ endif()
 
 # Build all libraries
 add_subdirectory(include)
+include_directories(include)
 
 function(build path target)
     message("Building ${target}")
@@ -72,7 +72,7 @@ function(build path target)
     target_link_libraries(${target}_patched LINK_PUBLIC libcgc)
 endfunction()
 
-function(buildCB flags)
+function(buildCB)
     # Generate all the patched #defines for this challenge
     set(patch_defs "-DPATCHED")
     if(VULN_COUNT)
