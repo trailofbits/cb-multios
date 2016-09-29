@@ -249,7 +249,7 @@ because that should make things easier for callers. This character type is
 called pcre_uchar.
 
 The IN_UCHARS macro multiply its argument with the byte size of the current
-pcre_uchar type. Useful for memcpy and such operations, whose require the
+pcre_uchar type. Useful for cgc_memcpy and such operations, whose require the
 byte size of their input/output buffers.
 
 The MAX_255 macro checks whether its pcre_uchar input is less than 256.
@@ -367,12 +367,12 @@ need to have their names changed. PCRE must be compiled with the -DVPCOMPAT
 option on the command line. */
 
 #ifdef VPCOMPAT
-#define strlen(s)        _strlen(s)
+#define cgc_strlen(s)        _cgc_strlen(s)
 #define strncmp(s1,s2,m) _strncmp(s1,s2,m)
 #define memcmp(s,c,n)    _memcmp(s,c,n)
-#define memcpy(d,s,n)    _memcpy(d,s,n)
+#define cgc_memcpy(d,s,n)    _cgc_memcpy(d,s,n)
 #define memmove(d,s,n)   _memmove(d,s,n)
-#define memset(s,c,n)    _memset(s,c,n)
+#define cgc_memset(s,c,n)    _cgc_memset(s,c,n)
 #else  /* VPCOMPAT */
 
 /* To cope with SunOS4 and other systems that lack memmove() but have bcopy(),
@@ -2676,7 +2676,7 @@ sense, but are not part of the PCRE public API. */
   strncmp((char *)(str1), (char *)(str2), (num))
 #define STRNCMP_UC_C8(str1, str2, num) \
   strncmp((char *)(str1), (str2), (num))
-#define STRLEN_UC(str) strlen((const char *)str)
+#define STRLEN_UC(str) cgc_strlen((const char *)str)
 
 #elif defined COMPILE_PCRE16 || defined COMPILE_PCRE32
 

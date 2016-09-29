@@ -15,7 +15,7 @@ static entry **env = NULL;
 
 static void *memdup(const unsigned char *buf, cgc_size_t len) {
    unsigned char *res = (unsigned char *)malloc(len);
-   memcpy(res, buf, len);
+   cgc_memcpy(res, buf, len);
    return res;
 }
 
@@ -44,13 +44,13 @@ int putenv(const char *name, const unsigned char *val, cgc_size_t val_len) {
    }
    env_size++;
    env[i] = (entry*)malloc(sizeof(entry));
-   env[i]->name = memdup((const unsigned char*)name, strlen(name) + 1);
+   env[i]->name = memdup((const unsigned char*)name, cgc_strlen(name) + 1);
    env[i]->val = memdup(val, val_len);
    env[i]->val_len = val_len;
    return 0;
 }
 
-unsigned char *getenv(const char *name, cgc_size_t *len) {
+unsigned char *cgc_getenv(const char *name, cgc_size_t *len) {
    cgc_size_t i;
    for (i = 0; i < env_size; i++) {
       if (strcmp(name, env[i]->name) == 0) {

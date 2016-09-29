@@ -545,7 +545,7 @@ else
     do { end_code += GET(end_code, 1); } while (*end_code == OP_ALT);
     new_count = workspace[1];
     if (!workspace[0])
-      memcpy(new_states, active_states, new_count * sizeof(stateblock));
+      cgc_memcpy(new_states, active_states, new_count * sizeof(stateblock));
     }
 
   /* Not restarting */

@@ -920,7 +920,7 @@ if (cd->workspace_size >= COMPILE_WORK_SIZE_MAX ||
 
 newspace = (PUBL(malloc))(IN_UCHARS(newsize));
 if (newspace == NULL) return ERR21;
-memcpy(newspace, cd->start_workspace, cd->workspace_size * sizeof(pcre_uchar));
+cgc_memcpy(newspace, cd->start_workspace, cd->workspace_size * sizeof(pcre_uchar));
 cd->hwm = (pcre_uchar *)newspace + (cd->hwm - cd->start_workspace);
 if (cd->workspace_size > COMPILE_WORK_SIZE)
   (PUBL(free))((void *)cd->start_workspace);
@@ -4850,7 +4850,7 @@ for (;; ptr++)
     8-bit characters because in that case the compiled code doesn't use the bit
     map. */
 
-    memset(classbits, 0, 32 * sizeof(pcre_uint8));
+    cgc_memset(classbits, 0, 32 * sizeof(pcre_uint8));
 
     /* Process characters until ] is reached. By writing this as a "do" it
     means that an initial ] is taken as a data character. At the start of the
@@ -4997,7 +4997,7 @@ for (;; ptr++)
 
         /* Copy in the first table (always present) */
 
-        memcpy(pbits, cbits + posix_class_maps[posix_class],
+        cgc_memcpy(pbits, cbits + posix_class_maps[posix_class],
           32 * sizeof(pcre_uint8));
 
         /* If there is a second table, add or remove it as required. */
@@ -5465,7 +5465,7 @@ for (;; ptr++)
           IN_UCHARS(class_uchardata - code));
         if (negate_class && !xclass_has_prop)
           for (c = 0; c < 32; c++) classbits[c] = ~classbits[c];
-        memcpy(code, classbits, 32);
+        cgc_memcpy(code, classbits, 32);
         code = class_uchardata + (32 / sizeof(pcre_uchar));
         }
       else code = class_uchardata;
@@ -5488,7 +5488,7 @@ for (;; ptr++)
       {
       if (negate_class)
         for (c = 0; c < 32; c++) classbits[c] = ~classbits[c];
-      memcpy(code, classbits, 32);
+      cgc_memcpy(code, classbits, 32);
       }
     code += 32 / sizeof(pcre_uchar);
 
@@ -5652,7 +5652,7 @@ for (;; ptr++)
         pcre_uchar *lastchar = code - 1;
         BACKCHAR(lastchar);
         c = (int)(code - lastchar);     /* Length of UTF-8 character */
-        memcpy(utf_chars, lastchar, IN_UCHARS(c)); /* Save the char */
+        cgc_memcpy(utf_chars, lastchar, IN_UCHARS(c)); /* Save the char */
         c |= UTF_LENGTH;                /* Flag c as a length */
         }
       else
@@ -5757,7 +5757,7 @@ for (;; ptr++)
 #if defined SUPPORT_UTF && !defined COMPILE_PCRE32
           if (utf && (c & UTF_LENGTH) != 0)
             {
-            memcpy(code, utf_chars, IN_UCHARS(c & 7));
+            cgc_memcpy(code, utf_chars, IN_UCHARS(c & 7));
             code += c & 7;
             }
           else
@@ -5782,7 +5782,7 @@ for (;; ptr++)
 #if defined SUPPORT_UTF && !defined COMPILE_PCRE32
           if (utf && (c & UTF_LENGTH) != 0)
             {
-            memcpy(code, utf_chars, IN_UCHARS(c & 7));
+            cgc_memcpy(code, utf_chars, IN_UCHARS(c & 7));
             code += c & 7;
             }
           else
@@ -5812,7 +5812,7 @@ for (;; ptr++)
 #if defined SUPPORT_UTF && !defined COMPILE_PCRE32
       if (utf && (c & UTF_LENGTH) != 0)
         {
-        memcpy(code, utf_chars, IN_UCHARS(c & 7));
+        cgc_memcpy(code, utf_chars, IN_UCHARS(c & 7));
         code += c & 7;
         }
       else
@@ -6017,7 +6017,7 @@ for (;; ptr++)
               {
               pcre_uchar *hc;
               pcre_uchar *this_hwm = cd->hwm;
-              memcpy(code, previous, IN_UCHARS(len));
+              cgc_memcpy(code, previous, IN_UCHARS(len));
 
               while (cd->hwm > cd->start_workspace + cd->workspace_size -
                      WORK_SIZE_SAFETY_MARGIN - (this_hwm - save_hwm))
@@ -6096,7 +6096,7 @@ for (;; ptr++)
             PUTINC(code, 0, offset);
             }
 
-          memcpy(code, previous, IN_UCHARS(len));
+          cgc_memcpy(code, previous, IN_UCHARS(len));
 
           /* Ensure there is enough workspace for forward references before
           copying them. */
@@ -6523,7 +6523,7 @@ for (;; ptr++)
               }
             setverb = *code++ = verbs[i].op_arg;
             *code++ = arglen;
-            memcpy(code, arg, IN_UCHARS(arglen));
+            cgc_memcpy(code, arg, IN_UCHARS(arglen));
             code += arglen;
             *code++ = 0;
             }
@@ -7033,7 +7033,7 @@ for (;; ptr++)
                 goto FAILED;
                 }
 
-              memcpy(newspace, cd->named_groups,
+              cgc_memcpy(newspace, cd->named_groups,
                 cd->named_group_list_size * sizeof(named_group));
               if (cd->named_group_list_size > NAMED_GROUP_LIST_SIZE)
                 (PUBL(free))((void *)cd->named_groups);
@@ -8719,7 +8719,7 @@ for (i = 0; i < cd->names_found; i++)
   }
 
 PUT2(slot, 0, groupno);
-memcpy(slot + IMM2_SIZE, name, IN_UCHARS(length));
+cgc_memcpy(slot + IMM2_SIZE, name, IN_UCHARS(length));
 slot[IMM2_SIZE + length] = 0;
 cd->names_found++;
 }

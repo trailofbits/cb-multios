@@ -110,7 +110,7 @@ being lower or upper, such as "male and female ordinals" (\xAA and \xBA) in the
 fr_FR locale (at least under Debian Linux's locales as of 12/2005). So we must
 test for alnum specially. */
 
-memset(p, 0, cbit_length);
+cgc_memset(p, 0, cbit_length);
 for (i = 0; i < 256; i++)
   {
   if (isdigit(i)) p[cbit_digit  + i/8] |= 1 << (i&7);

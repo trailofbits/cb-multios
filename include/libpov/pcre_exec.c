@@ -1787,7 +1787,7 @@ for (;;)
           (int *)(PUBL(malloc))(new_recursive.saved_max * sizeof(int));
         if (new_recursive.offset_save == NULL) RRETURN(PCRE_ERROR_NOMEMORY);
         }
-      memcpy(new_recursive.offset_save, md->offset_vector,
+      cgc_memcpy(new_recursive.offset_save, md->offset_vector,
             new_recursive.saved_max * sizeof(int));
 
       /* OK, now we can do the recursion. After processing each alternative,
@@ -1802,7 +1802,7 @@ for (;;)
         if (cbegroup) md->match_function_type = MATCH_CBEGROUP;
         RMATCH(eptr, callpat + PRIV(OP_lengths)[*callpat], offset_top,
           md, eptrb, RM6);
-        memcpy(md->offset_vector, new_recursive.offset_save,
+        cgc_memcpy(md->offset_vector, new_recursive.offset_save,
             new_recursive.saved_max * sizeof(int));
         md->capture_last = new_recursive.saved_capture_last;
         md->recursive = new_recursive.prevrec;
@@ -7047,7 +7047,7 @@ if (rc == MATCH_MATCH || rc == MATCH_ACCEPT)
     {
     if (arg_offset_max >= 4)
       {
-      memcpy(offsets + 2, md->offset_vector + 2,
+      cgc_memcpy(offsets + 2, md->offset_vector + 2,
         (arg_offset_max - 2) * sizeof(int));
       DPRINTF(("Copied offsets from temporary memory\n"));
       }

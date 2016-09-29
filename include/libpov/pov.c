@@ -92,7 +92,7 @@ int buffered_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) 
       if (avail > 0) {
          if (avail >= count) {
             //we have enough data buffered to satisfy request
-            memcpy(buf, rb->buf + rb->iptr, count);
+            cgc_memcpy(buf, rb->buf + rb->iptr, count);
             rb->iptr += count;
             if (rx_bytes != NULL) {
                *rx_bytes += count;
@@ -101,7 +101,7 @@ int buffered_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) 
          }
          else {
             //avail < len some data buffered but not enough
-            memcpy(buf, rb->buf + rb->iptr, avail);
+            cgc_memcpy(buf, rb->buf + rb->iptr, avail);
             buf = avail + (char*)buf;
             count -= avail;
             if (rx_bytes != NULL) {
@@ -130,10 +130,10 @@ void delay(unsigned int msec) {
 unsigned char *append_var(const char *var, unsigned char *buf, unsigned int *buflen) {
    unsigned char *newbuf = buf;
    cgc_size_t varlen;
-   unsigned char *varbuf = getenv(var, &varlen);
+   unsigned char *varbuf = cgc_getenv(var, &varlen);
    if (varbuf != NULL) {
       newbuf = (unsigned char*)realloc(buf, *buflen + varlen);
-      memcpy(newbuf + *buflen, varbuf, varlen);
+      cgc_memcpy(newbuf + *buflen, varbuf, varlen);
       free(varbuf);
       *buflen += varlen;
    }
@@ -143,7 +143,7 @@ unsigned char *append_var(const char *var, unsigned char *buf, unsigned int *buf
 unsigned char *append_slice(const char *var, int begin, int end, unsigned char *buf, unsigned int *buflen) {
    unsigned char *newbuf = buf;
    cgc_size_t varlen;
-   unsigned char *varbuf = getenv(var, &varlen);
+   unsigned char *varbuf = cgc_getenv(var, &varlen);
    if (varbuf != NULL) {
       if (begin < 0) {
          begin += varlen;
@@ -163,7 +163,7 @@ unsigned char *append_slice(const char *var, int begin, int end, unsigned char *
       if (begin < end) {
          int len = end - begin;
          newbuf = (unsigned char*)realloc(buf, *buflen + len);
-         memcpy(newbuf + *buflen, varbuf + begin, len);
+         cgc_memcpy(newbuf + *buflen, varbuf + begin, len);
          free(varbuf);
          *buflen += len;
       }
@@ -175,7 +175,7 @@ unsigned char *append_buf(unsigned char *buf, unsigned int *buflen, unsigned cha
    unsigned char *newbuf = buf;
    if (sbuf != NULL) {
       newbuf = (unsigned char*)realloc(buf, *buflen + sbuflen);
-      memcpy(newbuf + *buflen, sbuf, sbuflen);
+      cgc_memcpy(newbuf + *buflen, sbuf, sbuflen);
       *buflen += sbuflen;
    }
    return newbuf;     
@@ -334,11 +334,11 @@ void submit_type2(const char *var) {
    unsigned char *vbuf = NULL;
    if (var != NULL) {
       //try to find callers var
-      vbuf = getenv(var, &vlen);
+      vbuf = cgc_getenv(var, &vlen);
    }
    if (vbuf == NULL) {
       //if caller's var not specified or set fall back to TYPE2_VALUE
-      vbuf = getenv("TYPE2_VALUE", &vlen);
+      vbuf = cgc_getenv("TYPE2_VALUE", &vlen);
    }
    if (vbuf != NULL) {
       //if a var was found, submit it
@@ -350,7 +350,7 @@ void submit_type2(const char *var) {
 cgc_size_t var_match(const unsigned char *readbuf, unsigned int buflen, const char *varName) {
    unsigned int result = 0;
    cgc_size_t var_len;
-   unsigned char *var = getenv(varName, &var_len);
+   unsigned char *var = cgc_getenv(varName, &var_len);
    if (var != NULL && var_len <= buflen) {
       if (memcmp(readbuf, var, var_len) == 0) {
          result = var_len;

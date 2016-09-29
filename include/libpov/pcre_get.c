@@ -308,7 +308,7 @@ return GET2(entry, 0);
 *************************************************/
 
 /* This function copies a single captured substring into a given buffer.
-Note that we use memcpy() rather than strncpy() in case there are binary zeros
+Note that we use cgc_memcpy() rather than strncpy() in case there are binary zeros
 in the string.
 
 Arguments:
@@ -350,7 +350,7 @@ if (stringnumber < 0 || stringnumber >= stringcount)
 stringnumber *= 2;
 yield = ovector[stringnumber+1] - ovector[stringnumber];
 if (size < yield + 1) return PCRE_ERROR_NOMEMORY;
-memcpy(buffer, subject + ovector[stringnumber], IN_UCHARS(yield));
+cgc_memcpy(buffer, subject + ovector[stringnumber], IN_UCHARS(yield));
 buffer[yield] = 0;
 return yield;
 }
@@ -474,7 +474,7 @@ p = (pcre_uchar *)(stringlist + stringcount + 1);
 for (i = 0; i < double_count; i += 2)
   {
   int len = ovector[i+1] - ovector[i];
-  memcpy(p, subject + ovector[i], IN_UCHARS(len));
+  cgc_memcpy(p, subject + ovector[i], IN_UCHARS(len));
   *stringlist++ = p;
   p += len;
   *p++ = 0;
@@ -561,7 +561,7 @@ stringnumber *= 2;
 yield = ovector[stringnumber+1] - ovector[stringnumber];
 substring = (pcre_uchar *)(PUBL(malloc))(IN_UCHARS(yield + 1));
 if (substring == NULL) return PCRE_ERROR_NOMEMORY;
-memcpy(substring, subject + ovector[stringnumber], IN_UCHARS(yield));
+cgc_memcpy(substring, subject + ovector[stringnumber], IN_UCHARS(yield));
 substring[yield] = 0;
 #if defined COMPILE_PCRE8
 *stringptr = (const char *)substring;

@@ -31,10 +31,10 @@
 #define NULL ((void*)0)
 #endif
 
-void *memcpy(void *dst, const void *src, cgc_size_t n);
+void *cgc_memcpy(void *dst, const void *src, cgc_size_t n);
 int allocate(cgc_size_t len, int proti, void **addr);
 int deallocate(void *addr, cgc_size_t len);
-void *memset(void *b, int c, cgc_size_t len);
+void *cgc_memset(void *b, int c, cgc_size_t len);
 
 typedef struct _CHUNK_HDR {
    cgc_size_t prev_size;
@@ -221,7 +221,7 @@ void *realloc(void *ptr, cgc_size_t size) {
       cgc_size_t chunk_size = get_chunk_size(ptr);
       if (res != NULL && res != ptr) {
          //block has been moved
-         memcpy(res, ptr, chunk_size - sizeof(CHUNK_HDR));
+         cgc_memcpy(res, ptr, chunk_size - sizeof(CHUNK_HDR));
          free(ptr);
       }
    }

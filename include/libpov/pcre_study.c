@@ -1286,7 +1286,7 @@ do
       if (utf)
         {
         start_bits[24] |= 0xf0;              /* Bits for 0xc4 - 0xc8 */
-        memset(start_bits+25, 0xff, 7);      /* Bits for 0xc9 - 0xff */
+        cgc_memset(start_bits+25, 0xff, 7);      /* Bits for 0xc9 - 0xff */
         }
 #endif
 #if defined COMPILE_PCRE16 || defined COMPILE_PCRE32
@@ -1490,7 +1490,7 @@ if ((re->options & PCRE_ANCHORED) == 0 &&
 
   /* See if we can find a fixed set of initial characters for the pattern. */
 
-  memset(start_bits, 0, 32 * sizeof(pcre_uint8));
+  cgc_memset(start_bits, 0, 32 * sizeof(pcre_uint8));
   rc = set_start_bits(code, start_bits, (re->options & PCRE_UTF8) != 0,
     &compile_block);
   bits_set = rc == SSB_DONE;
@@ -1548,9 +1548,9 @@ if (bits_set || min > 0 || (options & (
   if (bits_set)
     {
     study->flags |= PCRE_STUDY_MAPPED;
-    memcpy(study->start_bits, start_bits, sizeof(start_bits));
+    cgc_memcpy(study->start_bits, start_bits, sizeof(start_bits));
     }
-  else memset(study->start_bits, 0, 32 * sizeof(pcre_uint8));
+  else cgc_memset(study->start_bits, 0, 32 * sizeof(pcre_uint8));
 
 #ifdef PCRE_DEBUG
   if (bits_set)

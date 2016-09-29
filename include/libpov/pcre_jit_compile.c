@@ -3593,7 +3593,7 @@ if (range_right >= 0)
 
   update_table = (sljit_ub *)common->read_only_data;
   common->read_only_data_ptr = (sljit_uw *)(update_table + 256);
-  memset(update_table, IN_UCHARS(range_len), 256);
+  cgc_memset(update_table, IN_UCHARS(range_len), 256);
 
   for (i = 0; i < range_len; i++)
     {
@@ -5880,7 +5880,7 @@ static void compile_backtrackingpath(compiler_common *, struct backtrack_common 
     backtrack = sljit_alloc_memory(compiler, (size)); \
     if (SLJIT_UNLIKELY(sljit_get_compiler_error(compiler))) \
       return error; \
-    memset(backtrack, 0, size); \
+    cgc_memset(backtrack, 0, size); \
     backtrack->prev = parent->top; \
     backtrack->cc = (ccstart); \
     parent->top = backtrack; \
@@ -5893,7 +5893,7 @@ static void compile_backtrackingpath(compiler_common *, struct backtrack_common 
     backtrack = sljit_alloc_memory(compiler, (size)); \
     if (SLJIT_UNLIKELY(sljit_get_compiler_error(compiler))) \
       return; \
-    memset(backtrack, 0, size); \
+    cgc_memset(backtrack, 0, size); \
     backtrack->prev = parent->top; \
     backtrack->cc = (ccstart); \
     parent->top = backtrack; \
@@ -6493,7 +6493,7 @@ else
   init_frame(common, ccbegin, NULL, framesize + extrasize - 1, extrasize, FALSE);
   }
 
-memset(&altbacktrack, 0, sizeof(backtrack_common));
+cgc_memset(&altbacktrack, 0, sizeof(backtrack_common));
 if (opcode == OP_ASSERT_NOT || opcode == OP_ASSERTBACK_NOT)
   {
   /* Negative assert is stronger than positive assert. */
@@ -7309,7 +7309,7 @@ if (opcode == OP_COND || opcode == OP_SCOND)
     assert = sljit_alloc_memory(compiler, sizeof(assert_backtrack));
     if (SLJIT_UNLIKELY(sljit_get_compiler_error(compiler)))
       return NULL;
-    memset(assert, 0, sizeof(assert_backtrack));
+    cgc_memset(assert, 0, sizeof(assert_backtrack));
     assert->common.cc = matchingpath;
     BACKTRACK_AS(bracket_backtrack)->u.assert = assert;
     matchingpath = compile_assert_matchingpath(common, matchingpath, assert, TRUE);
@@ -9312,7 +9312,7 @@ if (current->cc[1] > OP_ASSERTBACK_NOT)
   }
 else
   {
-  memset(&backtrack, 0, sizeof(backtrack));
+  cgc_memset(&backtrack, 0, sizeof(backtrack));
   backtrack.common.cc = current->cc;
   backtrack.matchingpath = CURRENT_AS(braminzero_backtrack)->matchingpath;
   /* Manual call of compile_assert_matchingpath. */
@@ -9641,7 +9641,7 @@ if (needs_frame)
 if (alternativesize > 0)
   OP1(SLJIT_MOV, SLJIT_MEM1(STACK_TOP), STACK(0), STR_PTR, 0);
 
-memset(&altbacktrack, 0, sizeof(backtrack_common));
+cgc_memset(&altbacktrack, 0, sizeof(backtrack_common));
 common->quit_label = NULL;
 common->accept_label = NULL;
 common->quit = NULL;
@@ -9761,8 +9761,8 @@ study = extra->study_data;
 if (!tables)
   tables = PRIV(default_tables);
 
-memset(&rootbacktrack, 0, sizeof(backtrack_common));
-memset(common, 0, sizeof(compiler_common));
+cgc_memset(&rootbacktrack, 0, sizeof(backtrack_common));
+cgc_memset(common, 0, sizeof(compiler_common));
 rootbacktrack.cc = (pcre_uchar *)re + re->name_table_offset + re->name_count * re->name_entry_size;
 
 common->start = rootbacktrack.cc;
@@ -9853,9 +9853,9 @@ common->optimized_cbracket = (pcre_uint8 *)SLJIT_MALLOC(re->top_bracket + 1);
 if (!common->optimized_cbracket)
   return;
 #if defined DEBUG_FORCE_UNOPTIMIZED_CBRAS && DEBUG_FORCE_UNOPTIMIZED_CBRAS == 1
-memset(common->optimized_cbracket, 0, re->top_bracket + 1);
+cgc_memset(common->optimized_cbracket, 0, re->top_bracket + 1);
 #else
-memset(common->optimized_cbracket, 1, re->top_bracket + 1);
+cgc_memset(common->optimized_cbracket, 1, re->top_bracket + 1);
 #endif
 
 SLJIT_ASSERT(*common->start == OP_BRA && ccend[-(1 + LINK_SIZE)] == OP_KET);
@@ -9921,7 +9921,7 @@ if (common->start_ptr == 0)
 
 /* Capturing brackets cannot be optimized if callouts are allowed. */
 if (common->capture_last_ptr != 0)
-  memset(common->optimized_cbracket, 0, re->top_bracket + 1);
+  cgc_memset(common->optimized_cbracket, 0, re->top_bracket + 1);
 
 SLJIT_ASSERT(!(common->req_char_ptr != 0 && common->start_used_ptr != 0));
 common->cbra_ptr = OVECTOR_START + (re->top_bracket + 1) * 2 * sizeof(sljit_sw);
@@ -9933,7 +9933,7 @@ if (!common->private_data_ptrs)
   SLJIT_FREE(common->optimized_cbracket);
   return;
   }
-memset(common->private_data_ptrs, 0, total_length * sizeof(sljit_si));
+cgc_memset(common->private_data_ptrs, 0, total_length * sizeof(sljit_si));
 
 private_data_size = common->cbra_ptr + (re->top_bracket + 1) * sizeof(sljit_sw);
 set_private_data_ptrs(common, &private_data_size, ccend);
@@ -9947,7 +9947,7 @@ if (private_data_size > SLJIT_MAX_LOCAL_SIZE)
 if (common->has_then)
   {
   common->then_offsets = (pcre_uint8 *)(common->private_data_ptrs + total_length);
-  memset(common->then_offsets, 0, total_length);
+  cgc_memset(common->then_offsets, 0, total_length);
   set_then_offsets(common, common->start, NULL);
   }
 
@@ -10347,7 +10347,7 @@ else
       SLJIT_FREE(common->read_only_data);
     return;
     }
-  memset(functions, 0, sizeof(executable_functions));
+  cgc_memset(functions, 0, sizeof(executable_functions));
   functions->top_bracket = (re->top_bracket + 1) * 2;
   functions->limit_match = (re->flags & PCRE_MLSET) != 0 ? re->limit_match : 0;
   extra->executable_jit = functions;
