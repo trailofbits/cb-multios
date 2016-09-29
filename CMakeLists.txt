@@ -2,50 +2,53 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(cb_porting)
-include_directories(include)  # necessary libraries shared by all challenge binaries
 
 # Needed for newer challenges
-set(CMAKE_CXX_STANDARD 11)
+enable_language(ASM)
 set(CMAKE_C_STANDARD 99)
+set(CMAKE_CXX_STANDARD 11)
 
-# Default CFLAGS
-SET(CFLAGS "-fno-builtin -Wno-int-to-pointer-cast -Wno-writable-strings -nostdinc -m32")
+# Default flags for everything
+add_compile_options(
+    -fno-builtin
+    -Wno-int-to-pointer-cast
+    -Wno-writable-strings
+    -g3
+    -m32
+)
+
+# Link everything 32-bit (until we have a 64-bit option)
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
 
 # Linker options
 # Dynamic by default
 option(BUILD_SHARED_LIBS "" ON)
-set(LDFLAGS "-m32")
 if(BUILD_STATIC_LIBS AND UNIX AND NOT APPLE)
-    set(LDFLAGS "${LDFLAGS} -static -Wl,--allow-multiple-definition")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -Wl,--allow-multiple-definition")
     SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
     SET(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
 endif()
 
 if(UNIX AND NOT APPLE)
-    set(LINUX TRUE)
+    add_definitions(-DLINUX)
     SET(CMAKE_ASM_COMPILER clang-3.8)
     SET(CMAKE_C_COMPILER clang-3.8)
     SET(CMAKE_CXX_COMPILER clang++-3.8)
 endif()
 if(APPLE)
-    set(APPLE TRUE)
+    add_definitions(-DAPPLE)
     SET(CMAKE_ASM_COMPILER clang)
     SET(CMAKE_C_COMPILER clang)
     SET(CMAKE_CXX_COMPILER clang++)
 endif()
 if(WIN32)
-    set(WIN TRUE)
+    add_definitions(-DWIN)
 endif()
 
-set(main_dir processed-challenges) # directory which contains all cb subdirs
-
-file(GLOB challenge_binaries ${main_dir}/*) # list of all files(+paths) in maindir - all dirs should be cbs
-
-# Build libcgc
+# Build all libraries
 add_subdirectory(include)
-
-# Build tiny-AES128-C
-add_subdirectory(include/tiny-AES128-C)
+include_directories(include)
 
 function(build path target)
     message("Building ${target}")
@@ -62,28 +65,14 @@ function(build path target)
     target_include_directories(${target} PUBLIC ${path}/lib ${path}/src ${path}/include)
     target_include_directories(${target}_patched PUBLIC ${path}/lib ${path}/src ${path}/include)
 
-    set_target_properties(${target} PROPERTIES COMPILE_FLAGS "${CFLAGS} " LINK_FLAGS "${LDFLAGS} ")
-    set_target_properties(${target}_patched PROPERTIES COMPILE_FLAGS "${CFLAGS} ${patch_defs}" LINK_FLAGS "${LDFLAGS} ")
+    # Add patched defines
+    target_compile_definitions(${target}_patched PUBLIC "${patch_defs}")
 
     target_link_libraries(${target} LINK_PUBLIC libcgc)
     target_link_libraries(${target}_patched LINK_PUBLIC libcgc)
 endfunction()
 
-function(buildCB flags)
-    set(CFLAGS "${flags} -g3 -m32 ${CFLAGS}")
-    set(CFLAGS "-Derrno=__cgc_errno ${CFLAGS}")
-
-    # Set OS defines
-    if(LINUX)
-        set(CFLAGS "-DLINUX ${CFLAGS}")
-    endif()
-    if(APPLE)
-        set(CFLAGS "-DAPPLE ${CFLAGS}")
-    endif()
-    if(WIN)
-        set(CFLAGS "-DWIN ${CFLAGS}")
-    endif()
-
+function(buildCB)
     # Generate all the patched #defines for this challenge
     set(patch_defs "-DPATCHED")
     if(VULN_COUNT)
@@ -108,7 +97,11 @@ function(buildCB flags)
     endif()
 endfunction(buildCB)
 
+# More options needed for cbs
+add_compile_options(-nostdinc)
+add_definitions(-Derrno=__cgc_errno)
 
+file(GLOB challenge_binaries processed-challenges/*)
 foreach(cb_path ${challenge_binaries})
     if(IS_DIRECTORY ${cb_path} AND EXISTS ${cb_path}/CMakeLists.txt)
         # Get filename
