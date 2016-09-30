@@ -29,7 +29,7 @@ This folder contains Python scripts that help with modifying, building, and test
 This script will copy all challenges out of `original-challenges`, modify them as necessary, and place them in `processed-challenges`. These modifications include:
 
 * Deleting `libcgc.h` if it appears anywhere in the challenge source
-* Deleting any C++ definitions that are required for the cgc runtime
+* Deleting any C++ definitions that are required for the CGC runtime
 * A set of find/replace definitions in `manual_patches.yaml`
 
 #### makefiles.py
@@ -49,13 +49,7 @@ To build all challenges, run:
 $ ./build.sh
 ```
 
-To build individual challenges, list them as arguments to `build.sh`, for example:
-
-```bash
-$ ./build.sh CADET_00001 CROMU_00001
-```
-
-These commands will build both the patched and unpatched binaries in the `bin` folder of the respective challenge (`processed-challenges/[challenge]/bin/`).
+This command will build both the patched and unpatched binaries in the `bin` folder of the respective challenge (`processed-challenges/[challenge]/bin/`).
 
 ## Testing
 
@@ -108,7 +102,7 @@ All tests are a series of input strings and expected output for a challenge. The
 
 ### OS X Notice
 
-By default on Mac OS X, failed polls generate core dumps in /cores. With hundreds and thousands of tests this can quickly fill up your system parition. Disable these with:
+By default on Mac OS X, failed polls generate core dumps in /cores. With hundreds and thousands of tests this can quickly fill up your system partition. Disable these with:
 
 ```bash
 $ sudo sysctl -w kern.coredump=0
