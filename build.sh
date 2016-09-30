@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Root cb-multios directory
 DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
 TOOLS="$DIR/tools"
 
 # Install necessary python packages
-/usr/bin/env python -c "import yaml; import xlsxwriter"
-if [[ $? -ne 0 ]]; then
-    echo "Please install pyyaml and xlsxwriter"
-    echo "  $ sudo pip install pyyaml xlsxwriter"
+if ! /usr/bin/env python -c "import yaml; import xlsxwriter" 2>&1 >/dev/null; then
+    echo "Please install pyyaml and xlsxwriter" >&2
+    echo "  $ sudo pip install pyyaml xlsxwriter" >&2
     exit 1
 fi
-
-set -e
 
 echo "Running patcher"
 ${TOOLS}/cb_patcher.py $@
