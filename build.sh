@@ -42,6 +42,14 @@ case $LINK in
     STATIC) CMAKE_OPTS="$CMAKE_OPTS -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON";;
 esac
 
+# Prefer ninja over make, if it is available
+if which ninja 2>&1 >/dev/null; then
+  CMAKE_OPTS="-G Ninja $CMAKE_OPTS"
+  BUILD_FLAGS=
+else
+  BUILD_FLAGS="-- -j$(getconf _NPROCESSORS_ONLN)"
+fi
+
 cmake $CMAKE_OPTS ..
 
-make -j$(getconf _NPROCESSORS_ONLN)
+cmake --build . $BUILD_FLAGS
