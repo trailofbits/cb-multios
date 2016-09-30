@@ -1,12 +1,13 @@
-sudo: required
-dist: trusty
-osx_image: xcode8
+matrix:
+  include:
+    - os: linux
+      sudo: required
+      dist: trusty
+      compiler: clang
+    - os: osx
+      osx_image: xcode8
+      compiler: clang
 language: cpp
-os:
-  - linux
-  - osx
-compiler:
-  - clang
 addons:
   apt:
     packages:
@@ -16,6 +17,8 @@ addons:
       - clang-3.8
 install:
   - pip install --upgrade --user xlsxwriter pyyaml
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX=/usr/bin/clang++-3.8; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CC=/usr/bin/clang-3.8; fi
 script:
   - ./build.sh
 notifications:
