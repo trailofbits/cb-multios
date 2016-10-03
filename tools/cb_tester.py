@@ -126,6 +126,7 @@ class Tester:
         """
         # Check if there are any tests available in this directory
         tests = glob.glob(os.path.join(xml_dir, '*.xml'))
+        tests += glob.glob(os.path.join(xml_dir, '*.pov'))
         if len(tests) == 0:
             debug('None found\n')
             return

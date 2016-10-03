@@ -945,26 +945,21 @@ class Runner(object):
             return -1
 
         xml_sets = []
-        if self.should_core:
-            for xml in self.xml_list:
-                xml_sets.append([xml])
-        else:
-            cqe_xml = []
-            cfe_xml = []
-            for xml in self.xml_list:
-                if xml.endswith('.xml'):
-                    cqe_xml.append(xml)
-                else:
-                    cfe_xml.append(xml)
+        cqe_xml = []
+        cfe_xml = []
+        for xml in self.xml_list:
+            if xml.endswith('.xml'):
+                cqe_xml.append(xml)
+            else:
+                cfe_xml.append(xml)
 
-            for i in [cqe_xml, cfe_xml]:
-                if len(i):
-                    xml_sets.append(i)
+        for i in [cqe_xml, cfe_xml]:
+            if len(i):
+                xml_sets.append(i)
 
         pcap = self.start_pcap()
         for xml_list in xml_sets:
             server = self.start_server(len(xml_list))
-            # ids = self.start_ids(len(xml_list))
             replay_result = self.start_replay(xml_list)
 
             # if server.process.poll() is None:
@@ -979,7 +974,6 @@ class Runner(object):
                     server_result = server.wait()
             except TimeoutException:
                 server.terminate()
-            # ids.terminate()
 
             result = self.check_result(replay_result, server_result, xml_list)
             if result != 0:
