@@ -90,16 +90,24 @@ class Tester:
         failed = int(output.split('polls failed: ')[1].split('\n')[0])
         return passed, failed
 
-    def run_test(self, bin_names, xml_dir, score):
+    def run_test(self, bin_names, xml_dir, score, should_core=False):
         """ Runs a test using cb-test and saves the result
 
         Args:
             bin_names (list of str): Name of the binary being tested
             xml_dir (str): Directory containing all xml tests
             score (Score): Object to store the results in
+            should_core (bool): If the binary is expected to crash with these tests
         """
-        cb_cmd = ['./cb-test', '--directory', self.bin_dir, '--xml_dir', xml_dir,
-                  '--concurrent', '4', '--timeout', '15', '--negotiate_seed', '--cb'] + bin_names
+        cb_cmd = ['./cb-test',
+                  '--directory', self.bin_dir,
+                  '--xml_dir', xml_dir,
+                  '--concurrent', '4',
+                  '--timeout', '5',
+                  '--negotiate_seed', '--cb'] + bin_names
+        if should_core:
+            cb_cmd += ['--should_core']
+
         p = subprocess.Popen(cb_cmd, cwd=TEST_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = p.communicate()
 
@@ -107,13 +115,14 @@ class Tester:
         score.passed += passed
         score.total += passed + failed
 
-    def run_against_dir(self, xml_dir, score):
+    def run_against_dir(self, xml_dir, score, is_pov=False):
         """ Runs all tests in a given directory
         against the patched and unpatched versions of a binary
 
         Args:
             xml_dir (str): Directory containing all xml tests
             score (Score): Object to store the results in
+            is_pov (bool): If the files in this directory are POVs
         """
         # Check if there are any tests available in this directory
         tests = glob.glob(os.path.join(xml_dir, '*.xml'))
@@ -136,7 +145,7 @@ class Tester:
         p, t = score.passed, score.total
 
         # Run the tests
-        self.run_test(bin_names, xml_dir, score)
+        self.run_test(bin_names, xml_dir, score, should_core=is_pov)
         self.run_test(['{}_patched'.format(b) for b in bin_names], xml_dir, score)
 
         # Display resulting totals
@@ -149,7 +158,7 @@ class Tester:
         # Test POVs
         if Tester.povs_enabled:
             debug('POV:\n\t')
-            self.run_against_dir(self.pov_dir, self.povs)
+            self.run_against_dir(self.pov_dir, self.povs, is_pov=True)
 
         # Test POLLs
         if Tester.polls_enabled:
