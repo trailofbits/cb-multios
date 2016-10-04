@@ -919,7 +919,10 @@ class Runner(object):
         ret, replay_stdout = replay_result
         sig, server_stdout = server_result
 
-        magic_value = None
+        # Check if any of the CBs crashed, replacing server return code
+        match = re.match(r"(?ms).*\nProcess generated signal.+signal: (\d+)", server_stdout)
+        if match:
+            sig = int(match.group(1))
 
         if not xml_list[0].endswith('.pov'):
             return self._check_result_cqe(sig, ret)

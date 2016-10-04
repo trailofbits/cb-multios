@@ -123,7 +123,11 @@ class ChallengeHandler(StreamRequestHandler):
         os.dup2(saved[0], 0)
         os.dup2(saved[1], 1)
 
-        # TODO: Need to exit the server with correct return code
+        # If any of the processes crashed, print out the return codes
+        for proc in procs:
+            if proc.returncode not in [None, 0, signal.SIGTERM]:
+                pid, sig = proc.pid, abs(proc.returncode)
+                stdout_flush('Process generated signal (pid: {}, signal: {})\n'.format(pid, sig))
 
 
 class LimitedForkServer(ForkingTCPServer):
