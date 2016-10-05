@@ -74,21 +74,21 @@ class Tester:
         Args:
             output (str): Raw output from running cb-test
         Returns:
-            (int, int): # of tests passed, # of tests failed
+            (int, int): # of tests run, # of tests passed
         """
         # If the test failed to run, consider it failed
-        if 'polls passed' not in output:
+        if 'TOTAL TESTS' not in output:
             debug('\nWARNING: there was an error running a test')
             print output
             return 0, 1
 
         if 'timed out' in output:
-            debug('\nWARNING: test timed out')
+            debug('\nWARNING: test(s) timed out')
 
         # Parse out results
-        passed = int(output.split('polls passed: ')[1].split('\n')[0])
-        failed = int(output.split('polls failed: ')[1].split('\n')[0])
-        return passed, failed
+        total = int(output.split('TOTAL TESTS: ')[1].split('\n')[0])
+        passed = int(output.split('TOTAL PASSED: ')[1].split('\n')[0])
+        return total, passed
 
     def run_test(self, bin_names, xml_dir, score, should_core=False):
         """ Runs a test using cb-test and saves the result
@@ -111,9 +111,10 @@ class Tester:
         p = subprocess.Popen(cb_cmd, cwd=TEST_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = p.communicate()
 
-        passed, failed = self.parse_results(out)
+        total, passed = self.parse_results(out)
+        score.total += total
         score.passed += passed
-        score.total += passed + failed
+        # print out
 
     def run_against_dir(self, xml_dir, score, is_pov=False):
         """ Runs all tests in a given directory

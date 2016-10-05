@@ -33,13 +33,13 @@ class ChallengeHandler(StreamRequestHandler):
         # Setup fds for all challenges according to:
         # https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/newsletter/ipc.md
 
+        # Get the test path for logging purposes
+        testpath = self.rfile.readline()
+
         # Get the seed from cb-replay
         # Encoded seed sent as:
         # [record count (1)] [record type (1)] [record size (48)] [seed]
         seed = self.rfile.read(60)[12:].encode('hex')
-
-        # cb-test needs this to check the result
-        stdout_flush('seed: {}\n'.format(seed))
 
         # Get the pid of cb-replay
         # This will be used to send a signal when challenges are ready
@@ -127,7 +127,7 @@ class ChallengeHandler(StreamRequestHandler):
         for proc in procs:
             if proc.returncode not in [None, 0, signal.SIGTERM]:
                 pid, sig = proc.pid, abs(proc.returncode)
-                stdout_flush('Process generated signal (pid: {}, signal: {})\n'.format(pid, sig))
+                stdout_flush('Process generated signal (pid: {}, signal: {}) - {}\n'.format(pid, sig, testpath))
 
 
 class LimitedForkServer(ForkingTCPServer):

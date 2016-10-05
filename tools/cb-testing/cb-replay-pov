@@ -333,6 +333,9 @@ class Throw(object):
         if not self.negotiate:
             return 0
 
+        # Send the test path to the server
+        self._send_all('{}\n'.format(self.pov))
+
         request_seed = (1, self.cb_seed)
         self.log('using seed: %s' % self.cb_seed.encode('hex'))
         request = [request_seed]
@@ -431,6 +434,7 @@ class Throw(object):
         if self.debug:
             self.log('waiting')
 
+        self.log('END REPLAY')
         return os.waitpid(pid, 0)
 
 def init_worker():
