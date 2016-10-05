@@ -774,7 +774,7 @@ class Runner(object):
             # wait a maximum of 30 seconds after our replay and socket cleanup
             # finishes before terminating cb-server if it hasn't returned yet.
             try:
-                with Timeout(30):
+                with Timeout(self.timeout):
                     server_result = server.wait()
             except TimeoutException:
                 server.terminate()
