@@ -24,6 +24,10 @@ typedef long cgc_ssize_t;
 # define PAGE_SIZE 4096
 #endif
 
+#ifndef CGC_FLAG_PAGE_ADDRESS
+# define CGC_FLAG_PAGE_ADDRESS 0x4347C000
+#endif
+
 #ifndef offsetof
 # define offsetof(TYPE, MEMBER) __builtin_offsetof (TYPE, MEMBER)
 #endif
@@ -98,8 +102,6 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
 int allocate(cgc_size_t length, int is_X, void **addr);
 int deallocate(void *addr, cgc_size_t length);
 int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes);
-
-void *cgc_initialize_secret_page(void);
 
 // All of the following functions are defined in asm (maths.S)
 // The asm symbols are being forced to match maths.S keep compatibility across OS's

@@ -206,11 +206,11 @@ int deallocate(void *addr, cgc_size_t length) {
 }
 
 
-cgc_prng *cgc_internal_prng = NULL;
+static cgc_prng *cgc_internal_prng = NULL;
 /**
- * Initializes the prng for use with cgc_random and the secret page
+ * Initializes the prng for use with cgc_random and the flag page
  */
-void try_init_prng() {
+static void try_init_prng() {
     // Don't reinitialize
     if (cgc_internal_prng != NULL) return;
 
@@ -246,22 +246,17 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
     return 0;
 }
 
-void *cgc_initialize_secret_page(void) {
-  const void * MAGIC_PAGE_ADDRESS = (void *)0x4347C000;
-  const size_t MAGIC_PAGE_SIZE = 4096;
-
-  void *mmap_addr = mmap(MAGIC_PAGE_ADDRESS, MAGIC_PAGE_SIZE,
+static void __attribute__ ((constructor)) cgc_initialize_flag_page(void) {
+  void *mmap_addr = mmap(CGC_FLAG_PAGE_ADDRESS, PAGE_SIZE,
                          PROT_READ | PROT_WRITE,
                          MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS,
                          -1, 0);
 
-  if (mmap_addr != MAGIC_PAGE_ADDRESS) {
-    err(1, "[!] Failed to map the secret page");
+  if (mmap_addr != CGC_FLAG_PAGE_ADDRESS) {
+    err(1, "[!] Failed to map the flag page");
   }
 
-  // Fill the magic page with bytes from the prng
+  // Fill the flag page with bytes from the prng
   try_init_prng();
-  cgc_aes_get_bytes(cgc_internal_prng, MAGIC_PAGE_SIZE, mmap_addr);
-
-  return mmap_addr;
+  cgc_aes_get_bytes(cgc_internal_prng, PAGE_SIZE, mmap_addr);
 }
