@@ -24,21 +24,13 @@ all:
   re:
     '([^s])size_t': '\1cgc_size_t'
 
-    # Fix mains to include a call to cgc_initialize_secret_page
-    # This *should* cover all of them
-
     # Get rid of fastcall on main
     '__attribute__\(\(fastcall\)\)\s+main': 'main'
 
-    # Fix for no argument main
-    'main\s*\(\s*(void)?\s*\)\s*\{': |
-        main() {
-            cgc_initialize_secret_page();
-
-    # Fix for main that expects the secret page addr as the first argument
+    # Fix for main that expects the flag page addr as the first argument
     'main\s*\(\s*int\s+([^\,]+)\,([^\)]+)\s*\)\s*\{': |
         main(int \1, \2) {
-            \1 = (int) cgc_initialize_secret_page();
+            \1 = CGC_FLAG_PAGE_ADDRESS;
 
 
 # Some fixes for challenges that used C++
