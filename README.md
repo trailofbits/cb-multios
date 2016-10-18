@@ -106,7 +106,7 @@ Verifying type 1 POVs relies on analyzing the core dump generated when a process
 
 ###### OS X:
 ```bash
-$ sudo sysctl -w kern.coredump=0
+$ sudo sysctl -w kern.coredump=1
 ```
 
 ###### Linux:
