@@ -593,13 +593,18 @@ class Runner(object):
 
         ip_value = int(match.group(1), 16)
         reg_value = int(match.group(2), 16)
+
+        # All the registers we can check, regardless of 32/64 bit
+        reg_names = ["ax", "cx", "dx", "bx", "sp", "bp", "si", "di", "ip"]
+
+        # Get the register we need to check
         reg_num = int(match.group(3))
+        reg_target = reg_names[reg_num]
 
         logging.warning('POV type 1 negotated masks: %08x %08x %d', ip_mask, reg_mask, reg_num)
-        # logging.warning('process cored as expected (signal %d: %s)', sig, self.signal_name(sig))
 
         register_state_re = r"(?ms).*\nregister states"
-        register_state_re2 = r"register states - eax: ([a-fA-F0-9]+) ecx: ([a-fA-F0-9]+) edx: ([a-fA-F0-9]+) ebx: ([a-fA-F0-9]+) esp: ([a-fA-F0-9]+) ebp: ([a-fA-F0-9]+) esi: ([a-fA-F0-9]+) edi: ([a-fA-F0-9]+) eip: ([a-fA-F0-9]+)"
+        register_state_re2 = r"register states - (([a-z]+\:[a-fA-F0-9]+\ ?)+)"
 
         match = re.match(register_state_re, server_stdout)
         if not match:
@@ -617,13 +622,24 @@ class Runner(object):
             if not match:
                 continue
 
-            registers = []
-            for i in range(7):
-                registers.append(int(match.group(1 + i), 16))
-            eip = int(match.group(9), 16)
+            # Parse out all of the registers in reg_names
+            reg_str = match.group(1)
+            registers = {}
+            for reg in reg_names:
+                reg_match = re.search(r'[re]{}\:([a-fA-F0-9]+)'.format(reg), reg_str)
+                if reg_match is not None:
+                    registers[reg] = int(reg_match.group(1), 16)
+
+            # Make sure the registers we want are there
+            for check_reg in ['ip', reg_target]:
+                if check_reg not in registers:
+                    logging.error('not ok - {} not logged'.format(check_reg), extra={'raw': True})
+                    return -1
+
+            eip = registers['ip']
 
             result_eip = eip & ip_mask
-            result_reg = registers[reg_num] & reg_mask
+            result_reg = registers[reg_target] & reg_mask
 
             if (result_eip == expected_eip and result_reg == expected_reg):
                 logging.warning('ok - TYPE 1 POV', extra={'raw': True})
