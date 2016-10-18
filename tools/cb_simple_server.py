@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import re
 import socket
 import subprocess
 import sys
@@ -9,6 +10,10 @@ import time
 import thread
 from SocketServer import ForkingTCPServer, StreamRequestHandler
 import signal
+
+# For OS specific tasks
+IS_DARWIN = sys.platform == 'darwin'
+IS_LINUX = 'linux' in sys.platform
 
 
 class TimeoutError(Exception):
@@ -22,6 +27,13 @@ def alarm_handler(signum, frame):
 def stdout_flush(s):
     sys.stdout.write(s)
     sys.stdout.flush()
+
+
+def try_delete(path):
+    try:
+        os.remove(path)
+    except OSError:
+        pass
 
 
 class ChallengeHandler(StreamRequestHandler):
@@ -123,11 +135,71 @@ class ChallengeHandler(StreamRequestHandler):
         os.dup2(saved[0], 0)
         os.dup2(saved[1], 1)
 
-        # If any of the processes crashed, print out the return codes
+        # If any of the processes crashed, print out crash info
         for proc in procs:
             if proc.returncode not in [None, 0, signal.SIGTERM]:
+                # Print the return code
                 pid, sig = proc.pid, abs(proc.returncode)
                 stdout_flush('Process generated signal (pid: {}, signal: {}) - {}\n'.format(pid, sig, testpath))
+
+                # Print register values
+                regs = self.get_core_dump_regs(pid)
+                reg_str = ' '.join(['{}:{}'.format(reg, val) for reg, val in regs.iteritems()])
+                stdout_flush('register states - {}\n'.format(reg_str))
+
+        # Final cleanup
+        self.clean_cores(procs)
+
+    def get_core_dump_regs(self, pid):
+        """ Read all register values from a core dump
+        On OS X, all core dumps are stored as /cores/core.[pid]
+        On Linux, the core dump is stored as a 'core' file in the cwd
+
+        Args:
+            pid (int): pid of the process that generated the core dump
+        Returns:
+            (dict): Registers and their values
+        """
+        # Create a gdb/lldb command to get regs
+        if IS_DARWIN:
+            cmd = [
+                'lldb',
+                '--core', '/cores/core.{}'.format(pid),
+                '--batch', '--one-line', 'register read'
+            ]
+        elif IS_LINUX:
+            cmd = [
+                'gdb',
+                '--core', 'core',
+                '--batch', '-ex', 'info registers'
+            ]
+
+        # Read the registers
+        dbg_out = subprocess.check_output(cmd)
+        if 'No such file or directory' in dbg_out or "doesn't exist" in dbg_out:
+            sys.stderr.write('Core dump not found, are they enabled on your system?')
+            return
+
+        # Parse out registers/values
+        regs = {}
+        for line in dbg_out.split('\n'):
+            # Try to match a register value
+            match = re.search(r'([a-z]+)[=\ ]+0x([a-fA-F0-9]+)', line)
+            if match is not None:
+                regs[match.group(1)] = match.group(2)
+
+        return regs
+
+    def clean_cores(self, procs):
+        """ Delete all generated core dumps
+
+        Args:
+            procs (list): List of all processes that may have generated core dumps
+        """
+        if IS_DARWIN:
+            map(try_delete, ['/cores/core.{}'.format(p.pid) for p in procs])
+        elif IS_LINUX:
+            try_delete('core')
 
 
 class LimitedForkServer(ForkingTCPServer):
