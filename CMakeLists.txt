@@ -31,6 +31,7 @@ if(BUILD_STATIC_LIBS AND UNIX AND NOT APPLE)
 endif()
 
 if(UNIX AND NOT APPLE)
+    set(LINUX TRUE)
     add_definitions(-DLINUX)
 endif()
 if(APPLE)
@@ -121,8 +122,15 @@ function(buildCB)
 endfunction(buildCB)
 
 # More options needed for cbs
-add_compile_options(-nostdinc)
+add_compile_options(
+    -nostdinc
+    -fno-stack-protector
+)
 add_definitions(-Derrno=__cgc_errno)
+
+if(LINUX)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z execstack -z norelro")
+endif()
 
 file(GLOB challenge_binaries processed-challenges/*)
 foreach(cb_path ${challenge_binaries})
