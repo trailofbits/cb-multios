@@ -144,8 +144,9 @@ class ChallengeHandler(StreamRequestHandler):
 
                 # Print register values
                 regs = self.get_core_dump_regs(pid)
-                reg_str = ' '.join(['{}:{}'.format(reg, val) for reg, val in regs.iteritems()])
-                stdout_flush('register states - {}\n'.format(reg_str))
+                if regs is not None:
+                    reg_str = ' '.join(['{}:{}'.format(reg, val) for reg, val in regs.iteritems()])
+                    stdout_flush('register states - {}\n'.format(reg_str))
 
         # Final cleanup
         self.clean_cores(procs)
@@ -175,9 +176,9 @@ class ChallengeHandler(StreamRequestHandler):
             ]
 
         # Read the registers
-        dbg_out = subprocess.check_output(cmd)
+        dbg_out = '\n'.join(subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate())
         if 'No such file or directory' in dbg_out or "doesn't exist" in dbg_out:
-            sys.stderr.write('Core dump not found, are they enabled on your system?')
+            stdout_flush('Core dump not found, are they enabled on your system?\n')
             return
 
         # Parse out registers/values
