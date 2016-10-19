@@ -115,12 +115,16 @@ class ChallengeHandler(StreamRequestHandler):
         signal.signal(signal.SIGALRM, alarm_handler)
         signal.alarm(self.chal_timeout)
         try:
+            # Wait until any process exits
             while all([proc.poll() is None for proc in procs]):
                 time.sleep(0.1)
+
+            # Give the others a chance to exit
+            map(lambda p: p.wait(), procs)
         except TimeoutError:
             pass
 
-        # Kill the rest
+        # Kill any remaining processes
         for proc in procs:
             if proc.poll() is None:
                 proc.terminate()
