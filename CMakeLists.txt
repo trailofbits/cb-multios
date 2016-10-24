@@ -126,7 +126,10 @@ add_compile_options(
     -nostdinc
     -fno-stack-protector
 )
-add_definitions(-Derrno=__cgc_errno)
+add_definitions(
+    -Derrno=__cgc_errno
+    -DFORTIFY_SOURCE=0
+)
 
 if(LINUX)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z execstack -z norelro")
