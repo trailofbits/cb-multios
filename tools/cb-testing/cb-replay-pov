@@ -426,8 +426,11 @@ class Throw(object):
             queue.put(1)
 
             if self.timeout > 0 and not self.attach_port:
-                with Timeout(self.timeout + 5):
-                    self.pov_negotiate()
+                try:
+                    with Timeout(self.timeout + 5):
+                        self.pov_negotiate()
+                except TimeoutException:
+                    self.log('pov negotiation timed out')
             else:
                 self.pov_negotiate()
 

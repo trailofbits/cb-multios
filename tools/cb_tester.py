@@ -80,7 +80,7 @@ class Tester:
         if 'TOTAL TESTS' not in output:
             debug('\nWARNING: there was an error running a test')
             print output
-            return 0, 1
+            return 0, 0
 
         if 'timed out' in output:
             debug('\nWARNING: test(s) timed out')
