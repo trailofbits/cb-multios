@@ -27,9 +27,7 @@ This tool allows verification of POV and POLLs with a CGC challenge binary
 using 'cb-replay', 'tcpdump', and 'cb-server'.
 """
 
-import time
 import re
-import uuid
 import argparse
 import platform
 import glob
@@ -263,10 +261,6 @@ class Runner(object):
         should_debug: Should debugging be enabled on child processes
         timeout: Timeout for child processes
         log_fh: The file handle for the log
-        ids: Path to the IDS ruleset
-        server_cb: Node the CB should run on (cb-server)
-        server_pov: Node the XML should be run on (cb-replay)
-        server_ids: Node the IDS should run on (cb-ids)
         ip_address: IP Address of the CB server
         cb_seed: PRNG for CBs
         cb_seed_skip: Amount to advance the PRNG for CBs
@@ -298,17 +292,10 @@ class Runner(object):
         self.log_fh = log_fh
         self.cb_seed = cb_seed
         self.cb_seed_skip = cb_seed_skip
-        self.ids_rules = None
         self.max_send = max_send
         self.negotiate_seed = negotiate_seed
         self.pov_seed = pov_seed
 
-        self._remote = False
-        self._remote_uploaded = []
-
-        self.server_cb = None
-        self.server_pov = None
-        self.server_ids = None
         self._test_id = None
         self._tmp_dir = None
 
@@ -318,94 +305,6 @@ class Runner(object):
 
         resource.setrlimit(resource.RLIMIT_CORE, (resource.RLIM_INFINITY,
                                                   resource.RLIM_INFINITY))
-
-    def remote_cmd(self, node, cmd):
-        """ Run the command on a remote host via ssh
-
-        Arguments:
-            node: host that the command should be run
-            cmd: command that should be run
-
-        Returns:
-            Return the stdout from the command
-
-        Raises:
-            AssertionError: if the node is not in the set of known servers
-            subprocess.error: on command excution failure
-        """
-        assert node in [self.server_cb, self.server_pov, self.server_ids]
-
-        return subprocess.check_output(['ssh', node] + cmd)
-
-    def remote_upload(self, node, files):
-        """ Upload a set of files to the tempdir on the remote node.
-
-        NOTE: This method maintains a history of what we've uploaded, and only
-        upload it once.
-
-        Arguments:
-            host: host that the command should be run
-            files: Files to be uploaded
-
-        Returns:
-            None
-
-        Raises:
-            subprocess.error: on command excution failure
-        """
-        assert node in [self.server_cb, self.server_pov, self.server_ids]
-        assert isinstance(files, list)
-
-        files = list(set(files) - set(self._remote_uploaded))
-
-        if len(files):
-            subprocess.check_output(['scp'] + files +
-                                    ['%s:%s' % (node, self._tmp_dir)])
-
-            self._remote_uploaded += files
-
-    def set_ids_rules(self, ids_rules):
-        """ Set IDS rules to use during teting
-
-        Arguments:
-            ids_rules: Rules to use
-
-        Returns:
-            None
-
-        Raises:
-            None
-        """
-
-        self.ids_rules = ids_rules
-
-    def enable_remote(self, server_cb, server_pov, server_ids):
-        """ Setup remote cb testing
-
-        Arguments:
-            server_cb: The node to run the cb-server
-            server_pov: The node to run the POVs
-            server_ids: The node to run the IDS
-
-        Returns:
-            None
-
-        Raises:
-            subprocess.error: on command excution failure
-        """
-        self.server_cb = server_cb
-        self.server_pov = server_pov
-        self.server_ids = server_ids
-        self._remote = True
-        self._test_id = str(uuid.uuid4())
-        self._tmp_dir = '/tmp/%s' % self._test_id
-        #        if self.ids_rules is None:
-        #            self.ip_address = self.server_cb
-        #        else:
-        self.ip_address = self.server_ids
-
-        for node in [server_cb, server_pov, server_ids]:
-            self.remote_cmd(node, ['mkdir', '-p', self._tmp_dir])
 
     def background(self, cmd, cmd_name=None):
         """ Run a command in the background, and verify it started
@@ -468,13 +367,6 @@ class Runner(object):
         for process in self.processes:
             process.terminate()
 
-        if self._remote:
-            for node in [self.server_cb, self.server_pov, self.server_ids]:
-                try:
-                    self.remote_cmd(node, ['rm', '-rf', self._tmp_dir])
-                except subprocess.CalledProcessError:
-                    pass
-
     @staticmethod
     def random_ip():
         """ Generate a random IP for local testing.
@@ -488,36 +380,7 @@ class Runner(object):
         Raises:
             None
         """
-        # return "127.%d.%d.%d" % (random.randint(1, 254),
-        #                   random.randint(1, 254),
-        #                   random.randint(1, 254))
         return "127.0.0.1"
-
-    def verify_cb(self):
-        """ Verify each CB with cgcef_verify
-
-        Arguments:
-            None
-
-        Returns:
-            0 if all of the CBs are valid DECREE executables
-            -1 if any of the CBs is not a valid DECREE executable
-
-        Raises:
-            None
-
-        for cb_name in self.cb_list:
-            cb_path = os.path.join(self.directory, cb_name)
-            try:
-        print("" + cb_path + "\n")
-                subprocess.check_output(['cgcef_verify', cb_path])
-            except subprocess.CalledProcessError as err:
-                logging.error('not ok - CB did not verify: %s', str(err), extra={'raw':True})
-                return -1
-    #always return true bc otherwise it would always be false
-        the binaries are elf, not decree #
-    """
-        return 0
 
     @staticmethod
     def random_port():
@@ -585,66 +448,6 @@ class Runner(object):
                 return name
         return 'UNKNOWN'
 
-        #    def start_server(self, connection_count):
-        #        """ Start cb-server in the background
-
-        #        Arguments:
-        #            connection_count: The maximum number of connections that cb-server
-        #                should handle before exiting
-
-        #        Returns:
-        #            A handle to the Background() instance of cb-server
-
-        #        Raises:
-        #            None
-        #        """
-        #        assert connection_count > 0
-
-        #        server_cmd = ['cb-server', '--insecure', '-p', "%d" % self.port,
-        #                     '-m', "%d" % connection_count]
-
-        #        if self._remote:
-        #            cb_paths = [os.path.join(self.directory, x) for x in self.cb_list]
-        #            self.remote_upload(self.server_cb, cb_paths)
-
-        #            server_cmd = ['ssh', self.server_cb] + server_cmd
-        #            server_cmd += ['-d', self._tmp_dir]
-        #        else:
-        #            server_cmd += ['-d', self.directory]
-
-        #        if self.negotiate_seed:
-        #            server_cmd += ['--negotiate']
-
-        #        if self.cb_no_attach:
-        #            server_cmd += ['--no_attach']
-
-        #        if self.cb_seed is not None and self.negotiate_seed is None:
-        #            server_cmd += ['-s', self.cb_seed]
-
-        #        if self.cb_seed_skip is not None:
-        #            server_cmd += ['-S', '%d' % self.cb_seed_skip]
-
-        #        if self.timeout > 0:
-        #            server_cmd += ['-t', '%d' % self.timeout]
-
-        #        if self.max_send is not None and self.max_send > 0:
-        #            server_cmd += ['-M', '%d' % self.max_send]
-
-        #        if self.should_debug:
-        #            server_cmd += ['--debug']
-        #        else:
-        #            server_cmd += ['-c', '0']
-
-        #        if self.wrapper:
-        #            server_cmd += ['-w', self.wrapper]
-
-        #        server_cmd += self.cb_list
-
-    # server_cmd = ["socat", "TCP-LISTEN:4141,reuseaddr,fork", "EXEC:./../cb-multios/cqe-challenges/CADET_00001/bin/CADET_00001_patched"]
-    # print server_cmd
-    #        return self.background(server_cmd, 'socat')
-
-
     def start_server(self, connection_count):
         """Start single challenge binary using socat instead of cb-server
 
@@ -653,87 +456,13 @@ class Runner(object):
 
         """
         assert connection_count > 0
-        # server_cmd = ['socat', 'TCP-Listen:%d,reuseaddr,fork' % (self.port),
-        #               'EXEC:%s' % (os.path.join(self.directory, self.cb_list[0]))]
-        # return self.background(server_cmd, 'socat')
-        server_cmd = ['../cb_simple_server.py', '-p', str(self.port),
+        server_cmd = ['../cb_simple_server.py',
+                      '-p', str(self.port),
                       '-t', str(self.timeout),
+                      '-m', str(connection_count),
+                      '--use-signals',
                       '-d', self.directory] + self.cb_list
         return self.background(server_cmd, 'cb_simple_server.py')
-        # print server_cmd
-
-    def start_ids(self, connection_count):
-        """ Start cb-proxy in the background
-
-        Arguments:
-            None
-
-        Returns:
-            A handle to the Background() instance of cb-proxy
-
-        Raises:
-            None
-        """
-
-        # the IDS is only used for remote commands
-        print "gonna sleep 15 "
-        proxy_cmd = ['sleep', '15']
-
-        # if self._remote and self.ids_rules:
-        if self._remote:
-            if self.ids_rules:
-                self.remote_upload(self.server_ids, [self.ids_rules])
-                base_filename = os.path.basename(self.ids_rules)
-                remote_path = os.path.join(self._tmp_dir, base_filename)
-
-            proxy_cmd = ['ssh', self.server_ids, 'cb-proxy',
-                         # '--listen_host', self.server_ids,
-                         '--max_connections', '%d' % connection_count,
-                         '--listen_port', '%d' % self.port,
-                         '--host', self.server_cb,
-                         '--port', '%d' % self.port]
-
-            if self.ids_rules:
-                proxy_cmd += ['--rules', remote_path]
-
-            if self.pcap:
-                proxy_cmd += ['--pcap_host', socket.gethostname()]
-
-            if self.should_debug:
-                proxy_cmd += ['--debug']
-
-            if self.negotiate_seed:
-                proxy_cmd += ['--negotiate']
-
-        return self.background(proxy_cmd, 'cb-proxy')
-
-    def start_pcap(self):
-        """ Start pcap logging in the background
-
-        Arguments:
-            None
-
-        Returns:
-            If pcap logging is enabled, a handle to the Background() instance
-                of the pcap logger
-            Otherwise, None
-
-        Raises:
-            None
-        """
-        # XXX add 'remote' support
-        if self.pcap:
-            if self._remote:
-                pcap = self.background(['cb-packet-log', '--pcap_file',
-                                        self.pcap])
-            else:
-                pcap = self.background(['/usr/sbin/tcpdump', '-i', 'lo', '-w',
-                                        self.pcap, '-s', '0', '-B', '65536',
-                                        'port', '%d' % self.port, 'and',
-                                        'host', self.ip_address], 'tcpdump')
-            while not pcap.log_queue.qsize():
-                time.sleep(0.1)
-        return None
 
     def start_replay(self, xml):
         """ Start cb-replay
@@ -783,12 +512,6 @@ class Runner(object):
         if self.max_send is not None and self.max_send > 0:
             replay_cmd += ['--max_send', '%d' % self.max_send]
 
-        if self._remote:
-            self.remote_upload(self.server_pov, xml)
-            xml = [os.path.join(self._tmp_dir, os.path.basename(x)) for x in
-                   xml]
-            replay_cmd = ['ssh', self.server_pov] + replay_cmd
-
         replay_cmd += xml
 
         return self.launch(replay_cmd)
@@ -837,6 +560,9 @@ class Runner(object):
         elif self.should_core:
             logging.error('not ok - core expected, no cores identified', extra={'raw': True})
             ret = -1
+        elif sig == 0:
+            logging.warning('ok - process did not core as expected', extra={'raw': True})
+            ret = 0
 
         return ret
 
@@ -867,13 +593,18 @@ class Runner(object):
 
         ip_value = int(match.group(1), 16)
         reg_value = int(match.group(2), 16)
+
+        # All the registers we can check, regardless of 32/64 bit
+        reg_names = ["ax", "cx", "dx", "bx", "sp", "bp", "si", "di", "ip"]
+
+        # Get the register we need to check
         reg_num = int(match.group(3))
+        reg_target = reg_names[reg_num]
 
         logging.warning('POV type 1 negotated masks: %08x %08x %d', ip_mask, reg_mask, reg_num)
-        # logging.warning('process cored as expected (signal %d: %s)', sig, self.signal_name(sig))
 
         register_state_re = r"(?ms).*\nregister states"
-        register_state_re2 = r"register states - eax: ([a-fA-F0-9]+) ecx: ([a-fA-F0-9]+) edx: ([a-fA-F0-9]+) ebx: ([a-fA-F0-9]+) esp: ([a-fA-F0-9]+) ebp: ([a-fA-F0-9]+) esi: ([a-fA-F0-9]+) edi: ([a-fA-F0-9]+) eip: ([a-fA-F0-9]+)"
+        register_state_re2 = r"register states - (([a-z]+\:[a-fA-F0-9]+\ ?)+)"
 
         match = re.match(register_state_re, server_stdout)
         if not match:
@@ -891,13 +622,24 @@ class Runner(object):
             if not match:
                 continue
 
-            registers = []
-            for i in range(7):
-                registers.append(int(match.group(1 + i), 16))
-            eip = int(match.group(9), 16)
+            # Parse out all of the registers in reg_names
+            reg_str = match.group(1)
+            registers = {}
+            for reg in reg_names:
+                reg_match = re.search(r'[re]{}\:([a-fA-F0-9]+)'.format(reg), reg_str)
+                if reg_match is not None:
+                    registers[reg] = int(reg_match.group(1), 16)
+
+            # Make sure the registers we want are there
+            for check_reg in ['ip', reg_target]:
+                if check_reg not in registers:
+                    logging.error('not ok - {} not logged'.format(check_reg), extra={'raw': True})
+                    return -1
+
+            eip = registers['ip']
 
             result_eip = eip & ip_mask
-            result_reg = registers[reg_num] & reg_mask
+            result_reg = registers[reg_target] & reg_mask
 
             if (result_eip == expected_eip and result_reg == expected_reg):
                 logging.warning('ok - TYPE 1 POV', extra={'raw': True})
@@ -915,7 +657,7 @@ class Runner(object):
     def _check_result_type2(self, replay_stdout, server_stdout):
         seed = self.cb_seed
         if not seed:
-            match = re.match(r"(?ms).*\nseed: ([a-fA-F0-9]+)", server_stdout)
+            match = re.match(r"(?ms).*using seed: ([a-fA-F0-9]+)", replay_stdout)
             if not match:
                 logging.error('not ok - POV type 2 server did not print seed', extra={'raw': True})
                 return -1
@@ -945,7 +687,7 @@ class Runner(object):
                               extra={'raw': True})
                 return -1
 
-        logging.warning('TYPE 2 POV PASSED')
+        logging.warning('ok - TYPE 2 POV PASSED', extra={'raw': True})
         return 0
 
     def _check_result_cfe(self, sig, replay_stdout, server_stdout):
@@ -983,12 +725,31 @@ class Runner(object):
         ret, replay_stdout = replay_result
         sig, server_stdout = server_result
 
-        magic_value = None
+        passed = 0
+        for xml in xml_list:
+            # Pull out the section of the replay output
+            # corresponding to this test
+            xml_replay_stdout = replay_stdout.split(xml, 1)[1]
+            xml_replay_stdout = xml_replay_stdout.split('END REPLAY', 1)[0]
 
-        if not xml_list[0].endswith('.pov'):
-            return self._check_result_cqe(sig, ret)
-        else:
-            return self._check_result_cfe(sig, replay_stdout, server_stdout)
+            # Check if the CB crashed on this test, get its return code
+            sig = 0
+            sig_re = r"(?ms).*\nProcess generated signal.+signal: (\d+)\) - {}".format(re.escape(xml))
+            match = re.match(sig_re, server_stdout)
+            if match:
+                sig = int(match.group(1))
+
+            # Verify the result of this test
+            if not xml.endswith('.pov'):
+                res = self._check_result_cqe(sig, ret)
+            else:
+                res = self._check_result_cfe(sig, xml_replay_stdout, server_stdout)
+
+            # Keep track of how many tests passed verification
+            if res == 0:
+                passed += 1
+
+        return passed
 
     def run(self):
         """ Runs the test
@@ -1005,55 +766,41 @@ class Runner(object):
         """
         self.log_packages()
 
-        if self.verify_cb() != 0:
-            return -1
-
         xml_sets = []
-        if self.should_core:
-            for xml in self.xml_list:
-                xml_sets.append([xml])
-        else:
-            cqe_xml = []
-            cfe_xml = []
-            for xml in self.xml_list:
-                if xml.endswith('.xml'):
-                    cqe_xml.append(xml)
-                else:
-                    cfe_xml.append(xml)
+        cqe_xml = []
+        cfe_xml = []
+        for xml in self.xml_list:
+            if xml.endswith('.xml'):
+                cqe_xml.append(xml)
+            else:
+                cfe_xml.append(xml)
 
-            for i in [cqe_xml, cfe_xml]:
-                if len(i):
-                    xml_sets.append(i)
+        for i in [cqe_xml, cfe_xml]:
+            if len(i):
+                xml_sets.append(i)
 
-        pcap = self.start_pcap()
+        total_tests = sum([len(xmls) for xmls in xml_sets])
+        passed_tests = 0
         for xml_list in xml_sets:
             server = self.start_server(len(xml_list))
-            ids = self.start_ids(len(xml_list))
             replay_result = self.start_replay(xml_list)
-
-            # if server.process.poll() is None:
-            #     self.use_server_connections(len(xml_list))
 
             server_result = None, ''
 
             # wait a maximum of 30 seconds after our replay and socket cleanup
             # finishes before terminating cb-server if it hasn't returned yet.
-            # try:
-            #     with Timeout(3):
-            #         server_result = server.wait()
-            # except TimeoutException:
-            #     server.terminate()
-            server.terminate()
-            ids.terminate()
+            try:
+                with Timeout(self.timeout + 5):
+                    server_result = server.wait()
+            except TimeoutException:
+                server.terminate()
 
-            result = self.check_result(replay_result, server_result, xml_list)
-            if result != 0:
-                return result
+            passed_tests += self.check_result(replay_result, server_result, xml_list)
 
-        if pcap is not None:
-            pcap.terminate()
+        logging.warning('TOTAL TESTS: {}'.format(total_tests))
+        logging.warning('TOTAL PASSED: {}'.format(passed_tests))
 
-        return 0
+        return 0 if passed_tests == total_tests else -1
 
 
 class CB_Formatter(logging.Formatter):
@@ -1062,7 +809,7 @@ class CB_Formatter(logging.Formatter):
         result = []
 
         for line in s.split('\n'):
-            if 'raw' in dir(record) and record.raw == True:
+            if 'raw' in dir(record) and record.raw:
                 if line.startswith('# '):
                     line = line[2:]
             else:
@@ -1097,15 +844,6 @@ def main():
     required.add_argument('--directory', required=True, type=str,
                           help='Directory containing challenge binaries')
 
-    remote = parser.add_argument_group(title='Remote Testing')
-    remote.add_argument('--enable_remote', required=False, action='store_true',
-                        default=False, help='Perform tests remotely')
-    remote.add_argument('--remote_nodes', required=False, nargs=3, type=str,
-                        default=['cb', 'pov', 'ids'],
-                        metavar=('<cb-server>', '<pov-server>',
-                                 '<ids-server>'),
-                        help='Hosts to run each of the components')
-
     parser.add_argument('--debug', required=False, action='store_true',
                         default=False, help='Enable debugging')
     parser.add_argument('--log', required=False, type=str, help='Log filename')
@@ -1133,8 +871,6 @@ def main():
     parser.add_argument('--max_send', required=False, type=int,
                         help='Maximum data to send in each request from the '
                              'poll')
-    parser.add_argument('--ids_rules', required=False, type=str,
-                        help='IDS Rules')
     parser.add_argument('--negotiate_seed', required=False, action='store_true',
                         default=False, help='Negotate the CB seed from cb-replay')
     parser.add_argument('--cb_no_attach', required=False, action='store_true',
@@ -1197,13 +933,6 @@ def main():
                     args.debug, args.timeout, log_fh, args.cb_seed,
                     args.cb_seed_skip, args.max_send, args.concurrent,
                     args.negotiate_seed, args.pov_seed, args.cb_no_attach)
-
-    if args.ids_rules:
-        runner.set_ids_rules(args.ids_rules)
-
-    if args.enable_remote:
-        runner.enable_remote(args.remote_nodes[0], args.remote_nodes[1],
-                             args.remote_nodes[2])
 
     try:
         ret = runner.run()

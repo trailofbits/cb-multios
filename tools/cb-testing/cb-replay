@@ -585,13 +585,16 @@ class Throw(object):
         if not self.negotiate:
             return 0
 
+        # Send the test path to the server
+        self._send_all('{}\n'.format(self.pov.filename))
+
         seed = self.pov.seed
 
         if seed is None:
             print "# No seed specified, using random seed"
             seed = os.urandom(48)
 
-        print "# negotiating seed as %s" % seed.encode('hex')
+        self.log("using seed: %s" % seed.encode('hex'))
 
         request_seed = (1, seed)
         request = [request_seed]
@@ -1284,7 +1287,7 @@ class Results(object):
             None
         """
         got_passed, got_failed, got_logs = results
-        print '\n'.join(got_logs)
+        print '\n'.join(got_logs + ['END REPLAY'])
         self.passed += got_passed
         self.failed += got_failed
         if got_failed > 0:

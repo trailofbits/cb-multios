@@ -107,21 +107,21 @@ void NegotiateType2Pov(unsigned int *type2_addr, unsigned int *type2_size, unsig
 	// get the 4-byte value for type2_addr
 	if (ReadBytes(3, (char *)type2_addr, 4) != 4) {
 		_terminate(-1);
-	} 
+	}
 	// get the 4-byte value for type2_size
 	if (ReadBytes(3, (char *)type2_size, 4) != 4) {
 		_terminate(-1);
-	} 
+	}
 	// get the 4-byte value for type2_length
 	if (ReadBytes(3, (char *)type2_length, 4) != 4) {
 		_terminate(-1);
-	} 
+	}
 
 	return;
 
 }
 
-int strncmp( char *pDest, char *pSrc, size_t nbytes)
+int cgc_strncmp( char *pDest, char *pSrc, size_t nbytes)
 {
         int index = 0;
 
@@ -140,7 +140,7 @@ int strncmp( char *pDest, char *pSrc, size_t nbytes)
         return (pDest[index] - pSrc[index]);
 }
 
-char *strstr( char *str, char *sub, size_t maxlen ) 
+char *strstr( char *str, char *sub, size_t maxlen )
 {
 	size_t index = 0;
 	size_t stlen = 0;
@@ -153,10 +153,10 @@ char *strstr( char *str, char *sub, size_t maxlen )
 
 	while ( index < ( maxlen - ( stlen-1)  ) ) {
 		if ( str[index] == sub[0] ) {
-			if ( strncmp( str + index, sub, stlen ) == 0 ) {
+			if ( cgc_strncmp( str + index, sub, stlen ) == 0 ) {
 				return str + index;
 			}
-		} 
+		}
 
 		index++;
 	}

@@ -100,12 +100,18 @@ All tests are a series of input strings and expected output for a challenge. The
 
 `POLL`: These tests are used to check that a challenge is functioning correctly, and are expected to pass with both the unpatched and patched versions of challenges.
 
-### OS X Notice
+### Type 1 POV notice
 
-By default on Mac OS X, failed polls generate core dumps in /cores. With hundreds and thousands of tests this can quickly fill up your system partition. Disable these with:
+Verifying type 1 POVs relies on analyzing the core dump generated when a process crashes. They can be enabled with:
 
+###### OS X:
 ```bash
-$ sudo sysctl -w kern.coredump=0
+$ sudo sysctl -w kern.coredump=1
+```
+
+###### Linux:
+```bash
+$ ulimit -c unlimited
 ```
 
 ## Current Status

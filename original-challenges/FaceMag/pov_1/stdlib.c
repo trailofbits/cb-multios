@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include <prng.h>
 
 
-int minimum(unsigned int a, unsigned int b) {
+int minimum(int a, int b) {
 
 	if (a < b)
 		return a;
@@ -81,7 +81,7 @@ int atoi( const char *pStr )
 	if ( negative )
 		return (-value);
 	else
-		return value;	
+		return value;
 }
 
 
@@ -147,7 +147,7 @@ char *strcpy( char *pDest, const char *pSrc )
 	while ( *pSrc != '\0' )
 		*pDest++ = *pSrc++;
 
-	*pDest = '\0'; 
+	*pDest = '\0';
 
 	return (pDestReturn);
 }
@@ -180,7 +180,7 @@ void *cgc_memcpy( void *pDest, const void *pSource, size_t nbytes )
 
 		pDest += 4;
 		pSource += 4;
-		nbytes-=4;		
+		nbytes-=4;
 	}
 
 	while ( nbytes > 0 )

@@ -96,7 +96,7 @@ void add_freelist_block( size_t length )
 	bzero( block, length );
 
 	block->length = length-4;
-	
+
 	if ( lookaside[0] == NULL ) {
 		lookaside[0] = block;
 		return;
@@ -107,7 +107,7 @@ void add_freelist_block( size_t length )
 	return;
 }
 
-void free( void *block )
+void cgc_free( void *block )
 {
 	pmeta nb = NULL;
 
@@ -217,9 +217,9 @@ void *freelist_alloc( size_t length )
 }
 
 
-void *calloc( size_t length )
+void *cgc_calloc( size_t length )
 {
-	void *out = malloc( length );
+	void *out = cgc_malloc( length );
 
 	if ( !out ) {
 		return out;
@@ -232,11 +232,11 @@ void *calloc( size_t length )
 	return out;
 }
 
-void *malloc( size_t length )
+void *cgc_malloc( size_t length )
 {
 	int bucket = 0;
 	pmeta outb = NULL;
-	
+
 	// The minimum size for a valid request is 8 bytes
 	if ( length < 8 ) {
 		length = 8;
