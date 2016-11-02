@@ -214,20 +214,24 @@ static void try_init_prng() {
     // Don't reinitialize
     if (cgc_internal_prng != NULL) return;
 
+    uint8_t prng_seed[BLOCK_SIZE * 3] = {
+        0x73, 0x65, 0x65, 0x64, 0x73, 0x65, 0x65, 0x64, 0x73, 0x65, 0x65, 0x64,
+        0x73, 0x65, 0x65, 0x64, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37,
+        0x38, 0x39, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    }; // Default seed, definitely not random
+
     // This will be hex encoded
     const char *prng_seed_hex = getenv("seed");
-    if (prng_seed_hex == NULL || strlen(prng_seed_hex) != (BLOCK_SIZE * 3) * 2) {
-        // TODO: Actually make this random
-        prng_seed_hex = "736565647365656473656564736565643031323334353637383961626364656600000000000000000000000000000000";
+    if (prng_seed_hex != NULL && strlen(prng_seed_hex) == (BLOCK_SIZE * 3) * 2) {
+        // Convert the hex encoded seed to a normal string
+        const char *pos = prng_seed_hex;
+        for(int i = 0; i < BLOCK_SIZE * 3; ++i) {
+            sscanf(pos, "%2hhx", &prng_seed[i]);
+            pos += 2;
+        }
     }
 
-    // Convert the hex encoded seed to a normal string
-    const char *pos = prng_seed_hex;
-    uint8_t prng_seed[BLOCK_SIZE * 3] = {};
-    for(int i = 0; i < BLOCK_SIZE * 3; ++i) {
-        sscanf(pos, "%2hhx", &prng_seed[i]);
-        pos += 2;
-    }
 
     // Create the prng
     cgc_internal_prng = (cgc_prng *) malloc(sizeof(cgc_prng));
