@@ -68,7 +68,7 @@ size_t rxbytes;
 size_t receive_until( char *buffer, char delim, size_t limit )
 {
     const int maxLen = 512;
-    static char circ_buffer[maxLen];
+    static char circ_buffer[512]; // This should be maxLen but clang3.8 didn't like it
     static int head = 0;
     static int end = 0;
     int maxRead;
