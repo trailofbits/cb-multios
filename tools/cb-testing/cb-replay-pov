@@ -204,7 +204,7 @@ class Throw(object):
         return data
 
     def pov_negotiate(self):
-        MIN_BITS = 20
+        MIN_BITS = 0
         if not self.is_pov():
             return
 
