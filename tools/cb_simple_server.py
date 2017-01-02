@@ -142,13 +142,16 @@ class ChallengeHandler(StreamRequestHandler):
         # If any of the processes crashed, print out crash info
         for proc in procs:
             if proc.returncode not in [None, 0, signal.SIGTERM]:
-                # Print the return code
                 pid, sig = proc.pid, abs(proc.returncode)
-                stdout_flush('Process generated signal (pid: {}, signal: {}) - {}\n'.format(pid, sig, testpath))
+                stdout_flush('[DEBUG] pid: {}, sig: {}\n'.format(pid, sig))
 
-                # Print register values
+                # Attempt to get register values
                 regs = self.get_core_dump_regs(pid)
                 if regs is not None:
+                    # If a core dump was generated, report this as a crash
+                    stdout_flush('Process generated signal (pid: {}, signal: {}) - {}\n'.format(pid, sig, testpath))
+
+                    # Report the register states
                     reg_str = ' '.join(['{}:{}'.format(reg, val) for reg, val in regs.iteritems()])
                     stdout_flush('register states - {}\n'.format(reg_str))
 
