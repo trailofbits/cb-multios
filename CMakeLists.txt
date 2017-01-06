@@ -2,44 +2,58 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(cb_porting)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Needed for newer challenges
-enable_language(ASM)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 11)
 
-# Default flags for everything
-add_compile_options(
-    -fno-builtin
-    -Wno-int-to-pointer-cast
-    -Wno-writable-strings
-    -g3
-    -m32
-)
-
-# Link everything 32-bit (until we have a 64-bit option)
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
-
-# Linker options
-# Dynamic by default
-option(BUILD_SHARED_LIBS "" ON)
-if(BUILD_STATIC_LIBS AND UNIX AND NOT APPLE)
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -Wl,--allow-multiple-definition")
-    SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
-    SET(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
-endif()
-
-if(UNIX AND NOT APPLE)
-    set(LINUX TRUE)
-    add_definitions(-DLINUX)
-endif()
-if(APPLE)
-    add_definitions(-DAPPLE)
-endif()
 if(WIN32)
+    # Need to use MASM on windows
+    enable_language(ASM_MASM)
+
     add_definitions(-DWIN)
-endif()
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+    set(BUILD_SHARED_LIBS TRUE)
+
+    add_compile_options(
+        /w
+    )
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MACHINE:X86")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MACHINE:X86")
+else(WIN32)
+    # Generic ASM can be enabled on other OSs
+    enable_language(ASM)
+
+    if(UNIX AND NOT APPLE)
+        set(LINUX TRUE)
+        add_definitions(-DLINUX)
+    endif()
+    if(APPLE)
+        add_definitions(-DAPPLE)
+    endif()
+
+    # Default flags for everything
+    add_compile_options(
+        -fno-builtin
+        -w
+        -g3
+        -m32
+    )
+
+    # Link everything 32-bit (until we have a 64-bit option)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
+
+    # Linker options
+    # Dynamic by default
+    option(BUILD_SHARED_LIBS "" ON)
+    if(BUILD_STATIC_LIBS AND LINUX)
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -Wl,--allow-multiple-definition")
+        SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
+        SET(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
+    endif()
+endif(WIN32)
 
 # Build all libraries
 include_directories(include)
