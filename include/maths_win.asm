@@ -38,18 +38,20 @@ _ENTER MACRO base
 ENDM
 
 _END MACRO base
+    base&  ENDP
+    base&f ENDP
     base&l ENDP
 ENDM
 
-_ENTER cgc_sin
+cgc_sinl PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_sinf::
+    jmp     _cgc_sin
+cgc_sinf PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_sin::
+    jmp     _cgc_sin
+cgc_sin PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_sin::
     fsin
     fnstsw  ax
     sahf
@@ -61,15 +63,15 @@ _2:
     ret
 _END cgc_sin
 
-_ENTER cgc_cos
+cgc_cosl PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_cosf::
+    jmp     _cgc_cos
+cgc_cosf PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_cos::
+    jmp     _cgc_cos
+cgc_cos PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_cos::
     fcos
     fnstsw  ax
     sahf
@@ -81,15 +83,15 @@ _2:
     ret
 _END cgc_cos
 
-_ENTER cgc_tan
+cgc_tanl PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_tanf::
+    jmp     _cgc_tan
+cgc_tanf PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_tan::
+    jmp     _cgc_tan
+cgc_tan PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_tan::
     fptan
     fnstsw  ax
     sahf
@@ -116,176 +118,175 @@ _1:
     ret
 cgc_twopi_rem ENDP
 
-_ENTER cgc_remainder
+cgc_remainderl PROC
     fld     TBYTE PTR[esp+16]
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_remainderf::
+    jmp     _cgc_remainder
+cgc_remainderf PROC
     fld     DWORD PTR[esp+8]
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_remainder::
+    jmp     _cgc_remainder
+cgc_remainder PROC
     fld     QWORD PTR[esp+12]
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_remainder::
     fprem1
     fstsw   ax
     sahf
-    jp      _1
+    jp      _cgc_remainder
     fstp    st(1)
     ret
 _END cgc_remainder
 
-_ENTER cgc_log
+cgc_logl PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_logf::
+    jmp     _cgc_log
+cgc_logf PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_log::
+    jmp     _cgc_log
+cgc_log PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_log::
     fldln2
     fxch    st(1)
     fyl2x
     ret
 _END cgc_log
 
-_ENTER cgc_log10
+cgc_log10l PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_log10f::
+    jmp     _cgc_log10
+cgc_log10f PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_log10::
+    jmp     _cgc_log10
+cgc_log10 PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_log10::
     fldlg2
     fxch    st(1)
     fyl2x
     ret
 _END cgc_log10
 
-_ENTER cgc_significand
+cgc_significandl PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_significandf::
+    jmp     _cgc_significand
+cgc_significandf PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_significand::
+    jmp     _cgc_significand
+cgc_significand PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_significand::
     fxtract
     fstp    st(1)
     ret
 _END cgc_significand
 
-_ENTER cgc_scalbn
+cgc_scalbnl PROC
     fild    DWORD PTR[esp+16]
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_scalbnf::
+    jmp     _cgc_scalbn
+cgc_scalbnf PROC
     fild    DWORD PTR[esp+8]
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_scalbn::
+    jmp     _cgc_scalbn
+cgc_scalbn PROC
     fild    DWORD PTR[esp+12]
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_scalbn::
     fscale
     fstp    st(1)
     ret
 _END cgc_scalbn
 
-_ENTER cgc_scalbln
+cgc_scalblnl PROC
     jmp     cgc_scalbnl
-cgc_scalblnf::
+cgc_scalblnf PROC
     jmp     cgc_scalbnf
-cgc_scalbln::
+cgc_scalbln  PROC
     jmp     cgc_scalbn
 _END cgc_scalbln
 
-_ENTER cgc_rint
+cgc_rintl PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_rintf::
+    jmp     _cgc_rint
+cgc_rintf PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_rint::
+    jmp     _cgc_rint
+cgc_rint PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_rint::
     frndint
     ret
 _END cgc_rint
 
-_ENTER cgc_sqrt
+cgc_sqrtl PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_sqrtf::
+    jmp     _cgc_sqrt
+cgc_sqrtf PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_sqrt::
+    jmp     _cgc_sqrt
+cgc_sqrt PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_sqrt::
     fsqrt
     ret
 _END cgc_sqrt
 
-_ENTER cgc_fabs
+cgc_fabsl PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_fabsf::
+    jmp     _cgc_fabs
+cgc_fabsf PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_fabs::
+    jmp     _cgc_fabs
+cgc_fabs PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_fabs::
     fabs
     ret
 _END cgc_fabs
 
-_ENTER cgc_atan2
+cgc_atan2l PROC
     fld     TBYTE PTR[esp+4]
     fld     TBYTE PTR[esp+16]
-    jmp     _1
-cgc_atan2f::
+    jmp     _cgc_atan2
+cgc_atan2f PROC
     fld     DWORD PTR[esp+4]
     fld     DWORD PTR[esp+8]
-    jmp     _1
-cgc_atan2::
+    jmp     _cgc_atan2
+cgc_atan2 PROC
     fld     QWORD PTR[esp+4]
     fld     QWORD PTR[esp+12]
-_1:
+_cgc_atan2::
     fpatan
     ret
 _END cgc_atan2
 
-_ENTER cgc_log2
+cgc_log2l PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_log2f::
+    jmp     _cgc_log2
+cgc_log2f PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_log2::
+    jmp     _cgc_log2
+cgc_log2 PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_log2::
     fld1
     fxch
     fyl2x
     ret
 _END cgc_log2
 
-PUBLIC cgc_exp2x
-_ENTER cgc_exp2
+cgc_exp2l PROC
     fld     TBYTE PTR[esp+4]
     jmp     cgc_exp2x
-cgc_exp2f::
+cgc_exp2f PROC
     fld     DWORD PTR[esp+4]
     jmp     cgc_exp2x
-cgc_exp2::
+cgc_exp2 PROC
     fld     QWORD PTR[esp+4]
     jmp     cgc_exp2x
-cgc_exp2x::
+cgc_exp2x PROC
     fld     st(0)
     frndint
     fsubr   st,st(1)
@@ -296,33 +297,36 @@ cgc_exp2x::
     fscale
     fstp    st(1)
     ret
+cgc_exp2x ENDP
 _END cgc_exp2
 
-_ENTER cgc_pow
+cgc_powl PROC
     fld     TBYTE PTR[esp+16]
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_powf::
+    jmp     _cgc_pow
+cgc_powf PROC
     fld     DWORD PTR[esp+8]
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_pow::
+    jmp     _cgc_pow
+cgc_pow PROC
     fld     QWORD PTR[esp+12]
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_pow::
     fyl2x
     jmp     cgc_exp2x
 _END cgc_pow
 
-_ENTER cgc_exp
+cgc_expl PROC
     fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_expf::
+    jmp     _cgc_exp
+; cgc_expf::
+cgc_expf PROC
     fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_exp::
+    jmp     _cgc_exp
+; cgc_exp::
+cgc_exp PROC
     fld     QWORD PTR[esp+4]
-_1:
+_cgc_exp::
     fldl2e
     fmulp
     jmp     cgc_exp2x
