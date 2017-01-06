@@ -2,6 +2,8 @@
 #include "libcgc.h"
 #include "ansi_x931_aes128.h"
 
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 #include <stdio.h>
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -26,13 +28,23 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
 }
 
 int allocate(cgc_size_t length, int is_executable, void **addr) {
+    DWORD prot = is_executable ? PAGE_EXECUTE_READWRITE : PAGE_READWRITE;
 
+    LPVOID ret_addr = VirtualAlloc(NULL, length, MEM_COMMIT | MEM_RESERVE, prot);
+    if (ret_addr == NULL)
+        return GetLastError();
+
+    if (addr != NULL)
+        *addr = ret_addr;
+
+    return 0;
 }
 
 int deallocate(void *addr, cgc_size_t length) {
-
+    if (VirtualFree(addr, length, MEM_RELEASE) == 0)
+        return GetLastError();
+    return 0;
 }
-
 
 static cgc_prng *cgc_internal_prng = NULL;
 /**
