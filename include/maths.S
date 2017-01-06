@@ -196,19 +196,15 @@ cgc_significand:
 END cgc_significand
 
 ENTER cgc_scalbn
-ENTER cgc_scalbln
 cgc_scalbnl:
-cgc_scalblnl:
     fildl   16(%esp)
     fldt    4(%esp)
     jmp     1f
 cgc_scalbnf:
-cgc_scalblnf:
     fildl   8(%esp)
     flds    4(%esp)
     jmp     1f
 cgc_scalbn:
-cgc_scalbln:
     fildl   12(%esp)
     fldl    4(%esp)
 1:
@@ -216,6 +212,14 @@ cgc_scalbln:
     fstp    %st(1)
     ret
 END cgc_scalbn
+
+ENTER cgc_scalbln
+cgc_scalblnl:
+    jmp     cgc_scalbnl
+cgc_scalblnf:
+    jmp     cgc_scalbnf
+cgc_scalbln:
+    jmp     cgc_scalbn
 END cgc_scalbln
 
 ENTER cgc_rint
