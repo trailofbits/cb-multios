@@ -90,17 +90,27 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
     return 0;
 }
 
-// static void __attribute__ ((constructor)) cgc_initialize_flag_page(void) {
-//   void *mmap_addr = mmap(CGC_FLAG_PAGE_ADDRESS, PAGE_SIZE,
-//                          PROT_READ | PROT_WRITE,
-//                          MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS,
-//                          -1, 0);
-//
-//   if (mmap_addr != CGC_FLAG_PAGE_ADDRESS) {
-//     err(1, "[!] Failed to map the flag page");
-//   }
-//
-//   // Fill the flag page with bytes from the prng
-//   try_init_prng();
-//   cgc_aes_get_bytes(cgc_internal_prng, PAGE_SIZE, mmap_addr);
-// }
+static void cgc_initialize_flag_page(void) {
+    // TODO: VirtualAlloc docs say the address may be rounded down
+    // May have to MEM_RESERVE to allocate a large block and MEM_COMMIT the section we want
+    LPVOID flag_addr = VirtualAlloc(CGC_FLAG_PAGE_ADDRESS, PAGE_SIZE,
+                                    MEM_COMMIT | MEM_RESERVE,
+                                    PAGE_READWRITE);
+
+    if (flag_addr != CGC_FLAG_PAGE_ADDRESS) {
+        fprintf(stderr, "[!] Failed to map the flag page");
+        exit(1);
+    }
+
+    // Fill the flag page with bytes from the prng
+    try_init_prng();
+    cgc_aes_get_bytes(cgc_internal_prng, PAGE_SIZE, flag_addr);
+}
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+    if (fdwReason == DLL_PROCESS_ATTACH) {
+        // __attribute__((constructor))
+        cgc_initialize_flag_page();
+    }
+    return TRUE;
+}
