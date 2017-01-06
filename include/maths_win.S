@@ -180,23 +180,6 @@ _1:
     ret
 _END cgc_significand
 
-_ENTER cgc_scalbln
-    fild    DWORD PTR[esp+16]
-    fld     TBYTE PTR[esp+4]
-    jmp     _1
-cgc_scalblnf::
-    fild    DWORD PTR[esp+8]
-    fld     DWORD PTR[esp+4]
-    jmp     _1
-cgc_scalbln::
-    fild    DWORD PTR[esp+12]
-    fld     QWORD PTR[esp+4]
-_1:
-    fscale
-    fstp    st(1)
-    ret
-_END cgc_scalbln
-
 _ENTER cgc_scalbn
     fild    DWORD PTR[esp+16]
     fld     TBYTE PTR[esp+4]
@@ -213,6 +196,14 @@ _1:
     fstp    st(1)
     ret
 _END cgc_scalbn
+
+_ENTER cgc_scalbln
+    jmp     cgc_scalbnl
+cgc_scalblnf::
+    jmp     cgc_scalbnf
+cgc_scalbln::
+    jmp     cgc_scalbn
+_END cgc_scalbln
 
 _ENTER cgc_rint
     fld     TBYTE PTR[esp+4]
