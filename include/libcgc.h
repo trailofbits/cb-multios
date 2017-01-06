@@ -10,6 +10,11 @@
 #endif
 #define NULL (0)
 
+#ifdef WIN
+# define __asm__(x)
+# define __attribute__(x)
+#endif
+
 typedef unsigned long cgc_size_t;
 typedef long cgc_ssize_t;
 
