@@ -6,7 +6,6 @@ import re
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'processed-challenges')
 IGNORED_FLAGS = [
-    '-Werror',
     '-Dmain=_main',
 
     # Letting CMake handle these
@@ -45,7 +44,7 @@ def generate_cmake(path):
 
             # Remove any flags we don't want
             # Not using a set here to preserve order
-            flags = [v for v in flags if v not in IGNORED_FLAGS]
+            flags = [v for v in flags if v not in IGNORED_FLAGS and not v.startswith('-W')]
 
             # Add these flags for the directory
             cmake += 'add_compile_options( {} )\n'.format(' '.join(flags))
