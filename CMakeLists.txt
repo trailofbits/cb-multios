@@ -137,10 +137,17 @@ function(buildCB)
 endfunction(buildCB)
 
 # More options needed for cbs
-add_compile_options(
-    -nostdinc
-    -fno-stack-protector
-)
+if(WIN32)
+    add_compile_options(
+        /X
+    )
+else()
+    add_compile_options(
+        -nostdinc
+        -fno-stack-protector
+    )
+endif()
+
 add_definitions(
     -Derrno=__cgc_errno
     -DFORTIFY_SOURCE=0
