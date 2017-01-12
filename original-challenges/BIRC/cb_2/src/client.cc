@@ -29,8 +29,10 @@
 #include "debug_brc.h"
 #include "client_backend.h"
 
-#define CLIENT_FD 3
-#define SERVER_FD 4
+#define CLIENT_FD_W 3
+#define CLIENT_FD_R 4
+#define SERVER_FD_W 5
+#define SERVER_FD_R 6
 
 #define SESSION_TIMEOUT_VAL 30
 #define MAX_USERS 256
@@ -364,8 +366,8 @@ bool Reauthenticate() {
 extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
     bool is_running = true;
 
-    FILE *cb_s_in = fopen(SERVER_FD, 0);
-    FILE *cb_s_out = fopen(SERVER_FD, 1);
+    FILE *cb_s_in = fopen(CLIENT_FD_R, 0);
+    FILE *cb_s_out = fopen(SERVER_FD_W, 1);
     unsigned short client_cmd_id = 0;
     int session_timeout = SESSION_TIMEOUT_VAL;
 
