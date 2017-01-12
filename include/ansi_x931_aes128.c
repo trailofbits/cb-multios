@@ -4,8 +4,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-// TODO: CROSS PLATFORM?
-
 // Some helpers for the prng
 void cgc_gen_block(cgc_prng*);
 void cgc_xor(const uint8_t*, const uint8_t*, uint8_t*);
