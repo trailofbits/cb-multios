@@ -114,7 +114,6 @@ class Tester:
         total, passed = self.parse_results(out)
         score.total += total
         score.passed += passed
-        # print out
 
     def run_against_dir(self, xml_dir, score, is_pov=False):
         """ Runs all tests in a given directory

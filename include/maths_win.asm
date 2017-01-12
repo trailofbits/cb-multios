@@ -319,11 +319,9 @@ _END cgc_pow
 cgc_expl PROC
     fld     TBYTE PTR[esp+4]
     jmp     _cgc_exp
-; cgc_expf::
 cgc_expf PROC
     fld     DWORD PTR[esp+4]
     jmp     _cgc_exp
-; cgc_exp::
 cgc_exp PROC
     fld     QWORD PTR[esp+4]
 _cgc_exp::
