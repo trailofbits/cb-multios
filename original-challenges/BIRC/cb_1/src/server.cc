@@ -32,14 +32,16 @@
 #include "command_processor.h"
 #include "server_backend.h"
 
-#define CLIENT_FD 3
-#define SERVER_FD 4
+#define CLIENT_FD_W 3
+#define CLIENT_FD_R 4
+#define SERVER_FD_W 5
+#define SERVER_FD_R 6
 
 extern "C" int __attribute__((fastcall)) main(int secret_page_i, char *unused[])
 {
     Backend::InitDataStores(secret_page_i);
-    FILE *cb_c_in = fopen(CLIENT_FD, 0);
-    FILE *cb_c_out = fopen(CLIENT_FD, 1);
+    FILE *cb_c_in = fopen(SERVER_FD_R, 0);
+    FILE *cb_c_out = fopen(CLIENT_FD_W, 1);
     char *secret_page = (char *)secret_page_i;
     (void) secret_page;
 
