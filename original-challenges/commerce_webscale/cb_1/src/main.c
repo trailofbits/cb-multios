@@ -66,7 +66,7 @@ void list()
     key k;
     result res;
     size_t bytes;
-    
+
     buf[0] = 0;
     k.data.count = 0;
     res = db_next(k);
@@ -131,7 +131,7 @@ void sell()
     d.price = strtol(tmp, NULL, 10);
     read_until(STDIN, tmp, sizeof(tmp), '\n');
     d.count = strtoul(tmp, NULL, 10);
-    
+
     rec.k.data.count = cgc_strlen(name) + 1;
     rec.k.data.data = (opaque *)name;
     rec.data.count = sizeof(d);
@@ -170,7 +170,7 @@ void init_db()
 
 int main()
 {
-    database_init(3);
+    database_init(4, 5);
     init_db();
 
     printf("Welcome to eCommerce v0.1\n");

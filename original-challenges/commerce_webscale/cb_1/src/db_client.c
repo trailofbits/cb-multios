@@ -5,8 +5,9 @@
 static unsigned char __buf[RPC_BUF_SIZE];
 static rpc_common __rpc;
 
-int database_init(int fd) {
-__rpc.fd = fd;
+int database_init(int fdr, int fdw) {
+__rpc.fdr = fdr;
+__rpc.fdw = fdw;
 __rpc.prog = 232323;
 #ifdef DB_CURRENT
 __rpc.vers = 1;

@@ -5,7 +5,8 @@
 #define RPC_BUF_SIZE 32768
 
 typedef struct rpc_common {
-    int fd;
+    int fdw;
+    int fdr;
     unsigned long xid;
     unsigned long prog;
     unsigned long vers;

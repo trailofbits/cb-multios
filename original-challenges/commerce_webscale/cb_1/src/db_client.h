@@ -1,7 +1,7 @@
 /* AUTOMATICALLY GENERATED - DO NOT EDIT! */
 #include "db_xdr.h"
 
-int database_init(int fd);
+int database_init(int fdr, int fdw);
 void database_close();
 #ifdef DB_CURRENT
 result db_lookup (key);
