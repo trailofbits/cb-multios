@@ -26,8 +26,10 @@
 #include <string.h>
 #include "response.h"
 
-#define SFD_SERVER  3
-#define SFD_CLIENT 4
+#define SFD_SERVER_W 3
+#define SFD_SERVER_R 4
+#define SFD_CLIENT_W 5
+#define SFD_CLIENT_R 6
 
 extern user_t *cur_user;
 
@@ -45,8 +47,8 @@ void send_response(response_t *res, enum cmd_t cmd)
       cgc_memcpy(packet->body + 2 * sizeof(int), res->data, res->data_len);
     packet->checksum = calc_checksum(packet);
     size_t size = sizeof(packet_t) - sizeof(char *);
-    transmit(SFD_SERVER, (char *)packet, size, NULL);
-    transmit(SFD_SERVER, packet->body, packet->body_len, NULL);
+    transmit(SFD_SERVER_W, (char *)packet, size, NULL);
+    transmit(SFD_SERVER_W, packet->body, packet->body_len, NULL);
   }
 
   free_packet(packet);
@@ -271,4 +273,3 @@ int handle_response(enum cmd_t cmd, response_t *res)
   }
   return -1;
 }
-

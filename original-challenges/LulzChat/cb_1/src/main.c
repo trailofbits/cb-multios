@@ -36,8 +36,10 @@
 
 #define MAX_NUM_MSG 100
 
-#define SFD_SERVER  3
-#define SFD_CLIENT 4
+#define SFD_SERVER_W 3
+#define SFD_SERVER_R 4
+#define SFD_CLIENT_W 5
+#define SFD_CLIENT_R 6
 
 int is_alnum_str(char *str)
 {
@@ -199,7 +201,7 @@ int main()
   while (1)
   {
     /* Read input */
-    if ((packet = parse_packet(SFD_SERVER)) != NULL)
+    if ((packet = parse_packet(SFD_CLIENT_R)) != NULL)
     {
       if (packet->type != T_REQUEST)
         goto fail;

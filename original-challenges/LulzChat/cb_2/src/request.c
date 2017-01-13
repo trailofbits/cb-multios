@@ -26,8 +26,10 @@
 #include "request.h"
 #include "packet.h"
 
-#define SFD_SERVER  3
-#define SFD_CLIENT 4
+#define SFD_SERVER_W 3
+#define SFD_SERVER_R 4
+#define SFD_CLIENT_W 5
+#define SFD_CLIENT_R 6
 
 void send_request(void *req, enum cmd_t cmd)
 {
@@ -86,8 +88,8 @@ void send_request(void *req, enum cmd_t cmd)
     }
     packet->checksum = calc_checksum(packet);
     size = sizeof(packet_t) - sizeof(char *);
-    transmit(SFD_CLIENT, (char *)packet, size, NULL);
-    transmit(SFD_CLIENT, packet->body, packet->body_len, NULL);
+    transmit(SFD_CLIENT_W, (char *)packet, size, NULL);
+    transmit(SFD_CLIENT_W, packet->body, packet->body_len, NULL);
   }
 
 done:

@@ -38,8 +38,10 @@
 
 #define MAX_NUM_MSG 100
 
-#define SFD_SERVER  3
-#define SFD_CLIENT 4
+#define SFD_SERVER_W 3
+#define SFD_SERVER_R 4
+#define SFD_CLIENT_W 5
+#define SFD_CLIENT_R 6
 
 user_t cur_user;
 
@@ -95,7 +97,7 @@ void register_user()
   send_request(&reg, CMD_REGISTER);
   fdprintf(STDOUT, "\n");
 
-  p = parse_packet(SFD_CLIENT);
+  p = parse_packet(SFD_SERVER_R);
   if (p == NULL)
       goto fail;
   if (p->body_len < 2 * sizeof(int))
@@ -140,7 +142,7 @@ void login_user()
 
   send_request(&login, CMD_LOGIN);
 
-  p = parse_packet(SFD_CLIENT);
+  p = parse_packet(SFD_SERVER_R);
   if (p == NULL)
       goto fail;
   if (p->body_len < 2 * sizeof(int))
@@ -184,7 +186,7 @@ int list_messages()
   list.auth_code = cur_user.auth_code;
   send_request(&list, CMD_LIST);
 
-  p = parse_packet(SFD_CLIENT);
+  p = parse_packet(SFD_SERVER_R);
   if (p == NULL)
       goto fail;
   if (p->body_len < 2 * sizeof(int))
@@ -310,7 +312,7 @@ void view_message()
   send_request(&view, CMD_VIEW);
   fdprintf(STDOUT, "\n");
 
-  p = parse_packet(SFD_CLIENT);
+  p = parse_packet(SFD_SERVER_R);
   if (p == NULL)
       goto fail;
   if (p->body_len < 2 * sizeof(int))
@@ -388,7 +390,7 @@ void send_message()
   send.msg = &msg;
   send_request(&send, CMD_SEND);
 
-  p = parse_packet(SFD_CLIENT);
+  p = parse_packet(SFD_SERVER_R);
   if (p == NULL)
       goto fail;
   if (p->body_len < 2 * sizeof(int))
@@ -438,7 +440,7 @@ void delete_message()
   send_request(&delete, CMD_DELETE);
   fdprintf(STDOUT, "\n");
 
-  p = parse_packet(SFD_CLIENT);
+  p = parse_packet(SFD_SERVER_R);
   if (p == NULL)
       goto fail;
   if (p->body_len < 2 * sizeof(int))
