@@ -118,11 +118,12 @@ __DB_CURRENT_db_prev(msg, buf, avail);
 break;
 }
 }
-int database_run(int fd) {
+int database_run(int fdr, int fdw) {
     size_t avail;
     ssize_t _result;
     unsigned char *buf;
-    __rpc.fd = fd;
+    __rpc.fdr = fdr;
+    __rpc.fdw = fdw;
     while (1) {
         rpc_msg msg;
         if ((_result = _rpc_recv(&__rpc, __buf, sizeof(__buf))) < 0) break;

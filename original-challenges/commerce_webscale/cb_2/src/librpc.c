@@ -31,7 +31,7 @@ ssize_t _rpc_recv(rpc_common *rpc, unsigned char *buf, size_t size)
     unsigned int hdr;
     size_t bytes;
 
-    if (receive(rpc->fd, &hdr, 4, &bytes) != 0 || bytes != 4)
+    if (receive(rpc->fdr, &hdr, 4, &bytes) != 0 || bytes != 4)
         return -1;
 
     if (hdr >> 31)
@@ -41,7 +41,7 @@ ssize_t _rpc_recv(rpc_common *rpc, unsigned char *buf, size_t size)
     if (hdr > size)
         return -1;
 
-    if (receive(rpc->fd, buf, hdr, &bytes) != 0 || bytes != hdr)
+    if (receive(rpc->fdr, buf, hdr, &bytes) != 0 || bytes != hdr)
         return -1;
 
     return hdr;
@@ -53,10 +53,10 @@ int _rpc_send(rpc_common *rpc, unsigned char *buf, size_t size)
     size_t bytes;
 
     hdr = size;
-    if (transmit(rpc->fd, &hdr, 4, &bytes) != 0 || bytes != 4)
+    if (transmit(rpc->fdw, &hdr, 4, &bytes) != 0 || bytes != 4)
         return -1;
 
-    if (transmit(rpc->fd, buf, hdr, &bytes) != 0 || bytes != hdr)
+    if (transmit(rpc->fdw, buf, hdr, &bytes) != 0 || bytes != hdr)
         return -1;
 
     return 0;

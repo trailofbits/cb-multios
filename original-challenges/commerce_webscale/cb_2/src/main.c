@@ -158,5 +158,5 @@ result DB_CURRENT_db_prev(key k)
 
 int main()
 {
-    database_run(4);
+    database_run(6, 3);
 }
