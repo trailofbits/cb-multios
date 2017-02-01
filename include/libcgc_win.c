@@ -15,16 +15,32 @@ void _terminate(unsigned int status) {
 }
 
 int transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
+    cgc_size_t ret = _write(fd, buf, count);
 
+    if (ret < 0) {
+        return errno;
+    } else if (tx_bytes != NULL) {
+        *tx_bytes = ret;
+    }
+
+    return 0;
 }
 
 int receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
+    cgc_size_t ret = _read(fd, buf, count);
 
+    if (ret < 0) {
+        return errno;
+    } else if (rx_bytes != NULL) {
+        *rx_bytes = ret;
+    }
+
+    return 0;
 }
 
 int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
                const struct cgc_timeval *timeout, int *readyfds) {
-
+    return 0;
 }
 
 int allocate(cgc_size_t length, int is_executable, void **addr) {
@@ -110,6 +126,7 @@ static void cgc_initialize_flag_page(void) {
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     if (fdwReason == DLL_PROCESS_ATTACH) {
         // __attribute__((constructor))
+        setvbuf(stdout, NULL, _IONBF, 0);  // We *may* not need this, not sure yet
         cgc_initialize_flag_page();
     }
     return TRUE;
