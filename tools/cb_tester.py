@@ -99,7 +99,7 @@ class Tester:
             score (Score): Object to store the results in
             should_core (bool): If the binary is expected to crash with these tests
         """
-        cb_cmd = ['./cb-test',
+        cb_cmd = [sys.executable, 'cb-test',
                   '--directory', self.bin_dir,
                   '--xml_dir', xml_dir,
                   '--concurrent', '4',

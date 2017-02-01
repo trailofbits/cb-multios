@@ -456,7 +456,8 @@ class Runner(object):
 
         """
         assert connection_count > 0
-        server_cmd = [os.path.join('..', 'server', 'server.py'),
+        server_cmd = [sys.executable,
+                      os.path.join('..', 'server', 'server.py'),
                       '-p', str(self.port),
                       '-t', str(self.timeout),
                       '-m', str(connection_count),
@@ -483,7 +484,7 @@ class Runner(object):
         if xml[0].endswith('.pov'):
             replay_bin = './cb-replay-pov'
 
-        replay_cmd = [replay_bin, '--host', self.ip_address, '--port', '%d' %
+        replay_cmd = [sys.executable, replay_bin, '--host', self.ip_address, '--port', '%d' %
                       self.port,
                       '--debug'
                       ]
