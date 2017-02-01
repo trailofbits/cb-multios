@@ -456,13 +456,13 @@ class Runner(object):
 
         """
         assert connection_count > 0
-        server_cmd = ['../cb_simple_server.py',
+        server_cmd = [os.path.join('..', 'server', 'server.py'),
                       '-p', str(self.port),
                       '-t', str(self.timeout),
                       '-m', str(connection_count),
                       '--use-signals',
                       '-d', self.directory] + self.cb_list
-        return self.background(server_cmd, 'cb_simple_server.py')
+        return self.background(server_cmd, 'server.py')
 
     def start_replay(self, xml):
         """ Start cb-replay
