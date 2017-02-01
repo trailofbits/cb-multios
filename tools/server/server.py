@@ -7,22 +7,7 @@ import sys
 from threading import Thread
 from SocketServer import StreamRequestHandler, ThreadingTCPServer
 
-# For OS specific tasks
-IS_DARWIN = sys.platform == 'darwin'
-IS_LINUX = 'linux' in sys.platform
-IS_WINDOWS = sys.platform == 'win32'
-
-TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-RUNNER = os.path.join(TOOLS_DIR, 'cb_challenge_runner.py')
-AJL = os.path.join(TOOLS_DIR, 'AppJailLauncher', 'Debug', 'AppJailLauncher.exe')
-
-if IS_WINDOWS:
-    import win32file
-
-
-def stdout_flush(s):
-    sys.stdout.write(s)
-    sys.stdout.flush()
+from srv_common import *
 
 
 class ChallengeHandler(StreamRequestHandler):
@@ -71,7 +56,7 @@ def launch_ajl(args):
             str(ChallengeHandler.dup_out)
         ] + ChallengeHandler.challenges))
     ]
-    subprocess.Popen(' '.join(ajl_cmd))
+    subprocess.Popen(' '.join(ajl_cmd)).wait()  # TODO: let's not wait there...
 
 
 def main():

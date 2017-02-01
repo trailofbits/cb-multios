@@ -8,16 +8,7 @@ import subprocess
 import sys
 import time
 
-# For OS specific tasks
-IS_DARWIN = sys.platform == 'darwin'
-IS_LINUX = 'linux' in sys.platform
-IS_WINDOWS = sys.platform == 'win32'
-
-TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-RUNNER = os.path.join(TOOLS_DIR, 'cb_challenge_runner.py')
-
-if IS_WINDOWS:
-    import win32file
+from srv_common import *
 
 launcher_stdout = 1  # Will be overwritten
 
@@ -31,15 +22,8 @@ def alarm_handler(signum, frame):
     raise TimeoutError()
 
 
-def stdout_flush(s):
+def print_to_launcher(s):
     os.write(launcher_stdout, s)
-
-
-def try_delete(path):
-    try:
-        os.remove(path)
-    except OSError:
-        pass
 
 
 def run_challenge(challenges, chal_timeout, use_signals, stdout_fd):
@@ -152,17 +136,17 @@ def run_challenge(challenges, chal_timeout, use_signals, stdout_fd):
     for proc in procs:
         pid, sig = proc.pid, abs(proc.returncode)
         if sig not in [None, 0, signal.SIGTERM]:
-            stdout_flush('[DEBUG] pid: {}, sig: {}\n'.format(pid, sig))
+            print_to_launcher('[DEBUG] pid: {}, sig: {}\n'.format(pid, sig))
 
             # Attempt to get register values
             regs = get_core_dump_regs(pid)
             if regs is not None:
                 # If a core dump was generated, report this as a crash
-                stdout_flush('Process generated signal (pid: {}, signal: {}) - {}\n'.format(pid, sig, testpath))
+                print_to_launcher('Process generated signal (pid: {}, signal: {}) - {}\n'.format(pid, sig, testpath))
 
                 # Report the register states
                 reg_str = ' '.join(['{}:{}'.format(reg, val) for reg, val in regs.iteritems()])
-                stdout_flush('register states - {}\n'.format(reg_str))
+                print_to_launcher('register states - {}\n'.format(reg_str))
 
     # Final cleanup
     clean_cores(procs)
@@ -195,7 +179,7 @@ def get_core_dump_regs(pid):
     # Read the registers
     dbg_out = '\n'.join(subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate())
     if 'No such file or directory' in dbg_out or "doesn't exist" in dbg_out:
-        stdout_flush('Core dump not found, are they enabled on your system?\n')
+        print_to_launcher('Core dump not found, are they enabled on your system?\n')
         return
 
     # Parse out registers/values
