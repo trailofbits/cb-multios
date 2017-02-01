@@ -16,6 +16,9 @@ IS_WINDOWS = sys.platform == 'win32'
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 RUNNER = os.path.join(TOOLS_DIR, 'cb_challenge_runner.py')
 
+if IS_WINDOWS:
+    import win32file
+
 launcher_stdout = 1  # Will be overwritten
 
 
@@ -81,6 +84,9 @@ def run_challenge(challenges, chal_timeout, use_signals, stdout_fd):
 
     # Move the launcher's stdout away from the challenge fds
     global launcher_stdout
+    if IS_WINDOWS:
+        # Get a C fd from the HANDLE
+        stdout_fd = win32file._open_osfhandle(stdout_fd, os.O_APPEND)
     os.dup2(stdout_fd, last_fd)
     launcher_stdout = last_fd
 
