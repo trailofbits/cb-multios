@@ -16,6 +16,9 @@ TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 RUNNER = os.path.join(TOOLS_DIR, 'cb_challenge_runner.py')
 AJL = os.path.join(TOOLS_DIR, 'AppJailLauncher', 'Debug', 'AppJailLauncher.exe')
 
+if IS_WINDOWS:
+    import win32file
+
 
 def stdout_flush(s):
     sys.stdout.write(s)
@@ -105,6 +108,9 @@ def main():
 
     # Duplicate stdout for children to report back to
     ChallengeHandler.dup_out = os.dup(1)
+    if IS_WINDOWS:
+        # Get the HANDLE of the new stdout
+        ChallengeHandler.dup_out = win32file._get_osfhandle(ChallengeHandler.dup_out)
 
     # Start the challenge server
     if IS_WINDOWS:
