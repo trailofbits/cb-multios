@@ -14,6 +14,7 @@ IS_WINDOWS = sys.platform == 'win32'
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 RUNNER = os.path.join(TOOLS_DIR, 'cb_challenge_runner.py')
+AJL = os.path.join(TOOLS_DIR, 'AppJailLauncher', 'Debug', 'AppJailLauncher.exe')
 
 
 def stdout_flush(s):
@@ -55,6 +56,21 @@ class LimitedConnectionServer(ThreadingTCPServer):
             Thread(target=self.shutdown).start()
 
 
+def launch_ajl(args):
+    ajl_cmd = [
+        AJL,
+        '/port:{}'.format(args.port),
+        '/nojail', '/timeout:20',
+        '"{}"'.format(' '.join([
+            sys.executable,
+            RUNNER,
+            '-t', str(ChallengeHandler.chal_timeout),
+            str(ChallengeHandler.dup_out)
+        ] + ChallengeHandler.challenges))
+    ]
+    subprocess.Popen(' '.join(ajl_cmd))
+
+
 def main():
     parser = argparse.ArgumentParser()
 
@@ -92,9 +108,8 @@ def main():
 
     # Start the challenge server
     if IS_WINDOWS:
-        pass  # TODO: AJL
+        launch_ajl(args)
     else:
-        ThreadingTCPServer.daemon_threads = True
         ThreadingTCPServer.allow_reuse_address = True
         if args.max_connections > 0:
             srv = LimitedConnectionServer(('localhost', args.port), ChallengeHandler, args.max_connections)
