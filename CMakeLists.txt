@@ -19,6 +19,7 @@ if(WIN32)
     add_compile_options(
         /w
         /W0
+        /Zi
     )
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MACHINE:X86")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MACHINE:X86")
@@ -75,6 +76,13 @@ function(build path target)
     target_include_directories(${target} PUBLIC ${path}/lib ${path}/src ${path}/include)
     target_include_directories(${target}_patched PUBLIC ${path}/lib ${path}/src ${path}/include)
 
+    set_target_properties(${target} PROPERTIES
+                          RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}
+                          RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
+    set_target_properties(${target}_patched PROPERTIES
+                          RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}
+                          RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
+
     # Add patched defines
     target_compile_definitions(${target}_patched PUBLIC "${patch_defs}")
 
@@ -86,6 +94,7 @@ function(buildPOV path cb pov)
     # Unique target name, i.e. "Palindrome2_pov_1",
     # executable name kept as "pov_#.pov"
     set(target "${cb}_${pov}")
+    set(out_dir "../pov")
 
     # Gather sources
     aux_source_directory("${path}/${pov}" pov_src)
@@ -96,7 +105,9 @@ function(buildPOV path cb pov)
     target_include_directories(${target} PUBLIC "${path}/${pov}" "${path}/include" "${path}/lib" "${path}/src")
     set_target_properties(${target} PROPERTIES
         OUTPUT_NAME "${pov}.pov"
-        RUNTIME_OUTPUT_DIRECTORY "../pov"  # Put these with the other xml POVs
+        RUNTIME_OUTPUT_DIRECTORY ${out_dir}  # Put these with the other xml POVs
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG ${out_dir}
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE ${out_dir}
     )
 
     target_link_libraries(${target} LINK_PUBLIC cgc pov)
