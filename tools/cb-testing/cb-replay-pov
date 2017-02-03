@@ -92,20 +92,6 @@ def ptrace_traceme():
     result_signed = c_long(result).value
     return result_signed
 
-def launch_gdb_proxy(pid, attach_port):
-    gdb_pid = os.fork()
-    if gdb_pid == 0:
-        subprocess.call(['/usr/bin/gdbserver', ':%d' % attach_port, '--attach', '%d' % pid])
-        exit(0)
-    else:
-        # ugh.
-        time.sleep(2)
-        result = os.waitpid(gdb_pid, os.WNOHANG)
-        if result != (0, 0):
-            print "Unable to attach to the process"
-            return 0
-
-    return gdb_pid
 
 class Throw(object):
     """Throw - Perform the interactions with a CB
@@ -388,7 +374,7 @@ class Throw(object):
         queue = multiprocessing.Queue()
         gdb_pid = None
 
-        pid = os.fork()
+        pid = os.fork()  # TODO: RIP
         if pid == 0:
             if self.timeout > 0 and not self.attach_port:
                 signal.alarm(self.timeout)
@@ -420,9 +406,6 @@ class Throw(object):
             os.execv(self.pov, args)
             exit(-1)
         else:
-            if self.attach_port:
-                gdb_pid = launch_gdb_proxy(pid, self.attach_port)
-
             queue.put(1)
 
             if self.timeout > 0 and not self.attach_port:

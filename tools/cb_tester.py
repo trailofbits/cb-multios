@@ -12,10 +12,16 @@ TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'processed-challenges')
 TEST_DIR = os.path.join(TOOLS_DIR, 'cb-testing')
 
+IS_WINDOWS = sys.platform == 'win32'
+
 
 def debug(s):
     sys.stdout.write(str(s))
     sys.stdout.flush()
+
+
+def add_ext(s):
+    return '{}{}'.format(s, '.exe' if IS_WINDOWS else '')
 
 
 class Score:
@@ -104,7 +110,7 @@ class Tester:
                   '--xml_dir', xml_dir,
                   '--concurrent', '4',
                   '--timeout', '5',
-                  '--negotiate_seed', '--cb'] + bin_names
+                  '--negotiate_seed', '--cb'] + map(add_ext, bin_names)
         if should_core:
             cb_cmd += ['--should_core']
 
@@ -126,7 +132,7 @@ class Tester:
         """
         # Check if there are any tests available in this directory
         tests = glob.glob(os.path.join(xml_dir, '*.xml'))
-        tests += glob.glob(os.path.join(xml_dir, '*.pov'))
+        tests += glob.glob(os.path.join(xml_dir, add_ext('*.pov')))
         if len(tests) == 0:
             debug('None found\n')
             return
