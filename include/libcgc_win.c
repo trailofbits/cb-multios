@@ -107,12 +107,26 @@ int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
 }
 
 static void cgc_initialize_flag_page(void) {
-    // TODO: VirtualAlloc docs say the address may be rounded down
-    // May have to MEM_RESERVE to allocate a large block and MEM_COMMIT the section we want
-    LPVOID flag_addr = VirtualAlloc(CGC_FLAG_PAGE_ADDRESS, PAGE_SIZE,
-                                    MEM_COMMIT | MEM_RESERVE,
-                                    PAGE_READWRITE);
+    // Initially reserve the flag page to see where it ends up
+    LPVOID flag_addr, rsrv_addr = VirtualAlloc(CGC_FLAG_PAGE_ADDRESS, PAGE_SIZE,
+                                               MEM_RESERVE, PAGE_READWRITE);
 
+    if (rsrv_addr != CGC_FLAG_PAGE_ADDRESS) {
+        // Address was rounded down
+        // Figure out how much more space we need to reserve
+        intptr_t padding = CGC_FLAG_PAGE_ADDRESS - (intptr_t) rsrv_addr;
+
+        // Free the old space and reserve the correct size
+        VirtualFree(rsrv_addr, 0, MEM_RELEASE);
+        rsrv_addr = VirtualAlloc(rsrv_addr, PAGE_SIZE + padding,
+                                 MEM_RESERVE, PAGE_READWRITE);
+    }
+
+    // Allocate the flag page
+    flag_addr = VirtualAlloc(CGC_FLAG_PAGE_ADDRESS, PAGE_SIZE,
+                             MEM_COMMIT, PAGE_READWRITE);
+
+    // Make sure it worked
     if (flag_addr != CGC_FLAG_PAGE_ADDRESS) {
         fprintf(stderr, "[!] Failed to map the flag page");
         exit(1);
