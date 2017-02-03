@@ -34,7 +34,6 @@ import glob
 import logging
 import os
 import random
-import resource
 import signal
 import socket
 import subprocess
@@ -43,6 +42,16 @@ import thread
 import threading
 import Queue
 import ansi_x931_aes128
+
+
+IS_WINDOWS = sys.platform == 'win32'
+
+if not IS_WINDOWS:
+    import resource
+
+
+def add_ext(s):
+    return '{}{}'.format(s, '.exe' if IS_WINDOWS else '')
 
 
 class TimeoutException(Exception):
@@ -270,7 +279,9 @@ class Runner(object):
         pov_seed: the PRNG seed for POVs
         cb_no_attach: Should the CB not be attached within cb-server
     """
-    pov_signals = [signal.SIGSEGV, signal.SIGILL, signal.SIGBUS]
+    pov_signals = [signal.SIGSEGV, signal.SIGILL]
+    if not IS_WINDOWS:
+        pov_signals.append(signal.SIGBUS)
 
     def __init__(self, port, cb_list, xml_list, pcap, wrapper, directory,
                  should_core, failure_ok, should_debug, timeout, log_fh,
@@ -303,8 +314,9 @@ class Runner(object):
         if not isinstance(self.port, int) or self.port == 0:
             self.port = self.random_port()
 
-        resource.setrlimit(resource.RLIMIT_CORE, (resource.RLIM_INFINITY,
-                                                  resource.RLIM_INFINITY))
+        if not IS_WINDOWS:
+            resource.setrlimit(resource.RLIMIT_CORE, (resource.RLIM_INFINITY,
+                                                      resource.RLIM_INFINITY))
 
     def background(self, cmd, cmd_name=None):
         """ Run a command in the background, and verify it started
@@ -478,11 +490,10 @@ class Runner(object):
             None
         """
 
-        replay_bin = './cb-replay'
-        # print xml[0]
-        # if os.path.basename(xml[0]).startswith('POV'):
-        if xml[0].endswith('.pov'):
-            replay_bin = './cb-replay-pov'
+        replay_bin = os.path.join('.', 'cb-replay')
+
+        if xml[0].endswith(add_ext('.pov')):
+            replay_bin = os.path.join('.', 'cb-replay-pov')
 
         replay_cmd = [sys.executable, replay_bin, '--host', self.ip_address, '--port', '%d' %
                       self.port,
@@ -497,13 +508,13 @@ class Runner(object):
             if self.cb_seed is not None:
                 replay_cmd += ['--cb_seed', self.cb_seed]
 
-        if self.pov_seed and replay_bin == './cb-replay-pov':
+        if self.pov_seed and replay_bin == os.path.join('.', 'cb-replay-pov'):
             replay_cmd += ['--pov_seed', self.pov_seed]
 
         if self.should_debug:
             replay_cmd += ['--debug']
 
-        if replay_bin == './cb-replay':
+        if replay_bin == os.path.join('.', 'cb-replay'):
             if self.failure_ok:
                 replay_cmd += ['--failure_ok']
 
@@ -741,7 +752,7 @@ class Runner(object):
                 sig = int(match.group(1))
 
             # Verify the result of this test
-            if not xml.endswith('.pov'):
+            if not xml.endswith(add_ext('.pov')):
                 res = self._check_result_cqe(sig, ret)
             else:
                 res = self._check_result_cfe(sig, xml_replay_stdout, server_stdout)
@@ -889,8 +900,8 @@ def main():
     xml_files = args.xml
     if args.xml is None:
         assert os.path.isdir(args.xml_dir), "not a directory: " + args.xml_dir
-        xml_files = glob.glob("%s/*.xml" % args.xml_dir)
-        xml_files += glob.glob("%s/*.pov" % args.xml_dir)
+        xml_files = glob.glob(os.path.join(args.xml_dir, '*.xml'))
+        xml_files += glob.glob(os.path.join(args.xml_dir, add_ext('*.pov')))
         xml_files.sort()
 
     assert len(xml_files), "No Polls or POVs"
@@ -899,7 +910,7 @@ def main():
         assert args.cb_seed_skip > 0, "Invalid cb_seed_skip: %d" % args.cb_seed_skip
 
     for filename in xml_files:
-        assert filename.endswith('.pov') or filename.endswith('.xml'), 'invalid POV/Poll'
+        assert filename.endswith(add_ext('.pov')) or filename.endswith('.xml'), 'invalid POV/Poll'
 
     if args.cb_seed is not None:
         assert len(args.cb_seed) == 96, "--cb_seed must be 96 bytes"
