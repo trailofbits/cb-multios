@@ -57,7 +57,7 @@ int allocate(cgc_size_t length, int is_executable, void **addr) {
 }
 
 int deallocate(void *addr, cgc_size_t length) {
-    if (VirtualFree(addr, length, MEM_RELEASE) == 0)
+    if (VirtualFree(addr, 0, MEM_RELEASE) == 0)
         return GetLastError();
     return 0;
 }
