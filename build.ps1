@@ -11,14 +11,14 @@ if (!$?) {
 }
 
 "Running patcher"
-python $TOOLS\cb_patcher.py $build_list
+python ${TOOLS}\cb_patcher.py $build_list
 
 "Generating CMakelists"
-python ${TOOLS}/makefiles.py
+python ${TOOLS}\makefiles.py
 
 "Creating build directory"
-mkdir ${DIR}/build -Force
-cd ${DIR}/build
+mkdir ${DIR}\build -Force
+cd ${DIR}\build
 
 "Creating Makefiles"
 $CMAKE_OPTS="-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
