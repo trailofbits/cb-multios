@@ -52,8 +52,8 @@ else(WIN32)
     option(BUILD_SHARED_LIBS "" ON)
     if(BUILD_STATIC_LIBS AND LINUX)
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -Wl,--allow-multiple-definition")
-        SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
-        SET(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
+        set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
+        set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
     endif()
 endif(WIN32)
 
@@ -88,6 +88,15 @@ function(build path target)
 
     target_link_libraries(${target} LINK_PUBLIC cgc)
     target_link_libraries(${target}_patched LINK_PUBLIC cgc)
+
+    IF(WIN32)
+        # Copy required DLLs post-build
+        add_custom_command(
+            TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cgc> ${CMAKE_CURRENT_BINARY_DIR}
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:tiny-AES128-C> ${CMAKE_CURRENT_BINARY_DIR}
+        )
+    ENDIF()
 endfunction(build)
 
 function(buildPOV path cb pov)
@@ -111,6 +120,16 @@ function(buildPOV path cb pov)
     )
 
     target_link_libraries(${target} LINK_PUBLIC cgc pov)
+
+    IF(WIN32)
+        # Copy required DLLs post-build
+        add_custom_command(
+            TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cgc> ${out_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:tiny-AES128-C> ${out_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:pov> ${out_dir}
+        )
+    ENDIF()
 endfunction(buildPOV)
 
 function(buildCB)
