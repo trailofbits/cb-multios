@@ -469,7 +469,7 @@ class Runner(object):
         """
         assert connection_count > 0
         server_cmd = [sys.executable,
-                      os.path.join('..', 'server', 'server.py'),
+                      'server.py',
                       '-p', str(self.port),
                       '-t', str(self.timeout),
                       '-m', str(connection_count),

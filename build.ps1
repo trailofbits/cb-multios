@@ -11,7 +11,7 @@ if (!$?) {
 }
 
 "Running patcher"
-python ${TOOLS}\cb_patcher.py $build_list
+python ${TOOLS}\patcher.py $build_list
 
 "Generating CMakelists"
 python ${TOOLS}\makefiles.py
