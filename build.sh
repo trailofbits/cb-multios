@@ -14,7 +14,7 @@ if ! /usr/bin/env python -c "import yaml; import xlsxwriter; import Crypto" 2>/d
 fi
 
 echo "Running patcher"
-${TOOLS}/cb_patcher.py $@
+${TOOLS}/patcher.py $@
 
 echo "Generating CMakelists"
 ${TOOLS}/makefiles.py

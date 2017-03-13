@@ -7,7 +7,7 @@ import sys
 from threading import Thread
 from SocketServer import StreamRequestHandler, ThreadingTCPServer
 
-from srv_common import *
+from common import *
 
 
 class ChallengeHandler(StreamRequestHandler):

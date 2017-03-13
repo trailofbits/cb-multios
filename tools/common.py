@@ -9,9 +9,8 @@ IS_WINDOWS = sys.platform == 'win32'
 if IS_WINDOWS:
     import win32file
 
-SRV_DIR = os.path.dirname(os.path.abspath(__file__))
-TOOLS_DIR = os.path.dirname(SRV_DIR)
-RUNNER = os.path.join(SRV_DIR, 'challenge_runner.py')
+TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
+RUNNER = os.path.join(TOOLS_DIR, 'challenge_runner.py')
 AJL = os.path.join(TOOLS_DIR, 'AppJailLauncher', 'Debug', 'AppJailLauncher.exe')
 
 

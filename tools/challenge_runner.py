@@ -8,7 +8,7 @@ import subprocess
 import sys
 import time
 
-from srv_common import *
+from common import *
 
 launcher_stdout = 1  # Will be overwritten
 

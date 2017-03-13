@@ -25,7 +25,7 @@ This directory contains `libcgc`, which implements the syscalls to work on non-D
 ### tools
 This folder contains Python scripts that help with modifying, building, and testing the original challenges.
 
-#### cb_patcher.py
+#### patcher.py
 This script will copy all challenges out of `original-challenges`, modify them as necessary, and place them in `processed-challenges`. These modifications include:
 
 * Deleting `libcgc.h` if it appears anywhere in the challenge source
@@ -35,7 +35,7 @@ This script will copy all challenges out of `original-challenges`, modify them a
 #### makefiles.py
 This will parse the `build_directive.txt` in each challenge folder and generate a `CMakeLists.txt` with the same variables and CFLAGS. This also adds the `-nostdinc` flag to all challenges, so that they have no access to the system libraries, and can only include their own libraries and `libcgc.h`.
 
-#### cb_tester.py
+#### tester.py
 This is a helper script to test all challenges using `cb-test`. Results are summarized and can be output to an excel spreadsheet. More details in the [testing section](#testing) below.
 
 #### cb_simple_server.py
@@ -53,7 +53,7 @@ This command will build both the patched and unpatched binaries in the `bin` fol
 
 ## Testing
 
-The `cb_tester.py` utility is a wrapper around `cb-test` that can be used to test challenges and summarize results. The [`cb-test`](https://github.com/CyberGrandChallenge/cb-testing) tool is a testing utility created for the DARPA Cyber Grand Challenge to verify CBs are fully functional.
+The `tester.py` utility is a wrapper around `cb-test` that can be used to test challenges and summarize results. The [`cb-test`](https://github.com/CyberGrandChallenge/cb-testing) tool is a testing utility created for the DARPA Cyber Grand Challenge to verify CBs are fully functional.
 
 `cb-test` has been modified to work with a custom server. All changes include:
 
@@ -77,19 +77,19 @@ The `cb_tester.py` utility is a wrapper around `cb-test` that can be used to tes
 The following will run tests against all challenges in `processed-challenges` and save the results to `out.xlsx`:
 
 ```bash
-$ ./cb_tester.py -a -o out.xlsx
+$ ./tester.py -a -o out.xlsx
 ```
 
 To run tests against only two challenges, do this:
 
 ```bash
-$ ./cb_tester.py -c CADET_00001 CROMU_00001
+$ ./tester.py -c CADET_00001 CROMU_00001
 ```
 
 To test all POVs and save the results, run:
 
 ```bash
-$ ./cb_tester.py -a --povs -o out.xlsx
+$ ./tester.py -a --povs -o out.xlsx
 ```
 
 ### Types of Tests

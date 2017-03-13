@@ -10,7 +10,6 @@ import xlsxwriter.utility as xlutil
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'processed-challenges')
-TEST_DIR = os.path.join(TOOLS_DIR, 'cb-testing')
 
 IS_WINDOWS = sys.platform == 'win32'
 
@@ -114,7 +113,7 @@ class Tester:
         if should_core:
             cb_cmd += ['--should_core']
 
-        p = subprocess.Popen(cb_cmd, cwd=TEST_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen(cb_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = p.communicate()
 
         total, passed = self.parse_results(out)
