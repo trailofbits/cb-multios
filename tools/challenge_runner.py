@@ -8,18 +8,12 @@ import subprocess
 import sys
 import time
 
-from common import *
+from common import IS_DARWIN, IS_LINUX, IS_WINDOWS
+from common import try_delete, Timeout, TimeoutError
+if IS_WINDOWS:
+    import win32file
 
 launcher_stdout = 1  # Will be overwritten
-
-
-# TODO: threaded timer to avoid SIGALRM
-class TimeoutError(Exception):
-    pass
-
-
-def alarm_handler(signum, frame):
-    raise TimeoutError()
 
 
 def print_to_launcher(s):
@@ -111,16 +105,14 @@ def run_challenge(challenges, chal_timeout, use_signals, stdout_fd):
         os.kill(replay_pid, signal.SIGILL)
 
     # Continue until any of the processes die
-    # TODO: SIGALRM is invalid on Windows
-    # signal.signal(signal.SIGALRM, alarm_handler)
-    # signal.alarm(timeout)
     try:
-        # Wait until any process exits
-        while all([proc.poll() is None for proc in procs]):
-            time.sleep(0.1)
+        with Timeout(chal_timeout):
+            # Wait until any process exits
+            while all([proc.poll() is None for proc in procs]):
+                time.sleep(0.1)
 
-        # Give the others a chance to exit
-        map(lambda p: p.wait(), procs)
+            # Give the others a chance to exit
+            map(lambda p: p.wait(), procs)
     except TimeoutError:
         pass
 

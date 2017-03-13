@@ -43,6 +43,8 @@ import threading
 import Queue
 import ansi_x931_aes128
 
+from common import Timeout, TimeoutError
+
 
 IS_WINDOWS = sys.platform == 'win32'
 
@@ -52,81 +54,6 @@ if not IS_WINDOWS:
 
 def add_ext(s):
     return '{}{}'.format(s, '.exe' if IS_WINDOWS else '')
-
-
-class TimeoutException(Exception):
-    """ TimeoutException - A class used to catch just timeouts created by
-    Timeout() """
-    pass
-
-
-class Timeout(object):
-    """ Timeout - A class to use within 'with' for timing out a block via
-    exceptions and alarm."""
-
-    def __init__(self, seconds):
-        """ Instantiate a Timeout() instance, to be used in a 'with' context.
-
-        Arguments:
-            seconds: time until timeout
-
-        Returns:
-            None
-
-        Raises:
-            AssertionError: if a POV action is not in the pre-defined methods
-        """
-
-        assert isinstance(seconds, int)
-        assert seconds > 0
-        self.seconds = seconds
-
-    @staticmethod
-    def cb_handle_timeout(signum, frame):
-        """ signal handler callback method, called when SIGALRM is raised
-
-        Arguments:
-            signum: signal number that caused the signal handler to be called
-            frame:  frame that caused the signal
-
-        Returns:
-            None
-
-        Raises:
-            TimeoutException: Always raises this exception
-        """
-
-        raise TimeoutException("timed out")
-
-    def __enter__(self):
-        """ Context guard for handling timeouts as a 'with'
-
-        Arguments:
-            None
-
-        Returns:
-            None
-
-        Raises:
-            None
-        """
-
-        signal.signal(signal.SIGALRM, self.cb_handle_timeout)
-        signal.alarm(self.seconds)
-
-    def __exit__(self, exit_type, exit_value, traceback):
-        """ Disable the alarm upon exiting the 'with' block
-
-        Arguments:
-            exit_type: the type of exit code being generated
-            exit_value: the value of the exit method
-            traceback: a stack trace
-
-        Raises:
-            None
-        """
-
-        signal.alarm(0)
 
 
 class Background(object):
@@ -804,7 +731,7 @@ class Runner(object):
             try:
                 with Timeout(self.timeout + 5):
                     server_result = server.wait()
-            except TimeoutException:
+            except TimeoutError:
                 server.terminate()
 
             passed_tests += self.check_result(replay_result, server_result, xml_list)

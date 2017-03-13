@@ -8,9 +8,6 @@ IS_DARWIN = sys.platform == 'darwin'
 IS_LINUX = 'linux' in sys.platform
 IS_WINDOWS = sys.platform == 'win32'
 
-if IS_WINDOWS:
-    import win32file
-
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 RUNNER = os.path.join(TOOLS_DIR, 'challenge_runner.py')
 AJL = os.path.join(TOOLS_DIR, 'AppJailLauncher', 'Debug', 'AppJailLauncher.exe')
@@ -33,7 +30,20 @@ class TimeoutError(Exception):
 
 
 class Timeout(object):
-    raise_timeout = False
+    """
+    A timeout context manager that uses a thread based timer instead of SIGALRM
+
+    Usage example:
+        with Timeout(5):  # 5 seconds
+            do_slow_stuff()
+
+    By default when a timeout occurs, a TimeoutError will be raised
+    To have the block exit silently, use TimeoutSilent
+
+    NOTE: this can only interrupt the main thread, so using this
+    from other threads will not work
+    """
+    raise_timeout = True  # Raises a TimeoutError if this is True
 
     def __init__(self, seconds):
         self.timer = threading.Timer(seconds, thread.interrupt_main)
@@ -58,5 +68,5 @@ class Timeout(object):
             raise TimeoutError('Timed out after {}s'.format(self.timer.interval))
 
 
-class TimeoutEx(Timeout):
-    raise_timeout = True
+class TimeoutSilent(Timeout):
+    raise_timeout = False

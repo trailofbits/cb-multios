@@ -7,7 +7,10 @@ import sys
 from threading import Thread
 from SocketServer import StreamRequestHandler, ThreadingTCPServer
 
-from common import *
+from common import IS_WINDOWS, RUNNER, AJL, stdout_flush
+
+if IS_WINDOWS:
+    import win32file
 
 
 class ChallengeHandler(StreamRequestHandler):

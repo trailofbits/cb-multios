@@ -41,37 +41,12 @@ import socket
 import struct
 import time
 
-class TimeoutException(Exception):
-    """ Exception to be used by Timeout(), to allow catching of timeout
-    exceptions """
-    pass
+from common import Timeout, TimeoutError
 
 
 class TestFailure(Exception):
     """ Exception to be used by Throw(), to allow catching of test failures """
     pass
-
-
-class Timeout(object):
-    """ Timeout - A class to use within 'with' for timing out a block via
-    exceptions and alarm."""
-
-    def __init__(self, seconds):
-        self.seconds = seconds
-
-    @staticmethod
-    def cb_handle_timeout(signum, frame):
-        """ SIGALRM signal handler callback """
-        raise TimeoutException("timed out")
-
-    def __enter__(self):
-        if self.seconds > 0:
-            signal.signal(signal.SIGALRM, self.cb_handle_timeout)
-            signal.alarm(self.seconds)
-
-    def __exit__(self, exit_type, exit_value, traceback):
-        if self.seconds:
-            signal.alarm(0)
 
 
 def ptrace_traceme():
@@ -412,7 +387,7 @@ class Throw(object):
                 try:
                     with Timeout(self.timeout + 5):
                         self.pov_negotiate()
-                except TimeoutException:
+                except TimeoutError:
                     self.log('pov negotiation timed out')
             else:
                 self.pov_negotiate()

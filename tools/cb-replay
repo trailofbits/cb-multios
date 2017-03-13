@@ -42,6 +42,8 @@ import time
 import zipfile
 import defusedxml.ElementTree as ET
 
+from common import Timeout, TimeoutError
+
 
 class RegexMatch(object):
     """ Simple wrapper for handling regexes in Throw.
@@ -81,37 +83,9 @@ class _ValueStr(str):
     pass
 
 
-class TimeoutException(Exception):
-    """ Exception to be used by Timeout(), to allow catching of timeout
-    exceptions """
-    pass
-
-
 class TestFailure(Exception):
     """ Exception to be used by Throw(), to allow catching of test failures """
     pass
-
-
-class Timeout(object):
-    """ Timeout - A class to use within 'with' for timing out a block via
-    exceptions and alarm."""
-
-    def __init__(self, seconds):
-        self.seconds = seconds
-
-    @staticmethod
-    def cb_handle_timeout(signum, frame):
-        """ SIGALRM signal handler callback """
-        raise TimeoutException("timed out")
-
-    def __enter__(self):
-        if self.seconds:
-            signal.signal(signal.SIGALRM, self.cb_handle_timeout)
-            signal.alarm(self.seconds)
-
-    def __exit__(self, exit_type, exit_value, traceback):
-        if self.seconds:
-            signal.alarm(0)
 
 
 class Throw(object):
@@ -1328,7 +1302,7 @@ def run_pov(src, dst, pov_info, timeout, debug, max_send, negotiate, cb_seed, mu
     try:
         with Timeout(30):
             pov.parse(xml, filename=filename)
-    except TimeoutException:
+    except TimeoutError:
         error = "parsing %s timed out" % filename
     except ET.ParseError as err:
         error = "parsing %s errored: %s" % (filename, str(err))
@@ -1346,7 +1320,7 @@ def run_pov(src, dst, pov_info, timeout, debug, max_send, negotiate, cb_seed, mu
         try:
             with Timeout(timeout):
                 thrower.run()
-        except TimeoutException:
+        except TimeoutError:
             try:
                 thrower.log_fail('pov timed out')
             except TestFailure:
