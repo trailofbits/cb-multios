@@ -8,8 +8,7 @@ import subprocess
 import sys
 import time
 
-from common import IS_DARWIN, IS_LINUX, IS_WINDOWS
-from common import try_delete, Timeout, TimeoutError
+from common import *
 if IS_WINDOWS:
     import win32file
 
@@ -20,7 +19,7 @@ def print_to_launcher(s):
     os.write(launcher_stdout, s)
 
 
-def run_challenge(challenges, chal_timeout, use_signals, stdout_fd):
+def run_challenge(challenges, chal_timeout, use_signals):
     """ Handler for replay services that connect to the challenge server
 
     This will setup fds for all challenges according to:
@@ -46,27 +45,22 @@ def run_challenge(challenges, chal_timeout, use_signals, stdout_fd):
     # TODO: why bother with the encoding? modify cb-replay[-pov] to skip that
     seed = sys.stdin.read(60)[12:].encode('hex')
 
-    # Get the pid of cb-replay
-    # This will be used to send a signal when challenges are ready
-    # TODO: figure out a better way to sync this, doubt windows will like it
-    if use_signals:
-        replay_pid = sys.stdin.readline().strip()
-        try:
-            replay_pid = int(replay_pid)
-        except ValueError:
-            sys.stderr.write("Invalid cb-replay pid: {}".format(replay_pid))
-            return
-
     # This is the first fd after all of the challenges
     last_fd = 2 * len(challenges) + 3
 
-    # Move the launcher's stdout away from the challenge fds
-    global launcher_stdout
-    if IS_WINDOWS:
-        # Get a C fd from the HANDLE
-        stdout_fd = win32file._open_osfhandle(stdout_fd, os.O_APPEND)
-    os.dup2(stdout_fd, last_fd)
-    launcher_stdout = last_fd
+    try:
+        # Move the launcher's stdout away from the challenge fds
+        global launcher_stdout
+        stdout_fd = int(os.getenv(SERVER_OUT_KEY))
+
+        if IS_WINDOWS:
+            # Get a C fd from the HANDLE
+            stdout_fd = win32file._open_osfhandle(stdout_fd, os.O_APPEND)
+        os.dup2(stdout_fd, last_fd)
+        launcher_stdout = last_fd
+    except ValueError:
+        # If no fd was specified continue as normal
+        pass
 
     # Create all challenge fds
     if len(challenges) > 1:
@@ -100,9 +94,7 @@ def run_challenge(challenges, chal_timeout, use_signals, stdout_fd):
     # NOTE: cb-replay has been modified to wait for this
     # This forces cb-replay to wait until all binaries are running,
     # avoiding the race condition where the replay starts too early
-    # Using SIGILL here because SIGUSR1 is invalid on Windows
-    if use_signals:
-        os.kill(replay_pid, signal.SIGILL)
+    rp_send_sync()
 
     # Continue until any of the processes die
     try:
@@ -119,7 +111,7 @@ def run_challenge(challenges, chal_timeout, use_signals, stdout_fd):
     # Kill any remaining processes
     for proc in procs:
         if proc.poll() is None:
-            proc.terminate()
+            terminate(proc)
 
     # Close all of the ipc pipes
     os.closerange(3, last_fd)
@@ -204,15 +196,13 @@ def main():
                         help='The time in seconds that challenges are allowed to run before quitting')
     parser.add_argument('--use-signals', action='store_true',
                         help='Use signals to coordinate starting the challenges with another process')
-    parser.add_argument('stdout_fd', type=int,
-                        help='File descriptor of the server launcher\'s stdout')
     parser.add_argument('challenge_paths', nargs='+',
                         help='List of paths to challenge binaries to be started')
 
     args = parser.parse_args(sys.argv[1:])
 
     # Run the challenge
-    run_challenge(args.challenge_paths, args.timeout, args.use_signals, args.stdout_fd)
+    run_challenge(args.challenge_paths, args.timeout, args.use_signals)
 
 
 if __name__ == '__main__':
