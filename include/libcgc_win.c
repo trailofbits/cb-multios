@@ -32,6 +32,12 @@ int receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
     if (ret < 0) {
         return errno;
     } else if (rx_bytes != NULL) {
+        // Reading a single newline returns a count of 0
+        // check if that's the case and say we read 1 instead
+        if (ret == 0 && *((char *) buf) == '\n') {
+            ++ret;
+        }
+
         *rx_bytes = ret;
     }
 
