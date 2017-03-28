@@ -34,7 +34,7 @@ format [1].
 import os
 import argparse
 import multiprocessing
-import signal
+# import signal
 import re
 import socket
 import struct
@@ -42,7 +42,7 @@ import time
 import zipfile
 import defusedxml.ElementTree as ET
 
-from common import Timeout, TimeoutError
+from common import *
 
 
 class RegexMatch(object):
@@ -624,12 +624,8 @@ class Throw(object):
             self.log_fail('negotiation failed')
             return
 
-        # Send our pid to the server so we can wait for the ready signal
-        self._send_all('{}\n'.format(os.getpid()))
-
-        # Wait for the signal to start the replay
-        signal.signal(signal.SIGILL, lambda sig, frame: 0)  # Dummy handler
-        signal.pause()
+        # Wait to be notified that the challenges are ready
+        rp_recv_sync()
 
         # Everything is ready, now we can run the test
         for method, arguments in self.pov:
@@ -1269,8 +1265,9 @@ class Results(object):
         else:
             self.full_passed += 1
 
-def init_worker():
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
+# def init_worker():
+#     signal.signal(signal.SIGINT, signal.SIG_IGN)
+
 
 def run_pov(src, dst, pov_info, timeout, debug, max_send, negotiate, cb_seed, munge_seed):
     """
@@ -1388,7 +1385,7 @@ def main():
             povs.append((xml, pov_filename))
 
     result_handler = Results()
-    pool = multiprocessing.Pool(args.concurrent, init_worker)
+    pool = multiprocessing.Pool(args.concurrent)
     pool_responses = []
     try:
         for pov in povs:

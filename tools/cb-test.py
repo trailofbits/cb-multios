@@ -38,17 +38,16 @@ import signal
 import socket
 import subprocess
 import sys
+import time
 import thread
 import threading
 import Queue
 import ansi_x931_aes128
 
-from common import Timeout, TimeoutError
-
-
-IS_WINDOWS = sys.platform == 'win32'
-
-if not IS_WINDOWS:
+from common import *
+if IS_WINDOWS:
+    import win32pipe
+else:
     import resource
 
 
@@ -140,7 +139,7 @@ class Background(object):
         """
         logging.debug('terminating %s', self.cmd)
         try:
-            self.process.terminate()
+            terminate(self.process)
         except OSError:
             pass
         for my_thread in self.threads:
@@ -417,7 +416,7 @@ class Runner(object):
             None
         """
 
-        replay_bin = os.path.join('.', 'cb-replay')
+        replay_bin = os.path.join('.', 'cb-replay.py')
 
         if xml[0].endswith(add_ext('.pov')):
             replay_bin = os.path.join('.', 'cb-replay-pov')
@@ -441,7 +440,7 @@ class Runner(object):
         if self.should_debug:
             replay_cmd += ['--debug']
 
-        if replay_bin == os.path.join('.', 'cb-replay'):
+        if replay_bin == os.path.join('.', 'cb-replay.py'):
             if self.failure_ok:
                 replay_cmd += ['--failure_ok']
 
@@ -480,14 +479,15 @@ class Runner(object):
             sock.close()
 
     def _check_result_cqe(self, sig, ret):
-        if sig == signal.SIGALRM:
-            if self.failure_ok:
-                logging.warning('ok - process timed out', extra={'raw': True})
-                ret = 0
-            else:
-                logging.error('not ok - process timed out', extra={'raw': True})
-                ret = -1
-        elif sig in Runner.pov_signals:
+        # if sig == signal.SIGALRM:
+        #     if self.failure_ok:
+        #         logging.warning('ok - process timed out', extra={'raw': True})
+        #         ret = 0
+        #     else:
+        #         logging.error('not ok - process timed out', extra={'raw': True})
+        #         ret = -1
+        # el
+        if sig in Runner.pov_signals:
             if self.should_core:
                 logging.warning('ok - process cored as expected: (signal %d: %s)',
                                 sig, self.signal_name(sig), extra={'raw': True})
@@ -717,6 +717,9 @@ class Runner(object):
         for i in [cqe_xml, cfe_xml]:
             if len(i):
                 xml_sets.append(i)
+
+        # Create a pipe for synchronizing replayers and challenges
+        pipe_fds = rp_create()
 
         total_tests = sum([len(xmls) for xmls in xml_sets])
         passed_tests = 0

@@ -41,7 +41,7 @@ import socket
 import struct
 import time
 
-from common import Timeout, TimeoutError
+from common import *
 
 
 class TestFailure(Exception):
@@ -338,13 +338,6 @@ class Throw(object):
 
         # handle PRNG negotiation with cb-server
         self.cb_negotiate()
-
-        # Send our pid to the server so we can wait for the ready signal
-        self._send_all('{}\n'.format(os.getpid()))
-
-        # Wait for the signal to start the replay
-        signal.signal(signal.SIGILL, lambda sig, frame: 0)  # Dummy handler
-        signal.pause()
 
         queue = multiprocessing.Queue()
         gdb_pid = None
