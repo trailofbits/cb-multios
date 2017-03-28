@@ -7,7 +7,7 @@ import sys
 from threading import Thread
 from SocketServer import StreamRequestHandler, ThreadingTCPServer
 
-from common import IS_WINDOWS, RUNNER, AJL, stdout_flush
+from common import *
 
 if IS_WINDOWS:
     import win32file
@@ -17,11 +17,10 @@ class ChallengeHandler(StreamRequestHandler):
     challenges = []
     chal_timeout = 2
     use_signals = False
-    dup_out = 1
 
     def handle(self):
         # Prepare the challenge runner
-        runner_cmd = [sys.executable, RUNNER, '-t', str(self.chal_timeout), str(self.dup_out)] + self.challenges
+        runner_cmd = [sys.executable, RUNNER, '-t', str(self.chal_timeout)] + self.challenges
         if self.use_signals:
             runner_cmd.append('--use-signals')
 
@@ -55,11 +54,15 @@ def launch_ajl(args):
         '"{}"'.format(' '.join([
             sys.executable,
             RUNNER,
-            '-t', str(ChallengeHandler.chal_timeout),
-            str(ChallengeHandler.dup_out)
+            '-t', str(ChallengeHandler.chal_timeout)
         ] + ChallengeHandler.challenges))
     ]
-    subprocess.Popen(' '.join(ajl_cmd)).wait()  # TODO: let's not wait there...
+    p = subprocess.Popen(' '.join(ajl_cmd))
+    try:
+        with Timeout(args.timeout + 5):
+            p.communicate()
+    except TimeoutError:
+        terminate(p)
 
 
 def main():
@@ -95,10 +98,11 @@ def main():
     ChallengeHandler.use_signals = args.use_signals
 
     # Duplicate stdout for children to report back to
-    ChallengeHandler.dup_out = os.dup(1)
+    out_fd = os.dup(1)
     if IS_WINDOWS:
         # Get the HANDLE of the new stdout
-        ChallengeHandler.dup_out = win32file._get_osfhandle(ChallengeHandler.dup_out)
+        out_fd = win32file._get_osfhandle(out_fd)
+    os.putenv(SERVER_OUT_KEY, str(out_fd))
 
     # Start the challenge server
     if IS_WINDOWS:

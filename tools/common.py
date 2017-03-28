@@ -12,6 +12,80 @@ TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 RUNNER = os.path.join(TOOLS_DIR, 'challenge_runner.py')
 AJL = os.path.join(TOOLS_DIR, 'AppJailLauncher', 'Debug', 'AppJailLauncher.exe')
 
+# Key to get the server output fd
+SERVER_OUT_KEY = 'SERVER_OUT_FD'
+
+# Keys to grab the replay sync pipe fds
+_RP_R = 'REPLAY_PIPE_R'
+_RP_W = 'REPLAY_PIPE_W'
+
+# Define all os-specific functions
+if IS_WINDOWS:
+    import win32api
+    import win32pipe
+    import win32security
+    import win32file
+
+    def rp_create():
+        sattr = win32security.SECURITY_ATTRIBUTES()
+        sattr.bInheritHandle = 1
+        r, w = win32pipe.CreatePipe(sattr, 0)
+
+        os.putenv(_RP_R, str(int(r)))
+        os.putenv(_RP_W, str(int(w)))
+        return r, w
+
+    def rp_send_sync():
+        try:
+            fd = win32file._open_osfhandle(int(os.getenv(_RP_W)), os.O_APPEND)
+            os.write(fd, 'R')
+            os.close(fd)
+        except TypeError:
+            sys.stderr.write('Write end of sync pipe not specified\n')
+        except Exception as e:
+            print e
+
+    def rp_recv_sync():
+        try:
+            fd = win32file._open_osfhandle(int(os.getenv(_RP_R)), os.O_RDONLY)
+            while os.read(fd, 1) != 'R':
+                pass
+            os.close(fd)
+        except TypeError as e:
+            print e
+            sys.stderr.write('Read end of sync pipe not specified\n')
+        except Exception as e:
+            print e
+
+    def terminate(proc):
+        win32api.TerminateProcess(proc._handle, 1)
+
+else:
+    def rp_create():
+        r, w = os.pipe()
+        os.putenv(_RP_R, str(r))
+        os.putenv(_RP_W, str(w))
+
+    def rp_send_sync():
+        try:
+            fd = int(os.getenv(_RP_W))
+            os.write(fd, 'R')
+            os.close(fd)
+        except TypeError:
+            sys.stderr.write('Write end of sync pipe not specified')
+
+    def rp_recv_sync():
+        try:
+            fd = int(os.getenv(_RP_R))
+            while os.read(fd, 1) != 'R':
+                pass
+            os.close(fd)
+        except TypeError:
+            sys.stderr.write('Read end of sync pipe not specified')
+
+    def terminate(proc):
+        proc.terminate()
+
 
 def try_delete(path):
     try:
