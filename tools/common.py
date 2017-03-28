@@ -58,7 +58,11 @@ if IS_WINDOWS:
             print e
 
     def terminate(proc):
-        win32api.TerminateProcess(proc._handle, 1)
+        try:
+            win32api.TerminateProcess(proc._handle, 1)
+        except:
+            # An exception is thrown if the process has already terminated
+            pass
 
 else:
     def rp_create():
