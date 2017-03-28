@@ -4,6 +4,7 @@ import argparse
 import os
 import subprocess
 import sys
+import time
 from threading import Thread
 from SocketServer import StreamRequestHandler, ThreadingTCPServer
 
@@ -60,7 +61,8 @@ def launch_ajl(args):
     p = subprocess.Popen(' '.join(ajl_cmd))
     try:
         with Timeout(args.timeout + 5):
-            p.communicate()
+            while p.poll() is None:
+                time.sleep(0.1)
     except TimeoutError:
         terminate(p)
 
