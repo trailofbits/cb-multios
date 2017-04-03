@@ -419,7 +419,7 @@ class Runner(object):
         replay_bin = os.path.join('.', 'cb-replay.py')
 
         if xml[0].endswith(add_ext('.pov')):
-            replay_bin = os.path.join('.', 'cb-replay-pov')
+            replay_bin = os.path.join('.', 'cb-replay-pov.py')
 
         replay_cmd = [sys.executable, replay_bin, '--host', self.ip_address, '--port', '%d' %
                       self.port,
@@ -434,7 +434,7 @@ class Runner(object):
             if self.cb_seed is not None:
                 replay_cmd += ['--cb_seed', self.cb_seed]
 
-        if self.pov_seed and replay_bin == os.path.join('.', 'cb-replay-pov'):
+        if self.pov_seed and replay_bin == os.path.join('.', 'cb-replay-pov.py'):
             replay_cmd += ['--pov_seed', self.pov_seed]
 
         if self.should_debug:
@@ -738,6 +738,9 @@ class Runner(object):
                 server.terminate()
 
             passed_tests += self.check_result(replay_result, server_result, xml_list)
+
+        # Clean up sync pipes if necessary
+        rp_close()
 
         logging.warning('TOTAL TESTS: {}'.format(total_tests))
         logging.warning('TOTAL PASSED: {}'.format(passed_tests))
