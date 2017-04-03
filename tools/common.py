@@ -57,6 +57,10 @@ if IS_WINDOWS:
         except Exception as e:
             print e
 
+    def rp_close():
+        # Nothing to do here for windows
+        pass
+
     def terminate(proc):
         try:
             win32api.TerminateProcess(proc._handle, 1)
@@ -65,27 +69,29 @@ if IS_WINDOWS:
             pass
 
 else:
+    PIPE_NAME = os.path.join(TOOLS_DIR, 'rpsync|')
+
     def rp_create():
-        r, w = os.pipe()
-        os.putenv(_RP_R, str(r))
-        os.putenv(_RP_W, str(w))
+        if not os.path.exists(PIPE_NAME):
+            os.mkfifo(PIPE_NAME)
 
     def rp_send_sync():
         try:
-            fd = int(os.getenv(_RP_W))
-            os.write(fd, 'R')
-            os.close(fd)
+            with open(PIPE_NAME, 'w+') as f:
+                f.write('R')
         except TypeError:
             sys.stderr.write('Write end of sync pipe not specified')
 
     def rp_recv_sync():
         try:
-            fd = int(os.getenv(_RP_R))
-            while os.read(fd, 1) != 'R':
-                pass
-            os.close(fd)
+            with open(PIPE_NAME, 'r') as f:
+                while f.read(1) != 'R':
+                    pass
         except TypeError:
             sys.stderr.write('Read end of sync pipe not specified')
+
+    def rp_close():
+        os.remove(PIPE_NAME)
 
     def terminate(proc):
         proc.terminate()

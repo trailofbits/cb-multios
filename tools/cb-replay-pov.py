@@ -339,6 +339,8 @@ class Throw(object):
         # handle PRNG negotiation with cb-server
         self.cb_negotiate()
 
+        rp_recv_sync()
+
         queue = multiprocessing.Queue()
         gdb_pid = None
 
