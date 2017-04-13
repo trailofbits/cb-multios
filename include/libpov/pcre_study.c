@@ -43,10 +43,10 @@ supporting functions. */
 
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 #define SET_BIT(c) start_bits[c/8] |= (1 << (c&7))
 
@@ -79,7 +79,7 @@ Returns:   the minimum length
 */
 
 static int
-find_minlength(const REAL_PCRE *re, const pcre_uchar *code,
+cgc_find_minlength(const REAL_PCRE *re, const pcre_uchar *code,
   const pcre_uchar *startcode, int options, int recurse_depth)
 {
 int length = -1;
@@ -130,7 +130,7 @@ for (;;)
     case OP_SBRAPOS:
     case OP_ONCE:
     case OP_ONCE_NC:
-    d = find_minlength(re, cc, startcode, options, recurse_depth);
+    d = cgc_find_minlength(re, cc, startcode, options, recurse_depth);
     if (d < 0) return d;
     branchlength += d;
     do cc += GET(cc, 1); while (*cc == OP_ALT);
@@ -401,7 +401,7 @@ for (;;)
           }
         else
           {
-          int dd = find_minlength(re, cs, startcode, options, recurse_depth);
+          int dd = cgc_find_minlength(re, cs, startcode, options, recurse_depth);
           if (dd < d) d = dd;
           }
         slot += re->name_entry_size;
@@ -425,7 +425,7 @@ for (;;)
         }
       else
         {
-        d = find_minlength(re, cs, startcode, options, recurse_depth);
+        d = cgc_find_minlength(re, cs, startcode, options, recurse_depth);
         }
       }
     else d = 0;
@@ -478,7 +478,7 @@ for (;;)
       had_recurse = TRUE;
     else
       {
-      branchlength += find_minlength(re, cs, startcode, options,
+      branchlength += cgc_find_minlength(re, cs, startcode, options,
         recurse_depth + 1);
       }
     cc += 1 + LINK_SIZE;
@@ -590,7 +590,7 @@ Returns:        pointer after the character
 */
 
 static const pcre_uchar *
-set_table_bit(pcre_uint8 *start_bits, const pcre_uchar *p, BOOL caseless,
+cgc_set_table_bit(pcre_uint8 *start_bits, const pcre_uchar *p, BOOL caseless,
   compile_data *cd, BOOL utf)
 {
 pcre_uint32 c = *p;
@@ -678,7 +678,7 @@ Returns:         nothing
 */
 
 static void
-set_type_bits(pcre_uint8 *start_bits, int cbit_type, unsigned int table_limit,
+cgc_set_type_bits(pcre_uint8 *start_bits, int cbit_type, unsigned int table_limit,
   compile_data *cd)
 {
 register pcre_uint32 c;
@@ -720,7 +720,7 @@ Returns:         nothing
 */
 
 static void
-set_nottype_bits(pcre_uint8 *start_bits, int cbit_type, unsigned int table_limit,
+cgc_set_nottype_bits(pcre_uint8 *start_bits, int cbit_type, unsigned int table_limit,
   compile_data *cd)
 {
 register pcre_uint32 c;
@@ -757,7 +757,7 @@ Returns:       SSB_FAIL     => Failed to find any starting bytes
 */
 
 static int
-set_start_bits(const pcre_uchar *code, pcre_uint8 *start_bits, BOOL utf,
+cgc_set_start_bits(const pcre_uchar *code, pcre_uint8 *start_bits, BOOL utf,
   compile_data *cd)
 {
 register pcre_uint32 c;
@@ -928,7 +928,7 @@ do
       case OP_ONCE:
       case OP_ONCE_NC:
       case OP_ASSERT:
-      rc = set_start_bits(tcode, start_bits, utf, cd);
+      rc = cgc_set_start_bits(tcode, start_bits, utf, cd);
       if (rc == SSB_FAIL || rc == SSB_UNKNOWN) return rc;
       if (rc == SSB_DONE) try_next = FALSE; else
         {
@@ -975,7 +975,7 @@ do
       case OP_BRAZERO:
       case OP_BRAMINZERO:
       case OP_BRAPOSZERO:
-      rc = set_start_bits(++tcode, start_bits, utf, cd);
+      rc = cgc_set_start_bits(++tcode, start_bits, utf, cd);
       if (rc == SSB_FAIL || rc == SSB_UNKNOWN) return rc;
 /* =========================================================================
       See the comment at the head of this function concerning the next line,
@@ -1002,7 +1002,7 @@ do
       case OP_QUERY:
       case OP_MINQUERY:
       case OP_POSQUERY:
-      tcode = set_table_bit(start_bits, tcode + 1, FALSE, cd, utf);
+      tcode = cgc_set_table_bit(start_bits, tcode + 1, FALSE, cd, utf);
       break;
 
       case OP_STARI:
@@ -1011,7 +1011,7 @@ do
       case OP_QUERYI:
       case OP_MINQUERYI:
       case OP_POSQUERYI:
-      tcode = set_table_bit(start_bits, tcode + 1, TRUE, cd, utf);
+      tcode = cgc_set_table_bit(start_bits, tcode + 1, TRUE, cd, utf);
       break;
 
       /* Single-char upto sets the bit and tries the next */
@@ -1019,13 +1019,13 @@ do
       case OP_UPTO:
       case OP_MINUPTO:
       case OP_POSUPTO:
-      tcode = set_table_bit(start_bits, tcode + 1 + IMM2_SIZE, FALSE, cd, utf);
+      tcode = cgc_set_table_bit(start_bits, tcode + 1 + IMM2_SIZE, FALSE, cd, utf);
       break;
 
       case OP_UPTOI:
       case OP_MINUPTOI:
       case OP_POSUPTOI:
-      tcode = set_table_bit(start_bits, tcode + 1 + IMM2_SIZE, TRUE, cd, utf);
+      tcode = cgc_set_table_bit(start_bits, tcode + 1 + IMM2_SIZE, TRUE, cd, utf);
       break;
 
       /* At least one single char sets the bit and stops */
@@ -1037,7 +1037,7 @@ do
       case OP_PLUS:
       case OP_MINPLUS:
       case OP_POSPLUS:
-      (void)set_table_bit(start_bits, tcode + 1, FALSE, cd, utf);
+      (void)cgc_set_table_bit(start_bits, tcode + 1, FALSE, cd, utf);
       try_next = FALSE;
       break;
 
@@ -1048,7 +1048,7 @@ do
       case OP_PLUSI:
       case OP_MINPLUSI:
       case OP_POSPLUSI:
-      (void)set_table_bit(start_bits, tcode + 1, TRUE, cd, utf);
+      (void)cgc_set_table_bit(start_bits, tcode + 1, TRUE, cd, utf);
       try_next = FALSE;
       break;
 
@@ -1121,12 +1121,12 @@ do
       than 256 are recognized to match the types. */
 
       case OP_NOT_DIGIT:
-      set_nottype_bits(start_bits, cbit_digit, table_limit, cd);
+      cgc_set_nottype_bits(start_bits, cbit_digit, table_limit, cd);
       try_next = FALSE;
       break;
 
       case OP_DIGIT:
-      set_type_bits(start_bits, cbit_digit, table_limit, cd);
+      cgc_set_type_bits(start_bits, cbit_digit, table_limit, cd);
       try_next = FALSE;
       break;
 
@@ -1135,22 +1135,22 @@ do
       release 5.18. PCRE added it at release 8.34. */
 
       case OP_NOT_WHITESPACE:
-      set_nottype_bits(start_bits, cbit_space, table_limit, cd);
+      cgc_set_nottype_bits(start_bits, cbit_space, table_limit, cd);
       try_next = FALSE;
       break;
 
       case OP_WHITESPACE:
-      set_type_bits(start_bits, cbit_space, table_limit, cd);
+      cgc_set_type_bits(start_bits, cbit_space, table_limit, cd);
       try_next = FALSE;
       break;
 
       case OP_NOT_WORDCHAR:
-      set_nottype_bits(start_bits, cbit_word, table_limit, cd);
+      cgc_set_nottype_bits(start_bits, cbit_word, table_limit, cd);
       try_next = FALSE;
       break;
 
       case OP_WORDCHAR:
-      set_type_bits(start_bits, cbit_word, table_limit, cd);
+      cgc_set_type_bits(start_bits, cbit_word, table_limit, cd);
       try_next = FALSE;
       break;
 
@@ -1234,11 +1234,11 @@ do
         break;
 
         case OP_NOT_DIGIT:
-        set_nottype_bits(start_bits, cbit_digit, table_limit, cd);
+        cgc_set_nottype_bits(start_bits, cbit_digit, table_limit, cd);
         break;
 
         case OP_DIGIT:
-        set_type_bits(start_bits, cbit_digit, table_limit, cd);
+        cgc_set_type_bits(start_bits, cbit_digit, table_limit, cd);
         break;
 
         /* The cbit_space table has vertical tab as whitespace; we no longer
@@ -1246,19 +1246,19 @@ do
         release 5.18. PCRE added it at release 8.34. */
 
         case OP_NOT_WHITESPACE:
-        set_nottype_bits(start_bits, cbit_space, table_limit, cd);
+        cgc_set_nottype_bits(start_bits, cbit_space, table_limit, cd);
         break;
 
         case OP_WHITESPACE:
-        set_type_bits(start_bits, cbit_space, table_limit, cd);
+        cgc_set_type_bits(start_bits, cbit_space, table_limit, cd);
         break;
 
         case OP_NOT_WORDCHAR:
-        set_nottype_bits(start_bits, cbit_word, table_limit, cd);
+        cgc_set_nottype_bits(start_bits, cbit_word, table_limit, cd);
         break;
 
         case OP_WORDCHAR:
-        set_type_bits(start_bits, cbit_word, table_limit, cd);
+        cgc_set_type_bits(start_bits, cbit_word, table_limit, cd);
         break;
         }
 
@@ -1491,7 +1491,7 @@ if ((re->options & PCRE_ANCHORED) == 0 &&
   /* See if we can find a fixed set of initial characters for the pattern. */
 
   cgc_memset(start_bits, 0, 32 * sizeof(pcre_uint8));
-  rc = set_start_bits(code, start_bits, (re->options & PCRE_UTF8) != 0,
+  rc = cgc_set_start_bits(code, start_bits, (re->options & PCRE_UTF8) != 0,
     &compile_block);
   bits_set = rc == SSB_DONE;
   if (rc == SSB_UNKNOWN)
@@ -1503,7 +1503,7 @@ if ((re->options & PCRE_ANCHORED) == 0 &&
 
 /* Find the minimum length of subject string. */
 
-switch(min = find_minlength(re, code, code, re->options, 0))
+switch(min = cgc_find_minlength(re, code, code, re->options, 0))
   {
   case -2: *errorptr = "internal error: missing capturing bracket"; return NULL;
   case -3: *errorptr = "internal error: opcode not recognized"; return NULL;

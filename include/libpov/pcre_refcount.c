@@ -45,10 +45,10 @@ shared by different users. */
 
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 
 /*************************************************
@@ -70,7 +70,7 @@ Returns:        the (possibly updated) count value (a non-negative number), or
 
 #if defined COMPILE_PCRE8
 PCRE_EXP_DEFN int PCRE_CALL_CONVENTION
-pcre_refcount(pcre *argument_re, int adjust)
+cgc_pcre_refcount(pcre *argument_re, int adjust)
 #elif defined COMPILE_PCRE16
 PCRE_EXP_DEFN int PCRE_CALL_CONVENTION
 pcre16_refcount(pcre16 *argument_re, int adjust)

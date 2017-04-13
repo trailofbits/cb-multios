@@ -44,10 +44,10 @@ for these functions came from Scott Wimer. */
 
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 
 /*************************************************

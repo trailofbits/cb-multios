@@ -35,47 +35,47 @@ static unsigned char type_flags[256] = {
      IS_LOWER, IS_LOWER, IS_LOWER, 0, 0, 0, 0, 0,
 };
 
-int isalnum(int c) {
+int cgc_isalnum(int c) {
    return (type_flags[c & 0xff] & IS_ALNUM) != 0;
 }
 
-int isalpha(int c) {
+int cgc_isalpha(int c) {
    return (type_flags[c & 0xff] & IS_ALPHA) != 0;
 }
 
-int iscntrl(int c) {
+int cgc_iscntrl(int c) {
    return (type_flags[c & 0xff] & IS_CTRL) != 0;
 }
 
-int isdigit(int c) {
+int cgc_isdigit(int c) {
    return (type_flags[c & 0xff] & IS_DIGIT) != 0;
 }
 
-int isgraph(int c) {
+int cgc_isgraph(int c) {
    return c > ' ' && c <= '~';
 }
 
-int islower(int c) {
+int cgc_islower(int c) {
    return (type_flags[c & 0xff] & IS_LOWER) != 0;
 }
 
-int isprint(int c) {
+int cgc_isprint(int c) {
    return c >= ' ' && c <= '~';
 }
 
-int ispunct(int c) {
-   return isprint(c) && (type_flags[c & 0xff] & (IS_SPACE | IS_ALNUM)) == 0;
+int cgc_ispunct(int c) {
+   return cgc_isprint(c) && (type_flags[c & 0xff] & (IS_SPACE | IS_ALNUM)) == 0;
 }
 
-int isspace(int c) {
+int cgc_isspace(int c) {
    return (type_flags[c & 0xff] & IS_SPACE) != 0;
 }
 
-int isupper(int c) {
+int cgc_isupper(int c) {
    return (type_flags[c & 0xff] & IS_UPPER) != 0;
 }
 
-int isxdigit(int c) {
+int cgc_isxdigit(int c) {
    return (type_flags[c & 0xff] & IS_XDIGIT) != 0;
 }
 

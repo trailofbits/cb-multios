@@ -3,13 +3,11 @@ add_library(pov ${srcs})
 
 target_compile_definitions(pov PUBLIC -DNPATCHED)
 if(WIN32)
-    target_compile_options(pov PUBLIC /X)
+    # target_compile_options(pov PUBLIC /X)
 else()
     target_compile_options(pov PUBLIC
         -pedantic
-        -nostdlib
         -fno-builtin
-        -nostdinc
         -O0
     )
 endif()

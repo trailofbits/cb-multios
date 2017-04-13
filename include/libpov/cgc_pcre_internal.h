@@ -106,12 +106,12 @@ be absolutely sure we get our version. */
 setjmp and stdarg are used is when NO_RECURSE is set. */
 
 #include <libcgc.h>
-#include <pov/ctype.h>
-#include <pov/limits.h>
-#include "config.h"
+#include <pov/cgc_ctype.h>
+#include <pov/cgc_limits.h>
+#include "cgc_config.h"
 //#include <stdio.h>
-#include <pov/stdlib.h>
-#include <pov/string.h>
+#include <pov/cgc_stdlib.h>
+#include <pov/cgc_string.h>
 
 /* Valgrind (memcheck) support */
 
@@ -231,9 +231,9 @@ have stdint.h (e.g. Solaris) may have inttypes.h. The macro int64_t may be set
 by "configure". */
 
 #if defined HAVE_STDINT_H
-#include <stdint.h>
+#include <cgc_stdint.h>
 #elif defined HAVE_INTTYPES_H
-#include <inttypes.h>
+#include <cgc_inttypes.h>
 #endif
 
 #if defined INT64_MAX || defined int64_t
@@ -354,8 +354,8 @@ must begin with PCRE_. */
 /* Include the public PCRE header and the definitions of UCP character property
 values. */
 
-#include <pov/pcre.h>
-#include "ucp.h"
+#include <pov/cgc_pcre.h>
+#include "cgc_ucp.h"
 
 #ifdef COMPILE_PCRE32
 /* Assert that the public PCRE_UCHAR32 is a 32-bit type */
@@ -2669,13 +2669,13 @@ sense, but are not part of the PCRE public API. */
 #if defined COMPILE_PCRE8
 
 #define STRCMP_UC_UC(str1, str2) \
-  strcmp((char *)(str1), (char *)(str2))
+  cgc_strcmp((char *)(str1), (char *)(str2))
 #define STRCMP_UC_C8(str1, str2) \
   strcmp((char *)(str1), (str2))
 #define STRNCMP_UC_UC(str1, str2, num) \
-  strncmp((char *)(str1), (char *)(str2), (num))
+  cgc_strncmp((char *)(str1), (char *)(str2), (num))
 #define STRNCMP_UC_C8(str1, str2, num) \
-  strncmp((char *)(str1), (str2), (num))
+  cgc_strncmp((char *)(str1), (str2), (num))
 #define STRLEN_UC(str) cgc_strlen((const char *)str)
 
 #elif defined COMPILE_PCRE16 || defined COMPILE_PCRE32

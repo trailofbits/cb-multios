@@ -41,12 +41,12 @@ POSSIBILITY OF SUCH DAMAGE.
 /* This module contains the external function pcre_config(). */
 
 
-#include "config.h"
+#include "cgc_config.h"
 
 /* Keep the original link size. */
 static int real_link_size = LINK_SIZE;
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 
 /*************************************************
@@ -65,7 +65,7 @@ Returns:           0 if data returned, negative on error
 
 #if defined COMPILE_PCRE8
 PCRE_EXP_DEFN int PCRE_CALL_CONVENTION
-pcre_config(int what, void *where)
+cgc_pcre_config(int what, void *where)
 #elif defined COMPILE_PCRE16
 PCRE_EXP_DEFN int PCRE_CALL_CONVENTION
 pcre16_config(int what, void *where)

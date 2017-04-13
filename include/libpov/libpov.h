@@ -3,10 +3,10 @@
 #define __POVLIB_H
 
 #include <libcgc.h>
-#include <pov/string.h>
-#include <pov/stdlib.h>
-#include <pov/ctype.h>
-#include <pov/pcre.h>
+#include <pov/cgc_string.h>
+#include <pov/cgc_stdlib.h>
+#include <pov/cgc_ctype.h>
+#include <pov/cgc_pcre.h>
 
 /*
  * The following functions are available to POV authors to support 
@@ -43,7 +43,7 @@ typedef struct type2_vals_ {
  *  (crash_eip & ipmask) == t1vals->ipval 
  *  (crash_REG & regmask) == t1vals->regval 
  */
-int type1_negotiate(unsigned int ipmask, unsigned int regmask, unsigned int regnum, type1_vals *t1vals);
+int cgc_type1_negotiate(unsigned int ipmask, unsigned int regmask, unsigned int regnum, type1_vals *t1vals);
 
 /*
  * Negotiate a type 2 pov. 
@@ -51,13 +51,13 @@ int type1_negotiate(unsigned int ipmask, unsigned int regmask, unsigned int regn
  * (t2vals->region_addr) and size of a memory region (t2vals->region_size)
  * from which the POV must leak a specific number of bytes (t2vals->read_size).
  */
-int type2_negotiate(type2_vals *t2vals);
+int cgc_type2_negotiate(type2_vals *t2vals);
 
 /*
  * Submit the len bytes in the val buffer as the results of a type 2 POV
  * Returns 0 on success
  */
-int type2_submit(const unsigned char *val, cgc_size_t len);
+int cgc_type2_submit(const unsigned char *val, cgc_size_t len);
 
 /*
  *------------------------------------------------------------------
@@ -68,14 +68,14 @@ int type2_submit(const unsigned char *val, cgc_size_t len);
  * povxml files. They are not documented for the general use of POV authors
  */
 
-void delay(unsigned int msec);
-unsigned char *append_var(const char *var, unsigned char *buf, unsigned int *buflen);
-unsigned char *append_slice(const char *var, int begin, int end, unsigned char *buf, unsigned int *buflen);
-unsigned char *append_buf(unsigned char *buf, unsigned int *buflen, unsigned char *sbuf, unsigned int sbuflen);
+void cgc_delay(unsigned int msec);
+unsigned char *cgc_append_var(const char *var, unsigned char *buf, unsigned int *buflen);
+unsigned char *cgc_append_slice(const char *var, int begin, int end, unsigned char *buf, unsigned int *buflen);
+unsigned char *cgc_append_buf(unsigned char *buf, unsigned int *buflen, unsigned char *sbuf, unsigned int sbuflen);
 
-int delimited_read(int fd, unsigned char **buf, unsigned int *size, unsigned char *delim, unsigned int delim_len);
-int length_read(int fd, unsigned char *buf, unsigned int len);
-int transmit_all(int fd, const void *buf, const cgc_size_t size);
+int cgc_delimited_read(int fd, unsigned char **buf, unsigned int *size, unsigned char *delim, unsigned int delim_len);
+int cgc_length_read(int fd, unsigned char *buf, unsigned int len);
+int cgc_transmit_all(int fd, const void *buf, const cgc_size_t size);
 
 typedef struct _match_result {
    unsigned int match_start;
@@ -83,18 +83,18 @@ typedef struct _match_result {
    unsigned int len0;
 } match_result;
 
-pcre *init_regex(const char *pattern);
-int regex_match(pcre *regex, unsigned int group, const unsigned char *buf, unsigned int len, match_result *res);
+pcre *cgc_init_regex(const char *pattern);
+int cgc_regex_match(pcre *regex, unsigned int group, const unsigned char *buf, unsigned int len, match_result *res);
 
-void negotiate_type1(unsigned int ipmask, unsigned int regmask, unsigned int regnum);
-void negotiate_type2();
-void submit_type2(const char *var);
+void cgc_negotiate_type1(unsigned int ipmask, unsigned int regmask, unsigned int regnum);
+void cgc_negotiate_type2();
+void cgc_submit_type2(const char *var);
 
-cgc_size_t var_match(const unsigned char *readbuf, unsigned int buflen, const char *varName); 
-unsigned int data_match(const unsigned char *readbuf, unsigned int buflen, const unsigned char *data, unsigned int datalen); 
+cgc_size_t cgc_var_match(const unsigned char *readbuf, unsigned int buflen, const char *varName); 
+unsigned int cgc_data_match(const unsigned char *readbuf, unsigned int buflen, const unsigned char *data, unsigned int datalen); 
 unsigned int pcre_match(const unsigned char *readbuf, unsigned int buflen, const char *regex);
 
-void assign_from_slice(const char *var, const void *readbuf, unsigned int buflen, int low, int high, int doMax);
-void assign_from_pcre(const char *var, const void *readbuf, unsigned int buflen, const char *regex, int group);
+void cgc_assign_from_slice(const char *var, const void *readbuf, unsigned int buflen, int low, int high, int doMax);
+void cgc_assign_from_pcre(const char *var, const void *readbuf, unsigned int buflen, const char *regex, int group);
 
 #endif
