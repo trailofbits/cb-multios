@@ -21,13 +21,13 @@
 #define MAX(a, b) (((a) < (b)) ? (b) : (a))
 
 /* Terminates the process. */
-void _terminate(unsigned int status) {
+void cgc__terminate(unsigned int status) {
   exit(status);
   __builtin_unreachable();
 }
 
 /* Transmits data from one CGC process to another. */
-int transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
+int cgc_transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
   const cgc_ssize_t ret = write(fd, buf, count);
 
   if (ret < 0) {
@@ -42,7 +42,7 @@ int transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
 }
 
 /* Receives data from another CGC process. */
-int receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
+int cgc_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
   const cgc_ssize_t ret = read(fd, buf, count);
 
   if (ret < 0) {
@@ -57,7 +57,7 @@ int receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
 }
 
 /* Tries to validate a timeout. */
-static int check_timeout(const struct cgc_timeval *timeout) {
+static int cgc_check_timeout(const struct cgc_timeval *timeout) {
   if (!timeout) {
     return 0;
   } else if (0 > timeout->tv_sec || 0 > timeout->tv_usec) {
@@ -77,7 +77,7 @@ enum {
 };
 
 /* Marshal a CGC fd set into an OS fd set. */
-static int copy_cgc_fd_set(const cgc_fd_set *cgc_fds, fd_set *os_fds, int *num_fds) {
+static int cgc_copy_cgc_fd_set(const cgc_fd_set *cgc_fds, fd_set *os_fds, int *num_fds) {
   for (unsigned fd = 0; fd < CGC__NFDBITS; ++fd) {
     if (CGC_FD_ISSET(fd, cgc_fds)) {
       // Shouldn't be using an fd greater than the allowed values
@@ -96,7 +96,7 @@ static int copy_cgc_fd_set(const cgc_fd_set *cgc_fds, fd_set *os_fds, int *num_f
 }
 
 /* Marshal an OS fd set into a CGC fd set. */
-static void copy_os_fd_set(const fd_set *os_fds, cgc_fd_set *cgc_fds) {
+static void cgc_copy_os_fd_set(const fd_set *os_fds, cgc_fd_set *cgc_fds) {
   for (unsigned fd = 0; fd < MIN(NFDBITS, CGC__NFDBITS); ++fd) {
     if (FD_ISSET(fd, os_fds)) {
       CGC_FD_SET(fd, cgc_fds);
@@ -106,7 +106,7 @@ static void copy_os_fd_set(const fd_set *os_fds, cgc_fd_set *cgc_fds) {
 int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
                const struct cgc_timeval *timeout, int *readyfds) {
 
-  int ret = check_timeout(timeout);
+  int ret = cgc_check_timeout(timeout);
   int actual_num_fds = 0;
   struct timeval max_wait_time = {0, 0};
   fd_set read_fds;
@@ -122,13 +122,13 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
   FD_ZERO(&write_fds);
 
   if (readfds) {
-    if (0 != (ret = copy_cgc_fd_set(readfds, &read_fds, &actual_num_fds))) {
+    if (0 != (ret = cgc_copy_cgc_fd_set(readfds, &read_fds, &actual_num_fds))) {
       return ret;
     }
   }
 
   if (writefds) {
-    if (0 != (ret = copy_cgc_fd_set(writefds, &write_fds, &actual_num_fds))) {
+    if (0 != (ret = cgc_copy_cgc_fd_set(writefds, &write_fds, &actual_num_fds))) {
       return ret;
     }
   }
@@ -156,11 +156,11 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
     return errno;
 
   if (readfds) {
-    copy_os_fd_set(&read_fds, readfds);
+    cgc_copy_os_fd_set(&read_fds, readfds);
   }
 
   if (writefds) {
-    copy_os_fd_set(&write_fds, writefds);
+    cgc_copy_os_fd_set(&write_fds, writefds);
   }
 
   if (readyfds) {
@@ -174,7 +174,7 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
  * challenges, and if it were used, then JITed code would likely be 32-bit, and
  * ideally, this code will also work on 64-bit.
  */
-int allocate(cgc_size_t length, int is_executable, void **addr) {
+int cgc_allocate(cgc_size_t length, int is_executable, void **addr) {
   int page_perms = PROT_READ | PROT_WRITE;
   if (is_executable)
     page_perms |= PROT_EXEC;
@@ -194,7 +194,7 @@ int allocate(cgc_size_t length, int is_executable, void **addr) {
 }
 
 /* Deallocate some range of memory and mark the pages as free. */
-int deallocate(void *addr, cgc_size_t length) {
+int cgc_deallocate(void *addr, cgc_size_t length) {
 
   const int ret = munmap(addr, length);
 
@@ -210,7 +210,7 @@ static cgc_prng *cgc_internal_prng = NULL;
 /**
  * Initializes the prng for use with cgc_random and the flag page
  */
-static void try_init_prng() {
+static void cgc_try_init_prng() {
     // Don't reinitialize
     if (cgc_internal_prng != NULL) return;
 
@@ -241,7 +241,7 @@ static void try_init_prng() {
 
 int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
     // Get random bytes from the prng
-    try_init_prng();
+    cgc_try_init_prng();
     cgc_aes_get_bytes(cgc_internal_prng, count, buf);
 
     if (rnd_bytes)
@@ -261,6 +261,6 @@ static void __attribute__ ((constructor)) cgc_initialize_flag_page(void) {
   }
 
   // Fill the flag page with bytes from the prng
-  try_init_prng();
+  cgc_try_init_prng();
   cgc_aes_get_bytes(cgc_internal_prng, PAGE_SIZE, mmap_addr);
 }

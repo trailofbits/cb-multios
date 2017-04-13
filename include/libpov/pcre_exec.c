@@ -42,14 +42,14 @@ pattern matching using an NFA algorithm, trying to mimic Perl as closely as
 possible. There are also some static supporting functions. */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
 #define NLBLOCK md             /* Block containing newline information */
 #define PSSTART start_subject  /* Field containing processed string start */
 #define PSEND   end_subject    /* Field containing processed string end */
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 /* Undefine some potentially clashing cpp symbols */
 
@@ -162,7 +162,7 @@ Returns:      >= 0 the number of subject bytes matched
 */
 
 static int
-match_ref(int offset, register PCRE_PUCHAR eptr, int length, match_data *md,
+cgc_match_ref(int offset, register PCRE_PUCHAR eptr, int length, match_data *md,
   BOOL caseless)
 {
 PCRE_PUCHAR eptr_start = eptr;
@@ -333,7 +333,7 @@ actually used in this definition. */
   }
 #else
 #define RMATCH(ra,rb,rc,rd,re,rw) \
-  rrc = match(ra,rb,mstart,rc,rd,re,rdepth+1)
+  rrc = cgc_match(ra,rb,mstart,rc,rd,re,rdepth+1)
 #define RRETURN(ra) return ra
 #endif
 
@@ -510,7 +510,7 @@ Returns:       MATCH_MATCH if matched            )  these values are >= 0
 */
 
 static int
-match(REGISTER PCRE_PUCHAR eptr, REGISTER const pcre_uchar *ecode,
+cgc_match(REGISTER PCRE_PUCHAR eptr, REGISTER const pcre_uchar *ecode,
   PCRE_PUCHAR mstart, int offset_top, match_data *md, eptrblock *eptrb,
   unsigned int rdepth)
 {
@@ -666,7 +666,7 @@ size. */
 if (ecode == NULL)
   {
   if (rdepth == 0)
-    return match((PCRE_PUCHAR)&rdepth, NULL, NULL, 0, NULL, NULL, 1);
+    return cgc_match((PCRE_PUCHAR)&rdepth, NULL, NULL, 0, NULL, NULL, 1);
   else
     {
     int len = (char *)&rdepth - (char *)eptr;
@@ -2759,7 +2759,7 @@ for (;;)
       break;
 
       default:               /* No repeat follows */
-      if ((length = match_ref(offset, eptr, length, md, caseless)) < 0)
+      if ((length = cgc_match_ref(offset, eptr, length, md, caseless)) < 0)
         {
         if (length == -2) eptr = md->end_subject;   /* Partial match */
         CHECK_PARTIAL();
@@ -2785,7 +2785,7 @@ for (;;)
     for (i = 1; i <= min; i++)
       {
       int slength;
-      if ((slength = match_ref(offset, eptr, length, md, caseless)) < 0)
+      if ((slength = cgc_match_ref(offset, eptr, length, md, caseless)) < 0)
         {
         if (slength == -2) eptr = md->end_subject;   /* Partial match */
         CHECK_PARTIAL();
@@ -2809,7 +2809,7 @@ for (;;)
         RMATCH(eptr, ecode, offset_top, md, eptrb, RM14);
         if (rrc != MATCH_NOMATCH) RRETURN(rrc);
         if (fi >= max) RRETURN(MATCH_NOMATCH);
-        if ((slength = match_ref(offset, eptr, length, md, caseless)) < 0)
+        if ((slength = cgc_match_ref(offset, eptr, length, md, caseless)) < 0)
           {
           if (slength == -2) eptr = md->end_subject;   /* Partial match */
           CHECK_PARTIAL();
@@ -2828,7 +2828,7 @@ for (;;)
       for (i = min; i < max; i++)
         {
         int slength;
-        if ((slength = match_ref(offset, eptr, length, md, caseless)) < 0)
+        if ((slength = cgc_match_ref(offset, eptr, length, md, caseless)) < 0)
           {
           /* Can't use CHECK_PARTIAL because we don't want to update eptr in
           the soft partial matching case. */
@@ -6390,7 +6390,7 @@ if (re == NULL && extra_data == NULL && subject == NULL && length == -999 &&
 #ifdef NO_RECURSE
   return -((int)sizeof(heapframe));
 #else
-  return match(NULL, NULL, NULL, 0, NULL, NULL, 0);
+  return cgc_match(NULL, NULL, NULL, 0, NULL, NULL, 0);
 #endif
 
 /* Plausibility checks */
@@ -6920,7 +6920,7 @@ for(;;)
   md->match_function_type = 0;
   md->end_offset_top = 0;
   md->skip_arg_count = 0;
-  rc = match(start_match, md->start_code, start_match, 2, md, NULL, 0);
+  rc = cgc_match(start_match, md->start_code, start_match, 2, md, NULL, 0);
   if (md->hitend && start_partial == NULL)
     {
     start_partial = md->start_used_ptr;

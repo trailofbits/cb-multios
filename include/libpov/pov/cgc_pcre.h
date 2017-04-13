@@ -66,7 +66,7 @@ don't change existing definitions of PCRE_EXP_DECL and PCRECPP_EXP_DECL. */
 /* Have to include stdlib.h in order to ensure that cgc_size_t is defined;
 it is needed here for malloc. */
 
-#include <pov/stdlib.h>
+#include <pov/cgc_stdlib.h>
 
 /* Public options. Some are compile-time only, some are run-time only, and some
 are both. Most of the compile-time options are saved with the compiled regex so
@@ -522,7 +522,7 @@ PCRE_EXP_DECL pcre16 *pcre16_compile2(PCRE_SPTR16, int, int *, const char **,
                   int *, const unsigned char *);
 PCRE_EXP_DECL pcre32 *pcre32_compile2(PCRE_SPTR32, int, int *, const char **,
                   int *, const unsigned char *);
-PCRE_EXP_DECL int  pcre_config(int, void *);
+PCRE_EXP_DECL int  cgc_pcre_config(int, void *);
 PCRE_EXP_DECL int  pcre16_config(int, void *);
 PCRE_EXP_DECL int  pcre32_config(int, void *);
 PCRE_EXP_DECL int  pcre_copy_named_substring(const pcre *, const char *,
@@ -600,7 +600,7 @@ PCRE_EXP_DECL int  pcre32_get_substring_list(PCRE_SPTR32, int *, int,
 PCRE_EXP_DECL const unsigned char *pcre_maketables(void);
 PCRE_EXP_DECL const unsigned char *pcre16_maketables(void);
 PCRE_EXP_DECL const unsigned char *pcre32_maketables(void);
-PCRE_EXP_DECL int  pcre_refcount(pcre *, int);
+PCRE_EXP_DECL int  cgc_pcre_refcount(pcre *, int);
 PCRE_EXP_DECL int  pcre16_refcount(pcre16 *, int);
 PCRE_EXP_DECL int  pcre32_refcount(pcre32 *, int);
 PCRE_EXP_DECL pcre_extra *pcre_study(const pcre *, int, const char **);
@@ -609,7 +609,7 @@ PCRE_EXP_DECL pcre32_extra *pcre32_study(const pcre32 *, int, const char **);
 PCRE_EXP_DECL void pcre_free_study(pcre_extra *);
 PCRE_EXP_DECL void pcre16_free_study(pcre16_extra *);
 PCRE_EXP_DECL void pcre32_free_study(pcre32_extra *);
-PCRE_EXP_DECL const char *pcre_version(void);
+PCRE_EXP_DECL const char *cgc_pcre_version(void);
 PCRE_EXP_DECL const char *pcre16_version(void);
 PCRE_EXP_DECL const char *pcre32_version(void);
 
@@ -627,19 +627,19 @@ PCRE_EXP_DECL int  pcre32_utf32_to_host_byte_order(PCRE_UCHAR32 *,
 
 /* JIT compiler related functions. */
 
-PCRE_EXP_DECL pcre_jit_stack *pcre_jit_stack_alloc(int, int);
+PCRE_EXP_DECL pcre_jit_stack *cgc_pcre_jit_stack_alloc(int, int);
 PCRE_EXP_DECL pcre16_jit_stack *pcre16_jit_stack_alloc(int, int);
 PCRE_EXP_DECL pcre32_jit_stack *pcre32_jit_stack_alloc(int, int);
-PCRE_EXP_DECL void pcre_jit_stack_free(pcre_jit_stack *);
+PCRE_EXP_DECL void cgc_pcre_jit_stack_free(pcre_jit_stack *);
 PCRE_EXP_DECL void pcre16_jit_stack_free(pcre16_jit_stack *);
 PCRE_EXP_DECL void pcre32_jit_stack_free(pcre32_jit_stack *);
-PCRE_EXP_DECL void pcre_assign_jit_stack(pcre_extra *,
+PCRE_EXP_DECL void cgc_pcre_assign_jit_stack(pcre_extra *,
                   pcre_jit_callback, void *);
 PCRE_EXP_DECL void pcre16_assign_jit_stack(pcre16_extra *,
                   pcre16_jit_callback, void *);
 PCRE_EXP_DECL void pcre32_assign_jit_stack(pcre32_extra *,
                   pcre32_jit_callback, void *);
-PCRE_EXP_DECL void pcre_jit_free_unused_memory(void);
+PCRE_EXP_DECL void cgc_pcre_jit_free_unused_memory(void);
 PCRE_EXP_DECL void pcre16_jit_free_unused_memory(void);
 PCRE_EXP_DECL void pcre32_jit_free_unused_memory(void);
 

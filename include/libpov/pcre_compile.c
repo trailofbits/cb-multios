@@ -43,14 +43,14 @@ supporting internal functions that are not used by other modules. */
 
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
 #define NLBLOCK cd             /* Block containing newline information */
 #define PSSTART start_pattern  /* Field containing pattern start */
 #define PSEND   end_pattern    /* Field containing pattern end */
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 
 /* When PCRE_DEBUG is defined, we need the pcre(16|32)_printint() function, which
@@ -80,11 +80,11 @@ to check them every time. */
 /* Definitions to allow mutual recursion */
 
 static int
-  add_list_to_class(pcre_uint8 *, pcre_uchar **, int, compile_data *,
+  cgc_add_list_to_class(pcre_uint8 *, pcre_uchar **, int, compile_data *,
     const pcre_uint32 *, unsigned int);
 
 static BOOL
-  compile_regex(int, pcre_uchar **, const pcre_uchar **, int *, BOOL, BOOL, int, int,
+  cgc_compile_regex(int, pcre_uchar **, const pcre_uchar **, int *, BOOL, BOOL, int, int,
     pcre_uint32 *, pcre_int32 *, pcre_uint32 *, pcre_int32 *, branch_chain *,
     compile_data *, int *);
 
@@ -881,7 +881,7 @@ Returns:    pointer to the error string
 */
 
 static const char *
-find_error_text(int n)
+cgc_find_error_text(int n)
 {
 const char *s = error_texts;
 for (; n > 0; n--)
@@ -908,7 +908,7 @@ Returns:  0 if all went well, else an error number
 */
 
 static int
-expand_workspace(compile_data *cd)
+cgc_expand_workspace(compile_data *cd)
 {
 pcre_uchar *newspace;
 int newsize = cd->workspace_size * 2;
@@ -947,7 +947,7 @@ Returns:    TRUE or FALSE
 */
 
 static BOOL
-is_counted_repeat(const pcre_uchar *p)
+cgc_is_counted_repeat(const pcre_uchar *p)
 {
 if (!IS_DIGIT(*p)) return FALSE;
 p++;
@@ -992,7 +992,7 @@ Returns:         zero => a data character
 */
 
 static int
-check_escape(const pcre_uchar **ptrptr, pcre_uint32 *chptr, int *errorcodeptr,
+cgc_check_escape(const pcre_uchar **ptrptr, pcre_uint32 *chptr, int *errorcodeptr,
   int bracount, int options, BOOL isclass)
 {
 /* PCRE_UTF16 has the same value as PCRE_UTF8. */
@@ -1451,7 +1451,7 @@ newline". PCRE does not support \N{name}. However, it does support
 quantification such as \N{2,3}. */
 
 if (escape == ESC_N && ptr[1] == CHAR_LEFT_CURLY_BRACKET &&
-     !is_counted_repeat(ptr+2))
+     !cgc_is_counted_repeat(ptr+2))
   *errorcodeptr = ERR37;
 
 /* If PCRE_UCP is set, we change the values for \d etc. */
@@ -1585,7 +1585,7 @@ Returns:         pointer to '}' on success;
 */
 
 static const pcre_uchar *
-read_repeat_counts(const pcre_uchar *p, int *minp, int *maxp, int *errorcodeptr)
+cgc_read_repeat_counts(const pcre_uchar *p, int *minp, int *maxp, int *errorcodeptr)
 {
 int min = 0;
 int max = -1;
@@ -1647,7 +1647,7 @@ Returns:       pointer to the first significant opcode
 */
 
 static const pcre_uchar*
-first_significant_code(const pcre_uchar *code, BOOL skipassert)
+cgc_first_significant_code(const pcre_uchar *code, BOOL skipassert)
 {
 for (;;)
   {
@@ -1713,7 +1713,7 @@ Returns:   the fixed length,
 */
 
 static int
-find_fixedlength(pcre_uchar *code, BOOL utf, BOOL atend, compile_data *cd)
+cgc_find_fixedlength(pcre_uchar *code, BOOL utf, BOOL atend, compile_data *cd)
 {
 int length = -1;
 
@@ -1741,7 +1741,7 @@ for (;;)
     case OP_ONCE:
     case OP_ONCE_NC:
     case OP_COND:
-    d = find_fixedlength(cc + ((op == OP_CBRA)? IMM2_SIZE : 0), utf, atend, cd);
+    d = cgc_find_fixedlength(cc + ((op == OP_CBRA)? IMM2_SIZE : 0), utf, atend, cd);
     if (d < 0) return d;
     branchlength += d;
     do cc += GET(cc, 1); while (*cc == OP_ALT);
@@ -1775,7 +1775,7 @@ for (;;)
     cs = ce = (pcre_uchar *)cd->start_code + GET(cc, 1);  /* Start subpattern */
     do ce += GET(ce, 1); while (*ce == OP_ALT);           /* End subpattern */
     if (cc > cs && cc < ce) return -1;                    /* Recursion */
-    d = find_fixedlength(cs + IMM2_SIZE, utf, atend, cd);
+    d = cgc_find_fixedlength(cs + IMM2_SIZE, utf, atend, cd);
     if (d < 0) return d;
     branchlength += d;
     cc += 1 + LINK_SIZE;
@@ -2182,7 +2182,7 @@ Returns:      pointer to the opcode for OP_RECURSE, or NULL if not found
 */
 
 static const pcre_uchar *
-find_recurse(const pcre_uchar *code, BOOL utf)
+cgc_find_recurse(const pcre_uchar *code, BOOL utf)
 {
 for (;;)
   {
@@ -2340,15 +2340,15 @@ typedef struct recurse_check {
 } recurse_check;
 
 static BOOL
-could_be_empty_branch(const pcre_uchar *code, const pcre_uchar *endcode,
+cgc_could_be_empty_branch(const pcre_uchar *code, const pcre_uchar *endcode,
   BOOL utf, compile_data *cd, recurse_check *recurses)
 {
 register pcre_uchar c;
 recurse_check this_recurse;
 
-for (code = first_significant_code(code + PRIV(OP_lengths)[*code], TRUE);
+for (code = cgc_first_significant_code(code + PRIV(OP_lengths)[*code], TRUE);
      code < endcode;
-     code = first_significant_code(code + PRIV(OP_lengths)[c], TRUE))
+     code = cgc_first_significant_code(code + PRIV(OP_lengths)[c], TRUE))
   {
   const pcre_uchar *ccode;
 
@@ -2413,7 +2413,7 @@ for (code = first_significant_code(code + PRIV(OP_lengths)[*code], TRUE);
 
     do
       {
-      if (could_be_empty_branch(scode, endcode, utf, cd, &this_recurse))
+      if (cgc_could_be_empty_branch(scode, endcode, utf, cd, &this_recurse))
         {
         empty_branch = TRUE;
         break;
@@ -2469,7 +2469,7 @@ for (code = first_significant_code(code + PRIV(OP_lengths)[*code], TRUE);
       empty_branch = FALSE;
       do
         {
-        if (!empty_branch && could_be_empty_branch(code, endcode, utf, cd, NULL))
+        if (!empty_branch && cgc_could_be_empty_branch(code, endcode, utf, cd, NULL))
           empty_branch = TRUE;
         code += GET(code, 1);
         }
@@ -2715,12 +2715,12 @@ Returns:      TRUE if what is matched could be empty
 */
 
 static BOOL
-could_be_empty(const pcre_uchar *code, const pcre_uchar *endcode,
+cgc_could_be_empty(const pcre_uchar *code, const pcre_uchar *endcode,
   branch_chain *bcptr, BOOL utf, compile_data *cd)
 {
 while (bcptr != NULL && bcptr->current_branch >= code)
   {
-  if (!could_be_empty_branch(bcptr->current_branch, endcode, utf, cd, NULL))
+  if (!cgc_could_be_empty_branch(bcptr->current_branch, endcode, utf, cd, NULL))
     return FALSE;
   bcptr = bcptr->outer;
   }
@@ -2741,7 +2741,7 @@ Returns:    base opcode for the type
 */
 
 static pcre_uchar
-get_repeat_base(pcre_uchar c)
+cgc_get_repeat_base(pcre_uchar c)
 {
 return (c > OP_TYPEPOSUPTO)? c :
        (c >= OP_TYPESTAR)?   OP_TYPESTAR :
@@ -2859,7 +2859,7 @@ Returns:      points to the start of the next opcode if *code is accepted
 */
 
 static const pcre_uchar *
-get_chr_property_list(const pcre_uchar *code, BOOL utf,
+cgc_get_chr_property_list(const pcre_uchar *code, BOOL utf,
   const pcre_uint8 *fcc, pcre_uint32 *list)
 {
 pcre_uchar c = *code;
@@ -2880,7 +2880,7 @@ code++;
 
 if (c >= OP_STAR && c <= OP_TYPEPOSUPTO)
   {
-  base = get_repeat_base(c);
+  base = cgc_get_repeat_base(c);
   c -= (base - OP_STAR);
 
   if (c == OP_UPTO || c == OP_MINUPTO || c == OP_EXACT || c == OP_POSUPTO)
@@ -3064,7 +3064,7 @@ Returns:      TRUE if the auto-possessification is possible
 */
 
 static BOOL
-compare_opcodes(const pcre_uchar *code, BOOL utf, const compile_data *cd,
+cgc_compare_opcodes(const pcre_uchar *code, BOOL utf, const compile_data *cd,
   const pcre_uint32 *base_list, const pcre_uchar *base_end)
 {
 pcre_uchar c;
@@ -3152,7 +3152,7 @@ for(;;)
 
     while (*next_code == OP_ALT)
       {
-      if (!compare_opcodes(code, utf, cd, base_list, base_end)) return FALSE;
+      if (!cgc_compare_opcodes(code, utf, cd, base_list, base_end)) return FALSE;
       code = next_code + 1 + LINK_SIZE;
       next_code += GET(next_code, 1);
       }
@@ -3172,7 +3172,7 @@ for(;;)
     /* The bracket content will be checked by the
     OP_BRA/OP_CBRA case above. */
     next_code += 1 + LINK_SIZE;
-    if (!compare_opcodes(next_code, utf, cd, base_list, base_end))
+    if (!cgc_compare_opcodes(next_code, utf, cd, base_list, base_end))
       return FALSE;
 
     code += PRIV(OP_lengths)[c];
@@ -3184,7 +3184,7 @@ for(;;)
 
   /* Check for a supported opcode, and load its properties. */
 
-  code = get_chr_property_list(code, utf, cd->fcc, list);
+  code = cgc_get_chr_property_list(code, utf, cd->fcc, list);
   if (code == NULL) return FALSE;    /* Unsupported */
 
   /* If either opcode is a small character list, set pointers for comparing
@@ -3599,7 +3599,7 @@ Returns:      nothing
 */
 
 static void
-auto_possessify(pcre_uchar *code, BOOL utf, const compile_data *cd)
+cgc_auto_possessify(pcre_uchar *code, BOOL utf, const compile_data *cd)
 {
 register pcre_uchar c;
 const pcre_uchar *end;
@@ -3612,12 +3612,12 @@ for (;;)
 
   if (c >= OP_STAR && c <= OP_TYPEPOSUPTO)
     {
-    c -= get_repeat_base(c) - OP_STAR;
+    c -= cgc_get_repeat_base(c) - OP_STAR;
     end = (c <= OP_MINUPTO) ?
-      get_chr_property_list(code, utf, cd->fcc, list) : NULL;
+      cgc_get_chr_property_list(code, utf, cd->fcc, list) : NULL;
     list[1] = c == OP_STAR || c == OP_PLUS || c == OP_QUERY || c == OP_UPTO;
 
-    if (end != NULL && compare_opcodes(end, utf, cd, list, end))
+    if (end != NULL && cgc_compare_opcodes(end, utf, cd, list, end))
       {
       switch(c)
         {
@@ -3669,11 +3669,11 @@ for (;;)
     if (c >= OP_CRSTAR && c <= OP_CRMINRANGE)
       {
       /* end must not be NULL. */
-      end = get_chr_property_list(code, utf, cd->fcc, list);
+      end = cgc_get_chr_property_list(code, utf, cd->fcc, list);
 
       list[1] = (c & 1) == 0;
 
-      if (compare_opcodes(end, utf, cd, list, end))
+      if (cgc_compare_opcodes(end, utf, cd, list, end))
         {
         switch (c)
           {
@@ -3862,7 +3862,7 @@ Returns:   TRUE or FALSE
 */
 
 static BOOL
-check_posix_syntax(const pcre_uchar *ptr, const pcre_uchar **endptr)
+cgc_check_posix_syntax(const pcre_uchar *ptr, const pcre_uchar **endptr)
 {
 pcre_uchar terminator;          /* Don't combine these lines; the Solaris cc */
 terminator = *(++ptr);   /* compiler warns about "non-constant" initializer. */
@@ -3881,7 +3881,7 @@ for (++ptr; *ptr != CHAR_NULL; ptr++)
     if (*ptr == CHAR_LEFT_SQUARE_BRACKET &&
          (ptr[1] == CHAR_COLON || ptr[1] == CHAR_DOT ||
           ptr[1] == CHAR_EQUALS_SIGN) &&
-        check_posix_syntax(ptr, endptr))
+        cgc_check_posix_syntax(ptr, endptr))
       return FALSE;
     }
   }
@@ -3906,7 +3906,7 @@ Returns:     a value representing the name, or -1 if unknown
 */
 
 static int
-check_posix_name(const pcre_uchar *ptr, int len)
+cgc_check_posix_name(const pcre_uchar *ptr, int len)
 {
 const char *pn = posix_names;
 register int yield = 0;
@@ -3953,12 +3953,12 @@ Returns:     nothing
 */
 
 static void
-adjust_recurse(pcre_uchar *group, int adjust, BOOL utf, compile_data *cd,
+cgc_adjust_recurse(pcre_uchar *group, int adjust, BOOL utf, compile_data *cd,
   pcre_uchar *save_hwm)
 {
 pcre_uchar *ptr = group;
 
-while ((ptr = (pcre_uchar *)find_recurse(ptr, utf)) != NULL)
+while ((ptr = (pcre_uchar *)cgc_find_recurse(ptr, utf)) != NULL)
   {
   int offset;
   pcre_uchar *hc;
@@ -4007,7 +4007,7 @@ Returns:         new code pointer
 */
 
 static pcre_uchar *
-auto_callout(pcre_uchar *code, const pcre_uchar *ptr, compile_data *cd)
+cgc_auto_callout(pcre_uchar *code, const pcre_uchar *ptr, compile_data *cd)
 {
 *code++ = OP_CALLOUT;
 *code++ = 255;
@@ -4035,7 +4035,7 @@ Returns:             nothing
 */
 
 static void
-complete_callout(pcre_uchar *previous_callout, const pcre_uchar *ptr, compile_data *cd)
+cgc_complete_callout(pcre_uchar *previous_callout, const pcre_uchar *ptr, compile_data *cd)
 {
 int length = (int)(ptr - cd->start_pattern - GET(previous_callout, 2));
 PUT(previous_callout, 2 + LINK_SIZE, length);
@@ -4132,7 +4132,7 @@ Returns:        the number of < 256 characters added
 */
 
 static int
-add_to_class(pcre_uint8 *classbits, pcre_uchar **uchardptr, int options,
+cgc_add_to_class(pcre_uint8 *classbits, pcre_uchar **uchardptr, int options,
   compile_data *cd, pcre_uint32 start, pcre_uint32 end)
 {
 
@@ -4297,7 +4297,7 @@ Returns:        the number of < 256 characters added
 */
 
 static int
-add_list_to_class(pcre_uint8 *classbits, pcre_uchar **uchardptr, int options,
+cgc_add_list_to_class(pcre_uint8 *classbits, pcre_uchar **uchardptr, int options,
   compile_data *cd, const pcre_uint32 *p, unsigned int except)
 {
 int n8 = 0;
@@ -4307,7 +4307,7 @@ while (p[0] < NOTACHAR)
   if (p[0] != except)
     {
     while(p[n+1] == p[0] + n + 1) n++;
-    n8 += add_to_class(classbits, uchardptr, options, cd, p[0], p[n]);
+    n8 += cgc_add_to_class(classbits, uchardptr, options, cd, p[0], p[n]);
     }
   p += n + 1;
   }
@@ -4335,17 +4335,17 @@ Returns:        the number of < 256 characters added
 */
 
 static int
-add_not_list_to_class(pcre_uint8 *classbits, pcre_uchar **uchardptr,
+cgc_add_not_list_to_class(pcre_uint8 *classbits, pcre_uchar **uchardptr,
   int options, compile_data *cd, const pcre_uint32 *p)
 {
 BOOL utf = (options & PCRE_UTF8) != 0;
 int n8 = 0;
 if (p[0] > 0)
-  n8 += add_to_class(classbits, uchardptr, options, cd, 0, p[0] - 1);
+  n8 += cgc_add_to_class(classbits, uchardptr, options, cd, 0, p[0] - 1);
 while (p[0] < NOTACHAR)
   {
   while (p[1] == p[0] + 1) p++;
-  n8 += add_to_class(classbits, uchardptr, options, cd, p[0] + 1,
+  n8 += cgc_add_to_class(classbits, uchardptr, options, cd, p[0] + 1,
     (p[1] == NOTACHAR) ? (utf ? 0x10ffffu : 0xffffffffu) : p[1] - 1);
   p++;
   }
@@ -4384,7 +4384,7 @@ Returns:            TRUE on success
 */
 
 static BOOL
-compile_branch(int *optionsptr, pcre_uchar **codeptr,
+cgc_compile_branch(int *optionsptr, pcre_uchar **codeptr,
   const pcre_uchar **ptrptr, int *errorcodeptr,
   pcre_uint32 *firstcharptr, pcre_int32 *firstcharflagsptr,
   pcre_uint32 *reqcharptr, pcre_int32 *reqcharflagsptr,
@@ -4596,13 +4596,13 @@ for (;; ptr++)
       if (previous_callout != NULL)
         {
         if (lengthptr == NULL)  /* Don't attempt in pre-compile phase */
-          complete_callout(previous_callout, ptr, cd);
+          cgc_complete_callout(previous_callout, ptr, cd);
         previous_callout = NULL;
         }
       if ((options & PCRE_AUTO_CALLOUT) != 0)
         {
         previous_callout = code;
-        code = auto_callout(code, ptr, cd);
+        code = cgc_auto_callout(code, ptr, cd);
         }
       goto NORMAL_CHAR;
       }
@@ -4639,7 +4639,7 @@ for (;; ptr++)
 
   is_quantifier =
     c == CHAR_ASTERISK || c == CHAR_PLUS || c == CHAR_QUESTION_MARK ||
-    (c == CHAR_LEFT_CURLY_BRACKET && is_counted_repeat(ptr+1));
+    (c == CHAR_LEFT_CURLY_BRACKET && cgc_is_counted_repeat(ptr+1));
 
   /* Fill in length of a previous callout, except when the next thing is a
   quantifier or when processing a property substitution string in UCP mode. */
@@ -4648,7 +4648,7 @@ for (;; ptr++)
        after_manual_callout-- <= 0)
     {
     if (lengthptr == NULL)      /* Don't attempt in pre-compile phase */
-      complete_callout(previous_callout, ptr, cd);
+      cgc_complete_callout(previous_callout, ptr, cd);
     previous_callout = NULL;
     }
 
@@ -4658,7 +4658,7 @@ for (;; ptr++)
   if ((options & PCRE_AUTO_CALLOUT) != 0 && !is_quantifier && nestptr == NULL)
     {
     previous_callout = code;
-    code = auto_callout(code, ptr, cd);
+    code = cgc_auto_callout(code, ptr, cd);
     }
 
   /* Process the next pattern item. */
@@ -4775,7 +4775,7 @@ for (;; ptr++)
 
     if ((ptr[1] == CHAR_COLON || ptr[1] == CHAR_DOT ||
          ptr[1] == CHAR_EQUALS_SIGN) &&
-        check_posix_syntax(ptr, &tempptr))
+        cgc_check_posix_syntax(ptr, &tempptr))
       {
       *errorcodeptr = (ptr[1] == CHAR_COLON)? ERR13 : ERR31;
       goto FAILED;
@@ -4903,7 +4903,7 @@ for (;; ptr++)
 
       if (c == CHAR_LEFT_SQUARE_BRACKET &&
           (ptr[1] == CHAR_COLON || ptr[1] == CHAR_DOT ||
-           ptr[1] == CHAR_EQUALS_SIGN) && check_posix_syntax(ptr, &tempptr))
+           ptr[1] == CHAR_EQUALS_SIGN) && cgc_check_posix_syntax(ptr, &tempptr))
         {
         BOOL local_negate = FALSE;
         int posix_class, taboffset, tabopt;
@@ -4924,7 +4924,7 @@ for (;; ptr++)
           ptr++;
           }
 
-        posix_class = check_posix_name(ptr, (int)(tempptr - ptr));
+        posix_class = cgc_check_posix_name(ptr, (int)(tempptr - ptr));
         if (posix_class < 0)
           {
           *errorcodeptr = ERR30;
@@ -5047,7 +5047,7 @@ for (;; ptr++)
 
       if (c == CHAR_BACKSLASH)
         {
-        escape = check_escape(&ptr, &ec, errorcodeptr, cd->bracount, options,
+        escape = cgc_check_escape(&ptr, &ec, errorcodeptr, cd->bracount, options,
           TRUE);
         if (*errorcodeptr != 0) goto FAILED;
         if (escape == 0) c = ec;
@@ -5127,22 +5127,22 @@ for (;; ptr++)
             /* The rest apply in both UCP and non-UCP cases. */
 
             case ESC_h:
-            (void)add_list_to_class(classbits, &class_uchardata, options, cd,
+            (void)cgc_add_list_to_class(classbits, &class_uchardata, options, cd,
               PRIV(hspace_list), NOTACHAR);
             continue;
 
             case ESC_H:
-            (void)add_not_list_to_class(classbits, &class_uchardata, options,
+            (void)cgc_add_not_list_to_class(classbits, &class_uchardata, options,
               cd, PRIV(hspace_list));
             continue;
 
             case ESC_v:
-            (void)add_list_to_class(classbits, &class_uchardata, options, cd,
+            (void)cgc_add_list_to_class(classbits, &class_uchardata, options, cd,
               PRIV(vspace_list), NOTACHAR);
             continue;
 
             case ESC_V:
-            (void)add_not_list_to_class(classbits, &class_uchardata, options,
+            (void)cgc_add_not_list_to_class(classbits, &class_uchardata, options,
               cd, PRIV(vspace_list));
             continue;
 
@@ -5255,7 +5255,7 @@ for (;; ptr++)
           if (d == CHAR_BACKSLASH)
             {
             int descape;
-            descape = check_escape(&ptr, &d, errorcodeptr, cd->bracount, options, TRUE);
+            descape = cgc_check_escape(&ptr, &d, errorcodeptr, cd->bracount, options, TRUE);
             if (*errorcodeptr != 0) goto FAILED;
 
             /* 0 means a character was put into d; \b is backspace; any other
@@ -5276,7 +5276,7 @@ for (;; ptr++)
           else if (d == CHAR_LEFT_SQUARE_BRACKET &&
                    (ptr[1] == CHAR_COLON || ptr[1] == CHAR_DOT ||
                     ptr[1] == CHAR_EQUALS_SIGN) &&
-                   check_posix_syntax(ptr, &tempptr))
+                   cgc_check_posix_syntax(ptr, &tempptr))
             {
             *errorcodeptr = ERR83;
             goto FAILED;
@@ -5304,7 +5304,7 @@ for (;; ptr++)
         if (d == CHAR_CR || d == CHAR_NL) cd->external_flags |= PCRE_HASCRORLF;
 
         class_has_8bitchar +=
-          add_to_class(classbits, &class_uchardata, options, cd, c, d);
+          cgc_add_to_class(classbits, &class_uchardata, options, cd, c, d);
 
         continue;   /* Go get the next char in the class */
         }
@@ -5392,7 +5392,7 @@ for (;; ptr++)
       has been generated. Add this character to the class. */
 
       class_has_8bitchar +=
-        add_to_class(classbits, &class_uchardata, options, cd, c, c);
+        cgc_add_to_class(classbits, &class_uchardata, options, cd, c, c);
       }
 
     /* Loop until ']' reached. This "while" is the end of the "do" far above.
@@ -5502,7 +5502,7 @@ for (;; ptr++)
 
     case CHAR_LEFT_CURLY_BRACKET:
     if (!is_quantifier) goto NORMAL_CHAR;
-    ptr = read_repeat_counts(ptr+1, &repeat_min, &repeat_max, errorcodeptr);
+    ptr = cgc_read_repeat_counts(ptr+1, &repeat_min, &repeat_max, errorcodeptr);
     if (*errorcodeptr != 0) goto FAILED;
     goto REPEAT;
 
@@ -5929,7 +5929,7 @@ for (;; ptr++)
         if (repeat_max <= 1)    /* Covers 0, 1, and unlimited */
           {
           *code = OP_END;
-          adjust_recurse(previous, 1, utf, cd, save_hwm);
+          cgc_adjust_recurse(previous, 1, utf, cd, save_hwm);
           memmove(previous + 1, previous, IN_UCHARS(len));
           code++;
           if (repeat_max == 0)
@@ -5953,7 +5953,7 @@ for (;; ptr++)
           {
           int offset;
           *code = OP_END;
-          adjust_recurse(previous, 2 + LINK_SIZE, utf, cd, save_hwm);
+          cgc_adjust_recurse(previous, 2 + LINK_SIZE, utf, cd, save_hwm);
           memmove(previous + 2 + LINK_SIZE, previous, IN_UCHARS(len));
           code += 2 + LINK_SIZE;
           *previous++ = OP_BRAZERO + repeat_type;
@@ -6024,7 +6024,7 @@ for (;; ptr++)
                 {
                 cgc_size_t save_offset = save_hwm - cd->start_workspace;
                 cgc_size_t this_offset = this_hwm - cd->start_workspace;
-                *errorcodeptr = expand_workspace(cd);
+                *errorcodeptr = cgc_expand_workspace(cd);
                 if (*errorcodeptr != 0) goto FAILED;
                 save_hwm = (pcre_uchar *)cd->start_workspace + save_offset;
                 this_hwm = (pcre_uchar *)cd->start_workspace + this_offset;
@@ -6106,7 +6106,7 @@ for (;; ptr++)
             {
             cgc_size_t save_offset = save_hwm - cd->start_workspace;
             cgc_size_t this_offset = this_hwm - cd->start_workspace;
-            *errorcodeptr = expand_workspace(cd);
+            *errorcodeptr = cgc_expand_workspace(cd);
             if (*errorcodeptr != 0) goto FAILED;
             save_hwm = (pcre_uchar *)cd->start_workspace + save_offset;
             this_hwm = (pcre_uchar *)cd->start_workspace + this_offset;
@@ -6190,7 +6190,7 @@ for (;; ptr++)
             pcre_uchar *scode = bracode;
             do
               {
-              if (could_be_empty_branch(scode, ketcode, utf, cd, NULL))
+              if (cgc_could_be_empty_branch(scode, ketcode, utf, cd, NULL))
                 {
                 *bracode += OP_SBRA - OP_BRA;
                 break;
@@ -6213,7 +6213,7 @@ for (;; ptr++)
               {
               int nlen = (int)(code - bracode);
               *code = OP_END;
-              adjust_recurse(bracode, 1 + LINK_SIZE, utf, cd, save_hwm);
+              cgc_adjust_recurse(bracode, 1 + LINK_SIZE, utf, cd, save_hwm);
               memmove(bracode + 1 + LINK_SIZE, bracode, IN_UCHARS(nlen));
               code += 1 + LINK_SIZE;
               nlen += 1 + LINK_SIZE;
@@ -6347,7 +6347,7 @@ for (;; ptr++)
         else
           {
           *code = OP_END;
-          adjust_recurse(tempcode, 1 + LINK_SIZE, utf, cd, save_hwm);
+          cgc_adjust_recurse(tempcode, 1 + LINK_SIZE, utf, cd, save_hwm);
           memmove(tempcode + 1 + LINK_SIZE, tempcode, IN_UCHARS(len));
           code += 1 + LINK_SIZE;
           len += 1 + LINK_SIZE;
@@ -6852,7 +6852,7 @@ for (;; ptr++)
         ptr++;
         if (*ptr == CHAR_RIGHT_PARENTHESIS && ptr[1] != CHAR_ASTERISK &&
              ptr[1] != CHAR_PLUS && ptr[1] != CHAR_QUESTION_MARK &&
-            (ptr[1] != CHAR_LEFT_CURLY_BRACKET || !is_counted_repeat(ptr+2)))
+            (ptr[1] != CHAR_LEFT_CURLY_BRACKET || !cgc_is_counted_repeat(ptr+2)))
           {
           *code++ = OP_FAIL;
           previous = NULL;
@@ -7326,7 +7326,7 @@ for (;; ptr++)
               if (cd->hwm >= cd->start_workspace + cd->workspace_size -
                   WORK_SIZE_SAFETY_MARGIN)
                 {
-                *errorcodeptr = expand_workspace(cd);
+                *errorcodeptr = cgc_expand_workspace(cd);
                 if (*errorcodeptr != 0) goto FAILED;
                 }
               PUTINC(cd->hwm, 0, (int)(code + 1 - cd->start_code));
@@ -7342,7 +7342,7 @@ for (;; ptr++)
             conditional subpatterns will be picked up then. */
 
             else if (GET(called, 1) == 0 && cond_depth <= 0 &&
-                     could_be_empty(called, code, bcptr, utf, cd))
+                     cgc_could_be_empty(called, code, bcptr, utf, cd))
               {
               *errorcodeptr = ERR40;
               goto FAILED;
@@ -7492,7 +7492,7 @@ for (;; ptr++)
     tempbracount = cd->bracount;          /* Save value before bracket */
     length_prevgroup = 0;                 /* Initialize for pre-compile phase */
 
-    if (!compile_regex(
+    if (!cgc_compile_regex(
          newoptions,                      /* The complete new option state */
          &tempcode,                       /* Where to put code (updated) */
          &ptr,                            /* Input pointer (updated) */
@@ -7690,7 +7690,7 @@ for (;; ptr++)
 
     case CHAR_BACKSLASH:
     tempptr = ptr;
-    escape = check_escape(&ptr, &ec, errorcodeptr, cd->bracount, options, FALSE);
+    escape = cgc_check_escape(&ptr, &ec, errorcodeptr, cd->bracount, options, FALSE);
     if (*errorcodeptr != 0) goto FAILED;
 
     if (escape == 0)                  /* The escape coded a single character */
@@ -8037,7 +8037,7 @@ Returns:            TRUE on success
 */
 
 static BOOL
-compile_regex(int options, pcre_uchar **codeptr, const pcre_uchar **ptrptr,
+cgc_compile_regex(int options, pcre_uchar **codeptr, const pcre_uchar **ptrptr,
   int *errorcodeptr, BOOL lookbehind, BOOL reset_bracount, int skipbytes,
   int cond_depth,
   pcre_uint32 *firstcharptr, pcre_int32 *firstcharflagsptr,
@@ -8133,7 +8133,7 @@ for (;;)
   /* Now compile the branch; in the pre-compile phase its length gets added
   into the length. */
 
-  if (!compile_branch(&options, &code, &ptr, errorcodeptr, &branchfirstchar,
+  if (!cgc_compile_branch(&options, &code, &ptr, errorcodeptr, &branchfirstchar,
         &branchfirstcharflags, &branchreqchar, &branchreqcharflags, &bc,
         cond_depth, cd, (lengthptr == NULL)? NULL : &length))
     {
@@ -8216,7 +8216,7 @@ for (;;)
       {
       int fixed_length;
       *code = OP_END;
-      fixed_length = find_fixedlength(last_branch,  (options & PCRE_UTF8) != 0,
+      fixed_length = cgc_find_fixedlength(last_branch,  (options & PCRE_UTF8) != 0,
         FALSE, cd);
       DPRINTF(("fixed length = %d\n", fixed_length));
       if (fixed_length == -3)
@@ -8277,7 +8277,7 @@ for (;;)
       if (cd->open_caps->flag)
         {
         *code = OP_END;
-        adjust_recurse(start_bracket, 1 + LINK_SIZE,
+        cgc_adjust_recurse(start_bracket, 1 + LINK_SIZE,
           (options & PCRE_UTF8) != 0, cd, cd->hwm);
         memmove(start_bracket + 1 + LINK_SIZE, start_bracket,
           IN_UCHARS(code - start_bracket));
@@ -8388,11 +8388,11 @@ Returns:     TRUE or FALSE
 */
 
 static BOOL
-is_anchored(register const pcre_uchar *code, unsigned int bracket_map,
+cgc_is_anchored(register const pcre_uchar *code, unsigned int bracket_map,
   compile_data *cd, int atomcount)
 {
 do {
-   const pcre_uchar *scode = first_significant_code(
+   const pcre_uchar *scode = cgc_first_significant_code(
      code + PRIV(OP_lengths)[*code], FALSE);
    register int op = *scode;
 
@@ -8401,7 +8401,7 @@ do {
    if (op == OP_BRA  || op == OP_BRAPOS ||
        op == OP_SBRA || op == OP_SBRAPOS)
      {
-     if (!is_anchored(scode, bracket_map, cd, atomcount)) return FALSE;
+     if (!cgc_is_anchored(scode, bracket_map, cd, atomcount)) return FALSE;
      }
 
    /* Capturing brackets */
@@ -8411,21 +8411,21 @@ do {
      {
      int n = GET2(scode, 1+LINK_SIZE);
      int new_map = bracket_map | ((n < 32)? (1 << n) : 1);
-     if (!is_anchored(scode, new_map, cd, atomcount)) return FALSE;
+     if (!cgc_is_anchored(scode, new_map, cd, atomcount)) return FALSE;
      }
 
    /* Positive forward assertions and conditions */
 
    else if (op == OP_ASSERT || op == OP_COND)
      {
-     if (!is_anchored(scode, bracket_map, cd, atomcount)) return FALSE;
+     if (!cgc_is_anchored(scode, bracket_map, cd, atomcount)) return FALSE;
      }
 
    /* Atomic groups */
 
    else if (op == OP_ONCE || op == OP_ONCE_NC)
      {
-     if (!is_anchored(scode, bracket_map, cd, atomcount + 1))
+     if (!cgc_is_anchored(scode, bracket_map, cd, atomcount + 1))
        return FALSE;
      }
 
@@ -8478,11 +8478,11 @@ Returns:         TRUE or FALSE
 */
 
 static BOOL
-is_startline(const pcre_uchar *code, unsigned int bracket_map,
+cgc_is_startline(const pcre_uchar *code, unsigned int bracket_map,
   compile_data *cd, int atomcount)
 {
 do {
-   const pcre_uchar *scode = first_significant_code(
+   const pcre_uchar *scode = cgc_first_significant_code(
      code + PRIV(OP_lengths)[*code], FALSE);
    register int op = *scode;
 
@@ -8505,12 +8505,12 @@ do {
        return FALSE;
 
        default:     /* Assertion */
-       if (!is_startline(scode, bracket_map, cd, atomcount)) return FALSE;
+       if (!cgc_is_startline(scode, bracket_map, cd, atomcount)) return FALSE;
        do scode += GET(scode, 1); while (*scode == OP_ALT);
        scode += 1 + LINK_SIZE;
        break;
        }
-     scode = first_significant_code(scode, FALSE);
+     scode = cgc_first_significant_code(scode, FALSE);
      op = *scode;
      }
 
@@ -8519,7 +8519,7 @@ do {
    if (op == OP_BRA  || op == OP_BRAPOS ||
        op == OP_SBRA || op == OP_SBRAPOS)
      {
-     if (!is_startline(scode, bracket_map, cd, atomcount)) return FALSE;
+     if (!cgc_is_startline(scode, bracket_map, cd, atomcount)) return FALSE;
      }
 
    /* Capturing brackets */
@@ -8529,21 +8529,21 @@ do {
      {
      int n = GET2(scode, 1+LINK_SIZE);
      int new_map = bracket_map | ((n < 32)? (1 << n) : 1);
-     if (!is_startline(scode, new_map, cd, atomcount)) return FALSE;
+     if (!cgc_is_startline(scode, new_map, cd, atomcount)) return FALSE;
      }
 
    /* Positive forward assertions */
 
    else if (op == OP_ASSERT)
      {
-     if (!is_startline(scode, bracket_map, cd, atomcount)) return FALSE;
+     if (!cgc_is_startline(scode, bracket_map, cd, atomcount)) return FALSE;
      }
 
    /* Atomic brackets */
 
    else if (op == OP_ONCE || op == OP_ONCE_NC)
      {
-     if (!is_startline(scode, bracket_map, cd, atomcount + 1)) return FALSE;
+     if (!cgc_is_startline(scode, bracket_map, cd, atomcount + 1)) return FALSE;
      }
 
    /* .* means "start at start or after \n" if it isn't in atomic brackets or
@@ -8598,7 +8598,7 @@ Returns:     the fixed first char, or 0 with REQ_NONE in flags
 */
 
 static pcre_uint32
-find_firstassertedchar(const pcre_uchar *code, pcre_int32 *flags,
+cgc_find_firstassertedchar(const pcre_uchar *code, pcre_int32 *flags,
   BOOL inassert)
 {
 register pcre_uint32 c = 0;
@@ -8610,7 +8610,7 @@ do {
    int dflags;
    int xl = (*code == OP_CBRA || *code == OP_SCBRA ||
              *code == OP_CBRAPOS || *code == OP_SCBRAPOS)? IMM2_SIZE:0;
-   const pcre_uchar *scode = first_significant_code(code + 1+LINK_SIZE + xl,
+   const pcre_uchar *scode = cgc_first_significant_code(code + 1+LINK_SIZE + xl,
      TRUE);
    register pcre_uchar op = *scode;
 
@@ -8628,7 +8628,7 @@ do {
      case OP_ASSERT:
      case OP_ONCE:
      case OP_ONCE_NC:
-     d = find_firstassertedchar(scode, &dflags, op == OP_ASSERT);
+     d = cgc_find_firstassertedchar(scode, &dflags, op == OP_ASSERT);
      if (dflags < 0)
        return 0;
      if (cflags < 0) { c = d; cflags = dflags; } else if (c != d || cflags != dflags) return 0;
@@ -8689,7 +8689,7 @@ Returns:       nothing
 */
 
 static void
-add_name(compile_data *cd, const pcre_uchar *name, int length,
+cgc_add_name(compile_data *cd, const pcre_uchar *name, int length,
   unsigned int groupno)
 {
 int i;
@@ -8697,7 +8697,7 @@ pcre_uchar *slot = cd->name_table;
 
 for (i = 0; i < cd->names_found; i++)
   {
-  int crc = memcmp(name, slot+IMM2_SIZE, IN_UCHARS(length));
+  int crc = cgc_memcmp(name, slot+IMM2_SIZE, IN_UCHARS(length));
   if (crc == 0 && slot[IMM2_SIZE+length] != 0)
     crc = -1; /* Current name is a substring */
 
@@ -8906,7 +8906,7 @@ PCRE_UTF8 == PCRE_UTF16 == PCRE_UTF32. */
     {
     pcre_uint32 c = 0;
     int p = skipatstart + 14;
-    while (isdigit(ptr[p]))
+    while (cgc_isdigit(ptr[p]))
       {
       if (c > PCRE_UINT32_MAX / 10 - 1) break;   /* Integer overflow */
       c = c*10 + ptr[p++] - CHAR_0;
@@ -8925,7 +8925,7 @@ PCRE_UTF8 == PCRE_UTF16 == PCRE_UTF32. */
     {
     pcre_uint32 c = 0;
     int p = skipatstart + 18;
-    while (isdigit(ptr[p]))
+    while (cgc_isdigit(ptr[p]))
       {
       if (c > PCRE_UINT32_MAX / 10 - 1) break;   /* Integer overflow check */
       c = c*10 + ptr[p++] - CHAR_0;
@@ -9109,7 +9109,7 @@ ptr += skipatstart;
 code = cworkspace;
 *code = OP_BRA;
 
-(void)compile_regex(cd->external_options, &code, &ptr, &errorcode, FALSE,
+(void)cgc_compile_regex(cd->external_options, &code, &ptr, &errorcode, FALSE,
   FALSE, 0, 0, &firstchar, &firstcharflags, &reqchar, &reqcharflags, NULL,
   cd, &length);
 if (errorcode != 0) goto PCRE_EARLY_ERROR_RETURN;
@@ -9203,7 +9203,7 @@ if (cd->names_found > 0)
   named_group *ng = cd->named_groups;
   cd->names_found = 0;
   for (; i > 0; i--, ng++)
-    add_name(cd, ng->name, ng->length, ng->number);
+    cgc_add_name(cd, ng->name, ng->length, ng->number);
   if (cd->named_group_list_size > NAMED_GROUP_LIST_SIZE)
     (PUBL(free))((void *)cd->named_groups);
   }
@@ -9215,7 +9215,7 @@ of the function here. */
 ptr = (const pcre_uchar *)pattern + skipatstart;
 code = (pcre_uchar *)codestart;
 *code = OP_BRA;
-(void)compile_regex(re->options, &code, &ptr, &errorcode, FALSE, FALSE, 0, 0,
+(void)cgc_compile_regex(re->options, &code, &ptr, &errorcode, FALSE, FALSE, 0, 0,
   &firstchar, &firstcharflags, &reqchar, &reqcharflags, NULL, cd, NULL);
 re->top_bracket = cd->bracount;
 re->top_backref = cd->top_backref;
@@ -9293,7 +9293,7 @@ function call. */
 if ((options & PCRE_NO_AUTO_POSSESS) == 0)
   {
   pcre_uchar *temp = (pcre_uchar *)codestart;
-  auto_possessify(temp, utf, cd);
+  cgc_auto_possessify(temp, utf, cd);
   }
 
 /* If there were any lookbehind assertions that contained OP_RECURSE
@@ -9323,7 +9323,7 @@ if (cd->check_lookbehind)
       pcre_uchar *be = cc - 1 - LINK_SIZE + GET(cc, -LINK_SIZE);
       int end_op = *be;
       *be = OP_END;
-      fixed_length = find_fixedlength(cc, (re->options & PCRE_UTF8) != 0, TRUE,
+      fixed_length = cgc_find_fixedlength(cc, (re->options & PCRE_UTF8) != 0, TRUE,
         cd);
       *be = end_op;
       DPRINTF(("fixed length = %d\n", fixed_length));
@@ -9348,7 +9348,7 @@ if (errorcode != 0)
   PCRE_EARLY_ERROR_RETURN:
   *erroroffset = (int)(ptr - (const pcre_uchar *)pattern);
   PCRE_EARLY_ERROR_RETURN2:
-  *errorptr = find_error_text(errorcode);
+  *errorptr = cgc_find_error_text(errorcode);
   if (errorcodeptr != NULL) *errorcodeptr = errorcode;
   return NULL;
   }
@@ -9366,11 +9366,11 @@ non-DOTALL matches when *PRUNE and SKIP are not present. */
 
 if ((re->options & PCRE_ANCHORED) == 0)
   {
-  if (is_anchored(codestart, 0, cd, 0)) re->options |= PCRE_ANCHORED;
+  if (cgc_is_anchored(codestart, 0, cd, 0)) re->options |= PCRE_ANCHORED;
   else
     {
     if (firstcharflags < 0)
-      firstchar = find_firstassertedchar(codestart, &firstcharflags, FALSE);
+      firstchar = cgc_find_firstassertedchar(codestart, &firstcharflags, FALSE);
     if (firstcharflags >= 0)   /* Remove caseless flag for non-caseable chars */
       {
 #if defined COMPILE_PCRE8
@@ -9404,7 +9404,7 @@ if ((re->options & PCRE_ANCHORED) == 0)
       re->flags |= PCRE_FIRSTSET;
       }
 
-    else if (is_startline(codestart, 0, cd, 0)) re->flags |= PCRE_STARTLINE;
+    else if (cgc_is_startline(codestart, 0, cd, 0)) re->flags |= PCRE_STARTLINE;
     }
   }
 
@@ -9498,7 +9498,7 @@ can be provided to applications. */
 
 do
   {
-  if (could_be_empty_branch(codestart, code, utf, cd, NULL))
+  if (cgc_could_be_empty_branch(codestart, code, utf, cd, NULL))
     {
     re->flags |= PCRE_MATCH_EMPTY;
     break;
