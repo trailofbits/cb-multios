@@ -111,7 +111,14 @@ function(buildPOV path cb pov)
 
     # POVs are allowed to include challenge headers,
     # but must have their own definitions
-    target_include_directories(${target} PUBLIC "${path}/${pov}" "${path}/include" "${path}/lib" "${path}/src")
+    target_include_directories(
+        ${target} PUBLIC
+        "${path}/${pov}"
+        "${path}/include"
+        "${path}/lib"
+        "${path}/src"
+        "${PROJECT_SOURCE_DIR}/include/libpov/pov"
+    )
     set_target_properties(${target} PROPERTIES
         OUTPUT_NAME "${pov}.pov"
         RUNTIME_OUTPUT_DIRECTORY ${out_dir}  # Put these with the other xml POVs
