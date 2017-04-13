@@ -97,6 +97,18 @@ else:
         proc.terminate()
 
 
+def debug(s):
+    sys.stdout.write(str(s))
+    sys.stdout.flush()
+
+
+def listdir(path):
+    # type: (str) -> list
+    if not os.path.isdir(path):
+        return []
+    return sorted(os.listdir(path), key=lambda s: s.lower())
+
+
 def try_delete(path):
     try:
         os.remove(path)

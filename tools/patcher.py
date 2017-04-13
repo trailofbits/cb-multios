@@ -4,8 +4,9 @@ import os
 import re
 import shutil
 import sys
-
 import yaml  # pip install pyyaml
+
+from common import debug, try_delete, listdir
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 ORIGINAL_CHALLS = os.path.join(os.path.dirname(TOOLS_DIR), 'original-challenges')
@@ -18,11 +19,6 @@ with open(os.path.join(TOOLS_DIR, 'manual_patches.yaml')) as f:
 # Special keys used in the patches yaml
 YAML_ALL = 'all'
 YAML_RE = 're'
-
-
-def debug(s):
-    sys.stdout.write(str(s))
-    sys.stdout.flush()
 
 
 def apply_regex(src, patch_dict):
@@ -57,11 +53,15 @@ def apply_manual_patches(fname, src):
     return src
 
 
-def try_delete(path):
-    try:
-        os.remove(path)
-    except OSError:
-        pass
+def patch_includes(src):
+    # type: (str) -> str
+    # Prepend all challenge includes with 'cgc_'
+    src = re.sub(r'#\s*include\s*(<|")([^\/\.]+\/)*([^\.]+\.h)(>|")', r'#include \1cgc_\3\4', src)
+
+    # If certain includes were renamed revert them
+    for revert in ['libcgc.h', 'libpov.h']:
+        src = src.replace('cgc_{}'.format(revert), revert)
+    return src
 
 
 def patch_files_in_dir(path):
@@ -74,6 +74,14 @@ def patch_files_in_dir(path):
 
         # Apply all manual patches
         patched = apply_manual_patches(fname, src)
+
+        # Patch includes to not collide with system headers
+        patched = patch_includes(patched)
+
+        # If this file is a header, rename it to cgc_<name>.h
+        if fpath.endswith('.h'):
+            try_delete(fpath)
+            fpath = os.path.join(path, 'cgc_{}'.format(fname))
 
         # Write the patched file
         with open(fpath, 'w') as f:
@@ -112,12 +120,6 @@ def patch_challenge(chal):
         # Patch all source files
         patch_files_in_dir(src_path)
         patch_files_in_dir(inc_path)
-
-
-def listdir(path):
-    if not os.path.isdir(path):
-        return []
-    return sorted(os.listdir(path))
 
 
 def clear_challenges(chal_paths):
