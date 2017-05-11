@@ -155,7 +155,7 @@ function(buildCB)
         # Iterate through the directories and build each
         set(i 1)
         foreach(cb ${cb_parts})
-            build(${cb} ${cb_id}_${i})
+            build(${cb_path}/cb_${i} ${cb_id}_${i})
             MATH(EXPR i "${i} + 1")
         endforeach()
     else()
