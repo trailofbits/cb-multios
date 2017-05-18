@@ -7,9 +7,9 @@ DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
 TOOLS="$DIR/tools"
 
 # Install necessary python packages
-if ! /usr/bin/env python -c "import yaml; import xlsxwriter; import Crypto" 2>/dev/null; then
+if ! /usr/bin/env python -c "import xlsxwriter; import Crypto" 2>/dev/null; then
     echo "Please install required python packages" >&2
-    echo "  $ sudo pip install pyyaml xlsxwriter pycrypto" >&2
+    echo "  $ sudo pip install xlsxwriter pycrypto" >&2
     exit 1
 fi
 
