@@ -20,17 +20,17 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include <libcgc.h>
-#include <libc.h>
+#include "libcgc.h"
+#include "cgc_libc.h"
 
 static char *last_strtok_str;
 
-size_t readline(int fd, char *buf, size_t s) {
-    size_t i,read_;
+cgc_size_t cgc_readline(int fd, char *buf, cgc_size_t s) {
+    cgc_size_t i,read_;
 
     for (i=0; i < s; i+=read_) {
         read_ = 0;
-        if (receive(fd, buf+i, 1, &read_))
+        if (cgc_receive(fd, buf+i, 1, &read_))
             DIE(READFAIL);
         //EOF when we didn't expect
         if (!read_)
@@ -47,11 +47,11 @@ size_t readline(int fd, char *buf, size_t s) {
     return i;
 }
 
-size_t readall(int fd, char *buf, size_t s) {
-    size_t i,recvd = 0;
+cgc_size_t cgc_readall(int fd, char *buf, cgc_size_t s) {
+    cgc_size_t i,recvd = 0;
 
     for (i=0; i < s; i+=recvd) {
-        if (receive(fd, buf+i, s-i, &recvd))
+        if (cgc_receive(fd, buf+i, s-i, &recvd))
             DIE(READFAIL);
         if (!recvd)
             break;
@@ -60,18 +60,18 @@ size_t readall(int fd, char *buf, size_t s) {
     return i;
 }
 
-size_t sendall(int fd, char *buf, size_t s) {
-    size_t i,sent;
+cgc_size_t cgc_sendall(int fd, char *buf, cgc_size_t s) {
+    cgc_size_t i,sent;
 
     for (i=0; i < s; i+=sent) 
-        if (transmit(fd, buf+i, s-i, &sent))
+        if (cgc_transmit(fd, buf+i, s-i, &sent))
             DIE(WRITEFAIL);
     
     return s;
 }
 
-void *cgc_memset(void *s, int c, size_t n) {
-    size_t i;
+void *cgc_memset(void *s, int c, cgc_size_t n) {
+    cgc_size_t i;
 
     for (i=0; i < n; i++)
         *((char *)s+i) = (char)c;
@@ -79,7 +79,7 @@ void *cgc_memset(void *s, int c, size_t n) {
     return s;
 }
 
-int streq(char *s1, char *s2) {
+int cgc_streq(char *s1, char *s2) {
     while (*s1++ == *s2++ && (*(s1-1)));
 
     return (*(s1-1) == *(s2-1));
@@ -93,18 +93,18 @@ int cgc_strlen(const char *s) {
     return s-o-1;
 }
 
-void strcpy(char *s1, const char *s2) {
+void cgc_strcpy(char *s1, const char *s2) {
     while ((*s1++ = *s2++));
 }
 
-void cgc_memcpy(void *dest, void *src, size_t len) {
+void cgc_memcpy(void *dest, void *src, cgc_size_t len) {
     int i = 0;
 
     for (i = 0; i < len; i++)
         *((char*)dest+i) = *((char*)src+i);
 }
 
-unsigned int atoi(char *s) {
+unsigned int cgc_atoi(char *s) {
     unsigned int res = 0;
 
     while(*s)
@@ -113,7 +113,7 @@ unsigned int atoi(char *s) {
     return res;
 }
 
-char * strcat(char *dest, const char *src) {
+char * cgc_strcat(char *dest, const char *src) {
     char *res = dest;
 
     while(*dest++);
@@ -128,7 +128,7 @@ char * strcat(char *dest, const char *src) {
     return res;
 }
 
-char *tohex(int val, char *s) {
+char *cgc_tohex(int val, char *s) {
     int i;
 
     for (i=7; i >= 0; i--) {
@@ -139,14 +139,14 @@ char *tohex(int val, char *s) {
     return s;
 }
 
-void sprintf(char *buf, const char *fmt, ...) {
+void cgc_sprintf(char *buf, const char *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
-    vsprintf(buf, fmt, argp);
+    cgc_vsprintf(buf, fmt, argp);
     va_end(argp);
 }
 
-void vsprintf(char *buf, const char *fmt, va_list argp) {
+void cgc_vsprintf(char *buf, const char *fmt, va_list argp) {
     char num[9] = {0};
     char *s, *p;
     int i;
@@ -161,14 +161,14 @@ void vsprintf(char *buf, const char *fmt, va_list argp) {
             case 'b':
                 //char buffer
                 s = va_arg(argp, char *);
-                strcpy(buf, s);
+                cgc_strcpy(buf, s);
                 buf += cgc_strlen(s);
                 break;
             case 'i':
                 //print hex
                 i = va_arg(argp, int);
-                tohex(i, num);
-                strcpy(buf, num);
+                cgc_tohex(i, num);
+                cgc_strcpy(buf, num);
                 buf += cgc_strlen(num);
                 break;
             case FMTCHAR:
@@ -178,28 +178,28 @@ void vsprintf(char *buf, const char *fmt, va_list argp) {
     }
 }
 
-void printf(const char *fmt, ...) {
+void cgc_printf(const char *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
-    vfdprintf(stdout, fmt, argp);
+    cgc_vfdprintf(stdout, fmt, argp);
     va_end(argp);
 }
 
-void fdprintf(int fd, const char *fmt, ...) {
+void cgc_fdprintf(int fd, const char *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
-    vfdprintf(fd, fmt, argp);
+    cgc_vfdprintf(fd, fmt, argp);
     va_end(argp);
 }
 
-void vfdprintf(int fd, const char *fmt, va_list argp) {
+void cgc_vfdprintf(int fd, const char *fmt, va_list argp) {
     char hex[9];
     char *s, *p;
     int i;
 
     for (p = (char *)fmt; *p; p++) {
         if (*p != FMTCHAR) {
-            sendall(fd, p, 1);
+            cgc_sendall(fd, p, 1);
             continue;
         }
 
@@ -207,22 +207,22 @@ void vfdprintf(int fd, const char *fmt, va_list argp) {
             case 'b':
                 //char buffer
                 s = va_arg(argp, char *);
-                sendall(fd, s, cgc_strlen(s));
+                cgc_sendall(fd, s, cgc_strlen(s));
                 break;
             case 'h':
                 //print hex
                 i = va_arg(argp, int);
-                tohex(i, hex);
-                sendall(fd, hex, cgc_strlen(hex));
+                cgc_tohex(i, hex);
+                cgc_sendall(fd, hex, cgc_strlen(hex));
                 break;
             case FMTCHAR:
-                sendall(fd, p, 1);
+                cgc_sendall(fd, p, 1);
                 break;
         }
     }
 }
 
-char *strtok(char *s, char sep) {
+char *cgc_strtok(char *s, char sep) {
     char *cur;
 
     if (s == NULL) {
@@ -247,7 +247,7 @@ char *strtok(char *s, char sep) {
 }
 
 
-int memeq(void *b1, void *b2, size_t len) {
+int cgc_memeq(void *b1, void *b2, cgc_size_t len) {
     int i;
 
     for (i=0; i < len; i++) {

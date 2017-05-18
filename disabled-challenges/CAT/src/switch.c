@@ -20,9 +20,9 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "static.h"
+#include "cgc_static.h"
 
-size_t static_switch(size_t idx) {
+cgc_size_t cgc_static_switch(cgc_size_t idx) {
 	switch (idx) {
 		case 0x00000000:
 			return 0x2e4c7aa3;

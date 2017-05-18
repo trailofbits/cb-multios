@@ -1,0 +1,6 @@
+add_compile_options( -fno-exceptions -fno-rtti )
+set( SERVICE_ID "00066" )
+set( AUTHOR_ID "CROMU" )
+add_compile_options( -O0 -g )
+set( VULN_COUNT "1" )
+buildCB()

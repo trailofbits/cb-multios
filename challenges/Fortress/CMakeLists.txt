@@ -1,0 +1,7 @@
+set( NO_CB_DPKG "1" )
+set( VULN_COUNT "1" )
+add_compile_options( -fno-exceptions -fno-rtti -DCPLUSPLUS )
+add_compile_options( -O3 -g )
+set( SERVICE_ID "00081" )
+set( AUTHOR_ID "KPRCA" )
+buildCB()

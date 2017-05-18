@@ -20,13 +20,13 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "libc.h"
-#include "streq.h"
-#include "strlen.h"
+#include "cgc_libc.h"
+#include "cgc_streq.h"
+#include "cgc_strlen.h"
  
-int streq(const char *str1, const char *str2, const char term) {
+int cgc_streq(const char *str1, const char *str2, const char term) {
 
-    if (my_strlen(str1, term) != my_strlen(str2, term))
+    if (cgc_my_strlen(str1, term) != cgc_my_strlen(str2, term))
         return -1;
 
     while(*str1 != term) {
