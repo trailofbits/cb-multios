@@ -11,7 +11,7 @@ import xlsxwriter.utility as xlutil
 from common import debug, listdir
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'processed-challenges')
+CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'challenges')
 
 IS_WINDOWS = sys.platform == 'win32'
 

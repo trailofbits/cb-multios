@@ -16,8 +16,8 @@ The CBs are the best available benchmark to evaluate program analysis tools. Usi
 
 ## Components
 
-### original-challenges
-This directory contains all of the unmodified source code for the challenge binaries. Challenges that are not building or are not yet supported are in the `multibin` directory.
+### challenges
+This directory contains all of the source code for the challenge binaries. Challenges that are not building or are not yet supported are in the `disabled-challenges` directory.
 
 ### include
 This directory contains `libcgc`, which implements the syscalls to work on non-DECREE systems. `libcgc` currently works on OS X and Linux.
@@ -49,7 +49,7 @@ To build all challenges, run:
 $ ./build.sh
 ```
 
-This command will build both the patched and unpatched binaries in the `bin` folder of the respective challenge (`processed-challenges/[challenge]/bin/`).
+This command will build both the patched and unpatched binaries in the `bin` folder of the respective challenge (`challenges/[challenge]/bin/`).
 
 ## Testing
 
@@ -74,7 +74,7 @@ The `tester.py` utility is a wrapper around `cb-test` that can be used to test c
 
 ### Example Usage
 
-The following will run tests against all challenges in `processed-challenges` and save the results to `out.xlsx`:
+The following will run tests against all challenges in `challenges` and save the results to `out.xlsx`:
 
 ```bash
 $ ./tester.py -a -o out.xlsx
