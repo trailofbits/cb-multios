@@ -1,7 +1,7 @@
 #ifndef __TYPES_H
 #define __TYPES_H
 
-#include <libcgc.h>
+#include "libcgc.h"
 
 typedef char                __int8_t;
 typedef unsigned char       __uint8_t;
@@ -23,9 +23,11 @@ typedef __uint64_t   uint64_t;
 
 typedef uint32_t useconds_t;
 
-#define va_list __builtin_va_list
-
-#define va_start(ap, last) \
-        __builtin_va_start((ap), (last))
+#ifdef WIN
+    #include <stdarg.h>
+#else
+    typedef __builtin_va_list va_list;
+    #define va_start(ap, last) __builtin_va_start((ap), (last))
+#endif
 
 #endif
