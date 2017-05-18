@@ -194,7 +194,7 @@ if(LINUX)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z execstack -z norelro")
 endif()
 
-file(GLOB challenge_binaries processed-challenges/*)
+file(GLOB challenge_binaries challenges/*)
 foreach(cb_path ${challenge_binaries})
     if(IS_DIRECTORY ${cb_path} AND EXISTS ${cb_path}/CMakeLists.txt)
         # Get filename
