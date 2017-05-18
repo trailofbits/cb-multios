@@ -5,9 +5,9 @@ param (
 $DIR=$PSScriptRoot
 $TOOLS="$DIR\tools"
 
-python -c "import yaml; import xlsxwriter; import Crypto; import win32api" 2>$null
+python -c "import xlsxwriter; import Crypto; import win32api" 2>$null
 if (!$?) {
-    Write-Error "`nPlease install required python packages`n  > pip install pyyaml xlsxwriter pycrypto pypiwin32"
+    Write-Error "`nPlease install required python packages`n  > pip install xlsxwriter pycrypto pypiwin32"
 }
 
 "Creating build directory"
