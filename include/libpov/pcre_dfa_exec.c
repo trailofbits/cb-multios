@@ -73,14 +73,14 @@ in others, so I abandoned this code. */
 
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
 #define NLBLOCK md             /* Block containing newline information */
 #define PSSTART start_subject  /* Field containing processed string start */
 #define PSEND   end_subject    /* Field containing processed string end */
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 
 /* For use to indent debugging output */
@@ -395,7 +395,7 @@ for the current character, one for the following character). */
 /* And now, here is the code */
 
 static int
-internal_dfa_exec(
+cgc_internal_dfa_exec(
   dfa_match_data *md,
   const pcre_uchar *this_start_code,
   const pcre_uchar *current_subject,
@@ -2666,7 +2666,7 @@ for (;;)
 
         while (*endasscode == OP_ALT) endasscode += GET(endasscode, 1);
 
-        rc = internal_dfa_exec(
+        rc = cgc_internal_dfa_exec(
           md,                                   /* static match data */
           code,                                 /* this subexpression's code */
           ptr,                                  /* where we currently are */
@@ -2764,7 +2764,7 @@ for (;;)
 
           while (*endasscode == OP_ALT) endasscode += GET(endasscode, 1);
 
-          rc = internal_dfa_exec(
+          rc = cgc_internal_dfa_exec(
             md,                                   /* fixed match data */
             asscode,                              /* this subexpression's code */
             ptr,                                  /* where we currently are */
@@ -2814,7 +2814,7 @@ for (;;)
         new_recursive.prevrec = md->recursive;
         md->recursive = &new_recursive;
 
-        rc = internal_dfa_exec(
+        rc = cgc_internal_dfa_exec(
           md,                                   /* fixed match data */
           callpat,                              /* this subexpression's code */
           ptr,                                  /* where we currently are */
@@ -2891,7 +2891,7 @@ for (;;)
           int local_offsets[2];
           int local_workspace[1000];
 
-          int rc = internal_dfa_exec(
+          int rc = cgc_internal_dfa_exec(
             md,                                   /* fixed match data */
             code,                                 /* this subexpression's code */
             local_ptr,                            /* where we currently are */
@@ -2963,7 +2963,7 @@ for (;;)
         int local_offsets[2];
         int local_workspace[1000];
 
-        int rc = internal_dfa_exec(
+        int rc = cgc_internal_dfa_exec(
           md,                                   /* fixed match data */
           code,                                 /* this subexpression's code */
           ptr,                                  /* where we currently are */
@@ -3612,7 +3612,7 @@ for (;;)
   md->start_used_ptr = current_subject;
   md->recursive = NULL;
 
-  rc = internal_dfa_exec(
+  rc = cgc_internal_dfa_exec(
     md,                                /* fixed match data */
     md->start_code,                    /* this subexpression's code */
     current_subject,                   /* where we currently are */

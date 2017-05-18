@@ -43,10 +43,10 @@ string that identifies the PCRE version that is in use. */
 
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 
 /*************************************************
@@ -81,7 +81,7 @@ the STRING macro with an empty argument when doing the test. */
 
 #if defined COMPILE_PCRE8
 PCRE_EXP_DEFN const char * PCRE_CALL_CONVENTION
-pcre_version(void)
+cgc_pcre_version(void)
 #elif defined COMPILE_PCRE16
 PCRE_EXP_DEFN const char * PCRE_CALL_CONVENTION
 pcre16_version(void)

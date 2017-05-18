@@ -16,24 +16,14 @@ The CBs are the best available benchmark to evaluate program analysis tools. Usi
 
 ## Components
 
-### original-challenges
-This directory contains all of the unmodified source code for the challenge binaries. Challenges that are not building or are not yet supported are in the `multibin` directory.
+### challenges
+This directory contains all of the source code for the challenge binaries. Challenges that are not building or are not yet supported are in the `disabled-challenges` directory.
 
 ### include
 This directory contains `libcgc`, which implements the syscalls to work on non-DECREE systems. `libcgc` currently works on OS X and Linux.
 
 ### tools
 This folder contains Python scripts that help with modifying, building, and testing the original challenges.
-
-#### patcher.py
-This script will copy all challenges out of `original-challenges`, modify them as necessary, and place them in `processed-challenges`. These modifications include:
-
-* Deleting `libcgc.h` if it appears anywhere in the challenge source
-* Deleting any C++ definitions that are required for the CGC runtime
-* A set of find/replace definitions in `manual_patches.yaml`
-
-#### makefiles.py
-This will parse the `build_directive.txt` in each challenge folder and generate a `CMakeLists.txt` with the same variables and CFLAGS. This also adds the `-nostdinc` flag to all challenges, so that they have no access to the system libraries, and can only include their own libraries and `libcgc.h`.
 
 #### tester.py
 This is a helper script to test all challenges using `cb-test`. Results are summarized and can be output to an excel spreadsheet. More details in the [testing section](#testing) below.
@@ -49,7 +39,7 @@ To build all challenges, run:
 $ ./build.sh
 ```
 
-This command will build both the patched and unpatched binaries in the `bin` folder of the respective challenge (`processed-challenges/[challenge]/bin/`).
+This command will build both the patched and unpatched binaries in the `bin` folder of the respective challenge (`challenges/[challenge]/bin/`).
 
 ## Testing
 
@@ -74,7 +64,7 @@ The `tester.py` utility is a wrapper around `cb-test` that can be used to test c
 
 ### Example Usage
 
-The following will run tests against all challenges in `processed-challenges` and save the results to `out.xlsx`:
+The following will run tests against all challenges in `challenges` and save the results to `out.xlsx`:
 
 ```bash
 $ ./tester.py -a -o out.xlsx

@@ -1,0 +1,6 @@
+set( SERVICE_ID "00058" )
+set( AUTHOR_ID "CROMU" )
+set( NO_STRIP "1" )
+add_compile_options( -O0 -g )
+set( VULN_COUNT "1" )
+buildCB()

@@ -8,15 +8,12 @@ import sys
 import xlsxwriter as xl  # pip install xlsxwriter
 import xlsxwriter.utility as xlutil
 
+from common import debug, listdir
+
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'processed-challenges')
+CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'challenges')
 
 IS_WINDOWS = sys.platform == 'win32'
-
-
-def debug(s):
-    sys.stdout.write(str(s))
-    sys.stdout.flush()
 
 
 def add_ext(s):
@@ -113,7 +110,7 @@ class Tester:
         if should_core:
             cb_cmd += ['--should_core']
 
-        p = subprocess.Popen(cb_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen(cb_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=TOOLS_DIR)
         out, err = p.communicate()
 
         total, passed = self.parse_results(out)
@@ -315,13 +312,6 @@ def generate_xlsx(path, tests):
     # Done, save the spreadsheet
     wb.close()
     debug('Done, saved to {}\n'.format(path))
-
-
-def listdir(path):
-    # type: (str) -> list
-    if not os.path.isdir(path):
-        return []
-    return sorted(os.listdir(path), key=lambda s: s.lower())
 
 
 def main():

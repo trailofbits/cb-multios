@@ -19,23 +19,23 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include <libcgc.h>
-#include <errno.h>
-#include "send_bytes.h"
-#include "libc.h"
+#include "libcgc.h"
+#include "cgc_errno.h"
+#include "cgc_send_bytes.h"
+#include "cgc_libc.h"
 
 
-int send_bytes(int fd, const char *buf, unsigned int size) {
+int cgc_send_bytes(int fd, const char *buf, unsigned int size) {
 
    int ret = SUCCESS;
-   size_t bytes_left = size;
-   size_t tx_bytes_local = 0;
+   cgc_size_t bytes_left = size;
+   cgc_size_t tx_bytes_local = 0;
 
    while (bytes_left) {
 
       tx_bytes_local = 0;
 
-      if (SUCCESS != (ret = transmit(STDOUT, buf+(size-bytes_left), bytes_left, &tx_bytes_local))) {
+      if (SUCCESS != (ret = cgc_transmit(STDOUT, buf+(size-bytes_left), bytes_left, &tx_bytes_local))) {
          err("transmit() call within send_bytes() failed\n");
       }
 

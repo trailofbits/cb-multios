@@ -1,0 +1,5 @@
+set( SERVICE_ID "00071" )
+set( AUTHOR_ID "NRFIN" )
+add_compile_options( -g -pedantic -fpack-struct=32 -mstack-alignment=64 -mstackrealign -fPIE )
+set( VULN_COUNT "1" )
+buildCB()
