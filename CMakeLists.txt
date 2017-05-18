@@ -111,7 +111,14 @@ function(buildPOV path cb pov)
 
     # POVs are allowed to include challenge headers,
     # but must have their own definitions
-    target_include_directories(${target} PUBLIC "${path}/${pov}" "${path}/include" "${path}/lib" "${path}/src")
+    target_include_directories(
+        ${target} PUBLIC
+        "${path}/${pov}"
+        "${path}/include"
+        "${path}/lib"
+        "${path}/src"
+        "${PROJECT_SOURCE_DIR}/include/libpov/pov"
+    )
     set_target_properties(${target} PROPERTIES
         OUTPUT_NAME "${pov}.pov"
         RUNTIME_OUTPUT_DIRECTORY ${out_dir}  # Put these with the other xml POVs
@@ -148,7 +155,7 @@ function(buildCB)
         # Iterate through the directories and build each
         set(i 1)
         foreach(cb ${cb_parts})
-            build(${cb} ${cb_id}_${i})
+            build(${cb_path}/cb_${i} ${cb_id}_${i})
             MATH(EXPR i "${i} + 1")
         endforeach()
     else()
@@ -167,13 +174,8 @@ function(buildCB)
 endfunction(buildCB)
 
 # More options needed for cbs
-if(WIN32)
+if(NOT WIN32)
     add_compile_options(
-        /X
-    )
-else()
-    add_compile_options(
-        -nostdinc
         -fno-stack-protector
     )
 endif()
@@ -187,7 +189,7 @@ if(LINUX)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z execstack -z norelro")
 endif()
 
-file(GLOB challenge_binaries processed-challenges/*)
+file(GLOB challenge_binaries challenges/*)
 foreach(cb_path ${challenge_binaries})
     if(IS_DIRECTORY ${cb_path} AND EXISTS ${cb_path}/CMakeLists.txt)
         # Get filename

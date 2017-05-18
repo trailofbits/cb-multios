@@ -41,10 +41,10 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 #if defined SUPPORT_JIT
 
@@ -10642,7 +10642,7 @@ being compiled. */
 
 #if defined COMPILE_PCRE8
 PCRE_EXP_DECL pcre_jit_stack *
-pcre_jit_stack_alloc(int startsize, int maxsize)
+cgc_pcre_jit_stack_alloc(int startsize, int maxsize)
 #elif defined COMPILE_PCRE16
 PCRE_EXP_DECL pcre16_jit_stack *
 pcre16_jit_stack_alloc(int startsize, int maxsize)
@@ -10658,7 +10658,7 @@ return NULL;
 
 #if defined COMPILE_PCRE8
 PCRE_EXP_DECL void
-pcre_jit_stack_free(pcre_jit_stack *stack)
+cgc_pcre_jit_stack_free(pcre_jit_stack *stack)
 #elif defined COMPILE_PCRE16
 PCRE_EXP_DECL void
 pcre16_jit_stack_free(pcre16_jit_stack *stack)
@@ -10672,7 +10672,7 @@ pcre32_jit_stack_free(pcre32_jit_stack *stack)
 
 #if defined COMPILE_PCRE8
 PCRE_EXP_DECL void
-pcre_assign_jit_stack(pcre_extra *extra, pcre_jit_callback callback, void *userdata)
+cgc_pcre_assign_jit_stack(pcre_extra *extra, pcre_jit_callback callback, void *userdata)
 #elif defined COMPILE_PCRE16
 PCRE_EXP_DECL void
 pcre16_assign_jit_stack(pcre16_extra *extra, pcre16_jit_callback callback, void *userdata)
@@ -10688,7 +10688,7 @@ pcre32_assign_jit_stack(pcre32_extra *extra, pcre32_jit_callback callback, void 
 
 #if defined COMPILE_PCRE8
 PCRE_EXP_DECL void
-pcre_jit_free_unused_memory(void)
+cgc_pcre_jit_free_unused_memory(void)
 #elif defined COMPILE_PCRE16
 PCRE_EXP_DECL void
 pcre16_jit_free_unused_memory(void)

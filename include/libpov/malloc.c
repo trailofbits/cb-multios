@@ -32,8 +32,8 @@
 #endif
 
 void *cgc_memcpy(void *dst, const void *src, cgc_size_t n);
-int allocate(cgc_size_t len, int proti, void **addr);
-int deallocate(void *addr, cgc_size_t len);
+int cgc_allocate(cgc_size_t len, int proti, void **addr);
+int cgc_deallocate(void *addr, cgc_size_t len);
 void *cgc_memset(void *b, int c, cgc_size_t len);
 
 typedef struct _CHUNK_HDR {
@@ -48,17 +48,17 @@ typedef struct _BLOCK_HDR {
 
 static BLOCK_HDR *heap_base = NULL;
 
-static CHUNK_HDR *get_chunk(void *ptr) {
+static CHUNK_HDR *cgc_get_chunk(void *ptr) {
    return (CHUNK_HDR*)(((char*)ptr) - sizeof(CHUNK_HDR));
 }
 
-static cgc_size_t get_chunk_size(void *ptr) {
-   return get_chunk(ptr)->size;
+static cgc_size_t cgc_get_chunk_size(void *ptr) {
+   return cgc_get_chunk(ptr)->size;
 }
 
-static BLOCK_HDR *block_init(void) {
+static BLOCK_HDR *cgc_block_init(void) {
    BLOCK_HDR *blk;
-   if (allocate(BLOCK_SIZE, 0, (void**)&blk) == 0) {
+   if (cgc_allocate(BLOCK_SIZE, 0, (void**)&blk) == 0) {
       CHUNK_HDR *chk = (CHUNK_HDR *)(blk + 1);
       chk->prev_size = 0;
       chk->size = BLOCK_SIZE - 2 * sizeof(BLOCK_HDR);
@@ -72,8 +72,8 @@ static BLOCK_HDR *block_init(void) {
    return NULL;
 }
 
-static void heap_init(void) {
-   heap_base = block_init();
+static void cgc_heap_init(void) {
+   heap_base = cgc_block_init();
 }
 
 /*
@@ -85,13 +85,13 @@ static void heap_init(void) {
  *   all requests > PAGE_SIZE are allocated using allocate
  *   all other requests are allocated by first fit scan through the heap
  */
-static void *alloc_main(cgc_size_t size, void *hint) {
+static void *cgc_alloc_main(cgc_size_t size, void *hint) {
    if (heap_base == NULL) {
-      heap_init();
+      cgc_heap_init();
    }
    size = (size + 8 + 7) & ~7;
    if (hint != NULL) {
-      CHUNK_HDR *c = get_chunk(hint);
+      CHUNK_HDR *c = cgc_get_chunk(hint);
       cgc_size_t csize = c->size & ~7;
       if (csize < PAGE_SIZE && size < PAGE_SIZE) {
          CHUNK_HDR *nc = (CHUNK_HDR*)(csize + (char*)c);
@@ -136,7 +136,7 @@ static void *alloc_main(cgc_size_t size, void *hint) {
       //blocks > PAGE_SIZE are just allocated in
       size = (size + PAGE_MASK) & ~PAGE_MASK;
       CHUNK_HDR *c;
-      if (allocate(size, 0, (void**)&c) == 0) {
+      if (cgc_allocate(size, 0, (void**)&c) == 0) {
          c->prev_size = 0;
          c->size = size;
          return c + 1;
@@ -174,7 +174,7 @@ static void *alloc_main(cgc_size_t size, void *hint) {
       c = (CHUNK_HDR *)(blk + 1);
    }
    //link in a new block
-   pblk->next = blk = block_init();
+   pblk->next = blk = cgc_block_init();
    c = (CHUNK_HDR *)(blk + 1);
    CHUNK_HDR *pc = (CHUNK_HDR*)(size + (char*)c);
    pc->prev_size = size;
@@ -183,20 +183,20 @@ static void *alloc_main(cgc_size_t size, void *hint) {
    return c + 1;
 }
 
-void *malloc(cgc_size_t size) {
-   return alloc_main(size, NULL);
+void *cgc_malloc(cgc_size_t size) {
+   return cgc_alloc_main(size, NULL);
 }
 
 /*
  * For allocated chunks, just deallocate
  * For all others, try to consolidate forward and backward
  */
-void free(void *ptr) {
+void cgc_free(void *ptr) {
    if (ptr != NULL) {
-      CHUNK_HDR *chk = get_chunk(ptr);
+      CHUNK_HDR *chk = cgc_get_chunk(ptr);
       chk->size &= ~7;
       if (chk->size > PAGE_SIZE) {
-         deallocate(chk, chk->size);
+         cgc_deallocate(chk, chk->size);
       }
       else {
          //forward consolidation
@@ -215,14 +215,14 @@ void free(void *ptr) {
    }
 }
 
-void *realloc(void *ptr, cgc_size_t size) {
-   void *res = alloc_main(size, ptr);
+void *cgc_realloc(void *ptr, cgc_size_t size) {
+   void *res = cgc_alloc_main(size, ptr);
    if (ptr != NULL) {
-      cgc_size_t chunk_size = get_chunk_size(ptr);
+      cgc_size_t chunk_size = cgc_get_chunk_size(ptr);
       if (res != NULL && res != ptr) {
          //block has been moved
          cgc_memcpy(res, ptr, chunk_size - sizeof(CHUNK_HDR));
-         free(ptr);
+         cgc_free(ptr);
       }
    }
    return res;

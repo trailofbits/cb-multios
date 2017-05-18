@@ -20,7 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "libc.h"
+#include "cgc_libc.h"
 
 ////
 // The following is verbatim from EAGLE_00004, but isn't included in the 
@@ -28,7 +28,7 @@
 ////
 #ifdef DEBUG
 
-#include "debug.h"
+#include "cgc_debug.h"
 
 static FILE std_files[3] = { {0, _FILE_STATE_OPEN}, {1, _FILE_STATE_OPEN}, {2, _FILE_STATE_OPEN} };
 

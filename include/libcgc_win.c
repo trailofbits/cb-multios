@@ -10,12 +10,12 @@
 #define MAX(a, b) (((a) < (b)) ? (b) : (a))
 
 /* Terminates the process. */
-void _terminate(unsigned int status) {
+void cgc__terminate(unsigned int status) {
   exit(status);
 }
 
-int transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
-    cgc_size_t ret = _write(fd, buf, count);
+int cgc_transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
+    cgc_ssize_t ret = _write(fd, buf, count);
 
     if (ret < 0) {
         return errno;
@@ -26,8 +26,8 @@ int transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
     return 0;
 }
 
-int receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
-    cgc_size_t ret = _read(fd, buf, count);
+int cgc_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
+    cgc_ssize_t ret = _read(fd, buf, count);
 
     if (ret < 0) {
         return errno;
@@ -49,7 +49,7 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
     return 0;
 }
 
-int allocate(cgc_size_t length, int is_executable, void **addr) {
+int cgc_allocate(cgc_size_t length, int is_executable, void **addr) {
     DWORD prot = is_executable ? PAGE_EXECUTE_READWRITE : PAGE_READWRITE;
 
     LPVOID ret_addr = VirtualAlloc(NULL, length, MEM_COMMIT | MEM_RESERVE, prot);
@@ -62,7 +62,7 @@ int allocate(cgc_size_t length, int is_executable, void **addr) {
     return 0;
 }
 
-int deallocate(void *addr, cgc_size_t length) {
+int cgc_deallocate(void *addr, cgc_size_t length) {
     if (VirtualFree(addr, 0, MEM_RELEASE) == 0)
         return GetLastError();
     return 0;
@@ -72,7 +72,7 @@ static cgc_prng *cgc_internal_prng = NULL;
 /**
  * Initializes the prng for use with cgc_random and the flag page
  */
-static void try_init_prng() {
+static void cgc_try_init_prng() {
     // Don't reinitialize
     if (cgc_internal_prng != NULL) return;
 
@@ -103,7 +103,7 @@ static void try_init_prng() {
 
 int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes) {
     // Get random bytes from the prng
-    try_init_prng();
+    cgc_try_init_prng();
     cgc_aes_get_bytes(cgc_internal_prng, count, buf);
 
     if (rnd_bytes)
@@ -139,7 +139,7 @@ static void cgc_initialize_flag_page(void) {
     }
 
     // Fill the flag page with bytes from the prng
-    try_init_prng();
+    cgc_try_init_prng();
     cgc_aes_get_bytes(cgc_internal_prng, PAGE_SIZE, flag_addr);
 }
 

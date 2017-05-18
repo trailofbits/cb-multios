@@ -11,10 +11,10 @@ needed. */
 #ifndef PCRE_INCLUDED
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 #endif /* PCRE_INCLUDED */
 

@@ -19,10 +19,10 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include <libcgc.h>
-#include "strlen.h"
+#include "libcgc.h"
+#include "cgc_strlen.h"
 
-unsigned int my_strlen(const char *str, const char term) {
+unsigned int cgc_my_strlen(const char *str, const char term) {
 
 	if (NULL == str) {
 		return 0;

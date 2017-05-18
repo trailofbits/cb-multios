@@ -20,13 +20,13 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "service.h"
+#include "cgc_service.h"
 
 
 // Assumption: each access is 4B (the word size) in length.
-bool access_check(byte_t *loc, byte_t *bgn, byte_t *end) {
+bool cgc_access_check(byte_t *loc, byte_t *bgn, byte_t *end) {
     if ((loc >= bgn && loc <= end) || // standard
-        (loc+(sizeof(size_t)-1) >= bgn && loc+(sizeof(size_t)-1) <= end)) { // offcut up to 3 bytes
+        (loc+(sizeof(cgc_size_t)-1) >= bgn && loc+(sizeof(cgc_size_t)-1) <= end)) { // offcut up to 3 bytes
         return TRUE;
     }
     return FALSE;
@@ -40,12 +40,12 @@ bool access_check(byte_t *loc, byte_t *bgn, byte_t *end) {
  * @param resp Pointer to a packet_t that is to be populated with the response.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int packet_send(packet_t *resp) {
+int cgc_packet_send(packet_t *resp) {
 
     int ret = SUCCESS;
 
     CHK_SUCCESS(
-            send_bytes(STDOUT, (char *)resp, sizeof(packet_t)), 
+            cgc_send_bytes(STDOUT, (char *)resp, sizeof(packet_t)), 
             "failed to send packet\n");
 
 bail:
@@ -60,7 +60,7 @@ bail:
  * @param resp Pointer to a packet_t that is to be populated with the response.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int packet_recv(packet_t *req) {
+int cgc_packet_recv(packet_t *req) {
 
     int ret = SUCCESS;
 
@@ -74,7 +74,7 @@ int packet_recv(packet_t *req) {
     if (rx_buf_cursor == &rx_buf[BUF_RX_SZ]) {
         // In this case, we need to cgc_read more off the wire...
         CHK_SUCCESS(
-            recv_bytes(STDIN, (char *)&rx_buf, BUF_RX_SZ), 
+            cgc_recv_bytes(STDIN, (char *)&rx_buf, BUF_RX_SZ), 
             "failed to recv additional bytes\n");
         // ...and reset rx_buf_cursor.
         rx_buf_cursor = rx_buf;
@@ -96,7 +96,7 @@ bail:
  * @param resp Pointer to a packet_t that is to be populated with the response.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int do_normal(packet_t *req, packet_t *resp) {
+int cgc_do_normal(packet_t *req, packet_t *resp) {
     dbg("%s()\n", __func__);
 
     int ret = SUCCESS;
@@ -111,7 +111,7 @@ int do_normal(packet_t *req, packet_t *resp) {
 
         // blacklist the FLAG page
         if (OP2_MEM == req->inst.op2type && 
-            TRUE == access_check(
+            TRUE == cgc_access_check(
                 (byte_t *)req->inst.src, 
                 FLAG_PAGE_BGN, 
                 FLAG_PAGE_END)) {
@@ -135,13 +135,13 @@ int do_normal(packet_t *req, packet_t *resp) {
         }
 
         // For dst, apply blacklist per above.
-        if (FALSE == access_check( // if it's not in the .text section...
+        if (FALSE == cgc_access_check( // if it's not in the .text section...
                 (byte_t *)req->inst.dst,
                 TEXT_BGN,
                 TEXT_END) 
 #ifndef PATCHED_1 // Data section cgc_write access only allowed on unpatched.
             &&
-            FALSE == access_check( // ...and it's not in the data section...
+            FALSE == cgc_access_check( // ...and it's not in the data section...
                 (byte_t *)req->inst.dst,
                 DATA_BGN,
                 DATA_END)
@@ -171,7 +171,7 @@ bail:
  * @param resp Pointer to a packet_t that is to be populated with the response.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int do_scratch(packet_t *req, packet_t *resp) {
+int cgc_do_scratch(packet_t *req, packet_t *resp) {
     dbg("%s()\n", __func__);
 
     int ret = SUCCESS;
@@ -201,7 +201,7 @@ int do_scratch(packet_t *req, packet_t *resp) {
 
     // This is pretty hacky.
     if (NULL != loc &&
-        FALSE == access_check(loc, buf_scratch, &buf_scratch[SZ_SCRATCH])) { 
+        FALSE == cgc_access_check(loc, cgc_buf_scratch, &cgc_buf_scratch[SZ_SCRATCH])) { 
         dbg("attempt to R/W @ %p, which is outside of SCRATCH region [%p - %p]; returning error packet\n", 
             loc, buf_scratch, &buf_scratch[SZ_SCRATCH]);
         resp->status = S_ERROR;
@@ -209,7 +209,7 @@ int do_scratch(packet_t *req, packet_t *resp) {
     }
 
     if (NULL != loc2 && 
-        FALSE == access_check(loc2, buf_scratch, &buf_scratch[SZ_SCRATCH])) {
+        FALSE == cgc_access_check(loc2, cgc_buf_scratch, &cgc_buf_scratch[SZ_SCRATCH])) {
         dbg("attempt to R/W @ %p, which is outside of SCRATCH region [%p - %p]; returning error packet\n", 
             loc2, buf_scratch, &buf_scratch[SZ_SCRATCH]);        
         resp->status = S_ERROR;
@@ -244,7 +244,7 @@ bail:
  * @param resp Pointer to a packet_t that is to be populated with the response.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int do_static(packet_t *req, packet_t *resp) {
+int cgc_do_static(packet_t *req, packet_t *resp) {
     dbg("%s()\n", __func__);
 
     int ret = SUCCESS;
@@ -257,9 +257,9 @@ int do_static(packet_t *req, packet_t *resp) {
         goto bail;
     }
 
-    size_t idx = req->inst.src;
+    cgc_size_t idx = req->inst.src;
     if (STATIC_MAX_SWITCH >= idx) {
-        resp->inst.dst = static_switch(idx);
+        resp->inst.dst = cgc_static_switch(idx);
         resp->status = S_RESP;
     } else {
         dbg("idx out of range; returning error packet\n");
@@ -279,7 +279,7 @@ bail:
  * @param resp Pointer to a packet_t that is to be populated with the response.
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int bad_request(packet_t *req, packet_t *resp) {
+int cgc_bad_request(packet_t *req, packet_t *resp) {
     dbg("%s()\n", __func__);
 
     int ret = SUCCESS;
@@ -296,7 +296,7 @@ bail:
  *
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int init(void) {
+int cgc_init(void) {
     dbg("%s()\n", __func__);
 
     int ret = SUCCESS;
@@ -305,7 +305,7 @@ int init(void) {
 
     // Allocate 'scratch' (R/W/X) space.
     CHK_SUCCESS(
-        allocate(SZ_SCRATCH, TRUE, (void **)&buf_scratch), 
+        cgc_allocate(SZ_SCRATCH, TRUE, (void **)&cgc_buf_scratch), 
         "failed to allocate scratch buffer\n");
 
     dbg("buf_scratch @ %p\n", buf_scratch);
@@ -336,7 +336,7 @@ int main(void) {
     dbg("LEAK: loc_func_ptr[1] @ 0x%08x, func_ptr[1] @ 0x%08x\n", 
         &loc_func_ptr[1], &func_ptr[1]);
     
-    CHK_SUCCESS(init(), "init failed\n");
+    CHK_SUCCESS(cgc_init(), "init failed\n");
 
     // Main Loop
     while (TRUE) {
@@ -344,7 +344,7 @@ int main(void) {
         func_ptr[0] = (int (*)(packet_t *, packet_t *))MAGIC_PTR_BEFORE;
         func_ptr[2] = (int (*)(packet_t *, packet_t *))MAGIC_PTR_AFTER;
 
-        CHK_SUCCESS(packet_recv(&req), "could not receive packet\n");
+        CHK_SUCCESS(cgc_packet_recv(&req), "could not receive packet\n");
 
         // Check for magics.
         if (req.status == S_EXIT) { 
@@ -366,11 +366,11 @@ int main(void) {
 
         dbg("req.type = %d\n", req.type);
         switch (req.type) {
-            case X_NORMAL: func_ptr[1] = &do_normal; break;
-            case X_SCRATCH: func_ptr[1] = &do_scratch; break;
-            case X_STATIC: func_ptr[1] = &do_static; break;
+            case X_NORMAL: func_ptr[1] = &cgc_do_normal; break;
+            case X_SCRATCH: func_ptr[1] = &cgc_do_scratch; break;
+            case X_STATIC: func_ptr[1] = &cgc_do_static; break;
             case X_PREV: break; // Leave func_ptr[1] alone.
-            default: func_ptr[1] = &bad_request; break;
+            default: func_ptr[1] = &cgc_bad_request; break;
         }
 
         dbg("about to call handler @ 0x%08x\n", func_ptr[1]);
@@ -378,7 +378,7 @@ int main(void) {
         CHK_SUCCESS(func_ptr[1](&req, &resp), "HANDLER failure\n");
 
 respond:
-        CHK_SUCCESS(packet_send(&resp), "could not send packet\n");
+        CHK_SUCCESS(cgc_packet_send(&resp), "could not send packet\n");
     }
 
 bail:

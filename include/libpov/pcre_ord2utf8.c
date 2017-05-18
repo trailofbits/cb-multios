@@ -42,12 +42,12 @@ POSSIBILITY OF SUCH DAMAGE.
 character value into a UTF8 string. */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
 #define COMPILE_PCRE8
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 /*************************************************
 *       Convert character value to UTF-8         *

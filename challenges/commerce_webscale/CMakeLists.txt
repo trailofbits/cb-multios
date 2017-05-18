@@ -1,0 +1,6 @@
+set( SERVICE_ID "00024" )
+set( POLLS_RELEASE_SEED "1198392638" )
+set( AUTHOR_ID "KPRCA" )
+add_compile_options( -O3 -g -DDB_CURRENT -fno-strict-aliasing )
+set( POLLS_TESTING_SEED "1804088789" )
+buildCB()

@@ -11,24 +11,24 @@
 
 #define ULLONG_MAX 0xFFFFFFFFFFFFFFFFLL
 
-int isalpha(int c);
-int isdigit(int c);
-int toupper(int c);
-int isspace(int c);
+int cgc_isalpha(int c);
+int cgc_isdigit(int c);
+int cgc_toupper(int c);
+int cgc_isspace(int c);
 
-static int valueOf(char ch, int base) {
-   if (isdigit(ch)) {
+static int cgc_valueOf(char ch, int base) {
+   if (cgc_isdigit(ch)) {
       int x = ch - '0';
       return x < base ? x : -1;
    }
-   else if (isalpha(ch)) {
-      int x = toupper(ch) - 'A' + 10;
+   else if (cgc_isalpha(ch)) {
+      int x = cgc_toupper(ch) - 'A' + 10;
       return x < base ? x : -1;
    }
    return -1;
 }
 
-long strtol(const char *str, char **endptr, int base) {
+long cgc_strtol(const char *str, char **endptr, int base) {
    const char *n = str;
    int neg = 0;
    int digit;
@@ -44,7 +44,7 @@ long strtol(const char *str, char **endptr, int base) {
    }
    
    //skip white space
-   while (isspace(*n)) n++;
+   while (cgc_isspace(*n)) n++;
    
    //deal with possible sign
    if (*n == '+') {
@@ -68,7 +68,7 @@ long strtol(const char *str, char **endptr, int base) {
       }
    }
    
-   while ((digit = valueOf(*n, base)) != -1) {
+   while ((digit = cgc_valueOf(*n, base)) != -1) {
       long next = result * base + digit;
       if (next < result) {
          //overflow
@@ -86,7 +86,7 @@ long strtol(const char *str, char **endptr, int base) {
    return neg ? -result : result;
 }
 
-unsigned long strtoul(const char *str, char **endptr, int base) {
+unsigned long cgc_strtoul(const char *str, char **endptr, int base) {
    const char *n = str;
    int neg = 0;
    int digit;
@@ -102,7 +102,7 @@ unsigned long strtoul(const char *str, char **endptr, int base) {
    }
    
    //skip white space
-   while (isspace(*n)) n++;
+   while (cgc_isspace(*n)) n++;
    
    //deal with possible sign
    if (*n == '+') {
@@ -126,7 +126,7 @@ unsigned long strtoul(const char *str, char **endptr, int base) {
       }
    }
    
-   while ((digit = valueOf(*n, base)) != -1) {
+   while ((digit = cgc_valueOf(*n, base)) != -1) {
       unsigned long next = result * base + digit;
       if (next < result) {
          //overflow

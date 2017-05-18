@@ -44,10 +44,10 @@ auxiliary local function to flip the appropriate bytes. */
 
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 
 /*************************************************
@@ -64,7 +64,7 @@ Returns:       the byte swapped value
 */
 
 static pcre_uint32
-swap_uint32(pcre_uint32 value)
+cgc_swap_uint32(pcre_uint32 value)
 {
 return ((value & 0x000000ff) << 24) |
        ((value & 0x0000ff00) <<  8) |
@@ -73,7 +73,7 @@ return ((value & 0x000000ff) << 24) |
 }
 
 static pcre_uint16
-swap_uint16(pcre_uint16 value)
+cgc_swap_uint16(pcre_uint16 value)
 {
 return (value >> 8) | (value << 8);
 }
@@ -126,38 +126,38 @@ if (re->magic_number == MAGIC_NUMBER)
   }
 
 if (re->magic_number != REVERSED_MAGIC_NUMBER) return PCRE_ERROR_BADMAGIC;
-if ((swap_uint32(re->flags) & PCRE_MODE) == 0) return PCRE_ERROR_BADMODE;
+if ((cgc_swap_uint32(re->flags) & PCRE_MODE) == 0) return PCRE_ERROR_BADMODE;
 
 re->magic_number = MAGIC_NUMBER;
-re->size = swap_uint32(re->size);
-re->options = swap_uint32(re->options);
-re->flags = swap_uint32(re->flags);
-re->limit_match = swap_uint32(re->limit_match);
-re->limit_recursion = swap_uint32(re->limit_recursion);
+re->size = cgc_swap_uint32(re->size);
+re->options = cgc_swap_uint32(re->options);
+re->flags = cgc_swap_uint32(re->flags);
+re->limit_match = cgc_swap_uint32(re->limit_match);
+re->limit_recursion = cgc_swap_uint32(re->limit_recursion);
 
 #if defined COMPILE_PCRE8 || defined COMPILE_PCRE16
-re->first_char = swap_uint16(re->first_char);
-re->req_char = swap_uint16(re->req_char);
+re->first_char = cgc_swap_uint16(re->first_char);
+re->req_char = cgc_swap_uint16(re->req_char);
 #elif defined COMPILE_PCRE32
 re->first_char = swap_uint32(re->first_char);
 re->req_char = swap_uint32(re->req_char);
 #endif
 
-re->max_lookbehind = swap_uint16(re->max_lookbehind);
-re->top_bracket = swap_uint16(re->top_bracket);
-re->top_backref = swap_uint16(re->top_backref);
-re->name_table_offset = swap_uint16(re->name_table_offset);
-re->name_entry_size = swap_uint16(re->name_entry_size);
-re->name_count = swap_uint16(re->name_count);
-re->ref_count = swap_uint16(re->ref_count);
+re->max_lookbehind = cgc_swap_uint16(re->max_lookbehind);
+re->top_bracket = cgc_swap_uint16(re->top_bracket);
+re->top_backref = cgc_swap_uint16(re->top_backref);
+re->name_table_offset = cgc_swap_uint16(re->name_table_offset);
+re->name_entry_size = cgc_swap_uint16(re->name_entry_size);
+re->name_count = cgc_swap_uint16(re->name_count);
+re->ref_count = cgc_swap_uint16(re->ref_count);
 re->tables = tables;
 
 if (extra_data != NULL && (extra_data->flags & PCRE_EXTRA_STUDY_DATA) != 0)
   {
   study = (pcre_study_data *)extra_data->study_data;
-  study->size = swap_uint32(study->size);
-  study->flags = swap_uint32(study->flags);
-  study->minlength = swap_uint32(study->minlength);
+  study->size = cgc_swap_uint32(study->size);
+  study->flags = cgc_swap_uint32(study->flags);
+  study->minlength = cgc_swap_uint32(study->minlength);
   }
 
 #ifndef COMPILE_PCRE8

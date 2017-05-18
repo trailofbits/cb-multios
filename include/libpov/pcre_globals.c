@@ -53,10 +53,10 @@ Also, when compiling for Virtual Pascal, things are done differently, and
 global variables are not used. */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include "cgc_config.h"
 #endif
 
-#include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 
 #if defined _MSC_VER || defined  __SYMBIAN32__
 static void* LocalPcreMalloc(cgc_size_t aSize)
@@ -75,10 +75,10 @@ PCRE_EXP_DATA_DEFN int   (*PUBL(callout))(PUBL(callout_block) *) = NULL;
 PCRE_EXP_DATA_DEFN int   (*PUBL(stack_guard))(void) = NULL;
 
 #elif !defined VPCOMPAT
-PCRE_EXP_DATA_DEFN void *(*PUBL(malloc))(cgc_size_t) = malloc;
-PCRE_EXP_DATA_DEFN void  (*PUBL(free))(void *) = free;
-PCRE_EXP_DATA_DEFN void *(*PUBL(stack_malloc))(cgc_size_t) = malloc;
-PCRE_EXP_DATA_DEFN void  (*PUBL(stack_free))(void *) = free;
+PCRE_EXP_DATA_DEFN void *(*PUBL(malloc))(cgc_size_t) = cgc_malloc;
+PCRE_EXP_DATA_DEFN void  (*PUBL(free))(void *) = cgc_free;
+PCRE_EXP_DATA_DEFN void *(*PUBL(stack_malloc))(cgc_size_t) = cgc_malloc;
+PCRE_EXP_DATA_DEFN void  (*PUBL(stack_free))(void *) = cgc_free;
 PCRE_EXP_DATA_DEFN int   (*PUBL(callout))(PUBL(callout_block) *) = NULL;
 PCRE_EXP_DATA_DEFN int   (*PUBL(stack_guard))(void) = NULL;
 #endif
