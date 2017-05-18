@@ -1,0 +1,7 @@
+set( VULN_COUNT "1" )
+add_compile_options( -fno-exceptions -fno-rtti -DCPLUSPLUS )
+set( override LDFLAGS "-nostdlib -static -Ttext=0x90000000" )
+add_compile_options( -Oz -g )
+set( SERVICE_ID "00091" )
+set( AUTHOR_ID "KPRCA" )
+buildCB()

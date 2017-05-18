@@ -1,0 +1,6 @@
+set( SERVICE_ID "00026" )
+set( AUTHOR_ID "KPRCA" )
+set( POLLS_RELEASE_SEED "1637181811" )
+add_compile_options( -O3 -g -DFILAMENTS )
+set( POLLS_TESTING_SEED "-839347834" )
+buildCB()

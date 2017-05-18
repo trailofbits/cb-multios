@@ -1,0 +1,5 @@
+set( SERVICE_ID "00058" )
+set( AUTHOR_ID "KPRCA" )
+add_compile_options( -O1 -fomit-frame-pointer -g )
+set( VULN_COUNT "1" )
+buildCB()

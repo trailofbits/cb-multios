@@ -1,0 +1,5 @@
+set( SERVICE_ID "00005" )
+set( AUTHOR_ID "EAGLE" )
+add_compile_options( -O0 -g )
+set( VULN_COUNT "2" )
+buildCB()

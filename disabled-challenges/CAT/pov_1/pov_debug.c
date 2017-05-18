@@ -23,8 +23,8 @@
 #ifndef POV_DEBUG_H
 #define POV_DEBUG_H
 
-#include "pov_debug.h"
-#include <libcgc.h>
+#include "cgc_pov_debug.h"
+#include "libcgc.h"
 
 static FILE std_files[3] = { {0, _FILE_STATE_OPEN}, {1, _FILE_STATE_OPEN}, {2, _FILE_STATE_OPEN} };
 
@@ -32,7 +32,7 @@ FILE *stdin = &std_files[0];
 FILE *stdout = &std_files[1];
 FILE *stderr = &std_files[2];
 
-unsigned int my_strlen(const char *str, const char term) {
+unsigned int cgc_my_strlen(const char *str, const char term) {
 
    if (NULL == str) {
       return 0;
@@ -47,49 +47,49 @@ unsigned int my_strlen(const char *str, const char term) {
     return len;
 }
 
-int isalpha(int c) {
+int cgc_isalpha(int c) {
    return (type_flags[c & 0xff] & IS_ALPHA) != 0;
 }
 
-int isdigit(int c) {
+int cgc_isdigit(int c) {
    return (type_flags[c & 0xff] & IS_DIGIT) != 0;
 }
 
-int isxdigit(int c) {
+int cgc_isxdigit(int c) {
    return (type_flags[c & 0xff] & IS_XDIGIT) != 0;
 }
 
-int toupper(int c) {
-   if (isalpha(c)) {
+int cgc_toupper(int c) {
+   if (cgc_isalpha(c)) {
       return c & ~0x20;
    }
    return c;
 }
 
-int vfprintf(FILE * stream, const char *format, my_va_list ap) {
-   return vdprintf(stream->fd, format, ap);
+int cgc_vfprintf(FILE * stream, const char *format, my_va_list ap) {
+   return cgc_vdprintf(stream->fd, format, ap);
 }
 
-int fprintf(FILE * stream, const char *format, ...) {
+int cgc_fprintf(FILE * stream, const char *format, ...) {
    my_va_list va;
    my_va_start(va, format);
-   return vfprintf(stream, format, va);
+   return cgc_vfprintf(stream, format, va);
 }
 
 //if flag != 0 return number of chars output so far
-static unsigned int fd_printer(char ch, void *_fp, int flag) {
+static unsigned int cgc_fd_printer(char ch, void *_fp, int flag) {
    struct _fd_printer *fp = (struct _fd_printer *)_fp;
    if (flag) {
       return fp->count;
    }
    else {
       fp->count++;
-      transmit(fp->fd, &ch, 1, NULL);
+      cgc_transmit(fp->fd, &ch, 1, NULL);
    }
    return 0;
 }
 
-static char *r_utoa(unsigned int val, char *outbuf) {
+static char *cgc_r_utoa(unsigned int val, char *outbuf) {
    char *p = outbuf;
    *p = '0';
    while (val) {
@@ -100,7 +100,7 @@ static char *r_utoa(unsigned int val, char *outbuf) {
 }
 
 //outbuf needs to be at least 22 chars
-static char *r_llotoa(unsigned long long val, char *outbuf) {
+static char *cgc_r_llotoa(unsigned long long val, char *outbuf) {
    char *p = outbuf;
    *p = '0';
    while (val) {
@@ -110,12 +110,12 @@ static char *r_llotoa(unsigned long long val, char *outbuf) {
    return p != outbuf ? (p - 1) : p;
 }
 
-static char *r_otoa(unsigned int val, char *outbuf) {
-   return r_llotoa(val, outbuf);
+static char *cgc_r_otoa(unsigned int val, char *outbuf) {
+   return cgc_r_llotoa(val, outbuf);
 }
 
 //outbuf needs to be at least 22 chars
-static char *r_llxtoa(unsigned long long val, char *outbuf, int caps) {
+static char *cgc_r_llxtoa(unsigned long long val, char *outbuf, int caps) {
    char *p = outbuf;
    *p = '0';
    while (val) {
@@ -132,23 +132,23 @@ static char *r_llxtoa(unsigned long long val, char *outbuf, int caps) {
    return p != outbuf ? (p - 1) : p;
 }
 
-static char *r_xtoa(unsigned int val, char *outbuf, int caps) {
-   return r_llxtoa(val, outbuf, caps);
+static char *cgc_r_xtoa(unsigned int val, char *outbuf, int caps) {
+   return cgc_r_llxtoa(val, outbuf, caps);
 }
 
-static int hex_value_of(char ch) {
-   if (isdigit(ch)) {
+static int cgc_hex_value_of(char ch) {
+   if (cgc_isdigit(ch)) {
       return ch - '0';
    }
-   else if (isalpha(ch)) {
-      return toupper(ch) - 'A' + 10;
+   else if (cgc_isalpha(ch)) {
+      return cgc_toupper(ch) - 'A' + 10;
    }
    return -1;
 }
 
 //func is responsible for outputing the given character
 //user is a pointer to data required by func
-static void printf_core(unsigned int (*func)(char, void *, int), void *user, const char *format, my_va_list ap) {
+static void cgc_printf_core(unsigned int (*func)(char, void *, int), void *user, const char *format, my_va_list ap) {
    int state = STATE_NORMAL;
    int flags;
    int digit_count = 0;
@@ -243,9 +243,9 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
             }
             break;
          case STATE_HEX:
-            if (isxdigit(ch) && digit_count < 2) {
+            if (cgc_isxdigit(ch) && digit_count < 2) {
                digit_count++;
-               value = value * 16 + hex_value_of(ch);
+               value = value * 16 + cgc_hex_value_of(ch);
                if (digit_count == 2) {
                   func(value, user, 0);
                   state = STATE_NORMAL;
@@ -268,11 +268,11 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                state = STATE_FLAGS;
                break;
             }
-            if (isdigit(ch)) {
+            if (cgc_isdigit(ch)) {
                //could be width or could be arg specifier or a 0 flag
                //width and arg values don't start with 0
                width_value = 0;
-               while (isdigit(ch)) {
+               while (cgc_isdigit(ch)) {
                   width_value = width_value * 10 + (ch - '0');
                   ch = *format++;
                }
@@ -326,8 +326,8 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
             if (ch == '*') {
                ch = *format++;
                int width_arg = 0;
-               if (isdigit(ch)) {
-                  while (isdigit(ch)) {
+               if (cgc_isdigit(ch)) {
+                  while (cgc_isdigit(ch)) {
                      width_arg = width_arg * 10 + (ch - '0');
                      ch = *format++;
                   }
@@ -342,9 +342,9 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                width_value = (int)args[width_arg];
             }
-            else if (isdigit(ch)) {
+            else if (cgc_isdigit(ch)) {
                width_value = 0;
-               while (isdigit(ch)) {
+               while (cgc_isdigit(ch)) {
                   width_value = width_value * 10 + (ch - '0');
                   ch = *format++;
                }
@@ -363,8 +363,8 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                if (ch == '*') {
                   ch = *format++;
                   int prec_arg = 0;
-                  if (isdigit(ch)) {
-                     while (isdigit(ch)) {
+                  if (cgc_isdigit(ch)) {
+                     while (cgc_isdigit(ch)) {
                         prec_arg = prec_arg * 10 + (ch - '0');
                         ch = *format++;
                      }
@@ -379,9 +379,9 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                   }
                   prec_value = (int)args[prec_arg];
                }
-               else if (isdigit(ch)) {
+               else if (cgc_isdigit(ch)) {
                   prec_value = 0;
-                  while (isdigit(ch)) {
+                  while (cgc_isdigit(ch)) {
                      prec_value = prec_value * 10 + (ch - '0');
                      ch = *format++;
                   }
@@ -452,7 +452,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                         if (sign) {
                            val = -val;
                         }
-                        num_ptr = r_utoa(val, num_buf);
+                        num_ptr = cgc_r_utoa(val, num_buf);
                         break;
                      case LENGTH_HH:
                         val = (char)(int)args[field_arg];
@@ -460,7 +460,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                         if (sign) {
                            val = -val;
                         }
-                        num_ptr = r_utoa(val, num_buf);
+                        num_ptr = cgc_r_utoa(val, num_buf);
                         break;
                      case LENGTH_L:
                      default:
@@ -469,7 +469,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                         if (sign) {
                            val = -val;
                         }
-                        num_ptr = r_utoa(val, num_buf);
+                        num_ptr = cgc_r_utoa(val, num_buf);
                         break;
                   }
                   len = num_ptr - num_buf + 1;
@@ -568,14 +568,14 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                   int len;
                   switch (length) {
                      case LENGTH_H:
-                        num_ptr = r_otoa((unsigned short)(unsigned int)args[field_arg], num_buf);
+                        num_ptr = cgc_r_otoa((unsigned short)(unsigned int)args[field_arg], num_buf);
                         break;
                      case LENGTH_HH:
-                        num_ptr = r_otoa((unsigned char)(unsigned int)args[field_arg], num_buf);
+                        num_ptr = cgc_r_otoa((unsigned char)(unsigned int)args[field_arg], num_buf);
                         break;
                      case LENGTH_L:
                      default:
-                        num_ptr = r_otoa((unsigned long)args[field_arg], num_buf);
+                        num_ptr = cgc_r_otoa((unsigned long)args[field_arg], num_buf);
                         break;
                   }
                   if (flags & FLAGS_HASH) {
@@ -643,14 +643,14 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                   int len;
                   switch (length) {
                      case LENGTH_H:
-                        num_ptr = r_utoa((unsigned short)(unsigned int)args[field_arg], num_buf);
+                        num_ptr = cgc_r_utoa((unsigned short)(unsigned int)args[field_arg], num_buf);
                         break;
                      case LENGTH_HH:
-                        num_ptr = r_utoa((unsigned char)(unsigned int)args[field_arg], num_buf);
+                        num_ptr = cgc_r_utoa((unsigned char)(unsigned int)args[field_arg], num_buf);
                         break;
                      case LENGTH_L:
                      default:
-                        num_ptr = r_utoa((unsigned long)args[field_arg], num_buf);
+                        num_ptr = cgc_r_utoa((unsigned long)args[field_arg], num_buf);
                         break;
                   }
                   len = num_ptr - num_buf + 1;
@@ -714,14 +714,14 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                   int len;
                   switch (length) {
                      case LENGTH_H:
-                        num_ptr = r_xtoa((unsigned short)(unsigned int)args[field_arg], num_buf, use_caps);
+                        num_ptr = cgc_r_xtoa((unsigned short)(unsigned int)args[field_arg], num_buf, use_caps);
                         break;
                      case LENGTH_HH:
-                        num_ptr = r_xtoa((unsigned char)(unsigned int)args[field_arg], num_buf, use_caps);
+                        num_ptr = cgc_r_xtoa((unsigned char)(unsigned int)args[field_arg], num_buf, use_caps);
                         break;
                      case LENGTH_L:
                      default:
-                        num_ptr = r_xtoa((unsigned long)args[field_arg], num_buf, use_caps);
+                        num_ptr = cgc_r_xtoa((unsigned long)args[field_arg], num_buf, use_caps);
                         break;
                   }
                   len = num_ptr - num_buf + 1;
@@ -839,7 +839,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                }
                case 's': {
                   const char *s_arg = (const char *)args[field_arg];
-                  int len = my_strlen(s_arg, '\0');
+                  int len = cgc_my_strlen(s_arg, '\0');
                   if (width_value == -1) {
                      //by default min length is the entire string
                      width_value = len;
@@ -876,7 +876,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                case 'p': {
                   int len;
                   flags |= FLAGS_HASH;
-                  num_ptr = r_xtoa((unsigned int)args[field_arg], num_buf, 0);
+                  num_ptr = cgc_r_xtoa((unsigned int)args[field_arg], num_buf, 0);
                   len = num_ptr - num_buf + 1;
                   if (prec_value == -1) {
                      //by default max is entire value
@@ -975,12 +975,12 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
    }
 }
 
-int vdprintf(int fd, const char *format, my_va_list ap) {
+int cgc_vdprintf(int fd, const char *format, my_va_list ap) {
    struct _fd_printer fp;
    fp.fd = fd;
    fp.err = 0;
    fp.count = 0;
-   printf_core(fd_printer, &fp, format, ap);
+   cgc_printf_core(cgc_fd_printer, &fp, format, ap);
    return fp.count;
 }
 

@@ -1,0 +1,6 @@
+set( SERVICE_ID "00094" )
+set( AUTHOR_ID "KPRCA" )
+set( POLLS_RELEASE_MAX_DEPTH "1500" )
+add_compile_options( -O3 -g -DPRINTF_CHAR=59 )
+set( VULN_COUNT "1" )
+buildCB()

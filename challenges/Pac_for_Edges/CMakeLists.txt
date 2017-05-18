@@ -1,0 +1,5 @@
+set( SERVICE_ID "00086" )
+set( AUTHOR_ID "KPRCA" )
+add_compile_options( -O1 -g -mstackrealign -DDISABLE_HEAP_GUARD -include cgc__defines.h )
+set( VULN_COUNT "1" )
+buildCB()
