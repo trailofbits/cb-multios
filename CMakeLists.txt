@@ -174,13 +174,8 @@ function(buildCB)
 endfunction(buildCB)
 
 # More options needed for cbs
-if(WIN32)
+if(NOT WIN32)
     add_compile_options(
-        /X
-    )
-else()
-    add_compile_options(
-        -nostdinc
         -fno-stack-protector
     )
 endif()
