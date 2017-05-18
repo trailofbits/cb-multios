@@ -28,32 +28,28 @@ void cgc__terminate(unsigned int status) {
 
 /* Transmits data from one CGC process to another. */
 int cgc_transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
-  const cgc_ssize_t ret = write(fd, buf, count);
+    const cgc_ssize_t ret = write(fd, buf, count);
 
-  if (ret < 0) {
-    return errno;
-  } else {
-
-    if (tx_bytes)
-      *tx_bytes = ret;
+    if (ret < 0) {
+        return errno;
+    } else if (tx_bytes != NULL) {
+        *tx_bytes = ret;
+    }
 
     return 0;
-  }
 }
 
 /* Receives data from another CGC process. */
 int cgc_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
-  const cgc_ssize_t ret = read(fd, buf, count);
+    const cgc_ssize_t ret = read(fd, buf, count);
 
-  if (ret < 0) {
-    return errno;
-  } else {
-
-    if (rx_bytes)
-      *rx_bytes = ret;
+    if (ret < 0) {
+        return errno;
+    } else if (rx_bytes != NULL) {
+        *rx_bytes = ret;
+    }
 
     return 0;
-  }
 }
 
 /* Tries to validate a timeout. */

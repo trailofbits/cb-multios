@@ -15,7 +15,7 @@ void cgc__terminate(unsigned int status) {
 }
 
 int cgc_transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
-    cgc_size_t ret = _write(fd, buf, count);
+    cgc_ssize_t ret = _write(fd, buf, count);
 
     if (ret < 0) {
         return errno;
@@ -27,7 +27,7 @@ int cgc_transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes
 }
 
 int cgc_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
-    cgc_size_t ret = _read(fd, buf, count);
+    cgc_ssize_t ret = _read(fd, buf, count);
 
     if (ret < 0) {
         return errno;
