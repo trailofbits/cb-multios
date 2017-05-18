@@ -13,12 +13,6 @@ if ! /usr/bin/env python -c "import yaml; import xlsxwriter; import Crypto" 2>/d
     exit 1
 fi
 
-echo "Running patcher"
-${TOOLS}/patcher.py $@
-
-echo "Generating CMakelists"
-${TOOLS}/makefiles.py
-
 echo "Creating build directory"
 mkdir -p ${DIR}/build
 cd ${DIR}/build
