@@ -1,10 +1,14 @@
 #include "libcgc.h"
 #include "cgc_libc.h"
 
+#ifdef WIN
+#include <stdarg.h>
+#else
 typedef __builtin_va_list va_list;
 #define va_start(ap, param) __builtin_va_start(ap, param)
 #define va_end(ap) __builtin_va_end(ap)
 #define va_arg(ap, type) __builtin_va_arg(ap, type)
+#endif
 
 static FILE std_files[3] = { {0, _FILE_STATE_OPEN}, {1, _FILE_STATE_OPEN}, {2, _FILE_STATE_OPEN} };
 
@@ -165,15 +169,15 @@ long cgc_strtol(const char *str, char **endptr, int base) {
       errno = EINVAL;
       return 0;
    }
-   
+
    //init *endptr to beginning of string
    if (endptr) {
       *endptr = (char*)str;
    }
-   
+
    //skip white space
    while (cgc_isspace(*n)) n++;
-   
+
    //deal with possible sign
    if (*n == '+') {
       n++;
@@ -182,7 +186,7 @@ long cgc_strtol(const char *str, char **endptr, int base) {
       n++;
       neg = 1;
    }
-   
+
    //handle base == 0
    if (base == 0) {
       base = 10;
@@ -195,7 +199,7 @@ long cgc_strtol(const char *str, char **endptr, int base) {
          }
       }
    }
-   
+
    while ((digit = cgc_valueOf(*n, base)) != -1) {
       long next = result * base + digit;
       if (next < result) {
@@ -208,9 +212,9 @@ long cgc_strtol(const char *str, char **endptr, int base) {
       if (endptr) {
          //*endptr points to character after last converted digit
          *endptr = (char*)n;
-      }  
+      }
    }
-   
+
    return neg ? -result : result;
 }
 
@@ -227,7 +231,7 @@ int cgc_transmit_all(int fd, const char *buf, const cgc_size_t size) {
     cgc_size_t sent_now = 0;
     int ret;
 
-    if (!buf) 
+    if (!buf)
         return 1;
 
     if (!size)
@@ -845,7 +849,7 @@ static void cgc_printf_core(unsigned int (*func)(char, void *, int), void *user,
                      if (width_value > prec_value) {
                         func(' ', user, 0);
                         width_value--;
-                     }                        
+                     }
                      while (prec_value > len) {
                         func('0', user, 0);
                         prec_value--;
@@ -1280,7 +1284,7 @@ int cgc_vdprintf(int fd, const char *format, va_list ap) {
 int cgc_fgetc(FILE *stream) {
    int ch = 0;
    cgc_size_t rx_bytes;
-   
+
    //first check to see if a character has been "unget"
    if ((stream->state & _FILE_HAVE_LAST) != 0) {
       stream->state &= ~_FILE_HAVE_LAST;

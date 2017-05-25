@@ -66,13 +66,13 @@ int cgc_toupper(int c) {
    return c;
 }
 
-int cgc_vfprintf(FILE * stream, const char *format, my_va_list ap) {
+int cgc_vfprintf(FILE * stream, const char *format, va_list ap) {
    return cgc_vdprintf(stream->fd, format, ap);
 }
 
 int cgc_fprintf(FILE * stream, const char *format, ...) {
-   my_va_list va;
-   my_va_start(va, format);
+   va_list va;
+   va_start(va, format);
    return cgc_vfprintf(stream, format, va);
 }
 
@@ -148,7 +148,7 @@ static int cgc_hex_value_of(char ch) {
 
 //func is responsible for outputing the given character
 //user is a pointer to data required by func
-static void cgc_printf_core(unsigned int (*func)(char, void *, int), void *user, const char *format, my_va_list ap) {
+static void cgc_printf_core(unsigned int (*func)(char, void *, int), void *user, const char *format, va_list ap) {
    int state = STATE_NORMAL;
    int flags;
    int digit_count = 0;
@@ -975,7 +975,7 @@ static void cgc_printf_core(unsigned int (*func)(char, void *, int), void *user,
    }
 }
 
-int cgc_vdprintf(int fd, const char *format, my_va_list ap) {
+int cgc_vdprintf(int fd, const char *format, va_list ap) {
    struct _fd_printer fp;
    fp.fd = fd;
    fp.err = 0;

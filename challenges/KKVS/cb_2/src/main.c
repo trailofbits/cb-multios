@@ -96,12 +96,15 @@ int toupper(int c);
 # 1 "lib/stdarg.h" 1
 
 
-
+#ifdef WIN
+#include <stdarg.h>
+#else
 typedef __builtin_va_list __gnuc_va_list;
 
 
 
 typedef __gnuc_va_list va_list;
+#endif
 # 6 "lib/stdlib.h" 2
 # 1 "lib/stddef.h" 1
 

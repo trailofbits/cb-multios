@@ -36,7 +36,7 @@ int cgc_receive_all(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
 
   // XXXX: Guessed and tested for sweet spot.
   struct cgc_timeval timeToWait;
-  timeToWait.tv_sec = 0; 
+  timeToWait.tv_sec = 0;
   timeToWait.tv_usec = 50000;
 
   while (bytes_left) {
@@ -55,8 +55,8 @@ int cgc_receive_all(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
     }
 
     // There's no more to cgc_read.
-    if (0 == fdsReady) {     
-      *rx_bytes = count-bytes_left; 
+    if (0 == fdsReady) {
+      *rx_bytes = count-bytes_left;
       return ret;
     }
 
@@ -69,8 +69,8 @@ int cgc_receive_all(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
 
     // Assume EOF if 0-lengthed buffer.
     if (0 == rx_bytes_local) {
-      if (NULL != rx_bytes) { 
-          *rx_bytes = count-bytes_left; 
+      if (NULL != rx_bytes) {
+          *rx_bytes = count-bytes_left;
        }
       return ret;
     }
@@ -109,7 +109,7 @@ int cgc_transmit_all(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_b
 
   // If we got here, then we got all the bytes.
   if (NULL != tx_bytes) { *tx_bytes = count; }
-  
+
   return ret;
 }
 
@@ -127,15 +127,19 @@ unsigned char * cgc_memset(unsigned char *b, unsigned char c, cgc_size_t len) {
 
 
 ////
-// The following is verbatim from EAGLE_00004, but isn't included in the 
+// The following is verbatim from EAGLE_00004, but isn't included in the
 // released binary (DEBUG is not defined), so this reuse shouldn't be a concern.
 ////
 #ifdef DEBUG
 
+#ifdef WIN
+#include <stdarg.h>
+#else
 typedef __builtin_va_list va_list;
 #define va_start(ap, param) __builtin_va_start(ap, param)
 #define va_end(ap) __builtin_va_end(ap)
 #define va_arg(ap, type) __builtin_va_arg(ap, type)
+#endif
 
 static FILE std_files[3] = { {0, _FILE_STATE_OPEN}, {1, _FILE_STATE_OPEN}, {2, _FILE_STATE_OPEN} };
 
@@ -730,7 +734,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                      if (width_value > prec_value) {
                         func(' ', user, 0);
                         width_value--;
-                     }                        
+                     }
                      while (prec_value > len) {
                         func('0', user, 0);
                         prec_value--;

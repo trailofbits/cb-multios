@@ -44,8 +44,8 @@ int cgc_receive_all(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
 
       // Assume EOF if 0-lengthed buffer.
       if (0 == rx_bytes_local) {
-        if (NULL != rx_bytes) { 
-            *rx_bytes = count-bytes_left; 
+        if (NULL != rx_bytes) {
+            *rx_bytes = count-bytes_left;
          }
         return ret;
       }
@@ -87,24 +87,24 @@ int cgc_transmit_all(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_b
 
   // If we got here, then we got all the bytes.
   if (NULL != tx_bytes) { *tx_bytes = count; }
-  
+
   return ret;
 }
 
-// Wrapper for transmit_all() that terminates packets with our custom string 
+// Wrapper for transmit_all() that terminates packets with our custom string
 // terminator.
 int cgc_transmit_with_term(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes) {
 
    int ret = SUCCESS;
 
-   if (SUCCESS != (ret = cgc_transmit_all(fd, buf, count, tx_bytes))) { 
+   if (SUCCESS != (ret = cgc_transmit_all(fd, buf, count, tx_bytes))) {
 #ifdef DEBUG
       fprintf(cgc_stderr, "[E] in transmit_with_term(), during transmit (actual data)\n");
 #endif
       return ret;
    }
 
-   if (SUCCESS != (ret = cgc_transmit_all(fd, (void *)&STRING_TERMINATOR_STR, 1, tx_bytes))) { 
+   if (SUCCESS != (ret = cgc_transmit_all(fd, (void *)&STRING_TERMINATOR_STR, 1, tx_bytes))) {
 #ifdef DEBUG
       fprintf(cgc_stderr, "[E] in transmit_with_term(), during transmit (STRING_TERMINATOR)\n");
 #endif
@@ -120,7 +120,7 @@ int cgc_receive_with_term(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_by
 
    int ret = SUCCESS;
 
-   if (SUCCESS != (ret = cgc_receive_all(fd, buf, count, rx_bytes))) { 
+   if (SUCCESS != (ret = cgc_receive_all(fd, buf, count, rx_bytes))) {
 #ifdef DEBUG
       fprintf(cgc_stderr, "[E] in receive_with_term(), during receive (actual data)\n");
 #endif
@@ -145,10 +145,10 @@ char *cgc_strncpy(char *dest, const char *src, cgc_size_t n)
 }
 
 // From the docs:
-// The strcat() and strncat() functions append a copy of the null-terminated 
-// string s2 to the end of the null-terminated string s1, then add a 
-// terminating `\0'.  
-// The strncat() function appends not more than n characters from s2, and then 
+// The strcat() and strncat() functions append a copy of the null-terminated
+// string s2 to the end of the null-terminated string s1, then add a
+// terminating `\0'.
+// The strncat() function appends not more than n characters from s2, and then
 // adds a terminating `\0'.
 // NOTE: not POSIX
 char * cgc_strncat(char *s1, const char *s2, cgc_size_t n) {
@@ -169,7 +169,7 @@ char * cgc_strncat(char *s1, const char *s2, cgc_size_t n) {
 // IDENTICAL TO: REDPILL
 unsigned char * cgc_memset(void *b, char c, cgc_size_t len) {
 
-  char *ptr = (char *)b; 
+  char *ptr = (char *)b;
   while (len) {
       ptr[len-1] = c;
       len--;
@@ -177,10 +177,10 @@ unsigned char * cgc_memset(void *b, char c, cgc_size_t len) {
   return b;
 }
 
-// Provided a haystack string and a needle string, return a ptr to the location 
-// in the haystack string where the needle resides.  
+// Provided a haystack string and a needle string, return a ptr to the location
+// in the haystack string where the needle resides.
 // If no needle found, return NULL.
-// NOTE: This function is horribly inefficient... so it probably doesn't look 
+// NOTE: This function is horribly inefficient... so it probably doesn't look
 //    like a real function a CRS might be trained on.  Yey silver lining.
 char * cgc_strpos(char * haystack, char * needle) {
 
@@ -203,8 +203,8 @@ char * cgc_strpos(char * haystack, char * needle) {
 
 
 // Read until size or we see a '\n'.
-// If we receive 0 bytes, keep reading. 
-// MOD from FASTLANE: STRING_TERMINATOR substituted for '\n' 
+// If we receive 0 bytes, keep reading.
+// MOD from FASTLANE: STRING_TERMINATOR substituted for '\n'
 int cgc_recv_until_delim(int fd, char *buf, cgc_size_t size) {
 
     cgc_size_t bytes_read = 0;
@@ -212,7 +212,7 @@ int cgc_recv_until_delim(int fd, char *buf, cgc_size_t size) {
 
     if(!size)
         return 0;
- 
+
     if (!buf)
         return -2;
 
@@ -281,14 +281,18 @@ cgc_size_t cgc_strlen(const char *str) {
 #ifdef DEBUG
 
 ////
-// The following is verbatim from EAGLE_00004, but isn't included in the 
+// The following is verbatim from EAGLE_00004, but isn't included in the
 // released binary (DEBUG is not defined), so this reuse shouldn't be a concern.
 ////
 
+#ifdef WIN
+#include <stdarg.h>
+#else
 typedef __builtin_va_list va_list;
 #define va_start(ap, param) __builtin_va_start(ap, param)
 #define va_end(ap) __builtin_va_end(ap)
 #define va_arg(ap, type) __builtin_va_arg(ap, type)
+#endif
 
 static FILE std_files[3] = { {0, _FILE_STATE_OPEN}, {1, _FILE_STATE_OPEN}, {2, _FILE_STATE_OPEN} };
 
@@ -877,7 +881,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                      if (width_value > prec_value) {
                         func(' ', user, 0);
                         width_value--;
-                     }                        
+                     }
                      while (prec_value > len) {
                         func('0', user, 0);
                         prec_value--;

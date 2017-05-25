@@ -235,7 +235,7 @@ cgc_strtok(char *s, char d)
 {
     static char *prev = NULL;
     char *token, *ret;
-    
+
     if (s == NULL && (prev == NULL || cgc_strlen(prev) == 0))
         return NULL;
 
@@ -293,7 +293,7 @@ cgc_bin_to_hex(char *dst, const void *src_, cgc_size_t n)
         *dst++ = cgc_to_hex(src[i] >> 4);
         *dst++ = cgc_to_hex(src[i] & 0xf);
     }
-        
+
     return dst;
 }
 
@@ -342,15 +342,19 @@ cgc_itoa(int val, char *s)
     return ret;
 }
 
-/* The following is verbatim from EAGLE_00004, but isn't included in the 
+/* The following is verbatim from EAGLE_00004, but isn't included in the
  * released binary (DEBUG is not defined), so this reuse shouldn't be a concern.
  */
 #ifdef DEBUG
 
+#ifdef WIN
+#include <stdarg.h>
+#else
 typedef __builtin_va_list va_list;
 #define va_start(ap, param) __builtin_va_start(ap, param)
 #define va_end(ap) __builtin_va_end(ap)
 #define va_arg(ap, type) __builtin_va_arg(ap, type)
+#endif
 
 static FILE std_files[3] = { {0, _FILE_STATE_OPEN}, {1, _FILE_STATE_OPEN}, {2, _FILE_STATE_OPEN} };
 
@@ -944,7 +948,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                      if (width_value > prec_value) {
                         func(' ', user, 0);
                         width_value--;
-                     }                        
+                     }
                      while (prec_value > len) {
                         func('0', user, 0);
                         prec_value--;

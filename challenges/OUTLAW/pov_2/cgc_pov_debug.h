@@ -36,10 +36,14 @@ extern FILE *cgc_stdin;
 extern FILE *cgc_stdout;
 extern FILE *cgc_stderr;
 
-typedef __builtin_va_list my_va_list;
-#define my_va_start(ap, param) __builtin_va_start(ap, param)
+#ifdef WIN
+#include <stdarg.h>
+#else
+typedef __builtin_va_list va_list;
+#define va_start(ap, param) __builtin_va_start(ap, param)
 #define va_end(ap) __builtin_va_end(ap)
 #define va_arg(ap, type) __builtin_va_arg(ap, type)
+#endif
 
 #define IS_DIGIT     1
 #define IS_UPPER     2
@@ -87,7 +91,7 @@ int cgc_isxdigit(int c);
 
 int cgc_toupper(int c);
 
-int cgc_vfprintf(FILE * stream, const char *format, my_va_list ap);
+int cgc_vfprintf(FILE * stream, const char *format, va_list ap);
 
 int cgc_fprintf(FILE * stream, const char *format, ...);
 
@@ -147,9 +151,9 @@ static int cgc_hex_value_of(char ch);
 
 //func is responsible for outputing the given character
 //user is a pointer to data required by func
-static void cgc_printf_core(unsigned int (*func)(char, void *, int), void *user, const char *format, my_va_list ap);
+static void cgc_printf_core(unsigned int (*func)(char, void *, int), void *user, const char *format, va_list ap);
 
-int cgc_vdprintf(int fd, const char *format, my_va_list ap);
+int cgc_vdprintf(int fd, const char *format, va_list ap);
 
 ///////////////
 
