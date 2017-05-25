@@ -29,10 +29,14 @@ THE SOFTWARE.
 
 #include "cgc_stdlib.h"
 
+#ifdef WIN
+#include <stdarg.h>
+#else
 typedef __builtin_va_list va_list;
 #define va_start(v,l)   __builtin_va_start(v,l)
 #define va_end(v)       __builtin_va_end(v)
 #define va_arg(v,l)     __builtin_va_arg(v,l)
+#endif
 
 void cgc_FailAndTerminate(char *error_msg);
 void cgc_ReceiveBytes(void *buffer, cgc_size_t size);

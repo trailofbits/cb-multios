@@ -33,6 +33,10 @@ typedef unsigned char uint8_t;
 
 
 // VA defs for xxprintf functions
+#ifdef WIN
+#define _VA_LIST
+#include <stdarg.h>
+#else
 #ifndef _VA_LIST
 typedef __builtin_va_list va_list;
 #define _VA_LIST
@@ -41,6 +45,7 @@ typedef __builtin_va_list va_list;
 #define va_end(al)          __builtin_va_end(al)
 #define va_arg(al, t)    __builtin_va_arg(al, t)
 #define va_copy(d, s)       __builtin_va_copy(d, s)
+#endif
 
 
 #define SUCCESS 0

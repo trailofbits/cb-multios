@@ -3,7 +3,7 @@
 
 #ifdef DEBUG
 char *str_tids[] = { "K", "T1", "T2", "T3", "T4", "T5" };
-char *str_syscall[] = { 
+char *str_syscall[] = {
 
   ////
   // FUTEX: 0000 0000b (0 / 0x0) - 0001 1111b (15 / 0x1F)
@@ -40,8 +40,8 @@ char *str_syscall[] = {
   "FUTEX_CMP_REQUEUE_PI_INVALID", // 0001 0011b
 
   // UNUSED in FUTEX space: 0001 1000b (24 / 0x18) - 0001 1111b (31 / 0x1F)
-  "FUTEX_UNUSED", "FUTEX_UNUSED", "FUTEX_UNUSED", "FUTEX_UNUSED", 
-  "FUTEX_UNUSED", "FUTEX_UNUSED", "FUTEX_UNUSED", "FUTEX_UNUSED", 
+  "FUTEX_UNUSED", "FUTEX_UNUSED", "FUTEX_UNUSED", "FUTEX_UNUSED",
+  "FUTEX_UNUSED", "FUTEX_UNUSED", "FUTEX_UNUSED", "FUTEX_UNUSED",
   "FUTEX_UNUSED", "FUTEX_UNUSED", "FUTEX_UNUSED", "FUTEX_UNUSED",
 
   ////
@@ -55,13 +55,13 @@ char *str_syscall[] = {
   "PAUSE_INVALID",  // 0010 0011b
 
   // UNUSED in PAUSE space: 0010 0100b (36 / 0x24) - 0011 1111b (63 / 0x3F)
-  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", 
-  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", 
-  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", 
-  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", 
-  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", 
-  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", 
-  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", 
+  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED",
+  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED",
+  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED",
+  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED",
+  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED",
+  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED",
+  "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED", "PAUSE_UNUSED",
 
   ////
   // SENDMSG: 0100 0000b (64 / 0x40) - 0101 1111b (95 / 0x5F)
@@ -71,7 +71,7 @@ char *str_syscall[] = {
   "SENDMSG_RECURSE",         // 0100 0000b
   "SENDMSG_RECURSE_ACK",     // 0100 0001b
   "SENDMSG_RECURSE_PENDING", // 0100 0010b
-  "SENDMSG_RECURSE_INVALID", // 0100 0011b 
+  "SENDMSG_RECURSE_INVALID", // 0100 0011b
 
   // UNUSED in SENDMSG space: 0100 0100b (68 / 0x44) - 0101 1111b (95 / 0x5F)
   "SENDMSG_UNUSED", "SENDMSG_UNUSED", "SENDMSG_UNUSED", "SENDMSG_UNUSED",
@@ -99,7 +99,7 @@ char *str_syscall[] = {
   "PROC_LIST_DUMP_INVALID",
 
   // UNUSED in PROC space: 104 - 127 / 0x7C
-  "PROC_UNUSED", "PROC_UNUSED", "PROC_UNUSED", "PROC_UNUSED", 
+  "PROC_UNUSED", "PROC_UNUSED", "PROC_UNUSED", "PROC_UNUSED",
   "PROC_UNUSED", "PROC_UNUSED", "PROC_UNUSED", "PROC_UNUSED",
   "PROC_UNUSED", "PROC_UNUSED", "PROC_UNUSED", "PROC_UNUSED",
   "PROC_UNUSED", "PROC_UNUSED", "PROC_UNUSED", "PROC_UNUSED",
@@ -109,9 +109,9 @@ char *str_syscall[] = {
   ////
   // TGKILL: 1000 0000b (128 / 0x80) - 1001 1111b (159 / 0x9F)
   ////
-  "TGKILL",         
-  "TGKILL_ACK",     
-  "TGKILL_PENDING", 
+  "TGKILL",
+  "TGKILL_ACK",
+  "TGKILL_PENDING",
   "TGKILL_INVALID",
 
   // UNUSED in TGKILL space: 132 / 0x84 - 159 / 0x9F
@@ -260,7 +260,7 @@ unsigned char cgc_pkt_get_msg(struct packet *pkt) { return pkt->msg; }
 void pkt_dump(struct packet *pkt) {
 
   // sanity
-  if (pkt->src < 0 || pkt->src > NUM_THREADS) { 
+  if (pkt->src < 0 || pkt->src > NUM_THREADS) {
     fprintf(cgc_stderr, "[E] invalid pkt (src OOB): 0x%02x\n", pkt->src);
     return;
   }
@@ -297,8 +297,8 @@ int cgc_list_push(struct list *lst, struct node *nd) {
   if (NULL != cgc_list_find(lst, nd->value)) {
   #ifdef DEBUG
       fprintf(cgc_stderr, "K: [D] list_push(): refusing dupe value push\n");
-  #endif  
-      return ERRNO_LIST_PUSH;             
+  #endif
+      return ERRNO_LIST_PUSH;
     }
 
   nd->next = NULL;
@@ -311,7 +311,7 @@ int cgc_list_push(struct list *lst, struct node *nd) {
 
   // >= 1 element
   } else {
-    lst->tail->next = nd; 
+    lst->tail->next = nd;
     lst->tail = nd;
   }
 
@@ -334,11 +334,11 @@ struct node * cgc_list_find(struct list *lst, char value) {
   fprintf(cgc_stderr, "K: [D] list_find(); curr = %p\n", curr);
 #endif
 
-  while (NULL != curr && value != curr->value) { 
+  while (NULL != curr && value != curr->value) {
 #ifdef DEBUG
   fprintf(cgc_stderr, "K: [D] list_find(); curr = %p\n", curr);
 #endif
-    curr = curr->next; 
+    curr = curr->next;
   }
   return curr;
 }
@@ -420,7 +420,7 @@ int cgc_node_destroy(struct node *nd) {
 // RETURN: the first argument
 unsigned char * cgc_memset(void *b, char c, cgc_size_t len) {
 
-  char *ptr = (char *)b; 
+  char *ptr = (char *)b;
   while (len) {
       ptr[len-1] = c;
       len--;
@@ -464,14 +464,18 @@ inline void DEBUG_INDENT_PRINT(char *msg) {
 }
 
 ////
-// The following is verbatim from EAGLE_00004, but isn't included in the 
+// The following is verbatim from EAGLE_00004, but isn't included in the
 // released binary (DEBUG is not defined), so this reuse shouldn't be a concern.
 ////
 
+#ifdef WIN
+#include <stdarg.h>
+#else
 typedef __builtin_va_list va_list;
 #define va_start(ap, param) __builtin_va_start(ap, param)
 #define va_end(ap) __builtin_va_end(ap)
 #define va_arg(ap, type) __builtin_va_arg(ap, type)
+#endif
 
 static FILE std_files[3] = { {0, _FILE_STATE_OPEN}, {1, _FILE_STATE_OPEN}, {2, _FILE_STATE_OPEN} };
 
@@ -1066,7 +1070,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                      if (width_value > prec_value) {
                         func(' ', user, 0);
                         width_value--;
-                     }                        
+                     }
                      while (prec_value > len) {
                         func('0', user, 0);
                         prec_value--;

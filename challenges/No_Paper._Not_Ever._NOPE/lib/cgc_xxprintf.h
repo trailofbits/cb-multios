@@ -25,6 +25,10 @@
 #include "cgc_libc.h"
 
 // VA defs for xxprintf functions
+#ifdef WIN
+#define _VA_LIST 1
+#include <stdarg.h>
+#else
 #ifndef _VA_LIST
 typedef __builtin_va_list va_list;
 #define _VA_LIST 1
@@ -47,7 +51,7 @@ typedef __builtin_va_list va_list;
 #define va_end(al)          __builtin_va_end(al)
 
 /**
- * Expand to an expression that has the type and value of the 
+ * Expand to an expression that has the type and value of the
  *  next argement in the function call.
  *
  * @param al Arguments list
@@ -66,6 +70,7 @@ typedef __builtin_va_list va_list;
  * @param s Source variable arguments list
  */
 #define va_copy(d, s)       __builtin_va_copy(d, s)
+#endif
 
 /**
  * A simple, non-standard vsnprintf.
@@ -82,7 +87,7 @@ typedef __builtin_va_list va_list;
  * For each format specifier, it will take a value from args
  *  and insert it at that location as that type.
  *
- * Note: vsnprintf does not call va_end, because it takes a va_list, 
+ * Note: vsnprintf does not call va_end, because it takes a va_list,
  *  caller does so.
  *
  * @param buf Output buffer
@@ -108,7 +113,7 @@ int cgc_vsnprintf(char * buf, cgc_size_t buf_size, const char * fmt, va_list arg
  * For each format specifier, it will take a value from args
  *  and insert it at that location as that type.
  *
- * Note: vsnprintf does not call va_end, because it takes a va_list, 
+ * Note: vsnprintf does not call va_end, because it takes a va_list,
  *  caller does so.
  *
  * @param buf Output buffer

@@ -25,6 +25,10 @@
 
 typedef unsigned int uint32_t;
 typedef unsigned char uint8_t;
+#ifdef WIN
+#define _VA_LIST
+#include <stdarg.h>
+#else
 #ifndef _VA_LIST
 typedef __builtin_va_list va_list;
 #define _VA_LIST
@@ -33,6 +37,7 @@ typedef __builtin_va_list va_list;
 #define va_end(al)          __builtin_va_end(al)
 #define va_arg(al, t)    __builtin_va_arg(al, t)
 #define va_copy(d, s)       __builtin_va_copy(d, s)
+#endif
 
 
 #define isdigit(c)  ((c) >= '0' && (c) <= '9')

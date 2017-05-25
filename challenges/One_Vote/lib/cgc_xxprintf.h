@@ -26,6 +26,10 @@
 
 
 // VA defs for xxprintf functions
+#ifdef WIN
+#define _VA_LIST 1
+#include <stdarg.h>
+#else
 #ifndef _VA_LIST
 typedef __builtin_va_list va_list;
 #define _VA_LIST 1
@@ -48,7 +52,7 @@ typedef __builtin_va_list va_list;
 #define va_end(al)          __builtin_va_end(al)
 
 /**
- * Expand to an expression that has the type and value of the 
+ * Expand to an expression that has the type and value of the
  *  next argement in the function call.
  *
  * @param al Arguments list
@@ -67,6 +71,7 @@ typedef __builtin_va_list va_list;
  * @param s Source variable arguments list
  */
 #define va_copy(d, s)       __builtin_va_copy(d, s)
+#endif
 
 /**
  * A simple, non-standard vsnprintf.
@@ -77,11 +82,11 @@ typedef __builtin_va_list va_list;
  *  'S' for char buffer (strings)
  *  'L' for char (one single char)
  *
- * Note: 
- *	 If L is replaced by the term char, then there will be a 
+ * Note:
+ *	 If L is replaced by the term char, then there will be a
  *	term char in the middle of the string. So uses of the resulting
  *	string will cause issues if cgc_strlen, etc are used.
- *   If I (itoan) contains term char, then the string will get 
+ *   If I (itoan) contains term char, then the string will get
  *	the decimal representation of the term char in it.
  *
  * Format string marker is dynamic
@@ -92,7 +97,7 @@ typedef __builtin_va_list va_list;
  * For each format specifier, it will take a value from args
  *  and insert it at that location as that type.
  *
- * Note: vsnprintf does not call va_end, because it takes a va_list, 
+ * Note: vsnprintf does not call va_end, because it takes a va_list,
  *  caller does so.
  *
  * @param buf Output buffer
@@ -114,11 +119,11 @@ int cgc_vsnprintf(char * buf, cgc_size_t buf_size, const char fsm, const char te
  *  'S' for char buffer (strings)
  *  'L' for char (one single char)
  *
- * Note: 
- *	 If L is replaced by the term char, then there will be a 
+ * Note:
+ *	 If L is replaced by the term char, then there will be a
  *	term char in the middle of the string. So uses of the resulting
  *	string will cause issues if cgc_strlen, etc are used.
- *   If I (itoan) contains term char, then the string will get 
+ *   If I (itoan) contains term char, then the string will get
  *	the decimal representation of the term char in it.
  *
  * Format string marker is dynamic

@@ -74,7 +74,7 @@ cgc_read_line(int fd, char **buf)
         //if (cgc_receive(fd, &c, 1, &cgc_read) != 0 || cgc_read != 1)
         //    return -1;
 
-        
+
         scratch_page[ret++] = c;
     }
 
@@ -236,7 +236,7 @@ cgc_strtok(char *s, char d)
 {
     static char *prev = NULL;
     char *token, *ret;
-    
+
     if (s == NULL && (prev == NULL || cgc_strlen(prev) == 0))
         return NULL;
 
@@ -294,7 +294,7 @@ cgc_bin_to_hex(char *dst, const void *src_, cgc_size_t n)
         *dst++ = cgc_to_hex(src[i] >> 4);
         *dst++ = cgc_to_hex(src[i] & 0xf);
     }
-        
+
     return dst;
 }
 
@@ -358,15 +358,19 @@ int cgc_atoi(char *buf){
     return final;
 }
 
-/* The following is verbatim from EAGLE_00004, but isn't included in the 
+/* The following is verbatim from EAGLE_00004, but isn't included in the
  * released binary (DEBUG is not defined), so this reuse shouldn't be a concern.
  */
 #ifdef DEBUG
 
+#ifdef WIN
+#include <stdarg.h>
+#else
 typedef __builtin_va_list va_list;
 #define va_start(ap, param) __builtin_va_start(ap, param)
 #define va_end(ap) __builtin_va_end(ap)
 #define va_arg(ap, type) __builtin_va_arg(ap, type)
+#endif
 
 static FILE std_files[3] = { {0, _FILE_STATE_OPEN}, {1, _FILE_STATE_OPEN}, {2, _FILE_STATE_OPEN} };
 
@@ -960,7 +964,7 @@ static void printf_core(unsigned int (*func)(char, void *, int), void *user, con
                      if (width_value > prec_value) {
                         func(' ', user, 0);
                         width_value--;
-                     }                        
+                     }
                      while (prec_value > len) {
                         func('0', user, 0);
                         prec_value--;
@@ -1399,10 +1403,13 @@ int vdprintf(int fd, const char *format, va_list ap) {
 #include "libcgc.h"
 #include "cgc_libc.h"
 
+#ifdef WIN
+#include <stdarg.h>
+#else
 typedef __builtin_va_list va_list;
 
-#define va_start(ap, last) \
-        __builtin_va_start((ap), (last))
+#define va_start(ap, last) __builtin_va_start(ap, last)
+#endif
 
 struct _FILE {
    int fd;
@@ -1529,7 +1536,7 @@ int cgc_transmit_all(int fd, const void *buf, const cgc_size_t size) {
     cgc_size_t sent_now = 0;
     int ret;
 
-    if (!buf) 
+    if (!buf)
         return 1;
 
     if (!size)
@@ -1575,7 +1582,7 @@ static unsigned int cgc_fd_printer(char ch, void *_fp, int flag) {
       if ((fp->count % sizeof(fp->buf)) == 0) {
          if (cgc_transmit_all(fp->fd, &ch, sizeof(fp->buf)) != 0) {
             cgc__terminate(1);
-         }         
+         }
       }
    }
    else if (flag == 1) {
@@ -2086,7 +2093,7 @@ static void cgc_printf_core(unsigned int (*func)(char, void *, int), void *user,
                      if (width_value > prec_value) {
                         func(' ', user, 0);
                         width_value--;
-                     }                        
+                     }
                      while (prec_value > len) {
                         func('0', user, 0);
                         prec_value--;
@@ -2524,7 +2531,7 @@ int cgc_fgetc(FILE *stream) {
       return stream->buf[stream->curr++];
    }
    stream->curr = stream->max = 0;
-   
+
    if (cgc_receive(stream->fd, stream->buf, sizeof(stream->buf), &stream->max) != 0) {
       stream->state |= _FILE_STATE_ERROR;
       return EOF;

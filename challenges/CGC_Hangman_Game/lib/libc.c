@@ -1,10 +1,13 @@
 #include "libcgc.h"
 #include "cgc_libc.h"
 
+#ifdef WIN
+#include <stdarg.h>
+#else
 typedef __builtin_va_list va_list;
 
-#define va_start(ap, last) \
-        __builtin_va_start((ap), (last))
+#define va_start(ap, last) __builtin_va_start(ap, last)
+#endif
 
 struct _FILE {
    int fd;

@@ -26,6 +26,10 @@
 #include "libcgc.h"
 #include "cgc_stdint.h"
 
+#ifdef WIN
+#define _VA_LIST
+#include <stdarg.h>
+#else
 #ifndef _VA_LIST
 typedef __builtin_va_list va_list;
 #define _VA_LIST
@@ -35,6 +39,7 @@ typedef __builtin_va_list va_list;
 #define va_end(al) __builtin_va_end(al)
 #define va_arg(al, t) __builtin_va_arg(al, t)
 #define va_copy(d, s) __builtin_va_copy(d, s)
+#endif
 
 #define NEWLINE '\n'
 #define FMTCHAR '@'
@@ -182,7 +187,7 @@ cgc_size_t cgc_readline(int fd, char *buf, cgc_size_t s);
  * @param fd File descriptor to cgc_read from.
  * @param buf Buffer to cgc_write cgc_read bytes to.
  * @param s Maximum number of bytes to cgc_read
- * @return Number of bytes cgc_read 
+ * @return Number of bytes cgc_read
  */
 cgc_size_t cgc_readall(int fd, char *buf, cgc_size_t s);
 
@@ -221,7 +226,7 @@ int cgc_streq(char *s1, char *s2);
  * @param s1 Input string.
  * @return Length of string, not including NULL terminator..
  */
-int cgc_strlen(const char *s); 
+int cgc_strlen(const char *s);
 
 /**
  * Format string and store in buffer
@@ -231,7 +236,7 @@ int cgc_strlen(const char *s);
  * @param ... Additional format arguments
  * @return None.
  */
-void cgc_sprintf(char *buf, const char *fmt, ...); 
+void cgc_sprintf(char *buf, const char *fmt, ...);
 
 /**
  * Format string and store in buffer
@@ -241,7 +246,7 @@ void cgc_sprintf(char *buf, const char *fmt, ...);
  * @param argp Additional format arguments
  * @return None.
  */
-void cgc_vsprintf(char *buf, const char *fmt, va_list argp); 
+void cgc_vsprintf(char *buf, const char *fmt, va_list argp);
 
 /**
  * Print things to cgc_stdout.
@@ -250,7 +255,7 @@ void cgc_vsprintf(char *buf, const char *fmt, va_list argp);
  * @param ... Additional format arguments
  * @return None.
  */
-void cgc_printf(const char *fmt, ...); 
+void cgc_printf(const char *fmt, ...);
 
 /**
  * Print things to file descriptor.
@@ -270,7 +275,7 @@ void cgc_fdprintf(int fd, const char *fmt, ...);
  * @param argp Additional format arguments
  * @return None.
  */
-void cgc_vfdprintf(int fd, const char *fmt, va_list argp); 
+void cgc_vfdprintf(int fd, const char *fmt, va_list argp);
 
 /**
  * Tokenize string
@@ -279,7 +284,7 @@ void cgc_vfdprintf(int fd, const char *fmt, va_list argp);
  * @param sep Seperator to tokenize off of
  * @return Next token in string.
  */
-char *cgc_strtok(char *s, char sep); 
+char *cgc_strtok(char *s, char sep);
 
 /**
  * String copy
@@ -288,7 +293,7 @@ char *cgc_strtok(char *s, char sep);
  * @param s2 src
  * @return None.
  */
-void cgc_strcpy(char *s1, const char *s2); 
+void cgc_strcpy(char *s1, const char *s2);
 
 /**
  * String to int
@@ -314,7 +319,7 @@ char * cgc_strcat(char *dest, const char *src);
  * @param len length
  * @return None.
  */
-void cgc_memcpy(void *dest, void *src, cgc_size_t len); 
+void cgc_memcpy(void *dest, void *src, cgc_size_t len);
 
 /**
  * Check if two buffers are equal
