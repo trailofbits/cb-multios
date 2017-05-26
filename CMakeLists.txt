@@ -23,6 +23,9 @@ if(WIN32)
     )
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MACHINE:X86")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MACHINE:X86")
+
+    # Read in challenges to exclude from build
+    file(STRINGS "exclude/win.txt" cb_exclude)
 else(WIN32)
     # Generic ASM can be enabled on other OSs
     enable_language(ASM)
@@ -30,9 +33,15 @@ else(WIN32)
     if(UNIX AND NOT APPLE)
         set(LINUX TRUE)
         add_definitions(-DLINUX)
+
+        # Read in challenges to exclude from build
+        file(STRINGS "exclude/linux.txt" cb_exclude)
     endif()
     if(APPLE)
         add_definitions(-DAPPLE)
+
+        # Read in challenges to exclude from build
+        file(STRINGS "exclude/osx.txt" cb_exclude)
     endif()
 
     # Default flags for everything
@@ -183,6 +192,11 @@ foreach(cb_path ${challenge_binaries})
     if(IS_DIRECTORY ${cb_path} AND EXISTS ${cb_path}/CMakeLists.txt)
         # Get filename
         get_filename_component(cb_id ${cb_path} NAME)
-        add_subdirectory(${cb_path})
+
+        # Skip the challenge if it's in the exclude list
+        list(FIND cb_exclude ${cb_id} idx)
+        if(${idx} EQUAL -1)
+            add_subdirectory(${cb_path})
+        endif()
     endif()
 endforeach()
