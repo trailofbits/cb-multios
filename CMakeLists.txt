@@ -23,6 +23,9 @@ if(WIN32)
     )
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MACHINE:X86")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MACHINE:X86")
+
+    # Read in challenges to exclude from build
+    file(STRINGS "exclude/win.txt" cb_exclude)
 else(WIN32)
     # Generic ASM can be enabled on other OSs
     enable_language(ASM)
@@ -30,9 +33,15 @@ else(WIN32)
     if(UNIX AND NOT APPLE)
         set(LINUX TRUE)
         add_definitions(-DLINUX)
+
+        # Read in challenges to exclude from build
+        file(STRINGS "exclude/linux.txt" cb_exclude)
     endif()
     if(APPLE)
         add_definitions(-DAPPLE)
+
+        # Read in challenges to exclude from build
+        file(STRINGS "exclude/osx.txt" cb_exclude)
     endif()
 
     # Default flags for everything
@@ -95,6 +104,7 @@ function(build path target)
             TARGET ${target} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cgc> ${CMAKE_CURRENT_BINARY_DIR}
             COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:tiny-AES128-C> ${CMAKE_CURRENT_BINARY_DIR}
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:pov> ${CMAKE_CURRENT_BINARY_DIR}
         )
     ENDIF()
 endfunction(build)
@@ -103,7 +113,6 @@ function(buildPOV path cb pov)
     # Unique target name, i.e. "Palindrome2_pov_1",
     # executable name kept as "pov_#.pov"
     set(target "${cb}_${pov}")
-    set(out_dir "../pov")
 
     # Gather sources
     aux_source_directory("${path}/${pov}" pov_src)
@@ -121,22 +130,11 @@ function(buildPOV path cb pov)
     )
     set_target_properties(${target} PROPERTIES
         OUTPUT_NAME "${pov}.pov"
-        RUNTIME_OUTPUT_DIRECTORY ${out_dir}  # Put these with the other xml POVs
-        RUNTIME_OUTPUT_DIRECTORY_DEBUG ${out_dir}
-        RUNTIME_OUTPUT_DIRECTORY_RELEASE ${out_dir}
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR}
     )
 
     target_link_libraries(${target} LINK_PUBLIC cgc pov)
-
-    IF(WIN32)
-        # Copy required DLLs post-build
-        add_custom_command(
-            TARGET ${target} POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cgc> ${out_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:tiny-AES128-C> ${out_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:pov> ${out_dir}
-        )
-    ENDIF()
 endfunction(buildPOV)
 
 function(buildCB)
@@ -194,6 +192,11 @@ foreach(cb_path ${challenge_binaries})
     if(IS_DIRECTORY ${cb_path} AND EXISTS ${cb_path}/CMakeLists.txt)
         # Get filename
         get_filename_component(cb_id ${cb_path} NAME)
-        add_subdirectory(${cb_path} ${cb_path}/bin)
+
+        # Skip the challenge if it's in the exclude list
+        list(FIND cb_exclude ${cb_id} idx)
+        if(${idx} EQUAL -1)
+            add_subdirectory(${cb_path})
+        endif()
     endif()
 endforeach()
