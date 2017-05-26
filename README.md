@@ -39,7 +39,7 @@ To build all challenges, run:
 $ ./build.sh
 ```
 
-This command will build both the patched and unpatched binaries in the `bin` folder of the respective challenge (`challenges/[challenge]/bin/`).
+This command will build both the patched and unpatched binaries in `build/challenges/[challenge]/`.
 
 ## Testing
 
