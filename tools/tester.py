@@ -11,7 +11,9 @@ import xlsxwriter.utility as xlutil
 from common import debug, listdir
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-CHAL_DIR = os.path.join(os.path.dirname(TOOLS_DIR), 'challenges')
+ROOT = os.path.dirname(TOOLS_DIR)
+CHAL_DIR = os.path.join(ROOT, 'challenges')
+BUILD_DIR = os.path.join(ROOT, 'build', 'challenges')
 
 IS_WINDOWS = sys.platform == 'win32'
 
@@ -46,8 +48,7 @@ class Tester:
 
         # Directories used in testing
         self.chal_dir = os.path.join(CHAL_DIR, self.name)
-        self.bin_dir = os.path.join(self.chal_dir, 'bin')
-        self.pov_dir = os.path.join(self.chal_dir, 'pov')
+        self.bin_dir = os.path.join(BUILD_DIR, self.name)
         self.poll_dir = os.path.join(self.chal_dir, 'poller')
 
         # Keep track of success
@@ -161,7 +162,7 @@ class Tester:
         # Test POVs
         if Tester.povs_enabled:
             debug('POV:\n\t')
-            self.run_against_dir(self.pov_dir, self.povs, is_pov=True)
+            self.run_against_dir(self.bin_dir, self.povs, is_pov=True)
 
         # Test POLLs
         if Tester.polls_enabled:
