@@ -12,7 +12,6 @@ if(WIN32)
     # Need to use MASM on windows
     enable_language(ASM_MASM)
 
-    add_definitions(-DWIN)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
     set(BUILD_SHARED_LIBS TRUE)
 
@@ -25,7 +24,13 @@ if(WIN32)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MACHINE:X86")
 
     # Read in challenges to exclude from build
-    file(STRINGS "exclude/win.txt" cb_exclude)
+    if(CLANGCL)
+        file(STRINGS "exclude/win_clangcl.txt" cb_exclude)
+        add_definitions(-DCLANGCL)
+    else()
+        file(STRINGS "exclude/win_msvc.txt" cb_exclude)
+        add_definitions(-DWIN)
+    endif()
 else(WIN32)
     # Generic ASM can be enabled on other OSs
     enable_language(ASM)
@@ -197,6 +202,8 @@ foreach(cb_path ${challenge_binaries})
         list(FIND cb_exclude ${cb_id} idx)
         if(${idx} EQUAL -1)
             add_subdirectory(${cb_path})
+        else()
+            message("EXCLUDE: ${cb_id}")
         endif()
     endif()
 endforeach()
