@@ -24,6 +24,7 @@
 #include "cgc_stdlib.h"
 #include "cgc_string.h"
 #include "cgc_stdio_private.h"
+#include "cgc__defines.h"
 
 /*
  * This library can be customized using preprocessor defines:

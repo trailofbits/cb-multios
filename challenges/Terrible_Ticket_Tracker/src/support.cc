@@ -23,6 +23,7 @@
 #include "cgc_support.h"
 
 #include "cgc_cstdio.h"
+#include "cgc__defines.h"
 
 uint32_t g_support_id = 1;
 

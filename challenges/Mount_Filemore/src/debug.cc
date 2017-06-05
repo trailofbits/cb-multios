@@ -23,6 +23,7 @@
 
 #include "cgc_cstdio.h"
 #include "cgc_print.h"
+#include "cgc__defines.h"
 
 void debug_bhdr(const bhdr &header)
 {

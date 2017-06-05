@@ -1,5 +1,5 @@
 set( SERVICE_ID "00087" )
 set( AUTHOR_ID "KPRCA" )
-add_compile_options( -O3 -g -include cgc__defines.h )
+add_compile_options( -O3 -g )
 set( VULN_COUNT "1" )
 buildCB()

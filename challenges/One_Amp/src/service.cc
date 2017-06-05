@@ -26,6 +26,7 @@
 #include "cgc_playlist.h"
 #include "cgc_tag_and_file.h"
 #include "cgc_print.h"
+#include "cgc__defines.h"
 
 #define MAX_USER_PLAYLISTS 10
 #define SECRET_PAGE_SIZE 4096

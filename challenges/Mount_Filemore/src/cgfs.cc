@@ -24,6 +24,7 @@
 #include "cgc_cgfs.h"
 #include "cgc_cstdlib.h"
 #include "cgc_cstring.h"
+#include "cgc__defines.h"
 
 #include "cgc_print.h"
 

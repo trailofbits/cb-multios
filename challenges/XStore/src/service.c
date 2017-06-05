@@ -26,6 +26,7 @@
 #include "cgc_stdint.h"
 #include "cgc_string.h"
 #include "cgc_ctype.h"
+#include "cgc__defines.h"
 
 #include "cgc_xpack.h"
 #include "cgc_tr.h"

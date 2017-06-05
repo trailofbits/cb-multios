@@ -25,6 +25,7 @@
 #include "cgc_cstdio.h"
 #include "cgc_ticket.h"
 #include "cgc_time.h"
+#include "cgc__defines.h"
 
 #define MAX_PRIORITY CRITICAL
 
