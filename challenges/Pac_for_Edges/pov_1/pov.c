@@ -1,5 +1,6 @@
 #include "libpov.h"
 #include "cgc_string.h"
+#include "cgc__defines.h"
 
 // STOLEN FROM CROMU sample
 // itoa - Does not check output buffer size.

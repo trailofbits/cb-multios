@@ -27,6 +27,7 @@
 #include "cgc_ticket.h"
 #include "cgc_time.h"
 #include "cgc_support.h"
+#include "cgc__defines.h"
 
 #define COMPONENT_DELIM '|'
 #define MAX_COMPONENTS 8

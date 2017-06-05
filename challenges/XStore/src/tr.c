@@ -24,6 +24,7 @@
 #include "cgc_stdlib.h"
 #include "cgc_string.h"
 #include "cgc_tr.h"
+#include "cgc__defines.h"
 
 tr_t cgc__tr_rot_left(tr_t root)
 {

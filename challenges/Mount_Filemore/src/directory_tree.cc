@@ -26,6 +26,7 @@
 #include "cgc_cstdio.h"
 
 #include "cgc_print.h"
+#include "cgc__defines.h"
 
 namespace {
 
@@ -284,4 +285,3 @@ void DirectoryTree::ClearTreeHelper(DirectoryTree *dirnode)
     dirnode->subdirectories_.Clear();
     dirnode->file_list_.Clear();
 }
-

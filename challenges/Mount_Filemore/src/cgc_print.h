@@ -29,6 +29,7 @@
 #include "cgc_array.h"
 #include "cgc_cluster.h"
 #include "cgc_fs_file.h"
+#include "cgc__defines.h"
 
 #define PRINT_ARR_CHARS(_array, _size) \
     do { \

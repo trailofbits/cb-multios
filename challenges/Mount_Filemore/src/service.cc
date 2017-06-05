@@ -27,6 +27,7 @@
 #include "cgc_cgfs.h"
 #include "cgc_fs_info_sector.h"
 #include "cgc_print.h"
+#include "cgc__defines.h"
 
 unsigned int cgc_p1, cgc_p2;
 char *FillBuffer(const char *secret_page, const unsigned int num_bytes)

@@ -1,5 +1,6 @@
 #include "libpov.h"
 #include "cgc_xlat.h"
+#include "cgc__defines.h"
 
 int main()
 {
