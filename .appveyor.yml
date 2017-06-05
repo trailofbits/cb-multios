@@ -1,0 +1,7 @@
+image: Visual Studio 2015
+matrix:
+  - BUILDARGS: ''
+  - BUILDARGS: '-clang'
+build-script:
+  - ps: >-
+      Start-Process powershell -NoNewWindow -Wait -ArgumentList ".\build.ps1 $BUILDARGS" 
