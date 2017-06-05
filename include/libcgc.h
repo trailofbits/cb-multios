@@ -12,6 +12,8 @@
 
 #ifdef WIN
 # define __attribute__(x)
+# define __builtin_isnan _isnan
+# define __builtin_isinf(x) (! _finite(x))
 #endif
 
 typedef unsigned long cgc_size_t;
