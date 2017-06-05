@@ -1,31 +1,31 @@
 
-#
-# Copyright (c) 2014 Jason L. Wright (jason@thought.net)
-# All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
-# 1. Redistributions of source code must retain the above copyright
-#    notice, this list of conditions and the following disclaimer.
-# 2. Redistributions in binary form must reproduce the above copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the distribution.
-#
-# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
-# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-# DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
-# INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-# STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-# POSSIBILITY OF SUCH DAMAGE.
-#
+//
+// Copyright (c) 2014 Jason L. Wright (jason@thought.net)
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+// are met:
+// 1. Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+// 2. Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+// INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+// HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+//
 
-# basic assembly math routines for DARPA Cyber Grand Challenge
+// basic assembly math routines for DARPA Cyber Grand Challenge
 
 #ifdef APPLE
 .macro .type
@@ -33,7 +33,13 @@
 
 .macro .size
 .endm
-#endif
+
+// OSX symbols need a leading underscore
+# define SYM(x) _##x
+
+#else
+# define SYM(x) x
+#endif // APPLE
 
 .macro ENTER base
     .global \base, \base\()f, \base\()l
@@ -48,14 +54,14 @@
     .size \base\()l, . - \base\()l
 .endm
 
-ENTER cgc_sin
-cgc_sinl:
+ENTER SYM(cgc_sin)
+SYM(cgc_sinl):
     fldt    4(%esp)
     jmp     1f
-cgc_sinf:
+SYM(cgc_sinf):
     flds    4(%esp)
     jmp     1f
-cgc_sin:
+SYM(cgc_sin):
     fldl    4(%esp)
 1:
     fsin
@@ -64,19 +70,19 @@ cgc_sin:
     jp      2f
     ret
 2:
-    call    cgc_twopi_rem
+    call    SYM(cgc_twopi_rem)
     fsin
     ret
-END cgc_sin
+END SYM(cgc_sin)
 
-ENTER cgc_cos
-cgc_cosl:
+ENTER SYM(cgc_cos)
+SYM(cgc_cosl):
     fldt    4(%esp)
     jmp     1f
-cgc_cosf:
+SYM(cgc_cosf):
     flds    4(%esp)
     jmp     1f
-cgc_cos:
+SYM(cgc_cos):
     fldl    4(%esp)
 1:
     fcos
@@ -85,19 +91,19 @@ cgc_cos:
     jp      2f
     ret
 2:
-    call    cgc_twopi_rem
+    call    SYM(cgc_twopi_rem)
     fcos
     ret
-END cgc_cos
+END SYM(cgc_cos)
 
-ENTER cgc_tan
-cgc_tanl:
+ENTER SYM(cgc_tan)
+SYM(cgc_tanl):
     fldt    4(%esp)
     jmp     1f
-cgc_tanf:
+SYM(cgc_tanf):
     flds    4(%esp)
     jmp     1f
-cgc_tan:
+SYM(cgc_tan):
     fldl    4(%esp)
 1:
     fptan
@@ -107,14 +113,14 @@ cgc_tan:
     fstp    %st(0)
     ret
 2:
-    call    cgc_twopi_rem
+    call    SYM(cgc_twopi_rem)
     fptan
     fstp    %st(0)
     ret
-END cgc_tan
+END SYM(cgc_tan)
 
-.type cgc_twopi_rem, @function
-cgc_twopi_rem:
+.type SYM(cgc_twopi_rem), @function
+SYM(cgc_twopi_rem):
     fldpi
     fadd    %st(0)
     fxch    %st(1)
@@ -125,18 +131,18 @@ cgc_twopi_rem:
     jp      1b
     fstp    %st(1)
     ret
-.size    cgc_twopi_rem, . - cgc_twopi_rem
+.size    SYM(cgc_twopi_rem), . - SYM(cgc_twopi_rem)
 
-ENTER cgc_remainder
-cgc_remainderl:
+ENTER SYM(cgc_remainder)
+SYM(cgc_remainderl):
     fldt    16(%esp)
     fldt    4(%esp)
     jmp     1f
-cgc_remainderf:
+SYM(cgc_remainderf):
     flds    8(%esp)
     flds    4(%esp)
     jmp     1f
-cgc_remainder:
+SYM(cgc_remainder):
     fldl    12(%esp)
     fldl    4(%esp)
 1:
@@ -146,164 +152,164 @@ cgc_remainder:
     jp      1b
     fstp    %st(1)
     ret
-END cgc_remainder
+END SYM(cgc_remainder)
 
-ENTER cgc_log
-cgc_logl:
+ENTER SYM(cgc_log)
+SYM(cgc_logl):
     fldt    4(%esp)
     jmp     1f
-cgc_logf:
+SYM(cgc_logf):
     flds    4(%esp)
     jmp     1f
-cgc_log:
+SYM(cgc_log):
     fldl    4(%esp)
 1:
     fldln2
     fxch    %st(1)
     fyl2x
     ret
-END cgc_log
+END SYM(cgc_log)
 
-ENTER cgc_log10
-cgc_log10l:
+ENTER SYM(cgc_log10)
+SYM(cgc_log10l):
     fldt    4(%esp)
     jmp     1f
-cgc_log10f:
+SYM(cgc_log10f):
     flds    4(%esp)
     jmp     1f
-cgc_log10:
+SYM(cgc_log10):
     fldl    4(%esp)
 1:
     fldlg2
     fxch    %st(1)
     fyl2x
     ret
-END cgc_log10
+END SYM(cgc_log10)
 
-ENTER cgc_significand
-cgc_significandl:
+ENTER SYM(cgc_significand)
+SYM(cgc_significandl):
     fldt    4(%esp)
     jmp     1f
-cgc_significandf:
+SYM(cgc_significandf):
     flds    4(%esp)
     jmp     1f
-cgc_significand:
+SYM(cgc_significand):
     fldl    4(%esp)
 1:
     fxtract
     fstp    %st(1)
     ret
-END cgc_significand
+END SYM(cgc_significand)
 
-ENTER cgc_scalbn
-ENTER cgc_scalbln
-cgc_scalbnl:
-cgc_scalblnl:
+ENTER SYM(cgc_scalbn)
+ENTER SYM(cgc_scalbln)
+SYM(cgc_scalbnl):
+SYM(cgc_scalblnl):
     fildl   16(%esp)
     fldt    4(%esp)
     jmp     1f
-cgc_scalbnf:
-cgc_scalblnf:
+SYM(cgc_scalbnf):
+SYM(cgc_scalblnf):
     fildl   8(%esp)
     flds    4(%esp)
     jmp     1f
-cgc_scalbn:
-cgc_scalbln:
+SYM(cgc_scalbn):
+SYM(cgc_scalbln):
     fildl   12(%esp)
     fldl    4(%esp)
 1:
     fscale
     fstp    %st(1)
     ret
-END cgc_scalbn
-END cgc_scalbln
+END SYM(cgc_scalbn)
+END SYM(cgc_scalbln)
 
-ENTER cgc_rint
-cgc_rintl:
+ENTER SYM(cgc_rint)
+SYM(cgc_rintl):
     fldt    4(%esp)
     jmp     1f
-cgc_rintf:
+SYM(cgc_rintf):
     flds    4(%esp)
     jmp     1f
-cgc_rint:
+SYM(cgc_rint):
     fldl    4(%esp)
 1:
     frndint
     ret
-END cgc_rint
+END SYM(cgc_rint)
 
-ENTER cgc_sqrt
-cgc_sqrtl:
+ENTER SYM(cgc_sqrt)
+SYM(cgc_sqrtl):
     fldt    4(%esp)
     jmp     1f
-cgc_sqrtf:
+SYM(cgc_sqrtf):
     flds    4(%esp)
     jmp     1f
-cgc_sqrt:
+SYM(cgc_sqrt):
     fldl    4(%esp)
 1:
     fsqrt
     ret
-END cgc_sqrt
+END SYM(cgc_sqrt)
 
-ENTER cgc_fabs
-cgc_fabsl:
+ENTER SYM(cgc_fabs)
+SYM(cgc_fabsl):
     fldt    4(%esp)
     jmp     1f
-cgc_fabsf:
+SYM(cgc_fabsf):
     flds    4(%esp)
     jmp     1f
-cgc_fabs:
+SYM(cgc_fabs):
     fldl    4(%esp)
 1:
     fabs
     ret
-END cgc_fabs
+END SYM(cgc_fabs)
 
-ENTER cgc_atan2
-cgc_atan2l:
+ENTER SYM(cgc_atan2)
+SYM(cgc_atan2l):
     fldt    4(%esp)
     fldt    16(%esp)
     jmp     1f
-cgc_atan2f:
+SYM(cgc_atan2f):
     flds    4(%esp)
     flds    8(%esp)
     jmp     1f
-cgc_atan2:
+SYM(cgc_atan2):
     fldl    4(%esp)
     fldl    12(%esp)
 1:
     fpatan
     ret
-END cgc_atan2
+END SYM(cgc_atan2)
 
-ENTER cgc_log2
-cgc_log2l:
+ENTER SYM(cgc_log2)
+SYM(cgc_log2l):
     fldt    4(%esp)
     jmp     1f
-cgc_log2f:
+SYM(cgc_log2f):
     flds    4(%esp)
     jmp     1f
-cgc_log2:
+SYM(cgc_log2):
     fldl    4(%esp)
 1:
     fld1
     fxch
     fyl2x
     ret
-END cgc_log2
+END SYM(cgc_log2)
 
-ENTER cgc_exp2
-    .type    cgc_exp2x, @function
-cgc_exp2l:
+ENTER SYM(cgc_exp2)
+    .type    SYM(cgc_exp2x), @function
+SYM(cgc_exp2l):
     fldt    4(%esp)
-    jmp     cgc_exp2x
-cgc_exp2f:
+    jmp     SYM(cgc_exp2x)
+SYM(cgc_exp2f):
     flds    4(%esp)
-    jmp     cgc_exp2x
-cgc_exp2:
+    jmp     SYM(cgc_exp2x)
+SYM(cgc_exp2):
     fldl    4(%esp)
-cgc_exp2x:
+SYM(cgc_exp2x):
     fld     %st(0)
     frndint
     fsubr   %st,%st(1)
@@ -314,44 +320,44 @@ cgc_exp2x:
     fscale
     fstp    %st(1)
     ret
-END cgc_exp2
-.size    cgc_exp2x, . - cgc_exp2x
+END SYM(cgc_exp2)
+.size    SYM(cgc_exp2x), . - SYM(cgc_exp2x)
 
-ENTER cgc_pow
-cgc_powl:
+ENTER SYM(cgc_pow)
+SYM(cgc_powl):
     fldt    16(%esp)
     fldt    4(%esp)
     jmp     1f
-cgc_powf:
+SYM(cgc_powf):
     flds    8(%esp)
     flds    4(%esp)
     jmp     1f
-cgc_pow:
+SYM(cgc_pow):
     fldl    12(%esp)
     fldl    4(%esp)
 1:
     fyl2x
-    jmp     cgc_exp2x
-END cgc_pow
+    jmp     SYM(cgc_exp2x)
+END SYM(cgc_pow)
 
-ENTER cgc_exp
-cgc_expl:
+ENTER SYM(cgc_exp)
+SYM(cgc_expl):
     fldt    4(%esp)
     jmp     1f
-cgc_expf:
+SYM(cgc_expf):
     flds    4(%esp)
     jmp     1f
-cgc_exp:
+SYM(cgc_exp):
     fldl    4(%esp)
 1:
     fldl2e
     fmulp
-    jmp     cgc_exp2x
-END cgc_exp
+    jmp     SYM(cgc_exp2x)
+END SYM(cgc_exp)
 
-.global cgc_setjmp
-.type cgc_setjmp, @function
-cgc_setjmp:
+.global SYM(cgc_setjmp)
+.type SYM(cgc_setjmp), @function
+SYM(cgc_setjmp):
     movl    4(%esp), %ecx
     movl    0(%esp), %edx
     movl    %edx, 0(%ecx)
@@ -362,11 +368,11 @@ cgc_setjmp:
     movl    %edi, 20(%ecx)
     xorl    %eax, %eax
     ret
-.size cgc_setjmp, . - cgc_setjmp
+.size SYM(cgc_setjmp), . - SYM(cgc_setjmp)
 
-.global cgc_longjmp
-.type cgc_longjmp, @function
-cgc_longjmp:
+.global SYM(cgc_longjmp)
+.type SYM(cgc_longjmp), @function
+SYM(cgc_longjmp):
     movl    4(%esp), %edx
     movl    8(%esp), %eax
     movl    0(%edx), %ecx
@@ -381,4 +387,4 @@ cgc_longjmp:
 1:
     movl    %ecx, 0(%esp)
     ret
-.size cgc_longjmp, . - cgc_longjmp
+.size SYM(cgc_longjmp), . - SYM(cgc_longjmp)
