@@ -1,9 +1,9 @@
 param (
-    [String[]]$build_list
+    [switch] $clang
 )
 
-$DIR=$PSScriptRoot
-$TOOLS="$DIR\tools"
+$DIR = $PSScriptRoot
+$TOOLS = "$DIR\tools"
 
 python -c "import xlsxwriter; import Crypto; import win32api" 2>$null
 if (!$?) {
@@ -11,11 +11,14 @@ if (!$?) {
 }
 
 "Creating build directory"
-mkdir ${DIR}\build
-cd ${DIR}\build
+mkdir "${DIR}\build"
+cd "${DIR}\build"
 
 "Creating Makefiles"
-$CMAKE_OPTS="-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+$CMAKE_OPTS = ""
+if ($clang) {
+    $CMAKE_OPTS += "-D CLANGCL:BOOL=TRUE -T LLVM-vs2014"
+}
 
-cmake $CMAKE_OPTS ..
+Start-Process cmake -NoNewWindow -Wait -ArgumentList "$CMAKE_OPTS .."
 cmake --build . -- /m
