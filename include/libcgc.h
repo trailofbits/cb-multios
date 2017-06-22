@@ -100,6 +100,25 @@ struct cgc_timeval {
 # define EPIPE CGC_EPIPE
 #endif
 
+#ifdef LIBCGC_IMPL
+// Maximum number of binaries running for one challenge
+# define MAX_NUM_CBS 10
+
+// STD(IN/OUT/ERR) + a socketpair for every binary
+// All fds used by the binaries should be less than this
+# define EXPECTED_MAX_FDS 3 + (2 * MAX_NUM_CBS)
+
+int cgc_check_timeout(const struct cgc_timeval *timeout) {
+    if (!timeout) {
+        return 0;
+    } else if (0 > timeout->tv_sec || 0 > timeout->tv_usec) {
+        return CGC_EINVAL;
+    } else {
+        return 0;
+    }
+}
+#endif
+
 void cgc__terminate(unsigned int status) __attribute__((__noreturn__));
 int cgc_transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes);
 int cgc_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes);
