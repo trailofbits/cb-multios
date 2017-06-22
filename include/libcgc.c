@@ -52,32 +52,12 @@ int cgc_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
     return 0;
 }
 
-/* Tries to validate a timeout. */
-static int cgc_check_timeout(const struct cgc_timeval *timeout) {
-  if (!timeout) {
-    return 0;
-  } else if (0 > timeout->tv_sec || 0 > timeout->tv_usec) {
-    return CGC_EINVAL;
-  } else {
-    return 0;
-  }
-}
-
-enum {
-    // Maximum number of binaries running for one challenge
-    kPracticalMaxNumCBs = 10,
-
-    // STD(IN/OUT/ERR) + a socketpair for every binary
-    // All fds used by the binaries should be less than this
-    kExpectedMaxFDs = 3 + (2 * kPracticalMaxNumCBs)
-};
-
 /* Marshal a CGC fd set into an OS fd set. */
 static int cgc_copy_cgc_fd_set(const cgc_fd_set *cgc_fds, fd_set *os_fds, int *num_fds) {
   for (unsigned fd = 0; fd < CGC__NFDBITS; ++fd) {
     if (CGC_FD_ISSET(fd, cgc_fds)) {
       // Shouldn't be using an fd greater than the allowed values
-      if (fd >= kExpectedMaxFDs) {
+      if (fd >= EXPECTED_MAX_FDS) {
           return CGC_EBADF;
       }
 
@@ -111,7 +91,7 @@ int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
   if (ret) {
     return ret;
   } else if (0 > nfds || CGC__NFDBITS < nfds) {
-    return EINVAL;
+    return CGC_EINVAL;
   }
 
   FD_ZERO(&read_fds);

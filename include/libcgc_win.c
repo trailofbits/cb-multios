@@ -44,8 +44,72 @@ int cgc_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes) {
     return 0;
 }
 
+/* Poll HANDLEs with no timeout to check if they are signaled */
+void cgc_poll_fd_set(cgc_fd_set *fd_set, int *num_ready, BOOL read) {
+    for (unsigned int fd = 0; fd < EXPECTED_MAX_FDS; ++fd) {
+        if (CGC_FD_ISSET(fd, fd_set)) {
+            // Setup a read/write call with an event we can watch
+            HANDLE hndl = _get_osfhandle(fd);
+            OVERLAPPED ov = {0};
+            ov.hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+            read ? ReadFile(hndl, NULL, 0, NULL, &ov)
+                 : WriteFile(hndl, NULL, 0, NULL, &ov);
+
+            // This event will signal if the HANDLE is available for r/w
+            if (WAIT_OBJECT_0 == WaitForSingleObject(ov.hEvent, 0)) {
+                // The HANDLE for this fd was signaled, leave the bit set
+                ++*num_ready;
+            } else {
+                // This fd hasn't changed state
+                CGC_FD_CLR(fd, fd_set);
+            }
+        }
+    }
+}
+
 int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
                const struct cgc_timeval *timeout, int *readyfds) {
+    int ret;
+    if (0 != (ret = cgc_check_timeout(timeout))) {
+        return ret;
+    } else if (0 > nfds || nfds > CGC__NFDBITS) {
+        return CGC_EINVAL;
+    }
+
+    // Don't store any more than the max # fds allowed
+    // Only one copy of every HANDLE will be stored
+    HANDLE fd_handles[EXPECTED_MAX_FDS];
+    DWORD num_handles = 0;
+
+    // Copy over fd HANDLEs from the sets
+    for (unsigned int fd = 0; fd < CGC__NFDBITS; ++fd) {
+        if((readfds && CGC_FD_ISSET(fd, readfds)) ||
+           (writefds && CGC_FD_ISSET(fd, writefds))) {
+            if (fd >= EXPECTED_MAX_FDS) {
+                return CGC_EBADF;
+            }
+
+            fd_handles[num_handles++] = _get_osfhandle(fd);
+        }
+    }
+
+    // Get the total wait time in milliseconds
+    DWORD wait_time = 0;
+    if (timeout) {
+        wait_time = timeout->tv_sec * 1000 + timeout->tv_usec / 1000;
+    }
+
+    // Wait for any of the HANDLEs to be signaled
+    if (WAIT_FAILED == WaitForMultipleObjects(num_handles, fd_handles, FALSE, wait_time)) {
+        return GetLastError();
+    }
+
+    // Pass over all of the fds again and poll the corresponding HANDLEs
+    int num_ready = 0;
+    if (readfds) cgc_poll_fd_set(readfds, &num_ready, TRUE);
+    if (writefds) cgc_poll_fd_set(writefds, &num_ready, FALSE);
+
+    if (readyfds) *readyfds = num_ready;
     return 0;
 }
 
