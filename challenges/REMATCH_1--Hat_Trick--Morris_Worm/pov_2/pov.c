@@ -87,7 +87,7 @@ int cgc_ReceiveFromCB(char *buf, int length) {
   return total_received;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   // negotiate
   type2_vals t2vals;
   cgc_type2_negotiate(&t2vals);

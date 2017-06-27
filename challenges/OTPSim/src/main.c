@@ -29,7 +29,7 @@
 #include "cgc_readuntil.h"
 #include "cgc_otp.h"
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     otp_t *o = NULL;
     unsigned int cmd = 0;

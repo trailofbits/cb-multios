@@ -10,7 +10,7 @@ void cgc_echo();
 void cgc_sparks(data_package);
 void cgc_read_data(uint32);
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   uint32 datum_count;
 
   cgc_read(&datum_count, sizeof(datum_count));

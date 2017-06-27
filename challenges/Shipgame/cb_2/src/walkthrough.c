@@ -39,7 +39,7 @@ cgc_size_t cgc_findPage(const char* str)
   return (MAX_LINKS + 1);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   ProtoMsg msg;
   msg.type = -1;

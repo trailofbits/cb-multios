@@ -252,7 +252,7 @@ static char *cgc_process_pkt(reqpkt_t *req) {
 }
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int res = 0;
     reqpkt_t req = {0};
     char *r;

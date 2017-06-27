@@ -39,7 +39,7 @@ void cgc_seed();
 void cgc_gauntlet();
 void cgc_operate();
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   cgc_send_empty_frame(HELLO_ID);
   cgc_expect_empty_frame(HELLO_ID);
 

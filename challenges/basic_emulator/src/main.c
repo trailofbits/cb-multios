@@ -254,7 +254,7 @@ int cgc_check_input(gb_t *gb)
     return 1;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     gb_t *gb = cgc_gb_new();
     if (gb == NULL)

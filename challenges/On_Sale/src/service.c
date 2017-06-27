@@ -49,7 +49,7 @@ void cgc_gen_status_codes(void) {
     SEND(STDOUT, status_code, 2);
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     short ret = 0;
 

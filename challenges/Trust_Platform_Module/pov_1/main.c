@@ -46,7 +46,7 @@ uint32_t cgc_flipEndian(uint32_t t)
   return (ret);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   char* s = "E 1 4347C000 4\n";
   char* p = "P 1\n";

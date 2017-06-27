@@ -157,7 +157,7 @@ void cgc_send_pov_packet( void )
 
 }
 
-int main(void) 
+int main(int cgc_argc, char *cgc_argv[]) 
 {
 	// ipmask -- mask of CB/RB instruction pointer
 	// regmask -- mask of CB/RB register (specified by third argument)

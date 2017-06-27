@@ -816,7 +816,7 @@ char* cgc_call_command(command_t* command)
 }
 
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   int rx = 4;
   int tx = 5;

@@ -252,7 +252,7 @@ uint8_t cgc_BuildAdpResponse(uint32_t L3AdpAddr, uint32_t L2AdpAddr, uint16_t L2
 #define PWDGEN_L4ADDR (129)
 #define FRAMEWORK (3)
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned int type2_addr;
 	unsigned int type2_size;
 	unsigned int type2_length;

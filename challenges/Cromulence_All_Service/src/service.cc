@@ -36,7 +36,7 @@ extern void cgc_encode_command( char * );
 
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     CCommandHandler oCmdHandler;
 

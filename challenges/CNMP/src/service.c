@@ -211,7 +211,7 @@ int cgc_do_quit() {
     return 0;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     cgc_size_t cmd_buf_sz = 20;
     char buf[cmd_buf_sz];
     jokedb_struct jokedb;

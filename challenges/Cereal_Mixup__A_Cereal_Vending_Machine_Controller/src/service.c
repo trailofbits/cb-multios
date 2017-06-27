@@ -85,7 +85,7 @@ cgc_ssize_t cgc_receive_input(void) {
     return SUCCESS;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     cgc_ssize_t ret = 0;
     int order_id = INITIAL_ORDER_ID;

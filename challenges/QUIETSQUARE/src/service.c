@@ -237,7 +237,7 @@ void cgc_exercise_stack(void){
 }
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     int ret = SUCCESS;
     cgc_size_t state = STATE_CONNTERM;

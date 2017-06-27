@@ -189,7 +189,7 @@ fail:
 
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   user_t *cur_user = NULL;
   user_list_t users = NULL;

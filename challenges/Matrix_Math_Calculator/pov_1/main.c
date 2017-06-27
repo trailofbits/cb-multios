@@ -24,7 +24,7 @@
 #include "libpov.h"
 #include "libcgc.h"
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     unsigned int pov_type = 2;
     cgc_transmit_all(3, &pov_type, sizeof(pov_type));

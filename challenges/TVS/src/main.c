@@ -69,7 +69,7 @@ static int handle_msg(uint16_t id, void *data, unsigned int len)
     return cgc_handlers[id](data, len);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     uint8_t *data = NULL;
     cgc_init_vault();

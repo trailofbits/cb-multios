@@ -191,7 +191,7 @@ static void test()
     cgc_exit(0);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     int quit = FALSE;
     unsigned char *text = NULL, *rpn = NULL;

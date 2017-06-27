@@ -131,7 +131,7 @@ void *cgc_memcpy( void *pDest, const void *pSource, cgc_size_t nbytes )
   return (pDestReturn);
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   // negotiate
   type2_vals t2vals;
   cgc_type2_negotiate(&t2vals);

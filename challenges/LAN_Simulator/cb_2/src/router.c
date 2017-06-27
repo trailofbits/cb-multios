@@ -57,7 +57,7 @@ void cgc_SendEchoRequest(void) {
 
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned char Frame[MAX_FRAME_LEN];
 	unsigned char Packet[MAX_FRAME_LEN];
 

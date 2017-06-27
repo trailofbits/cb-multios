@@ -189,7 +189,7 @@ void cgc_playGame() {
    }
 }
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
    //interact with the client socket
    char *lf;
    cgc_printf("Password: ");

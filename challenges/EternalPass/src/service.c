@@ -207,7 +207,7 @@ void cgc_rc4crypt(unsigned char *s, unsigned char *d, int len) {
         d[i] ^= xor[i];
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     unsigned char masterpw[256] = {0};
     unsigned char rc4state[256] = {0};

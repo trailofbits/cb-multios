@@ -290,7 +290,7 @@ void cgc_fillPage(float v0_x, float v0_y, Coords* aData, int* pCount, int counts
 }
 
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   int i = 0;
   float vx;

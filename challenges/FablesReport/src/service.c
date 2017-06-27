@@ -273,7 +273,7 @@ int cgc_newRecord(Report *report) {
 
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	Report report = {NULL, 0, 0};
 	char* field = NULL;
 

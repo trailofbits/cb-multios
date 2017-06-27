@@ -173,7 +173,7 @@ void cgc_initCar(carstate *drive)
 	cgc_validateRet();
 }
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
 	cgc_serviceLoop();
 	cgc_validateRet();
 }

@@ -1,5 +1,5 @@
 #include "libpov.h"
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     unsigned char pkt[17];
     unsigned char pkt2[17];
     cgc_size_t n;

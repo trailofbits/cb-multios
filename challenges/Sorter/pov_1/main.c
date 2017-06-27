@@ -119,7 +119,7 @@ type2_vals cgc_negotiate_type_2()
     return t2;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     char pkt[256];
     unsigned int reg_num = 3; //ebx

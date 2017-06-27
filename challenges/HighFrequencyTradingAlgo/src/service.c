@@ -274,7 +274,7 @@ void cgc_initPortfolio(Portfolio* portfolio, unsigned int startingBalance)
 
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	Dataset dataset;
 	Portfolio portfolio;
 	Record record;

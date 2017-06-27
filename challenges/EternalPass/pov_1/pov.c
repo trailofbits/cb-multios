@@ -44,7 +44,7 @@ int cgc_streq(char *s1, char *s2) {
     return (*(s1-1) == *(s2-1));
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    unsigned char *temp;
    char num[13] = {0};
    unsigned int size = 256;

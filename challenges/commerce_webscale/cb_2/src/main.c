@@ -156,7 +156,7 @@ result cgc_DB_CURRENT_db_prev(key k)
     return res;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_database_run(6, 3);
 }

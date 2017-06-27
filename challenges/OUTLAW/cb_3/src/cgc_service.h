@@ -48,4 +48,4 @@ void cgc_do_exit(msg *exit_msg);
  *
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int main(void);
+int main(int cgc_argc, char *cgc_argv[]);

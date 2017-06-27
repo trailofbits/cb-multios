@@ -29,7 +29,7 @@ enum {
     MODE_EXAMINE = 809110,
 };
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     uint32_t mode[1] = {0};
     int ret = 0;

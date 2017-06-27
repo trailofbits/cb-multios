@@ -36,7 +36,7 @@ void print_banner()
     cgc_printf("Welcome to the CGC Pizzeria order management system.\n");
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     OrderIoManager oim;
     IoManager pwio(BUF_SIZE);

@@ -20,7 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "libpov.h"
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    // set last 4 bytes of session.key in initial send to be consecutive
    // cgc_read respones packet to failed login, cgc_read the session key and the
    // session answer. use the first 4 unused bytes in the session answer 

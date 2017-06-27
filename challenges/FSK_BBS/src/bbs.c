@@ -373,7 +373,7 @@ void cgc_bbs_rx(const uint8_t *data, cgc_size_t count)
         cgc_bbs_menu();
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_modem_init();
 

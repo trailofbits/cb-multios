@@ -163,7 +163,7 @@ do_slte:
     return 0;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_size_t bytes;
     cgc_memset(&state, 0, sizeof(state));

@@ -172,7 +172,7 @@ int cgc_lseek(int fd, cgc_ssize_t offset, int whence)
 }
 
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_buffer = cgc_malloc(buffer_cap);
     type1_vals t1;

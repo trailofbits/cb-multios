@@ -167,7 +167,7 @@ void cgc_QueryOne(query *pCurrentQuery, response *pCurrentResponse)
   return;
 }
 
-int main(void) 
+int main(int cgc_argc, char *cgc_argv[]) 
 {
   char inputBuffer[1024];
   

@@ -161,7 +161,7 @@ void cgc_free_symbol(void *e)
   }
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   int i;
   cgc_size_t size;

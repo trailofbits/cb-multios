@@ -88,7 +88,7 @@ bail:
  *
  * @return Error status
  */
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   DBG("\n");
 
   int ret = SUCCESS;

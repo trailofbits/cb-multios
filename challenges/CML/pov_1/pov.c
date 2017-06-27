@@ -10,7 +10,7 @@ unsigned char *cgc_memchr(unsigned char *buf, int c, cgc_size_t n)
     return 0;
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     unsigned char chars[6];
     unsigned char buf[128];

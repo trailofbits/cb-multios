@@ -166,7 +166,7 @@ unsigned char cgc_enough_cards(unsigned int idx, unsigned int len) {
    return 0;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    cgc_negotiate_type2();
 
    /* Send Deck cmd, size, deck content */

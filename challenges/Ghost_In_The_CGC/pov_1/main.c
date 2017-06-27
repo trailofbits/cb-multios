@@ -84,7 +84,7 @@ cgc_size_t cgc_receive_until(int fd, char* buf, cgc_size_t len, char delim)
 }
 
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   char buf[512];
 

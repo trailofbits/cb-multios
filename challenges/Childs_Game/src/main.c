@@ -176,7 +176,7 @@ void cgc_init_player(human_t *player)
     }
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     human_t *player = cgc_calloc(1, sizeof(human_t));
     int max_input = 256;

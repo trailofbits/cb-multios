@@ -146,7 +146,7 @@ typedef struct __attribute__((__packed__)) _command {
 	uint32_t EndingNode;
 } Command, *pCommand;
 	
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned int type1_ip;
 	unsigned int type1_reg;
 	unsigned int i;

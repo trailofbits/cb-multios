@@ -28,7 +28,7 @@
 
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int ret;
     cgc_size_t size;
 

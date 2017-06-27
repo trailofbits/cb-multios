@@ -844,7 +844,7 @@ void cgc_test_win()
 
 // cgc_read the file
 // parse and print the content
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
 	cgc_init();
 

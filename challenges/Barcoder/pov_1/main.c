@@ -75,7 +75,7 @@ void cgc_negotiate_type_2()
         cgc__terminate(0);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_negotiate_type_2();
 

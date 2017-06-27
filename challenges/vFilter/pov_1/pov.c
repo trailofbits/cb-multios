@@ -37,7 +37,7 @@ unsigned char pov_data[] = {
 };
 int pov_length = 393;
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     unsigned int xorkey;
     unsigned char resp[6];

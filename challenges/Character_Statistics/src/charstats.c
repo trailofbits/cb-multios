@@ -765,7 +765,7 @@ void cgc_insertString(reg_t r, const char* str, reg_t scratch)
   } 
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   int ret = 0;
 

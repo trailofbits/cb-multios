@@ -35,7 +35,7 @@ THE SOFTWARE.
 #include "cgc_cgcmb.h"
 
 
-int main(void) 
+int main(int cgc_argc, char *cgc_argv[]) 
 {
   TransportMessage *tpMessage;
   CGCMB_Message *mbMessage;

@@ -176,7 +176,7 @@ void cgc_do_play() {
     cgc_send_game_results();
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     char choice[14];
     int choice_buf_size = 14;
     cgc_size_t replay = 0;

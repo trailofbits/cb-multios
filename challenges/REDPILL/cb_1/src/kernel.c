@@ -932,7 +932,7 @@ _bail_dispatch:
    return ret;
 }
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
 
 #ifdef DEBUG
    fprintf(cgc_stderr, "\n\n\n");

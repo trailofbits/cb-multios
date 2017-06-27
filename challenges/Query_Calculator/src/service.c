@@ -14,7 +14,7 @@
 void cgc_say_hello();
 void cgc_run_loop();
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   cgc_types_check();
   cgc_lexer_test();
   cgc_stack_test();

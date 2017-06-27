@@ -31,7 +31,7 @@ THE SOFTWARE.
 
 Recipe_Type *cgc_recipe_book=0;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     
 cgc_size_t size;
 char buffer[10];

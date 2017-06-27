@@ -293,7 +293,7 @@ int cgc_read_inst(int fd, state *machine, inst *cur)
   return ret;
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   void *x = cgc_frob;
   cgc_transmit(STDOUT, &x, sizeof(void *), NULL);

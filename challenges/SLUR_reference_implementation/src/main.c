@@ -31,7 +31,7 @@
 
 int cgc_repl(char *expr);
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   cgc_printf("Welcome to the SLUR REPL. Type an expression to evaluate it.\n");
   char *buf = cgc_malloc(MAX_EXPRESSION_LENGTH + 1);

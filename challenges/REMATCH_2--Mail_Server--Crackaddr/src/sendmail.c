@@ -339,7 +339,7 @@ void cgc_read_message(char *line) {
     
     
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int quit = 0;
     
     // Initialize mail server

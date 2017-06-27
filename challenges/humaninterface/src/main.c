@@ -35,7 +35,7 @@ static unsigned char g_protocol = 0;
 static int g_incoming_report_type = -1;
 static unsigned char g_incoming_report[600];
 
-int main();
+int main(int cgc_argc, char *cgc_argv[]);
 
 static void cgc_send_data(void *channel, unsigned int type, unsigned int length, unsigned char *data)
 {
@@ -149,7 +149,7 @@ static void cgc_handle_interrupt_connect(void *channel)
     cgc_session_register_events(channel, cgc_handle_event);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_session_register_psm(PSM_CONTROL, cgc_handle_control_connect);
     cgc_session_register_psm(PSM_INTERRUPT, cgc_handle_interrupt_connect);

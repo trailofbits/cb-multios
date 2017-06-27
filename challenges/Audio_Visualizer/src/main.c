@@ -189,7 +189,7 @@ int cgc_select_option(uwfc_t **track) {
     return 1;
 }
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
     uwfc_t *current_track = NULL;
     int code = 1;
     complex_t *dft_out;

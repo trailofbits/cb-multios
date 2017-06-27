@@ -336,7 +336,7 @@ void cgc_play_poker()
     return;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     char input[INPUT_SIZE];
     unsigned int seed = 0;

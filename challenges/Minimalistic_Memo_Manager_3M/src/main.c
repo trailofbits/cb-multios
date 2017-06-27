@@ -208,7 +208,7 @@ void cgc_menu()
   printf("======================\n");
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   char input[4];
   char typo[MAX_AC_LEN], correct[MAX_AC_LEN];

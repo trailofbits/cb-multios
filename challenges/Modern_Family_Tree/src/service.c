@@ -826,7 +826,7 @@ void cgc_gen_result_bufs(void) {
     }
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     int ret = 0;
     cgc_size_t bytes = 0;

@@ -688,7 +688,7 @@ end:
  * Main function just calls handle_menu
  * @return Always returns 0
  **/
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	cgc_handle_menu();
 	return 0;
 }

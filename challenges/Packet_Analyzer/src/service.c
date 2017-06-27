@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "cgc_packet_io.h"
 #include "cgc_io.h"
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
   SystemState state;
   
   // Initialize Parser

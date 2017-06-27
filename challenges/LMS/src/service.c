@@ -215,7 +215,7 @@ bool cgc_check_number(tel_num_t *n1, tel_num_t *n2) {
             n1->d10 == n2->d10 && n1->d11 == n2->d11 && n1->d12 == n2->d12 &&
             n1->d13 == n2->d13 && n1->d14 == n2->d14;
 }
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     lms_msg_t *msg = NULL; 
     tel_num_t pnum = {1,3,3,7,1,3,3,7,0,0,0,0,0,0,3};
 

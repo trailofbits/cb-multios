@@ -767,7 +767,7 @@ static void cgc_my_init()
     secret_key = STATIC_SECRET_KEY;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     uintptr_t cmd, value;
     char buf[32], *tmp;

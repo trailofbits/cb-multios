@@ -346,7 +346,7 @@ bail:
 }
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     int ret = SUCCESS;
     cgc_size_t rx_bytes = 0;

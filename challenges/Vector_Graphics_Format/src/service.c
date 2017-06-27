@@ -31,7 +31,7 @@ THE SOFTWARE.
 
 #define INPUT_FILE_SIZE_MAXIMUM     (20000)
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_setup_io( STDIN, STDOUT );
 

@@ -35,7 +35,7 @@ THE SOFTWARE.
 pNode cgc_Nodes;
 pEdge cgc_Edges;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	uint32_t count = 0;
 	// initialize the graph pointers
 	cgc_Nodes = NULL;

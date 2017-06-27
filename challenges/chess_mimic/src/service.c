@@ -585,7 +585,7 @@ int cgc_parseUserInput(Move *movers)
 	}
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 	// function pointer to print chess board
 	void (*displayer)(); // overwriting the below array will destroy this function pointer

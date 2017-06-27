@@ -3,7 +3,7 @@
 #include "cgc_fs.h"
 #include "cgc__defines.h"
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     //unsigned char exploit[] = "";
     //char admin_name[] = {12, 34, 56, 78 };

@@ -253,7 +253,7 @@ void cgc_initScoreboard(Dungeon* dungeon) {
 }
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 Dungeon dungeon;
 char move=0;
 int result=0;

@@ -43,7 +43,7 @@ cgc_generate_csum(char *buf, cgc_size_t size)
 }
 
 int
-main(void)
+main(int cgc_argc, char *cgc_argv[])
 {
     int ret;
     struct command *command;

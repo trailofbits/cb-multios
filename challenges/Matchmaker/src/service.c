@@ -119,7 +119,7 @@ fail:
 }
 
 int
-main(void)
+main(int cgc_argc, char *cgc_argv[])
 {
     char *p;
     int ret, parsing_dfa = 1;

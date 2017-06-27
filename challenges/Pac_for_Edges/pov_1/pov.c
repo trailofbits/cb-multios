@@ -39,7 +39,7 @@ void cgc_itoa(char *str, int i)
     str[outpos] = '\0';
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     char buf[128];
     unsigned char *line;

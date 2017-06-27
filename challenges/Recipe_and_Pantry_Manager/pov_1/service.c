@@ -276,7 +276,7 @@ void cgc_redo(void)
 	return;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned int type2_addr = 0;
 	unsigned int type2_size = 0;
 	unsigned int type2_length = 0;

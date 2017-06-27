@@ -71,4 +71,4 @@ int cgc_loop() {
    return ret;
 }
 
-int main() { cgc__terminate(cgc_loop()); }
+int main(int cgc_argc, char *cgc_argv[]) { cgc__terminate(cgc_loop()); }

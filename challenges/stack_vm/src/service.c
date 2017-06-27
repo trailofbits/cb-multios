@@ -25,7 +25,7 @@
 #include "cgc_stack.h"
 #include "cgc_service.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	Stack programStack ={-1, 0, 0, NULL};
 
 	while(1) {

@@ -32,7 +32,7 @@
 
 extern form_t cgc_af86;
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   char line_buf[LINE_SIZE];
   int with_title = 1;

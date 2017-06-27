@@ -50,7 +50,7 @@ extern "C"
 //
 //	cgc_read input, parse command, respond to command
 //
-int main( void )
+int main(int cgc_argc, char *cgc_argv[])
 {
 	uint8_t *magic_page = ( uint8_t* )MAGIC_PAGE;
 

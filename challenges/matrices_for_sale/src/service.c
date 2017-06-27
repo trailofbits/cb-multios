@@ -202,7 +202,7 @@ void cgc_computeResult(Message *message)
 
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	Message* message = NULL;
 	Worker worker[4] = {0};
 	int i;

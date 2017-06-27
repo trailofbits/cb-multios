@@ -140,7 +140,7 @@ int cgc_serialize_command(command_t* command, unsigned char** serialized)
   return size;
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 #define LINE_SIZE (8 * 1024)
 

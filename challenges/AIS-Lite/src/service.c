@@ -30,7 +30,7 @@
 #define INVALID_MSG "INVALID MESSAGE."
 #define PARTIAL_MSG "PARTIAL AIS MESSAGE."
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	char ret = SUCCESS;
     int bytes_received = 0;
 

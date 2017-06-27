@@ -386,7 +386,7 @@ int cgc_check_junk(void)
 
 static const char* magic = "Z1";
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   if (!cgc_check_junk())
     err("bad junk");

@@ -35,7 +35,7 @@ void cgc_setup(void) {
     cgc_table_setup();
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     short ret = 0;
 
     DBG("Starting.\n");

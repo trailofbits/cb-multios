@@ -826,7 +826,7 @@ bail:
 // if command is deserialize, then JSON follows:
 // 2B: length of JSON
 // ?B: JSON data
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     int ret = SUCCESS;
     cgc_size_t rx_bytes = 0;

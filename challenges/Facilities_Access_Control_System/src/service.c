@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include "cgc_stdio.h"
 #include "cgc_io.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	while (cgc_RecvCommand()) {
 	}
 	return(0);

@@ -119,7 +119,7 @@ int cgc_parse_float_pair( const char *buf, double* pair1, double* pair2 )
     return 0;
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     char buf[1024];
     int ret;

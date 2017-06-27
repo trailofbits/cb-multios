@@ -181,7 +181,7 @@ int cgc_isWinner()
   return (1);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   uint8_t temp;
 

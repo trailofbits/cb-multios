@@ -87,7 +87,7 @@ void cgc_sendReport(Map *map) {
 		cgc__terminate(TRANSMIT_ERROR);
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	Map* map=NULL;
 	unsigned long instruction;
 	char key[MAX_KEY_SIZE+1];

@@ -152,7 +152,7 @@ void cgc_ConsumeLines( cgc_size_t lineCount )
 		cgc_RecvUntil( 0, '\n', szMaxLineLen, 2048 );
 }
 
-int main(void) 
+int main(int cgc_argc, char *cgc_argv[]) 
 {
 	// ipmask -- mask of CB/RB instruction pointer
 	// regmask -- mask of CB/RB register (specified by third argument)

@@ -286,7 +286,7 @@ void cgc_quit()
   cgc_exit(0);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   unsigned int len;
   char buf[MAX_BUF_LEN];

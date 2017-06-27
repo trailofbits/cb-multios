@@ -33,7 +33,7 @@ THE SOFTWARE.
 
 void cgc_say_hello();
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   cgc_types_check();
 
   cgc_monte_initialize();

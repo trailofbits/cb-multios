@@ -87,7 +87,7 @@ void cgc_NegotiateType2Pov(unsigned int *type2_addr, unsigned int *type2_size, u
 	return;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned int type2_addr;
 	unsigned int type2_size;
 	unsigned int type2_length;

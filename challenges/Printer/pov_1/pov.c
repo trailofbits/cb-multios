@@ -1,6 +1,6 @@
 #include "libpov.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    cgc_negotiate_type1(0xfefefefe, 0xfefefefe, 1);
 
    unsigned int job_id = 999, idx = 0, eip_len = 4, payload_len = 0;

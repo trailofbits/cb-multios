@@ -10,7 +10,7 @@ static void cgc_transmit_string(const char *s)
 
 static char pkt[] = "\x64\x75\x61\x2e\x18\x00\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00\x40\x1f\x00\x00\x01\x00\x00\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF";
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     int i;
     unsigned char buf[1024];

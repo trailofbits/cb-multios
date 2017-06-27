@@ -32,7 +32,7 @@ enum {
     CMD_GET_IDS = 8675309,
 };
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     uint32_t command[1] = {0};
     int ret = 0;

@@ -463,7 +463,7 @@ fail:
     cgc_free(p);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   char buf[4096];
   user_list_t users = NULL;

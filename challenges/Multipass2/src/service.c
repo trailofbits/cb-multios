@@ -519,7 +519,7 @@ int cgc_dispatch_packet(packet_head_t * pkt_hdr_ptr) {
     return ret;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     int ret = SUCCESS;
 

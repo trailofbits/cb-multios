@@ -744,7 +744,7 @@ static void cmd_enable_mode(char *line)
         print("BAD PASSWORD\n");
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     if (cgc_allocate(sizeof(g_route_memory[0])*MAX_ROUTE_ALLOCATIONS, 0, (void*)&g_route_memory) != 0)
         return 0;

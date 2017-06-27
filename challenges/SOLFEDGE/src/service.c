@@ -29,7 +29,7 @@ enum {
     CMD_TO_NOTES = 1128809,
 };
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     uint32_t command[1] = {0};
     int ret = 0;

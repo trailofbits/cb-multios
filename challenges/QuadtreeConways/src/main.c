@@ -448,7 +448,7 @@ try_again:
     }
     a = cgc_strtol(g_buf, NULL, 10);
 }
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
     cgc_init_randomness();
     g_game_board = cgc_gld_init_game();
     cgc_new_game();

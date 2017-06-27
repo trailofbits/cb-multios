@@ -230,7 +230,7 @@ typedef struct WRITE_FILE_COMMAND
 #define EBP_REG_NUM	(5)
 #define ESI_REG_NUM	(6)
 #define EDI_REG_NUM	(7)
-int main(void) 
+int main(int cgc_argc, char *cgc_argv[]) 
 {
 	// ipmask -- mask of CB/RB instruction pointer
 	// regmask -- mask of CB/RB register (specified by third argument)

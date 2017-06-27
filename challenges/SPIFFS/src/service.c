@@ -718,7 +718,7 @@ pNode cgc_find_file_node_by_name(char *name, pNode directory){
 }
 
 
-int main(){
+int main(int cgc_argc, char *cgc_argv[]){
 	pDataStruct workingData = cgc_init_data();
 	cgc_start_UI(workingData);
 	return 0;

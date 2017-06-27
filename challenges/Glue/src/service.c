@@ -297,7 +297,7 @@ void cgc_skip_data(int fd, cgc_ssize_t n, int* err)
   }
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   int err;
   int empty_cnt = 0;
   char block_buf[BLOCK_SIZE];

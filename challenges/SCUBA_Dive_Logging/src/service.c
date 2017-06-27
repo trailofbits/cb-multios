@@ -31,7 +31,7 @@ THE SOFTWARE.
 
 logbook_type cgc_logbook;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     
     menu_item menu[] = {
 

@@ -229,7 +229,7 @@ void cgc_menu() {
   cgc_free(px_list);
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     cgc_printf("3D Coordinates (3DC) Image File Format Tools\n");
 

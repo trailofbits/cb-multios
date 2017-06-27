@@ -25,7 +25,7 @@
 #define SERVICE_H
 
 #define REQ_SIZE 128
-int main(void);
+int main(int cgc_argc, char *cgc_argv[]);
 
 typedef enum {GETV,SETV,GETT,NOTHERE} codes_t;
 

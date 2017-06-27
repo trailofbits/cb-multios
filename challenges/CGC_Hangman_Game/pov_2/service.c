@@ -293,7 +293,7 @@ void cgc_playToWin(int word, char *answer) {
    }
 }
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
    char *answer;
    //interact with the client socket
    char buf[4096];

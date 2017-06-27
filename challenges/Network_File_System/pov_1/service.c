@@ -116,7 +116,7 @@ void cgc_NegotiateType1Pov(unsigned int ipmask, unsigned int regmask, unsigned i
 #define CFS_WRITE ("\x03")
 #define CFS_RENAME ("\x06")
 #define RESP_SUCCESS ("\x00")
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned int type1_ip;
 	unsigned int type1_reg;
 	char buf[10];

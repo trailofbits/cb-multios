@@ -87,7 +87,7 @@ uint8 cgc_scramble_okay() {
 #ifdef REVERSER
 #include "cgc_stdlib.h"
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
   uint16 desired = TARGET;
   scramble_item mst, current;
   uint8 found;

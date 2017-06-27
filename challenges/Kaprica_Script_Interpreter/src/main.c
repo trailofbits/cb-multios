@@ -25,7 +25,7 @@
 #include "cgc_io.h"
 #include "cgc_lex.h"
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     io_t io;
     program_t p;

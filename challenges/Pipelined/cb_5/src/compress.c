@@ -86,7 +86,7 @@ void cgc_compress(void) {
     }
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     cgc_setup();
     cgc_sleep(2);
     cgc_compress();

@@ -46,7 +46,7 @@ uint32_t cgc_flipEndian(uint32_t t)
   return (ret);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   char buf[] = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBCCCC\n";
 

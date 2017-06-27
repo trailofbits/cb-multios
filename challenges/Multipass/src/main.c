@@ -466,7 +466,7 @@ static int process_ops()
     }
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     uint32_t *last_id = NULL;
     cgc_enlarge_transactions_array(10);

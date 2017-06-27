@@ -127,7 +127,7 @@ int i;
 
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 
 char line[1000];

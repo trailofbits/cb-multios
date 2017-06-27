@@ -42,7 +42,7 @@ struct command {
 static struct stock_state state = {};
 
 int
-main(void) {
+main(int cgc_argc, char *cgc_argv[]) {
     int cmd_ret = 0;
     cgc_size_t size = 0;
     struct command cmd = {};

@@ -40,7 +40,7 @@ void cgc_send_payload(uint32 len, char* buf);
 
 float64 probe_splatter = 6382.74623416;
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 	type1_vals t1vals;
  	cgc_type1_negotiate(0xffffffff, 0xffffffff, 5, &t1vals);

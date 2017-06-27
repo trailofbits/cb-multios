@@ -176,7 +176,7 @@ void cgc_render_text(char *input, dict_t **vars)
   }
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   cgc_size_t input_len;
   char buf[MAX_BUF_SIZE], input[MAX_BUF_SIZE];

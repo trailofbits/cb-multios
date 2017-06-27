@@ -54,7 +54,7 @@ void cgc_set_name(printer_t *printer, int index)
     printer->queue[name_len] = 0;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     int i, recv_mode = 0;
     char buf[2048];

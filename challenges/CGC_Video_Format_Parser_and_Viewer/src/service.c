@@ -101,7 +101,7 @@ pBitStream cgc_readImageData( void )
 	return npbs;
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 	unsigned char ba = 0;
 

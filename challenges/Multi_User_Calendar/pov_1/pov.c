@@ -24,7 +24,7 @@
 #include "libpov.h"
 #include "libcgc.h"
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     char *payload;
 

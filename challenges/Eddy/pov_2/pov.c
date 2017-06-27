@@ -1,5 +1,5 @@
 #include "libpov.h"
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    cgc_negotiate_type1(0xffffffff, 0xffffffff, 0);
    do {
       //*** writing data

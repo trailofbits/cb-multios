@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include "cgc_proto.h"
 #include "cgc_prng.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
         uint32_t MaxFiles = 10;
 	pRequest pReq;
 	pResponse pResp;

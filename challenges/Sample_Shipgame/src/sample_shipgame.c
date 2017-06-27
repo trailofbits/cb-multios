@@ -511,7 +511,7 @@ static inline int cgc_allShipsSunk(PlayerState* ps)
          ); 
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 
   PlayerState player0, player1; //2 players

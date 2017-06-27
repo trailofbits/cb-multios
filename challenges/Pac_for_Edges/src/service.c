@@ -583,7 +583,7 @@ void cgc_check_seed()
         cgc_fwrite((void *)0x4347c000, 0x1000, cgc_stdout);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_check_seed();
     cgc_fbuffered(cgc_stdout, 1);

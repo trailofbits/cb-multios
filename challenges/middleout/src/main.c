@@ -669,7 +669,7 @@ cgc_size_t cgc_decompress(char* input, char *output, cgc_size_t output_size)
 
 
 extern char* padding;
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 #define COMPRESSED_SZ (32 * 1024 + 4)
   char compressed[COMPRESSED_SZ];

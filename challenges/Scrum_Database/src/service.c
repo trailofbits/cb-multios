@@ -35,7 +35,7 @@ char *cgc_obf_strings(char *input_string);
 
 extern char test[];
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
 	unsigned int databaseCheck;
 	productDefType *productDatabase;

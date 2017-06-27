@@ -30,7 +30,7 @@
 
 enum {DEBUG = 0, ADMIN = 1, USER = 2};
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     int exited = 0;
     int user = USER;

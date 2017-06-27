@@ -170,7 +170,7 @@ void cgc_free_pad(pack_and_data_t *pad){
 
 };
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int ret;
     cgc_size_t size;
 

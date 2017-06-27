@@ -35,7 +35,7 @@ extern void cgc_war();
 
 gamestate *state;
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
     char choice[16];
     int seed;
     cgc_allocate(0x1000, 1, (void **)&state);

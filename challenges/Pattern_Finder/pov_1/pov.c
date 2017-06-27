@@ -140,7 +140,7 @@ int cgc_send_sig(cgc_size_t i)
 
 unsigned char buf[20000];
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   type1_vals vals;
 

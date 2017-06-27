@@ -46,7 +46,7 @@ calculate_csum(unsigned int x)
 }
 
 int
-main(void)
+main(int cgc_argc, char *cgc_argv[])
 {
     char *p;
     cgc_ssize_t num_tokens;

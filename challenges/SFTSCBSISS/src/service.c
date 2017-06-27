@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "cgc_vars.h"
 #include "cgc_packet.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned char pkt[256];
 
 	// init the VARS

@@ -140,7 +140,7 @@ void cgc_menu()
   cgc_fdprintf(STDOUT, "=======================\n");
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   char buf[MAX_KTY_LENGTH];
   char cgc_select[16];

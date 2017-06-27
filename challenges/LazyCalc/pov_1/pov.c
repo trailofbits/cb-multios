@@ -16,7 +16,7 @@ char* cgc_itoa(unsigned int i)
 #define CMD_EXP 0xAE22983DUL
 #define CMD_QUT 0x7DA7BAE3UL
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   unsigned int i;
   unsigned char payload[4096], output[4096];

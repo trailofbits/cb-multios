@@ -150,7 +150,7 @@ void cgc_init()
     cgc_bloomy_add(bloomy, depressing_words[i]);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   uint8_t good = 0;
   char buf[8], lyrics[2048];

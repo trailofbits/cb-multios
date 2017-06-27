@@ -159,7 +159,7 @@ int cgc_parseAndGetPage(char* buf, char** pStart, char** pEnd, const char* uidSt
   return (cgc_doGet(end, inFD, outFD));
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   char* buf = NULL;
   char* name = NULL;

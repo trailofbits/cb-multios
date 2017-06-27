@@ -27,7 +27,7 @@
 #include "cgc_libc.h"
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int res = 0;
     //init our global packet var
     ALLOC(0,(void **)&curpkt,TFTTP_STRUCT_SIZE);

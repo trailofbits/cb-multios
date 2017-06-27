@@ -100,7 +100,7 @@ void cgc_decompress(void) {
     
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     cgc_setup();
     cgc_sleep(2);
     if (read_fd == 0) {

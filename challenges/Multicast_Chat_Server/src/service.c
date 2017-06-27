@@ -882,7 +882,7 @@ void cgc_sendMessageToFlagChannel(Channel* channelList, User* userList) {
 	cgc_free(flag_buf);
 } 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	char* command;
 	Channel* channelList=NULL;
 	Request* request=NULL;

@@ -27,7 +27,7 @@
 #define FAIL "Is voting too hard?!\n"
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     unsigned int choice = 0;
     int ret = SUCCESS;

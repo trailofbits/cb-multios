@@ -256,7 +256,7 @@ void cgc_cmd_play_game(main_t *state)
     cgc_write_int(STATUS_SUCCESS);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     main_t state;
     cgc_memset(&state, 0, sizeof(main_t));

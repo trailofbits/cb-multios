@@ -94,7 +94,7 @@ void cgc_RegisterSensor(uint16_t sensor_id, uint8_t sensor_mac)
    if (read_00003_ptr) {}  //silence unused variable warning if any
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    // negotiate
    type1_vals t1vals;
    cgc_type1_negotiate(0xeeeeeeee, 0xeeeeeeee, 7, &t1vals);

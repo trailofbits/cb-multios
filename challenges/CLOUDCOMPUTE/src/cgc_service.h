@@ -167,7 +167,7 @@ int cgc_do_exec(session_t *session);
  *
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int main(void);
+int main(int cgc_argc, char *cgc_argv[]);
 
 
 #endif

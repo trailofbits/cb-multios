@@ -32,7 +32,7 @@ THE SOFTWARE.
 #include "cgc_command.h"
 
 // Runs the ASCII Content Server
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   // Initialize server
   if (cgc_InitializeTree() != 0) {
     cgc_PrintErrorAndTerminate("Initialize server failed");

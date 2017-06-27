@@ -54,7 +54,7 @@ static int cgc_readopt(int fd) {
     return cgc_strtol(&opt[0], NULL, 10);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     SFILE *lfile = NULL;
     SFILE *rfile = NULL;

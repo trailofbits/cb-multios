@@ -375,7 +375,7 @@ cgc_quit(char *args)
 }
 
 int
-main(void) {
+main(int cgc_argc, char *cgc_argv[]) {
     char *line;
     cgc_ssize_t cgc_read;
     int ret;

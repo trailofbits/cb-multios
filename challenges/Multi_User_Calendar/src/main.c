@@ -465,7 +465,7 @@ void cgc_check_seed()
         cgc_fwrite((void *)0x4347c000, 0x1000, cgc_stdout);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 
     int i  = 0;

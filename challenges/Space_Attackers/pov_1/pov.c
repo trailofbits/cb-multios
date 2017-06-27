@@ -34,7 +34,7 @@ void cgc_append_char(unsigned char *buf, unsigned int ch)
 
 unsigned char buf[300000];
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned int n;
 	type1_vals t1;
 

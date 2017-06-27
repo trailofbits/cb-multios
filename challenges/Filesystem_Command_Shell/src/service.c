@@ -37,7 +37,7 @@ THE SOFTWARE.
 
 securityIdType securityID = 0;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 char command[1024];
 char buffer[100];
 char nameBuffer[10];

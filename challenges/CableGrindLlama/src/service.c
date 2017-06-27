@@ -25,7 +25,7 @@
 #include "cgc_libdupe.h"
 #include "cgc_cablegrind.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int i;
     uint32_t filesize;
     uint8_t *data;

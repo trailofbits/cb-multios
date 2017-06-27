@@ -139,7 +139,7 @@ static int send_error(int code)
     return 0;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     char buf[1024];
     g_output_buf = cgc_malloc(MAX_OUTPUT);

@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "cgc_common.h"
 #include "cgc_L2.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned char Frame[MAX_FRAME_LEN];
         cgc_fd_set readfds;
 	int fd;

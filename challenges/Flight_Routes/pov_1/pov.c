@@ -180,7 +180,7 @@ char *cgc_strcpy( char *pDest, const char *pSrc )
 
 
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 
 char buffer[1000];
