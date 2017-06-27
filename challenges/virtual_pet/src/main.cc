@@ -496,7 +496,7 @@ do_line(char *line) {
 }
 
 int
-main() {
+main(int cgc_argc, char *cgc_argv[]) {
 	char buf[1024], c;
 	int nbuf = 0;
 	cgc_size_t nr;
