@@ -91,7 +91,7 @@ static int handle_sd()
     return 1;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     char input[16];
     int done = 0, state;
