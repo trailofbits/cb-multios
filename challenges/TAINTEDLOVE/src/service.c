@@ -641,7 +641,7 @@ int cgc_dispatch(void) {
     return ret;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     int ret = SUCCESS;
 

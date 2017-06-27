@@ -41,7 +41,7 @@
 
 int cgc_canonicalize_path(char * cp, char * rp, cgc_size_t rp_len);
 int cgc_request_document(char * path, cgc_size_t recusion_depth);
-int main(void);
+int main(int cgc_argc, char *cgc_argv[]);
 
 
 #endif

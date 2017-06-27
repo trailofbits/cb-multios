@@ -59,7 +59,7 @@ int cgc_read_until(int fd, char *buf, cgc_size_t len, char delim)
   return c - buf;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   int length = 0;
   char buf[8192];

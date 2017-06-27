@@ -315,7 +315,7 @@ int cgc_do_quit(priv_t *priv, char *resource)
     return FAILURE;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     ht_node_t *node;
     priv_t priv;

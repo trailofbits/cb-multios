@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "cgc_bst.h"
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     
     bst_node_type *head;
     data_item_type *item;

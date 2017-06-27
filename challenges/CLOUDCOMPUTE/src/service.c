@@ -532,7 +532,7 @@ bail:
 }
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     int ret = SUCCESS;
     uint32_t state = STATE_INIT;

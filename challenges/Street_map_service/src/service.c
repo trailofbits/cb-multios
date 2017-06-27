@@ -43,7 +43,7 @@ and addresses
 */
 
 
-int main(){
+int main(int cgc_argc, char *cgc_argv[]){
 	//new
 	psList turnList = cgc_init_turnList();
 	pmap thisMap = cgc_init_map("Newville");

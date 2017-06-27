@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 pPlanet solarSystem[10];
 
-int main( void )
+int main(int cgc_argc, char *cgc_argv[])
 {
 	int choice = 0;
 	char selection[30];

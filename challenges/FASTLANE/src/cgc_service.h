@@ -63,7 +63,7 @@
 int cgc_dump_file(char *name);
 int cgc_head_file(char *name);
 int cgc_list_files(void);
-int main(void);
+int main(int cgc_argc, char *cgc_argv[]);
 
 // stupid-simple files that have 16-character names and 16-character contents
 typedef struct fileentry {

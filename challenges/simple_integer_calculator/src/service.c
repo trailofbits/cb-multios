@@ -51,7 +51,7 @@ void cgc_equals();
 void len();
 void cgc_process(char *input);
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
     char line[256];
     char result[256];
 

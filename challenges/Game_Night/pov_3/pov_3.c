@@ -22,7 +22,7 @@
 
 #include "cgc_conv.h"
 #include "libpov.h"
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     cgc_negotiate_type1(0x00ffffff, 0x00ffffff, 0);
     //*** delay
     cgc_delay(100);

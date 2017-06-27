@@ -1,6 +1,6 @@
 #include "libpov.h"
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     type2_vals t2;
     cgc_type2_negotiate(&t2);

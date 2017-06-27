@@ -232,7 +232,7 @@ void cgc_remove_class(student_t *student)
     cgc_printf("Returning to main menu\n");
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_generate_data();
     cgc_printf("University Course Scheduler\n\n");

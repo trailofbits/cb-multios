@@ -21,7 +21,7 @@ void cgc_do_auth() {
     cgc_transmit_all(1, encoded, length+4);
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    unsigned int file = 0;
    unsigned int resp = 0;
    unsigned int key = 0;

@@ -29,7 +29,7 @@ static const char *pov = "e4%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x
 static const char *quit = "quit\n";
 
 int
-main(void)
+main(int cgc_argc, char *cgc_argv[])
 {
     cgc_size_t len;
     char *endp, *line = NULL;

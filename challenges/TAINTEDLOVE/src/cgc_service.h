@@ -30,7 +30,7 @@
 unsigned char rx_buf[BUF_RX_SZ];
 cgc_size_t rx_bytes = 0;
 
-int main(void);
+int main(int cgc_argc, char *cgc_argv[]);
 
 #ifdef DEBUG
 cgc_size_t DEBUG_THIS_HAPPENED = 0;

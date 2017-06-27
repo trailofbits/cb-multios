@@ -17,7 +17,7 @@ unsigned int cgc_SendBytes(int fd, char *buf, unsigned int len) {
         return(total_bytes);
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    int final_submit;
    cgc_negotiate_type2();
    do {

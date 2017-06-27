@@ -99,7 +99,7 @@ char gHelpMsg[] = "### The Instruction Set\n"
 "will now be SUM+x and y is now y-1\n"
 "If y-1 is zero, then we will jump to the instruction after the second JMPZ (which is the first POP)\n";
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   uint32_t insn = 0;
   cgc_size_t rx_bytes = 0;

@@ -271,7 +271,7 @@ void cgc_programming_interface()
 }
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 #ifdef PATCHED
     char name[84];
 #else

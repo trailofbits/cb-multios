@@ -37,7 +37,7 @@ uint8_t cgc_SimStepCount = 0;
 
 const char *rand_page = (const char *)0x4347C000;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	char buf[32];
 
 	// init the PRNG

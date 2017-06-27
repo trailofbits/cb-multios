@@ -284,7 +284,7 @@ int cgc_extract_text(pkk_t *pkk, char *buf)
   return -1;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   char text[MAX_TEXT_LEN];
   int out_len;

@@ -497,7 +497,7 @@ void cgc_ParseWav(unsigned char *pcm) {
 
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     unsigned char pcm[MAX_PCM_SIZE];
 
     // zero the pcm var

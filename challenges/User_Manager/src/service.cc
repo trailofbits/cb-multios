@@ -26,7 +26,7 @@ THE SOFTWARE.
 
 #include "cgc_common.h"
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     CUserManager oUserManager;
 

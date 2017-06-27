@@ -24,7 +24,7 @@
 #include "cgc_libc.h"
 #include "cgc_viewscript.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     char buf[4096] = {0};
 
     int res = cgc_recvuntil(STDIN, buf, sizeof(buf), '\0');

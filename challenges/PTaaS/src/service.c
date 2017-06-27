@@ -182,7 +182,7 @@ cgc_read_plane(struct shape *out)
 }
 
 int
-main(void)
+main(int cgc_argc, char *cgc_argv[])
 {
     struct pt_ctx ctx;
     cgc_ssize_t ret;

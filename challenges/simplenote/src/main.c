@@ -604,7 +604,7 @@ void cgc_free_argv(char** argv, cgc_size_t n)
   cgc_free(argv);
 }
 # 454 "src/main.c"
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 
   char input_buf[(16 * 1024)];

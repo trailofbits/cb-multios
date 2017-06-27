@@ -142,7 +142,7 @@ cgc_list_files(void)
 }
 
 int
-main(void) {
+main(int cgc_argc, char *cgc_argv[]) {
     int cmd, cmd_ret;
 
     // Set up filesystem

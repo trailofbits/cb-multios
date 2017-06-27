@@ -37,7 +37,7 @@ extern uint32_t cgc_X;
 extern uint32_t cgc_Y;
 extern uint32_t cgc_Z;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
 	// Init global vars
 	cgc_TGrid = NULL;

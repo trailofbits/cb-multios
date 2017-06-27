@@ -268,7 +268,7 @@ free_path:
 }
 
 int
-main(void)
+main(int cgc_argc, char *cgc_argv[])
 {
     int cmd, ret;
 

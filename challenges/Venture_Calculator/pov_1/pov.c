@@ -35,7 +35,7 @@ uint32_t cgc_ReadScreen(unsigned char** Lines)
 }
 
 #define MAX_LINES 0x1000
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     type2_vals t2v;
     unsigned char* ScreenBuf[MAX_LINES];

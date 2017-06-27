@@ -257,7 +257,7 @@ void cgc_runService(Service* serviceList, Message *message) {
 
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	cgc_size_t bytes;
 	cgc_size_t size=0;
 	char* vuln_buf;

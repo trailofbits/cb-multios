@@ -161,7 +161,7 @@ void cgc_run_quote(packet_t *p, packet_t *resp){
 	cgc__terminate(44);
 }
 
-int main(void){
+int main(int cgc_argc, char *cgc_argv[]){
 	cgc_init_accounts();
 
 	char pkt_buf[PKTSIZE];

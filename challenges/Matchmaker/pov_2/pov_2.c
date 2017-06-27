@@ -21,7 +21,7 @@
  */
 
 #include "libpov.h"
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     type1_vals vals;
     cgc_type1_negotiate(0xefefefe, 0xefefefe, 0, &vals);
     //*** delay

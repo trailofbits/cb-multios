@@ -52,6 +52,6 @@ typedef struct htreq {
 } htreq;
 
 int cgc_prompt(char *pmpt, char *buf, cgc_size_t size);
-int main(void);
+int main(int cgc_argc, char *cgc_argv[]);
 
 #endif

@@ -226,7 +226,7 @@ void cgc_terminate_unused(int service_count) {
     }
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int service_count;
     int enabled_count;
 

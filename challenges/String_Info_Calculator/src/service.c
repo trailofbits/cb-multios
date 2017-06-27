@@ -36,7 +36,7 @@
 
 #define INBUFSZ 1024
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     char input[INBUFSZ] = {0};
     int bytes_recv = 0;

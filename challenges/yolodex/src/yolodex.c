@@ -579,7 +579,7 @@ void cgc_inputLoop() {
 	}
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 	cgc_initCookies();
 	cgc_puts("Welcome to the yolodex.");

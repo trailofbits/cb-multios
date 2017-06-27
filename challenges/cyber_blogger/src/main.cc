@@ -105,7 +105,7 @@ bool make_selection(User *&current_user)
     return true;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     User *current_user = NULL;
     cgc_size_t selection = 0;

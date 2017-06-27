@@ -32,7 +32,7 @@ THE SOFTWARE.
 #include "cgc_vgf.h"
 #include "cgc_pmp.h"
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
   uint16_t file_length;
 
   // Read 2 byte length field

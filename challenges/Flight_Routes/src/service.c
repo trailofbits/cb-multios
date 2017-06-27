@@ -33,7 +33,7 @@ THE SOFTWARE.
 
 airportInfoType *airports;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
 char command[150];
 int retval;

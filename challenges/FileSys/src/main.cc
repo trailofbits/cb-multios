@@ -109,7 +109,7 @@ char** parse_args(char *s, int *argc)
   return argv;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   int argc;
   char buf[2048], **argv = 0;

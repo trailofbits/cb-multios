@@ -105,7 +105,7 @@ uint8_t cgc_CB3_ProcessPacket(unsigned char *Packet) {
 	return(1);
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned char Frame[MAX_FRAME_LEN];
 	unsigned char Packet[MAX_FRAME_LEN];
 

@@ -85,7 +85,7 @@ void cgc_test( void )
     cgc_printf( "Exit test function\n" );
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     // Initialize exception handler
     cgc_init_exception_handler();

@@ -31,7 +31,7 @@ THE SOFTWARE.
 unsigned short (*swap_short)(unsigned short);
 unsigned (*swap_word)(unsigned);
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
 unsigned ret_code;
 unsigned short SOM;

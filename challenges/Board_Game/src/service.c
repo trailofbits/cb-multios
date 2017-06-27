@@ -31,7 +31,7 @@ THE SOFTWARE.
 // current player
 char cgc_CURR_PLAYER[6];
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	char srcx, srcy, dstx, dsty;
 	// board
 	char board[X_MAX][Y_MAX];

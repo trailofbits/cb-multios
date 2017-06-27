@@ -160,7 +160,7 @@ void cgc_GetResponse( uint8_t *pDest, uint16_t *pDestLen )
 #define UPDATE_GEOFENCE_NEW	(0)
 #define UPDATE_GEOFENCE_ADD	(1)
 
-int main(void) 
+int main(int cgc_argc, char *cgc_argv[]) 
 {
 	// Buffer for command data
 	uint8_t commandData[1024];

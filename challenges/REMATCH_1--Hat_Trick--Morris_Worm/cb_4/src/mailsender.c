@@ -398,7 +398,7 @@ void cgc_mailsend(int argc, char **argv) {
     cgc_printf("Goodbye.\n");
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     char *sp;
     char input[512];
     int bytes_received = 0;

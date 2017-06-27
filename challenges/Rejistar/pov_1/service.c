@@ -80,7 +80,7 @@ unsigned int num;		/* the number to convert */
 	return 0;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	type1_vals t1vals;
 	uint32_t mask_eip, mask_reg;
 	cgc_size_t bytes;

@@ -393,7 +393,7 @@ Song* cgc_selectSong(SongList results, Request request)
     return &results.songs[0];
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int ret =0;
     int starting_balance =0;
 #ifdef PATCHED

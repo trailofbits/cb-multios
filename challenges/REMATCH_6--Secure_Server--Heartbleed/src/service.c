@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include "cgc_msls.h"
 #include "cgc_application.h"
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   // Setup server state
   SERVER_STATE *state = cgc_calloc(sizeof(SERVER_STATE));

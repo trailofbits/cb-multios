@@ -33,7 +33,7 @@ THE SOFTWARE.
 extern double cgc_wall_clock;
 extern double cgc_max_wall_clock;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
 	cgc_puts("Welcome to the network queuing simulator");
 

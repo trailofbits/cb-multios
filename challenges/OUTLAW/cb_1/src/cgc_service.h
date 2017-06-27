@@ -105,7 +105,7 @@ void cgc_do_exit(void);
  *
  * @return An int indicating SUCCESS (0) or an error condition (!=0).
  */
-int main(void);
+int main(int cgc_argc, char *cgc_argv[]);
 
 #define NUM_OPS 256
 int (*operations[NUM_OPS]) (cgc_size_t x, cgc_size_t y, cgc_size_t *expected_answer) = {

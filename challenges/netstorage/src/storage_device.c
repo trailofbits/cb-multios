@@ -50,7 +50,7 @@ static cgc_size_t cgc__recv(void *buf, cgc_size_t length)
     return count;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_usb_init(&usb);
     usb.send = cgc__send;

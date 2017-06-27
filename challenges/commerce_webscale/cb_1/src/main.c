@@ -168,7 +168,7 @@ void cgc_init_db()
     }
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_database_init(4, 5);
     cgc_init_db();

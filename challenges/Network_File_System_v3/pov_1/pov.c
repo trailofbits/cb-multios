@@ -129,7 +129,7 @@ void cgc_GetResponse( uint8_t *pDest, uint16_t *pDestLen )
 #define COMMAND_READ	(2)
 #define COMMAND_WRITE	(3)
 
-int main(void) 
+int main(int cgc_argc, char *cgc_argv[]) 
 {
 	// Buffer for command data
 	uint8_t commandData[1024];

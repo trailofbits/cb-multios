@@ -67,7 +67,7 @@ void cgc_BusyWork(void) {
 
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	users_t users[MAX_USERS];
 	char buf[100];
 	int done = 0;

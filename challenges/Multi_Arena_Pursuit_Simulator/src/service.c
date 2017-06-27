@@ -901,7 +901,7 @@ void cgc_initCityMap(Map **map_ptr) {
 	cgc_setCoordinate(map_ptr, 0, -5, V);
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	Position criminal;
 	Map *cityMap=NULL;
 	Map *harborMap=NULL;

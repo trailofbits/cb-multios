@@ -24,7 +24,7 @@
 #include "cgc_libc.h"
 #include "cgc_player.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     cgc_ssize_t ret = 0;
     DBG("STARTING.\n");

@@ -1340,7 +1340,7 @@ void cgc_sendDocumentID(unsigned int documentID) {
 }
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	Object* documentObject;
 	Macro* macros;
 	char* documentString;

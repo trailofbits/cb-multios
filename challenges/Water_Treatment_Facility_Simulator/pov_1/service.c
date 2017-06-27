@@ -441,7 +441,7 @@ void cgc_SetParameters(double PctAeration, double GlycerinRate, double AlumRate,
 
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned int Hours = 0;
 	char buf[8192];
 	unsigned int type1_ip;

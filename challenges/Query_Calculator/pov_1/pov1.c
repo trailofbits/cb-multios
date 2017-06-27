@@ -44,7 +44,7 @@ unsigned char cgc_atoi(unsigned char* buf, uint16 len) {
   return run;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   cgc_type2_negotiate(&t2_vals);
   cgc_protocol_consume_str();
   

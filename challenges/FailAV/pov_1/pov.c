@@ -1,6 +1,6 @@
 #include "libpov.h"
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     unsigned char buf[128];
     type1_vals t1;

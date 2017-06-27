@@ -6,7 +6,7 @@ unsigned short cgc_swap16(unsigned short n)
     return (n << 8) | (n >> 8);
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     type1_vals t1;
     cgc_type1_negotiate(0x00fefefe, 0xfefefefe, 6, &t1);

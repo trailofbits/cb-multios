@@ -41,7 +41,7 @@ calculate_csum(unsigned int x)
 }
 
 int
-main(void)
+main(int cgc_argc, char *cgc_argv[])
 {
     struct ai_state ai_state;
     struct bitboard board;

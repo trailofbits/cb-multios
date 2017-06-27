@@ -696,7 +696,7 @@ void cgc_pb(game_t* game)
   cgc_fdprintf(STDERR, "\n");
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 #define NAME_LEN 8
   char name[NAME_LEN];

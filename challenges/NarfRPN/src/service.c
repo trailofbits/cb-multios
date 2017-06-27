@@ -26,7 +26,7 @@
 #include "cgc_rpncalc.h"
 
 int
-main(void) {
+main(int cgc_argc, char *cgc_argv[]) {
     int cmd, ret;
     struct rpncalc_state state;
 

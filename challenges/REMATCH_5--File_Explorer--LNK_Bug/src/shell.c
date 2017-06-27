@@ -181,7 +181,7 @@ char cgc_ReceiveCommand()
   return cmd;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   FileNode *cwd = cgc_InitializeFileSystem();
   int activeSession = 1;

@@ -523,7 +523,7 @@ int cgc_checkLogin(ulargeint_t* pUserNum, ulargeint_t* px, ulargeint_t* py, ular
   return ( cgc_largeIntCmp(&tempProduct, &tempSum) == 0 );
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   ulargeint_t luserPW;
   ulargeint_t lx;

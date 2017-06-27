@@ -213,7 +213,7 @@ int cgc_jit_op(jit_t *jit, char op)
     return 0;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     char buf[8192];
     g_output_buf = cgc_malloc(MAX_OUTPUT);

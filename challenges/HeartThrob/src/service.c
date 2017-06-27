@@ -52,7 +52,7 @@ int cgc_prompt(char *pmpt, char *buf, cgc_size_t size) {
     return ret;
  }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int ret;
     htreq *req;
 

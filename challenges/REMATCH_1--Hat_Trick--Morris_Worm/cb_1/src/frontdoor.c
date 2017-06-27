@@ -38,7 +38,7 @@ void cgc_print(char *s) {
   cgc_send_all(s, cgc_strlen(s));
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   int i;
   char input[2048];
   char output[2048];

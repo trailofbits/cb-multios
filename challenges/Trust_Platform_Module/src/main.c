@@ -202,7 +202,7 @@ cgc_size_t cgc_findChar(const char* str, char c)
   return (i);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   char cmd[64];
   uint8_t hash[HASH_SIZE];

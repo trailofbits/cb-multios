@@ -29,7 +29,7 @@
 #include "cgc_games.h"
 
 int
-main(void)
+main(int cgc_argc, char *cgc_argv[])
 {
     char buf[40] = { 0 };
     unsigned int game;

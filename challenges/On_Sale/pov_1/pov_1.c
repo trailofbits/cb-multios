@@ -20,7 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "libpov.h"
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    type1_vals t1vals;
    cgc_type1_negotiate(0xedededed, 0xedededed, 7, &t1vals); // can use either EAX(0) or EDI(7)
    unsigned int no_ed = 0x12121212; // have to prevent 0xed from each byte of EIP and REG

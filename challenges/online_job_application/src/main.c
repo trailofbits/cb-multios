@@ -207,7 +207,7 @@ void cgc_print_menu()
     cgc_printf("**exit <Exit application>\n");
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     page_option pg_opt = NOOP;
     cgc_printf("\n\n");

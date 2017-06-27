@@ -239,7 +239,7 @@ int cgc_bad_char(unsigned char c)
     return c == 0 || c == ',';
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     unsigned char len_resp[128];
     int whose_turn = 0;

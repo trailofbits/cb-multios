@@ -257,7 +257,7 @@ unsigned short cgc_get_consecutive_cnt(void) {
 	return local_con;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
 	char *send_buf = NULL;
 

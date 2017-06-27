@@ -262,7 +262,7 @@ int cgc_logoutUser(User** userList, unsigned long id) {
 	return 1;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
 	Command command;
 	unsigned long auth_val=0;

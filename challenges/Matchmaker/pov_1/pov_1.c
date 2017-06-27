@@ -143,7 +143,7 @@ cgc_get_byte(unsigned int byte)
 }
 
 int
-main(void)
+main(int cgc_argc, char *cgc_argv[])
 {
     unsigned int i;
     unsigned char flag[4] = {0, 0, 0, 0};

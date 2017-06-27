@@ -2,7 +2,7 @@
 #include "cgc_xlat.h"
 #include "cgc__defines.h"
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     cgc_xlat_seed("393748225");
     type1_vals t1;

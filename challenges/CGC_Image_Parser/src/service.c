@@ -299,7 +299,7 @@ int cgc_menu( void )
 
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 	char *image = NULL;
 	int image_length = 0;

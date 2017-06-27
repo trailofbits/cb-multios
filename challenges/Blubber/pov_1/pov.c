@@ -96,7 +96,7 @@ static void cgc_strcat(char* s1, const char* s2)
   cgc_strcpy(p, s2);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 
 #ifndef DEBUG

@@ -93,7 +93,7 @@ unsigned int cgc_find_needed_str(unsigned int *c, unsigned char b) {
     return 0xffffffff;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    unsigned char *temp;
    char num[13] = {0};
    unsigned int size = 256;

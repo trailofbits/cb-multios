@@ -278,7 +278,7 @@ int cgc_execute_program(char* program, cgc_size_t max) {
   return 0;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   unsigned int *secrets = (unsigned int *)0x4347C004;
   char buf[MAX_PROGRAM_SIZE];
   int err;

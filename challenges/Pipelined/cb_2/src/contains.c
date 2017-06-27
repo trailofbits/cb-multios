@@ -100,7 +100,7 @@ void cgc_exit(int i) {
     cgc__terminate(i);
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     char buf[1024];
     int ret;
 

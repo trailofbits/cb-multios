@@ -1,6 +1,6 @@
 #include "libpov.h"
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     unsigned char *payload = NULL, *buf;
     unsigned int payload_len = 0;

@@ -338,7 +338,7 @@ void cgc_rref_matrix(matrix_t *m, matrix_t *m_result)
         cgc_print_matrix("RREF Result:", m_result);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
     int retval = 0;
     int choice = 0;

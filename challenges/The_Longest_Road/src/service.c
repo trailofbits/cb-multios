@@ -33,7 +33,7 @@ THE SOFTWARE.
 int goal_len = 9; // set target length to win game
 
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
 	char packet_str[256];
 

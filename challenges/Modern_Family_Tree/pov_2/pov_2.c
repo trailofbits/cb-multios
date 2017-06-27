@@ -20,7 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "libpov.h"
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    type1_vals t1vals = { 0 };
    uint32_t mask_eip, mask_reg;
 

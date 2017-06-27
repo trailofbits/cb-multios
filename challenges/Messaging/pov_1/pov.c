@@ -2,7 +2,7 @@
 
 // \x00\xffHDR\x05\x00\x00\x00\x01\x00ALBM\x00\x00\x00\x38\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\bAAAAAAAAAAAA\x20\xc0\x47\x43CCCCAAAAAAAAAAAATITL\x00\x00\x00\x38\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\bAAAAAAAAAAAA\x30\xc0\x47\x43CCCCAAAAAAAAAAAA\x7f
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     type2_vals t2;
     unsigned char buf[200];

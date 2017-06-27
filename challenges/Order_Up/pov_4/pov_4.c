@@ -56,7 +56,7 @@ static const char CMD_QUIT[4] 			= {'\xB0','\x01','\xB0','\x01'};
 static const char *FOOD = "eq3YXkcE9wTLUqp9i5LhQVLegvjMR19LCQFVZR5Kc6UnQbNYbTtZ69XJU8ObGKeFCQuypxNlUZr27CmrsIX7RivQISuSOurxu6tb";
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    unsigned int reg, ip;
    type1_vals t1vals;
    cgc_type1_negotiate(0x0fffff80, 0xffffff80, 2, &t1vals);

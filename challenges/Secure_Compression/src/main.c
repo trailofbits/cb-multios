@@ -142,7 +142,7 @@ done:
         cgc_free(out);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     char buf[8];
     int i;

@@ -713,7 +713,7 @@ void cgc_readFlag() {
 
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    type2_vals t2vals;
    cgc_size_t bytes;
 

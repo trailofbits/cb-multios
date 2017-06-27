@@ -20,7 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "libpov.h"
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    unsigned int reg, ip;
    type1_vals t1vals;
    cgc_type1_negotiate(0x0efefefe, 0xfefefefe, 2, &t1vals);

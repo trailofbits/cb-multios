@@ -76,7 +76,7 @@ void cgc_WriteCString(char *s, uint32_t length)
 }
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   // Setup type 2 pov
   type2_vals t2vals;
   cgc_type2_negotiate(&t2vals);

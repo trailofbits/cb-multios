@@ -64,7 +64,7 @@ int cgc_receive_bytes (int fd, void *buffer, cgc_size_t count);
 int cgc_write( int fd, void *buffer, cgc_size_t count );
 void cgc_eat_line(int fd);
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 
 

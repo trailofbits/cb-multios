@@ -27,7 +27,7 @@
 #include "cgc_tank.h"
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	char ret = SUCCESS;
     struct tankset *t = NULL;
 

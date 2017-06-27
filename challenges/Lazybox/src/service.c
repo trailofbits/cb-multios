@@ -36,7 +36,7 @@ THE SOFTWARE.
 
 extern environment cgc_ENV;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	Command Cmd;
 	char buf[MAX_CMD_LEN];
 	int32_t i;

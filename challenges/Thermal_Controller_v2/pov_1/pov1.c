@@ -79,7 +79,7 @@ int cgc_ReceiveFromCB(char *buf, int length) {
 }
 
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 	programMessageType theMessage;
 	int i;

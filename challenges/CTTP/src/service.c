@@ -41,7 +41,7 @@ void cgc_initialize(char *s, cgc_size_t np) {
         cgc_memcpy(s+(i*PAGE_SIZE), (char *)FLAG_PAGE, PAGE_SIZE);
 }
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
     char stack[PAGE_SIZE*16];
 
     int fd;

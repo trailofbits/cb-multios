@@ -122,7 +122,7 @@ pDiveEntryListNode cgc_DeleteDive( pDiverInfo DiverInfo, pDiveEntryListNode Dive
 	return DiveEntryListPrev;
 }
 
-int main(){
+int main(int cgc_argc, char *cgc_argv[]){
 	pDiverInfo workingData = cgc_init_data();
 	cgc_MainMenu( workingData );
 	cgc_destroy_data( workingData );

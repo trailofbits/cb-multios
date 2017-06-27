@@ -230,7 +230,7 @@ int cgc_init_content() {
 }
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     int ret = SUCCESS;
     int bytes_sent = -1;

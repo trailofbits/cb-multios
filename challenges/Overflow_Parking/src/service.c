@@ -276,7 +276,7 @@ parkinstr_t *cgc_read_instr() {
     return instr;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     stats.do_stats = cgc_do_stats;
     statsp = &stats;
     parkinstr_t *instr;

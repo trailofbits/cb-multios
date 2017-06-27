@@ -160,7 +160,7 @@ void cgc_send_msg(unsigned char *buf, unsigned short size){
 }
 
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 
 programMessageType theMessage;

@@ -96,7 +96,7 @@ void cgc_service_loop( void )
 }
 
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 	cgc_service_loop();
 

@@ -29,7 +29,7 @@ static const char STATUS_ERR[2] 	= {'\x1E','\x44'};
 static const char STATUS_QUIT[2]	= {'\x04','\x17'};
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     short ret = 0;
 

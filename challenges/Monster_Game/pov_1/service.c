@@ -714,7 +714,7 @@ void cgc_readmap( pmap pm )
 	return;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	unsigned int type1_ip = 0;
 	unsigned int type1_reg = 0;
 	player new_player;

@@ -82,7 +82,7 @@ void cgc_bit_write(bio_t *bio, unsigned char data, cgc_size_t n)
     bio->data[bio->didx] = b;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     cgc_negotiate_type1(0xfefefefe, 0xfefefefe, 5);
 
     int i, buf_len = 0;

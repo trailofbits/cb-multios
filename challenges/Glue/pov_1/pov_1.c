@@ -45,7 +45,7 @@ struct glue_t
 };
 
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
   int base = 0x4347C000;
 #if 1

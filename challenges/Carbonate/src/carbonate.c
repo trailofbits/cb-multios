@@ -34,7 +34,7 @@ void cgc_scramble();
 void cgc_cool_set_stuff();
 void cgc_safe_set_stuff();
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   cgc_send_empty_frame(HELLO_ID);
   cgc_expect_empty_frame(HELLO_ID);
 

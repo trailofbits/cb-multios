@@ -80,5 +80,5 @@ typedef struct msg {
  * Call helper functions to leak auth_token.  
  * Use auth_token to exercise vuln #2.
  */
-int main(void);
+int main(int cgc_argc, char *cgc_argv[]);
 

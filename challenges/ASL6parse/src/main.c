@@ -45,7 +45,7 @@ static int cgc_read_exactly(int fd, uint8_t *buf, cgc_size_t n)
   return 0;
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   unsigned size = 0;
   cgc_size_t cgc_read = 0;

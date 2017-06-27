@@ -35,7 +35,7 @@ THE SOFTWARE.
 #include "cgc_service.h"
 #include "cgc_ui.h"
 
-int main(){
+int main(int cgc_argc, char *cgc_argv[]){
 	cgc_ui_main();
 	return 0;
 }

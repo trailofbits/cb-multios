@@ -69,6 +69,6 @@ done:
    return result;
 }
 
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
    cgc__terminate(cgc_read_until_END());
 }

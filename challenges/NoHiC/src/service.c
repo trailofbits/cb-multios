@@ -25,7 +25,7 @@
 #include "cgc_math_fun.h"
 #include "cgc_service.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
     uint8_t command[1];
     int ret = 0;

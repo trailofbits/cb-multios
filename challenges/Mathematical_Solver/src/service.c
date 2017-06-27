@@ -110,7 +110,7 @@ void cgc_print_statistics()
 	}
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
 	int ret;
 

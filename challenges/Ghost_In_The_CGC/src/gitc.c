@@ -259,7 +259,7 @@ void cgc_printLights(void* addr)
   cgc_transmit_all(STDOUT, temp, 9);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
   char buf[MAX_MSG_SIZE];
   int i = 0;

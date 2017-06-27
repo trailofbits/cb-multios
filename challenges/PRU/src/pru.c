@@ -183,7 +183,7 @@ int cgc_recvInt() {
 	cgc_memcpy(&ret, tmp, 4);
 	return ret;
 }
-int main() {
+int main(int cgc_argc, char *cgc_argv[]) {
 	int numInstructions;
 	int recvd;
 	int i;

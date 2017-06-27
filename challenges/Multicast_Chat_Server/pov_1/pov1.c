@@ -35,7 +35,7 @@ cgc_hex_decode(const char *in, cgc_size_t len, uint8_t *out)
    return out;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    cgc_negotiate_type2();
    do {
       //*** writing data

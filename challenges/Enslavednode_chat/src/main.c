@@ -374,7 +374,7 @@ void cgc_init(void)
   cgc_printf("%s", welcome);
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 #define BUF_SIZE 8126
   char *buf = NULL;

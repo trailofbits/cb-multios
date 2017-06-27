@@ -1,6 +1,6 @@
 #include "libpov.h"
 #include "cgc_conv.h"
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    cgc_negotiate_type2();
    do {
       unsigned char *read_00000;

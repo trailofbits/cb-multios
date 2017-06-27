@@ -335,7 +335,7 @@ void cgc_scramble(char* dst, char* src, cgc_size_t len)
   dst[i] = '\0';
 }
 
-int main(void)
+int main(int cgc_argc, char *cgc_argv[])
 {
 #define BUF_SIZE 64
 #define READLINE(_buf, _len) do { sret = cgc_readline(_buf, _len); if (sret == 0) { cgc__terminate(1); } } while (0)

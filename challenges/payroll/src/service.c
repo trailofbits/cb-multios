@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "cgc_libc.h"
 #include "cgc_timecard.h"
 
-int main(void) 
+int main(int cgc_argc, char *cgc_argv[]) 
 {
 	int i;
 	char inbuf[80];

@@ -40,7 +40,7 @@ typedef struct action {
     void (*action)(char *req);
 } action;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int i;
     char recv[1024] = {0};
     vhead = NULL;

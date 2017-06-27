@@ -206,7 +206,7 @@ segnode_t *cgc_recv_seg() {
     return head;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     segnode_t *head = NULL;
     segnode_t *prev = NULL;
     int err = 0;

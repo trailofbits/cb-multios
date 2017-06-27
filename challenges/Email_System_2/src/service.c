@@ -211,7 +211,7 @@ int cgc_handle_B_input()
 	return 0;
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
 	cgc_msg_count_login = 0;
 	cgc_user_count = 0;

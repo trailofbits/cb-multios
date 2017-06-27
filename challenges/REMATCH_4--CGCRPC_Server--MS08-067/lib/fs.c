@@ -38,7 +38,7 @@ are owner cgc_read-cgc_write and other cgc_read-cgc_write only.
 
 Example usage:
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 	uint32_t MaxFiles = 10;
 	FILE *fp;
 	char buf[64];

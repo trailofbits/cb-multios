@@ -160,7 +160,7 @@ exit_cmd:
     return EXIT_CODE;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     char line[LINE_SIZE];
     cgc_init_sheet();
     int cgc_exit = 0;

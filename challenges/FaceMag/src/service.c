@@ -36,7 +36,7 @@ THE SOFTWARE.
 
 extern fileHandleType cgc_securityIDFileHandle;
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
 
 int retcode;
 unsigned int count;

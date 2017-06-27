@@ -202,7 +202,7 @@ static void output_dqt(const uint8_t qt[], int info)
         output_byte(qt[ZZ[i]]);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
     bmp_file_t bmp_file;
     bmp_info_t bmp_info;

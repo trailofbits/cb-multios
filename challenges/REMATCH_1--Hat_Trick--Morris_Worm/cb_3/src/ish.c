@@ -163,7 +163,7 @@ char *cgc_gen_random_string(int min, int max) {
 
 
 // Wait for input, then execute ish
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     char input[512];
     int bytes_received = 0;
     cgc_fd_set fds;

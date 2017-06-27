@@ -22,7 +22,7 @@
  */
 #include "libpov.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   type1_vals t1;
   cgc_type1_negotiate(0xfefefefe, 0xfefefefe, 5, &t1);
 

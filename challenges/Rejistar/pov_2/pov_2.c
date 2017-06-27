@@ -1,7 +1,7 @@
 #include "libpov.h"
 #include "cgc_atox.h"
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
    cgc_negotiate_type2();
    do {
       //*** writing data

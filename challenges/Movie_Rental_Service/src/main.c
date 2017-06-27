@@ -665,7 +665,7 @@ void cgc_quit()
   cgc_exit(0);
 }
 
-int main()
+int main(int cgc_argc, char *cgc_argv[])
 {
   int admin_mode = 0;
   char buf[4096];

@@ -11,7 +11,7 @@
 
 int cgc_check();
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
     int r;
 
     if (cgc_transmit_all(1, HI, sizeof(HI)-1) != 0) {

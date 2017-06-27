@@ -50,7 +50,7 @@ int cgc_SendToCB(char *buf, int length) {
   return bytes_sent;
 }
 
-int main(void) {
+int main(int cgc_argc, char *cgc_argv[]) {
   // negotiate
   type1_vals t1vals;
   cgc_type1_negotiate(0xEEEEEEEE, 0xEEEEEEEE, 5, &t1vals);
