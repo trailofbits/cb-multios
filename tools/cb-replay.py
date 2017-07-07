@@ -33,16 +33,16 @@ format [1].
 
 import os
 import argparse
-import multiprocessing
-# import signal
+import multiprocessing as mp
 import re
 import socket
-import struct
 import time
+import threading
 import zipfile
 import defusedxml.ElementTree as ET
 
 from common import *
+import challenge_runner
 
 
 class RegexMatch(object):
@@ -100,8 +100,7 @@ class Throw(object):
         a.run()
 
     Attributes:
-        source: touple of host and port for the outbound connection
-        target: touple of host and port for the CB
+        cb_paths: List of paths to all cb executables
 
         count: Number of actions performed
 
@@ -121,25 +120,24 @@ class Throw(object):
 
         logs: all of the output from the interactions
 
-        max_send: maxmimum amount of data to send per request
-
         negotiate: Should the CB negotiation process happen
     """
-    def __init__(self, source, target, pov, timeout, debug, max_send, negotiate):
-        self.source = source
-        self.target = target
+    def __init__(self, cb_paths, pov, timeout, debug, negotiate):
+        self.cb_paths = cb_paths
         self.count = 0
         self.failed = 0
         self.passed = 0
         self.pov = pov
         self.debug = debug
-        self.sock = None
         self.timeout = timeout
         self.values = {}
         self.logs = []
-        self.max_send = max_send
         self._read_buffer = ''
         self.negotiate = negotiate
+
+        self.procs = None
+        self.pipe_raw = []
+        self.pipe_buf = ''
 
     def is_ok(self, expected, result, message):
         """ Verifies 'expected' is equal to 'result', logging results in TAP
@@ -398,7 +396,7 @@ class Throw(object):
         data_len = len(self._read_buffer)
         while data_len < read_len:
             left = read_len - data_len
-            data_read = self.sock.recv(max(4096, left))
+            data_read = self.read_from_proc(max(4096, left))
             if len(data_read) == 0:
                 # data_read = '\n'
                 self.log_fail('recv failed. (%s so far)' % repr(data))
@@ -418,7 +416,7 @@ class Throw(object):
         socket
         """
         while delim not in self._read_buffer:
-            data_read = self.sock.recv(4096)
+            data_read = self.read_from_proc(4096)
             if len(data_read) == 0:
                 self.log_fail('recv failed.  No data returned.')
                 return ''
@@ -467,21 +465,6 @@ class Throw(object):
             assert 'assign' in read_args
             self._perform_expr(read_args['expr'], read_args['assign'], data)
 
-    def _send_all(self, data, max_send=None):
-        total_sent = 0
-        while total_sent < len(data):
-            if max_send is not None:
-                sent = self.sock.send(data[total_sent:total_sent+max_send])
-                # allow the kernel a chance to forward the data
-                time.sleep(0.00001)
-            else:
-                sent = self.sock.send(data[total_sent:])
-            if sent == 0:
-                return total_sent
-            total_sent += sent
-
-        return total_sent
-
     def write(self, args):
         """ Write data to the CB
 
@@ -512,7 +495,7 @@ class Throw(object):
                 self.log('writing: %s' % repr(to_send))
 
         try:
-            sent = self._send_all(to_send, self.max_send)
+            sent = self.write_to_proc(to_send)
             if sent != len(to_send):
                 self.log_fail('write failed.  wrote %d of %d bytes' %
                               (sent, len(to_send)))
@@ -522,46 +505,64 @@ class Throw(object):
         except socket.error:
             self.log_fail('write failed')
 
-    def _encode(self, records):
-        """
-            record is a list of records in the format (type, data)
-
-            Current wire format:
-            RECORD_COUNT (DWORD)
-                record_0_type (DWORD)
-                record_0_len (DWORD)
-                record_0_data (record_0_len bytes)
-                record_N_type (DWORD)
-                record_N_len (DWORD)
-                record_N_data (record_N_len bytes)
-        """
-
-        packed = []
-        for record_type, data in records:
-            packed.append(struct.pack('<LL', record_type, len(data)) + data)
-
-        result = struct.pack('<L', len(packed)) + ''.join(packed)
-        return result
-
-    def cb_negotiate(self):
-        """ Prior to starting the POV comms, setup the seeds with the CB server
+    def write_to_proc(self, data):
+        """ Writes data to the stdin pipe of the challenges
 
         Args:
-            None
+            data (str): data to be written
 
         Returns:
-            None
-
-        Raises:
-            None
+            (int): amount of data written, or 0 on error
         """
-
-        if not self.negotiate:
+        try:
+            self.procs[0].stdin.write(data)
+            return len(data)
+        except IOError:
             return 0
 
-        # Send the test path to the server
-        self._send_all('{}\n'.format(self.pov.filename))
+    def read_from_proc(self, size):
+        """ Reads a chosen amount of data from the stdout pipe of the challenges
 
+        Args:
+            size (int): amount of data to read
+
+        Returns:
+            (str): data read from the pipe
+        """
+        # Wait until there's data in the raw buffer
+        while len(self.pipe_raw) == 0:
+            time.sleep(0.1)
+
+        # Fill up the temp buffer until we have the requested amount of data
+        while len(self.pipe_buf) < size and len(self.pipe_raw) != 0:
+            self.pipe_buf += self.pipe_raw.pop(0)
+
+            # Convert CRLF to LF to match what the POLLs expect
+            if self.pipe_buf.endswith('\r\n'):
+                self.pipe_buf = self.pipe_buf[:-2] + '\n'
+
+        # Return the amount requested
+        res = self.pipe_buf[:size]
+        self.pipe_buf = self.pipe_buf[size:]
+        return res
+
+    def buffer_pipe_data(self, pipe):
+        """ Continuously reads and buffers data from a pipe
+
+        This will block when attempting to read data and should be run
+        in a separate thread
+
+        Args:
+            pipe: readable fileobject for a pipe
+        """
+        while True:
+            c = pipe.read(1)
+            if c in [None, '']:
+                break
+            self.pipe_raw.append(c)
+
+    def gen_seed(self):
+        """ Prepare the seed that will be used in the replay """
         seed = self.pov.seed
 
         if seed is None:
@@ -569,21 +570,7 @@ class Throw(object):
             seed = os.urandom(48)
 
         self.log("using seed: %s" % seed.encode('hex'))
-
-        request_seed = (1, seed)
-        request = [request_seed]
-        encoded = self._encode(request)
-        sent = self._send_all(encoded)
-        if sent != len(encoded):
-            self.log_fail('negotiate failed.  expected to send %d, sent %d' % (len(encoded), sent))
-            return -1
-
-        # response_packed = self._read_len(4)
-        # response = struct.unpack('<L', response_packed)[0]
-        # if response != 1:
-        #     return -1
-
-        return 0
+        return seed.encode('hex')
 
     def run(self):
         """ Iteratively execute each of the actions within the POV
@@ -607,25 +594,16 @@ class Throw(object):
             'write': self.write,
         }
 
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER,
-                             struct.pack('ii', 1, 2))
-        self.sock.bind(self.source)
-        try:
-            self.sock.connect(self.target)
-        except socket.error as err:
-            self.log_fail('connection error: %s' % repr(err))
-            return
+        # Get the seed for the tests
+        seed = self.gen_seed()
 
-        # = socket.create_connection(self.target)
-        self.log('connected to %s' % repr(self.target))
-        if self.cb_negotiate() != 0:
-            self.log_fail('negotiation failed')
-            return
+        # Launch all challenges
+        self.procs, watcher = challenge_runner.run(self.cb_paths, self.timeout, seed, self.log)
 
-        # Wait to be notified that the challenges are ready
-        rp_recv_sync()
+        # Start a thread to buffer data from the challenges' stdout
+        buf_thread = threading.Thread(target=self.buffer_pipe_data, args=(self.procs[0].stdout,))
+        buf_thread.setDaemon(True)
+        buf_thread.start()
 
         # Everything is ready, now we can run the test
         for method, arguments in self.pov:
@@ -634,7 +612,16 @@ class Throw(object):
                 methods[method](arguments)
             except TestFailure:
                 self.log('stopping due to failure')
-                return
+                break
+
+        # The current test is done, kill the main process if it's still running
+        proc = self.procs[0]
+        if proc.poll() is None:
+            proc.terminate()
+
+        # Wait for the watcher to report its results
+        buf_thread.join()
+        watcher.join()
 
     def dump(self):
         """ Log information for the current POV iteraction
@@ -1265,21 +1252,16 @@ class Results(object):
         else:
             self.full_passed += 1
 
-# def init_worker():
-#     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
-
-def run_pov(src, dst, pov_info, timeout, debug, max_send, negotiate, cb_seed, munge_seed):
+def run_pov(cbs, pov_info, timeout, debug, negotiate, cb_seed, munge_seed):
     """
     Parse and Throw a POV/Poll
 
     Arguments:
-        src: IP/Port tuple for the source of the connection
-        dst: IP/Port tuple for the destination of the connection
+        cbs: List of paths to all cb executables
         pov_info: content/filename tuple of the POV
         timeout: How long the POV communication is allowed to take
         debug: Flag to enable debug logs
-        max_send: Maximum amount of data for each send request
         negotiate: Should the poller negotiate with cb-server
         cb_seed: specify a seed to use in the pools
         munge_seed: should the seed be xored before use
@@ -1307,7 +1289,7 @@ def run_pov(src, dst, pov_info, timeout, debug, max_send, negotiate, cb_seed, mu
     if munge_seed:
         pov.mutate_seed()
 
-    thrower = Throw(src, dst, pov, timeout, debug, max_send, negotiate)
+    thrower = Throw(cbs, pov, timeout, debug, negotiate)
     if error is not None:
         try:
             thrower.log_fail(error)
@@ -1333,16 +1315,10 @@ def main():
     """ Parse and Throw the POVs """
     parser = argparse.ArgumentParser(description='Send CGC Polls and POVs')
     required = parser.add_argument_group(title='required arguments')
-    required.add_argument('--host', required=True, type=str,
-                          help='IP address of CB server')
-    required.add_argument('--port', required=True, type=int,
-                          help='PORT of the listening CB')
+    required.add_argument('--cbs', nargs='+', required=True,
+                          help='List of challenge binaries to run on the server')
     required.add_argument('files', metavar='xml_file', type=str, nargs='+',
                           help='POV/Poll XML file')
-    parser.add_argument('--source_host', required=False, type=str, default='',
-                        help='Source IP address to use in connections')
-    parser.add_argument('--source_port', required=False, type=int,
-                        default=0, help='Source port to use in connections')
     parser.add_argument('--concurrent', required=False, type=int, default=1,
                         help='Number of Polls/POVs to throw concurrently')
     parser.add_argument('--timeout', required=False, type=int, default=None,
@@ -1354,8 +1330,6 @@ def main():
                         help='Failures for this test are accepted')
     parser.add_argument('--debug', required=False, action='store_true',
                         default=False, help='Enable debugging output')
-    parser.add_argument('--max_send', required=False, type=int,
-                        help='Maximum amount of data in each send call')
     parser.add_argument('--negotiate', required=False, action='store_true',
                         default=False, help='The CB seed should be negotiated')
     parser.add_argument('--cb_seed', required=False, type=str,
@@ -1385,14 +1359,12 @@ def main():
             povs.append((xml, pov_filename))
 
     result_handler = Results()
-    pool = multiprocessing.Pool(args.concurrent)
+    pool = mp.Pool(args.concurrent)
     pool_responses = []
     try:
         for pov in povs:
-            pov_args = ((args.source_host, args.source_port),
-                        (args.host, args.port), pov, args.timeout, args.debug,
-                        args.max_send, args.negotiate, args.cb_seed,
-                        args.munge_seed)
+            pov_args = (args.cbs, pov, args.timeout, args.debug,
+                        args.negotiate, args.cb_seed, args.munge_seed)
             if args.concurrent > 1:
                 pool_response = pool.apply_async(run_pov, args=pov_args,
                                                  callback=result_handler.cb_pov_result)

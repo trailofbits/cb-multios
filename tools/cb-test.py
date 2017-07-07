@@ -33,9 +33,7 @@ import platform
 import glob
 import logging
 import os
-import random
 import signal
-import socket
 import subprocess
 import sys
 import time
@@ -45,9 +43,7 @@ import Queue
 import ansi_x931_aes128
 
 from common import *
-if IS_WINDOWS:
-    import win32pipe
-else:
+if not IS_WINDOWS:
     import resource
 
 
@@ -139,7 +135,7 @@ class Background(object):
         """
         logging.debug('terminating %s', self.cmd)
         try:
-            terminate(self.process)
+            self.process.terminate()
         except OSError:
             pass
         for my_thread in self.threads:
@@ -233,13 +229,6 @@ class Runner(object):
         self.negotiate_seed = negotiate_seed
         self.pov_seed = pov_seed
 
-        self._test_id = None
-        self._tmp_dir = None
-
-        self.ip_address = self.random_ip()
-        if not isinstance(self.port, int) or self.port == 0:
-            self.port = self.random_port()
-
         if not IS_WINDOWS:
             resource.setrlimit(resource.RLIMIT_CORE, (resource.RLIM_INFINITY,
                                                       resource.RLIM_INFINITY))
@@ -306,36 +295,6 @@ class Runner(object):
             process.terminate()
 
     @staticmethod
-    def random_ip():
-        """ Generate a random IP for local testing.
-
-        Arguments:
-            None
-
-        Returns:
-            A random IP in the 127/8 range
-
-        Raises:
-            None
-        """
-        return "127.0.0.1"
-
-    @staticmethod
-    def random_port():
-        """ Generate a random port for testing.
-
-        Arguments:
-            None
-
-        Returns:
-            A random port between 2000 and 2999
-
-        Raises:
-            None
-        """
-        return random.randint(2000, 2999)
-
-    @staticmethod
     def log_packages():
         """ Logs all of the installed CGC packages
 
@@ -386,23 +345,6 @@ class Runner(object):
                 return name
         return 'UNKNOWN'
 
-    def start_server(self, connection_count):
-        """Start single challenge binary using socat instead of cb-server
-
-            params: connection_count - max count to handle
-            return: a handle to background instance of socat
-
-        """
-        assert connection_count > 0
-        server_cmd = [sys.executable,
-                      'server.py',
-                      '-p', str(self.port),
-                      '-t', str(self.timeout),
-                      '-m', str(connection_count),
-                      '--use-signals',
-                      '-d', self.directory] + self.cb_list
-        return self.background(server_cmd, 'server.py')
-
     def start_replay(self, xml):
         """ Start cb-replay
 
@@ -415,16 +357,13 @@ class Runner(object):
         Raises:
             None
         """
+        cb_paths = [os.path.join(self.directory, cb) for cb in self.cb_list]
 
         replay_bin = os.path.join('.', 'cb-replay.py')
-
         if xml[0].endswith(add_ext('.pov')):
             replay_bin = os.path.join('.', 'cb-replay-pov.py')
 
-        replay_cmd = [sys.executable, replay_bin, '--host', self.ip_address, '--port', '%d' %
-                      self.port,
-                      '--debug'
-                      ]
+        replay_cmd = [sys.executable, replay_bin, '--debug', '--cbs'] + cb_paths
 
         if self.timeout > 0:
             replay_cmd += ['--timeout', '%d' % self.timeout]
@@ -454,30 +393,6 @@ class Runner(object):
 
         return self.launch(replay_cmd)
 
-    def use_server_connections(self, count):
-        """ Connect to the cb-server a specifed number of times
-
-        If the replay tool fails, the server might run forever waiting to
-        process input. Give it the connections it's expecting and hope it exits
-        normally.
-
-        Arguments:
-            count: number of times to connect to the cb-server
-
-        Returns:
-            None
-
-        Raises:
-            None
-        """
-        for _ in range(0, count):
-            try:
-                sock = socket.create_connection((self.ip_address,
-                                                 self.port))
-            except socket.error:
-                continue
-            sock.close()
-
     def _check_result_cqe(self, sig, ret):
         # if sig == signal.SIGALRM:
         #     if self.failure_ok:
@@ -505,7 +420,7 @@ class Runner(object):
 
         return ret
 
-    def _check_result_type1(self, sig, replay_stdout, server_stdout):
+    def _check_result_type1(self, sig, replay_stdout):
         if sig == 0:
             if self.should_core:
                 logging.error('not ok - POV type 1 should have cored, and did not.', extra={'raw': True})
@@ -545,12 +460,12 @@ class Runner(object):
         register_state_re = r"(?ms).*\nregister states"
         register_state_re2 = r"register states - (([a-z]+\:[a-fA-F0-9]+\ ?)+)"
 
-        match = re.match(register_state_re, server_stdout)
+        match = re.match(register_state_re, replay_stdout)
         if not match:
             logging.error('not ok - cb-server did not log register states', extra={'raw': True})
             return -1
 
-        lines = server_stdout.split('\n')
+        lines = replay_stdout.split('\n')
 
         expected_eip = ip_value & ip_mask
         expected_reg = reg_value & reg_mask
@@ -593,7 +508,7 @@ class Runner(object):
 
         return -1
 
-    def _check_result_type2(self, replay_stdout, server_stdout):
+    def _check_result_type2(self, replay_stdout):
         seed = self.cb_seed
         if not seed:
             match = re.match(r"(?ms).*using seed: ([a-fA-F0-9]+)", replay_stdout)
@@ -629,7 +544,7 @@ class Runner(object):
         logging.warning('ok - TYPE 2 POV PASSED', extra={'raw': True})
         return 0
 
-    def _check_result_cfe(self, sig, replay_stdout, server_stdout):
+    def _check_result_cfe(self, sig, replay_stdout):
         pov_type = None
         match = re.match(r"(?ms).*\n# negotiation type: (\d)\n", replay_stdout)
         if not match:
@@ -642,17 +557,17 @@ class Runner(object):
             return -1
 
         if pov_type == 1:
-            return self._check_result_type1(sig, replay_stdout, server_stdout)
+            return self._check_result_type1(sig, replay_stdout)
 
         if pov_type == 2:
-            return self._check_result_type2(replay_stdout, server_stdout)
+            return self._check_result_type2(replay_stdout)
 
-    def check_result(self, replay_result, server_result, xml_list):
+    def check_result(self, replay_result, xml_list):
         """ Check the results of cb-server and cb-replay
 
         Arguments:
             replay_result: the output of cb-replay
-            sig: the return code of cb-server
+            xml_list: list of paths to all tests that were run
 
         Returns:
             Returns 0 if the test 'passed'
@@ -662,7 +577,6 @@ class Runner(object):
             None
         """
         ret, replay_stdout = replay_result
-        sig, server_stdout = server_result
 
         passed = 0
         for xml in xml_list:
@@ -674,7 +588,7 @@ class Runner(object):
             # Check if the CB crashed on this test, get its return code
             sig = 0
             sig_re = r"(?ms).*\nProcess generated signal.+signal: (\d+)\) - {}".format(re.escape(xml))
-            match = re.match(sig_re, server_stdout)
+            match = re.match(sig_re, xml_replay_stdout)
             if match:
                 sig = int(match.group(1))
 
@@ -682,7 +596,7 @@ class Runner(object):
             if not xml.endswith(add_ext('.pov')):
                 res = self._check_result_cqe(sig, ret)
             else:
-                res = self._check_result_cfe(sig, xml_replay_stdout, server_stdout)
+                res = self._check_result_cfe(sig, xml_replay_stdout)
 
             # Keep track of how many tests passed verification
             if res == 0:
@@ -718,30 +632,14 @@ class Runner(object):
             if len(i):
                 xml_sets.append(i)
 
-        # Create a pipe for synchronizing replayers and challenges
-        pipe_fds = rp_create()
-
-        total_tests = sum([len(xmls) for xmls in xml_sets])
+        # Run all tests, keeping track of how many passed
+        total_tests = sum(len(xmls) for xmls in xml_sets)
         passed_tests = 0
         for xml_list in xml_sets:
-            server = self.start_server(len(xml_list))
             replay_result = self.start_replay(xml_list)
+            passed_tests += self.check_result(replay_result, xml_list)
 
-            server_result = None, ''
-
-            # wait a maximum of 30 seconds after our replay and socket cleanup
-            # finishes before terminating cb-server if it hasn't returned yet.
-            try:
-                with Timeout(self.timeout + 5):
-                    server_result = server.wait()
-            except TimeoutError:
-                server.terminate()
-
-            passed_tests += self.check_result(replay_result, server_result, xml_list)
-
-        # Clean up sync pipes if necessary
-        rp_close()
-
+        # Report the final results
         logging.warning('TOTAL TESTS: {}'.format(total_tests))
         logging.warning('TOTAL PASSED: {}'.format(passed_tests))
 
