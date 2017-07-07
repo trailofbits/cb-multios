@@ -74,21 +74,21 @@ int cgc_ParseDimensions(char *buf) {
 
 	// cgc_read the cgc_X dimension
 	if ((x = cgc_strtok(buf, ",")) == NULL) {
-		cgc_puts("Invalid cgc_X dimension\n");
+		cgc_puts("Invalid X dimension\n");
 		return(-1);
 	}
 	cgc_X = cgc_atoi(x);
 
 	// cgc_read the cgc_Y dimension
 	if ((y = cgc_strtok(NULL, ",")) == NULL) {
-		cgc_puts("Invalid cgc_Y dimension\n");
+		cgc_puts("Invalid Y dimension\n");
 		return(-1);
 	}
 	cgc_Y = cgc_atoi(y);
 
 	// cgc_read the cgc_Z dimension
 	if ((z = cgc_strtok(NULL, ",")) == NULL) {
-		cgc_puts("Invalid cgc_Z dimension\n");
+		cgc_puts("Invalid Z dimension\n");
 		return(-1);
 	}
 	cgc_Z = cgc_atoi(z);
@@ -363,7 +363,7 @@ int cgc_InitMaterial(void) {
 	// Determine the dimensions
 	malloc_size = cgc_X*cgc_Y*cgc_Z*sizeof(double);
 	while (cgc_X == 0 || cgc_Y == 0 || cgc_Z == 0 || malloc_size > MAX_MALLOC) {
-		cgc_printf("How large is the material (cgc_X,cgc_Y,cgc_Z meters): ");
+		cgc_printf("How large is the material (X,Y,Z meters): ");
 		if (cgc_read_until(buf, "\n", 99) == -1) {
 			// failed to cgc_read the input
 			return(-1);
@@ -442,7 +442,7 @@ int cgc_InitMaterial(void) {
 		// Otherwise, cgc_read in a blob of data and use it to populate
 		// the cgc_TGrid
 		cgc_printf("  Send the grid temperatures as a comma separated list of Celcius decimal values.\n");
-		cgc_printf("  The program will populate the cgc_X, then cgc_Y, then cgc_Z dimensions of the room.\n");
+		cgc_printf("  The program will populate the X, then Y, then Z dimensions of the room.\n");
 		if (cgc_read_temps(cgc_TGrid)) {
 			cgc_free(cgc_TGrid);
 			return(-1);
@@ -477,7 +477,7 @@ int cgc_InitMaterial(void) {
 
 		// cgc_read in the data
 		cgc_printf("  Send the heat sources as temperatures in a comma separated list of Celcius decimal values.\n");
-		cgc_printf("  The program will populate the cgc_X, then cgc_Y, then cgc_Z dimensions of the room.\n");
+		cgc_printf("  The program will populate the X, then Y, then Z dimensions of the room.\n");
 		cgc_printf("  Send @f for any grid location which doesn't have a heat source.\n", NO_HEAT);
 		if (cgc_read_temps(cgc_HGrid)) {
 			cgc_free(cgc_TGrid);
