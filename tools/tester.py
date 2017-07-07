@@ -346,7 +346,7 @@ def main():
 
     if args.all:
         debug('Running tests against all challenges\n')
-        tests = test_challenges(listdir(CHAL_DIR))
+        tests = test_challenges(listdir(BUILD_DIR))
     else:
         debug('Running tests against {} challenge(s)\n'.format(len(args.chals)))
         tests = test_challenges(args.chals)
