@@ -105,6 +105,9 @@ $ sudo sysctl -w kern.coredump=1
 $ ulimit -c unlimited
 ```
 
+###### Windows:
+Merge `tools/win_enable_dumps.reg` into your registry. Note that this will disable the Windows Error Reporting dialog when a program crashes, so it's recommended that you do this in a VM if you want to keep that enabled.
+
 ## Current Status
 
 Porting the Challenge Binaries is a work in progress, and the current status of the porting effort is tracked in the following spreadsheet:
