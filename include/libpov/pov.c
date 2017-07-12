@@ -428,3 +428,26 @@ void cgc_assign_from_pcre(const char *var, const void *readbuf, unsigned int buf
    pcre_free(expr);
 }
 
+#if defined(WIN) || defined(CLANGCL)
+# define WIN32_LEAN_AND_MEAN
+# include <windows.h>
+# include <fcntl.h>
+
+// Open the pipe handle to communicate with the replayer
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+    if (fdwReason == DLL_PROCESS_ATTACH) { // __attribute__((constructor))
+        // Load and parse the HANDLE value for the pipe
+        char *handle_str = getenv("POV_FD");
+        if (!handle_str) cgc__terminate(1);
+
+        int handle = atoi(handle_str);
+        if (handle <= 0) cgc__terminate(1);
+
+        // Open the HANDLE and make sure it's at fd 3
+        int pipe = _open_osfhandle(handle, O_TEXT);
+        if (pipe != 3)
+            _dup2(pipe, 3);
+    }
+    return TRUE;
+}
+#endif

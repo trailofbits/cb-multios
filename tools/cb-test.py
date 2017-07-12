@@ -42,7 +42,7 @@ import threading
 import Queue
 import ansi_x931_aes128
 
-from common import *
+from common import IS_WINDOWS
 if not IS_WINDOWS:
     import resource
 
@@ -457,10 +457,10 @@ class Runner(object):
 
         logging.warning('POV type 1 negotated masks: %08x %08x %d', ip_mask, reg_mask, reg_num)
 
-        register_state_re = r"(?ms).*\nregister states"
+        register_state_re = r"register states"
         register_state_re2 = r"register states - (([a-z]+\:[a-fA-F0-9]+\ ?)+)"
 
-        match = re.match(register_state_re, replay_stdout)
+        match = re.search(register_state_re, replay_stdout)
         if not match:
             logging.error('not ok - cb-server did not log register states', extra={'raw': True})
             return -1
@@ -472,7 +472,7 @@ class Runner(object):
 
         results = []
         for line in lines:
-            match = re.match(register_state_re2, line)
+            match = re.search(register_state_re2, line)
             if not match:
                 continue
 
@@ -511,7 +511,7 @@ class Runner(object):
     def _check_result_type2(self, replay_stdout):
         seed = self.cb_seed
         if not seed:
-            match = re.match(r"(?ms).*using seed: ([a-fA-F0-9]+)", replay_stdout)
+            match = re.search(r'using seed: ([a-fA-F0-9]+)', replay_stdout)
             if not match:
                 logging.error('not ok - POV type 2 server did not print seed', extra={'raw': True})
                 return -1
@@ -521,7 +521,7 @@ class Runner(object):
         prng = ansi_x931_aes128.PRNG(seed.decode('hex'))
         flag_page = prng.get(0x1000)
 
-        match = re.match(r"(?ms).*\n# secret value: ([a-fA-F0-9]+)", replay_stdout)
+        match = re.search(r'secret value: ([a-fA-F0-9]+)', replay_stdout)
         if not match:
             if self.should_core:
                 logging.error('not ok - POV type 2 did not return a secret value', extra={'raw': True})
@@ -546,7 +546,7 @@ class Runner(object):
 
     def _check_result_cfe(self, sig, replay_stdout):
         pov_type = None
-        match = re.match(r"(?ms).*\n# negotiation type: (\d)\n", replay_stdout)
+        match = re.search(r'negotiation type: (\d)', replay_stdout)
         if not match:
             logging.error("not ok - pov did not negotiate", extra={'raw': True})
             return -1
@@ -587,8 +587,8 @@ class Runner(object):
 
             # Check if the CB crashed on this test, get its return code
             sig = 0
-            sig_re = r"(?ms).*\nProcess generated signal.+signal: (\d+)\) - {}".format(re.escape(xml))
-            match = re.match(sig_re, xml_replay_stdout)
+            sig_re = r'Process generated signal.+signal: (\d+)\)'
+            match = re.search(sig_re, xml_replay_stdout)
             if match:
                 sig = int(match.group(1))
 

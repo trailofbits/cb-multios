@@ -29,43 +29,36 @@ using a Challenge Binary as input.
 1 - http://testanything.org/
 """
 
-import subprocess
-import multiprocessing
+import subprocess as sp
+import multiprocessing as mp
 import random
-import sys
 import argparse
 import os
 import signal
-import re
-import socket
 import struct
-import time
+import threading
 
-from common import *
+from common import IS_WINDOWS, Timeout, TimeoutError
+import challenge_runner
+
+
+def get_fd(fileobj):
+    """ Gets the file descriptor for a given fileobject
+
+    On Unix systems this returns the result of fileno()
+
+    On Windows systems, fileno() returns a HANDLE. This will open
+    that HANDLE and return a CRT file descriptor
+    """
+    if IS_WINDOWS:
+        import msvcrt
+        return msvcrt.open_osfhandle(fileobj.fileno(), os.O_TEXT)
+    return fileobj.fileno()
 
 
 class TestFailure(Exception):
     """ Exception to be used by Throw(), to allow catching of test failures """
     pass
-
-
-def ptrace_traceme():
-    from ctypes import cdll
-    from ctypes.util import find_library
-    from ctypes import c_long, c_ulong
-
-    LIBC_FILENAME = find_library('c')
-    libc = cdll.LoadLibrary(LIBC_FILENAME)
-
-    _ptrace = libc.ptrace
-    _ptrace.argtypes = (c_ulong, c_ulong, c_ulong, c_ulong)
-    _ptrace.restype = c_ulong
-
-    PTRACE_TRACEME = 0
-
-    result = _ptrace(PTRACE_TRACEME, 0, 0, 0)
-    result_signed = c_long(result).value
-    return result_signed
 
 
 class Throw(object):
@@ -76,12 +69,11 @@ class Throw(object):
 
     Usage:
         a = Throw((source_ip, source_port), (target_ip, target_port), POV,
-                  timeout, should_debug, negotiate, cb_seed, attach_port)
+                  timeout, should_debug)
         a.run()
 
     Attributes:
-        source: touple of host and port for the outbound connection
-        target: touple of host and port for the CB
+        cb_paths: List of paths to all cb executables
 
         count: Number of actions performed
 
@@ -93,58 +85,14 @@ class Throw(object):
 
         pov: POV, as defined by POV()
 
-        sock: TCP Socket to the CB
-
         timeout: connection timeout
-
-        values: Variable dictionary
-
-        logs: all of the output from the interactions
-
-        negotiate: Should the PRNG be negotiated with the CB
-
     """
-    def __init__(self, source, target, pov, timeout, debug, negotiate, cb_seed, attach_port, max_send, pov_seed):
-        self.times = 10
-        self.source = source
-        self.target = target
-        self.count = 0
-        self.failed = 0
-        self.passed = 0
+    def __init__(self, cb_paths, pov, timeout, debug, pov_seed):
+        self.cb_paths = cb_paths
         self.pov = pov
         self.debug = debug
-        self.sock = None
         self.timeout = timeout
-        self.negotiate_fd_fd = negotiate
-        self.negotiate = negotiate
-        self.cb_seed = cb_seed
-        self.logs = []
-        self.attach_port = attach_port
-        self.max_send = max_send
         self.pov_seed = pov_seed
-
-        if self.cb_seed is None:
-            self.cb_seed = os.urandom(48)
-        else:
-            self.cb_seed = self.cb_seed.decode('hex')
-
-    def setup_negotiation(self):
-        if not self.is_pov():
-            return
-        self.negotiate_fd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.negotiate_fd.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        self.negotiate_fd.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, struct.pack('ii', 1, 5))
-        self.negotiate_fd.bind(('',0))
-        self.negotiate_fd.listen(self.times)
-        negotiate_address = self.negotiate_fd.getsockname()
-
-        if self.debug:
-            self.log("negotiation listen at: %s" % repr(negotiate_address))
-
-        self.negotiate_fd_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.negotiate_fd_client.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        self.negotiate_fd_client.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, struct.pack('ii', 1, 5))
-        self.negotiate_fd_client.connect(negotiate_address)
 
     def log(self, data):
         print "# %s" % data
@@ -156,34 +104,28 @@ class Throw(object):
             count += 1
         return count
 
-    def recv_all(self, sock, data_len):
+    def read_all(self, fd, data_len):
         data = ''
         while len(data) < data_len:
-            read = sock.recv(data_len - len(data))
+            read = os.read(fd, data_len - len(data))
             assert len(read)
             data += read
         return data
 
-    def pov_negotiate(self):
+    def pov_negotiate(self, pipefd):
         MIN_BITS = 0
-        if not self.is_pov():
-            return
 
         if self.debug:
             self.log("negotiating")
-        connection, address = self.negotiate_fd.accept()
 
-        # as soon as we've accepted one, drop this server.
-        self.negotiate_fd.close()
-
-        data = self.recv_all(connection, 4)
+        data = self.read_all(pipefd, 4)
         pov_type = struct.unpack('<L', data)[0]
         assert pov_type in [1, 2], 'invalid pov type'
 
         self.log("negotiation type: %d" % pov_type)
 
         if pov_type == 1:
-            data = self.recv_all(connection, 12)
+            data = self.read_all(pipefd, 12)
             ipmask, regmask, regnum = struct.unpack('<LLL', data)
             accept = True
 
@@ -207,7 +149,7 @@ class Throw(object):
                 self.log('type 1 pov: %08x %08x %d' % (ip, reg, regnum))
 
                 pov_values = struct.pack('<LL', ip, reg)
-                connection.sendall(pov_values)
+                os.write(pipefd, pov_values)
 
         if pov_type == 2:
             PAGE_ADDR = 0x4347C000
@@ -216,97 +158,85 @@ class Throw(object):
 
             self.log("sending page location: %d, %d, %d" % (PAGE_ADDR, PAGE_LENGTH, PAGE_BYTES))
             pov_location = struct.pack('<LLL', PAGE_ADDR, PAGE_LENGTH, PAGE_BYTES)
-            connection.sendall(pov_location)
+            os.write(pipefd, pov_location)
 
             if self.debug:
                 self.log("getting secret")
-            data = self.recv_all(connection, 4)
+            data = self.read_all(pipefd, 4)
             self.log("secret value: %s" % data.encode('hex'))
 
         if self.debug:
             self.log('done')
-        connection.close()
 
-    def is_pov(self):
-        # XXX - if we expose CB based pollers, change this
-        return True
+    def _launch_pov_unix(self, mainproc, pipe):
+        # NOTE: This is running a forked process, free to clobber fds
+        # This is mostly unchanged from the original source
+        if self.timeout > 0:
+            signal.alarm(self.timeout)
 
-    def _encode(self, records):
-        """
-            record is a list of records in the format (type, data)
+        # Setup fds for communication
+        os.dup2(mainproc.stdout.fileno(), 0)
+        os.dup2(mainproc.stdin.fileno(), 1)
+        os.dup2(pipe.fileno(), 3)
 
-            Current wire format:
-            RECORD_COUNT (DWORD)
-                record_0_type (DWORD)
-                record_0_len (DWORD)
-                record_0_data (record_0_len bytes)
-                record_N_type (DWORD)
-                record_N_len (DWORD)
-                record_N_data (record_N_len bytes)
-        """
+        if not self.debug:
+            null = os.open('/dev/null', 0)
+            os.dup2(null, 2)
+            os.close(null)
 
-        packed = []
-        for record_type, data in records:
-            packed.append(struct.pack('<LL', record_type, len(data)) + data)
+        args = [self.pov]
+        if self.pov_seed:
+            args.append('seed=%s' % self.pov_seed)
 
-        result = struct.pack('<L', len(packed)) + ''.join(packed)
-        return result
+        # Launch the POV
+        os.execv(self.pov, args)
+        exit(-1)
 
-    def _read_len(self, size):
-        total_size = 0
-        result = ''
-        while total_size < size:
-            data = self.sock.recv(size - total_size)
-            assert len(data), "not enough data returned from cb-server"
-            total_size += len(data)
-            result += data
+    def _launch_pov_win(self, mainproc, pipe):
+        import _subprocess as _sp
 
-        return result
+        cmd = [self.pov]
+        if self.pov_seed:
+            cmd.append('seed=%s' % self.pov_seed)
 
-    def _send_all(self, data, max_send=None):
-        total_sent = 0
-        while total_sent < len(data):
-            if max_send is not None:
-                sent = self.sock.send(data[total_sent:total_sent+max_send])
-                # allow the kernel a chance to forward the data
-                time.sleep(0.00001)
-            else:
-                sent = self.sock.send(data[total_sent:])
-            if sent == 0:
-                return total_sent
-            total_sent += sent
+        # The pipe HANDLE isn't inheritable, make a duplicate that is
+        cur_proc = _sp.GetCurrentProcess()
+        inh_pipe = _sp.DuplicateHandle(cur_proc,       # Source process
+                                       pipe.fileno(),  # HANDLE
+                                       cur_proc,       # Target process
+                                       0,              # Desired access
+                                       1,              # Inheritable
+                                       _sp.DUPLICATE_SAME_ACCESS)  # Options
 
-        return total_sent
+        # Run the POV
+        pov_proc = sp.Popen(cmd,
+                            # Passing the HANDLE value here through an environment variable
+                            # libpov will grab this and open it in fd 3
+                            # see: include/libpov/pov.c - DLLMain
+                            env={'POV_FD': str(int(inh_pipe))},
 
-    def cb_negotiate(self):
-        """ Prior to starting the POV comms, setup the seeds with the CB server
+                            # stdin/out connect to the cb directly
+                            stdin=mainproc.stdout,
+                            stdout=mainproc.stdin)
+        pov_proc.wait()
 
-        Args:
-            None
+    def launch_pov(self, mainproc, pipe):
+        if IS_WINDOWS:
+            # Can't pass process/pipe handles to another process here, using a thread
+            pov_runner = threading.Thread(target=self._launch_pov_win, args=(mainproc, pipe))
+            pov_runner.setDaemon(True)
+        else:
+            # Fork on unix systems so we can dup fds where we want them
+            pov_runner = mp.Process(target=self._launch_pov_unix, args=(mainproc, pipe))
 
-        Returns:
-            None
+        pov_runner.start()
+        return pov_runner
 
-        Raises:
-            None
-        """
-
-        if not self.negotiate:
-            return 0
-
-        # Send the test path to the server
-        self._send_all('{}\n'.format(self.pov))
-
-        request_seed = (1, self.cb_seed)
-        self.log('using seed: %s' % self.cb_seed.encode('hex'))
-        request = [request_seed]
-        encoded = self._encode(request)
-        sent = self._send_all(encoded)
-        if sent != len(encoded):
-            self.log_fail('negotiate failed.  expected to send %d, sent %d' % (len(encoded), sent))
-            return -1
-
-        return 0
+    def gen_seed(self):
+        """ Prepare the seed that will be used in the replay """
+        seed = os.urandom(48)
+        self.log("using seed: %s" % seed.encode('hex'))
+        return seed.encode('hex')
 
     def run(self):
         """ Iteratively execute each of the actions within the POV
@@ -320,96 +250,48 @@ class Throw(object):
         Raises:
             AssertionError: if a POV action is not in the pre-defined methods
         """
-
         self.log('%s' % (self.pov))
 
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER,
-                             struct.pack('ii', 1, 5))
-        self.sock.bind(self.source)
-        self.sock.connect(self.target)
+        # Get the seed for the tests
+        seed = self.gen_seed()
 
-        if self.debug:
-            self.log('connected to %s' % repr(self.target))
+        # Launch the challenges
+        self.procs, watcher = challenge_runner.run(self.cb_paths, self.timeout, seed, self.log)
 
-        if self.is_pov():
-            self.setup_negotiation()
+        # Setup and run the POV
+        pov_pipes = mp.Pipe(duplex=True)
+        pov_runner = self.launch_pov(self.procs[0], pov_pipes[1])
 
-        # handle PRNG negotiation with cb-server
-        self.cb_negotiate()
-
-        rp_recv_sync()
-
-        queue = multiprocessing.Queue()
-        gdb_pid = None
-
-        pid = os.fork()  # TODO: RIP
-        if pid == 0:
-            if self.timeout > 0 and not self.attach_port:
-                signal.alarm(self.timeout)
-
-            os.dup2(self.sock.fileno(), sys.stdin.fileno())
-            os.dup2(self.sock.fileno(), sys.stdout.fileno())
-
-            if not self.debug:
-                null = os.open('/dev/null', 0)
-                os.dup2(null, 2)
-                os.close(null)
-
-            if self.is_pov():
-                os.dup2(self.negotiate_fd_client.fileno(), 3)
-
-            if self.attach_port:
-                ptrace_traceme()
-
-            args = [self.pov]
-
-            if self.max_send > 0:
-                args.append('max_transmit=%d' % self.max_send)
-                args.append('max_receive=%d' % self.max_send)
-
-            if self.pov_seed:
-                args.append('seed=%s' % self.pov_seed)
-
-            queue.get(1)
-            os.execv(self.pov, args)
-            exit(-1)
+        if self.timeout > 0:
+            try:
+                with Timeout(self.timeout + 5):
+                    self.pov_negotiate(get_fd(pov_pipes[0]))
+            except TimeoutError:
+                self.log('pov negotiation timed out')
         else:
-            queue.put(1)
-
-            if self.timeout > 0 and not self.attach_port:
-                try:
-                    with Timeout(self.timeout + 5):
-                        self.pov_negotiate()
-                except TimeoutError:
-                    self.log('pov negotiation timed out')
-            else:
-                self.pov_negotiate()
+            self.pov_negotiate()
 
         if self.debug:
             self.log('waiting')
 
+        # Wait for the POV to finish and results to get logged
+        pov_runner.join()
+        watcher.join()
+
         self.log('END REPLAY')
-        return os.waitpid(pid, 0)
+        return self.procs[0].returncode
 
-def init_worker():
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
 
-def run_pov(src, dst, pov, timeout, debug, negotiate, cb_seed, attach, max_send, pov_seed):
+def run_pov(cbs, pov, timeout, debug, pov_seed):
     """
     Parse and Throw a POV/Poll
 
     Arguments:
-        src: IP/Port tuple for the source of the connection
-        dst: IP/Port tuple for the destination of the connection
+        cbs: List of paths to all cb executables
         pov: filename of the POV
         timeout: How long the POV communication is allowed to take
         debug: Flag to enable debug logs
         negotate: Should PRNG be negotiated with the CB
-        cb_seed: seed to use in the CB
-        attach: should the POV be run under gdbserver
-        max_send: maximum amount of transmit/receive
         pov_seed: the POV seed to use
 
     Returns:
@@ -421,57 +303,36 @@ def run_pov(src, dst, pov, timeout, debug, negotiate, cb_seed, attach, max_send,
         Exception if parsing the POV times out
     """
 
-    thrower = Throw(src, dst, pov, timeout, debug, negotiate, cb_seed, attach,
-                    max_send, pov_seed)
+    thrower = Throw(cbs, pov, timeout, debug, pov_seed)
     return thrower.run()
+
 
 def main():
     """ Parse and Throw the POVs """
     parser = argparse.ArgumentParser(description='Send CB based CGC Polls and POVs')
     required = parser.add_argument_group(title='required arguments')
-    required.add_argument('--host', required=True, type=str,
-                          help='IP address of CB server')
-    required.add_argument('--port', required=True, type=int,
-                          help='PORT of the listening CB')
+    required.add_argument('--cbs', nargs='+', required=True,
+                          help='List of challenge binaries to run on the server')
     required.add_argument('files', metavar='pov', type=str, nargs='+',
                           help='pov file')
-    parser.add_argument('--source_host', required=False, type=str, default='',
-                        help='Source IP address to use in connections')
-    parser.add_argument('--source_port', required=False, type=int,
-                        default=0, help='Source port to use in connections')
     parser.add_argument('--timeout', required=False, type=int, default=15,
                         help='Connect timeout')
-    parser.add_argument('--max_send', required=False, type=int, default=0,
-                        help='Maximum amount of data to send and receive at once')
     parser.add_argument('--debug', required=False, action='store_true',
                         default=False, help='Enable debugging output')
     parser.add_argument('--negotiate', required=False, action='store_true',
                         default=False, help='The CB seed should be negotiated')
-    parser.add_argument('--cb_seed', required=False, type=str,
-                        help='Specify the CB Seed')
     parser.add_argument('--pov_seed', required=False, type=str,
                         help='Specify the POV Seed')
-    parser.add_argument('--attach_port', required=False, type=int,
-                        help='Attach with gdbserver prior to launching the '
-                        'POV on the specified port')
 
     args = parser.parse_args()
-
-    if args.cb_seed is not None and not args.negotiate:
-        raise Exception('CB Seeds can only be set with seed negotiation')
 
     assert len(args.files)
     for filename in args.files:
         assert os.path.isfile(filename), "pov must be a file: %s" % repr(filename)
-        # assert filename.endswith('.pov'), "%s does not end in .pov" % repr(filename)
 
-    pool_responses = []
     for pov in args.files:
-        pid, status = run_pov((args.source_host, args.source_port),
-                              (args.host, args.port), pov, args.timeout,
-                              args.debug, args.negotiate, args.cb_seed,
-                              args.attach_port, args.max_send, args.pov_seed)
-
+        status = run_pov(args.cbs, pov, args.timeout,
+                         args.debug, args.pov_seed)
     return status != 0
 
 
