@@ -1,5 +1,5 @@
 param (
-    [switch] $clang
+    [switch] $msvc
 )
 
 $DIR = $PSScriptRoot
@@ -15,9 +15,9 @@ mkdir "${DIR}\build"
 cd "${DIR}\build"
 
 "Creating Makefiles"
-$CMAKE_OPTS = ""
-if ($clang) {
-    $CMAKE_OPTS += "-D CLANGCL:BOOL=TRUE -T LLVM-vs2014"
+$CMAKE_OPTS = "-D CLANGCL:BOOL=TRUE -T LLVM-vs2014"
+if ($msvc) {
+    $CMAKE_OPTS = ""
 }
 
 Start-Process cmake -NoNewWindow -Wait -ArgumentList "$CMAKE_OPTS .."
