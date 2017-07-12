@@ -60,8 +60,18 @@ def run(challenges, timeout, seed, logfunc):
 
     # Start all challenges
     cb_env = {'seed': seed}
-    procs = [sp.Popen(c, env=cb_env, stdin=sp.PIPE,
-                      stdout=sp.PIPE, stderr=sp.PIPE) for c in challenges]
+
+    # Launch the main binary first
+    mainchal, otherchals = challenges[0], challenges[1:]
+    procs = [sp.Popen(mainchal, env=cb_env, stdin=sp.PIPE,
+                      stdout=sp.PIPE, stderr=sp.PIPE)]
+
+    # Any others should be launched with the same std i/o pipes
+    # as the main binary
+    if len(otherchals) > 0:
+        main = procs[0]
+        procs += [sp.Popen(c, env=cb_env, stdin=main.stdin,
+                           stdout=main.stdout, stderr=main.stderr) for c in otherchals]
 
     # Start a watcher to report results when the challenges exit
     watcher = threading.Thread(target=chal_watcher, args=(challenges, procs, timeout, logfunc))
