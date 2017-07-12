@@ -41,7 +41,7 @@ import threading
 import zipfile
 import defusedxml.ElementTree as ET
 
-from common import *
+from common import Timeout, TimeoutError
 import challenge_runner
 
 
@@ -1294,7 +1294,7 @@ def run_pov(cbs, pov_info, timeout, debug, negotiate, cb_seed, munge_seed):
         try:
             thrower.log_fail(error)
         except TestFailure:
-            pass # log_fail throws an exception on purpose
+            pass  # log_fail throws an exception on purpose
     else:
         try:
             with Timeout(timeout):
@@ -1394,6 +1394,7 @@ def main():
         return 0
     else:
         return result_handler.errors != 0
+
 
 if __name__ == "__main__":
     exit(main())

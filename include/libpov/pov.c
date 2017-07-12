@@ -1,7 +1,6 @@
 #include <libpov.h>
-
 /*
- * The following functions are available to POV authors to support 
+ * The following functions are available to POV authors to support
  * POV type negotiations.
  */
 
@@ -17,12 +16,12 @@
    5 - ebp
    6 - esi
    7 - edi
- * 
- * Returns 0 on success. On success, the t1vals structure holds required IP  
+ *
+ * Returns 0 on success. On success, the t1vals structure holds required IP
  * and register values that must be found when the target CB crashes. At the
  * time of the crash the following must hold:
- *  (crash_eip & ipmask) == t1vals->ipval 
- *  (crash_REG & regmask) == t1vals->regval 
+ *  (crash_eip & ipmask) == t1vals->ipval
+ *  (crash_REG & regmask) == t1vals->regval
  */
 int cgc_type1_negotiate(unsigned int ipmask, unsigned int regmask, unsigned int regnum, type1_vals *t1vals) {
    uint32_t povType = 1;
@@ -39,7 +38,7 @@ int cgc_type1_negotiate(unsigned int ipmask, unsigned int regmask, unsigned int 
 }
 
 /*
- * Negotiate a type 2 pov. 
+ * Negotiate a type 2 pov.
  * Returns 0 on success. On success, the t2vals structure holds the address
  * (t2vals->region_addr) and size of a memory region (t2vals->region_size)
  * from which the POV must leak a specific number of bytes (t2vals->read_size).
@@ -137,7 +136,7 @@ unsigned char *cgc_append_var(const char *var, unsigned char *buf, unsigned int 
       cgc_free(varbuf);
       *buflen += varlen;
    }
-   return newbuf;         
+   return newbuf;
 }
 
 unsigned char *cgc_append_slice(const char *var, int begin, int end, unsigned char *buf, unsigned int *buflen) {
@@ -168,7 +167,7 @@ unsigned char *cgc_append_slice(const char *var, int begin, int end, unsigned ch
          *buflen += len;
       }
    }
-   return newbuf;         
+   return newbuf;
 }
 
 unsigned char *cgc_append_buf(unsigned char *buf, unsigned int *buflen, unsigned char *sbuf, unsigned int sbuflen) {
@@ -178,7 +177,7 @@ unsigned char *cgc_append_buf(unsigned char *buf, unsigned int *buflen, unsigned
       cgc_memcpy(newbuf + *buflen, sbuf, sbuflen);
       *buflen += sbuflen;
    }
-   return newbuf;     
+   return newbuf;
 }
 
 int cgc_delimited_read(int fd, unsigned char **buf, unsigned int *size, unsigned char *delim, unsigned int delim_len) {
@@ -325,8 +324,8 @@ void cgc_negotiate_type2() {
       cgc__terminate(0);
    }
    cgc_putenv("TYPE2_ADDR", (unsigned char*)&type2vals[0], sizeof(unsigned int));
-   cgc_putenv("TYPE2_SIZE", (unsigned char*)&type2vals[1], sizeof(unsigned int));         
-   cgc_putenv("TYPE2_LENGTH", (unsigned char*)&type2vals[2], sizeof(unsigned int));         
+   cgc_putenv("TYPE2_SIZE", (unsigned char*)&type2vals[1], sizeof(unsigned int));
+   cgc_putenv("TYPE2_LENGTH", (unsigned char*)&type2vals[2], sizeof(unsigned int));
 }
 
 void cgc_submit_type2(const char *var) {

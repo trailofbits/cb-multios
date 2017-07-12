@@ -11,7 +11,9 @@ from common import IS_DARWIN, IS_LINUX, IS_WINDOWS, try_delete
 
 # Path to crash dumps in windows
 if IS_WINDOWS:
+    # NOTE: These may need to be changed depending on your setup
     DUMP_DIR = os.path.join(os.path.expandvars('%LOCALAPPDATA%'), 'CrashDumps')
+    CDB_PATH = 'C:/Program Files (x86)/Windows Kits/10/Debuggers/x64/cdb.exe'
 
 
 def run(challenges, timeout, seed, logfunc):
@@ -57,7 +59,6 @@ def run(challenges, timeout, seed, logfunc):
             os.close(rpipe_tmp)
 
     # Start all challenges
-    logfunc(repr(challenges))
     cb_env = {'seed': seed}
     procs = [sp.Popen(c, env=cb_env, stdin=sp.PIPE,
                       stdout=sp.PIPE, stderr=sp.PIPE) for c in challenges]
@@ -146,7 +147,7 @@ def get_core_dump_regs(path, pid, log):
         # Dumps are named "[filename.exe].[pid].dmp"
         dmp_name = '{}.{}.dmp'.format(os.path.basename(path), pid)
         cmd = [
-            'C:/Program Files (x86)/Windows Kits/10/Debuggers/x64/cdb.exe',
+            CDB_PATH,
             '-z', os.path.join(DUMP_DIR, dmp_name),
             '-c', 'q'  # Registers already get printed when the dump is loaded
                        # quit immediately
