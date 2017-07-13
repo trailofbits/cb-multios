@@ -2,11 +2,11 @@
 
 DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
 
-for chal in $DIR/original-challenges/*/; do
+for chal in $DIR/challenges/*/; do
     CHAL="$(basename $chal)"
     echo $CHAL
 
-    cd "$DIR/original-challenges/$CHAL"
+    cd "$DIR/challenges/$CHAL"
     for polldir in poller/*/; do
         if [[ -e "$polldir/machine.py" ]]; then
             OUTDIR="$DIR/polls/$CHAL/$polldir"
