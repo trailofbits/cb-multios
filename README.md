@@ -29,15 +29,20 @@ This folder contains Python scripts that help with modifying, building, and test
 #### tester.py
 This is a helper script to test all challenges using `cb-test`. Results are summarized and can be output to an excel spreadsheet. More details in the [testing section](#testing) below.
 
-#### cb_simple_server.py
-This acts as a replacement for `cb-server` (The CGC provided challenge server). This supports IPC by setting up socketpairs for every running binary at the [correct file descriptors](https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/newsletter/ipc.md#implementation). In order for this to work, `cb-replay` has been modified to wait until the server is ready before starting a test.
-
 ## Building
 
 To build all challenges, run:
 
+###### OS X/Linux:
+
 ```bash
 $ ./build.sh
+```
+
+###### Windows:
+
+```
+> powershell .\build.ps1
 ```
 
 This command will build both the patched and unpatched binaries in `build/challenges/[challenge]/`.
