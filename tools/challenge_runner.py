@@ -31,6 +31,8 @@ def run(challenges, timeout, seed, logfunc):
     Returns:
         (list): all processes that were started
     """
+    cb_env = {'seed': seed}  # Environment variables for all challenges
+
     # This is the first fd after all of the challenges
     last_fd = 2 * len(challenges) + 3
 
@@ -58,9 +60,21 @@ def run(challenges, timeout, seed, logfunc):
             # Done with the temporary dup
             os.close(rpipe_tmp)
 
-    # Start all challenges
-    cb_env = {'seed': seed}
+        # None of the above file descriptors will actually be inherited on Windows
+        # Prepare the environment so libcgc can regenerate this setup
+        # with the inherited HANDLEs
+        if IS_WINDOWS:
+            import msvcrt
 
+            # Store the number of pipes that need to be set up
+            numpipes = len(challenges) * 2  # Pipe pair for each
+            cb_env['PIPE_COUNT'] = str(numpipes)
+
+            # Store the HANDLE for each of the pipes
+            for i in xrange(len(challenges) * 2):
+                cb_env['PIPE_{}'.format(i)] = str(msvcrt.get_osfhandle(3 + i))  # First pipe is at 3
+
+    # Start all challenges
     # Launch the main binary first
     mainchal, otherchals = challenges[0], challenges[1:]
     procs = [sp.Popen(mainchal, env=cb_env, stdin=sp.PIPE,
@@ -110,18 +124,18 @@ def chal_watcher(paths, procs, timeout, log):
     for path, proc in zip(paths, procs):
         pid, sig = proc.pid, abs(proc.returncode)
         if sig not in [None, 0, signal.SIGTERM]:
-            log('[DEBUG] pid: {}, sig: {}\n'.format(pid, sig))
+            log('[DEBUG] pid: {}, sig: {}'.format(pid, sig))
 
             # Attempt to get register values
             regs = get_core_dump_regs(path, pid, log)
             if regs is not None:
                 # If a core dump was generated, report this as a crash
                 # log('Process generated signal (pid: {}, signal: {}) - {}\n'.format(pid, sig, testpath))
-                log('Process generated signal (pid: {}, signal: {})\n'.format(pid, sig))
+                log('Process generated signal (pid: {}, signal: {})'.format(pid, sig))
 
                 # Report the register states
                 reg_str = ' '.join(['{}:{}'.format(reg, val) for reg, val in regs.iteritems()])
-                log('register states - {}\n'.format(reg_str))
+                log('register states - {}'.format(reg_str))
 
     # Final cleanup
     clean_cores(paths, procs)
@@ -175,7 +189,7 @@ def get_core_dump_regs(path, pid, log):
     ]
 
     if any(err in dbg_out for err in errs):
-        log('Core dump not found, are they enabled on your system?\n')
+        log('Core dump not found, are they enabled on your system?')
         return
 
     # Parse out registers/values

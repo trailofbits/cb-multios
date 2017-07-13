@@ -5,6 +5,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <stdio.h>
+#include <fcntl.h>
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) < (b)) ? (b) : (a))
@@ -207,11 +208,57 @@ static void cgc_initialize_flag_page(void) {
     cgc_aes_get_bytes(cgc_internal_prng, PAGE_SIZE, flag_addr);
 }
 
+/**
+ * Helper to parse values out of the env
+ * All values are expected to be positive + nonzero
+ * Returns 0 on any error
+ */
+unsigned int cgc_getenv_uint(char *varname) {
+    char *val = getenv(varname);
+    if (val) {
+        int res = atoi(val);
+        if (res > 0) return res;
+    }
+    return 0;
+}
+
+// Up to 2 digits, should really never go past ~20 anyway
+#define MAX_IPC_PIPES 99
+#define MAX_NAME_LEN 8 // "PIPE_##\0"
+
+/**
+ * Initialize all the pipes necessary for IPC
+ */
+void cgc_init_ipc_pipes() {
+    char name_buf[MAX_NAME_LEN] = {0};
+    HANDLE pipe_hndl = NULL;
+    int pipe_fd = 0;
+
+    // Get the number of pipes we need to set up
+    int numpipes = cgc_getenv_uint("PIPE_COUNT");
+    if (numpipes > MAX_IPC_PIPES) numpipes = MAX_IPC_PIPES;
+
+    // Open all pipe HANDLEs in the correct fds
+    for (unsigned int i = 0; i < numpipes; ++i) {
+        // Get the next HANDLE from the env
+        snprintf(name_buf, MAX_NAME_LEN, "PIPE_%d", i);
+        pipe_hndl = (HANDLE) cgc_getenv_uint(name_buf);
+
+        if (pipe_hndl) {
+            // Assign the pipe to the correct fd
+            pipe_fd = _open_osfhandle(pipe_hndl, O_RDONLY | O_APPEND);
+            if (pipe_fd != 3 + i) { // First pipe is at fd 3
+                _dup2(pipe_fd, 3 + i);
+            }
+        }
+    }
+}
+
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
-    if (fdwReason == DLL_PROCESS_ATTACH) {
-        // __attribute__((constructor))
+    if (fdwReason == DLL_PROCESS_ATTACH) { // __attribute__((constructor))
         setvbuf(stdout, NULL, _IONBF, 0);  // We *may* not need this, not sure yet
         cgc_initialize_flag_page();
+        cgc_init_ipc_pipes();
     }
     return TRUE;
 }
