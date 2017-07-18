@@ -5,7 +5,7 @@
 
 typedef unsigned int cgc_size_t;
 
-char *strchr(const char *s, int c) {
+char *cgc_strchr(const char *s, int c) {
    while (*s && *s != c) {s++;}
    return (char*)(*s ? s : (c ? NULL : s));
 }

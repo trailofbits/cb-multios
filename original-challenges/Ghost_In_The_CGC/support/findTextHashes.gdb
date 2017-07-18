@@ -1,4 +1,0 @@
-break *0x8048210
-r
-x /x $ebp-0x4
-quit

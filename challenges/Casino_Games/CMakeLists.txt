@@ -1,0 +1,8 @@
+set( POLLS_TESTING_COUNT "700" )
+set( POLLS_TESTING_SEED "-1951642613" )
+set( POLLS_RELEASE_SEED "1842195422" )
+add_compile_options( -O0 -g )
+set( SERVICE_ID "00019" )
+set( AUTHOR_ID "CROMU" )
+set( POLLS_RELEASE_COUNT "300" )
+buildCB()

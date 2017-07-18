@@ -1,45 +1,75 @@
 # Using this min version for now
 cmake_minimum_required(VERSION 3.1)
 
-project(cb_porting)
+project(challenge_sets)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Needed for newer challenges
-enable_language(ASM)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 11)
 
-# Default flags for everything
-add_compile_options(
-    -fno-builtin
-    -Wno-int-to-pointer-cast
-    -Wno-writable-strings
-    -g3
-    -m32
-)
-
-# Link everything 32-bit (until we have a 64-bit option)
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
-
-# Linker options
-# Dynamic by default
-option(BUILD_SHARED_LIBS "" ON)
-if(BUILD_STATIC_LIBS AND UNIX AND NOT APPLE)
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -Wl,--allow-multiple-definition")
-    SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
-    SET(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
-endif()
-
-if(UNIX AND NOT APPLE)
-    set(LINUX TRUE)
-    add_definitions(-DLINUX)
-endif()
-if(APPLE)
-    add_definitions(-DAPPLE)
-endif()
 if(WIN32)
-    add_definitions(-DWIN)
-endif()
+    # Need to use MASM on windows
+    enable_language(ASM_MASM)
+
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+    set(BUILD_SHARED_LIBS TRUE)
+
+    add_compile_options(
+        /w
+        /W0
+        /Zi
+    )
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MACHINE:X86")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MACHINE:X86")
+
+    # Read in challenges to exclude from build
+    if(CLANGCL)
+        file(STRINGS "exclude/win_clangcl.txt" cb_exclude)
+        add_definitions(-DCLANGCL)
+    else()
+        file(STRINGS "exclude/win_msvc.txt" cb_exclude)
+        add_definitions(-DWIN)
+    endif()
+else(WIN32)
+    # Generic ASM can be enabled on other OSs
+    enable_language(ASM)
+
+    if(UNIX AND NOT APPLE)
+        set(LINUX TRUE)
+        add_definitions(-DLINUX)
+
+        # Read in challenges to exclude from build
+        file(STRINGS "exclude/linux.txt" cb_exclude)
+    endif()
+    if(APPLE)
+        add_definitions(-DAPPLE)
+
+        # Read in challenges to exclude from build
+        file(STRINGS "exclude/osx.txt" cb_exclude)
+    endif()
+
+    # Default flags for everything
+    add_compile_options(
+        -fno-builtin
+        -w
+        -g3
+        -m32
+    )
+
+    # Link everything 32-bit (until we have a 64-bit option)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
+
+    # Linker options
+    # Dynamic by default
+    option(BUILD_SHARED_LIBS "" ON)
+    if(BUILD_STATIC_LIBS AND LINUX)
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -Wl,--allow-multiple-definition")
+        set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
+        set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
+    endif()
+endif(WIN32)
 
 # Build all libraries
 include_directories(include)
@@ -60,11 +90,28 @@ function(build path target)
     target_include_directories(${target} PUBLIC ${path}/lib ${path}/src ${path}/include)
     target_include_directories(${target}_patched PUBLIC ${path}/lib ${path}/src ${path}/include)
 
+    set_target_properties(${target} PROPERTIES
+                          RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}
+                          RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
+    set_target_properties(${target}_patched PROPERTIES
+                          RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}
+                          RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
+
     # Add patched defines
     target_compile_definitions(${target}_patched PUBLIC "${patch_defs}")
 
     target_link_libraries(${target} LINK_PUBLIC cgc)
     target_link_libraries(${target}_patched LINK_PUBLIC cgc)
+
+    IF(WIN32)
+        # Copy required DLLs post-build
+        add_custom_command(
+            TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:cgc> ${CMAKE_CURRENT_BINARY_DIR}
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:tiny-AES128-C> ${CMAKE_CURRENT_BINARY_DIR}
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:pov> ${CMAKE_CURRENT_BINARY_DIR}
+        )
+    ENDIF()
 endfunction(build)
 
 function(buildPOV path cb pov)
@@ -78,10 +125,18 @@ function(buildPOV path cb pov)
 
     # POVs are allowed to include challenge headers,
     # but must have their own definitions
-    target_include_directories(${target} PUBLIC "${path}/${pov}" "${path}/include" "${path}/lib" "${path}/src")
+    target_include_directories(
+        ${target} PUBLIC
+        "${path}/${pov}"
+        "${path}/include"
+        "${path}/lib"
+        "${path}/src"
+        "${PROJECT_SOURCE_DIR}/include/libpov/pov"
+    )
     set_target_properties(${target} PROPERTIES
         OUTPUT_NAME "${pov}.pov"
-        RUNTIME_OUTPUT_DIRECTORY "../pov"  # Put these with the other xml POVs
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR}
     )
 
     target_link_libraries(${target} LINK_PUBLIC cgc pov)
@@ -103,7 +158,7 @@ function(buildCB)
         # Iterate through the directories and build each
         set(i 1)
         foreach(cb ${cb_parts})
-            build(${cb} ${cb_id}_${i})
+            build(${cb_path}/cb_${i} ${cb_id}_${i})
             MATH(EXPR i "${i} + 1")
         endforeach()
     else()
@@ -122,10 +177,12 @@ function(buildCB)
 endfunction(buildCB)
 
 # More options needed for cbs
-add_compile_options(
-    -nostdinc
-    -fno-stack-protector
-)
+if(NOT WIN32)
+    add_compile_options(
+        -fno-stack-protector
+    )
+endif()
+
 add_definitions(
     -Derrno=__cgc_errno
     -DFORTIFY_SOURCE=0
@@ -135,11 +192,18 @@ if(LINUX)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z execstack -z norelro")
 endif()
 
-file(GLOB challenge_binaries processed-challenges/*)
+file(GLOB challenge_binaries challenges/*)
 foreach(cb_path ${challenge_binaries})
     if(IS_DIRECTORY ${cb_path} AND EXISTS ${cb_path}/CMakeLists.txt)
         # Get filename
         get_filename_component(cb_id ${cb_path} NAME)
-        add_subdirectory(${cb_path} ${cb_path}/bin)
+
+        # Skip the challenge if it's in the exclude list
+        list(FIND cb_exclude ${cb_id} idx)
+        if(${idx} EQUAL -1)
+            add_subdirectory(${cb_path})
+        else()
+            message("EXCLUDE: ${cb_id}")
+        endif()
     endif()
 endforeach()

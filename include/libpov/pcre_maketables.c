@@ -46,9 +46,9 @@ compilation of dftables.c, in which case the macro DFTABLES is defined. */
 
 #ifndef DFTABLES
 #  ifdef HAVE_CONFIG_H
-#  include "config.h"
+#include "cgc_config.h"
 #  endif
-#  include "pcre_internal.h"
+#include "cgc_pcre_internal.h"
 #endif
 
 
@@ -91,11 +91,11 @@ p = yield;
 
 /* First comes the lower casing table */
 
-for (i = 0; i < 256; i++) *p++ = tolower(i);
+for (i = 0; i < 256; i++) *p++ = cgc_tolower(i);
 
 /* Next the case-flipping table */
 
-for (i = 0; i < 256; i++) *p++ = islower(i)? toupper(i) : tolower(i);
+for (i = 0; i < 256; i++) *p++ = cgc_islower(i)? cgc_toupper(i) : cgc_tolower(i);
 
 /* Then the character class tables. Don't try to be clever and save effort on
 exclusive ones - in some locales things may be different.
@@ -113,17 +113,17 @@ test for alnum specially. */
 cgc_memset(p, 0, cbit_length);
 for (i = 0; i < 256; i++)
   {
-  if (isdigit(i)) p[cbit_digit  + i/8] |= 1 << (i&7);
-  if (isupper(i)) p[cbit_upper  + i/8] |= 1 << (i&7);
-  if (islower(i)) p[cbit_lower  + i/8] |= 1 << (i&7);
-  if (isalnum(i)) p[cbit_word   + i/8] |= 1 << (i&7);
+  if (cgc_isdigit(i)) p[cbit_digit  + i/8] |= 1 << (i&7);
+  if (cgc_isupper(i)) p[cbit_upper  + i/8] |= 1 << (i&7);
+  if (cgc_islower(i)) p[cbit_lower  + i/8] |= 1 << (i&7);
+  if (cgc_isalnum(i)) p[cbit_word   + i/8] |= 1 << (i&7);
   if (i == '_')   p[cbit_word   + i/8] |= 1 << (i&7);
-  if (isspace(i)) p[cbit_space  + i/8] |= 1 << (i&7);
-  if (isxdigit(i))p[cbit_xdigit + i/8] |= 1 << (i&7);
-  if (isgraph(i)) p[cbit_graph  + i/8] |= 1 << (i&7);
-  if (isprint(i)) p[cbit_print  + i/8] |= 1 << (i&7);
-  if (ispunct(i)) p[cbit_punct  + i/8] |= 1 << (i&7);
-  if (iscntrl(i)) p[cbit_cntrl  + i/8] |= 1 << (i&7);
+  if (cgc_isspace(i)) p[cbit_space  + i/8] |= 1 << (i&7);
+  if (cgc_isxdigit(i))p[cbit_xdigit + i/8] |= 1 << (i&7);
+  if (cgc_isgraph(i)) p[cbit_graph  + i/8] |= 1 << (i&7);
+  if (cgc_isprint(i)) p[cbit_print  + i/8] |= 1 << (i&7);
+  if (cgc_ispunct(i)) p[cbit_punct  + i/8] |= 1 << (i&7);
+  if (cgc_iscntrl(i)) p[cbit_cntrl  + i/8] |= 1 << (i&7);
   }
 p += cbit_length;
 
@@ -135,18 +135,18 @@ at release 8.34. */
 for (i = 0; i < 256; i++)
   {
   int x = 0;
-  if (isspace(i)) x += ctype_space;
-  if (isalpha(i)) x += ctype_letter;
-  if (isdigit(i)) x += ctype_digit;
-  if (isxdigit(i)) x += ctype_xdigit;
-  if (isalnum(i) || i == '_') x += ctype_word;
+  if (cgc_isspace(i)) x += ctype_space;
+  if (cgc_isalpha(i)) x += ctype_letter;
+  if (cgc_isdigit(i)) x += ctype_digit;
+  if (cgc_isxdigit(i)) x += ctype_xdigit;
+  if (cgc_isalnum(i) || i == '_') x += ctype_word;
 
   /* Note: strchr includes the terminating zero in the characters it considers.
   In this instance, that is ok because we want binary zero to be flagged as a
   meta-character, which in this sense is any character that terminates a run
   of data characters. */
 
-  if (strchr("\\*+?{^.$|()[", i) != 0) x += ctype_meta;
+  if (cgc_strchr("\\*+?{^.$|()[", i) != 0) x += ctype_meta;
   *p++ = x;
   }
 

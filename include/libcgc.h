@@ -10,6 +10,12 @@
 #endif
 #define NULL (0)
 
+#ifdef WIN
+# define __attribute__(x)
+# define __builtin_isnan _isnan
+# define __builtin_isinf(x) (! _finite(x))
+#endif
+
 typedef unsigned long cgc_size_t;
 typedef long cgc_ssize_t;
 
@@ -94,52 +100,69 @@ struct cgc_timeval {
 # define EPIPE CGC_EPIPE
 #endif
 
-void _terminate(unsigned int status) __attribute__((__noreturn__));
-int transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes);
-int receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes);
+#ifdef LIBCGC_IMPL
+// Maximum number of binaries running for one challenge
+# define MAX_NUM_CBS 10
+
+// STD(IN/OUT/ERR) + a socketpair for every binary
+// All fds used by the binaries should be less than this
+# define EXPECTED_MAX_FDS 3 + (2 * MAX_NUM_CBS)
+
+int cgc_check_timeout(const struct cgc_timeval *timeout) {
+    if (!timeout) {
+        return 0;
+    } else if (0 > timeout->tv_sec || 0 > timeout->tv_usec) {
+        return CGC_EINVAL;
+    } else {
+        return 0;
+    }
+}
+#endif
+
+void cgc__terminate(unsigned int status) __attribute__((__noreturn__));
+int cgc_transmit(int fd, const void *buf, cgc_size_t count, cgc_size_t *tx_bytes);
+int cgc_receive(int fd, void *buf, cgc_size_t count, cgc_size_t *rx_bytes);
 int cgc_fdwait(int nfds, cgc_fd_set *readfds, cgc_fd_set *writefds,
                const struct cgc_timeval *timeout, int *readyfds);
-int allocate(cgc_size_t length, int is_X, void **addr);
-int deallocate(void *addr, cgc_size_t length);
+int cgc_allocate(cgc_size_t length, int is_X, void **addr);
+int cgc_deallocate(void *addr, cgc_size_t length);
 int cgc_random(void *buf, cgc_size_t count, cgc_size_t *rnd_bytes);
 
-// All of the following functions are defined in asm (maths.S)
-// The asm symbols are being forced to match maths.S keep compatibility across OS's
-// (no leading underscores on Windows/OS X)
+// All of the following functions are defined in asm (maths.S/maths_win.asm)
 
 typedef struct { long _b[8]; } jmp_buf[1];
-extern int setjmp(jmp_buf) __asm__("cgc_setjmp") __attribute__((__returns_twice__));
-extern void longjmp(jmp_buf, int) __asm__("cgc_longjmp") __attribute__((__noreturn__));
+extern int cgc_setjmp(jmp_buf) __attribute__((__returns_twice__));
+extern void cgc_longjmp(jmp_buf, int) __attribute__((__noreturn__));
 
-extern float sinf(float) __asm__("cgc_sinf");     extern double sin(double) __asm__("cgc_sin");     extern long double sinl(long double) __asm__("cgc_sinl");
-extern float cosf(float) __asm__("cgc_cosf");     extern double cos(double) __asm__("cgc_cos");     extern long double cosl(long double) __asm__("cgc_cosl");
-extern float tanf(float) __asm__("cgc_tanf");     extern double tan(double) __asm__("cgc_tan");     extern long double tanl(long double) __asm__("cgc_tanl");
-extern float logf(float) __asm__("cgc_logf");     extern double log(double) __asm__("cgc_log");     extern long double logl(long double) __asm__("cgc_logl");
-extern float rintf(float) __asm__("cgc_rintf");   extern double rint(double) __asm__("cgc_rint");   extern long double rintl(long double) __asm__("cgc_rintl");
-extern float sqrtf(float) __asm__("cgc_sqrtf");   extern double sqrt(double) __asm__("cgc_sqrt");   extern long double sqrtl(long double) __asm__("cgc_sqrtl");
-extern float fabsf(float) __asm__("cgc_fabsf");   extern double fabs(double) __asm__("cgc_fabs");   extern long double fabsl(long double) __asm__("cgc_fabsl");
-extern float log2f(float) __asm__("cgc_log2f");   extern double log2(double) __asm__("cgc_log2");   extern long double log2l(long double) __asm__("cgc_log2l");
-extern float exp2f(float) __asm__("cgc_exp2f");   extern double exp2(double) __asm__("cgc_exp2");   extern long double exp2l(long double) __asm__("cgc_exp2l");
-extern float expf(float) __asm__("cgc_expf");     extern double exp(double) __asm__("cgc_exp");     extern long double expl(long double) __asm__("cgc_expl");
+extern float cgc_sinf(float);   extern double cgc_sin(double);   extern long double cgc_sinl(long double);
+extern float cgc_cosf(float);   extern double cgc_cos(double);   extern long double cgc_cosl(long double);
+extern float cgc_tanf(float);   extern double cgc_tan(double);   extern long double cgc_tanl(long double);
+extern float cgc_logf(float);   extern double cgc_log(double);   extern long double cgc_logl(long double);
+extern float cgc_rintf(float);  extern double cgc_rint(double);  extern long double cgc_rintl(long double);
+extern float cgc_sqrtf(float);  extern double cgc_sqrt(double);  extern long double cgc_sqrtl(long double);
+extern float cgc_fabsf(float);  extern double cgc_fabs(double);  extern long double cgc_fabsl(long double);
+extern float cgc_log2f(float);  extern double cgc_log2(double);  extern long double cgc_log2l(long double);
+extern float cgc_exp2f(float);  extern double cgc_exp2(double);  extern long double cgc_exp2l(long double);
+extern float cgc_expf(float);   extern double cgc_exp(double);   extern long double cgc_expl(long double);
+extern float cgc_log10f(float); extern double cgc_log10(double); extern long double cgc_log10l(long double);
 
-extern float log10f(float) __asm__("cgc_log10f"); extern double log10(double) __asm__("cgc_log10"); extern long double log10l(long double) __asm__("cgc_log10l");
-extern float powf(float, float) __asm__("cgc_powf");
-extern double pow(double, double) __asm__("cgc_pow");
-extern long double powl(long double, long double) __asm__("cgc_powl");
-extern float atan2f(float, float) __asm__("cgc_atan2f");
-extern double atan2(double, double) __asm__("cgc_atan2");
-extern long double atan2l(long double, long double) __asm__("cgc_atan2l");
-extern float remainderf(float, float) __asm__("cgc_remainderf");
-extern double remainder(double, double) __asm__("cgc_remainder");
-extern long double remainderl(long double, long double) __asm__("cgc_remainderl");
-extern float scalbnf(float, int) __asm__("cgc_scalbnf");
-extern double scalbn(double, int) __asm__("cgc_scalbn");
-extern long double scalbnl(long double, int) __asm__("cgc_scalbnl");
-extern float scalblnf(float, long int) __asm__("cgc_scalblnf");
-extern double scalbln(double, long int) __asm__("cgc_scalbln");
-extern long double scalblnl(long double, long int) __asm__("cgc_scalblnl");
-extern float significandf(float) __asm__("cgc_significandf");
-extern double significand(double) __asm__("cgc_significand");
-extern long double significandl(long double) __asm__("cgc_significandl");
+extern float cgc_powf(float, float);
+extern double cgc_pow(double, double);
+extern long double cgc_powl(long double, long double);
+extern float cgc_atan2f(float, float);
+extern double cgc_atan2(double, double);
+extern long double cgc_atan2l(long double, long double);
+extern float cgc_remainderf(float, float);
+extern double cgc_remainder(double, double);
+extern long double cgc_remainderl(long double, long double);
+extern float cgc_scalbnf(float, int);
+extern double cgc_scalbn(double, int);
+extern long double cgc_scalbnl(long double, int);
+extern float cgc_scalblnf(float, long int);
+extern double cgc_scalbln(double, long int);
+extern long double cgc_scalblnl(long double, long int);
+extern float cgc_significandf(float);
+extern double cgc_significand(double);
+extern long double cgc_significandl(long double);
 
 #endif /* _LIBCGC_H */

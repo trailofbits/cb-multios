@@ -1,0 +1,12 @@
+image: Visual Studio 2015
+environment:
+  matrix:
+    # - CMAKE_OPTS: '' # Disabling MSVC for now
+    - CMAKE_OPTS: -D CLANGCL:BOOL=TRUE -T LLVM-vs2014
+before_build:
+  - mkdir build
+  - cd build
+  - cmake %CMAKE_OPTS% ..
+build:
+  project: build\challenge_sets.sln
+  parallel: true

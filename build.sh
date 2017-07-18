@@ -7,17 +7,11 @@ DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
 TOOLS="$DIR/tools"
 
 # Install necessary python packages
-if ! /usr/bin/env python -c "import yaml; import xlsxwriter" 2>&1 >/dev/null; then
-    echo "Please install pyyaml and xlsxwriter" >&2
-    echo "  $ sudo pip install pyyaml xlsxwriter" >&2
+if ! /usr/bin/env python -c "import xlsxwriter; import Crypto" 2>/dev/null; then
+    echo "Please install required python packages" >&2
+    echo "  $ sudo pip install xlsxwriter pycrypto" >&2
     exit 1
 fi
-
-echo "Running patcher"
-${TOOLS}/cb_patcher.py $@
-
-echo "Generating CMakelists"
-${TOOLS}/makefiles.py
 
 echo "Creating build directory"
 mkdir -p ${DIR}/build

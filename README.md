@@ -1,6 +1,7 @@
 # DARPA Challenge Binaries on Linux and OS X
 
 [![Build Status](https://travis-ci.org/trailofbits/cb-multios.svg?branch=master)](https://travis-ci.org/trailofbits/cb-multios)
+[![Build status](https://ci.appveyor.com/api/projects/status/l17viygqmgb404oe/branch/master?svg=true)](https://ci.appveyor.com/project/dguido/cb-multios/branch/master)
 [![Slack Status](https://empireslacking.herokuapp.com/badge.svg)](https://empireslacking.herokuapp.com)
 
 The DARPA Challenge Binaries (CBs) are custom-made programs specifically designed to contain vulnerabilities that represent a wide variety of crashing software flaws. They are more than simple test cases, they approximate real software with enough complexity to stress both manual and automated vulnerability discovery. The CBs come with extensive functionality tests, triggers for introduced bugs, patches, and performance monitoring tools, enabling benchmarking of patching tools and bug mitigation strategies.
@@ -16,8 +17,8 @@ The CBs are the best available benchmark to evaluate program analysis tools. Usi
 
 ## Components
 
-### original-challenges
-This directory contains all of the unmodified source code for the challenge binaries. Challenges that are not building or are not yet supported are in the `multibin` directory.
+### challenges
+This directory contains all of the source code for the challenge binaries. Challenges that are not building or are not yet supported are in the `disabled-challenges` directory.
 
 ### include
 This directory contains `libcgc`, which implements the syscalls to work on non-DECREE systems. `libcgc` currently works on OS X and Linux.
@@ -25,35 +26,30 @@ This directory contains `libcgc`, which implements the syscalls to work on non-D
 ### tools
 This folder contains Python scripts that help with modifying, building, and testing the original challenges.
 
-#### cb_patcher.py
-This script will copy all challenges out of `original-challenges`, modify them as necessary, and place them in `processed-challenges`. These modifications include:
-
-* Deleting `libcgc.h` if it appears anywhere in the challenge source
-* Deleting any C++ definitions that are required for the CGC runtime
-* A set of find/replace definitions in `manual_patches.yaml`
-
-#### makefiles.py
-This will parse the `build_directive.txt` in each challenge folder and generate a `CMakeLists.txt` with the same variables and CFLAGS. This also adds the `-nostdinc` flag to all challenges, so that they have no access to the system libraries, and can only include their own libraries and `libcgc.h`.
-
-#### cb_tester.py
+#### tester.py
 This is a helper script to test all challenges using `cb-test`. Results are summarized and can be output to an excel spreadsheet. More details in the [testing section](#testing) below.
-
-#### cb_simple_server.py
-This acts as a replacement for `cb-server` (The CGC provided challenge server). This supports IPC by setting up socketpairs for every running binary at the [correct file descriptors](https://github.com/CyberGrandChallenge/cgc-release-documentation/blob/master/newsletter/ipc.md#implementation). In order for this to work, `cb-replay` has been modified to wait until the server is ready before starting a test.
 
 ## Building
 
 To build all challenges, run:
 
+###### OS X/Linux:
+
 ```bash
 $ ./build.sh
 ```
 
-This command will build both the patched and unpatched binaries in the `bin` folder of the respective challenge (`processed-challenges/[challenge]/bin/`).
+###### Windows:
+
+```
+> powershell .\build.ps1
+```
+
+This command will build both the patched and unpatched binaries in `build/challenges/[challenge]/`.
 
 ## Testing
 
-The `cb_tester.py` utility is a wrapper around `cb-test` that can be used to test challenges and summarize results. The [`cb-test`](https://github.com/CyberGrandChallenge/cb-testing) tool is a testing utility created for the DARPA Cyber Grand Challenge to verify CBs are fully functional.
+The `tester.py` utility is a wrapper around `cb-test` that can be used to test challenges and summarize results. The [`cb-test`](https://github.com/CyberGrandChallenge/cb-testing) tool is a testing utility created for the DARPA Cyber Grand Challenge to verify CBs are fully functional.
 
 `cb-test` has been modified to work with a custom server. All changes include:
 
@@ -74,22 +70,22 @@ The `cb_tester.py` utility is a wrapper around `cb-test` that can be used to tes
 
 ### Example Usage
 
-The following will run tests against all challenges in `processed-challenges` and save the results to `out.xlsx`:
+The following will run tests against all challenges in `challenges` and save the results to `out.xlsx`:
 
 ```bash
-$ ./cb_tester.py -a -o out.xlsx
+$ ./tester.py -a -o out.xlsx
 ```
 
 To run tests against only two challenges, do this:
 
 ```bash
-$ ./cb_tester.py -c CADET_00001 CROMU_00001
+$ ./tester.py -c CADET_00001 CROMU_00001
 ```
 
 To test all POVs and save the results, run:
 
 ```bash
-$ ./cb_tester.py -a --povs -o out.xlsx
+$ ./tester.py -a --povs -o out.xlsx
 ```
 
 ### Types of Tests
@@ -113,6 +109,9 @@ $ sudo sysctl -w kern.coredump=1
 ```bash
 $ ulimit -c unlimited
 ```
+
+###### Windows:
+Merge `tools/win_enable_dumps.reg` into your registry. Note that this will disable the Windows Error Reporting dialog when a program crashes, so it's recommended that you do this in a VM if you want to keep that enabled.
 
 ## Current Status
 
