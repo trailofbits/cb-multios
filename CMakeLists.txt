@@ -101,7 +101,7 @@ function(build path target)
                           RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
 
     # Add patched defines
-    target_compile_definitions(${target}_patched PUBLIC "${patch_defs}")
+    target_compile_definitions(${target}_patched PUBLIC ${patch_defs})
 
     target_link_libraries(${target} LINK_PUBLIC cgc)
     target_link_libraries(${target}_patched LINK_PUBLIC cgc)
@@ -147,10 +147,10 @@ endfunction(buildPOV)
 
 function(buildCB)
     # Generate all the patched #defines for this challenge
-    set(patch_defs "-DPATCHED")
+    set(patch_defs -DPATCHED)
     if(VULN_COUNT)
         foreach(i RANGE 1 ${VULN_COUNT})
-            set(patch_defs "${patch_defs} -DPATCHED_${i}")
+            set(patch_defs ${patch_defs} -DPATCHED_${i})
         endforeach()
     endif()
 
