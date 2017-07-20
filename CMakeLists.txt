@@ -18,9 +18,12 @@ if(WIN32)
     add_compile_options(
         /w
         /W0
-        /Zi
+        /Z7
+        /GS-
+        /GR-
+        /guard:cf-
     )
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MACHINE:X86")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MACHINE:X86 /NXCOMPAT:NO /SAFESEH:NO /DYNAMICBASE:NO")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /MACHINE:X86")
 
     # Read in challenges to exclude from build
