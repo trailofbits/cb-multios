@@ -20,14 +20,13 @@ cd ${DIR}/build
 echo "Creating Makefiles"
 CMAKE_OPTS="-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 
-# Honor CC and CXX environment variables
-if [ -x "$CC" ]; then
-  CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_C_COMPILER=$CC"
-  CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_ASM_COMPILER=$CC"
-fi
-if [ -x "$CXX" ]; then
-  CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_CXX_COMPILER=$CXX"
-fi
+# Honor CC and CXX environment variables, default to clang otherwise
+CC=${CC:-clang}
+CXX=${CXX:-clang++}
+
+CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_C_COMPILER=$CC"
+CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_ASM_COMPILER=$CC"
+CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_CXX_COMPILER=$CXX"
 
 LINK=${LINK:-SHARED}
 case $LINK in
