@@ -31,6 +31,16 @@ This is a helper script to test all challenges using `cb-test`. Results are summ
 
 ## Building
 
+The following packages are required for building the challenges on Linux:
+
+```
+libc6-dev
+libc6-dev-i386
+gcc-multilib
+g++-multilib
+clang-3.8 (or higher)
+```
+
 To build all challenges, run:
 
 ###### OS X/Linux:
