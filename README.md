@@ -1,4 +1,4 @@
-# DARPA Challenge Binaries on Linux and OS X
+# DARPA Challenge Binaries on Linux, OS X, and Windows
 
 [![Build Status](https://travis-ci.org/trailofbits/cb-multios.svg?branch=master)](https://travis-ci.org/trailofbits/cb-multios)
 [![Build status](https://ci.appveyor.com/api/projects/status/l17viygqmgb404oe/branch/master?svg=true)](https://ci.appveyor.com/project/dguido/cb-multios/branch/master)
@@ -31,6 +31,10 @@ This is a helper script to test all challenges using `cb-test`. Results are summ
 
 ## Building
 
+The following steps will build both the patched and unpatched binaries in `build/challenges/[challenge]/`.
+
+### OS X/Linux
+
 The following packages are required for building the challenges on Linux:
 
 ```
@@ -43,28 +47,36 @@ clang-3.8 (or higher)
 
 To build all challenges, run:
 
-###### OS X/Linux:
-
 ```bash
 $ ./build.sh
 ```
 
-###### Windows:
+### Windows
+
+The following packages are required for building the challenges on Windows:
+
+|Name                             |  Version/Info                       |
+|---------------------------------|-------------------------------------|
+| Visual Studio Build Tools       | included in Visual Studio           |
+| Windows SDK (for running tests) | optional install with Visual Studio |
+| CMake                           | 3.1+                                |
+| Clang                           | 3.8+                                |
+
+**Note:** depending on where you clone the repo, you may run into build errors about the path being too long. It's best to clone the repo closer to your root directory, e.g. `C:\cb-multios\`
+
+To build all challenges, run:
 
 ```
 > powershell .\build.ps1
 ```
 
-This command will build both the patched and unpatched binaries in `build/challenges/[challenge]/`.
-
 ## Testing
 
 The `tester.py` utility is a wrapper around `cb-test` that can be used to test challenges and summarize results. The [`cb-test`](https://github.com/CyberGrandChallenge/cb-testing) tool is a testing utility created for the DARPA Cyber Grand Challenge to verify CBs are fully functional.
 
-`cb-test` has been modified to work with a custom server. All changes include:
+`cb-test` has been modified to run tests locally with no networking involved. All changes include:
 
-* Starting `cb_simple_server.py` instead of `cb-server`
-* Always running the challenges on localhost
+* The removal of any kind of server for launching challenges
 * Skipping any checks that verify the file is a valid DECREE binary
 * Lessening sleeps and timeouts to allow tests to run at a reasonable rate
 
@@ -89,7 +101,7 @@ $ ./tester.py -a -o out.xlsx
 To run tests against only two challenges, do this:
 
 ```bash
-$ ./tester.py -c CADET_00001 CROMU_00001
+$ ./tester.py -c Palindrome basic_messaging
 ```
 
 To test all POVs and save the results, run:
@@ -130,10 +142,6 @@ Porting the Challenge Binaries is a work in progress, and the current status of 
 https://docs.google.com/spreadsheets/d/1Z2pinCkOqe1exzpvFgwSG2wH3Z09LP9VJk0bm_5jPe4/edit?usp=sharing
 
 ## Notes
-
-Windows support is coming soon!
-
-The challenge binaries were written for a platform without a standard libc. Each binary re-implemented just the necessary libc features. Therefore, standard symbols were redefined. By using the `-nostdinc` flag during compilation, we were able to disable the use of standard library headers, and avoid rewriting a lot of challenge binary code.
 
 We use the CMake build system to enable portability across different compilers and operating systems. CMake works across a large matrix of compiler and operating system versions, while providing a consistent interface to check for dependencies and build software projects.
 
