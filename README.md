@@ -1,4 +1,4 @@
-# DARPA Challenge Binaries on Linux, OS X and Windows
+# DARPA Challenge Binaries on Linux, OS X, and Windows
 
 [![Build Status](https://travis-ci.org/trailofbits/cb-multios.svg?branch=master)](https://travis-ci.org/trailofbits/cb-multios)
 [![Build status](https://ci.appveyor.com/api/projects/status/l17viygqmgb404oe/branch/master?svg=true)](https://ci.appveyor.com/project/dguido/cb-multios/branch/master)
