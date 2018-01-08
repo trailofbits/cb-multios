@@ -133,7 +133,7 @@ class GameNight(Actions):
 
         monsters = ['Pidgeon', 'RegularRat', 'ElectricRat', 'Centipede-Thing', 'Caterpillar', 'Carp']
         monster = monsters[index]
-        self.state['model'].hugman_round = ord(self.state['model'].cgc_get_flag_byte(index + 1)) % 6
+        self.state['model'].hugman_round = ord(self.state['model'].get_flag_byte(index + 1)) % 6
         capture_chance = 128
         run_chance = 128
         round_ = 0
@@ -150,14 +150,14 @@ class GameNight(Actions):
             move = random.randint(1, 4)
             self.write('%s\n' % move)
 
-            if round_ > 10 or (round_ > 0 and run_chance >= ord(self.state['model'].cgc_get_flag_byte(round_))):
+            if round_ > 10 or (round_ > 0 and run_chance >= ord(self.state['model'].get_flag_byte(round_))):
                 self.read(delim='\n', expect='%s got away :(\n' % monster)
                 return
 
             round_ += 1
 
             if move == 1:
-                if capture_chance >= ord(self.state['model'].cgc_get_flag_byte(round_)):
+                if capture_chance >= ord(self.state['model'].get_flag_byte(round_)):
                     self.read(delim='\n', expect='Congratulations, you\'ve caught %s!\n' % monster)
                     self.read(delim='\n', expect='Please enter a nickname:\n')
 

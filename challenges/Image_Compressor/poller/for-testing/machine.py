@@ -39,7 +39,7 @@ class Bitmap(Actions):
             randint(-0x70000000, 0x70000000), #vres
             randint(0, 0xF0000000), #colors
             randint(0, 0xF0000000)) #important colors
-        
+
         self.write(bmp_file)
         self.write(bmp_info)
 
@@ -53,7 +53,7 @@ class Bitmap(Actions):
         self.state['bitmap'] = bmp_file + bmp_info + data
 
     def end(self):
-        p = Popen(['bin/KPRCA_00003'], cgc_stdin=PIPE, cgc_stdout=PIPE)
-        p.cgc_stdin.write(self.state['bitmap'])
-        (cgc_stdout, cgc_stderr) = p.communicate()
-        self.read(length=len(cgc_stdout), expect=cgc_stdout)
+        p = Popen(['bin/KPRCA_00003'], stdin=PIPE, stdout=PIPE)
+        p.stdin.write(self.state['bitmap'])
+        (stdout, stderr) = p.communicate()
+        self.read(length=len(stdout), expect=stdout)

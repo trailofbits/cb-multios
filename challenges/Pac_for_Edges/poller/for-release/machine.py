@@ -101,7 +101,7 @@ class customImage(object):
                         value_y += y_kernel[x+1][y+1] * self.getVal(m+x, n+y)
                 kgx[m][n] = value_x
                 kgy[m][n] = value_y
-                hold_pixels[m][n] = int(math.cgc_sqrt((value_x*value_x)+(value_y*value_y)))%256
+                hold_pixels[m][n] = int(math.sqrt((value_x*value_x)+(value_y*value_y)))%256
                 if hold_pixels[m][n] > 255 or hold_pixels[m][n] < 0:
                     print value_x
                     print value_y
@@ -109,7 +109,7 @@ class customImage(object):
 
                 hold = float(0)
                 if value_x != 0:
-                    hold = math.cgc_fabs(value_y) / math.cgc_fabs(value_x)
+                    hold = math.fabs(value_y) / math.fabs(value_x)
                 else:
                     hold = 0.0
                 hold = float(self.onlyTwoDecimals(hold))
@@ -389,13 +389,13 @@ class TemplateGenerator(Actions):
             # get predicted output
             predicted_output = self.gameObj.next(userInput, userInput2)
             self.write(userInput + '\x0c')
- 
+
             # handle teleport case
             if userInput == 'q':
                 self.write(str(userInput2) + '\x0c')
             if self.gameObj.over:
                 self.write(IMAGE_DATA)
-             
+
             self.read(length=len(predicted_output), expect=predicted_output)
 
     def go(self):

@@ -25,8 +25,8 @@ def stddev(args):
     variance = sum(map(lambda x: (x - mean) ** 2, args)) / len(args)
 
     if any(map(lambda x: math.isnan(x), args)):
-        print args, math.cgc_sqrt(variance)
-    return math.cgc_sqrt(variance)
+        print args, math.sqrt(variance)
+    return math.sqrt(variance)
 
 def cell_sortable(cell):
     if cell[0] in string.letters and cell[1] in string.digits:
@@ -134,14 +134,14 @@ class Spreadsheet(Actions):
         Op('STDDEV', f=stddev),
         Op('ABS', 1, f=lambda args: abs(args[0])),
         Op('+', 2, True, f=lambda args: args[0] + args[1]),
-        Op('COS', 1, f=lambda args: math.cgc_cos(args[0])),
-        Op('LN', 1, f=lambda args: math.cgc_log(args[0])),
-        Op('LOG10', 1, f=lambda args: math.cgc_log10(args[0])),
+        Op('COS', 1, f=lambda args: math.cos(args[0])),
+        Op('LN', 1, f=lambda args: math.log(args[0])),
+        Op('LOG10', 1, f=lambda args: math.log10(args[0])),
         Op('POWER', 2, f=lambda args: args[0] ** args[1]),
         Op('*', 2, True, f=lambda args: args[0] * args[1]),
         Op('/', 2, True, f=lambda args: args[0] / args[1]),
-        Op('SIN', 1, f=lambda args: math.cgc_sin(args[0])),
-        Op('SQRT', 1, f=lambda args: math.cgc_sqrt(args[0])),
+        Op('SIN', 1, f=lambda args: math.sin(args[0])),
+        Op('SQRT', 1, f=lambda args: math.sqrt(args[0])),
         Op('-', 2, True, f=lambda args: args[0] - args[1]),
         Op('SUM', f=lambda args: sum(args))
     ]

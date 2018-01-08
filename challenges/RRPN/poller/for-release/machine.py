@@ -24,8 +24,8 @@ class RPN(Actions):
         self.string += '\n'
 
     def doit(self):
-        process = subprocess.Popen(['./bin/KPRCA_00002'], cgc_stdin=subprocess.PIPE, cgc_stdout=subprocess.PIPE)
-        process.cgc_stdin.write(self.string)
+        process = subprocess.Popen(['./bin/KPRCA_00002'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        process.stdin.write(self.string)
         exp_out = process.communicate()[0]
         self.state['divide_by_zero'] = len(exp_out) <= 2
 

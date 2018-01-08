@@ -83,7 +83,7 @@ class SinglePacket():
 				return "[PRIVATE MESSAGE]Message length did not match packet length"
 
 			return "[PRIVATE MESSAGE]%s to %s::%s" % (self.packet_data[1:toUserNameLen+1], self.packet_data[toUserNameLen+2:toUserNameLen+fromUserNameLen+2], self.packet_data[toUserNameLen+fromUserNameLen+3:toUserNameLen+fromUserNameLen+privateMessageLen+3] )
-	
+
 		elif ( self.packet_type == 3 ):
 			if ( len(self.packet_data) < 1 ):
 				return "[CONNECT MESSAGE]Invalid length"
@@ -125,7 +125,7 @@ class PacketReceiver(Actions):
 	self.SAMPLE_FS_RATE = 9600
 	self.SEND_AMPLITUDE = 64.0
 
-	ts = struct.unpack( 'I', self.magic_page[0:4] )[0] + struct.unpack( 'I', self.magic_page[4:8] )[0] + struct.unpack( 'I', self.magic_page[8:12] )[0] + struct.unpack( 'I', self.magic_page[12:16] )[0] 
+	ts = struct.unpack( 'I', self.magic_page[0:4] )[0] + struct.unpack( 'I', self.magic_page[4:8] )[0] + struct.unpack( 'I', self.magic_page[8:12] )[0] + struct.unpack( 'I', self.magic_page[12:16] )[0]
 
 	ts &= 0x7FFFF
 
@@ -141,8 +141,8 @@ class PacketReceiver(Actions):
 
 	for c in input_bytes:
 	    checksum = (checksum + ord(c)) & 0xffff
-					          
-	return checksum 
+
+	return checksum
 
     def send_packet_byte( self, send_byte ):
 	transmit_bytes = ""
@@ -159,9 +159,9 @@ class PacketReceiver(Actions):
 		while period < 32:
 			# Write out appropriate FSK waveform
 			if send_bit == 0:
-				send_sample = self.SEND_AMPLITUDE * math.cgc_cos( 2 * math.pi * 1200.0 * (float(period) / self.SAMPLE_FS_RATE) )
+				send_sample = self.SEND_AMPLITUDE * math.cos( 2 * math.pi * 1200.0 * (float(period) / self.SAMPLE_FS_RATE) )
 			else:
-				send_sample = self.SEND_AMPLITUDE * math.cgc_cos( 2 * math.pi * 2400.0 * (float(period) / self.SAMPLE_FS_RATE) )
+				send_sample = self.SEND_AMPLITUDE * math.cos( 2 * math.pi * 2400.0 * (float(period) / self.SAMPLE_FS_RATE) )
 
 			# Write out sample
 			#self.write( struct.pack( 'b', int(send_sample) ) )
@@ -268,19 +268,19 @@ class PacketReceiver(Actions):
 
 		    if packet_type == 0:
 		    	packet_data_len_max = max_packet_length - (len(from_username) + 2)
-		    
+
 		    	packet_data_len = random.randint( 1, packet_data_len_max-1 )
 			packet_data = ''.join( random.choice( string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range( 0, packet_data_len ) )
-		    	
+
 			# send broadcast
 			packet_data = struct.pack( 'B', packet_type ) + struct.pack( 'B', len(from_username) ) + from_username + struct.pack( 'B', len(packet_data) ) + packet_data
 
 			if ( random.randint( 0, 7 ) == 0 ):
 				# Corrupt
 				packet_data = self.corrupt_packet( packet_data )
-				
+
 				packet_type = struct.unpack( 'B', packet_data[0] )[0]
-			
+
 			if ( self.get_samples_for_packet( packet_data ) + send_sample_count + 128) > max_send_samples:
 				break
 
@@ -294,7 +294,7 @@ class PacketReceiver(Actions):
 
 				packet_byte_count += len(packet_data)
 				packet_valid_count += 1
-			   
+
 		    elif packet_type == 1:
 			packet_data_len_max = max_packet_length - (len(from_username) + 3)
 
@@ -309,9 +309,9 @@ class PacketReceiver(Actions):
 			if ( random.randint( 0, 7 ) == 0 ):
 				# Corrupt
 				packet_data = self.corrupt_packet( packet_data )
-				
+
 				packet_type = struct.unpack( 'B', packet_data[0] )[0]
-			
+
 			if ( self.get_samples_for_packet( packet_data ) + send_sample_count + 128) > max_send_samples:
 				break
 
@@ -329,7 +329,7 @@ class PacketReceiver(Actions):
 		    elif packet_type == 2:
 		        max_to_username_len = random.randint( 1, 7 )
 		        to_username = ''.join( random.choice( string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range( 0, max_to_username_len ) )
-			
+
 			packet_data_len_max = max_packet_length - (len(from_username) + len(to_username) + 3)
 
 			packet_data_len = random.randint( 1, packet_data_len_max-1 )
@@ -341,9 +341,9 @@ class PacketReceiver(Actions):
 			if ( random.randint( 0, 7 ) == 0 ):
 				# Corrupt
 				packet_data = self.corrupt_packet( packet_data )
-				
+
 				packet_type = struct.unpack( 'B', packet_data[0] )[0]
-			
+
 			if ( self.get_samples_for_packet( packet_data ) + send_sample_count + 128) > max_send_samples:
 				break
 
@@ -360,11 +360,11 @@ class PacketReceiver(Actions):
 
 		    elif packet_type == 3 or packet_type == 4:
 			packet_data = struct.pack( 'B', packet_type ) + struct.pack( 'B', len(from_username) ) + from_username
-			
+
 			if ( random.randint( 0, 7 ) == 0 ):
 				# Corrupt
 				packet_data = self.corrupt_packet( packet_data )
-				
+
 				packet_type = struct.unpack( 'B', packet_data[0] )[0]
 
 			if ( self.get_samples_for_packet( packet_data ) + send_sample_count + 128) > max_send_samples:

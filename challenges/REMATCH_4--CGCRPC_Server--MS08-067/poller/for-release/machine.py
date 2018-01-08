@@ -36,7 +36,7 @@ CGCMB_ERROR_RESPONSE             =  0xff
 CGCMB_ERROR_FORMAT      = 0xe1
 CGCMB_ERROR_LENGTH      = 0xe2
 CGCMB_ERROR_STATE       = 0xe3
-CGCMB_ERROR_ACCESS      = 0xe4 
+CGCMB_ERROR_ACCESS      = 0xe4
 CGCMB_ERROR_SESSION     = 0xe5
 CGCMB_MESSAGE_TYPE      = 0xe6
 
@@ -91,14 +91,14 @@ class PRNG:
     for i in range(512):
       self.random_state.append(unpack("<Q", magic_page[i*8: i*8 + 8])[0])
     self.a = 12
-    self.b = 25 
+    self.b = 25
     self.c = 27
-    self.mult = unpack("<Q", magic_page[4:12])[0] 
+    self.mult = unpack("<Q", magic_page[4:12])[0]
     self.randomIndex = 0
     self.generator = generator
 
   def prng(self):
-    r = self.random_state[self.randomIndex] 
+    r = self.random_state[self.randomIndex]
     r = r ^ (r >> self.a) & 0xffffffffffffffff
     r = r ^ (r << self.b) & 0xffffffffffffffff
     r = r ^ (r >> self.c) & 0xffffffffffffffff
@@ -135,7 +135,7 @@ class FileSystem():
   MAX_FILESIZE     =  1024
   MAX_TREES       =   10
   MAX_FILES_PER_TREE  = 10
-  
+
   FS_MODE_CREATE  =   0x31
   FS_MODE_READ      = 0x32
   FS_MODE_OVERWRITE = 0x33
@@ -152,13 +152,13 @@ class FileSystem():
     treenamelen = prng.random_in_range(self.MAX_TREENAME_LEN/2, self.MAX_TREENAME_LEN)
     for i in range(self.MAX_TREES - 1):
       tree = {}
-      tree["id"] = prng.prng() 
+      tree["id"] = prng.prng()
 
       tree["name"] = prng.random_string(treenamelen - i)
-      
+
       tree["service"] = self.cgc_serviceTypes[prng.random_in_range(0, self.MAX_SERVICE_TYPES - 1)]
       tree["files"] = []
-      
+
       numFiles = prng.random_in_range(1, self.MAX_FILES_PER_TREE);
       filenamelen = prng.random_in_range(self.MAX_FILENAME_LEN/2, self.MAX_FILENAME_LEN)
       while(numFiles > 0):
@@ -169,7 +169,7 @@ class FileSystem():
       self.trees.append(tree)
 
     tree = {}
-    tree["id"] = prng.prng() 
+    tree["id"] = prng.prng()
     tree["name"] = "SOMETREE"
     tree["service"] = "EYEPSEE"
     tree["files"] = []
@@ -190,11 +190,11 @@ class FileSystem():
     file["isOpen"] = False
     return file
 
-  
+
 
 class CGCMBMessage():
   def __init__(self, generator):
-   
+
     self.generator = generator
     self.msg = ""
     self.command = 0
@@ -225,8 +225,8 @@ class CGCMBMessage():
     elif (length == 4):
       self.data.append(pack("<I", data))
 
-  def cgc_Transmit(self):
-    mbmessage = pack("<I", 0xC47C4D42) 
+  def Transmit(self):
+    mbmessage = pack("<I", 0xC47C4D42)
     mbmessage += pack("<B", self.command)
     mbmessage += pack("<B", self.status)
     mbmessage += pack("<B", self.flags)
@@ -242,8 +242,8 @@ class CGCMBMessage():
     msg = pack("<B", 0) + pack("<I", len(mbmessage)) + mbmessage
     self.generator.write(msg)
 
-  def cgc_Receive(self):
-    mbmessage = pack("<I", 0xC47C4D42) 
+  def Receive(self):
+    mbmessage = pack("<I", 0xC47C4D42)
     mbmessage += pack("<B", self.command)
     mbmessage += pack("<B", self.status)
     mbmessage += pack("<B", self.flags)
@@ -278,7 +278,7 @@ class NETSTUFF_Data():
     return ''.join(self.data)
 
 class CROMU_00095_Generator(Actions):
-  
+
   def start(self):
 
     self.delay(50)
@@ -322,7 +322,7 @@ class CROMU_00095_Generator(Actions):
       self.state = "NEGOTIATE"
       dialect = random.choice([0x313e, 0x4155, 0x2671])
       self.dialect = dialect
-      
+
     mbMessage.AddData(dialect, 2)
     mbMessage.Transmit()
     if (self.state == "NEGOTIATE"):
@@ -376,10 +376,10 @@ class CROMU_00095_Generator(Actions):
     mbMessage.AddData(len(connection["tree"]["service"]), 2)
     mbMessage.AddData(connection["tree"]["service"], 0)
     mbMessage.Transmit()
-    
+
     connection["id"] = self.prng.prng()
     self.connections.append(connection)
-    
+
     mbResponse.AddParameter(self.sessionKey, 4)
     mbResponse.AddParameter(self.userID, 2)
     mbResponse.AddData(connection["id"], 4)
@@ -398,7 +398,7 @@ class CROMU_00095_Generator(Actions):
       mbMessage.Transmit()
       mbResponse.Receive()
       return -1
-    
+
     tree = random.choice(self.fs.trees)
     self.tree_connect_known(tree)
 
@@ -436,7 +436,7 @@ class CROMU_00095_Generator(Actions):
     filename = username = ''.join(random.choice(string.ascii_letters) for _ in range(random.randint(1, 32)))
     file = {}
     file["name"] = filename
-    
+
     mbMessage = CGCMBMessage(self)
     mbMessage.command = CGCMB_FILE_CREATE
     mbResponse = CGCMBMessage(self)
@@ -458,8 +458,8 @@ class CROMU_00095_Generator(Actions):
     mbResponse.AddParameter(connection["id"], 4)
     mbResponse.AddParameter(file["id"], 2)
     mbResponse.Receive()
-    
-  
+
+
 
     mbMessage = CGCMBMessage(self)
     mbMessage.command = CGCMB_FILE_WRITE
@@ -503,7 +503,7 @@ class CROMU_00095_Generator(Actions):
     if (len(connection["tree"]["files"]) == 0):
       return
     file = random.choice(connection["tree"]["files"])
-    
+
     mbMessage = CGCMBMessage(self)
     mbMessage.command = CGCMB_FILE_CREATE
     mbResponse = CGCMBMessage(self)
@@ -521,7 +521,7 @@ class CROMU_00095_Generator(Actions):
     mbMessage.Transmit()
 
     mbResponse.Receive()
-  
+
 
     mbMessage = CGCMBMessage(self)
     mbMessage.command = CGCMB_FILE_READ
@@ -567,10 +567,10 @@ class CROMU_00095_Generator(Actions):
       mbMessage.Transmit()
       mbResponse.Receive()
       return -1
-    
+
     connection = self.tree_connect_known(self.fs.specialTree)
     file = connection["tree"]["files"][0]
-    
+
     mbMessage = CGCMBMessage(self)
     mbMessage.command = CGCMB_FILE_CREATE
     mbResponse = CGCMBMessage(self)
@@ -588,7 +588,7 @@ class CROMU_00095_Generator(Actions):
     mbMessage.Transmit()
 
     mbResponse.Receive()
-  
+
 
 
     mbMessage = CGCMBMessage(self)
@@ -604,7 +604,7 @@ class CROMU_00095_Generator(Actions):
     mbMessage.AddData(file["name"], 0)
     mbMessage.AddData(0xDC, 2)
     mbMessage.Transmit()
-    
+
     bindID = self.prng.random_in_range(1, 0xffffffff)
     self.bindIDs.append((bindID, connection))
 
@@ -646,7 +646,7 @@ class CROMU_00095_Generator(Actions):
     mbResponse.AddData(len(returnbytes), 2)
     if (len(returnbytes) > 0):
       mbResponse.AddData(returnbytes, 0)
-    
+
     mbMessage.Transmit()
     mbResponse.Receive()
 
@@ -705,4 +705,4 @@ class CROMU_00095_Generator(Actions):
     mbMessage.Transmit()
     mbMessage.command = CGCMB_END_SESSION_RESPONSE
     mbMessage.Receive()
-    
+

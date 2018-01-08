@@ -364,14 +364,14 @@ class Kx(object):
 
     def gen_a(self, rng):
         self.a = self._rand(rng)
-        self.A = cgc_pow(self.G, self.a, self.P)
+        self.A = pow(self.G, self.a, self.P)
 
     def gen_b(self, rng):
         self.b = self._rand(rng)
-        self.B = cgc_pow(self.G, self.b, self.P)
+        self.B = pow(self.G, self.b, self.P)
 
     def get_k(self, bits):
-        self.k = cgc_pow(self.B, self.a, self.P)
+        self.k = pow(self.B, self.a, self.P)
         mask = (1 << bits) - 1
         return self.k & mask
 
@@ -545,7 +545,7 @@ class Silk(Actions):
             name, seller, price, quantity = random.choice(self.state['products'])
             if self.chance(0.1):
                 p = (name, p[1], p[2], p[3])
-                resp_code = 0x2001 
+                resp_code = 0x2001
                 resp_str = 'Name already in-use'
             else:
                 i = self.state['products'].index((name, seller, price, quantity))
