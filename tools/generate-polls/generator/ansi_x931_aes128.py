@@ -58,7 +58,7 @@ class PRNG(object):
         self.random_data = ''
 
         self.I = "\x00" * PRNG.BLOCK_SIZE
-        self.aes_ctx = AES.new(key)
+        self.aes_ctx = AES.new(key, mode=AES.MODE_ECB)
 
     @staticmethod
     def _xor_string(value_1, value_2):
