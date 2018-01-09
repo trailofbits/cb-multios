@@ -77,11 +77,11 @@ class PTCtx(ctypes.Structure):
 
 class Support(object):
     def __init__(self, magic_page):
-        path = join(dirname(dirname(abspath(__file__))), 'build', 'patched', 'so', 'NRFIN_00054.so')
+        path = join(dirname(dirname(abspath(__file__))), '../../build', 'challenges', 'PTaaS', 'libNRFIN_00054.so')
         self.lib = ctypes.cdll.LoadLibrary(path)
 
         self.lib.strtod.restype = ctypes.c_double
-        self.lib.vector_mag_sqr.restype = ctypes.c_double 
+        self.lib.vector_mag_sqr.restype = ctypes.c_double
         self.lib.make_vector.restype = Vector
         self.lib.vector_norm.restype = Vector
         self.lib.make_ray.restype = Ray

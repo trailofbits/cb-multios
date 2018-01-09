@@ -58,7 +58,7 @@ class WTFS():
                 ("PctOpen", ct.c_double * self.MAX_VALVE_OUTPUT)
             ]
 
-        self.dll = ct.CDLL('build/patched/so/CROMU_00048.so')
+        self.dll = ct.CDLL('../../build/challenges/Water_Treatment_Facility_Simulator/libCROMU_00048.so')
 	self.Influent = PlantSystem.in_dll(self.dll, 'Influent')
 	self.Headworks = PlantSystem.in_dll(self.dll, 'Headworks')
 	self.HeadworksOutputValve = PlantSystem.in_dll(self.dll, 'HeadworksOutputValve')
@@ -301,7 +301,7 @@ class MyClass(Actions):
             self.write("{:0.2f}\n".format(GlycerinRate))
             self.CheckAspMenu()
             self.Wtfs.ChangeGlycerinRate(self.Wtfs.cgc_Asp[cgc_Asp], float("{:0.2f}\n".format(GlycerinRate)))
-            
+
             # set the Alum
             self.write("3\n")
             self.read(delim=": ", expect="Which ASP 0-2: ")
@@ -362,7 +362,7 @@ class MyClass(Actions):
         # return to the main menu
         self.write("2\n")
         self.CheckMainMenu()
-            
+
     def CheckValves(self):
         self.comment("CheckValves")
         # run through all of the valves and make sure they're funcitoning
@@ -434,7 +434,7 @@ class MyClass(Actions):
 	self.CheckMainMenu()
 
         # try a sim run and make sure we get a valve check failure if we expect one
-        if ValveCheckFail: 
+        if ValveCheckFail:
             self.write("8\n")
             self.read(delim="\n", expect="A valve's output percentages don't total to at least 100%.  Can't run the simulation.\n")
 	    self.CheckMainMenu()
@@ -467,7 +467,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Headworks, NewName);
 	self.CheckRenameMenu()
-	
+
 	# ASPs
         NewName = self.random_string(2,20)
         self.write("3\n")
@@ -486,7 +486,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.cgc_Asp[1], NewName);
 	self.CheckRenameMenu()
-	
+
         NewName = self.random_string(2,20)
         self.write("3\n")
         self.read(delim=": ", expect="Which ASP 0-2: ")
@@ -495,7 +495,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.cgc_Asp[2], NewName);
 	self.CheckRenameMenu()
-	
+
 	# Filters
         NewName = self.random_string(2,20)
         self.write("4\n")
@@ -514,7 +514,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Filter[1], NewName);
 	self.CheckRenameMenu()
-	
+
         NewName = self.random_string(2,20)
         self.write("4\n")
         self.read(delim=": ", expect="Which Filter 0-2: ")
@@ -523,7 +523,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Filter[2], NewName);
 	self.CheckRenameMenu()
-	
+
 	# Disinfection systems
         NewName = self.random_string(2,20)
         self.write("5\n")
@@ -542,7 +542,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Disinfection[1], NewName);
 	self.CheckRenameMenu()
-	
+
         NewName = self.random_string(2,20)
         self.write("5\n")
         self.read(delim=": ", expect="Which Disinfection system 0-2: ")
@@ -551,7 +551,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Disinfection[2], NewName);
 	self.CheckRenameMenu()
-	
+
 	# Effluent
         NewName = self.random_string(2,20)
         self.write("6\n")
@@ -559,7 +559,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Effluent, NewName);
 	self.CheckRenameMenu()
-	
+
 	# Valves
         NewName = self.random_string(2,20)
         self.write("7\n")
@@ -637,7 +637,7 @@ class MyClass(Actions):
         schematic += "#####################################################################################################################################\n"
 
 	self.read(length=len(schematic), expect=schematic)
-	
+
     def CheckBanner(self):
         banner =  "Welcome to the Wastewater Treatement Plant Simulator\n"
         banner += "###################################################\n"

@@ -7,7 +7,7 @@ import random
 
 class TSim:
 	def __init__(self):
-		self.dll = ct.CDLL('build/patched/so/CROMU_00029.so')
+		self.dll = ct.CDLL('../../build/challenges/Material_Temperature_Simulation/libCROMU_00029.so')
 
 		# variables for size of the material
 		self.X = ct.c_uint32.in_dll(self.dll, 'X')
@@ -177,7 +177,7 @@ class MyClass(Actions):
 						temp_text = "%0.5f" % temp
 						self.Sim.SetTemp(x, y, z, temp_text)
 		else:
-			# not isothermic 
+			# not isothermic
 			self.write('n\n')
 
 			# manually defined
@@ -193,7 +193,7 @@ class MyClass(Actions):
 						temp_text = "%0.5f" % temp
 						self.Sim.SetTemp(x, y, z, temp_text)
 			self.write('\n')
-		
+
 		# setup energy sources
 		self.read(delim=': ', expect='Are there any constant energy sources in the room? (y,n): ')
 		if (random.randint(0,1) == 1):
@@ -242,18 +242,18 @@ class MyClass(Actions):
 		# output array
 		output = [[0 for x in range(10)] for y in range(10)]
 
-		# read the clear screen 
+		# read the clear screen
 		self.read(length=7, expect='\033[2J\033[H')
 
 		countx = int(self.Sim.X.value/10.0)+1
 		county = int(self.Sim.Y.value/10.0)+1
-		
+
 		for z in range(0, self.Sim.Z.value):
 			self.read(delim='\n', expect='z: %d\n' % z);
-			
+
 			starty = 0
 			y = 0
-	
+
 			while (starty < self.Sim.Y.value):
 				startx = 0
 				x = 0
@@ -275,7 +275,7 @@ class MyClass(Actions):
 
 				self.read(delim='\n', expect=outstring+'\n')
 			self.read(delim='\n', expect='\n')
-					
+
 	def RunSimulation(self):
 
 		self.ReadGraphTemps2()

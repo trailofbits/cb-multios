@@ -179,6 +179,21 @@ function(buildCB)
     endif()
 endfunction(buildCB)
 
+function(buildSO)
+    # Build a shared library object for a specific challenge
+    set(LIB_DIR ${cb_path}/lib)
+    file(GLOB files ${LIB_DIR}/*.c)
+    if (files)
+        set(LIB_NAME ${AUTHOR_ID}_${SERVICE_ID})
+        message("Building shared library (${LIB_NAME}.so)")
+
+        # include_directories(${LIB_DIR})
+        add_library(${LIB_NAME} SHARED ${files})
+
+        # install(TARGETS "${LIB_NAME}" DESTINATION "lib/${LIB_NAME}")
+    endif()
+endfunction(buildSO)
+
 # More options needed for cbs
 if(NOT WIN32)
     add_compile_options(

@@ -23,7 +23,7 @@ ChurnInitializer = ctypes.POINTER(ChurnInitializerArray)
 class Gyre():
     def __init__(self):
         #self.dll = ctypes.CDLL('build/patched/so/CROMU_90001.so')
-        self.dll = ctypes.CDLL('build/patched/so/CROMU_00020.so')
+        self.dll = ctypes.CDLL('../../build/challenges/Estadio/libCROMU_00020.so')
 
         self.churn_initialize = self.dll.churn_initialize
         self.churn_initialize.argtypes = [ChurnInitializer]

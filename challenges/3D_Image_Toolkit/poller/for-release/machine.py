@@ -42,7 +42,7 @@ class Poller(Actions):
         self.count = 0
 
         # setup ctypes for prng functions
-        self.dll = CDLL('build/patched/so/CROMU_00078.so')
+        self.dll = CDLL('../../build/challenges/3D_Image_Toolkit/libCROMU_00078.so')
         self.seed_prng = self.dll.seed_prng
         self.seed_prng.argtypes = [ c_uint ]
         self.seed_prng.restype = None

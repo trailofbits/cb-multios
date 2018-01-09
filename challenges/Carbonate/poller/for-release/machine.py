@@ -18,7 +18,7 @@ class ScrambleItem(ctypes.Union):
 
 class Scrambler():
     def __init__(self):
-        self.dll = ctypes.CDLL('build/patched/so/CROMU_00028.so')
+        self.dll = ctypes.CDLL('../../build/challenges/Carbonate/libCROMU_00028.so')
 
         self.initialize_phases()
     def initialize_phases(self):
@@ -32,7 +32,7 @@ class Scrambler():
 
 class Carbonate(Actions):
     cell_count = 4096 * 2**3
-    
+
     def start(self):
         self.p = Protocol()
         self.s = Scrambler()
