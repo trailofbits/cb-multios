@@ -180,17 +180,24 @@ function(buildCB)
 endfunction(buildCB)
 
 function(buildSO)
-    # Build a shared library object for a specific challenge
-    set(LIB_DIR ${cb_path}/lib)
-    file(GLOB files ${LIB_DIR}/*.c)
-    if (files)
+    if(UNIX)
+        # Build a shared library object for a specific challenge
+        set(LIB_DIR ${cb_path}/lib)
+        set(SRC_DIR ${cb_path}/src)
+        set(INCLUDE_DIR ${cb_path}/include)
+
+        file(GLOB lib_files ${LIB_DIR}/*)
+        file(GLOB src_files ${SRC_DIR}/*)
+        set(LIB_SRCS ${lib_files} ${src_files})
+
         set(LIB_NAME ${AUTHOR_ID}_${SERVICE_ID})
+        set(LIB_CGC "${PROJECT_BINARY_DIR}/include/libcgc.so")
+
         message("Building shared library (${LIB_NAME}.so)")
-
-        # include_directories(${LIB_DIR})
-        add_library(${LIB_NAME} SHARED ${files})
-
-        # install(TARGETS "${LIB_NAME}" DESTINATION "lib/${LIB_NAME}")
+        add_library(${LIB_NAME} SHARED ${LIB_SRCS})
+        target_include_directories(${LIB_NAME} PUBLIC ${LIB_DIR})
+        target_include_directories(${LIB_NAME} PUBLIC ${INCLUDE_DIR})
+        target_link_libraries(${LIB_NAME} ${LIB_CGC})
     endif()
 endfunction(buildSO)
 
