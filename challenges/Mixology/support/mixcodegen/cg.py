@@ -123,17 +123,17 @@ class MixologyCodeGen(object):
 	compounds_and_weights = get_compounds(sample_size, over_percentage)
 	compound_list = [c for c, w in compounds_and_weights]
 
-	mix = ctypes.cdll.LoadLibrary(os.path.join(BUILD_DIR, "patched", "so",  "NRFIN_00007.so"))
+	mix = ctypes.cdll.LoadLibrary(os.path.join(BUILD_DIR, "challenges", "Mixology",  "libNRFIN_00007.so"))
 
 
 	class compounds_sample_t(ctypes.Structure):
 		_fields_=[("sample", ctypes.POINTER(ctypes.c_uint)),
 		           ("sample_sz", ctypes.c_uint )]
 
-	sample_compounds = mix.sample_compounds
+	sample_compounds = mix.cgc_sample_compounds
 	sample_compounds.restype = ctypes.POINTER(compounds_sample_t)
 
-	zoom_buf = mix.zoom_buf
+	zoom_buf = mix.cgc_zoom_buf
 	zoom_buf.restype = ctypes.c_char_p
 	zoom_buf.argtypes = [ctypes.POINTER(compounds_sample_t)]
 
@@ -163,7 +163,7 @@ class MixologyCodeGen(object):
 		x = self.sample_compounds(sample_seed, sample_sz)
 		b = self.zoom_buf(x)
 		assert(b is not None)
-		self.mix.free_sample_st(x)
+		self.mix.cgc_free_sample_st(x)
 
 		del x
 
@@ -181,11 +181,11 @@ class MixologyCodeGen(object):
 		assert(ll > 2**24)
 		assert(ll < 2**32)
 
-		alloc_sample_st = self.mix.alloc_sample_st
+		alloc_sample_st = self.mix.cgc_alloc_sample_st
 		alloc_sample_st.restype = ctypes.POINTER(self.compounds_sample_t)
 
 		samp = alloc_sample_st(self.mix_sample_sz)
-		set_sample_at_idx = self.mix.set_sample_at_idx
+		set_sample_at_idx = self.mix.cgc_set_sample_at_idx
 		set_sample_at_idx.argtypes = [ctypes.POINTER(self.compounds_sample_t), ctypes.c_uint, ctypes.c_uint]
 
 
@@ -201,7 +201,7 @@ class MixologyCodeGen(object):
 
 
 		b = self.zoom_buf(samp)
-		self.mix.free_sample_st(samp)
+		self.mix.cgc_free_sample_st(samp)
 
 		assert(b is not None)
 		# need 20 idxs at
@@ -209,12 +209,12 @@ class MixologyCodeGen(object):
 
 	def _get_sample_heavy_idxs(self, sample_seed):
 		z = ctypes.c_char_p(sample_seed)
-		x = mix.sample_compounds(z, self.prep_sample_sz)
+		x = mix.cgc_sample_compounds(z, self.prep_sample_sz)
 
 		idxs = []
 		light_idxs = []
 		for i in range(0, len(self.compound_list)):
-			r =mix.check_compound_idx_in_sample(x, i)
+			r =mix.cgc_check_compound_idx_in_sample(x, i)
 			if r == 1 and self.compounds_and_weights[i][1] > 2.3:
 				idxs.append(i)
 			elif r == 1 and self.compounds_and_weights[i][1] < 2.3:
