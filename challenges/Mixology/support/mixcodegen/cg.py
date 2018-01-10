@@ -39,7 +39,7 @@ __author__ = 'scsi'
 
 CURDIR = os.path.dirname(__file__)
 BASEPATH = os.path.abspath(os.path.join(CURDIR, '../../'))
-BUILD_DIR = os.path.join(BASEPATH, 'build')
+BUILD_DIR = os.path.join(BASEPATH, '../../build')
 LIBDIR = os.path.join(BASEPATH, 'lib')
 
 

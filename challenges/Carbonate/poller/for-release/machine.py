@@ -25,7 +25,7 @@ class Scrambler():
         self.phases = list(xrange(8))
         scramble_args = [ScrambleItem, ScrambleItem]
         for i in xrange(8):
-            f = self.dll.__getattr__('phase_'+str(i))
+            f = self.dll.__getattr__('cgc_phase_'+str(i))
             f.argtypes = scramble_args
             f.restype = ScrambleItem
             self.phases[i] = f

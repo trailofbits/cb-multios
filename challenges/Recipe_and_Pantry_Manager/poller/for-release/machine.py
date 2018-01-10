@@ -12,11 +12,11 @@ class CROMU00087(Actions):
 	def start(self):
 		#self.delay(100)
 		self.dll = ct.CDLL('../../build/challenges/Recipe_and_Pantry_Manager/libCROMU_00087.so')
-		self.multiply = self.dll.multiply
+		self.multiply = self.dll.cgc_multiply
 		self.multiply.argtypes = (ct.c_double, ct.c_double)
 		self.multiply.restype = ct.c_double
 
-		self.add = self.dll.add
+		self.add = self.dll.cgc_add
 		self.add.argtypes = (ct.c_double, ct.c_double)
 		self.add.restype = ct.c_double
 

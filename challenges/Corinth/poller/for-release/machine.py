@@ -14,21 +14,21 @@ class Monte():
     def __init__(self):
         self.dll = ctypes.CDLL('../../build/challenges/Corinth/libCROMU_00073.so')
 
-        self.monte_gen_step = self.dll.monte_gen_step
+        self.monte_gen_step = self.dll.cgc_monte_gen_step
         self.monte_gen_step.argtypes = [c_double, c_uint64, c_double, c_double]
         self.monte_gen_step.restype = c_double
 
-        self.monte_adjust = self.dll.monte_adjust
+        self.monte_adjust = self.dll.cgc_monte_adjust
         self.monte_adjust.argtypes = [c_double, c_double]
 
-        self.monte_happy = self.dll.monte_happy
+        self.monte_happy = self.dll.cgc_monte_happy
         self.monte_happy.restype = c_byte
 
-        self.check_random_params = self.dll.check_random_params
+        self.check_random_params = self.dll.cgc_check_random_params
         self.check_random_params.argtypes = [c_double, c_uint64, c_double, c_double]
         self.check_random_params.restype = c_byte
 
-        self.kajigger_from_random_int = self.dll.kajigger_from_random_int
+        self.kajigger_from_random_int = self.dll.cgc_kajigger_from_random_int
         self.kajigger_from_random_int.argtypes = [c_uint64]
         self.kajigger_from_random_int.restype = c_double
 
@@ -97,7 +97,7 @@ class Corinth(Actions):
         for i in xrange(0x1000):
             n1 = self.monte_gen()
             n2 = self.monte_gen()
-            dist = cgc_sqrt((n1 * n1) + (n2 * n2))
+            dist = sqrt((n1 * n1) + (n2 * n2))
             if dist < 1:
                 in_circle += 1
 
@@ -168,13 +168,13 @@ class Corinth(Actions):
         for i in xrange(0x1000):
             n1 = self.monte_gen()
             n2 = self.monte_gen()
-            dist = cgc_sqrt((n1 * n1) + (n2 * n2))
+            dist = sqrt((n1 * n1) + (n2 * n2))
             if dist < 1:
                 in_circle += 1
 
         ratio = float(in_circle) / 0x1000
         diff = abs((4 * ratio) - self.PI)
-        intermediate = int(40 * cgc_log10(1.0 / diff))
+        intermediate = int(40 * log10(1.0 / diff))
         my_doubler_size = intermediate - (intermediate % 8)
 
         self.comment("doubler: can double %d", my_doubler_size)
@@ -220,7 +220,7 @@ class Corinth(Actions):
         kajigger_input = self.magic_page[0:8]
         kajigger_int = unpack('=Q', kajigger_input)[0]
         self.kajigger = self.m.kajigger_from_random_int(kajigger_int)
-        sine = cgc_sin(float(kajigger_int))
+        sine = sin(float(kajigger_int))
         sine_int = unpack('<Q', pack('<d', sine))[0]
         masked_sine_int = sine_int & 0xffffffffffffff00
         masked_sine_float = unpack('<d', pack('<Q', masked_sine_int))[0]

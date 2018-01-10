@@ -80,40 +80,40 @@ class Support(object):
         path = join(dirname(dirname(abspath(__file__))), '../../build', 'challenges', 'PTaaS', 'libNRFIN_00054.so')
         self.lib = ctypes.cdll.LoadLibrary(path)
 
-        self.lib.strtod.restype = ctypes.c_double
-        self.lib.vector_mag_sqr.restype = ctypes.c_double
-        self.lib.make_vector.restype = Vector
-        self.lib.vector_norm.restype = Vector
-        self.lib.make_ray.restype = Ray
+        self.lib.cgc_strtod.restype = ctypes.c_double
+        self.lib.cgc_vector_mag_sqr.restype = ctypes.c_double
+        self.lib.cgc_make_vector.restype = Vector
+        self.lib.cgc_vector_norm.restype = Vector
+        self.lib.cgc_make_ray.restype = Ray
 
         self.ctx = PTCtx()
-        self.lib.pt_init(ctypes.pointer(self.ctx))
+        self.lib.cgc_pt_init(ctypes.pointer(self.ctx))
 
         self.img = Image()
-        self.lib.image_init(ctypes.pointer(self.img), 40, 40)
+        self.lib.cgc_image_init(ctypes.pointer(self.img), 40, 40)
 
         self.shapes = []
 
         self.magic_page = magic_page
 
     def destroy(self):
-        self.lib.pt_destroy(ctypes.pointer(self.ctx))
-        self.lib.image_destroy(ctypes.pointer(self.img))
+        self.lib.cgc_pt_destroy(ctypes.pointer(self.ctx))
+        self.lib.cgc_image_destroy(ctypes.pointer(self.img))
 
     def setup_camera(self, ray, fov):
-        self.lib.pt_setup_camera(ctypes.pointer(self.ctx), ray, fov)
+        self.lib.cgc_pt_setup_camera(ctypes.pointer(self.ctx), ray, fov)
 
     def add_sphere(self, material, position, color, emission, radius):
-        if self.lib.vector_mag_sqr(emission) > 1e-6:
-            emission = self.lib.vector_norm(emission)
+        if self.lib.cgc_vector_mag_sqr(emission) > 1e-6:
+            emission = self.lib.cgc_vector_norm(emission)
 
-        color = self.lib.vector_norm(color)
+        color = self.lib.cgc_vector_norm(color)
 
         # Need to do this manually so as not to call allocate
         sphere = Sphere()
-        self.lib.shape_init(ctypes.pointer(sphere), ctypes.c_int(0), ctypes.c_int(material),
+        self.lib.cgc_shape_init(ctypes.pointer(sphere), ctypes.c_int(0), ctypes.c_int(material),
                 position, color, emission)
-        self.lib.sphere_init(ctypes.pointer(sphere), radius)
+        self.lib.cgc_sphere_init(ctypes.pointer(sphere), radius)
 
         sphere.shape.next = self.ctx.head
         self.ctx.head = ctypes.pointer(sphere.shape)
@@ -122,17 +122,17 @@ class Support(object):
         self.shapes.append(sphere)
 
     def add_plane(self, material, position, color, emission, normal):
-        if self.lib.vector_mag_sqr(emission) > 1e-6:
-            emission = self.lib.vector_norm(emission)
+        if self.lib.cgc_vector_mag_sqr(emission) > 1e-6:
+            emission = self.lib.cgc_vector_norm(emission)
 
-        normal = self.lib.vector_norm(normal)
-        color = self.lib.vector_norm(color)
+        normal = self.lib.cgc_vector_norm(normal)
+        color = self.lib.cgc_vector_norm(color)
 
         # Need to do this manually so as not to call allocate
         plane = Plane()
-        self.lib.shape_init(ctypes.pointer(plane), ctypes.c_int(1), ctypes.c_int(material),
+        self.lib.cgc_shape_init(ctypes.pointer(plane), ctypes.c_int(1), ctypes.c_int(material),
                 position, color, emission)
-        self.lib.plane_init(ctypes.pointer(plane), normal)
+        self.lib.cgc_plane_init(ctypes.pointer(plane), normal)
 
         plane.shape.next = self.ctx.head
         self.ctx.head = ctypes.pointer(plane.shape)
@@ -141,11 +141,11 @@ class Support(object):
         self.shapes.append(plane)
 
     def clear_ctx(self):
-        self.lib.pt_clear_ctx(ctypes.pointer(self.ctx))
+        self.lib.cgc_pt_clear_ctx(ctypes.pointer(self.ctx))
         del self.shapes[:]
 
     def render(self):
-        self.lib.pt_render(ctypes.pointer(self.ctx), ctypes.pointer(self.img))
+        self.lib.cgc_pt_render(ctypes.pointer(self.ctx), ctypes.pointer(self.img))
 
         ret = '40 40\n'
         for i in self.img.data:
@@ -166,12 +166,12 @@ class Support(object):
 
     def strtod(self, s):
         d = ctypes.c_double()
-        self.lib.strtod(s, ctypes.pointer(d))
+        self.lib.cgc_strtod(s, ctypes.pointer(d))
         return d
 
     def make_vector(self, v):
-        return self.lib.make_vector(v[0], v[1], v[2])
+        return self.lib.cgc_make_vector(v[0], v[1], v[2])
 
     def make_ray(self, o, d):
-        return self.lib.make_ray(o, d)
+        return self.lib.cgc_make_ray(o, d)
 

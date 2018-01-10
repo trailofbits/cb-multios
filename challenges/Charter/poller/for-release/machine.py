@@ -9,19 +9,19 @@ class CharterMath():
     def __init__(self):
         self.dll = ctypes.CDLL('../../build/challenges/Charter/libCROMU_00006.so')
 
-        self.scale_factor = self.dll.bar_scale_factor
+        self.scale_factor = self.dll.cgc_bar_scale_factor
         self.scale_factor.argtypes = [ctypes.c_uint, ctypes.c_uint]
         self.scale_factor.restype = ctypes.c_double
 
-        self.use_columns = self.dll.bar_use_columns
+        self.use_columns = self.dll.cgc_bar_use_columns
         self.use_columns.argtypes = [ctypes.c_uint, ctypes.c_double, ctypes.c_uint]
         self.use_columns.restype = ctypes.c_uint
 
-        self.divisor = self.dll.spark_divisor
+        self.divisor = self.dll.cgc_spark_divisor
         self.divisor.argtypes = [ctypes.c_uint, ctypes.c_uint, ctypes.c_uint]
         self.divisor.restype = ctypes.c_double
 
-        self.pick_index = self.dll.spark_pick_index
+        self.pick_index = self.dll.cgc_spark_pick_index
         self.pick_index.argtypes = [ctypes.c_uint, ctypes.c_uint, ctypes.c_double]
         self.pick_index.restype = ctypes.c_uint
 

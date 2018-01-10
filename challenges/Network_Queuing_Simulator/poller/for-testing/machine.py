@@ -70,7 +70,7 @@ class Generator:
 		# call to CB's CalcDelta to deal with floating point
 		# inconsistencies between python and C's cgc_log() functions
 		self.dll = ct.CDLL('../../build/challenges/Network_Queuing_Simulator/libCROMU_00016.so')
-		self.CalcDelta = self.dll.CalcDelta;
+		self.CalcDelta = self.dll.cgc_CalcDelta;
 		self.CalcDelta.argtypes = [ct.c_uint32, ct.c_double]
 		self.CalcDelta.restype = ct.c_double
 

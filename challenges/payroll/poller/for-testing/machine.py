@@ -40,13 +40,13 @@ class TimecardPollGenerator(Actions):
         self.state['id_subset'].sort()
         self.state['weeks_subset'].sort()
         testlib = ctypes.CDLL('../../build/challenges/payroll/libCROMU_00007.so')
-        self.standardpay = testlib.c_standardpay
+        self.standardpay = testlib.cgc_c_standardpay
         self.standardpay.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
         self.standardpay.restype = ctypes.c_float
-        self.overtimepay = testlib.c_overtimepay
+        self.overtimepay = testlib.cgc_c_overtimepay
         self.overtimepay.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
         self.overtimepay.restype = ctypes.c_float
-        self.netpay = testlib.c_netpay
+        self.netpay = testlib.cgc_c_netpay
         self.netpay.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
         self.netpay.restype = ctypes.c_float
 

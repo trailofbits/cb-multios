@@ -18,10 +18,10 @@ class MyClass(Actions):
 
         # setup ctypes for prng functions
         self.dll = ct.CDLL('../../build/challenges/Lazybox/libCROMU_00051.so')
-        self.seed_prng = self.dll.seed_prng
+        self.seed_prng = self.dll.cgc_seed_prng
         self.seed_prng.argtypes = [ ct.c_uint ]
         self.seed_prng.restype = None
-        self.random_in_range = self.dll.random_in_range
+        self.random_in_range = self.dll.cgc_random_in_range
         self.random_in_range.argtypes = [ ct.c_uint, ct.c_uint ]
         self.random_in_range.restype = ct.c_uint
 
