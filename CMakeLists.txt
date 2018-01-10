@@ -191,7 +191,11 @@ function(buildSO)
         set(LIB_SRCS ${lib_files} ${src_files})
 
         set(LIB_NAME ${AUTHOR_ID}_${SERVICE_ID})
-        set(LIB_CGC "${PROJECT_BINARY_DIR}/include/libcgc.so")
+        if(APPLE)
+            set(LIB_CGC "${PROJECT_BINARY_DIR}/include/libcgc.dylib")
+        else()
+            set(LIB_CGC "${PROJECT_BINARY_DIR}/include/libcgc.so")
+        endif()
 
         message("Building shared library (${LIB_NAME}.so)")
         add_library(${LIB_NAME} SHARED ${LIB_SRCS})
