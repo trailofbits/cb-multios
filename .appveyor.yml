@@ -1,8 +1,8 @@
-image: Visual Studio 2015
+image: Visual Studio 2017
 environment:
   matrix:
     # - CMAKE_OPTS: '' # Disabling MSVC for now
-    - CMAKE_OPTS: -D CLANGCL:BOOL=TRUE -T LLVM-vs2014
+    - CMAKE_OPTS: -D CLANGCL:BOOL=TRUE -T LLVM-vs2017
 before_build:
   - mkdir build
   - cd build
