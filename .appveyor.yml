@@ -7,6 +7,9 @@ environment:
 os:
   - Visual Studio 2017
 
+build:
+  verbosity: detailed
+
 install:
   # Python
   - set PATH=%PYTHON%;%PATH%
