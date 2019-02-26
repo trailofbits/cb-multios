@@ -12,26 +12,26 @@ from binascii import hexlify
 
 class Monte():
     def __init__(self):
-        self.dll = ctypes.CDLL('build/patched/so/CROMU_00073.so')
+        self.dll = ctypes.CDLL('../../build/challenges/Corinth/libCROMU_00073.so')
 
-        self.monte_gen_step = self.dll.monte_gen_step
+        self.monte_gen_step = self.dll.cgc_monte_gen_step
         self.monte_gen_step.argtypes = [c_double, c_uint64, c_double, c_double]
         self.monte_gen_step.restype = c_double
-        
-        self.monte_adjust = self.dll.monte_adjust
+
+        self.monte_adjust = self.dll.cgc_monte_adjust
         self.monte_adjust.argtypes = [c_double, c_double]
 
-        self.monte_happy = self.dll.monte_happy
+        self.monte_happy = self.dll.cgc_monte_happy
         self.monte_happy.restype = c_byte
 
-        self.check_random_params = self.dll.check_random_params
+        self.check_random_params = self.dll.cgc_check_random_params
         self.check_random_params.argtypes = [c_double, c_uint64, c_double, c_double]
         self.check_random_params.restype = c_byte
 
-        self.kajigger_from_random_int = self.dll.kajigger_from_random_int
+        self.kajigger_from_random_int = self.dll.cgc_kajigger_from_random_int
         self.kajigger_from_random_int.argtypes = [c_uint64]
         self.kajigger_from_random_int.restype = c_double
-        
+
 class Corinth(Actions):
     def start(self):
         #self.delay(100)
@@ -71,13 +71,13 @@ class Corinth(Actions):
 
             if result > max_result:
                 max_result = result
-            
+
             if result > 20:
                 self.doubler_size = result
                 # print self.scaler, self.splatter
                 self.comment("okay: scaler %.10f splatter %.10f", self.scaler, self.splatter)
                 break
-            
+
             if self.scaler > (scaler_goal + 0.2):
                 # print self.scaler, scaler_del, max_result
                 scaler_del = - abs(scaler_del / 2)
@@ -93,11 +93,11 @@ class Corinth(Actions):
             self.splatter = random.random() * 10000
 
         in_circle = 0
-        
+
         for i in xrange(0x1000):
             n1 = self.monte_gen()
             n2 = self.monte_gen()
-            dist = cgc_sqrt((n1 * n1) + (n2 * n2))
+            dist = sqrt((n1 * n1) + (n2 * n2))
             if dist < 1:
                 in_circle += 1
 
@@ -106,14 +106,14 @@ class Corinth(Actions):
                      0x1000,
                      float(in_circle) / 0x1000,
                      (self.PI / 4))
-            
+
         self.comment("okay: buf %d", self.doubler_size)
         self.write(pack('<BHdd', 10, 16, self.splatter, self.scaler))
 
         expectation = pack('<BHB', 11, 1, self.doubler_size)
         self.read(length=len(expectation),
                   expect=expectation)
-        
+
     def monte_fail(self):
         self.scaler = random.random()
         self.splatter = random.randint(1, 255)
@@ -124,17 +124,17 @@ class Corinth(Actions):
                                                 self.counter,
                                                 self.splatter,
                                                 self.scaler)
-            
+
             if result < 20:
                 self.doubler_size = result
                 # print self.scaler, self.splatter
                 self.comment("fail: scaler %.10f splatter %.10f", self.scaler, self.splatter)
                 break
-            
+
             self.scaler = random.random()
             self.splatter = random.randint(1, 255)
 
-            
+
         self.write(pack('<BHdd', 10, 16, self.splatter, self.scaler))
 
         expectation = pack('<BHB', 11, 1, self.doubler_size)
@@ -145,14 +145,14 @@ class Corinth(Actions):
 
     def menu(self):
         magic_prefix = self.magic_page[0:4]
-        self.comment("menu: counter %d magic %s", 
-                     self.counter, 
+        self.comment("menu: counter %d magic %s",
+                     self.counter,
                      hexlify(magic_prefix))
 
     def query(self):
         expected_number = self.monte_gen()
         self.comment("query: expect %f", expected_number)
-        
+
         request = pack('<BH', 30, 0)
         self.write(request)
         expected_response = pack('<BHd',
@@ -168,28 +168,28 @@ class Corinth(Actions):
         for i in xrange(0x1000):
             n1 = self.monte_gen()
             n2 = self.monte_gen()
-            dist = cgc_sqrt((n1 * n1) + (n2 * n2))
+            dist = sqrt((n1 * n1) + (n2 * n2))
             if dist < 1:
                 in_circle += 1
 
         ratio = float(in_circle) / 0x1000
         diff = abs((4 * ratio) - self.PI)
-        intermediate = int(40 * cgc_log10(1.0 / diff))
+        intermediate = int(40 * log10(1.0 / diff))
         my_doubler_size = intermediate - (intermediate % 8)
-        
+
         self.comment("doubler: can double %d", my_doubler_size)
 
         if (my_doubler_size < 2):
             self.counter = initial_counter
             return
-        
+
         len_to_double = random.randint(1, my_doubler_size)
-        
+
         str_to_double = ''.join(map(lambda _x: chr(random.randint(65, 90)),
                                     xrange(len_to_double)))
 
         doubled_str = str_to_double * 2
-        
+
         payload = pack('<BH', 20, len_to_double) + str_to_double
         resp = pack('<BH', 21, 2 * len_to_double) + doubled_str
 
@@ -220,7 +220,7 @@ class Corinth(Actions):
         kajigger_input = self.magic_page[0:8]
         kajigger_int = unpack('=Q', kajigger_input)[0]
         self.kajigger = self.m.kajigger_from_random_int(kajigger_int)
-        sine = cgc_sin(float(kajigger_int))
+        sine = sin(float(kajigger_int))
         sine_int = unpack('<Q', pack('<d', sine))[0]
         masked_sine_int = sine_int & 0xffffffffffffff00
         masked_sine_float = unpack('<d', pack('<Q', masked_sine_int))[0]
@@ -230,7 +230,7 @@ class Corinth(Actions):
                      kajigger_input,
                      pack('<dd', self.kajigger, masked_sine_float))
 
-    def monte_initialize_step(self, chunk, idx):     
+    def monte_initialize_step(self, chunk, idx):
         chunk_f = self.m.monte_float_cast(unpack('b', chunk)[0])
         return self.m.monte_initialize_step(chunk_f, idx)
 

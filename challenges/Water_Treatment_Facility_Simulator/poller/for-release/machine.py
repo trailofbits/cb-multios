@@ -58,76 +58,76 @@ class WTFS():
                 ("PctOpen", ct.c_double * self.MAX_VALVE_OUTPUT)
             ]
 
-        self.dll = ct.CDLL('build/patched/so/CROMU_00048.so')
-	self.Influent = PlantSystem.in_dll(self.dll, 'Influent')
-	self.Headworks = PlantSystem.in_dll(self.dll, 'Headworks')
-	self.HeadworksOutputValve = PlantSystem.in_dll(self.dll, 'HeadworksOutputValve')
+        self.dll = ct.CDLL('../../build/challenges/Water_Treatment_Facility_Simulator/libCROMU_00048.so')
+	self.Influent = PlantSystem.in_dll(self.dll, 'cgc_Influent')
+	self.Headworks = PlantSystem.in_dll(self.dll, 'cgc_Headworks')
+	self.HeadworksOutputValve = PlantSystem.in_dll(self.dll, 'cgc_HeadworksOutputValve')
 	AspArray = PlantSystem * 5
 	self.cgc_Asp = AspArray.in_dll(self.dll, 'cgc_Asp')
 	self.cgc_AspOutputValve = PlantSystem.in_dll(self.dll, 'cgc_AspOutputValve')
 	FilterArray = PlantSystem * 5
-	self.Filter = FilterArray.in_dll(self.dll, 'Filter')
-	self.FilterOutputValve = PlantSystem.in_dll(self.dll, 'FilterOutputValve')
+	self.Filter = FilterArray.in_dll(self.dll, 'cgc_Filter')
+	self.FilterOutputValve = PlantSystem.in_dll(self.dll, 'cgc_FilterOutputValve')
 	DisinfectionArray = PlantSystem * 5
-	self.Disinfection = DisinfectionArray.in_dll(self.dll, 'Disinfection')
-	self.DisinfectionOutputValve = PlantSystem.in_dll(self.dll, 'DisinfectionOutputValve')
-	self.Effluent = PlantSystem.in_dll(self.dll, 'Effluent')
+	self.Disinfection = DisinfectionArray.in_dll(self.dll, 'cgc_Disinfection')
+	self.DisinfectionOutputValve = PlantSystem.in_dll(self.dll, 'cgc_DisinfectionOutputValve')
+	self.Effluent = PlantSystem.in_dll(self.dll, 'cgc_Effluent')
         SB = ct.c_char * 8192
 	self.StatusBuf = SB.in_dll(self.dll, 'StatusBuf')
 
-        self.InitPlant = self.dll.InitPlant
+        self.InitPlant = self.dll.cgc_InitPlant
         self.InitPlant.argtypes = None
         self.InitPlant.restype = None
 
-        self.RunSimStep = self.dll.RunSimStep
+        self.RunSimStep = self.dll.cgc_RunSimStep
         self.RunSimStep.argtypes = None
         self.RunSimStep.restype = ct.c_ubyte
 
-        self.GetValvePctFlow = self.dll.GetValvePctFlow
+        self.GetValvePctFlow = self.dll.cgc_GetValvePctFlow
         self.GetValvePctFlow.argtypes = [ ct.POINTER(PlantSystem), ct.c_ubyte ]
         self.GetValvePctFlow.restype = ct.c_double
 
-        self.SetValveOutput = self.dll.SetValveOutput
+        self.SetValveOutput = self.dll.cgc_SetValveOutput
         self.SetValveOutput.argtypes = [ ct.POINTER(PlantSystem), ct.c_ubyte, ct.c_double ]
         self.SetValveOutput.restype = None
 
-        self.ChangeAerationPercent = self.dll.ChangeAerationPercent
+        self.ChangeAerationPercent = self.dll.cgc_ChangeAerationPercent
         self.ChangeAerationPercent.argtypes = [ ct.POINTER(PlantSystem), ct.c_double ]
         self.ChangeAerationPercent.restype = ct.c_double
 
-        self.ChangeGlycerinRate = self.dll.ChangeGlycerinRate
+        self.ChangeGlycerinRate = self.dll.cgc_ChangeGlycerinRate
         self.ChangeGlycerinRate.argtypes = [ ct.POINTER(PlantSystem), ct.c_double ]
         self.ChangeGlycerinRate.restype = ct.c_double
 
-        self.ChangeAlumRate = self.dll.ChangeAlumRate
+        self.ChangeAlumRate = self.dll.cgc_ChangeAlumRate
         self.ChangeAlumRate.argtypes = [ ct.POINTER(PlantSystem), ct.c_double ]
         self.ChangeAlumRate.restype = ct.c_double
 
-        self.ChangeNumActiveFilters = self.dll.ChangeNumActiveFilters
+        self.ChangeNumActiveFilters = self.dll.cgc_ChangeNumActiveFilters
         self.ChangeNumActiveFilters.argtypes = [ ct.POINTER(PlantSystem), ct.c_ubyte ]
         self.ChangeNumActiveFilters.restype = None
 
-        self.ChangeChlorineRate = self.dll.ChangeChlorineRate
+        self.ChangeChlorineRate = self.dll.cgc_ChangeChlorineRate
         self.ChangeChlorineRate.argtypes = [ ct.POINTER(PlantSystem), ct.c_double ]
         self.ChangeChlorineRate.restype = None
 
-        self.SetSystemName = self.dll.SetSystemName
+        self.SetSystemName = self.dll.cgc_SetSystemName
         self.SetSystemName.argtypes = [ ct.POINTER(PlantSystem), ct.c_char_p ]
         self.SetSystemName.restype = None
 
-        self.RandomInfluent = self.dll.RandomInfluent
+        self.RandomInfluent = self.dll.cgc_RandomInfluent
         self.RandomInfluent.argtypes = None
         self.RandomInfluent.restype = None
 
-        self.seed_prng = self.dll.seed_prng
+        self.seed_prng = self.dll.cgc_seed_prng
         self.seed_prng.argtypes = [ ct.c_uint ]
         self.seed_prng.restype = None
 
-        self.CheckEffluentQuality = self.dll.CheckEffluentQuality
+        self.CheckEffluentQuality = self.dll.cgc_CheckEffluentQuality
         self.CheckEffluentQuality.argtypes = None
         self.CheckEffluentQuality.restype = None
 
-	self.PrintPlantStatusBuf = self.dll.PrintPlantStatusBuf
+	self.PrintPlantStatusBuf = self.dll.cgc_PrintPlantStatusBuf
 	self.PrintPlantStatusBuf.argtypes = None
 	self.PrintPlantStatusBuf.restype = ct.c_char_p
 
@@ -301,7 +301,7 @@ class MyClass(Actions):
             self.write("{:0.2f}\n".format(GlycerinRate))
             self.CheckAspMenu()
             self.Wtfs.ChangeGlycerinRate(self.Wtfs.cgc_Asp[cgc_Asp], float("{:0.2f}\n".format(GlycerinRate)))
-            
+
             # set the Alum
             self.write("3\n")
             self.read(delim=": ", expect="Which ASP 0-2: ")
@@ -362,7 +362,7 @@ class MyClass(Actions):
         # return to the main menu
         self.write("2\n")
         self.CheckMainMenu()
-            
+
     def CheckValves(self):
         self.comment("CheckValves")
         # run through all of the valves and make sure they're funcitoning
@@ -434,7 +434,7 @@ class MyClass(Actions):
 	self.CheckMainMenu()
 
         # try a sim run and make sure we get a valve check failure if we expect one
-        if ValveCheckFail: 
+        if ValveCheckFail:
             self.write("8\n")
             self.read(delim="\n", expect="A valve's output percentages don't total to at least 100%.  Can't run the simulation.\n")
 	    self.CheckMainMenu()
@@ -467,7 +467,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Headworks, NewName);
 	self.CheckRenameMenu()
-	
+
 	# ASPs
         NewName = self.random_string(2,20)
         self.write("3\n")
@@ -486,7 +486,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.cgc_Asp[1], NewName);
 	self.CheckRenameMenu()
-	
+
         NewName = self.random_string(2,20)
         self.write("3\n")
         self.read(delim=": ", expect="Which ASP 0-2: ")
@@ -495,7 +495,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.cgc_Asp[2], NewName);
 	self.CheckRenameMenu()
-	
+
 	# Filters
         NewName = self.random_string(2,20)
         self.write("4\n")
@@ -514,7 +514,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Filter[1], NewName);
 	self.CheckRenameMenu()
-	
+
         NewName = self.random_string(2,20)
         self.write("4\n")
         self.read(delim=": ", expect="Which Filter 0-2: ")
@@ -523,7 +523,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Filter[2], NewName);
 	self.CheckRenameMenu()
-	
+
 	# Disinfection systems
         NewName = self.random_string(2,20)
         self.write("5\n")
@@ -542,7 +542,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Disinfection[1], NewName);
 	self.CheckRenameMenu()
-	
+
         NewName = self.random_string(2,20)
         self.write("5\n")
         self.read(delim=": ", expect="Which Disinfection system 0-2: ")
@@ -551,7 +551,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Disinfection[2], NewName);
 	self.CheckRenameMenu()
-	
+
 	# Effluent
         NewName = self.random_string(2,20)
         self.write("6\n")
@@ -559,7 +559,7 @@ class MyClass(Actions):
         self.write(NewName + "\n")
 	self.Wtfs.SetSystemName(self.Wtfs.Effluent, NewName);
 	self.CheckRenameMenu()
-	
+
 	# Valves
         NewName = self.random_string(2,20)
         self.write("7\n")
@@ -637,7 +637,7 @@ class MyClass(Actions):
         schematic += "#####################################################################################################################################\n"
 
 	self.read(length=len(schematic), expect=schematic)
-	
+
     def CheckBanner(self):
         banner =  "Welcome to the Wastewater Treatement Plant Simulator\n"
         banner += "###################################################\n"

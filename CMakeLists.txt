@@ -179,6 +179,32 @@ function(buildCB)
     endif()
 endfunction(buildCB)
 
+function(buildSO)
+    if(UNIX)
+        # Build a shared library object for a specific challenge
+        set(LIB_DIR ${cb_path}/lib)
+        set(SRC_DIR ${cb_path}/src)
+        set(INCLUDE_DIR ${cb_path}/include)
+
+        file(GLOB lib_files ${LIB_DIR}/*)
+        file(GLOB src_files ${SRC_DIR}/*)
+        set(LIB_SRCS ${lib_files} ${src_files})
+
+        set(LIB_NAME ${AUTHOR_ID}_${SERVICE_ID})
+        if(APPLE)
+            set(LIB_CGC "${PROJECT_BINARY_DIR}/include/libcgc.dylib")
+        else()
+            set(LIB_CGC "${PROJECT_BINARY_DIR}/include/libcgc.so")
+        endif()
+
+        message("Building shared library (${LIB_NAME}.so)")
+        add_library(${LIB_NAME} SHARED ${LIB_SRCS})
+        target_include_directories(${LIB_NAME} PUBLIC ${LIB_DIR})
+        target_include_directories(${LIB_NAME} PUBLIC ${INCLUDE_DIR})
+        target_link_libraries(${LIB_NAME} ${LIB_CGC})
+    endif()
+endfunction(buildSO)
+
 # More options needed for cbs
 if(NOT WIN32)
     add_compile_options(

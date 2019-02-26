@@ -31,7 +31,7 @@ from struct import *
 class TemplateGenerator(Actions):
 
 	def start(self):
-		
+
 		starting_balance = 10000
 		record_str = pack('HH', 0, starting_balance)
 		self.write(record_str)
@@ -48,7 +48,7 @@ class TemplateGenerator(Actions):
 			dataset['mean'] = oldMean + (priceRelative - oldMean) / dataset['sampleSize']
 			dataset['Q'] =  dataset['Q'] + (priceRelative - oldMean) * (priceRelative - dataset['mean'])
 			dataset['variance'] = dataset['Q'] / dataset['sampleSize']
-			dataset['stdDev'] = math.cgc_sqrt(dataset['variance'])
+			dataset['stdDev'] = math.sqrt(dataset['variance'])
 			record_str = pack('HH', int(record[0]), int(record[1]))
 			self.write(record_str)
 

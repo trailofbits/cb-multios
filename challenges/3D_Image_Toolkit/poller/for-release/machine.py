@@ -42,34 +42,34 @@ class Poller(Actions):
         self.count = 0
 
         # setup ctypes for prng functions
-        self.dll = CDLL('build/patched/so/CROMU_00078.so')
-        self.seed_prng = self.dll.seed_prng
+        self.dll = CDLL('../../build/challenges/3D_Image_Toolkit/libCROMU_00078.so')
+        self.seed_prng = self.dll.cgc_seed_prng
         self.seed_prng.argtypes = [ c_uint ]
         self.seed_prng.restype = None
-        self.random_in_range = self.dll.random_in_range
+        self.random_in_range = self.dll.cgc_random_in_range
         self.random_in_range.argtypes = [ c_uint, c_uint ]
         self.random_in_range.restype = c_uint
-        self.prng = self.dll.prng
+        self.prng = self.dll.cgc_prng
         self.prng.argtypes = [ ]
         self.prng.restype = c_uint
 
-        self.multiply = self.dll.multiply
+        self.multiply = self.dll.cgc_multiply
         self.multiply.argtypes = [ c_double, c_double ]
         self.multiply.restype = c_int
 
-        self.divide = self.dll.divide
+        self.divide = self.dll.cgc_divide
         self.divide.argtypes = [ c_double, c_double ]
         self.divide.restype = c_short
 
-        self.degToRad = self.dll.degree_to_radian
+        self.degToRad = self.dll.cgc_degree_to_radian
         self.degToRad.argtypes = [ c_short ]
         self.degToRad.restype = c_short
 
-        self.cos = self.dll.cosine
+        self.cos = self.dll.cgc_cosine
         self.cos.argtypes = [ c_short ]
         self.cos.restype = c_double
 
-        self.sin = self.dll.sine
+        self.sin = self.dll.cgc_sine
         self.sin.argtypes = [ c_short ]
         self.sin.restype = c_double
 
@@ -201,16 +201,16 @@ class Poller(Actions):
 
         for px in self.file_data:
             if coord[0] is 'x':
-                px['y'] = c_short(multiply(px['y'], cgc_cos(a)) - multiply(px['z'], cgc_sin(a))).value
-                px['z'] = c_short(multiply(px['y'], cgc_sin(a)) + multiply(px['z'], cgc_cos(a))).value
+                px['y'] = c_short(multiply(px['y'], cos(a)) - multiply(px['z'], sin(a))).value
+                px['z'] = c_short(multiply(px['y'], sin(a)) + multiply(px['z'], cos(a))).value
 
             elif coord[0] is 'y':
-                px['x'] = c_short(multiply(px['z'], cgc_sin(a)) + multiply(px['x'], cgc_cos(a))).value
-                px['z'] = c_short(multiply(px['z'], cgc_cos(a)) - multiply(px['x'], cgc_sin(a))).value
+                px['x'] = c_short(multiply(px['z'], sin(a)) + multiply(px['x'], cos(a))).value
+                px['z'] = c_short(multiply(px['z'], cos(a)) - multiply(px['x'], sin(a))).value
 
             elif coord[0] is 'z':
-                px['x'] = c_short(multiply(px['x'], cgc_cos(a)) - multiply(px['y'], cgc_sin(a))).value
-                px['y'] = c_short(multiply(px['x'], cgc_sin(a)) + multiply(px['y'], cgc_cos(a))).value
+                px['x'] = c_short(multiply(px['x'], cos(a)) - multiply(px['y'], sin(a))).value
+                px['y'] = c_short(multiply(px['x'], sin(a)) + multiply(px['y'], cos(a))).value
 
             else:
                 continue

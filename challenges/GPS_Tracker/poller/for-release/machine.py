@@ -22,7 +22,7 @@ class CROMU_GENWORK():
 
 			self.magic_matrix_size = 512
 			while pos < self.magic_matrix_size:
-				self.magic_matrix[pos] = pos	
+				self.magic_matrix[pos] = pos
 				pos += 1
 
 		new_matrix_size = self.magic_matrix_size + 512
@@ -32,10 +32,10 @@ class CROMU_GENWORK():
 		pos = 0
 		generator_pos = 0
 		new_matrix = np.zeros( new_matrix_size, dtype=np.uint32 )
-		magic_page_last = 0	
+		magic_page_last = 0
 		while pos < new_matrix_size:
 			new_matrix[pos] = (self.magic_page[self.magic_page_position] & 0xA5C1B301)
-			new_matrix[pos] = new_matrix[pos] ^ (magic_page_last+(pos+1))	
+			new_matrix[pos] = new_matrix[pos] ^ (magic_page_last+(pos+1))
 
 			self.magic_page_position += 1
 			if ( self.magic_page_position >= self.magic_page_size ):
@@ -43,11 +43,11 @@ class CROMU_GENWORK():
 
 			new_matrix[pos] = new_matrix[pos] ^ self.magic_matrix[generator_pos]
 			magic_page_last = new_matrix[pos]
-				
+
 			generator_pos += 1
 			if ( generator_pos >= self.magic_matrix_size ):
 				generator_pos = 0
-				
+
 			pos += 1
 
 		self.magic_matrix = new_matrix
@@ -127,16 +127,16 @@ class CROMU00071(Actions):
 		deltaLat = lat2Radians - lat1Radians
 		deltaLong = long2Radians - long1Radians
 
-		S = np.cgc_sin(deltaLat/2.0) * np.cgc_sin(deltaLat/2.0) + np.cgc_cos( lat1Radians ) * np.cgc_cos( lat2Radians ) * np.cgc_sin( deltaLong/2.0 ) * np.cgc_sin( deltaLong/2.0 )
-		C = 2.0*np.arctan2( np.cgc_sqrt(S), np.cgc_sqrt(1.0-S) )
+		S = np.sin(deltaLat/2.0) * np.sin(deltaLat/2.0) + np.cos( lat1Radians ) * np.cos( lat2Radians ) * np.sin( deltaLong/2.0 ) * np.sin( deltaLong/2.0 )
+		C = 2.0*np.arctan2( np.sqrt(S), np.sqrt(1.0-S) )
 
-		return (R*C)		
-		
+		return (R*C)
+
 	def PackGPSCoordinates( self, latDeg, latMin, latSec, longDeg, longMin, longSec ):
 		packed_data = ''
-		
+
 		lat_packed_val = (latDeg * 3600) + (latMin * 60) + latSec
-		long_packed_val = (longDeg * 3600) + (longMin * 60) + longSec	
+		long_packed_val = (longDeg * 3600) + (longMin * 60) + longSec
 
 		packed_data += chr( (lat_packed_val >> 16) & 0xFF )
 		packed_data += chr( (lat_packed_val >> 8) & 0xFF )
@@ -147,7 +147,7 @@ class CROMU00071(Actions):
 		packed_data += chr( (long_packed_val & 0xFF) )
 
 		return packed_data
-		
+
 	def GetCRC8( self, data ):
 		crc8 = 0
 		for c in data:
@@ -167,8 +167,8 @@ class CROMU00071(Actions):
 	def GetResponse( self, expect_command_num, expect_command_response, expect_command ):
 		expect_response_header = struct.pack( '<B', expect_command_num ) + struct.pack( '<B', expect_command_response ) + struct.pack( '<H', len(expect_command) )
 		self.read( expect=expect_response_header, length=len(expect_response_header) )
-	
-		if ( len(expect_command) > 0 ):	
+
+		if ( len(expect_command) > 0 ):
 			self.read( expect=expect_command, length=len(expect_command) )
 
 		# Check crc
@@ -219,7 +219,7 @@ class CROMU00071(Actions):
 
 		self.gps_state_on = False
 		self.device_sleep = False
-	
+
 		self.prng = CROMU_GENWORK( np.fromstring( self.magic_page[32:], dtype=np.uint32) )
 
 		self.device_id = self.prng.GetRandomInternal()
@@ -252,7 +252,7 @@ class CROMU00071(Actions):
 
 			command_data_length = random.randint( 0, 255 )
 
-			command_data = ''			
+			command_data = ''
 			for i in range(command_data_length):
 				command_data += chr( random.randint( 0, 255 ) )
 
@@ -274,7 +274,7 @@ class CROMU00071(Actions):
 			if ( do_bad_checksum ):
 				response_data = ''
 				self.GetResponse( command_num, self.COMMAND_RESPONSE_BAD_CHECKSUM, response_data )
-			
+
 			else:
 				# Check sleep
 				if ( self.device_sleep ):
@@ -305,12 +305,12 @@ class CROMU00071(Actions):
 			if ( self.gps_locked ):
 				device_state = self.GPS_STATE_ON
 			else:
-				device_state = self.GPS_STATE_NOT_LOCKED		
+				device_state = self.GPS_STATE_NOT_LOCKED
 		else:
 			device_state = self.GPS_STATE_OFF
- 	
+
 		info_command_data = struct.pack( '<B', device_state ) + struct.pack( '<B', self.battery_level ) + struct.pack( '<I', self.device_id )
-	
+
 		# Get Info
 		info_response_data = self.GetResponse( self.COMMAND_INFO, self.COMMAND_RESPONSE_OK, info_command_data )
 
@@ -318,7 +318,7 @@ class CROMU00071(Actions):
 	def debug(self):
 		correct_debug_token = struct.unpack( '<Q', self.magic_page[0:8] )[0] ^ 0xDEB4370331337A7F
 
-		# Debug access -- available only with magic page data	
+		# Debug access -- available only with magic page data
 		if ( random.randint( 0, 10 ) == 0 ):
 			# Bad access
 			self.comment( "Bad debug token" )
@@ -335,7 +335,7 @@ class CROMU00071(Actions):
 			command_data += struct.pack( '<B', random.randint( 0, 255 ) ) * debug_command_length
 
 			self.SendCommand( self.COMMAND_DEBUG, command_data )
-		
+
 			if ( self.device_sleep ):
 				self.DoSleepResponse( self.COMMAND_DEBUG )
 				return
@@ -346,9 +346,9 @@ class CROMU00071(Actions):
 			return
 
 		# Send correct debug command
-		debug_command_num = random.randint( 0, 2 ) 
+		debug_command_num = random.randint( 0, 2 )
 		debug_command_inner_data = ''
-	
+
 		if ( debug_command_num == 0 ):
 			self.comment( "Debug update battery level" )
 			# Set battery level
@@ -375,17 +375,17 @@ class CROMU00071(Actions):
 			new_device_id = random.randint( 0, 0xFFFFFFFF )
 
 			debug_command_inner_data = struct.pack( '<I', new_device_id )
-	
-			if ( self.device_sleep == False ):	
+
+			if ( self.device_sleep == False ):
 				self.device_id = new_device_id
-		
+
 		debug_command_data = struct.pack( '<Q', correct_debug_token )
 		debug_command_data += struct.pack( '<B', debug_command_num )
 		debug_command_data += struct.pack( '<B', len(debug_command_inner_data) )
 		debug_command_data += debug_command_inner_data
 
 		self.SendCommand( self.COMMAND_DEBUG, debug_command_data )
-	
+
 		if ( self.device_sleep ):
 			self.DoSleepResponse( self.COMMAND_DEBUG )
 			return
@@ -398,10 +398,10 @@ class CROMU00071(Actions):
 	def update_geofence(self):
 		# Perform geofence command
 
-		# Pick an action 
+		# Pick an action
 		geofence_action_type = random.randint( 0, 2 )
 		geofence_point_count = random.randint( 1, 20 )
-		
+
 		if ( random.randint( 0, 50 ) == 0 ):
 			# Send bad action
 			geofence_action_type = random.randint( 3, 255 )
@@ -409,7 +409,7 @@ class CROMU00071(Actions):
 			geofence_command_data = ''
 			geofence_command_data += struct.pack( '<B', geofence_action_type )
 			geofence_command_data += struct.pack( '<B', random.randint( 0, 255 ) )
-			
+
 			geofence_command_data += struct.pack( '<B', random.randint( 0, 255 ) ) * random.randint( 0, 255 )
 
 			self.SendCommand( self.COMMAND_UPDATE_GEOFENCE, geofence_command_data )
@@ -420,15 +420,15 @@ class CROMU00071(Actions):
 
 			response_data = ''
 			self.GetResponse( self.COMMAND_UPDATE_GEOFENCE, self.COMMAND_RESPONSE_INVALID, response_data )
-			
+
 			return
-				
+
 
 		if ( geofence_action_type == 0 ):
 			if ( random.randint( 0, 30 ) == 0 ):
 				# Exceed max points
 				geofence_command = ''
-		
+
 				geofence_point_count = random.randint( 21, 255 )
 
 				geofence_command += struct.pack( '<B', geofence_action_type )
@@ -444,7 +444,7 @@ class CROMU00071(Actions):
 
 				response_data = ''
 				self.GetResponse( self.COMMAND_UPDATE_GEOFENCE, self.COMMAND_RESPONSE_MAX_POINTS, response_data )
-			
+
 				return
 
 			# New points
@@ -466,11 +466,11 @@ class CROMU00071(Actions):
 				geofence_command_data += self.PackGPSCoordinates( new_point[0], new_point[1], new_point[2], new_point[3], new_point[4], new_point[5] )
 
 				point_cur += 1
-		
+
 			# Send command
 			self.SendCommand( self.COMMAND_UPDATE_GEOFENCE, geofence_command_data )
-		
-			# Check for sleep	
+
+			# Check for sleep
 			if ( self.device_sleep ):
 				self.DoSleepResponse( self.COMMAND_UPDATE_GEOFENCE )
 				return
@@ -509,11 +509,11 @@ class CROMU00071(Actions):
 				geofence_command_data += self.PackGPSCoordinates( new_point[0], new_point[1], new_point[2], new_point[3], new_point[4], new_point[5] )
 
 				point_cur += 1
-		
+
 			# Send command
 			self.SendCommand( self.COMMAND_UPDATE_GEOFENCE, geofence_command_data )
-		
-			# Check for sleep	
+
+			# Check for sleep
 			if ( self.device_sleep ):
 				self.DoSleepResponse( self.COMMAND_UPDATE_GEOFENCE )
 				return
@@ -522,13 +522,13 @@ class CROMU00071(Actions):
 			self.geofence_list = new_geofence_list
 
 		elif ( geofence_action_type == 2 ):
-			# Clear points	
+			# Clear points
 			geofence_command_data = ''
 			geofence_command_data += struct.pack( '<B', geofence_action_type )
 			geofence_command_data += struct.pack( '<B', 0 )
 
 			self.SendCommand( self.COMMAND_UPDATE_GEOFENCE, geofence_command_data )
-			
+
 			if ( self.device_sleep ):
 				self.DoSleepResponse( self.COMMAND_UPDATE_GEOFENCE )
 				return
@@ -541,8 +541,8 @@ class CROMU00071(Actions):
 
 			# Exit -- no need to check geofence list as it is empty
 			return
-	
-		# Check GPS state	
+
+		# Check GPS state
 		if ( self.gps_state_on == False ):
 			response_data = ''
 			self.GetResponse( self.COMMAND_UPDATE_GEOFENCE, self.COMMAND_RESPONSE_GPS_OFF, response_data )
@@ -557,13 +557,13 @@ class CROMU00071(Actions):
 
 			if ( distance > point.distance ):
 				response_data = ''
-				response_data += struct.pack( '<B', self.GEOFENCE_RESPONSE_OUT_OF_BOUNDS ) 
+				response_data += struct.pack( '<B', self.GEOFENCE_RESPONSE_OUT_OF_BOUNDS )
 				response_data += self.PackGPSCoordinates( point.latDeg, point.latMin, point.latSec, point.longDeg, point.longMin, point.longSec )
 				response_data += struct.pack( '<I', distance )
 
 				self.GetResponse( self.COMMAND_UPDATE_GEOFENCE, self.COMMAND_RESPONSE_OK, response_data )
 				return
-			
+
 		# Nothing outside of boundsa
 
 		# Getting potentially uninit data, manually receive response
@@ -574,7 +574,7 @@ class CROMU00071(Actions):
 		self.read( length=6 )
 		self.read( expect='\x00\x00\x00\x00', length=4 )
 		self.read( length=1 )
-	
+
 		return
 
 	def position(self):
@@ -590,17 +590,17 @@ class CROMU00071(Actions):
 			if ( self.gps_locked ):
 				device_state = self.GPS_STATE_ON
 			else:
-				device_state = self.GPS_STATE_NOT_LOCKED		
+				device_state = self.GPS_STATE_NOT_LOCKED
 		else:
 			device_state = self.GPS_STATE_OFF
 
 		if ( device_state == self.GPS_STATE_ON ):
 			# Read coordinates
 			packed_coordinates = self.PackGPSCoordinates( self.gps_coords[0], self.gps_coords[1], self.gps_coords[2], self.gps_coords[3], self.gps_coords[4], self.gps_coords[5] )
-			
+
 			response_data = struct.pack( '<B', device_state ) + packed_coordinates
 			self.GetResponse( self.COMMAND_POSITION, self.COMMAND_RESPONSE_OK, response_data )
- 	
+
 		else:
 			header_data = struct.pack( '<B', self.COMMAND_POSITION ) + struct.pack( '<B', self.COMMAND_RESPONSE_OK ) + struct.pack( '<H', 7 )
 
@@ -634,7 +634,7 @@ class CROMU00071(Actions):
 		if ( self.device_sleep ):
 			self.DoSleepResponse( self.COMMAND_GPS_OFF )
 			return
-		
+
 		# Turn off gps
 		self.gps_state_on = False
 
@@ -645,13 +645,13 @@ class CROMU00071(Actions):
 		# Sleep command
 		command_data = ''
 		self.SendCommand( self.COMMAND_SLEEP, command_data )
-	
+
 		if ( self.device_sleep ):
 			self.DoSleepResponse( self.COMMAND_SLEEP )
 			return
 
-		self.device_sleep = True 
-	
+		self.device_sleep = True
+
 		response_data = ''
 		self.GetResponse( self.COMMAND_SLEEP, self.COMMAND_RESPONSE_OK, response_data )
 
@@ -661,9 +661,9 @@ class CROMU00071(Actions):
 		# Wakeup command
 		command_data = ''
 		self.SendCommand( self.COMMAND_WAKEUP, command_data )
-	
+
 		self.device_sleep = False
-	
+
 		response_data = ''
 		self.GetResponse( self.COMMAND_WAKEUP, self.COMMAND_RESPONSE_OK, response_data )
 

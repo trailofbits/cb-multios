@@ -23,15 +23,15 @@ ChurnInitializer = ctypes.POINTER(ChurnInitializerArray)
 class Gyre():
     def __init__(self):
         #self.dll = ctypes.CDLL('build/patched/so/CROMU_90001.so')
-        self.dll = ctypes.CDLL('build/patched/so/CROMU_00020.so')
+        self.dll = ctypes.CDLL('../../build/challenges/Estadio/libCROMU_00020.so')
 
-        self.churn_initialize = self.dll.churn_initialize
+        self.churn_initialize = self.dll.cgc_churn_initialize
         self.churn_initialize.argtypes = [ChurnInitializer]
 
-        self.churn_read_uint32 = self.dll.churn_rand_uint32
+        self.churn_read_uint32 = self.dll.cgc_churn_rand_uint32
         self.churn_read_uint32.restype = ctypes.c_uint
 
-        self.churn_read_uint64 = self.dll.churn_rand_uint64
+        self.churn_read_uint64 = self.dll.cgc_churn_rand_uint64
         self.churn_read_uint64.restype = ctypes.c_ulonglong
     def seed(self, churn_items):
         if len(churn_items) != 4:

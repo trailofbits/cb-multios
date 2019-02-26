@@ -69,13 +69,13 @@ class WordCompletion(Actions):
         srand(strToSeed(self.seedStr))
 
         #seems a bit overkill to read the file again and again no?
-        for l in open("src/words.h") :
+        for l in open("src/cgc_words.h") :
             mat = re.match('"(.+)",', l)
             if mat :
               self.words.append(self.rotN(mat.group(1), self.seed + 1))
 
         self.wincount = 0
- 
+
         self.read(length=len(ENTER_NUM_MSG), expect=ENTER_NUM_MSG)
         self.write(self.seedStr)
         self.gameover = False
@@ -84,7 +84,7 @@ class WordCompletion(Actions):
         r = (rand() % 3) + 2
         s = ""
         i = 0
-     
+
         for c in self.curWord :
             if c in VALID_CHARS and (i % r) == 0 :
                 s += '_'
@@ -113,21 +113,21 @@ class WordCompletion(Actions):
             temp = "%02u\n" % finalchoice
             self.write(temp)
 
-            self.curWord = self.words[finalchoice] 
+            self.curWord = self.words[finalchoice]
             s = self.scramble()
             s += '\n'
             self.read(length=len(s), expect=s)
             return
-  
+
         else :
-            return    
+            return
 
         self.curWord = self.words[rand() % len(self.words)]
 
-        s = self.scramble() 
+        s = self.scramble()
         prompt += s
         prompt += '\n'
-        self.read(length=len(prompt), expect=prompt)            
+        self.read(length=len(prompt), expect=prompt)
 
     def win(self):
         if self.gameover :

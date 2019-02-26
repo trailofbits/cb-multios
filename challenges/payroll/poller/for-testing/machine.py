@@ -39,14 +39,14 @@ class TimecardPollGenerator(Actions):
         self.state['weeks_subset'] = random.sample(range(0,52), random.randint(1,10))
         self.state['id_subset'].sort()
         self.state['weeks_subset'].sort()
-        testlib = ctypes.CDLL('build/patched/so/CROMU_00007.so')
-        self.standardpay = testlib.c_standardpay
+        testlib = ctypes.CDLL('../../build/challenges/payroll/libCROMU_00007.so')
+        self.standardpay = testlib.cgc_c_standardpay
         self.standardpay.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
         self.standardpay.restype = ctypes.c_float
-        self.overtimepay = testlib.c_overtimepay
+        self.overtimepay = testlib.cgc_c_overtimepay
         self.overtimepay.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
         self.overtimepay.restype = ctypes.c_float
-        self.netpay = testlib.c_netpay
+        self.netpay = testlib.cgc_c_netpay
         self.netpay.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
         self.netpay.restype = ctypes.c_float
 
@@ -69,14 +69,14 @@ class TimecardPollGenerator(Actions):
             if (self.state['employees'][id].wagedollars >= 75):
                 self.state['employees'][id].wagedollars = 75
                 self.state['employees'][id].wagecents = 0
-            
+
     def logday(self, day, paycheck):
-       
+
         hours = random.randint(0,25)
-        minutes = random.randint(0,61)  
+        minutes = random.randint(0,61)
         self.write("%s-%dh%dm`" % (day, hours,minutes))
 
-        # Modify hours to match internal bounds checks on CB 
+        # Modify hours to match internal bounds checks on CB
         # max hours 24, max minutes 59
         # minutes rounded to quarter hour
         if (hours > 24):
@@ -110,13 +110,13 @@ class TimecardPollGenerator(Actions):
         for id in self.state['id_subset']:
             for week in self.state['weeks_subset']:
                 self.write("employee_id-{}`week-{}`".format(id, week))
-                if self.chance(0.9):    
+                if self.chance(0.9):
                     self.logday("monday", self.state['employees'][id].paychecks[week])
-                if self.chance(0.01):    
+                if self.chance(0.01):
                     self.logday("monday", self.state['employees'][id].paychecks[week])
                 if self.chance(0.9):
                     self.logday("tuesday", self.state['employees'][id].paychecks[week])
-                if self.chance(0.01):   
+                if self.chance(0.01):
                     self.logday("tuesday", self.state['employees'][id].paychecks[week])
                 if self.chance(0.9):
                     self.logday("wednesday", self.state['employees'][id].paychecks[week])
@@ -147,7 +147,7 @@ class TimecardPollGenerator(Actions):
                 else:
                     paycheck.overtimepay = self.overtimepay(paycheck.overtimehours, paycheck.overtimeminutes, employee.wagedollars, employee.wagecents, 0)
 
-   
+
     def get_response(self, id, week):
         employee = self.state['employees'][id]
         pay = employee.paychecks[week]
@@ -155,7 +155,7 @@ class TimecardPollGenerator(Actions):
             netpay = self.netpay(pay.standardhours, pay.standardminutes, pay.overtimehours, pay.overtimeminutes, employee.wagedollars, employee.wagecents, 1)
         else:
             netpay = self.netpay(pay.standardhours, pay.standardminutes, pay.overtimehours, pay.overtimeminutes, employee.wagedollars, employee.wagecents, 0)
-    
+
         response = "employee-{}`week-{}`standardtime-{pay.standardhours}h{pay.standardminutes}m`overtime-{pay.overtimehours}h{pay.overtimeminutes}m`standardpay-${pay.standardpay:,.2f}`overtimepay-${pay.overtimepay:,.2f}`netpay-${netpay:,.2f}`\n".format(self.state['employees'][id].name, week, pay=pay, netpay=netpay)
         return response
 

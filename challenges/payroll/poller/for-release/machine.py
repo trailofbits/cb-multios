@@ -36,15 +36,15 @@ class TimecardPollGenerator(Actions):
             self.state['employees'].append(Employee())
         # Generate a random list of employee id's from 1 to 10 elements long. The generator will create inputs for those employees only.
         self.state['id_subset'] = random.sample(range(0,self.NUMBER_OF_EMPLOYEES), random.randint(1,10))
-        
-        testlib = ctypes.CDLL('build/patched/so/CROMU_00007.so')
-        self.standardpay = testlib.c_standardpay
+
+        testlib = ctypes.CDLL('../../build/challenges/payroll/libCROMU_00007.so')
+        self.standardpay = testlib.cgc_c_standardpay
         self.standardpay.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
         self.standardpay.restype = ctypes.c_float
-        self.overtimepay = testlib.c_overtimepay
+        self.overtimepay = testlib.cgc_c_overtimepay
         self.overtimepay.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
         self.overtimepay.restype = ctypes.c_float
-        self.netpay = testlib.c_netpay
+        self.netpay = testlib.cgc_c_netpay
         self.netpay.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
         self.netpay.restype = ctypes.c_float
 
@@ -61,18 +61,18 @@ class TimecardPollGenerator(Actions):
                 self.state['employees'][id].wagecents = random.randint(0, 99)
             self.write("employee_id-{a.id}`employee_name-{a.name}`wage-{a.wagedollars}.{a.wagecents:02}`\n".format(a=self.state['employees'][id]))
 
-   
+
     def week(self):
         self.state['week'] = random.randint(0,51)
         self.write("week-%d`" % self.state['week'])
 
     def logday(self, day, paycheck):
-       
+
         if self.chance(0.85):
             hours = random.randint(0,8)
         else:
             hours = random.randint(0,24)
-        minutes = random.randint(0,59)  
+        minutes = random.randint(0,59)
         self.write("%s-%dh%dm`" % (day, hours,minutes))
         if (minutes < 8):
             minutes = 0
@@ -100,7 +100,7 @@ class TimecardPollGenerator(Actions):
         for id in self.state['id_subset']:
             for week in range(0,52):
                 self.write("employee_id-{}`week-{}`".format(id, week))
-                if self.chance(0.9):    
+                if self.chance(0.9):
                     self.logday("monday", self.state['employees'][id].paychecks[week])
                 if self.chance(0.9):
                     self.logday("tuesday", self.state['employees'][id].paychecks[week])

@@ -4,7 +4,7 @@ from generator.actions import Actions,Variable
 import random
 import string
 import struct
-import pdb 
+import pdb
 import ctypes
 
 class PollGenerator(Actions):
@@ -19,14 +19,14 @@ class PollGenerator(Actions):
         return s
   def init_prng(self):
         #setup prng
-        self.prng = ctypes.CDLL('build/patched/so/CROMU_00098.so')
-        self.seed_prng = self.prng.seed_prng
+        self.prng = ctypes.CDLL('../../build/challenges/REMATCH_2--Mail_Server--Crackaddr/libCROMU_00098.so')
+        self.seed_prng = self.prng.cgc_seed_prng
         self.seed_prng.argtypes = [ctypes.c_uint]
         self.seed_prng.restype = None
-        self.random_in_range = self.prng.random_in_range
+        self.random_in_range = self.prng.cgc_random_in_range
         self.random_in_range.argtypes = [ctypes.c_uint, ctypes.c_uint]
         self.random_in_range.restype = ctypes.c_uint
-        self.call_prng = self.prng.prng
+        self.call_prng = self.prng.cgc_prng
         self.call_prng.argtypes = []
         self.call_prng.restype = ctypes.c_uint
         self.seed_prng(ctypes.c_uint(struct.unpack('<L', self.magic_page[0:4])[0]))
@@ -86,7 +86,7 @@ class PollGenerator(Actions):
       if self.count > 5:
           self.sendmail_quit()
           return -1
-  
+
   def sendmail_ADDRESSBOOK(self):
       self.write("ADDRESSBOOK\n")
       self.read(delim='\n', expect="Address Book:")
@@ -154,7 +154,7 @@ class PollGenerator(Actions):
 
     while (addr[addrp] == ' '):
         addrp+=1
-    
+
     inA = False
     inC = False
     Blevel = 0
@@ -185,7 +185,7 @@ class PollGenerator(Actions):
         if (inA):
           inA = False
           endp+=1
-      
+
       if (c == 'B'):
         Blevel+=1
         if (not full):
@@ -207,7 +207,7 @@ class PollGenerator(Actions):
 
       if ((c == 'C') and (not inC)):
         inC = True
-        
+
       if ((c == 'c') and (inC)):
         inC = False
         endp+=1

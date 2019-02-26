@@ -7,7 +7,7 @@ import ctypes as ct
 import sys
 
 class MyClass(Actions):
-    
+
     def start(self):
         # init some vars
 	#self.delay(100)
@@ -17,11 +17,11 @@ class MyClass(Actions):
         self.CommandCount = 0
 
         # setup ctypes for prng functions
-        self.dll = ct.CDLL('build/patched/so/CROMU_00051.so')
-        self.seed_prng = self.dll.seed_prng
+        self.dll = ct.CDLL('../../build/challenges/Lazybox/libCROMU_00051.so')
+        self.seed_prng = self.dll.cgc_seed_prng
         self.seed_prng.argtypes = [ ct.c_uint ]
         self.seed_prng.restype = None
-        self.random_in_range = self.dll.random_in_range
+        self.random_in_range = self.dll.cgc_random_in_range
         self.random_in_range.argtypes = [ ct.c_uint, ct.c_uint ]
         self.random_in_range.restype = ct.c_uint
 
@@ -105,7 +105,7 @@ class MyClass(Actions):
         # if we're not the root user, su to root
 	if self.User is not "root":
             self.TestChuserRoot()
-        
+
         # create a new user
 	new_user = self.random_string(self.UserNameLen,self.UserNameLen)
         self.UserNameLen += 1
@@ -232,7 +232,7 @@ class MyClass(Actions):
 	self.ReadPrompt()
         buf = "print "+rnd_str
         self.read(length=len(buf), expect=buf)
-        
+
         # up arrow again to get back to the first command
         self.write("\x1b\x5b\x41")
         self.EraseLine(0)
@@ -248,7 +248,7 @@ class MyClass(Actions):
         self.CommandCount += 1
 	self.ReadPrompt()
 
-        # up arrow, then down arrow to make sure that returns us to 
+        # up arrow, then down arrow to make sure that returns us to
         # an empty prompt
         # up
         self.write("\x1b\x5b\x41")

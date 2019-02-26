@@ -7,12 +7,12 @@ import random
 
 class TSim:
 	def __init__(self):
-		self.dll = ct.CDLL('build/patched/so/CROMU_00029.so')
+		self.dll = ct.CDLL('../../build/challenges/Material_Temperature_Simulation/libCROMU_00029.so')
 
 		# variables for size of the material
-		self.X = ct.c_uint32.in_dll(self.dll, 'X')
-		self.Y = ct.c_uint32.in_dll(self.dll, 'Y')
-		self.Z = ct.c_uint32.in_dll(self.dll, 'Z')
+		self.X = ct.c_uint32.in_dll(self.dll, 'cgc_X')
+		self.Y = ct.c_uint32.in_dll(self.dll, 'cgc_Y')
+		self.Z = ct.c_uint32.in_dll(self.dll, 'cgc_Z')
 
 		# TimeStep between simulation calculations
 		self.TimeStep = ct.c_double.in_dll(self.dll, 'TimeStep')
@@ -21,52 +21,52 @@ class TSim:
 		self.SIM_TIME = ct.c_double.in_dll(self.dll, 'SIM_TIME')
 
 		# Function to run one calculation step
-		self.SimStep = self.dll.SimStep;
+		self.SimStep = self.dll.cgc_SimStep;
 		self.SimStep.argtypes = None
 		self.SimStep.restype = ct.c_int32
 
 		# Function to allocate a new grid
-		self.AllocateGrid = self.dll.AllocateGrid;
+		self.AllocateGrid = self.dll.cgc_AllocateGrid;
 		self.AllocateGrid.restype = ct.c_int
 
 		# Function to average a block of array values
-		self.TGridAverage = self.dll.TGridAverage;
+		self.TGridAverage = self.dll.cgc_TGridAverage;
 		self.TGridAverage.argtypes = [ ct.c_uint32, ct.c_uint32, ct.c_uint32, ct.c_uint32, ct.c_uint32, ct.c_uint32, ct.c_uint32 ]
 		self.TGridAverage.restype = ct.c_double
 
 		# Functions to init materials
-		self.InitAir = self.dll.InitAir
+		self.InitAir = self.dll.cgc_InitAir
 		self.InitAir.argtypes = None
 		self.InitAir.restype = None
-		self.InitAluminum = self.dll.InitAluminum;
+		self.InitAluminum = self.dll.cgc_InitAluminum;
 		self.InitAluminum.argtypes = None
 		self.InitAluminum.restype = None
-		self.InitCopper = self.dll.InitCopper
+		self.InitCopper = self.dll.cgc_InitCopper
 		self.InitCopper.argtypes = None
 		self.InitCopper.restype = None
-		self.SetTC = self.dll.SetTC
+		self.SetTC = self.dll.cgc_SetTC
 		self.SetTC.argtypes = [ ct.c_uint32, ct.c_char_p ]
 		self.SetTC.restype = None
-		self.SetHC = self.dll.SetHC
+		self.SetHC = self.dll.cgc_SetHC
 		self.SetHC.argtypes = [ ct.c_uint32, ct.c_char_p ]
 		self.SetHC.restype = None
 
 		# Increment simulation time
-		self.IncrementTimestep = self.dll.IncrementTimestep
+		self.IncrementTimestep = self.dll.cgc_IncrementTimestep
 		self.IncrementTimestep.argtypes = [ ct.POINTER(ct.c_double) ]
 		self.IncrementTimestep.restype = None
 
 		# Store value into a Temperature grid location
-		self.StoreTemp = self.dll.StoreTemp
+		self.StoreTemp = self.dll.cgc_StoreTemp
 		self.StoreTemp.argtypes = [ ct.POINTER(ct.c_double), ct.c_uint32, ct.c_uint32, ct.c_uint32, ct.c_char_p ]
 		self.StoreTemp.restype = ct.c_uint32
 
 		# Function to calculate the best timestep
 		self.TimeStep = ct.c_double.in_dll(self.dll, 'TimeStep')
-		self.CalcTimeStep = self.dll.CalcTimeStep;
+		self.CalcTimeStep = self.dll.cgc_CalcTimeStep;
 
 		# Function to generate an output string using CB libraries
-		self.output_str = self.dll.output_str
+		self.output_str = self.dll.cgc_output_str
 		self.output_str.argtypes = [ ct.c_uint32, ct.c_uint32, ct.c_char_p ]
 		self.output_str.restype = None
 
@@ -79,10 +79,10 @@ class TSim:
 		self.Z.value = Z
 
 		# allocate space to hold the array
-		self.TGrid = ct.POINTER(ct.c_double).in_dll(self.dll, "TGrid")
+		self.TGrid = ct.POINTER(ct.c_double).in_dll(self.dll, "cgc_TGrid")
 		self.AllocateGrid(ct.byref(self.TGrid), X,Y,Z)
 
-		self.HGrid = ct.POINTER(ct.c_double).in_dll(self.dll, "HGrid")
+		self.HGrid = ct.POINTER(ct.c_double).in_dll(self.dll, "cgc_HGrid")
 		self.AllocateGrid(ct.byref(self.HGrid), X,Y,Z)
 
 	def SetTemp(self, x, y, z, buf):
@@ -177,7 +177,7 @@ class MyClass(Actions):
 						temp_text = "%0.5f" % temp
 						self.Sim.SetTemp(x, y, z, temp_text)
 		else:
-			# not isothermic 
+			# not isothermic
 			self.write('n\n')
 
 			# manually defined
@@ -193,7 +193,7 @@ class MyClass(Actions):
 						temp_text = "%0.5f" % temp
 						self.Sim.SetTemp(x, y, z, temp_text)
 			self.write('\n')
-		
+
 		# setup energy sources
 		self.read(delim=': ', expect='Are there any constant energy sources in the room? (y,n): ')
 		if (random.randint(0,1) == 1):
@@ -242,18 +242,18 @@ class MyClass(Actions):
 		# output array
 		output = [[0 for x in range(10)] for y in range(10)]
 
-		# read the clear screen 
+		# read the clear screen
 		self.read(length=7, expect='\033[2J\033[H')
 
 		countx = int(self.Sim.X.value/10.0)+1
 		county = int(self.Sim.Y.value/10.0)+1
-		
+
 		for z in range(0, self.Sim.Z.value):
 			self.read(delim='\n', expect='z: %d\n' % z);
-			
+
 			starty = 0
 			y = 0
-	
+
 			while (starty < self.Sim.Y.value):
 				startx = 0
 				x = 0
@@ -275,7 +275,7 @@ class MyClass(Actions):
 
 				self.read(delim='\n', expect=outstring+'\n')
 			self.read(delim='\n', expect='\n')
-					
+
 	def RunSimulation(self):
 
 		self.ReadGraphTemps2()

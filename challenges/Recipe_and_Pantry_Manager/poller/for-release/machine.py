@@ -11,12 +11,12 @@ def rs( length ):
 class CROMU00087(Actions):
 	def start(self):
 		#self.delay(100)
-		self.dll = ct.CDLL('build/patched/so/CROMU_00087.so')
-		self.multiply = self.dll.multiply
+		self.dll = ct.CDLL('../../build/challenges/Recipe_and_Pantry_Manager/libCROMU_00087.so')
+		self.multiply = self.dll.cgc_multiply
 		self.multiply.argtypes = (ct.c_double, ct.c_double)
 		self.multiply.restype = ct.c_double
 
-		self.add = self.dll.add
+		self.add = self.dll.cgc_add
 		self.add.argtypes = (ct.c_double, ct.c_double)
 		self.add.restype = ct.c_double
 
@@ -35,7 +35,7 @@ class CROMU00087(Actions):
 		## Init pantry array
 		for _ in range(128):
 			self.pantries.append([])
-		
+
 		self.ingredients = []
 
 		## Generate some ingredients
@@ -235,7 +235,7 @@ class CROMU00087(Actions):
 		self.read(delim=': ', expect="Enter recipe name: ")
 
 		new_recipe = []
-		
+
 		new_recipe.append(rs( random.randint(5,10)))
 
 		self.write( new_recipe[0] + '\n')
@@ -344,7 +344,7 @@ class CROMU00087(Actions):
 			if r or self.recipe_count == 512:
 				self.write(str( random.randint(520, 550) ) + '\n')
 				self.read( delim='\n', expect='[ERROR] Must be between 1 and 512\n')
-				return 
+				return
 			else:
 				## find the first empty
 				i = 0
@@ -434,7 +434,7 @@ class CROMU00087(Actions):
 				t = ct.c_double( self.multiply( a, b))
 
 				total = ct.c_double( self.add( total, t) )
- 
+
 			self.read(delim='\n', expect='\t%d) %s - $%.5f\n' %(i+1, self.recipes[i][0], total.value))
 
 	def list_all( self ):
@@ -692,7 +692,7 @@ class CROMU00087(Actions):
 
 	def pantry(self):
 		self.write('2\n')
-	
+
 	def leave_pantry(self):
 		self.write( '6\n')
 		self.read(delim='\n', expect='Leave.\n')
@@ -925,7 +925,7 @@ class CROMU00087(Actions):
 				t = ct.c_double( self.multiply( a, b))
 
 				total = ct.c_double( self.add( total, t) )
- 
+
  			if total.value <= float(amnt):
  				self.read(delim='\n', expect='\t%d) %s\n' %(i+1, self.recipes[i][0]))
 

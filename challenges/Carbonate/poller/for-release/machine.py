@@ -18,21 +18,21 @@ class ScrambleItem(ctypes.Union):
 
 class Scrambler():
     def __init__(self):
-        self.dll = ctypes.CDLL('build/patched/so/CROMU_00028.so')
+        self.dll = ctypes.CDLL('../../build/challenges/Carbonate/libCROMU_00028.so')
 
         self.initialize_phases()
     def initialize_phases(self):
         self.phases = list(xrange(8))
         scramble_args = [ScrambleItem, ScrambleItem]
         for i in xrange(8):
-            f = self.dll.__getattr__('phase_'+str(i))
+            f = self.dll.__getattr__('cgc_phase_'+str(i))
             f.argtypes = scramble_args
             f.restype = ScrambleItem
             self.phases[i] = f
 
 class Carbonate(Actions):
     cell_count = 4096 * 2**3
-    
+
     def start(self):
         self.p = Protocol()
         self.s = Scrambler()

@@ -26,11 +26,11 @@ class MyClass(Actions):
         self.RESP_RENAME_FAILED         = "\x05"
         self.RESP_TOO_MANY_OPEN_FILES   = "\x06"
 
-        self.dll = ct.CDLL('build/patched/so/CROMU_00055.so')
-        self.seed_prng = self.dll.seed_prng
+        self.dll = ct.CDLL('../../build/challenges/Network_File_System/libCROMU_00055.so')
+        self.seed_prng = self.dll.cgc_seed_prng
         self.seed_prng.argtypes = [ ct.c_uint ]
         self.seed_prng.restype = None
-        self.random_in_range = self.dll.random_in_range
+        self.random_in_range = self.dll.cgc_random_in_range
         self.random_in_range.argtypes = [ ct.c_uint, ct.c_uint ]
         self.random_in_range.restype = ct.c_uint
 
@@ -182,7 +182,7 @@ class MyClass(Actions):
     # Write Tests
     #############################
     def TestWrite(self):
-        # check if we're at the max number of files 
+        # check if we're at the max number of files
         if self.MaxFiles is not len(self.Files.keys()):
             # success
             self.comment("Successful write attempt")
@@ -237,7 +237,7 @@ class MyClass(Actions):
             inode = choice(self.Files.keys())
             while inode is 0:
                 inode = choice(self.Files.keys())
-    
+
             # Append some bytes to it
             filename = self.Files[inode][0]
             string = self.random_string(1,10)
@@ -333,7 +333,7 @@ class MyClass(Actions):
                 filename = self.random_string(1,10)
             string = self.random_string(1,254)
             self.SendWrite(filename, string, self.RESP_SUCCESS)
-            
+
         # are we going for a success or failure?
         if randint(0,1):
             # success
@@ -366,8 +366,8 @@ class MyClass(Actions):
                     newfilename = self.random_string(1,10)
 
                 self.SendRename(oldfilename, newfilename, self.RESP_RENAME_FAILED)
-            else: 
-                # pick a valid source file 
+            else:
+                # pick a valid source file
                 oldinode = choice(self.Files.keys())
                 while oldinode is 0:
                     oldinode = choice(self.Files.keys())

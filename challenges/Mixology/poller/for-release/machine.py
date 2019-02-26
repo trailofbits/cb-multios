@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (C) 2014 
+# Copyright (C) 2014
 #   Brian Caswell <bmc@lungetech.com>
 #   Narf Industries <info@narfindustries.com>
 #
@@ -59,8 +59,8 @@ class Mixology(Actions):
 
 	def start(self):
 		self.state[self.s_prep_k] = self.maxcmds_for_expensive
-        self.state[self.s_mix_k] = self.maxcmds_for_expensive
-		
+		self.state[self.s_mix_k] = self.maxcmds_for_expensive
+
         #x = self._wrap("delay", "100")
 		#self._actions.append(x)
 

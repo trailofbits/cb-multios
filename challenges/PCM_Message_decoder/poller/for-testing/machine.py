@@ -49,7 +49,7 @@ class Wav(Actions):
 	def gen_tone(self, intervals):
 		tone = ''
 		for i in range(0, samples_per_dot*intervals):
-			tone += pack('<h', 20000*cgc_sin(2*3.14159*freq*i/44100))
+			tone += pack('<h', 20000*sin(2*3.14159*freq*i/44100))
 		return tone
 
 	def gen_silence(self, intervals):
@@ -64,7 +64,7 @@ class Wav(Actions):
 		header += pack("<L", data_len)    # DataSize
 		header += pack("<L", num_samples) # NumSamples
 		return header
-		
+
 	def gen_pcm(self, str, dot_len_ms):
 		global samples_per_dot
 		samples_per_dot = int(44100*(dot_len_ms/1000.0))
@@ -80,7 +80,7 @@ class Wav(Actions):
 				continue
 
 			if not c in lang.keys():
-				sys.cgc_stderr.write("Invalid char "+c+"\n")
+				sys.stderr.write("Invalid char "+c+"\n")
 				sys.exit(-1)
 
 			code_len = len(lang[c])
@@ -99,7 +99,7 @@ class Wav(Actions):
 					num_samples += 1*samples_per_dot
 
 			# append inter-character pause if there are more characters
-			if (i < str_len-1) and (str[i+1] != ' '): 
+			if (i < str_len-1) and (str[i+1] != ' '):
 				pcm_data += self.gen_silence(3)
 				num_samples += 3*samples_per_dot
 
