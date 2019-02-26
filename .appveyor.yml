@@ -27,7 +27,7 @@ install:
   - cmake --version
 
   # Clang-cl
-  - set PATH="C:\Program Files\LLVM\bin";%PATH%
+  - set PATH="C:\Program Files (x86)\LLVM\bin";%PATH%
   - clang-cl -v
 
 before_build:

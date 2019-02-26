@@ -1,6 +1,6 @@
 [CmdletBinding()]
 
-# $ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Stop'
 
 $DIR = $PSScriptRoot
 $TOOLS = "$DIR\tools"
@@ -15,7 +15,5 @@ mkdir "${DIR}\build"
 cd "${DIR}\build"
 
 "Creating Makefiles"
-set CFLAGS=-m32
-set CXXFLAGS=-m32
 cmake -GNinja -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl ..
-cmake --build .
+ninja
