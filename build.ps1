@@ -3,7 +3,7 @@ param (
     [switch] $msvc
 )
 
-$ErrorActionPreference = 'Stop'
+# $ErrorActionPreference = 'Stop'
 
 $DIR = $PSScriptRoot
 $TOOLS = "$DIR\tools"
