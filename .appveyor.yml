@@ -31,7 +31,7 @@ install:
   - clang-cl -v
 
 before_build:
-  - call "%MSVC_HOME%\VC\Auxiliary\Build\vcvarsall.bat" x64
+  - call "%MSVC_HOME%\VC\Auxiliary\Build\vcvarsall.bat" x86
   - python -m pip install xlsxwriter pycryptodome pypiwin32
   - cd C:\projects\cb-multios
 
