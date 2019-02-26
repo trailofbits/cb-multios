@@ -19,7 +19,7 @@ cd "${DIR}\build"
 
 "Creating Makefiles"
 $CMAKE_ARCH = '-AWin32'
-$CMAKE_OPTS = '-GNinja','-DCMAKE_C_COMPILER=clang-cl','-DCMAKE_CXX_COMPILER=clang-cl'
+$CMAKE_OPTS = '-G "Visual Studio 15 2017"','-DCMAKE_C_COMPILER=clang-cl','-DCMAKE_CXX_COMPILER=clang-cl'
 if ($msvc) {
     $CMAKE_OPTS = ""
 }
