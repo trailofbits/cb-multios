@@ -18,7 +18,7 @@ mkdir "${DIR}\build"
 cd "${DIR}\build"
 
 "Creating Makefiles"
-$CMAKE_OPTS = '-GNinja','-DCMAKE_CXX_COMPILER=clang-cl'
+$CMAKE_OPTS = '-GNinja','-DCMAKE_C_COMPILER=clang-cl','-DCMAKE_CXX_COMPILER=clang-cl'
 if ($msvc) {
     $CMAKE_OPTS = ""
 }
