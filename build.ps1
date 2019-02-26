@@ -1,7 +1,4 @@
 [CmdletBinding()]
-param (
-    [switch] $msvc
-)
 
 # $ErrorActionPreference = 'Stop'
 
@@ -18,5 +15,7 @@ mkdir "${DIR}\build"
 cd "${DIR}\build"
 
 "Creating Makefiles"
-cmake -G "Visual Studio 15 2017" -A Win32 -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl ..
+set CFLAGS=-m32
+set CXXFLAGS=-m32
+cmake -GNinja -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl ..
 cmake --build .
