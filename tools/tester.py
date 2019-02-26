@@ -13,6 +13,7 @@ from common import debug, listdir
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(TOOLS_DIR)
 CHAL_DIR = os.path.join(ROOT, 'challenges')
+POLL_DIR = os.path.join(ROOT, 'polls')
 BUILD_DIR = os.path.join(ROOT, 'build', 'challenges')
 
 IS_WINDOWS = sys.platform == 'win32'
@@ -49,7 +50,7 @@ class Tester:
         # Directories used in testing
         self.chal_dir = os.path.join(CHAL_DIR, self.name)
         self.bin_dir = os.path.join(BUILD_DIR, self.name)
-        self.poll_dir = os.path.join(self.chal_dir, 'poller')
+        self.poll_dir = os.path.join(POLL_DIR, chal_name, 'poller')
 
         # Keep track of success
         self.povs = Score()
@@ -167,9 +168,12 @@ class Tester:
         # Test POLLs
         if Tester.polls_enabled:
             debug('POLL:\n')
-            for subdir in listdir(self.poll_dir):
-                debug('\t{}:\t'.format(subdir))
-                self.run_against_dir(os.path.join(self.poll_dir, subdir), self.polls)
+            if not os.path.isdir(self.poll_dir):
+                debug("\tPoll directory doesn't exist:\t{}\n".format(self.poll_dir))
+            else:
+                for subdir in listdir(self.poll_dir):
+                    debug('\t{}:\t'.format(subdir))
+                    self.run_against_dir(os.path.join(self.poll_dir, subdir), self.polls)
         debug('Done testing {} => Passed {}/{} tests\n'.format(self.name, self.passed, self.total))
 
 
