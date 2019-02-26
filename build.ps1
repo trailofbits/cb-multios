@@ -1,3 +1,5 @@
+$ErrorActionPreference = 'Stop'
+
 [CmdletBinding()]
 param (
     [switch] $msvc

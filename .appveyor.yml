@@ -1,4 +1,5 @@
 environment:
+  PYTHON: "C:\\Python27-x64"
   NINJA_URL: "https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-win.zip"
   CMAKE_URL: "https://cmake.org/files/v3.14/cmake-3.14.0-rc1-win64-x64.zip"
   MSVC_HOME: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community"
@@ -7,6 +8,9 @@ os:
   - Visual Studio 2017
 
 install:
+  # Python
+  - set PATH=%PYTHON%;%PATH%
+
   # Get Ninja
   - appveyor DownloadFile %NINJA_URL% -FileName ninja.zip
   - 7z x ninja.zip -oC:\ninja > nul
@@ -25,6 +29,7 @@ install:
 
 before_build:
   - call "%MSVC_HOME%\VC\Auxiliary\Build\vcvarsall.bat" x64
+  - python -m pip install xlsxwriter pycrypto
   - cd C:\projects\cb-multios
 
 build_script:
