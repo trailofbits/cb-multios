@@ -38,11 +38,11 @@ The following steps will build both the patched and unpatched binaries in `build
 The following packages are required for building the challenges on Linux:
 
 ```
-libc6-dev
-libc6-dev-i386
-gcc-multilib
-g++-multilib
-clang-3.8 (or higher)
+libc6-dev libc6-dev-i386 gcc-multilib g++-multilib clang cmake
+```
+
+```
+sudo pip install xlsxwriter pycrypto defusedxml pyyaml matplotlib
 ```
 
 To build all challenges, run:
