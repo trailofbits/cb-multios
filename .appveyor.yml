@@ -28,6 +28,4 @@ before_build:
   - cd C:\projects\cb-multios
 
 build_script:
-  - ps: |
-      $ErrorActionPreference = "Stop";
-      .\build.ps1
+  - ps: .\build.ps1
