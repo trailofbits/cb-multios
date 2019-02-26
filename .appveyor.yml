@@ -27,11 +27,12 @@ install:
   - cmake --version
 
   # Clang-cl
-  - ls %programfiles(x86)%
-  - ls %programfiles%
+  - ls "%programfiles(x86)%"
+  - ls "%programfiles%"
   - set PATH=%programfiles(x86)%\LLVM\bin;%PATH%
   - clang-cl -v
-  - ls %programfiles(x86)%\LLVM
+  - echo %PATH%
+  - ls "%programfiles(x86)%"\LLVM
 
 before_build:
   - call "%MSVC_HOME%\VC\Auxiliary\Build\vcvarsall.bat" x86
