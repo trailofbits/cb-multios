@@ -42,7 +42,7 @@ libc6-dev libc6-dev-i386 gcc-multilib g++-multilib clang cmake
 ```
 
 ```
-sudo pip install xlsxwriter pycrypto defusedxml
+sudo pip install xlsxwriter pycrypto defusedxml pyyaml matplotlib
 ```
 
 To build all challenges, run:
