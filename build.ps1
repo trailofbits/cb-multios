@@ -23,5 +23,5 @@ if ($msvc) {
     $CMAKE_OPTS = ""
 }
 
-cmake "$CMAKE_OPTS" ..
+cmake $CMAKE_OPTS ..
 cmake --build .
