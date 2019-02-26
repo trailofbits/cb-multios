@@ -18,10 +18,11 @@ mkdir "${DIR}\build"
 cd "${DIR}\build"
 
 "Creating Makefiles"
+$CMAKE_ARCH = '-AWin32'
 $CMAKE_OPTS = '-GNinja','-DCMAKE_C_COMPILER=clang-cl','-DCMAKE_CXX_COMPILER=clang-cl'
 if ($msvc) {
     $CMAKE_OPTS = ""
 }
 
-cmake $CMAKE_OPTS ..
+cmake $CMAKE_ARCH $CMAKE_OPTS ..
 cmake --build .
