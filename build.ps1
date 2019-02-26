@@ -15,10 +15,10 @@ mkdir "${DIR}\build"
 cd "${DIR}\build"
 
 "Creating Makefiles"
-$CMAKE_OPTS = "-D CLANGCL:BOOL=TRUE -T LLVM-vs2014"
+$CMAKE_OPTS = "-GNinja -DCMAKE_CXX_COMPILER=clang-cl"
 if ($msvc) {
     $CMAKE_OPTS = ""
 }
 
 Start-Process cmake -NoNewWindow -Wait -ArgumentList "$CMAKE_OPTS .."
-cmake --build . -- /m
+cmake --build .
