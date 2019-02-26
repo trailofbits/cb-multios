@@ -23,8 +23,11 @@ init:
   - set PATH="C:\Program Files\LLVM\bin";%PATH%
   - clang-cl -v
 
-build:
+before_build:
   - call "%MSVC_HOME%\VC\Auxiliary\Build\vcvarsall.bat" x64
+  - cd C:\projects\cb-multios
+
+build_script:
   - ps build.ps1
 
 test: off
