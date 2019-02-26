@@ -1,9 +1,9 @@
-$ErrorActionPreference = 'Stop'
-
 [CmdletBinding()]
 param (
     [switch] $msvc
 )
+
+$ErrorActionPreference = 'Stop'
 
 $DIR = $PSScriptRoot
 $TOOLS = "$DIR\tools"
