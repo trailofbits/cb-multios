@@ -23,10 +23,8 @@ init:
   - set PATH="C:\Program Files\LLVM\bin";%PATH%
   - clang-cl -v
 
-before_build:
-  - call "%MSVC_HOME%\VC\Auxiliary\Build\vcvarsall.bat" x64
-
 build:
-  ps build.ps1
+  - call "%MSVC_HOME%\VC\Auxiliary\Build\vcvarsall.bat" x64
+  - ps build.ps1
 
 test: off
