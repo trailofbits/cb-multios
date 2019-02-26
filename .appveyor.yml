@@ -29,7 +29,7 @@ install:
 
 before_build:
   - call "%MSVC_HOME%\VC\Auxiliary\Build\vcvarsall.bat" x64
-  - python -m pip install xlsxwriter pycrypto
+  - python -m pip install xlsxwriter pycryptodome pypiwin32
   - cd C:\projects\cb-multios
 
 build_script:

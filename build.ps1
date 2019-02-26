@@ -10,7 +10,7 @@ $TOOLS = "$DIR\tools"
 
 python -c "import xlsxwriter; import Crypto; import win32api" 2>$null
 if (!$?) {
-    Write-Error "`nPlease install required python packages`n  > pip install xlsxwriter pycrypto pypiwin32"
+    Write-Error "`nPlease install required python packages`n  > pip install xlsxwriter pycryptodome pypiwin32"
 }
 
 "Creating build directory"
@@ -23,5 +23,5 @@ if ($msvc) {
     $CMAKE_OPTS = ""
 }
 
-Start-Process cmake -NoNewWindow -Wait -ArgumentList "$CMAKE_OPTS .."
+cmake "$CMAKE_OPTS" ..
 cmake --build .
