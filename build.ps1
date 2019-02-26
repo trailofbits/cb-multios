@@ -1,3 +1,5 @@
+$ErrorActionPreference = "Stop";
+
 param (
     [switch] $msvc
 )
