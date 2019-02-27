@@ -40,7 +40,7 @@ Write-Host "Creating Build Files..."
 if ($Compiler -eq "clang") {
     & cmake -GNinja -DCLANGCL:BOOL=TRUE -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl ..
 } elseIf ($Compiler -eq "msvc") {
-    & cmake -G"Visual Studio 15 2017 x86" ..
+    & cmake ..
 } else {
     Write-Error "`tUnrecognized compiler: $Compiler`n"
     exit 1
