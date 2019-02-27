@@ -5,6 +5,10 @@ environment:
   CLANG_URL: "https://releases.llvm.org/7.0.1/LLVM-7.0.1-win32.exe"
   MSVC_HOME: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community"
 
+  matrix:
+    - COMPILER: "clang"
+    - COMPILER: "msvc"
+
 os:
   - Visual Studio 2017
 
@@ -39,6 +43,6 @@ before_build:
   - cd C:\projects\cb-multios
 
 build_script:
-  - ps: .\build.ps1
+  - ps: .\build.ps1 $COMPILER
 
 test: off
