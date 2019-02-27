@@ -1,4 +1,6 @@
 [CmdletBinding()]
+Param(
+)
 
 if(!$PSScriptRoot){
     $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
