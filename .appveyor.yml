@@ -1,13 +1,52 @@
-image: Visual Studio 2015
 environment:
+  PYTHON: "C:\\Python27-x64"
+  NINJA_URL: "https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-win.zip"
+  CMAKE_URL: "https://cmake.org/files/v3.14/cmake-3.14.0-rc1-win64-x64.zip"
+  CLANG_URL: "https://releases.llvm.org/7.0.1/LLVM-7.0.1-win32.exe"
+  MSVC_HOME: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community"
+
   matrix:
-    # - CMAKE_OPTS: '' # Disabling MSVC for now
-    - CMAKE_OPTS: -D CLANGCL:BOOL=TRUE -T LLVM-vs2014
-before_build:
-  - mkdir build
-  - cd build
-  - cmake %CMAKE_OPTS% ..
+    - COMPILER: "clang"
+    - COMPILER: "msvc"
+
+matrix:
+  allow_failures:
+    - COMPILER: "msvc"
+
+os:
+  - Visual Studio 2017
+
 build:
-  project: build\challenge_sets.sln
-  parallel: true
+  verbosity: detailed
+
+install:
+  # Python
+  - set PATH=%PYTHON%;%PATH%
+
+  # Get Ninja
+  - appveyor DownloadFile %NINJA_URL% -FileName ninja.zip
+  - 7z x ninja.zip -oC:\ninja > nul
+  - set PATH=C:\ninja;%PATH%
+  - ninja --version
+
+  # Get CMake
+  - appveyor DownloadFile %CMAKE_URL% -FileName cmake.zip
+  - 7z x cmake.zip -oC:\cmake > nul
+  - set PATH=C:\cmake\bin;%PATH%
+  - cmake --version
+
+  # Clang-cl
+  - appveyor DownloadFile %CLANG_URL% -FileName llvm-installer.exe
+  - llvm-installer.exe /S /D=C:\LLVM
+  - set PATH=C:\LLVM\bin;%PATH%
+  - clang-cl -v
+
+before_build:
+  - call "%MSVC_HOME%\VC\Auxiliary\Build\vcvarsall.bat" x86
+  - python -m pip install xlsxwriter pycryptodome pypiwin32
+  - cd C:\projects\cb-multios
+
+build_script:
+  - ps: .\build.ps1 $env:COMPILER
+
 test: off
