@@ -1,7 +1,6 @@
 environment:
   PYTHON: "C:\\Python27-x64"
   NINJA_URL: "https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-win.zip"
-  CMAKE_URL: "https://cmake.org/files/v3.14/cmake-3.14.0-rc1-win64-x64.zip"
   CLANG_URL: "https://releases.llvm.org/7.0.1/LLVM-7.0.1-win32.exe"
   MSVC_HOME: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community"
 
@@ -20,12 +19,6 @@ install:
   - 7z x ninja.zip -oC:\ninja > nul
   - set PATH=C:\ninja;%PATH%
   - ninja --version
-
-  # Get CMake
-  - appveyor DownloadFile %CMAKE_URL% -FileName cmake.zip
-  - 7z x cmake.zip -oC:\cmake > nul
-  - set PATH=C:\cmake\bin;%PATH%
-  - cmake --version
 
   # Clang-cl
   - appveyor DownloadFile %CLANG_URL% -FileName llvm-installer.exe
