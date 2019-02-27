@@ -9,6 +9,10 @@ environment:
     - COMPILER: "clang"
     - COMPILER: "msvc"
 
+matrix:
+  allow_failures:
+    - COMPILER: "msvc"
+
 os:
   - Visual Studio 2017
 
