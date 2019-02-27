@@ -330,7 +330,7 @@ int main(int secret_page_i,  char *unused[]) {
         cgc_state_t *last_state;
 
         writeflush();
-        if (fread((char *)&pkt, sizeof(pkt), cgc_stdin) != sizeof(pkt))
+        if (cgc_fread((char *)&pkt, sizeof(pkt), cgc_stdin) != sizeof(pkt))
             break;
 
         if (pkt.type == TYPE_RESET)
