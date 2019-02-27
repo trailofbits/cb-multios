@@ -43,6 +43,6 @@ before_build:
   - cd C:\projects\cb-multios
 
 build_script:
-  - ps: .\build.ps1 $COMPILER
+  - ps: .\build.ps1 $env:COMPILER
 
 test: off
