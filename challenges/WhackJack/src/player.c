@@ -39,7 +39,7 @@ int method;
 
 	i = 0;
 
-	while (playerList[i].player_name[0] != 0 && i < MAX_PLAYERS) 
+	while (i < MAX_PLAYERS && playerList[i].player_name[0] != 0)
 		++i;
 
 	if (i == MAX_PLAYERS) {
