@@ -180,7 +180,7 @@ function(buildCB)
 endfunction(buildCB)
 
 function(buildSO)
-    if(UNIX)
+    if(UNIX AND BUILD_SHARED_LIBS)
         # Build a shared library object for a specific challenge
         set(LIB_DIR ${cb_path}/lib)
         set(SRC_DIR ${cb_path}/src)
