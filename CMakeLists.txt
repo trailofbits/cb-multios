@@ -202,7 +202,7 @@ function(buildSO)
         endif()
 
         if(BUILD_STATIC_LIBS)
-            message(STATUS "Building shared library (${LIB_NAME}.a)")
+            message(STATUS "Building static library (${LIB_NAME}.a)")
             add_library(${LIB_NAME} STATIC ${LIB_SRCS})
         else()
             message(STATUS "Building shared library (${LIB_NAME}.so)")
