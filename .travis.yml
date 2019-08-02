@@ -16,6 +16,10 @@ addons:
       - g++-multilib
       - clang-3.8
       - ninja-build
+  homebrew:
+    packages:
+      - ninja
+    update: true
 install:
   - pip install --upgrade --user xlsxwriter pycrypto
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX=/usr/bin/clang++-3.8; fi
