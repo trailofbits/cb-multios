@@ -24,6 +24,7 @@
 
 #include "cgc_limits.h"
 #include "cgc_math.h"
+#include <math.h>
 #include "cgc_stdlib.h"
 #include "cgc_string.h"
 
@@ -181,7 +182,7 @@ cgc_dtostr(double value, char *str, cgc_size_t num)
         return EXIT_FAILURE;
 
     whole_part = value;
-    fractional_part = (value - whole_part) * cgc_pow(10.0, DTOSTR_PRECISION);
+    fractional_part = (value - whole_part) * pow(10.0, DTOSTR_PRECISION);
 
     if (cgc_utostr(fractional_part, 10, 0, fractional_buf, sizeof(fractional_buf)) != 0)
         return EXIT_FAILURE;
@@ -264,7 +265,7 @@ cgc_strtod(char *str, double *result)
         return EXIT_FAILURE;
 
     *result = whole_part < 0 ? -(double)frac_part : (double)frac_part;
-    *result /= cgc_pow(10.0, frac_size);
+    *result /= pow(10.0, frac_size);
     *result += (double)whole_part;
 
     return ret + (frac_str ? 1 + frac_size : 0);

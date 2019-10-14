@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include "cgc_stdarg.h"
 #include "cgc_string.h"
 #include "cgc_math.h"
+#include <math.h>
 
 #define FLAG_LEFT_JUSTIFY 	1
 #define FLAG_DISPLAY_SIGN 	2
@@ -327,7 +328,7 @@ cgc_size_t cgc_printf_float_to_string( double val, uint8_t fraction_precision_di
 	cgc_size_t pos = 0;
 	int32_t n;
 	
-	double display_precision = cgc_pow( 10.0, -fraction_precision_digit_count );
+	double display_precision = pow( 10.0, -fraction_precision_digit_count );
 	
 	if ( val == 0.0 )
 	{
@@ -373,7 +374,7 @@ cgc_size_t cgc_printf_float_to_string( double val, uint8_t fraction_precision_di
 		val = val + (display_precision * 0.5);
 
 	// Calculate magnitude!
-	int16_t magnitude = cgc_log10( val );
+	int16_t magnitude = log10( val );
 
 	// Calculate round position
 	if ( flags & FLAG_FLOAT_EXPONENT )
@@ -383,9 +384,9 @@ cgc_size_t cgc_printf_float_to_string( double val, uint8_t fraction_precision_di
 	 	int16_t round_position = magnitude - fraction_precision_digit_count;
 
 		if ( val < 1.0 )
-			new_round_precision = cgc_pow( 10, round_position-1 );
+			new_round_precision = pow( 10, round_position-1 );
 		else
-			new_round_precision = cgc_pow( 10, round_position );
+			new_round_precision = pow( 10, round_position );
 
 		//if ( new_round_precision < display_precision )
 		display_precision = new_round_precision;
@@ -429,7 +430,7 @@ cgc_size_t cgc_printf_float_to_string( double val, uint8_t fraction_precision_di
 
 	while ( magnitude >= 0 || val > display_precision )
 	{
-		double divider = cgc_pow( 10.0, magnitude );
+		double divider = pow( 10.0, magnitude );
 
 		if ( divider > 0.0 && !isinf(divider) )
 		{
@@ -511,7 +512,7 @@ cgc_size_t cgc_printf_float_to_string( double val, uint8_t fraction_precision_di
 		else
 		{
 			uint8_t exponent_digit_count = 0;
-			uint16_t exponent_magnitude = cgc_log10( exponent_value );
+			uint16_t exponent_magnitude = log10( exponent_value );
 		
 			for ( uint8_t i = exponent_magnitude; i < 2; i++ )
 			{
@@ -521,7 +522,7 @@ cgc_size_t cgc_printf_float_to_string( double val, uint8_t fraction_precision_di
 
 			while ( exponent_digit_count++ < 3 )
 			{
-				uint16_t exponent_divider = cgc_pow( 10, exponent_magnitude );
+				uint16_t exponent_divider = pow( 10, exponent_magnitude );
 
 				uint8_t exponent_digit = (exponent_value / exponent_divider);
 				str[pos++] = '0' + exponent_digit;

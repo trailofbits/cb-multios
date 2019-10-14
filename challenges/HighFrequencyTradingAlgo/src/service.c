@@ -22,6 +22,7 @@
 #include "libcgc.h"
 #include "cgc_libc.h"
 #include "cgc_service.h"
+#include <math.h>
 
 int cgc_nextRecord(Record* record) {
 	int bytesRead = 0;
@@ -48,7 +49,7 @@ float cgc_squareRoot(float value) {
 	high = mid = value;
 	oldmid = -1;
 
-	while (cgc_fabs(oldmid - mid) >= 0.001) {
+	while (fabs(oldmid - mid) >= 0.001) {
 		oldmid = mid;
 
 		mid = (high + low) / 2;

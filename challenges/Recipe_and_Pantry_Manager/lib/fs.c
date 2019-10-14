@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include "cgc_string.h"
 #include "cgc_stdlib.h"
 #include "cgc_fs.h"
+#include <math.h>
 
 /* fs.c libc-cfe Filesystem library
 This library implements a single-directory filesystem with basic
@@ -620,7 +621,7 @@ uint8_t cgc_ListFiles(char **Buf) {
 			if (cgc_FS->Inodes[i]->FileSize == 0) {
 				TotalLen += 8;
 			} else {
-				if ((NewLen = cgc_log10(cgc_FS->Inodes[i]->FileSize)+1) < 8) {
+				if ((NewLen = log10(cgc_FS->Inodes[i]->FileSize)+1) < 8) {
 					TotalLen += 8;
 				} else {
 					TotalLen += NewLen;

@@ -36,9 +36,9 @@ typedef struct card_info {
 typedef struct transaction {
     uint32_t auth_code; // used internally
     uint32_t vendor_id;
-    OP_CODE op_code : 8;
-    PKT_TYPE state : 8;
-    STATUS status : 8;
+    OP_CODE op_code : 16;
+    PKT_TYPE state : 16;
+    STATUS status : 32;
     uint32_t id;
     uint32_t card_id;
     void *data;
