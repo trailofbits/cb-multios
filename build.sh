@@ -35,13 +35,13 @@ case $LINK in
 esac
 
 # Prefer ninja over make, if it is available
-if which ninja 2>&1 >/dev/null; then
-  CMAKE_OPTS="-G Ninja $CMAKE_OPTS"
-  BUILD_FLAGS=
-else
+#if which ninja 2>&1 >/dev/null; then
+#  CMAKE_OPTS="-G Ninja $CMAKE_OPTS"
+#  BUILD_FLAGS=
+#else
   # BUILD_FLAGS="-- -j$(getconf _NPROCESSORS_ONLN)"
   BUILD_FLAGS=
-fi
+#fi
 
 cmake $CMAKE_OPTS ..
 
