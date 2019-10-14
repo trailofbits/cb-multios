@@ -21,8 +21,8 @@ echo "Creating Makefiles"
 CMAKE_OPTS="${CMAKE_OPTS} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 
 # Honor CC and CXX environment variables, default to clang otherwise
-CC=${CC:-clang}
-CXX=${CXX:-clang++}
+CC=${CC:-~/projects/gradtest/llvm-7.0.0.build/`uname -m`/llvm-7.0/bin/bin/clang} #${CC:-clang}
+CXX=${CXX:-~/projects/gradtest/llvm-7.0.0.build/`uname -m`/llvm-7.0/bin/bin/clang++} #${CXX:-clang++}
 
 CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_C_COMPILER=$CC"
 CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_ASM_COMPILER=$CC"
