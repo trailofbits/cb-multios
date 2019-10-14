@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "cgc_room.h"
 #include "cgc_input.h"
 #include "cgc_malloc.h"
-
+#include <math.h>
 #define pGRID(grid,x,y,z) (grid + x + y*cgc_X + z*cgc_X*cgc_Y)
 
 // room dimensions
@@ -380,9 +380,9 @@ int cgc_InitMaterial(void) {
 
 #ifdef PATCHED
 	// one last check to make sure we didn't overflow cgc_size_t
-	if ( (cgc_pow(2, 8*sizeof(cgc_size_t)) / ((sizeof(double) * cgc_X * cgc_Y)) <= cgc_Z) ||
-		(cgc_pow(2, 8*sizeof(cgc_size_t)) / ((sizeof(double) * cgc_Y * cgc_Z)) <= cgc_X) ||
-		(cgc_pow(2, 8*sizeof(cgc_size_t)) / ((sizeof(double) * cgc_X * cgc_Z)) <= cgc_Y) ) {
+	if ( (pow(2, 8*sizeof(cgc_size_t)) / ((sizeof(double) * cgc_X * cgc_Y)) <= cgc_Z) ||
+		(pow(2, 8*sizeof(cgc_size_t)) / ((sizeof(double) * cgc_Y * cgc_Z)) <= cgc_X) ||
+		(pow(2, 8*sizeof(cgc_size_t)) / ((sizeof(double) * cgc_X * cgc_Z)) <= cgc_Y) ) {
 		cgc_puts("Invalid room dimensions");
 		return(-1);
 	}
