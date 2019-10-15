@@ -1,0 +1,22 @@
+---
+nodes:
+- name: start
+- name: bridge1
+- name: generate_signature
+- name: add_signatures
+- name: bridge2
+- name: submit_sample
+- name: quit
+
+edges:
+  - start: generate_signature
+  - bridge1: generate_signature
+    weight: 0.95
+  - bridge1: add_signatures
+  - generate_signature: bridge1
+  - add_signatures: submit_sample
+
+  - bridge2: submit_sample
+    weight: 0.95
+  - bridge2: quit
+  - submit_sample: bridge2

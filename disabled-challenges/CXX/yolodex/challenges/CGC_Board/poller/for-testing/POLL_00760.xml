@@ -1,0 +1,42 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>new\x0a</data></write>
+    <write><data>sd 1\x0a</data></write>
+    <write><data>t2t3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move q7q5\x0a</data></match></read>
+    <write><data>t1t2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p7p5\x0a</data></match></read>
+    <write><data>s1r3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move q5q4\x0a</data></match></read>
+    <write><data>r3t4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p8t4\x0a</data></match></read>
+    <write><data>n1m3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move t4r4\x0a</data></match></read>
+    <write><data>?\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move s2s3\x0a</data></match></read>
+    <write><data>undo\x0a</data></write>
+    <write><data>t2t1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move n8o6\x0a</data></match></read>
+    <write><data>m1n1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move o6p4\x0a</data></match></read>
+    <write><data>t1s1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move r4t2\x0a</data></match></read>
+    <write><data>s1t1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move t2t1\x0a</data></match></read>
+    <write><data>sd 1\x0a</data></write>
+    <write><data>n1m1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move r8p6\x0a</data></match></read>
+    <write><data>m3o4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p5o4\x0a</data></match></read>
+    <write><data>r2r3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p6s3\x0a</data></match></read>
+    <write><data>result 0\x2d1\x0a</data></write>
+    <write><data>sd 2\x0a</data></write>
+    <write><data>sd 1\x0a</data></write>
+    <write><data>quit\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>bye\x0a</data></match></read>
+</replay>
+</pov>

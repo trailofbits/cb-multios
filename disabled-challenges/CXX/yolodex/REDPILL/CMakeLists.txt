@@ -1,0 +1,6 @@
+set( SERVICE_ID "00006" )
+set( POLLS_RELEASE_SEED "1394381733" )
+set( AUTHOR_ID "NRFIN" )
+add_compile_options( -O0 -g )
+set( POLLS_TESTING_SEED "733675487" )
+buildCB()

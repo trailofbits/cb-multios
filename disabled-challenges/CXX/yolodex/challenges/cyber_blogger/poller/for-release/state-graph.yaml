@@ -1,0 +1,56 @@
+---
+nodes:
+- name: start
+- name: logged_out_menu
+- name: register
+- name: view_user_posts_out
+- name: view_user_profile_out
+- name: login
+- name: logged_in_menu
+- name: add_new_post
+- name: delete_blog_post
+- name: update_profile
+- name: add_friend
+- name: view_friends
+- name: unfriend
+- name: view_my_posts
+- name: view_my_profile
+- name: view_user_posts_in
+- name: view_user_profile_in
+- name: logout
+- name: quit
+
+edges:
+- start: logged_out_menu
+- logged_out_menu: register
+- logged_out_menu: view_user_posts_out
+- logged_out_menu: view_user_profile_out
+- logged_out_menu: login
+- register: logged_out_menu
+- view_user_posts_out: logged_out_menu
+- view_user_profile_out: logged_out_menu
+- login: logged_in_menu
+- logged_in_menu: add_new_post
+- logged_in_menu: delete_blog_post
+- logged_in_menu: update_profile
+- logged_in_menu: add_friend
+- logged_in_menu: view_friends
+- logged_in_menu: unfriend
+- logged_in_menu: view_my_posts
+- logged_in_menu: view_my_profile
+- logged_in_menu: view_user_posts_in
+- logged_in_menu: view_user_profile_in
+- logged_in_menu: logout
+- add_new_post: logged_in_menu
+- delete_blog_post: logged_in_menu
+- update_profile: logged_in_menu
+- add_friend: logged_in_menu
+- view_friends: logged_in_menu
+- unfriend: logged_in_menu
+- view_my_posts: logged_in_menu
+- view_my_profile: logged_in_menu
+- view_user_posts_in: logged_in_menu
+- view_user_profile_in: logged_in_menu
+- logout: logged_out_menu
+- logged_out_menu: quit
+

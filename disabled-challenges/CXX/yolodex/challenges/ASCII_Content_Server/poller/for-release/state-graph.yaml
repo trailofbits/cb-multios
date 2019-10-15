@@ -1,0 +1,9 @@
+---
+nodes:
+- name: start
+- name: release
+- name: exit
+
+edges:
+- start: release
+- release: exit

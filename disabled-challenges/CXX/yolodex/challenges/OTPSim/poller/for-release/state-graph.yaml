@@ -1,0 +1,29 @@
+---
+nodes:
+- name: start
+- name: cmd_loop
+- name: handshake
+- name: generate
+- name: extend
+- name: set_seeds
+- name: verify_otp
+- name: invalid
+- name: quit
+
+edges:
+- start: cmd_loop
+- cmd_loop: invalid
+- cmd_loop: handshake
+- cmd_loop: generate
+- cmd_loop: extend
+- cmd_loop: set_seeds
+- cmd_loop: verify_otp
+- cmd_loop: quit
+  weight: 0.05
+
+- invalid: cmd_loop
+- handshake: cmd_loop
+- generate: cmd_loop
+- extend: cmd_loop
+- set_seeds: cmd_loop
+- verify_otp: cmd_loop

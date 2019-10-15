@@ -1,0 +1,8 @@
+set( POLLS_TESTING_COUNT "1000" )
+set( POLLS_TESTING_SEED "-298957862" )
+set( POLLS_RELEASE_SEED "-1411386536" )
+add_compile_options( -O0 -g )
+set( SERVICE_ID "00001" )
+set( AUTHOR_ID "NRFIN" )
+set( POLLS_RELEASE_COUNT "1000" )
+buildCB()

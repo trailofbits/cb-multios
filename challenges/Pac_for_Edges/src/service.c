@@ -20,10 +20,11 @@
  * THE SOFTWARE.
  *
  */
+#include <math.h> 
 #include "cgc_stdio.h"
 #include "cgc_stdlib.h"
 #include "cgc_string.h"
-#include "cgc_math.h"
+//#include "cgc_math.h"
 #include "cgc__defines.h"
 
 struct image
@@ -224,18 +225,18 @@ int cgc_findGradients(struct image * myImage)
 
             kgx[i][j] = value_x;
             kgy[i][j] = value_y;
-            newG[i][j] = cgc_sqrt((value_x*value_x)+(value_y*value_y));
+            newG[i][j] = sqrt((value_x*value_x)+(value_y*value_y));
             myImage->data[(512*i)+j] = (char) newG[i][j];
             double hold = 0;
             if (value_x != 0)
-                hold = ((double)cgc_fabs(value_y)) / ((double)cgc_fabs(value_x));
+                hold = ((double)fabs(value_y)) / ((double)fabs(value_x));
             else
                 hold = 0;
             //TESTING
             double grad_hold = (double) hold;
             hold = cgc_onlyTwoDecimals(hold);
 
-            grad_hold = cgc_atan2(hold,1);
+            grad_hold = atan2(hold,1);
             grad_hold = cgc_onlyTwoDecimals(grad_hold);
 
             grad_hold = (57.29) * grad_hold;

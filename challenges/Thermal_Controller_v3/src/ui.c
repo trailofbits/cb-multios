@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 */
 
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_stdarg.h"
 #include "cgc_stdlib.h"
@@ -138,10 +139,10 @@ int cgc_get_command(pState state){
 			subcommand = cgc_get_short(buf+6);
 			cgc_prime_buf(buf);
 			if (subcommand == 0x0000){
-				cgc_power_off(state);
+				power_off(state);
 			}
 			if (subcommand == 0x0001){
-				cgc_power_on(state);
+				power_on(state);
 			}
 			if (subcommand > 0x0001){
 				//bad subcommand

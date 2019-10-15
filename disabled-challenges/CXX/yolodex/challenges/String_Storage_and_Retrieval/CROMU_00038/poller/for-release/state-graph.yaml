@@ -1,0 +1,24 @@
+---
+nodes:
+- name: start
+- name: SOM
+- name: random1
+- name: random2
+- name: SAP0
+- name: SAP1
+- name: TFF1
+- name: exit
+
+edges:
+- start: SOM
+- start: random1
+  weight: .1
+- random1: exit
+- SOM: SAP0
+- SOM: SAP1
+- SAP0: SAP1
+- SAP0: random2
+  weight: .1
+- random2: exit
+- SAP1: TFF1
+- TFF1: exit

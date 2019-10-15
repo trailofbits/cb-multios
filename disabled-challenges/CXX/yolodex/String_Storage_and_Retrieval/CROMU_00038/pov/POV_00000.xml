@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\xf8\xff</data></write>
+    <read><delim>\x0a</delim><match><data>SOM marker found</data></match></read>
+    <write><data>\xf0\xff</data></write>
+    <read><delim>\x0a</delim><match><data>SAP0 marker found</data></match></read>
+    <write><data>\x10\x00</data></write>
+    <write><data>SAP0</data></write>
+    <write><data>\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</data></write>
+    <write><data>\xf1\xff</data></write>
+    <read><delim>\x0a</delim><match><data>SAP1 marker found</data></match></read>
+    <write><data>\x1c\x00SAP1\x00\x00DD\x2a\x00\x08\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</data></write>
+    <read><delim>\x0a</delim><match><data>sizeof section is 28\x0a</data></match></read>
+</replay>
+</pov>

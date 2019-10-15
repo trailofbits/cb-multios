@@ -1,0 +1,48 @@
+---
+nodes:
+- name: start
+- name: shell
+- name: list
+- name: create
+- name: open
+- name: close
+- name: close_all
+- name: readfile
+- name: modify
+- name: delete
+- name: mkdir
+- name: rmdir
+- name: chdir
+- name: help
+- name: quit
+- name: invalid
+
+edges:
+- start: shell
+- shell: list
+- shell: create
+- shell: open
+- shell: close
+- shell: close_all
+- shell: readfile
+- shell: modify
+- shell: delete
+- shell: mkdir
+- shell: rmdir
+- shell: chdir
+- shell: help
+- shell: quit
+- shell: invalid
+- list: shell
+- create: shell
+- open: shell
+- close: shell
+- close_all: shell
+- readfile: shell
+- modify: shell
+- delete: shell
+- mkdir: shell
+- rmdir: shell
+- chdir: shell
+- help: shell
+- invalid: shell

@@ -1,0 +1,36 @@
+---
+nodes:
+- name: start
+- name: input
+- name: ch_sec
+- name: compress
+- name: cur_sec
+- name: get
+- name: list
+- name: make_sec
+- name: put
+- name: quit
+- name: search
+
+edges:
+- start: input
+- input: ch_sec
+- input: compress
+- input: cur_sec
+- input: get
+- input: list
+- input: make_sec
+  weight: .1
+- input: put
+- input: search
+- input: quit
+  weight: .1
+
+- ch_sec: input
+- compress: input
+- cur_sec: input
+- get: input
+- list: input
+- make_sec: input
+- put: input
+- search: input

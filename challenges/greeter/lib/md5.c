@@ -22,6 +22,7 @@
 
 /* MD5 implementation based on RFC-1321 */
 
+#include <math.h> 
 #include "cgc_libc.h"
 
 #include "cgc_md5.h"
@@ -52,7 +53,7 @@ cgc_rotateleft(unsigned int v, unsigned int s)
 static inline unsigned int
 cgc_T(unsigned int i)
 {
-    return cgc_fabs(cgc_sin(i + 1)) * cgc_pow(2, 32);
+    return fabs(sin(i + 1)) * pow(2, 32);
 }
 
 static inline unsigned int

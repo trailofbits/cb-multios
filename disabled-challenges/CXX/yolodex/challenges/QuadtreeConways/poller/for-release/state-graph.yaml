@@ -1,0 +1,37 @@
+---
+nodes:
+- name: start
+- name: shoot
+- name: reveal_board
+- name: place_bomb
+- name: let_run
+- name: new_game
+- name: quit
+
+edges:
+- start: shoot
+- start: reveal_board
+- start: new_game
+- start: quit
+- shoot: shoot
+- shoot: reveal_board
+- shoot: new_game
+- shoot: quit
+- reveal_board: place_bomb
+- reveal_board: reveal_board
+- reveal_board: let_run
+- reveal_board: new_game
+- reveal_board: quit
+- place_bomb: place_bomb
+- place_bomb: reveal_board
+- place_bomb: let_run
+- place_bomb: new_game
+- place_bomb: quit
+- let_run: shoot
+- let_run: reveal_board
+- let_run: new_game
+- let_run: quit
+- new_game: shoot
+- new_game: reveal_board
+- new_game: new_game
+- new_game: quit

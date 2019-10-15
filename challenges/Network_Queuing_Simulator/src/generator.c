@@ -125,7 +125,7 @@ int cgc_InitPoisson(void) {
 
 // calculate the time delta for the next packet
 double cgc_CalcDelta(unsigned int rnd, double rate) {
-	return (-cgc_logf(1.0 - (rnd / 4294967296.0)) / rate);
+	return (-logf(1.0 - (rnd / 4294967296.0)) / rate);
 
 }
 // generate packets based on poisson arrival times, random sizes and random priorities

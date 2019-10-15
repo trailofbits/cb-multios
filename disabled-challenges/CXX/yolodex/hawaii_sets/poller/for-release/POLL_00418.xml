@@ -1,0 +1,49 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>hUCff = |"7bNe","nB7i","2z2t1O"|^|"nB7i","Mh","lEf2","qz7","BvY"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>HX6tPDU = |"T1","kKlY","9R0pf","XbkTDm","VWJsD","RIDizX","MGn","kpgq","iq","O0x"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>rLKxO = |"O0x"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>rLKxO@HX6tPDU\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>TRUE\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>Lx6EGZc = |"v","Ky9rJha","x","JPTb","MjU","dxBAd","Ryf"|~|"hAjR","Xs"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>H9rKFf = |"4q","2zEjI1","z1Oxp3","z"|-|"V","4q","atAmq","1","wg14tdv","mK4"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>U94Zhvd = hUCff - H9rKFf\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>3shuWu = HX6tPDU + U94Zhvd\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>wAgIc = HX6tPDU - H9rKFf\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>rpGwq = wAgIc - U94Zhvd\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>yalih = |"sc","ca"|~|"y","Vivq9jK","sc","CG","im","k"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>lTWtHqO2 = hUCff ^ rpGwq\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>OI1WG = lTWtHqO2 ~ lTWtHqO2\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>hUCff = |"nB7i"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>HX6tPDU = |"T1","kKlY","9R0pf","XbkTDm","VWJsD","RIDizX","MGn","kpgq","iq","O0x"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>rLKxO = |"O0x"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>Lx6EGZc = |"v","Ky9rJha","x","JPTb","MjU","dxBAd","Ryf","hAjR","Xs"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>H9rKFf = |"2zEjI1","z1Oxp3","z"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>U94Zhvd = |"nB7i"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>3shuWu = |"T1","kKlY","9R0pf","XbkTDm","VWJsD","RIDizX","MGn","kpgq","iq","O0x","nB7i"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>wAgIc = |"T1","kKlY","9R0pf","XbkTDm","VWJsD","RIDizX","MGn","kpgq","iq","O0x"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>rpGwq = |"T1","kKlY","9R0pf","XbkTDm","VWJsD","RIDizX","MGn","kpgq","iq","O0x"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>yalih = |"ca","y","Vivq9jK","CG","im","k"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>lTWtHqO2 = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>OI1WG = ||\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

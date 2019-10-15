@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>new\x0a</data></write>
+    <write><data>sd 1\x0a</data></write>
+    <write><data>n1m3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move q7q5\x0a</data></match></read>
+    <write><data>sd 2\x0a</data></write>
+    <write><data>m1n1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p8t4\x0a</data></match></read>
+    <write><data>quit\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>bye\x0a</data></match></read>
+</replay>
+</pov>

@@ -1,0 +1,178 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <write>
+            <data>HELLO\n</data>
+        </write>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <assign>
+                <var>token</var>
+                <pcre group="1">OK ([0-9A-F]*)\n</pcre>
+            </assign>
+        </read>
+
+        <write>
+            <data>AUTH </data>
+            <var>token</var>
+            <data>\n</data>
+        </write>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data>OK\n</data>
+            </match>
+        </read>
+
+        <write>
+            <data>SET key theencryptionkey\n</data>
+        </write>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data>OK\n</data>
+            </match>
+        </read>
+
+        <write>
+            <data>SET data It primarily made amendments to FISA, and the ECPA, and many of the most controversial aspects of the USA PATRIOT Act reside in this title. In particular, the title allows government agencies to gather "foreign intelligence information" from both U.S. and non-U.S. citizens, and changed FISA to make gaining foreign intelligence information the significant purpose of FISA-based surveillance, where previously it had been the primary purpose.\n</data>
+        </write>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data>OK\n</data>
+            </match>
+        </read>
+
+        <write>
+            <data>CALL /parcour\n</data>
+        </write>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data>OK 442\n</data>
+            </match>
+        </read>
+
+        <read echo="yes">
+            <length>442</length>
+            <match>
+                <data format="hex">
+7a5a1c7f04fe8b6fcd34d22ad0c130b74641b33e12ee0cd486b769d98e22
+fe5188dee95e28daa7f9e4173ff06eec6e8a7f23c70c2871dd3a704d0bcc
+8ad0706594d6c889dd5195b18ec6a8ec7880a188a89148c43bb19bd142de
+329103586edde038ddb262ddc5983e2bab7e924dd7f147c99896c01cab67
+689ff8293c930e9f3a9248180d8b908858ec918bbffeca22039c98660930
+456de455b33e87aca5f43cc14f562c8f072ca8fe816945bbc804df04ee45
+377c59e073f45c2061f9b7a50615ecb352ec79a7adc94e2bfbb9df236540
+62aa69dfd5927f4ecc9a913b0d5c47b4dcd6da13365a994595bb11870491
+0e29ddbe59b32f5c0e2efabdf611f57c1ec9209c5e44a5609ecae8ec936a
+4e2c9129eecc93051cb8226ddc3346fac77841d767613af77200f86b40ff
+ece5773ce956f49d39709a465c7499427b0d9baab1599e5cc2a77bd68a8f
+8be92c8434ca85c6cc3e580e89b27845c4675545e34da0cc7e07da90eb07
+2d89daa5d7cb50fcfac1aeb671ad7c6601ddb5e6592f3a7078f8200a5aee
+6346749e5b51d4a6985c48fdd711aa4479bb3c2db6c77704b8e8aae8b211
+703332c576df73458043d18220dc675c38222c8a807a
+                </data>
+            </match>
+        </read>
+
+        <write>
+            <data>CALL /parcour\n</data>
+        </write>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data>OK 442\n</data>
+            </match>
+        </read>
+
+        <read echo="yes">
+            <length>442</length>
+            <match>
+                <data format="hex">
+7a5a1c7f04fe8b6fcd34d22ad0c130b74641b33e12ee0cd486b769d98e22
+fe5188dee95e28daa7f9e4173ff06eec6e8a7f23c70c2871dd3a704d0bcc
+8ad0706594d6c889dd5195b18ec6a8ec7880a188a89148c43bb19bd142de
+329103586edde038ddb262ddc5983e2bab7e924dd7f147c99896c01cab67
+689ff8293c930e9f3a9248180d8b908858ec918bbffeca22039c98660930
+456de455b33e87aca5f43cc14f562c8f072ca8fe816945bbc804df04ee45
+377c59e073f45c2061f9b7a50615ecb352ec79a7adc94e2bfbb9df236540
+62aa69dfd5927f4ecc9a913b0d5c47b4dcd6da13365a994595bb11870491
+0e29ddbe59b32f5c0e2efabdf611f57c1ec9209c5e44a5609ecae8ec936a
+4e2c9129eecc93051cb8226ddc3346fac77841d767613af77200f86b40ff
+ece5773ce956f49d39709a465c7499427b0d9baab1599e5cc2a77bd68a8f
+8be92c8434ca85c6cc3e580e89b27845c4675545e34da0cc7e07da90eb07
+2d89daa5d7cb50fcfac1aeb671ad7c6601ddb5e6592f3a7078f8200a5aee
+6346749e5b51d4a6985c48fdd711aa4479bb3c2db6c77704b8e8aae8b211
+703332c576df73458043d18220dc675c38222c8a807a
+                </data>
+            </match>
+        </read>
+
+        <write>
+            <data>CALL /\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>OK 147\n</data>
+            </match>
+        </read>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>Directory listing\n</data>
+            </match>
+        </read>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>\t/ (called 0 times)\t\tHome page\n</data>
+            </match>
+        </read>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>\t/root64 (called 0 times)\t\tRoot64 conversion tool\n</data>
+            </match>
+        </read>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>\t/parcour (called 2 times)\t\tParcour obfuscator\n</data>
+            </match>
+        </read>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>\n</data>
+            </match>
+        </read>
+
+        <write>
+            <data>BYE\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>BYE\n</data>
+            </match>
+        </read>
+    </replay>
+</pov>

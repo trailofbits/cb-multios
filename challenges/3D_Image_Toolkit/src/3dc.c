@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 */
 
+#include <math.h> 
 #include "cgc_3dc.h"
 
 extern t3DCPixel **px_list;
@@ -156,8 +157,8 @@ void cgc_RotateX(t3DCPixel *px, int16_t degree) {
   // degree to rad
   double a = cgc_degree_to_radian(degree);
 
-  px->y = (int16_t)cgc_multiply(px->y, cgc_cos(a)) - cgc_multiply(px->z, cgc_sin(a));
-  px->z = (int16_t)cgc_multiply(px->y, cgc_sin(a)) + cgc_multiply(px->z, cgc_cos(a));
+  px->y = (int16_t)cgc_multiply(px->y, cos(a)) - cgc_multiply(px->z, sin(a));
+  px->z = (int16_t)cgc_multiply(px->y, sin(a)) + cgc_multiply(px->z, cos(a));
 
 }
 
@@ -165,8 +166,8 @@ void cgc_RotateY(t3DCPixel *px, int16_t degree) {
   // degree to rad
   double a = cgc_degree_to_radian(degree);
 
-  px->x = (int16_t)cgc_multiply(px->z, cgc_sin(a)) + cgc_multiply(px->x, cgc_cos(a));
-  px->z = (int16_t)cgc_multiply(px->z, cgc_cos(a)) - cgc_multiply(px->x, cgc_sin(a));
+  px->x = (int16_t)cgc_multiply(px->z, sin(a)) + cgc_multiply(px->x, cos(a));
+  px->z = (int16_t)cgc_multiply(px->z, cos(a)) - cgc_multiply(px->x, sin(a));
 
 }
 
@@ -174,8 +175,8 @@ void cgc_RotateZ(t3DCPixel *px, int16_t degree) {
   // degree to rad
   double a = cgc_degree_to_radian(degree);
 
-  px->x = (int16_t)cgc_multiply(px->x, cgc_cos(a)) - cgc_multiply(px->y, cgc_sin(a));
-  px->y = (int16_t)cgc_multiply(px->x, cgc_sin(a)) + cgc_multiply(px->y, cgc_cos(a));
+  px->x = (int16_t)cgc_multiply(px->x, cos(a)) - cgc_multiply(px->y, sin(a));
+  px->y = (int16_t)cgc_multiply(px->x, sin(a)) + cgc_multiply(px->y, cos(a));
 
 }
 
@@ -296,10 +297,10 @@ int16_t cgc_degree_to_radian(int16_t degree) {
   return cgc_multiply(degree, cgc_divide(M_PI,180));
 }
 
-double cgc_cosine(int16_t a) {
-  return cgc_cos(a);
+double cosine(int16_t a) {
+  return cos(a);
 }
 
-double cgc_sine(int16_t a) {
-  return cgc_sin(a);
+double sine(int16_t a) {
+  return sin(a);
 }

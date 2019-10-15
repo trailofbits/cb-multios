@@ -1,0 +1,41 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: insert
+- name: retr
+- name: add
+- name: sub
+- name: mul
+- name: sum
+- name: prod
+- name: flag
+- name: rand
+- name: quit
+- name: echo
+
+edges:
+- start: insert
+- menu: insert
+- menu: retr
+- menu: add
+- menu: sub
+- menu: mul
+- menu: sum
+- menu: prod
+- menu: flag
+- menu: rand
+- menu: quit
+  weight: 0.005
+- menu: echo
+  weight: 0.03
+- insert: menu
+- retr: menu
+- add: menu
+- sub: menu
+- mul: menu
+- sum: menu
+- prod: menu
+- flag: menu
+- rand: menu
+- echo: menu

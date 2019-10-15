@@ -1,0 +1,51 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+	<cbid>CROMU_00015</cbid>
+	<replay>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>esHRrURvlu\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: esHRrURvlu\n</delim><match><data>Name: esHRrURvlu\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: esHRrURvlu\n</delim><match><data>Name: esHRrURvlu\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: esHRrURvlu\n</delim><match><data>Name: esHRrURvlu\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: esHRrURvlu\n</delim><match><data>Name: esHRrURvlu\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>2\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>PML: </data></match></read>
+		<write echo="ascii"><data>{Planet}{ Name   }    n3rzr {   #Name   }    {    Mass}     1.27778    {     #Mass}   {     Period  }   0.67358 {  #Period  }   {    Gravity     }6.03448  {    #Gravity }     {  Perihelion     }  0.47059{ #Perihelion     } {Aphelion }1.79798   {   #Aphelion} {  ERadius }   0.73239   {   #ERadius }   { Radius   } 0.16216  { #Radius     }{    OrbitSpeed  }  25.71429{   #OrbitSpeed  }{  Population     }  3579 {   #Population    }  {#Planet}\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>2\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>PML: </data></match></read>
+		<write echo="ascii"><data>{Planet}{  Name} oecVLV     {     #Name    }    {    Mass }  1.54444     {#Mass}     {    Period  }   1.44186     {   #Period   }{  Gravity     }     0.13924     {   #Gravity   } {   Perihelion }    0.67442   {  #Perihelion }    { Aphelion } 0.21134    {  #Aphelion }    {  ERadius   }0.52066  {     #ERadius     }    {    Radius     }   0.08523     {#Radius } {     OrbitSpeed   }   0.81928{   #OrbitSpeed}    { Population }  3715     {   #Population }    {#Planet}\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>pVVfHBvYEec7\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: esHRrURvlu\nName: n3rzr\n\tPopulation: 3579\n\tPeriod: 0.67358\n\tOrbit Speed: 25.71429\n\tAphelion: 1.79798\n\tPerihelion: 0.47059\n\tRadius: 0.16216\n\tERadius: 0.73239\n\tMass: 1.27778\n\tGravity: 6.03448\nName: oecVLV\n\tPopulation: 3715\n\tPeriod: 1.44186\n\tOrbit Speed: 0.81928\n\tAphelion: 0.21134\n\tPerihelion: 0.67442\n\tRadius: 0.08523\n\tERadius: 0.52066\n\tMass: 1.54444\n\tGravity: 0.13924\nName: pVVfHBvYEec7\n</delim><match><data>Name: esHRrURvlu\nName: n3rzr\n\tPopulation: 3579\n\tPeriod: 0.67358\n\tOrbit Speed: 25.71429\n\tAphelion: 1.79798\n\tPerihelion: 0.47059\n\tRadius: 0.16216\n\tERadius: 0.73239\n\tMass: 1.27778\n\tGravity: 6.03448\nName: oecVLV\n\tPopulation: 3715\n\tPeriod: 1.44186\n\tOrbit Speed: 0.81928\n\tAphelion: 0.21134\n\tPerihelion: 0.67442\n\tRadius: 0.08523\n\tERadius: 0.52066\n\tMass: 1.54444\n\tGravity: 0.13924\nName: pVVfHBvYEec7\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: esHRrURvlu\nName: n3rzr\n\tPopulation: 3579\n\tPeriod: 0.67358\n\tOrbit Speed: 25.71429\n\tAphelion: 1.79798\n\tPerihelion: 0.47059\n\tRadius: 0.16216\n\tERadius: 0.73239\n\tMass: 1.27778\n\tGravity: 6.03448\nName: oecVLV\n\tPopulation: 3715\n\tPeriod: 1.44186\n\tOrbit Speed: 0.81928\n\tAphelion: 0.21134\n\tPerihelion: 0.67442\n\tRadius: 0.08523\n\tERadius: 0.52066\n\tMass: 1.54444\n\tGravity: 0.13924\nName: pVVfHBvYEec7\n</delim><match><data>Name: esHRrURvlu\nName: n3rzr\n\tPopulation: 3579\n\tPeriod: 0.67358\n\tOrbit Speed: 25.71429\n\tAphelion: 1.79798\n\tPerihelion: 0.47059\n\tRadius: 0.16216\n\tERadius: 0.73239\n\tMass: 1.27778\n\tGravity: 6.03448\nName: oecVLV\n\tPopulation: 3715\n\tPeriod: 1.44186\n\tOrbit Speed: 0.81928\n\tAphelion: 0.21134\n\tPerihelion: 0.67442\n\tRadius: 0.08523\n\tERadius: 0.52066\n\tMass: 1.54444\n\tGravity: 0.13924\nName: pVVfHBvYEec7\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>nZRv8rlWql\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>5\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>Exitting..\n</data></match></read>
+	</replay>
+</pov>

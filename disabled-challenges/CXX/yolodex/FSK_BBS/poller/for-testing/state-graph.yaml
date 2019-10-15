@@ -1,0 +1,23 @@
+nodes:
+- name: start
+- name: menu
+- name: help
+- name: post
+- name: list
+- name: read_msg
+- name: finish
+- name: quit
+
+edges:
+- start: menu
+- menu: help
+  weight: 0.01
+- menu: list
+- menu: post
+- menu: read_msg
+- menu: quit 
+  weight: 0.30
+- help: menu
+- list: menu
+- post: menu
+- read_msg: menu

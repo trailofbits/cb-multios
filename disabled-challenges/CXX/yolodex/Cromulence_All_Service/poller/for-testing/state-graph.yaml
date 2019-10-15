@@ -1,0 +1,33 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: list
+- name: sort
+- name: encode
+- name: exit
+- name: matrix
+- name: simon
+
+
+edges:
+- start: menu
+- menu: list
+- list: menu
+
+- menu: sort
+- sort: menu
+
+- menu: matrix
+- matrix: menu
+
+- menu: simon
+  weight: 0.05
+- simon: menu
+
+- menu: encode
+- encode: menu
+
+- menu: exit
+  weight: 0.5
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>Ro6I2 = |"gF","afq0MXW","h1r","Ehh"|+|"uJ","2","U3eQR","V","k9pxyc"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>c5Ua7We = Ro6I2 ~ Ro6I2\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>Gr3lo0y = Ro6I2 ~ c5Ua7We\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>ZJzMc = |"5mR8yGB","ri","kpJH23","PQ"|~|"q4u9iVp","z7"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>Uyp5DN = Gr3lo0y - c5Ua7We\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>sTL9LF = Uyp5DN - Ro6I2\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>SSgjp7eJ9 = c5Ua7We ^ sTL9LF\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>Ro6I2 = |"gF","afq0MXW","h1r","Ehh","uJ","2","U3eQR","V","k9pxyc"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>c5Ua7We = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>Gr3lo0y = |"gF","afq0MXW","h1r","Ehh","uJ","2","U3eQR","V","k9pxyc"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>ZJzMc = |"5mR8yGB","ri","kpJH23","PQ","q4u9iVp","z7"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>Uyp5DN = |"gF","afq0MXW","h1r","Ehh","uJ","2","U3eQR","V","k9pxyc"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>sTL9LF = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>SSgjp7eJ9 = ||\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

@@ -1,0 +1,56 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+	<cbid>CROMU_00015</cbid>
+	<replay>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>1EfFY9Hqtv8\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: 1EfFY9Hqtv8\n</delim><match><data>Name: 1EfFY9Hqtv8\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>2\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>PML: </data></match></read>
+		<write echo="ascii"><data>{Planet}{ Name     }     JZ02Aw9     { #Name    }  { Mass    }     0.94624   {   #Mass   }  { Period     }0.35897   {    #Period   } {Gravity}     0.50000     {#Gravity}   {  Perihelion     }  0.01093  {     #Perihelion   }  {    Aphelion    }    2.59524 {    #Aphelion    }    {     ERadius  }0.15789 {   #ERadius    } {     Radius     }    0.60484 {#Radius    } { OrbitSpeed}    0.64103 {#OrbitSpeed  }   {   Population   }    1715{  #Population     }  {#Planet}\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>2\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>PML: </data></match></read>
+		<write echo="ascii"><data>{Planet}{    Name}   ya7icu0     { #Name   }{  Mass   }   0.21667  {   #Mass     }     {Period    } 1.96154     {     #Period}   {   Gravity  } 1.79545{#Gravity     }  {     Perihelion}  2.06061{ #Perihelion } {    Aphelion  }     0.07362   {   #Aphelion    }{ ERadius  }   1.15094    { #ERadius    }     { Radius   }3.25806     {    #Radius}{ OrbitSpeed     }    1.37838 {   #OrbitSpeed  }{     Population   }  1561    {  #Population   }     {#Planet}\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: 1EfFY9Hqtv8\nName: JZ02Aw9\n\tPopulation: 1715\n\tPeriod: 0.35897\n\tOrbit Speed: 0.64103\n\tAphelion: 2.59524\n\tPerihelion: 0.01093\n\tRadius: 0.60484\n\tERadius: 0.15789\n\tMass: 0.94624\n\tGravity: 0.50000\nName: ya7icu0\n\tPopulation: 1561\n\tPeriod: 1.96154\n\tOrbit Speed: 1.37838\n\tAphelion: 0.07362\n\tPerihelion: 2.06061\n\tRadius: 3.25806\n\tERadius: 1.15094\n\tMass: 0.21667\n\tGravity: 1.79545\n</delim><match><data>Name: 1EfFY9Hqtv8\nName: JZ02Aw9\n\tPopulation: 1715\n\tPeriod: 0.35897\n\tOrbit Speed: 0.64103\n\tAphelion: 2.59524\n\tPerihelion: 0.01093\n\tRadius: 0.60484\n\tERadius: 0.15789\n\tMass: 0.94624\n\tGravity: 0.50000\nName: ya7icu0\n\tPopulation: 1561\n\tPeriod: 1.96154\n\tOrbit Speed: 1.37838\n\tAphelion: 0.07362\n\tPerihelion: 2.06061\n\tRadius: 3.25806\n\tERadius: 1.15094\n\tMass: 0.21667\n\tGravity: 1.79545\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>PZdyREwCP52\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: 1EfFY9Hqtv8\nName: JZ02Aw9\n\tPopulation: 1715\n\tPeriod: 0.35897\n\tOrbit Speed: 0.64103\n\tAphelion: 2.59524\n\tPerihelion: 0.01093\n\tRadius: 0.60484\n\tERadius: 0.15789\n\tMass: 0.94624\n\tGravity: 0.50000\nName: ya7icu0\n\tPopulation: 1561\n\tPeriod: 1.96154\n\tOrbit Speed: 1.37838\n\tAphelion: 0.07362\n\tPerihelion: 2.06061\n\tRadius: 3.25806\n\tERadius: 1.15094\n\tMass: 0.21667\n\tGravity: 1.79545\nName: PZdyREwCP52\n</delim><match><data>Name: 1EfFY9Hqtv8\nName: JZ02Aw9\n\tPopulation: 1715\n\tPeriod: 0.35897\n\tOrbit Speed: 0.64103\n\tAphelion: 2.59524\n\tPerihelion: 0.01093\n\tRadius: 0.60484\n\tERadius: 0.15789\n\tMass: 0.94624\n\tGravity: 0.50000\nName: ya7icu0\n\tPopulation: 1561\n\tPeriod: 1.96154\n\tOrbit Speed: 1.37838\n\tAphelion: 0.07362\n\tPerihelion: 2.06061\n\tRadius: 3.25806\n\tERadius: 1.15094\n\tMass: 0.21667\n\tGravity: 1.79545\nName: PZdyREwCP52\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>HBkUOAev6F\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>2\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>PML: </data></match></read>
+		<write echo="ascii"><data>{Planet}{     Name  }    Fyn6Q     {#Name   }{Mass   }   2.09836{#Mass   }     {    Period   }     1.23853 {#Period }    {   Gravity     }1.87640  {    #Gravity }  {  Perihelion}   0.41772    {  #Perihelion   }    { Aphelion     }  0.24306 {  #Aphelion     }  { ERadius    }0.56250  { #ERadius}  {   Radius}     6.34483    {    #Radius}   {   OrbitSpeed }     0.63303   {#OrbitSpeed}    {Population    }  1572 {   #Population  }{  Country    }{     Population   } 9730{     #Population     }{  Border   }   2.20000 2.02105 0.50725 0.30435    {     #Border  }{    Border    }    1.96226 1.21192 0.08571 0.91534     {   #Border}{Border }   0.51934 0.20792 3.07692 24.87500    { #Border}{ Border   }    2.13846 0.90608 1.40000 0.56863 {   #Border}{Name   }    uJMJs8wES  {  #Name}{    Language     }  PCGTG    { #Language  }{ Language     }    eUshbsQFd  {   #Language     }{   Language  }uPoyzr    {     #Language  }{ Capitol   }    HoTjLXzijJ     { #Capitol   }{     Territory   }   {  Established    }    -562     {     #Established  }{   Border}0.33333 1.13939 4.66667 1.47115   { #Border}{  Border  } 0.44886 0.47753 0.60417 1.94444     {    #Border  }{    Border}    1.21379 0.55491 0.31313 0.62857 {     #Border}{  Border }     3.37255 0.52239 2.47619 2.26190{     #Border     }{     Name  } 04U46wY    {     #Name}{ Founder  } Cs6BGnYlfocODZ     { #Founder }{   Population  }   34555     { #Population   }{  County }   {   Name}   z8zI8gkm    {#Name }{   Density } 9.00000    { #Density   }{     Area}0.43796   {#Area  }{Seat }    xkiGWkOa{     #Seat     }{Border  }2.22727 5.92000 1.97938 0.41135 {#Border    }{     Border   }2.14286 1.06338 0.05217 2.43333 {    #Border }{     Border }   0.38265 1.16981 6.15385 0.67485    {    #Border  }{ Population }     12465     {    #Population  }{ City     }   {   Url     }    http://UzyGomO.com     {    #Url     }{   Mayor   } BD33wsRkCNAa7aSnwsR   {     #Mayor  }{  Border    }   2.44000 1.25658 0.80769 6.42857   {    #Border }{ Border    }3.26316 1.10811 11.88889 0.44531    {#Border   }{  Name  }LnO412DD     { #Name    }{    Population     }    8784   {  #Population   }    {   #City  } {  #County     }     {#Territory}{    #Country   }  {    Country  } { Population  }4691    {  #Population     }{     Border} 0.64706 5.54545 2.02564 0.93893    {   #Border    }{   Name}    Uk6jlh1    {     #Name   }{     Language   }    pHnFd {    #Language    }{     Language  }   PMKljpjwFC {  #Language    }{    Capitol   }  CZdgJT     {    #Capitol}{ Territory  }    {     Established   }  -1566  {  #Established  }{  Border }  0.62366 16.40000 2.16867 1.56579    {    #Border   }{   Border }2.98361 4.22581 0.80814 0.30822   {     #Border}{ Border     }0.86093 2.21429 1.01681 0.89706  {    #Border    }{ Name}    TXNVhvx     { #Name     }{     Founder   }    9zGlKwCmTC    {     #Founder   }{ Population}   20173  {  #Population  }{ County     }     {   Name     }    rcaY1s1c   {  #Name   }{     Density    }    0.39674 {   #Density  }{   Area    }     1.14815    {   #Area    }{     Seat   }     IykUn{  #Seat   }{   Border }0.43820 0.69492 1.28571 42.66667{  #Border    }{    Border     }   0.45263 0.65217 1.00000 2.03125  {  #Border}{   Border}  0.40000 24.20000 0.54878 0.55556   {    #Border   }{ Population  }31695  {   #Population     }{City }  {Url   }  http://BffH7r.com  {     #Url}{Mayor  } GsTvUgkYKI5DITL9KuAZ   {     #Mayor  }{Border }3.13333 2.11667 1.98246 3.12766 { #Border   }{   Border }  0.91870 88.50000 0.70192 0.22283    {#Border }{  Border   }  1.73171 1.97000 0.22881 0.69375{     #Border }{   Name     }fowmTLc9  { #Name}{Population     }    27566 {    #Population  } {    #City }   {     #County  }   {#Territory    }{     #Country }  {#Planet}\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>kDu3OYEa6MW\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>h96yscDFaP\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>5\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>Exitting..\n</data></match></read>
+	</replay>
+</pov>

@@ -1,0 +1,36 @@
+---
+nodes:
+- name: start
+- name: main
+- name: heartbeat
+- name: handshake
+- name: changespec
+- name: application_main
+- name: application_list
+- name: application_post
+- name: application_delete
+- name: application_read
+- name: application_clear
+- name: exit
+edges:
+- start: main
+- main: heartbeat
+- main: handshake
+- main: changespec
+- changespec: main
+- heartbeat: main
+- handshake: application_main
+- application_main: application_list
+- application_list: application_main
+- application_main: application_post
+- application_post: application_main
+- application_main: application_delete
+- application_delete: application_main
+- application_main: application_read
+- application_read: application_main
+- application_main: application_clear
+- application_clear: application_main
+- application_main: exit
+- handshake: main
+- handshake: exit
+- heartbeat: exit

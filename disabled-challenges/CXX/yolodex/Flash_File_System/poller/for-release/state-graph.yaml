@@ -1,0 +1,87 @@
+---
+nodes:
+- name: start
+- name: TestOpen
+- name: TestClose
+- name: TestRead
+- name: TestWrite
+- name: TestDel
+- name: end
+
+edges:
+- start: TestRead
+  weight: 1.0
+- start: TestWrite
+  weight: 1.0
+- start: TestDel
+  weight: 1.0
+- start: TestOpen
+  weight: 10.0
+- start: TestClose
+  weight: 1.0
+
+- TestRead: TestRead
+  weight: 1.0
+- TestRead: TestWrite
+  weight: 1.0
+- TestRead: TestDel
+  weight: 1.0
+- TestRead: TestOpen
+  weight: 1.0
+- TestRead: TestClose
+  weight: 1.0
+- TestRead: end
+  weight: 0.5
+
+- TestWrite: TestRead
+  weight: 1.0
+- TestWrite: TestWrite
+  weight: 1.0
+- TestWrite: TestDel
+  weight: 1.0
+- TestWrite: TestOpen
+  weight: 1.0
+- TestWrite: TestClose
+  weight: 1.0
+- TestWrite: end
+  weight: 0.5
+
+- TestDel: TestRead
+  weight: 1.0
+- TestDel: TestWrite
+  weight: 1.0
+- TestDel: TestDel
+  weight: 1.0
+- TestDel: TestOpen
+  weight: 1.0
+- TestDel: TestClose
+  weight: 1.0
+- TestDel: end
+  weight: 0.5
+
+
+- TestOpen: TestRead
+  weight: 1.0
+- TestOpen: TestWrite
+  weight: 1.0
+- TestOpen: TestDel
+  weight: 1.0
+- TestOpen: TestOpen
+  weight: 1.0
+- TestOpen: TestClose
+  weight: 1.0
+- TestOpen: end
+  weight: 0.5
+
+- TestClose: TestRead
+  weight: 1.0
+- TestClose: TestWrite
+  weight: 1.0
+- TestClose: TestDel
+  weight: 1.0
+- TestClose: TestOpen
+  weight: 1.0
+- TestClose: TestClose
+  weight: 1.0
+- TestClose: end
+  weight: 0.5

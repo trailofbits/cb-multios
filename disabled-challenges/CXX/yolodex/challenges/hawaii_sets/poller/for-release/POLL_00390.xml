@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>tdK5p = |"np","7kRvpo","es","kMntpY","wj","Rt"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>lmp3XKs = |"Rt","XUv7Yz3LsV"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>lmp3XKs@tdK5p\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>FALSE\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>tdK5p = |"np","7kRvpo","es","kMntpY","wj","Rt"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>lmp3XKs = |"Rt","XUv7Yz3LsV"|\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

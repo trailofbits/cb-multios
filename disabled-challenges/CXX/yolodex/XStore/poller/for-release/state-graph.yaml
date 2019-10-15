@@ -1,0 +1,29 @@
+---
+nodes:
+- name: start
+- name: ready
+- name: store
+- name: lookup
+- name: delete
+- name: debug
+- name: pprint
+- name: invalid
+- name: quit
+
+edges:
+- start: store
+- ready: store
+- ready: lookup
+- ready: delete
+- ready: debug
+- ready: pprint
+- ready: invalid
+- ready: quit
+  weight: 0.02
+
+- store: ready
+- lookup: ready
+- delete: ready
+- debug: ready
+- pprint: ready
+- invalid: ready

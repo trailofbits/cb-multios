@@ -1,0 +1,7 @@
+---
+nodes:
+- name: start
+- name: RunSimulation
+edges:
+- start: RunSimulation
+  weight: 1.0

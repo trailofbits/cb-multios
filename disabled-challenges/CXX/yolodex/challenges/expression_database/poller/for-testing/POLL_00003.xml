@@ -1,0 +1,101 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>login\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>You logged in.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>: </delim><match><data>First name: </data></match></read>
+    <write><data>Angie\x0a</data></write>
+    <read><delim>: </delim><match><data>Last name: </data></match></read>
+    <write><data>Redding\x0a</data></write>
+    <read><delim>: </delim><match><data>User name: </data></match></read>
+    <write><data>aredding#\x0a</data></write>
+    <read><delim>: </delim><match><data>Birthdate \x28mm\x2fdd\x2fyy hh:mm:ss\x29: </data></match></read>
+    <write><data>11\x2f12\x2f7 104:41:31\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date parsing error.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>: </delim><match><data>First name: </data></match></read>
+    <write><data>Angie\x0a</data></write>
+    <read><delim>: </delim><match><data>Last name: </data></match></read>
+    <write><data>Redding\x0a</data></write>
+    <read><delim>: </delim><match><data>User name: </data></match></read>
+    <write><data>aredding\x0a</data></write>
+    <read><delim>: </delim><match><data>Birthdate \x28mm\x2fdd\x2fyy hh:mm:ss\x29: </data></match></read>
+    <write><data>12\x2f15\x2f31 9:24:18\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 12\x2f15\x2f1931 9:24:18\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Data added\x2c record 0\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>find\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter search express \x28firstname or fn\x2c lastname or ln\x2c username or un\x2c birthdate or bd\x2c operators \x3d\x3d\x2c !\x3d\x2c \x3e\x2c \x3c\x2c AND and OR\x29:\x0a</data></match></read>
+    <write><data>bd \x3e12\x2f13\x2f95 10:0:47\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Search results\x2c 0 items found:\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>remove\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to remove: </data></match></read>
+    <write><data>892\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record not found.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>find\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter search express \x28firstname or fn\x2c lastname or ln\x2c username or un\x2c birthdate or bd\x2c operators \x3d\x3d\x2c !\x3d\x2c \x3e\x2c \x3c\x2c AND and OR\x29:\x0a</data></match></read>
+    <write><data>ln \x3c\x22ft 1srWvuTl6Vf6Wh\x22 \x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Search results\x2c 1 items found:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Record \x5b0\x5d\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>First name: Angie\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Last name: Redding\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>User name: aredding\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Birthdate: 12\x2f15\x2f1931 9:24:18\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>error\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Command not found.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>: </delim><match><data>First name: </data></match></read>
+    <write><data>Kyle\x0a</data></write>
+    <read><delim>: </delim><match><data>Last name: </data></match></read>
+    <write><data>Bed!ford\x0a</data></write>
+    <read><delim>: </delim><match><data>User name: </data></match></read>
+    <write><data>kbedford\x0a</data></write>
+    <read><delim>: </delim><match><data>Birthdate \x28mm\x2fdd\x2fyy hh:mm:ss\x29: </data></match></read>
+    <write><data>9\x2f9\x2f84 21:10:24\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 9\x2f9\x2f1984 21:10:24\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Data added\x2c record 1\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>find\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter search express \x28firstname or fn\x2c lastname or ln\x2c username or un\x2c birthdate or bd\x2c operators \x3d\x3d\x2c !\x3d\x2c \x3e\x2c \x3c\x2c AND and OR\x29:\x0a</data></match></read>
+    <write><data>bd == 7\x2f18\x2f0 18:38:2 OR un == \x22aredding\x22 OR ln == \x22Bed_ford\x22\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Search results\x2c 2 items found:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Record \x5b0\x5d\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>First name: Angie\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Last name: Redding\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>User name: aredding\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Birthdate: 12\x2f15\x2f1931 9:24:18\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Record \x5b1\x5d\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>First name: Kyle\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Last name: Bed_ford\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>User name: kbedford\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Birthdate: 9\x2f9\x2f1984 21:10:24\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>print\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to print \x28or \x22all\x22 for all records\x29: </data></match></read>
+    <write><data>all\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Printing all 2 records.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Record \x5b0\x5d\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>First name: Angie\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Last name: Redding\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>User name: aredding\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Birthdate: 12\x2f15\x2f1931 9:24:18\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Record \x5b1\x5d\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>First name: Kyle\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Last name: Bed_ford\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>User name: kbedford\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Birthdate: 9\x2f9\x2f1984 21:10:24\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>exit\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Disconnecting.\x0a</data></match></read>
+</replay>
+</pov>

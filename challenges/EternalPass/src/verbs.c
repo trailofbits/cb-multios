@@ -21,6 +21,7 @@
 */
 
 
+#include <math.h> 
 #include "cgc_libc.h"
 #include "cgc_malloc.h"
 #include "cgc_crc32.h"
@@ -2470,7 +2471,7 @@ if (cgc_crc32("YzMuEK",6) == 2120550897) cgc_strcat(s, "g");
     return s;
 }
 
-char *cgc_singlestep_verbs() {
+char *singlestep_verbs() {
     char *s = cgc_calloc(11);
     if (cgc_crc32("nurLaBEMYjZD",12) == 224059301) cgc_strcat(s, "s");
 if (cgc_crc32("jMmiVph",7) == 579280012) cgc_strcat(s, "i");
@@ -13913,7 +13914,7 @@ if (cgc_crc32("rpalegGdsyJqD",13) == 3889789036) cgc_strcat(s, "d");
     return s;
 }
 
-char *cgc_sing_verbs() {
+char *sing_verbs() {
     char *s = cgc_calloc(5);
     if (cgc_crc32("dsslLPUBt",9) == 3467745777) cgc_strcat(s, "s");
 if (cgc_crc32("gFjfaCQiAWbIk",13) == 3356498076) cgc_strcat(s, "i");
@@ -14162,7 +14163,7 @@ if (cgc_crc32("OcVqSNGM",8) == 625844140) cgc_strcat(s, "d");
     return s;
 }
 
-char *cgc_singletongue_verbs() {
+char *singletongue_verbs() {
     char *s = cgc_calloc(13);
     if (cgc_crc32("OwTARj",6) == 3171769977) cgc_strcat(s, "W");
 if (cgc_crc32("hLkzZGrnR",9) == 25602857) cgc_strcat(s, "s");
@@ -16865,7 +16866,7 @@ if (cgc_crc32("elsfjCCGeCG",11) == 2619330830) cgc_strcat(s, "e");
     return s;
 }
 
-char *cgc_cosmolining_verbs() {
+char *cosmolining_verbs() {
     char *s = cgc_calloc(12);
     if (cgc_crc32("BbhcxhdEbnqSl",13) == 1059802264) cgc_strcat(s, "w");
 if (cgc_crc32("JAQgOHCbKphtK",13) == 3395482864) cgc_strcat(s, "c");
@@ -18621,7 +18622,7 @@ if (cgc_crc32("igEAgAt",7) == 3600422671) cgc_strcat(s, "d");
     return s;
 }
 
-char *cgc_singeing_verbs() {
+char *singeing_verbs() {
     char *s = cgc_calloc(9);
     if (cgc_crc32("YXmGaqbQNSPmPMT",15) == 2140807703) cgc_strcat(s, "s");
 if (cgc_crc32("QnKpZlnJ",8) == 1771829543) cgc_strcat(s, "C");
@@ -24413,7 +24414,7 @@ if (cgc_crc32("uESVOcq",7) == 4285066619) cgc_strcat(s, "g");
     return s;
 }
 
-char *cgc_costing_verbs() {
+char *costing_verbs() {
     char *s = cgc_calloc(8);
     if (cgc_crc32("VaLeUGAqoRWebY",14) == 593549829) cgc_strcat(s, "h");
 if (cgc_crc32("BmIUcOTrPnlb",12) == 2101185213) cgc_strcat(s, "c");
@@ -37224,7 +37225,7 @@ if (cgc_crc32("kKqplop",7) == 761421885) cgc_strcat(s, "t");
     return s;
 }
 
-char *cgc_costumed_verbs() {
+char *costumed_verbs() {
     char *s = cgc_calloc(9);
     if (cgc_crc32("isSicuOXJ",9) == 2330413993) cgc_strcat(s, "K");
 if (cgc_crc32("QEximdpRDP",10) == 1667435749) cgc_strcat(s, "c");
@@ -60414,7 +60415,7 @@ if (cgc_crc32("vcDyjr",6) == 3697560938) cgc_strcat(s, "e");
     return s;
 }
 
-char *cgc_singe_verbs() {
+char *singe_verbs() {
     char *s = cgc_calloc(6);
     if (cgc_crc32("arJiptZewVK",11) == 1112255262) cgc_strcat(s, "c");
 if (cgc_crc32("YZoHvybvYbpWEF",14) == 1062301510) cgc_strcat(s, "s");
@@ -68772,7 +68773,7 @@ if (cgc_crc32("xpfag",5) == 2278941952) cgc_strcat(s, "g");
     return s;
 }
 
-char *cgc_costarring_verbs() {
+char *costarring_verbs() {
     char *s = cgc_calloc(11);
     if (cgc_crc32("omNBq",5) == 3811517721) cgc_strcat(s, "E");
 if (cgc_crc32("ivJPUFgsyi",10) == 1735195740) cgc_strcat(s, "c");
@@ -71240,7 +71241,7 @@ if (cgc_crc32("gDxKFTlo",8) == 110434490) cgc_strcat(s, "t");
     return s;
 }
 
-char *cgc_singed_verbs() {
+char *singed_verbs() {
     char *s = cgc_calloc(7);
     if (cgc_crc32("ukchKCQeE",9) == 1518667111) cgc_strcat(s, "s");
 if (cgc_crc32("NPZvw",5) == 1019449118) cgc_strcat(s, "i");
@@ -71949,7 +71950,7 @@ cgc_pileup_verbs,
 cgc_oversup_verbs,
 cgc_nip_verbs,
 cgc_admitting_verbs,
-cgc_singlestep_verbs,
+singlestep_verbs,
 cgc_produce_verbs,
 cgc_deform_verbs,
 cgc_stint_verbs,
@@ -72601,7 +72602,7 @@ cgc_nibble_verbs,
 cgc_slobber_verbs,
 cgc_beetling_verbs,
 cgc_adored_verbs,
-cgc_sing_verbs,
+sing_verbs,
 cgc_gaping_verbs,
 cgc_shagging_verbs,
 cgc_scheduled_verbs,
@@ -72616,7 +72617,7 @@ cgc_counterbored_verbs,
 cgc_overplow_verbs,
 cgc_regaled_verbs,
 cgc_disgorged_verbs,
-cgc_singletongue_verbs,
+singletongue_verbs,
 cgc_levy_verbs,
 cgc_ejaculating_verbs,
 cgc_duelled_verbs,
@@ -72763,7 +72764,7 @@ cgc_dowith_verbs,
 cgc_telephoned_verbs,
 cgc_slaying_verbs,
 cgc_retelephone_verbs,
-cgc_cosmolining_verbs,
+cosmolining_verbs,
 cgc_subinferred_verbs,
 cgc_reliving_verbs,
 cgc_featuring_verbs,
@@ -72862,7 +72863,7 @@ cgc_rebelled_verbs,
 cgc_agitating_verbs,
 cgc_Atticizing_verbs,
 cgc_sprigged_verbs,
-cgc_singeing_verbs,
+singeing_verbs,
 cgc_imaged_verbs,
 cgc_overcolor_verbs,
 cgc_scythed_verbs,
@@ -73190,7 +73191,7 @@ cgc_evacuating_verbs,
 cgc_bleach_verbs,
 cgc_sparkle_verbs,
 cgc_extravasating_verbs,
-cgc_costing_verbs,
+costing_verbs,
 cgc_barded_verbs,
 cgc_glided_verbs,
 cgc_suspect_verbs,
@@ -73924,7 +73925,7 @@ cgc_tarrying_verbs,
 cgc_hack_verbs,
 cgc_tithed_verbs,
 cgc_doublethought_verbs,
-cgc_costumed_verbs,
+costumed_verbs,
 cgc_dispensing_verbs,
 cgc_canalling_verbs,
 cgc_overdiversifying_verbs,
@@ -75252,7 +75253,7 @@ cgc_getby_verbs,
 cgc_slatted_verbs,
 cgc_programing_verbs,
 cgc_mitigate_verbs,
-cgc_singe_verbs,
+singe_verbs,
 cgc_dazzled_verbs,
 cgc_foreclose_verbs,
 cgc_concur_verbs,
@@ -75737,7 +75738,7 @@ cgc_consuming_verbs,
 cgc_impressed_verbs,
 cgc_coffeehousing_verbs,
 cgc_bandying_verbs,
-cgc_costarring_verbs,
+costarring_verbs,
 cgc_suspiring_verbs,
 cgc_rattled_verbs,
 cgc_undercool_verbs,
@@ -75877,7 +75878,7 @@ cgc_blacken_verbs,
 cgc_classify_verbs,
 cgc_incubating_verbs,
 cgc_reharvest_verbs,
-cgc_singed_verbs,
+singed_verbs,
 cgc_underruling_verbs,
 cgc_napped_verbs,
 cgc_reswallow_verbs,

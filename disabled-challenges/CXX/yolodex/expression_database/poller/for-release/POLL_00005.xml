@@ -1,0 +1,99 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>login\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>You logged in.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>update\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to update: </data></match></read>
+    <write><data>270\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record not found.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>update\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to update: </data></match></read>
+    <write><data>230\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record not found.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>find\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Database empty. No records to find.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>update\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to update: </data></match></read>
+    <write><data>195\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record not found.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>remove\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to remove: </data></match></read>
+    <write><data>333\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record not found.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>print\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to print \x28or \x22all\x22 for all records\x29: </data></match></read>
+    <write><data>871\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record not found.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>: </delim><match><data>First name: </data></match></read>
+    <write><data>1kewDBssjlYcxHHFy\x0a</data></write>
+    <read><delim>: </delim><match><data>Last name: </data></match></read>
+    <write><data>D!Rw9Oost\x0a</data></write>
+    <read><delim>: </delim><match><data>User name: </data></match></read>
+    <write><data>srtSKbQC\x0a</data></write>
+    <read><delim>: </delim><match><data>Birthdate \x28mm\x2fdd\x2fyy hh:mm:ss\x29: </data></match></read>
+    <write><data>6\x2f7\x2f61 5:33:8\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 6\x2f7\x2f1961 5:33:8\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Data added\x2c record 0\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>: </delim><match><data>First name: </data></match></read>
+    <write><data>IJ9aQ18\x26JHw\x0a</data></write>
+    <read><delim>: </delim><match><data>Last name: </data></match></read>
+    <write><data>aJt f\x0a</data></write>
+    <read><delim>: </delim><match><data>User name: </data></match></read>
+    <write><data>T!MkHxK14QyLvFIi\x0a</data></write>
+    <read><delim>: </delim><match><data>Birthdate \x28mm\x2fdd\x2fyy hh:mm:ss\x29: </data></match></read>
+    <write><data>11\x2f25\x2f32 14:13:46\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 11\x2f25\x2f1932 14:13:46\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Data added\x2c record 1\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>update\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to update: </data></match></read>
+    <write><data>0\x0a</data></write>
+    <read><delim>: </delim><match><data>Update first name \x281kewDBssjlYcxHHFy\x29: </data></match></read>
+    <write><data>UQAjQSB5RYjn8Ah6E\x0a</data></write>
+    <read><delim>: </delim><match><data>Update last name \x28D\x5fRw9Oost\x29: </data></match></read>
+    <write><data>oHBHMd3bBXjMtxm0omBE\x0a</data></write>
+    <read><delim>: </delim><match><data>Update user name \x28srtSKbQC\x29: </data></match></read>
+    <write><data>Cj1e\x5fPXZZAXC\x0a</data></write>
+    <read><delim>: </delim><match><data>Update birthdate \x286\x2f7\x2f1961 5:33:8\x29: </data></match></read>
+    <write><data>3\x2f27\x2f46 8:44:28\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 3\x2f27\x2f1946 8:44:28\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Record 0 updated.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>remove\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to remove: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record 1 removed.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>logout\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>You logged out.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>update\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Authentication required. Try login\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>print\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Authentication required. Try login\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Authentication required. Try login\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>remove\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Authentication required. Try login\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>exit\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Disconnecting.\x0a</data></match></read>
+</replay>
+</pov>

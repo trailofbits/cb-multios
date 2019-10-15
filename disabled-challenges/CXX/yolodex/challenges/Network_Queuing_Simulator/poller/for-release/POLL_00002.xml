@@ -1,0 +1,278 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Welcome to the network queuing simulator\x0a</data></match></read>
+    <read><delim>: </delim><match><data>What\x27s the interface speed \x28in bps up to 4194304 bps\x29: </data></match></read>
+    <write><data>3193014\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>The following packet generators are available:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  1 \x2d Random\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  2 \x2d Poisson\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  3 \x2d Manual\x0a</data></match></read>
+    <read><delim>: </delim><match><data>Which generator would you like to use? \x281\x2d3\x29: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><delim>: </delim><match><data>Should the packet generator repeat the manually entered packets? \x28y\x2cn\x29: </data></match></read>
+    <write><data>y\x0a</data></write>
+    <read><delim>: </delim><match><data>How many packets would you like to enter? \x281 \x2d 1000\x29: </data></match></read>
+    <write><data>204\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter the packets\x2c one per line in this format:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>time since last packet \x28s\x2c \x23\x23.\x23\x23\x23\x23\x23\x23\x29\x2clength \x28bytes 64\x2d1500\x29\x2cpriority \x280\x2d63\x29\x0a</data></match></read>
+    <write><data>0.077080\x2c802\x2c18\x0a</data></write>
+    <write><data>0.065865\x2c716\x2c29\x0a</data></write>
+    <write><data>0.077932\x2c564\x2c30\x0a</data></write>
+    <write><data>0.046560\x2c1418\x2c8\x0a</data></write>
+    <write><data>0.039607\x2c299\x2c32\x0a</data></write>
+    <write><data>0.014375\x2c134\x2c30\x0a</data></write>
+    <write><data>0.002573\x2c905\x2c5\x0a</data></write>
+    <write><data>0.046679\x2c390\x2c20\x0a</data></write>
+    <write><data>0.081578\x2c880\x2c47\x0a</data></write>
+    <write><data>0.015410\x2c373\x2c57\x0a</data></write>
+    <write><data>0.004754\x2c1430\x2c24\x0a</data></write>
+    <write><data>0.083580\x2c1013\x2c7\x0a</data></write>
+    <write><data>0.073095\x2c891\x2c54\x0a</data></write>
+    <write><data>0.052792\x2c182\x2c15\x0a</data></write>
+    <write><data>0.037494\x2c110\x2c22\x0a</data></write>
+    <write><data>0.051556\x2c1448\x2c60\x0a</data></write>
+    <write><data>0.072256\x2c566\x2c27\x0a</data></write>
+    <write><data>0.041886\x2c1311\x2c63\x0a</data></write>
+    <write><data>0.092984\x2c174\x2c26\x0a</data></write>
+    <write><data>0.076490\x2c65\x2c17\x0a</data></write>
+    <write><data>0.052527\x2c783\x2c5\x0a</data></write>
+    <write><data>0.068218\x2c369\x2c21\x0a</data></write>
+    <write><data>0.055901\x2c901\x2c8\x0a</data></write>
+    <write><data>0.026323\x2c1339\x2c1\x0a</data></write>
+    <write><data>0.053449\x2c594\x2c3\x0a</data></write>
+    <write><data>0.060747\x2c247\x2c17\x0a</data></write>
+    <write><data>0.086370\x2c1007\x2c19\x0a</data></write>
+    <write><data>0.022798\x2c613\x2c63\x0a</data></write>
+    <write><data>0.020249\x2c836\x2c3\x0a</data></write>
+    <write><data>0.034511\x2c685\x2c43\x0a</data></write>
+    <write><data>0.079409\x2c1234\x2c48\x0a</data></write>
+    <write><data>0.018926\x2c159\x2c10\x0a</data></write>
+    <write><data>0.048079\x2c210\x2c29\x0a</data></write>
+    <write><data>0.034363\x2c1139\x2c13\x0a</data></write>
+    <write><data>0.081731\x2c762\x2c4\x0a</data></write>
+    <write><data>0.000783\x2c1314\x2c55\x0a</data></write>
+    <write><data>0.063217\x2c875\x2c7\x0a</data></write>
+    <write><data>0.018715\x2c1083\x2c60\x0a</data></write>
+    <write><data>0.058678\x2c82\x2c6\x0a</data></write>
+    <write><data>0.010441\x2c1255\x2c27\x0a</data></write>
+    <write><data>0.092699\x2c908\x2c4\x0a</data></write>
+    <write><data>0.079196\x2c69\x2c36\x0a</data></write>
+    <write><data>0.016889\x2c1108\x2c38\x0a</data></write>
+    <write><data>0.048121\x2c1029\x2c13\x0a</data></write>
+    <write><data>0.083335\x2c951\x2c61\x0a</data></write>
+    <write><data>0.007927\x2c944\x2c41\x0a</data></write>
+    <write><data>0.012741\x2c799\x2c27\x0a</data></write>
+    <write><data>0.057166\x2c372\x2c63\x0a</data></write>
+    <write><data>0.011731\x2c1386\x2c27\x0a</data></write>
+    <write><data>0.049321\x2c960\x2c49\x0a</data></write>
+    <write><data>0.075793\x2c876\x2c4\x0a</data></write>
+    <write><data>0.025031\x2c1301\x2c33\x0a</data></write>
+    <write><data>0.038595\x2c1447\x2c28\x0a</data></write>
+    <write><data>0.031654\x2c837\x2c45\x0a</data></write>
+    <write><data>0.038231\x2c949\x2c20\x0a</data></write>
+    <write><data>0.046300\x2c1451\x2c4\x0a</data></write>
+    <write><data>0.082767\x2c1444\x2c46\x0a</data></write>
+    <write><data>0.012654\x2c468\x2c4\x0a</data></write>
+    <write><data>0.023177\x2c1267\x2c38\x0a</data></write>
+    <write><data>0.062959\x2c847\x2c31\x0a</data></write>
+    <write><data>0.073738\x2c449\x2c15\x0a</data></write>
+    <write><data>0.063730\x2c1327\x2c49\x0a</data></write>
+    <write><data>0.049407\x2c92\x2c22\x0a</data></write>
+    <write><data>0.038600\x2c283\x2c49\x0a</data></write>
+    <write><data>0.049309\x2c419\x2c46\x0a</data></write>
+    <write><data>0.040688\x2c533\x2c56\x0a</data></write>
+    <write><data>0.027093\x2c768\x2c0\x0a</data></write>
+    <write><data>0.017493\x2c516\x2c56\x0a</data></write>
+    <write><data>0.076236\x2c1185\x2c55\x0a</data></write>
+    <write><data>0.033488\x2c1302\x2c11\x0a</data></write>
+    <write><data>0.081295\x2c213\x2c49\x0a</data></write>
+    <write><data>0.052978\x2c278\x2c10\x0a</data></write>
+    <write><data>0.054297\x2c576\x2c37\x0a</data></write>
+    <write><data>0.077242\x2c1418\x2c22\x0a</data></write>
+    <write><data>0.021579\x2c647\x2c23\x0a</data></write>
+    <write><data>0.032034\x2c110\x2c29\x0a</data></write>
+    <write><data>0.029964\x2c375\x2c58\x0a</data></write>
+    <write><data>0.015675\x2c369\x2c51\x0a</data></write>
+    <write><data>0.034833\x2c1143\x2c2\x0a</data></write>
+    <write><data>0.085904\x2c1481\x2c54\x0a</data></write>
+    <write><data>0.058545\x2c929\x2c42\x0a</data></write>
+    <write><data>0.096479\x2c967\x2c22\x0a</data></write>
+    <write><data>0.069231\x2c1222\x2c1\x0a</data></write>
+    <write><data>0.032083\x2c585\x2c24\x0a</data></write>
+    <write><data>0.085643\x2c1195\x2c16\x0a</data></write>
+    <write><data>0.065871\x2c402\x2c59\x0a</data></write>
+    <write><data>0.023159\x2c292\x2c43\x0a</data></write>
+    <write><data>0.049425\x2c853\x2c1\x0a</data></write>
+    <write><data>0.093744\x2c1258\x2c30\x0a</data></write>
+    <write><data>0.058697\x2c501\x2c62\x0a</data></write>
+    <write><data>0.086175\x2c830\x2c20\x0a</data></write>
+    <write><data>0.026908\x2c1222\x2c40\x0a</data></write>
+    <write><data>0.037042\x2c178\x2c14\x0a</data></write>
+    <write><data>0.090030\x2c1287\x2c55\x0a</data></write>
+    <write><data>0.019759\x2c184\x2c27\x0a</data></write>
+    <write><data>0.092172\x2c804\x2c28\x0a</data></write>
+    <write><data>0.057295\x2c1381\x2c31\x0a</data></write>
+    <write><data>0.038483\x2c340\x2c61\x0a</data></write>
+    <write><data>0.099808\x2c106\x2c15\x0a</data></write>
+    <write><data>0.018899\x2c881\x2c49\x0a</data></write>
+    <write><data>0.040593\x2c689\x2c40\x0a</data></write>
+    <write><data>0.055368\x2c535\x2c18\x0a</data></write>
+    <write><data>0.061600\x2c452\x2c18\x0a</data></write>
+    <write><data>0.041877\x2c293\x2c2\x0a</data></write>
+    <write><data>0.066898\x2c326\x2c38\x0a</data></write>
+    <write><data>0.093208\x2c1088\x2c38\x0a</data></write>
+    <write><data>0.017501\x2c738\x2c45\x0a</data></write>
+    <write><data>0.072869\x2c1165\x2c18\x0a</data></write>
+    <write><data>0.054406\x2c776\x2c15\x0a</data></write>
+    <write><data>0.075863\x2c619\x2c49\x0a</data></write>
+    <write><data>0.068872\x2c605\x2c60\x0a</data></write>
+    <write><data>0.048612\x2c641\x2c4\x0a</data></write>
+    <write><data>0.010828\x2c68\x2c32\x0a</data></write>
+    <write><data>0.076603\x2c345\x2c50\x0a</data></write>
+    <write><data>0.090252\x2c876\x2c45\x0a</data></write>
+    <write><data>0.061224\x2c531\x2c50\x0a</data></write>
+    <write><data>0.056344\x2c940\x2c40\x0a</data></write>
+    <write><data>0.007944\x2c1261\x2c54\x0a</data></write>
+    <write><data>0.004819\x2c195\x2c59\x0a</data></write>
+    <write><data>0.073591\x2c672\x2c13\x0a</data></write>
+    <write><data>0.095099\x2c609\x2c46\x0a</data></write>
+    <write><data>0.015833\x2c354\x2c44\x0a</data></write>
+    <write><data>0.031107\x2c659\x2c56\x0a</data></write>
+    <write><data>0.039161\x2c1448\x2c34\x0a</data></write>
+    <write><data>0.084097\x2c391\x2c42\x0a</data></write>
+    <write><data>0.093596\x2c759\x2c9\x0a</data></write>
+    <write><data>0.035507\x2c555\x2c39\x0a</data></write>
+    <write><data>0.044602\x2c429\x2c26\x0a</data></write>
+    <write><data>0.080611\x2c487\x2c58\x0a</data></write>
+    <write><data>0.014508\x2c276\x2c51\x0a</data></write>
+    <write><data>0.044908\x2c1436\x2c60\x0a</data></write>
+    <write><data>0.006639\x2c915\x2c12\x0a</data></write>
+    <write><data>0.036388\x2c595\x2c45\x0a</data></write>
+    <write><data>0.093396\x2c891\x2c7\x0a</data></write>
+    <write><data>0.096765\x2c289\x2c20\x0a</data></write>
+    <write><data>0.034560\x2c1375\x2c25\x0a</data></write>
+    <write><data>0.073902\x2c77\x2c5\x0a</data></write>
+    <write><data>0.061138\x2c409\x2c58\x0a</data></write>
+    <write><data>0.025603\x2c782\x2c40\x0a</data></write>
+    <write><data>0.039652\x2c1395\x2c51\x0a</data></write>
+    <write><data>0.007240\x2c931\x2c6\x0a</data></write>
+    <write><data>0.000182\x2c1055\x2c58\x0a</data></write>
+    <write><data>0.079454\x2c248\x2c51\x0a</data></write>
+    <write><data>0.010851\x2c1341\x2c21\x0a</data></write>
+    <write><data>0.007777\x2c1060\x2c22\x0a</data></write>
+    <write><data>0.082553\x2c99\x2c30\x0a</data></write>
+    <write><data>0.000535\x2c895\x2c52\x0a</data></write>
+    <write><data>0.062944\x2c1076\x2c59\x0a</data></write>
+    <write><data>0.057484\x2c746\x2c24\x0a</data></write>
+    <write><data>0.044988\x2c368\x2c43\x0a</data></write>
+    <write><data>0.078417\x2c402\x2c57\x0a</data></write>
+    <write><data>0.090746\x2c1489\x2c24\x0a</data></write>
+    <write><data>0.070005\x2c1305\x2c8\x0a</data></write>
+    <write><data>0.079154\x2c719\x2c6\x0a</data></write>
+    <write><data>0.069569\x2c635\x2c29\x0a</data></write>
+    <write><data>0.025225\x2c426\x2c33\x0a</data></write>
+    <write><data>0.002103\x2c1353\x2c0\x0a</data></write>
+    <write><data>0.020331\x2c875\x2c20\x0a</data></write>
+    <write><data>0.055075\x2c1459\x2c35\x0a</data></write>
+    <write><data>0.086165\x2c881\x2c2\x0a</data></write>
+    <write><data>0.009841\x2c679\x2c14\x0a</data></write>
+    <write><data>0.021419\x2c1424\x2c17\x0a</data></write>
+    <write><data>0.027671\x2c197\x2c33\x0a</data></write>
+    <write><data>0.070386\x2c479\x2c5\x0a</data></write>
+    <write><data>0.049378\x2c507\x2c63\x0a</data></write>
+    <write><data>0.054716\x2c302\x2c37\x0a</data></write>
+    <write><data>0.081024\x2c1400\x2c58\x0a</data></write>
+    <write><data>0.075268\x2c332\x2c63\x0a</data></write>
+    <write><data>0.086429\x2c321\x2c11\x0a</data></write>
+    <write><data>0.031562\x2c564\x2c12\x0a</data></write>
+    <write><data>0.029682\x2c884\x2c16\x0a</data></write>
+    <write><data>0.004830\x2c1465\x2c60\x0a</data></write>
+    <write><data>0.065839\x2c817\x2c38\x0a</data></write>
+    <write><data>0.037386\x2c889\x2c2\x0a</data></write>
+    <write><data>0.032241\x2c1094\x2c8\x0a</data></write>
+    <write><data>0.001675\x2c120\x2c58\x0a</data></write>
+    <write><data>0.086252\x2c1487\x2c43\x0a</data></write>
+    <write><data>0.022035\x2c629\x2c52\x0a</data></write>
+    <write><data>0.070104\x2c1273\x2c26\x0a</data></write>
+    <write><data>0.009766\x2c819\x2c8\x0a</data></write>
+    <write><data>0.078973\x2c1066\x2c24\x0a</data></write>
+    <write><data>0.013276\x2c560\x2c38\x0a</data></write>
+    <write><data>0.089031\x2c349\x2c47\x0a</data></write>
+    <write><data>0.051706\x2c1420\x2c0\x0a</data></write>
+    <write><data>0.005074\x2c1420\x2c1\x0a</data></write>
+    <write><data>0.094348\x2c320\x2c62\x0a</data></write>
+    <write><data>0.030437\x2c966\x2c14\x0a</data></write>
+    <write><data>0.040168\x2c869\x2c60\x0a</data></write>
+    <write><data>0.034012\x2c687\x2c31\x0a</data></write>
+    <write><data>0.024907\x2c482\x2c55\x0a</data></write>
+    <write><data>0.032038\x2c485\x2c6\x0a</data></write>
+    <write><data>0.002033\x2c789\x2c9\x0a</data></write>
+    <write><data>0.023403\x2c1305\x2c22\x0a</data></write>
+    <write><data>0.043752\x2c400\x2c55\x0a</data></write>
+    <write><data>0.053415\x2c356\x2c63\x0a</data></write>
+    <write><data>0.078007\x2c1406\x2c19\x0a</data></write>
+    <write><data>0.099479\x2c887\x2c58\x0a</data></write>
+    <write><data>0.068046\x2c1397\x2c16\x0a</data></write>
+    <write><data>0.093999\x2c348\x2c13\x0a</data></write>
+    <write><data>0.031954\x2c1388\x2c44\x0a</data></write>
+    <write><data>0.083018\x2c818\x2c58\x0a</data></write>
+    <write><data>0.026249\x2c171\x2c14\x0a</data></write>
+    <write><data>0.017276\x2c705\x2c4\x0a</data></write>
+    <write><data>0.031473\x2c1119\x2c62\x0a</data></write>
+    <read><delim>: </delim><match><data>For how long would you like the simulation to run? \x281 - 10s\x29: </data></match></read>
+    <write><data>9\x0a</data></write>
+    <read><delim>: </delim><match><data>How many queues \x281\x2d8\x29?: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Queue 0:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  Is queue \x230 a priority queue\x28y\x2cn\x29: </data></match></read>
+    <write><data>y\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the minimum priority packet to place in queue \x230 \x280\x2d63\x29: </data></match></read>
+    <write><data>42\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the maximum priority packet to place in queue \x230 \x280\x2d63\x29: </data></match></read>
+    <write><data>63\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the depth of queue \x230 \x281 \x2d 1024 packets\x29: </data></match></read>
+    <write><data>584\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Queue 1:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  What\x27s the minimum priority packet to place in queue \x231 \x280\x2d63\x29: </data></match></read>
+    <write><data>20\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the maximum priority packet to place in queue \x231 \x280\x2d63\x29: </data></match></read>
+    <write><data>41\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the depth of queue \x231 \x281 \x2d 1024 packets\x29: </data></match></read>
+    <write><data>950\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the weight of queue \x231 \x281 \x2d 100 percent\x29: </data></match></read>
+    <write><data>33\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Queue 2:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>  What\x27s the minimum priority packet to place in queue \x232 \x280\x2d63\x29: </data></match></read>
+    <write><data>0\x0a</data></write>
+    <read><delim>: </delim><match><data>  What\x27s the maximum priority packet to place in queue \x232 \x280\x2d63\x29: </data></match></read>
+    <write><data>19\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the depth of queue \x232 \x281 \x2d 1024 packets\x29: </data></match></read>
+    <write><data>197\x0a</data></write>
+    <read><delim>: </delim><match><data>  What is the weight of queue \x232 \x281 \x2d 100 percent\x29: </data></match></read>
+    <write><data>67\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>wall\x5fclock: 9.00000 \x28s\x29\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Queue 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       63\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Dropped:           0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><pcre>  Average Latency \(s\):\s+\d+\.\d+</pcre></match></read>
+    <read><delim>\x0a</delim><match><data>  Enqueued Pkts:          0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Queue Depth \x28bytes\x29:    0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Queue 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       59\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Dropped:           0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><pcre>  Average Latency \(s\):\s+\d+\.\d+</pcre></match></read>
+    <read><delim>\x0a</delim><match><data>  Enqueued Pkts:          0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Queue Depth \x28bytes\x29:    0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Queue 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       58\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Dropped:           0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><pcre>  Average Latency \(s\):\s+\d+\.\d+</pcre></match></read>
+    <read><delim>\x0a</delim><match><data>  Enqueued Pkts:          0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Queue Depth \x28bytes\x29:    0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Interface Stats\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Pkts Transmitted:       180\x0a</data></match></read>
+</replay>
+</pov>

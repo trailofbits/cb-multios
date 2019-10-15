@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  *
  */
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_ctype.h"
 #include "cgc_stdarg.h"
@@ -314,7 +315,7 @@ static cell_t *cgc_get_cell(char *cell_id)
 
     len = cgc_strlen(row_str);
     for (i = 0; i < len; i++)
-        row_idx += ((row_str[i] - 64) * cgc_pow(26, len - i - 1));
+        row_idx += ((row_str[i] - 64) * pow(26, len - i - 1));
 
     --row_idx;
     col_idx = cgc_strtol(col_str, NULL, 10);

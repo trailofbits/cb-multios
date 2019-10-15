@@ -23,13 +23,14 @@
  *
  */
 
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_stdlib.h"
 #include "cgc_string.h"
 #include "cgc_dft.h"
 
 static complex_t *cgc_cfft(complex_t *coeff, unsigned int samples) {
-    const double PI = cgc_atan2(1, 1) * 4;
+    const double PI = atan2(1, 1) * 4;
     double theta, cos_val, sin_val;
     if (samples == 1) {
         complex_t *xk = cgc_malloc(sizeof(complex_t));
@@ -52,8 +53,8 @@ static complex_t *cgc_cfft(complex_t *coeff, unsigned int samples) {
     complex_t *Xk = cgc_malloc(sizeof(complex_t) * samples);
     for (k = 0; k < samples/2; k++) {
         theta = (2 * PI * k ) / (double)(samples);
-        cos_val = cgc_cos(theta);
-        sin_val = cgc_sin(theta);
+        cos_val = cos(theta);
+        sin_val = sin(theta);
 
         Xk[k].real = ek[k].real + ok[k].real * cos_val + ok[k].imag * sin_val;
         Xk[k].imag = ek[k].imag + -ok[k].real * sin_val + ok[k].imag * cos_val;
@@ -87,7 +88,7 @@ static complex_t *cgc_fft(double *real_coeff, unsigned int samples) {
 }
 
 complex_t *cgc_dft(double *real_coeff, unsigned int samples, int *len) {
-    int p_of_2 = cgc_log2(samples);
+    int p_of_2 = log2(samples);
     complex_t *Xk = NULL;
 
     if ((1 << p_of_2) != samples) {
@@ -115,7 +116,7 @@ complex_t *cgc_dft(double *real_coeff, unsigned int samples, int *len) {
 }
 
 double *cgc_idft(complex_t *coeff, unsigned int samples, int *len) {
-    int p_of_2 = cgc_log2(samples);
+    int p_of_2 = log2(samples);
     complex_t *xt = NULL;
     double *Xt = NULL;
     int i;

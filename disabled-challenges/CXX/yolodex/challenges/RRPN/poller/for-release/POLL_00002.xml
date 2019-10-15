@@ -1,0 +1,163 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>10 20 30 40 50 60\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>60 (0x0000003c)\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>0x10 0x20 0x30 0x40 0x50 0x60 -\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>16 (0x00000010)\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>0x 10 20 -\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>Error!\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>0xdeadbeef 1 * 0 - | @ ~\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>-559038737 (0xdeadbeef)\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>0xdeadbeef 1 * 0 - | @ ~~\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>Error!\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>H A I\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>0 (0x00000000)\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>10 20 30 * * *\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>Error!\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>0 (0x00000000)\n</data>
+            </match>
+        </read>
+
+        <write>
+            <data>quit\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>> QUIT\n</data>
+            </match>
+        </read>
+
+    </replay>
+</pov>

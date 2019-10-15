@@ -1,0 +1,25 @@
+---
+nodes:
+- name: commands
+- name: start
+- name: cmd_new
+- name: cmd_view
+- name: cmd_update
+- name: cmd_delete
+- name: cmd_add_ac
+- name: quit
+
+edges:
+- start: commands
+- commands: cmd_new
+- commands: cmd_view
+- commands: cmd_update
+- commands: cmd_delete
+- commands: cmd_add_ac
+- cmd_new: commands
+- cmd_view: commands
+- cmd_update: commands
+- cmd_delete: commands
+- cmd_add_ac: commands
+- commands: quit
+  weight: 0.10

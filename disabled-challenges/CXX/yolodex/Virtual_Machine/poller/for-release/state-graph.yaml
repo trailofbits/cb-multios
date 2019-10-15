@@ -1,0 +1,15 @@
+---
+nodes:
+- name: start
+- name: gen_file
+- name: run_vm
+- name: gen_bad_file
+- name: exit
+
+edges:
+- start: gen_file
+- start: gen_bad_file
+  weight: 0.1
+- gen_file: run_vm
+- run_vm: exit
+- gen_bad_file: run_vm

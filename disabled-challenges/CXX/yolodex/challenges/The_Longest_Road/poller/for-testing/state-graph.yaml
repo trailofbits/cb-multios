@@ -1,0 +1,14 @@
+---
+nodes:
+- name: start
+- name: begin
+- name: assoc
+- name: auth
+- name: data
+
+
+edges:
+- start: begin
+- begin: assoc
+- assoc: auth
+- auth: data

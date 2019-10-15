@@ -1,0 +1,61 @@
+---
+nodes:
+- name: start
+- name: chooseChar
+
+- name: upletter
+- name: lowletter
+- name: number
+- name: special
+- name: other
+- name: space
+
+- name: end
+
+edges:
+- start: chooseChar
+
+- chooseChar: upletter
+  weight: .25
+- chooseChar: lowletter
+  weight: .40
+- chooseChar: number
+  weight: .14
+- chooseChar: special
+  weight: .1
+- chooseChar: space
+  weight: .1
+- chooseChar: other
+  weight: .01
+
+- upletter: chooseChar
+  weight: .999
+- upletter: end
+  weight: .001
+
+- lowletter: chooseChar
+  weight: .999
+- lowletter: end
+  weight: .001
+
+- number: chooseChar
+  weight: .999
+- number: end
+  weight: .001
+
+- special: chooseChar
+  weight: .999
+- special: end
+  weight: .001
+
+- other: chooseChar
+  weight: .999
+- other: end
+  weight: .001
+
+- space: chooseChar
+  weight: .999
+- space: end
+  weight: .001
+
+

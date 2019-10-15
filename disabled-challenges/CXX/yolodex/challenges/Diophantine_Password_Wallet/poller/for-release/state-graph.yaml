@@ -1,0 +1,51 @@
+---
+nodes:
+- name: start
+- name: login
+- name: good_user
+- name: bad_user
+- name: good_secrets
+- name: bad_secrets
+- name: user_menu
+- name: menu_print
+- name: menu_add
+- name: menu_rm
+- name: menu_logout
+- name: menu_bad
+- name: end
+
+edges:
+- start: login
+- login: good_user
+  weight: .75 
+- login: bad_user
+  weight: .25
+
+- bad_user: end
+
+- good_user: good_secrets
+  weight: .75
+- good_user: bad_secrets
+  weight: .25
+
+- bad_secrets: end
+
+- good_secrets: user_menu
+
+- user_menu: menu_print
+  weight: 1
+- user_menu: menu_add
+  weight: 1
+- user_menu: menu_rm
+  weight: 1
+- user_menu: menu_logout
+  weight: 1
+- user_menu: menu_bad
+  weight: .5
+
+- menu_print: user_menu
+- menu_add: user_menu
+- menu_rm: user_menu
+- menu_logout: login
+- menu_bad: user_menu
+

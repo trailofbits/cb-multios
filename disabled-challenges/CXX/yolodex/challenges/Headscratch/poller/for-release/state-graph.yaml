@@ -1,0 +1,12 @@
+---
+nodes:
+- name: start
+- name: stub
+- name: do_tolower
+- name: do_calc
+- name: finish
+
+edges:
+- start: stub
+- stub: do_tolower
+- stub: do_calc

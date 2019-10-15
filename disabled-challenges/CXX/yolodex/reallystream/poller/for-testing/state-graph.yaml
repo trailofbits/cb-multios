@@ -1,0 +1,38 @@
+---
+nodes:
+- name: start
+  chance: 1.0
+  continue: 0.9
+- name: prompt
+  chance: 1.0
+  continue: 0.9
+- name: quit
+- name: add_bad
+- name: add_good
+- name: play_bad
+- name: play_good
+- name: list
+- name: remove_bad
+- name: remove_good
+- name: badcmd
+
+edges:
+- start: prompt
+- prompt: badcmd
+- prompt: add_bad
+- prompt: add_good
+- prompt: play_bad
+- prompt: play_good
+- prompt: list
+- prompt: remove_bad
+- prompt: remove_good
+- prompt: quit
+
+- add_bad: prompt
+- add_good: prompt
+- play_bad: prompt
+- play_good: prompt
+- list: prompt
+- remove_bad: prompt
+- remove_good: prompt
+- badcmd: prompt

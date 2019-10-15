@@ -1,0 +1,40 @@
+nodes:
+- name: start
+- name: put_good
+  continue: 0.95
+- name: frag_good
+  continue: 0.95
+- name: get_good
+  continue: 0.95
+- name: rand_good
+  continue: 0.95
+#these never continue
+- name: put_bad
+- name: get_bad
+- name: rand_bad
+- name: frag_bad
+- name: invalid
+
+edges:
+- start: put_good
+  weight: 20
+- start: frag_good
+  weight: 20
+- start: get_good
+  weight: 15
+- start: rand_good
+  weight: 0.20
+- start: put_bad
+  weight: 0.05
+- start: frag_bad
+  weight: 0.05
+- start: rand_bad
+  weight: 0.05
+- start: get_bad
+  weight: 0.05
+- start: invalid
+  weight: 0.05
+- put_good: start
+- get_good: start
+- rand_good: start
+- frag_good: start

@@ -1,0 +1,963 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>CROMU_00029</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>For what material would you like to run this simulation?\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  1. Air\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  2. Aluminum\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  3. Copper\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  4. Custom\x0a</data></match></read>
+    <read><delim>: </delim><match><data>Selection: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter the thermal conductivities in W\x2f\x28m\x2aK\x29 for your material at the following temperatures \x28Celcius\x29:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>\x2d264.15: </data></match></read>
+    <write><data>365.93998\x0a</data></write>
+    <read><delim>: </delim><match><data>\x2d193.15: </data></match></read>
+    <write><data>453.13718\x0a</data></write>
+    <read><delim>: </delim><match><data>\x2d112.15: </data></match></read>
+    <write><data>554.80017\x0a</data></write>
+    <read><delim>: </delim><match><data> \x2d31.15: </data></match></read>
+    <write><data>418.92260\x0a</data></write>
+    <read><delim>: </delim><match><data>  49.85: </data></match></read>
+    <write><data>338.31721\x0a</data></write>
+    <read><delim>: </delim><match><data> 129.85: </data></match></read>
+    <write><data>420.23365\x0a</data></write>
+    <read><delim>: </delim><match><data> 210.85: </data></match></read>
+    <write><data>442.41368\x0a</data></write>
+    <read><delim>: </delim><match><data> 291.85: </data></match></read>
+    <write><data>517.00300\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter the heat capacity in J\x2f\x28m\x5e3\x2aK\x29 for your material when it is at the following temperatures \x28Celcius\x29:\x0a</data></match></read>
+    <read><delim>: </delim><match><data>\x2d264.15: </data></match></read>
+    <write><data>1281715.90475\x0a</data></write>
+    <read><delim>: </delim><match><data>\x2d193.15: </data></match></read>
+    <write><data>1173289.45976\x0a</data></write>
+    <read><delim>: </delim><match><data>\x2d112.15: </data></match></read>
+    <write><data>1242740.06005\x0a</data></write>
+    <read><delim>: </delim><match><data> \x2d31.15: </data></match></read>
+    <write><data>975739.92103\x0a</data></write>
+    <read><delim>: </delim><match><data>  49.85: </data></match></read>
+    <write><data>1110158.40617\x0a</data></write>
+    <read><delim>: </delim><match><data> 129.85: </data></match></read>
+    <write><data>1241270.60996\x0a</data></write>
+    <read><delim>: </delim><match><data> 210.85: </data></match></read>
+    <write><data>1461656.74562\x0a</data></write>
+    <read><delim>: </delim><match><data> 291.85: </data></match></read>
+    <write><data>1450113.34835\x0a</data></write>
+    <read><delim>: </delim><match><data>How large is the material \x28X\x2cY\x2cZ meters\x29: </data></match></read>
+    <write><data>3\x2c14\x2c4\x0a</data></write>
+    <read><delim>: </delim><match><data>Should the material be isothermic? \x28y\x2cn\x29: </data></match></read>
+    <write><data>n\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>  Send the grid temperatures as a comma separated list of Celcius decimal values.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  The program will populate the X\x2c then Y\x2c then Z dimensions of the room.\x0a</data></match></read>
+    <write><data>130.50219</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d31.49957</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d32.81648</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>104.29340</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d2.09090</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>280.26759</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>156.13936</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d79.20458</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>72.87138</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>126.04605</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>14.24815</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>74.59022</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>359.86013</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>225.46822</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>308.20997</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>367.63130</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>336.02600</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>201.25396</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>29.88902</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>48.42317</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>356.21447</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>285.04623</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d154.43641</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>186.32227</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>337.46149</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>51.44566</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>328.87242</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>64.99125</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d106.20840</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>311.17677</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d79.89732</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>307.87267</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>255.33337</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d36.38440</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d22.80540</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>209.11827</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>171.67140</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>16.42361</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>124.25892</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d112.10625</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>86.11029</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>72.78768</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>87.82429</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d52.78065</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>246.44729</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d17.12633</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>321.93886</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>82.49479</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d134.32119</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>103.97426</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>295.68116</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>355.50085</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>213.08810</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>300.87945</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>227.30524</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>185.93504</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>324.28967</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d91.39676</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d104.74648</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>91.36710</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>364.89782</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>215.95672</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>74.66194</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>17.63914</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>261.41279</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>11.85310</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>169.46888</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>320.00623</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>34.90869</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>136.49507</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>298.75631</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>344.18663</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d9.25973</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>84.99819</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d103.91738</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>3.77558</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>259.10516</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>72.55854</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d112.06996</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d41.16642</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>182.36027</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d89.55940</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>339.90369</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>361.44032</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>120.86540</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d54.34557</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>6.20851</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>12.69671</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d56.01352</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>350.46429</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d74.40586</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>299.89412</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>301.76542</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>21.09839</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d98.65358</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>191.81433</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>194.91108</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d99.38546</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>52.55938</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>160.97038</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d73.08222</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d167.70559</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>188.31065</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>179.41362</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d121.86131</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>185.74713</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>63.57336</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>318.41735</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>297.95770</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d8.55017</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d58.82199</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>153.15508</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>22.93758</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>23.76598</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>74.66890</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>290.80505</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d59.43078</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>338.51089</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>276.84484</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>140.98058</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d21.40188</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>368.56450</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d124.24146</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d66.16388</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d100.04626</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>346.23026</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>15.56331</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>337.36160</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>179.44917</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>223.56355</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>175.57869</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>4.52267</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d149.83005</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>338.52542</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>0.77056</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d121.34745</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d89.29932</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>14.14422</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>306.52970</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>128.00452</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>149.97687</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>283.86290</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>190.28751</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>51.28089</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>336.37688</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>17.37512</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>183.80937</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>236.97385</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>207.54157</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d82.27971</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>10.19545</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d3.65905</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d132.84866</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>199.59642</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>309.37612</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d74.13329</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>204.63561</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>219.87522</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>9.65152</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>11.37110</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d20.12302</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>174.91114</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>98.65474</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d84.66139</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d109.84109</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d8.35654</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d3.78487</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d56.82178</data></write>
+    <write><data>\x0a</data></write>
+    <read><delim>: </delim><match><data>Are there any constant energy sources in the room? \x28y\x2cn\x29: </data></match></read>
+    <write><data>y\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>  Send the heat sources as temperatures in a comma separated list of Celcius decimal values.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  The program will populate the X\x2c then Y\x2c then Z dimensions of the room.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Send \x2d174.00000 for any grid location which doesn\x27t have a heat source.\x0a</data></match></read>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>75.08199</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>312.32989</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>177.37497</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>43.01809</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>282.57741</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d157.28903</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d158.87257</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>217.51839</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d168.38514</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>355.35461</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>303.02305</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>175.00006</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x0a</data></write>
+    <read><delim>: </delim><match><data>For how long would you like to run the simulation? \x28s\x29: </data></match></read>
+    <write><data>88.33272\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 117.39780  141.09271  363.74571  157.46762  201.22637  \x2d58.14086   29.78258 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d16.79523  \x2d32.47822  280.74711  \x2d53.00662  \x2d27.38137  142.53364   51.26695 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 123.72556   73.73080  254.73197  271.26837  320.02459  232.22582   98.52330 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  35.34898  110.58983   67.95424  191.26848  152.98198   \x2d2.74207 \x2d100.81468 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 134.57910  158.53118   40.59428  238.68475  309.38127  172.05167  149.36863 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 164.47104  298.28030  207.82839   43.25752  189.54766  \x2d15.67942  271.90030 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  66.78106  \x2d26.65374  177.94073  187.02889  225.55639  206.58990  \x2d43.78288 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d55.17955  100.62027  \x2d86.23384  121.49349    7.19371  283.82495  134.25912 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 178.33640  246.78988  \x2d57.57310   98.27802  \x2d17.52801   40.77490  110.99440 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 119.56343 \x2d135.58875  295.19630  286.67536  104.89594  108.00336   45.14910 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 256.47014  124.61305  159.14601  112.45835  152.85854   99.87610  \x2d44.22313 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  91.98592    7.45739  100.62888   50.76483 \x2d103.49097   92.28133  \x2d83.33144 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 0.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 116.72955  101.27971  110.19653  158.30876  200.10831  \x2d56.42159   29.02504 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d15.18059  164.29489  254.18807  \x2d48.73605  \x2d23.28773  142.08102   51.70004 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 123.42739   74.95694  254.69907   14.20669  318.13313  231.08342  \x2d42.41200 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  36.06218  110.75813   70.79219  191.44920  153.53711   \x2d1.25944  \x2d98.81906 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 133.16821  158.44724   42.50647  236.37475  325.42598  171.25279  149.43742 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 164.88023  258.59359  206.59099  \x2d76.44353  189.40402  \x2d12.76619  270.25321 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  66.26645  \x2d25.44616  176.66737  187.40375  223.97403  205.55554  \x2d42.01676 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d50.88669  100.61690  \x2d83.29314  121.44201   10.93167  281.76589  133.38604 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 177.59069  245.54533  \x2d55.90240  307.70273  \x2d16.31589   59.05711  111.74645 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 119.72807 \x2d132.49782  293.81976  285.38920  106.27081  108.78961   44.34576 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 254.67718  123.54417  157.83422  113.29883  151.79902  100.95737  \x2d43.28691 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  93.24866    9.40133  100.31298   51.06493 \x2d101.80462   91.51137  \x2d81.78642 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 10.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 115.94267  101.50884  110.19653  158.35838  199.01655  \x2d54.72561   28.22275 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d12.67077  166.21852  253.96583  \x2d45.91224  \x2d19.21178  141.63033   51.50781 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 123.33102   76.73216  253.63435   12.99275  316.27064  229.44004  \x2d42.27347 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  36.75830  110.73196   72.54811  191.61509  154.14465    0.17526  \x2d96.81203 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 131.80106  158.92396   44.21241  233.80629  323.90659  170.46870  149.45924 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 165.16129  257.86460  204.95259  \x2d75.19892  189.34035   \x2d9.85319  268.12133 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  65.78142  \x2d24.24681  175.43264  187.75958  222.43224  204.53653  \x2d40.31237 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d46.70546  100.61906  \x2d80.39874  122.14600   14.65234  279.78102  132.53107 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 176.86601  244.18744  \x2d53.37213  305.46257  \x2d15.10854   60.37587  112.52945 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 119.88315 \x2d129.45335  292.44894  284.12346  107.61114  109.55684   43.56421 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 252.91318  122.50191  156.55849  114.10754  150.76450  102.00824  \x2d42.35605 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  94.48530   11.31241   99.99715   52.11029 \x2d100.12904   90.82134  \x2d80.25470 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 20.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 115.20629  101.73372  110.19653  158.39975  197.95088  \x2d53.05300   27.44153 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d10.16473  168.09079  253.74878  \x2d43.14055  \x2d15.21770  141.17705   51.34082 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 123.23969   78.48530  252.57585   11.80620  314.43411  227.81915  \x2d42.13934 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  37.43660  110.71410   74.25862  191.76096  154.72247    1.58815  \x2d94.85059 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 130.47588  159.26644   45.88832  231.29802  322.43157  169.75943  149.80483 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 165.41810  257.14583  203.34528  \x2d73.99634  189.26931   \x2d7.00062  266.07118 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  65.32492  \x2d23.11893  174.23169  188.08549  221.02798  203.53254  \x2d38.64833 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d42.69070  100.73000  \x2d77.54409  122.83416   18.22417  277.81946  131.78962 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 176.16106  242.84614  \x2d50.87674  303.27856  \x2d13.90219   61.67454  113.27831 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 120.02898 \x2d126.45453  291.08406  282.87766  108.87188  110.30545   42.80395 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 251.17751  121.49099  155.31781  114.89199  149.75486  103.02974  \x2d41.43058 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  95.69637   13.19055   99.68721   53.13716  \x2d98.46426   90.15294  \x2d78.73576 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 30.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 114.48671  101.95439  110.19653  158.43317  196.91064  \x2d51.40337   26.68102 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  \x2d7.71092  169.92326  253.53676  \x2d40.42607  \x2d11.36889  140.72194   51.18378 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 123.15335   80.21659  251.52363   10.64634  312.62309  226.22036  \x2d42.00960 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  38.09783  110.69741   75.92485  191.89385  155.26772    2.97985  \x2d92.90987 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 129.19697  159.59395   47.51865  228.69522  321.11397  169.03997  150.09936 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 165.65158  256.43296  201.76842  \x2d72.83446  189.19724   \x2d4.20684  264.00359 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  64.89533  \x2d21.99761  173.06362  188.39687  219.65890  202.54319  \x2d37.02305 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d38.77792  100.84196  \x2d74.72899  123.50516   21.65911  275.88153  130.98075 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 175.47504  241.52090  \x2d48.41570  301.14928  \x2d12.69740   62.95353  114.03747 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 120.16582 \x2d123.50083  289.72528  281.65115  110.10175  111.03588   42.06454 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 249.46938  120.50576  154.11129  115.65297  148.76917  104.02241  \x2d40.51010 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  96.88241   15.03631   99.38321   54.14605  \x2d96.81023   89.50570  \x2d77.22971 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 40.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 113.78353  102.17092  110.19653  158.45891  195.89493  \x2d49.83841   25.94089 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  \x2d5.30803  171.71684  253.32966  \x2d37.76194   \x2d7.65965  140.39473   51.03602 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 123.07188   81.92628  250.47771    9.51249  310.83687  224.63879  \x2d41.88427 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  38.74264  110.68183   77.54788  192.00747  155.80183    4.35061  \x2d90.98992 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 127.96299  159.90705   49.12099  226.15445  319.83211  168.31158  150.34468 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 165.86260  255.72602  200.22131  \x2d71.71200  189.11869   \x2d1.47081  261.96784 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  64.49171  \x2d20.88286  171.92757  188.69412  218.32389  201.56815  \x2d35.43570 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d34.96439  100.95483  \x2d71.95290  124.16055   25.00462  273.96660  130.18916 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 174.80740  240.21159  \x2d45.98848  299.07335  \x2d11.49467   64.21322  114.76167 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 120.29397 \x2d120.59147  288.37280  280.44349  111.30144  111.74851   41.34559 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 247.78821  119.54570  152.93804  116.39119  147.80683  104.98681  \x2d39.59500 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  98.04393   16.85022   99.08516   55.13741  \x2d95.16694   88.87917  \x2d75.73524 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 50.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 113.09636  102.38335  110.19653  158.47720  194.90273  \x2d48.29332   25.22083 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  \x2d2.95481  173.47242  253.12735  \x2d35.14715   \x2d4.02091  140.06127   50.89671 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 122.99516   83.61461  249.43813    8.40400  309.12399  223.07931  \x2d41.76336 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  39.37164  110.66731   79.12878  192.10261  156.32504    5.70049  \x2d89.09078 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 126.85269  160.20629   50.69587  223.67425  318.58471  167.59816  150.54317 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 166.05206  255.02503  198.70334  \x2d70.63412  188.70857    1.20859  259.96307 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  64.12606  \x2d19.80360  170.82269  188.97760  217.02209  200.60712  \x2d33.88511 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d30.98240  101.13359  \x2d69.21523  124.80078   28.22190  272.07445  129.41433 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 174.24660  238.91808  \x2d43.59455  297.04942  \x2d10.31753   65.45400  115.45209 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 120.41368 \x2d117.67216  286.95378  279.25427  112.45947  112.44374   40.64668 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 246.18144  118.60262  151.79719  117.10738  146.96436  105.91466  \x2d38.68530 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  99.18143   18.63283   98.79308   56.11171  \x2d93.59561   88.27292  \x2d74.25242 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 60.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 112.42484  102.59176  110.19653  158.48832  193.93351  \x2d46.76781   24.52053 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  \x2d0.69394  175.19086  252.92973  \x2d32.58068   \x2d0.45112  139.72209   50.76527 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 122.92309   85.28182  248.40493    7.32038  307.43250  221.54151  \x2d41.64686 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  39.91457  110.64436   80.66860  192.18000  156.83761    7.02993  \x2d87.21247 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 125.92100  160.43946   52.24378  221.25319  317.37079  166.89930  150.69712 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 166.20007  254.33003  197.21389  \x2d69.63872  188.30611    3.83280  257.98842 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  63.77346  \x2d18.73970  169.74780  189.24769  215.75245  199.65979  \x2d32.37013 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d27.16070  101.31091  \x2d66.51540  125.40177   31.35691  270.20475  128.65575 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 173.70069  237.64078  \x2d41.23339  295.23936   \x2d9.20284   66.67624  116.10988 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 120.35145 \x2d114.81417  285.54306  278.08307  113.58950  113.12187   39.96742 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 244.59805  117.68435  150.68762  117.80207  146.14101  106.81616  \x2d37.78101 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 100.29602   20.38460   98.50700   57.00842  \x2d92.03300   87.68616  \x2d72.78129 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 70.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 111.76822  102.79590  110.19653  158.52717  192.98679  \x2d45.22033   23.88201 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>   1.52287  176.87301  252.73667  \x2d30.06155    3.05106  139.38732   50.64116 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 122.85536   86.90437  247.37812    6.26086  305.76209  220.02497  \x2d41.53477 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  40.44706  110.62168   82.16809  191.82986  157.36239    8.35328  \x2d85.35499 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 125.02057  160.65155   53.76521  218.92026  316.18942  166.21458  150.80870 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 166.33047  253.69223  195.75507  \x2d68.67795  187.91079    6.40297  256.04311 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  63.44278  \x2d17.68051  168.68845  189.52850  214.51419  198.72587  \x2d30.88967 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d23.44103  101.48411  \x2d63.85282  125.99016   34.41145  268.35736  127.91292 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 173.17296  236.40606  \x2d38.90450  293.47142   \x2d8.08999   67.88028  116.73614 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 120.28665 \x2d112.06854  284.23418  276.92948  114.69214  113.78328   39.30741 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 243.03837  116.79032  149.58926  118.47564  145.33644  107.69179  \x2d36.88213 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 101.38815   22.06097   98.22692   57.89154  \x2d90.47967   87.11850  \x2d71.32188 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 80.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 111.12617  102.99584  110.19653  158.28964  192.06221  \x2d43.69175   23.26142 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>   3.69749  178.51955  252.54807  \x2d27.52784    6.46070  139.04843   50.52408 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 122.79190   88.50703  246.35768    5.17718  304.11244  218.52932  \x2d41.42708 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  40.99262  110.59924   83.62846  191.53404  157.87470    9.65717  \x2d83.51813 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 124.36629  160.85471   55.26062  216.58766  315.07566  165.54366  150.88000 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 166.49757  253.05908  194.32367  \x2d67.75058  187.52248    8.92025  254.12635 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  63.13328  \x2d16.62652  167.65820  189.79424  213.32469  197.80513  \x2d29.44266 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> \x2d19.82244  101.65531  \x2d61.22706  126.56645   37.04335  266.56642  127.18538 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 172.65884  235.18700  \x2d36.60748  291.74460   \x2d6.98529   69.06647  117.33196 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 120.21940 \x2d109.36410  282.93160  275.79317  115.76802  114.42834   38.66628 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 241.50194  115.91951  148.52139  119.12877  144.58692  108.54206  \x2d35.98868 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 102.45809   23.70894   97.95281   58.76140  \x2d88.93560   86.56955  \x2d69.87422 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 90.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+</replay>
+</pov>

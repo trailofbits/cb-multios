@@ -1,0 +1,28 @@
+---
+nodes:
+- name: start
+- name: list_random_good_page
+- name: prompt
+- name: quit
+- name: prep_sample
+- name: mix_good_sample
+
+
+edges:
+- start: prompt
+- prompt: list_random_good_page
+- prompt: prep_sample
+- prep_sample: mix_good_sample
+- mix_good_sample: prompt
+- list_random_good_page: prompt
+- prep_sample: prompt
+- prompt: quit
+  weight: .1
+
+
+
+
+
+
+
+

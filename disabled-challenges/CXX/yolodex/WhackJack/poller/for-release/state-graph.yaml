@@ -1,0 +1,22 @@
+---
+nodes:
+- name: start
+- name: top
+- name: addPlayer
+- name: deletePlayer
+- name: showStats
+- name: playRound
+- name: end
+
+edges:
+- start: top
+- top: addPlayer
+- addPlayer: top
+- top: deletePlayer
+- deletePlayer: top
+- top: showStats
+- showStats: top
+- top: playRound
+- playRound: top
+- top: end
+  weight: .2

@@ -1,3 +1,4 @@
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_types.h"
 #include "cgc_protocol.h"
@@ -64,7 +65,7 @@ void cgc_run_loop() {
         }
 
         sint32 result = cgc_eval(clr);
-        char* result_buf = cgc_calloc(16); //cgc_log10(2^32) < 16
+        char* result_buf = cgc_calloc(16); //log10(2^32) < 16
         uint64 count = cgc_sprintf(result_buf, "$d", result);
         cgc_protocol_send_str(result_buf);
         cgc_free(result_buf);

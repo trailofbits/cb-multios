@@ -21,6 +21,7 @@ THE SOFTWARE.
 
 */
 
+#include <math.h> 
 #include "cgc_parseCVF.h"
 
 #define LOOPIE 0xfffffff
@@ -297,7 +298,7 @@ int cgc_parseCVFFrame( pBitStream pbs, pcvf pNewImage )
 
 	/// If the frame type is incremental then the number of pixels
 	///	must be specified. The bit length of pixel count is the
-	///	floor of cgc_log2( height * width )
+	///	floor of log2( height * width )
 	if ( frame_type == 1 ) {
 
 		pixel_count = 0;

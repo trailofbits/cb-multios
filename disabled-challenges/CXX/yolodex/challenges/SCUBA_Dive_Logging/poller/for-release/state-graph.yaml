@@ -1,0 +1,32 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: enter_diver_info
+- name: enter_a_dive
+- name: print_dives
+- name: edit_dive
+- name: exit
+- name: dive_statistics
+- name: remove_dive
+- name: download_dive
+
+
+edges:
+- start: menu
+- menu: enter_a_dive
+- menu: enter_diver_info
+- menu: print_dives
+- menu: edit_dive
+- menu: dive_statistics 
+- menu: remove_dive
+- menu: download_dive
+- menu: exit
+  weight: .5
+- enter_a_dive: menu
+- enter_diver_info: menu
+- print_dives: menu
+- dive_statistics: menu
+- edit_dive: menu
+- remove_dive: menu
+- download_dive: menu

@@ -25,6 +25,7 @@
  * 8-bit u-law samples over cgc_stdin and cgc_stdout.
  */
 
+#include <math.h> 
 #include "cgc_stdint.h"
 #include "cgc_stdlib.h"
 #include "cgc_string.h"

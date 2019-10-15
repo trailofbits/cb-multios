@@ -1,0 +1,18 @@
+---
+nodes:
+- name: start
+- name: generate
+- name: begin
+- name: normal
+- name: end
+- name: send_data
+
+edges:
+- start: generate
+- generate: begin
+- begin: generate
+- generate: normal
+- normal: generate
+- generate: end
+  weight: 0.1
+- end: send_data

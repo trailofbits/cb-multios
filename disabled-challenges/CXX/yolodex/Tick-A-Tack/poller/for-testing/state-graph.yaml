@@ -1,0 +1,67 @@
+#!/usr/bin/env python
+#
+# Copyright (C) 2014 Narf Industries <info@narfindustries.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+---
+nodes:
+- name: start
+- name: init_menu
+- name: replay_menu
+
+## primary commands at root prompt
+- name: quit
+- name: bad_cmd_die
+- name: play
+- name: play_again
+# - name: start_over
+
+- name: select_char
+- name: select_char_good
+- name: select_char_bad
+- name: begin_game
+- name: game_results
+
+edges:
+- start: init_menu
+
+- init_menu: play
+- init_menu: quit
+- init_menu: bad_cmd_die
+  weight: 0.1
+
+- replay_menu: play_again
+# - replay_menu: start_over
+- replay_menu: quit
+- replay_menu: bad_cmd_die
+  weight: 0.1
+
+# - start_over: init_menu
+
+- play: select_char
+- play_again: select_char
+
+- select_char: select_char_bad
+- select_char: select_char_good
+- select_char_good: begin_game
+- select_char_bad: select_char
+
+- begin_game: game_results
+- game_results: replay_menu

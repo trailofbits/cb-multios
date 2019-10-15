@@ -1,0 +1,190 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>: </delim><match><data>: </data></match></read>
+    <write><data>?\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Available commands:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>sort \x2d This command sorts integers.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>matrix \x2d This command performs matrix math.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>simon \x2d This command plays a game like Simon Says.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>encode \x2d This command encodes data.\x0a</data></match></read>
+    <read><delim>: </delim><match><data>: </data></match></read>
+    <write><data>sort 51\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter 51 items to sort:\x0a</data></match></read>
+    <write><data>\x2d84060\x0a</data></write>
+    <write><data>\x2d12889\x0a</data></write>
+    <write><data>\x2d26775\x0a</data></write>
+    <write><data>85811\x0a</data></write>
+    <write><data>42239\x0a</data></write>
+    <write><data>78401\x0a</data></write>
+    <write><data>59155\x0a</data></write>
+    <write><data>\x2d11716\x0a</data></write>
+    <write><data>37628\x0a</data></write>
+    <write><data>77236\x0a</data></write>
+    <write><data>\x2d28609\x0a</data></write>
+    <write><data>\x2d98307\x0a</data></write>
+    <write><data>12885\x0a</data></write>
+    <write><data>86813\x0a</data></write>
+    <write><data>\x2d82589\x0a</data></write>
+    <write><data>77784\x0a</data></write>
+    <write><data>90233\x0a</data></write>
+    <write><data>26657\x0a</data></write>
+    <write><data>\x2d28629\x0a</data></write>
+    <write><data>\x2d65246\x0a</data></write>
+    <write><data>95972\x0a</data></write>
+    <write><data>\x2d10778\x0a</data></write>
+    <write><data>46983\x0a</data></write>
+    <write><data>47512\x0a</data></write>
+    <write><data>\x2d3277\x0a</data></write>
+    <write><data>\x2d44960\x0a</data></write>
+    <write><data>\x2d65444\x0a</data></write>
+    <write><data>53767\x0a</data></write>
+    <write><data>\x2d62013\x0a</data></write>
+    <write><data>7113\x0a</data></write>
+    <write><data>\x2d28276\x0a</data></write>
+    <write><data>23668\x0a</data></write>
+    <write><data>86259\x0a</data></write>
+    <write><data>\x2d30114\x0a</data></write>
+    <write><data>\x2d21230\x0a</data></write>
+    <write><data>90643\x0a</data></write>
+    <write><data>\x2d11997\x0a</data></write>
+    <write><data>\x2d62269\x0a</data></write>
+    <write><data>3325\x0a</data></write>
+    <write><data>\x2d23016\x0a</data></write>
+    <write><data>95004\x0a</data></write>
+    <write><data>\x2d66066\x0a</data></write>
+    <write><data>\x2d85727\x0a</data></write>
+    <write><data>\x2d51365\x0a</data></write>
+    <write><data>99389\x0a</data></write>
+    <write><data>56991\x0a</data></write>
+    <write><data>20127\x0a</data></write>
+    <write><data>\x2d89460\x0a</data></write>
+    <write><data>\x2d26731\x0a</data></write>
+    <write><data>\x2d3674\x0a</data></write>
+    <write><data>\x2d37151\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>51 items sorted.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d98307\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d89460\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d85727\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d84060\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d82589\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d66066\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d65444\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d65246\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d62269\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d62013\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d51365\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d44960\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d37151\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d30114\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d28629\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d28609\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d28276\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d26775\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d26731\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d23016\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d21230\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d12889\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d11997\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d11716\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d10778\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d3674\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d3277\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3325\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>7113\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>12885\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>20127\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>23668\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>26657\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>37628\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>42239\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>46983\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>47512\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>53767\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>56991\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>59155\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>77236\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>77784\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>78401\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>85811\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>86259\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>86813\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>90233\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>90643\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>95004\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>95972\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>99389\x0a</data></match></read>
+    <read><delim>: </delim><match><data>: </data></match></read>
+    <write><data>?\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Available commands:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>sort \x2d This command sorts integers.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>matrix \x2d This command performs matrix math.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>simon \x2d This command plays a game like Simon Says.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>encode \x2d This command encodes data.\x0a</data></match></read>
+    <read><delim>: </delim><match><data>: </data></match></read>
+    <write><data>sort 27\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter 27 items to sort:\x0a</data></match></read>
+    <write><data>\x2d92824\x0a</data></write>
+    <write><data>\x2d93599\x0a</data></write>
+    <write><data>42658\x0a</data></write>
+    <write><data>2637\x0a</data></write>
+    <write><data>64216\x0a</data></write>
+    <write><data>9459\x0a</data></write>
+    <write><data>\x2d74560\x0a</data></write>
+    <write><data>76135\x0a</data></write>
+    <write><data>23263\x0a</data></write>
+    <write><data>54717\x0a</data></write>
+    <write><data>\x2d16010\x0a</data></write>
+    <write><data>29712\x0a</data></write>
+    <write><data>1771\x0a</data></write>
+    <write><data>\x2d88947\x0a</data></write>
+    <write><data>22766\x0a</data></write>
+    <write><data>\x2d64695\x0a</data></write>
+    <write><data>54682\x0a</data></write>
+    <write><data>68125\x0a</data></write>
+    <write><data>\x2d62985\x0a</data></write>
+    <write><data>\x2d22191\x0a</data></write>
+    <write><data>36943\x0a</data></write>
+    <write><data>\x2d95628\x0a</data></write>
+    <write><data>13848\x0a</data></write>
+    <write><data>\x2d20563\x0a</data></write>
+    <write><data>\x2d29199\x0a</data></write>
+    <write><data>72041\x0a</data></write>
+    <write><data>26124\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>27 items sorted.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d95628\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d93599\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d92824\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d88947\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d74560\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d64695\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d62985\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d29199\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d22191\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d20563\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d16010\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1771\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2637\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>9459\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>13848\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>22766\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>23263\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>26124\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>29712\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>36943\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>42658\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>54682\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>54717\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>64216\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>68125\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>72041\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>76135\x0a</data></match></read>
+    <read><delim>: </delim><match><data>: </data></match></read>
+    <write><data>sort 0\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>0 items sorted.\x0a</data></match></read>
+    <read><delim>: </delim><match><data>: </data></match></read>
+    <write><data>exit\x0a</data></write>
+</replay>
+</pov>

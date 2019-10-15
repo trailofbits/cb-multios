@@ -1,0 +1,56 @@
+---
+nodes:
+- name: start
+- name: no_file
+- name: load_file
+- name: bad_nf_choice
+- name: bad_nf_input
+- name: nf_quit
+- name: file_loaded
+- name: wave_vis
+- name: eq_vis
+- name: pow_vis
+- name: low_pass
+- name: high_pass
+- name: no_filter
+- name: vis_speed
+- name: bad_fl_choice
+- name: bad_fl_input
+- name: quit
+
+edges:
+- start: no_file
+- no_file: bad_nf_choice
+  weight: .2
+- no_file: bad_nf_input
+  weight: .2
+- no_file: nf_quit
+  weight: .1
+- no_file: load_file
+- bad_nf_choice: no_file
+- bad_nf_input: no_file
+- load_file: file_loaded
+- file_loaded: bad_fl_choice
+  weight: .1
+- file_loaded: bad_fl_input
+  weight: .1
+- file_loaded: wave_vis
+  weight: .1
+- file_loaded: eq_vis
+- file_loaded: pow_vis
+- file_loaded: low_pass
+- file_loaded: high_pass
+- file_loaded: no_filter
+- file_loaded: vis_speed
+  weight: .05
+- file_loaded: quit
+  weight: .5
+- bad_fl_choice: file_loaded
+- bad_fl_input: file_loaded
+- wave_vis: file_loaded
+- eq_vis: file_loaded
+- pow_vis: file_loaded
+- low_pass: file_loaded
+- high_pass: file_loaded
+- no_filter: file_loaded
+- vis_speed: file_loaded

@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
+#include <math.h> 
 #include "libpov.h"
 
 #define SAMPLE_FS       (9600)
@@ -129,9 +130,9 @@ void cgc_send_pov_packet( void )
 				double amplitude = 80.0;
 
 				if ( send_bit == 0 )
-					new_sample = amplitude * cgc_cos( 2 * PI_VALUE * 1200.0 * ((double)sample_count / (double)SAMPLE_FS) );
+					new_sample = amplitude * cos( 2 * PI_VALUE * 1200.0 * ((double)sample_count / (double)SAMPLE_FS) );
 				else
-					new_sample = amplitude * cgc_cos( 2 * PI_VALUE * 2400.0 * ((double)sample_count / (double)SAMPLE_FS) );
+					new_sample = amplitude * cos( 2 * PI_VALUE * 2400.0 * ((double)sample_count / (double)SAMPLE_FS) );
 			
 				samples_sent++;
 

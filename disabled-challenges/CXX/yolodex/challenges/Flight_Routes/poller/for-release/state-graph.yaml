@@ -1,0 +1,22 @@
+---
+nodes:
+- name: start
+- name: top
+- name: endIt
+- name: printAirports
+- name: addAirport
+- name: deleteAirport
+- name: findRoutes
+
+edges:
+- start: top
+- top: printAirports
+- printAirports: top
+- top: addAirport
+- addAirport: top
+- top: deleteAirport
+- deleteAirport: top
+- top: findRoutes
+- findRoutes: top
+- top: endIt 
+  weight: .20

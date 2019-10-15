@@ -1,0 +1,26 @@
+---
+nodes:
+- name: start
+- name: choose
+- name: junk
+- name: get
+- name: new
+- name: delete
+- name: append
+- name: quit
+
+edges:
+- start: choose
+- choose: junk
+- choose: get
+- choose: new
+- choose: delete
+- choose: append
+- choose: quit
+  weight: 0.01
+
+- junk: choose
+- get: choose
+- new: choose
+- delete: choose
+- append: choose

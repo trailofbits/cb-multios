@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
+#include <math.h> 
 #include "cgc_stdio.h"
 #include "cgc_stdint.h"
 #include "cgc_malloc.h"
@@ -620,7 +621,7 @@ uint8_t cgc_ListFiles(char **Buf) {
 			if (cgc_FS->Inodes[i]->FileSize == 0) {
 				TotalLen += 8;
 			} else {
-				if ((NewLen = cgc_log10(cgc_FS->Inodes[i]->FileSize)+1) < 8) {
+				if ((NewLen = log10(cgc_FS->Inodes[i]->FileSize)+1) < 8) {
 					TotalLen += 8;
 				} else {
 					TotalLen += NewLen;

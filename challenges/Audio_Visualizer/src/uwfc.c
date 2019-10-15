@@ -23,6 +23,8 @@
  *
  */
 
+#include <math.h> 
+#include <math.h> 
 #include "cgc_uwfc.h"
 #include "cgc_dft.h"
 #include "cgc_string.h"
@@ -192,7 +194,7 @@ void cgc_clear_track(uwfc_t **uwfc_track) {
 static void cgc_slow_vis() {
     int i = 0;
     for(i = 0; i < 200000 * vis_multiplier; i++)
-        cgc_sin(i) / (cgc_cos(i) + 1);
+        sin(i) / (cos(i) + 1);
 }
 
 
@@ -271,11 +273,11 @@ typedef struct {
 
 static void cgc_add_to_bucket(eq_bucket_t *buckets, complex_t *f, int f_i, int f_max) {
     // Usign gamma-corrected frequency range (gamma = 2 -> sqrt)
-    int b_i = (int)(cgc_sqrt(f_i / (double)f_max) * MAX_BUCKETS);
+    int b_i = (int)(sqrt(f_i / (double)f_max) * MAX_BUCKETS);
     double power;
     eq_bucket_t *bucket = &buckets[b_i];
 
-    power = cgc_pow(f->real, 2) + cgc_pow(f->imag, 2);
+    power = pow(f->real, 2) + pow(f->imag, 2);
     //factor in noise & dft leakage
     if (power > 4)
         bucket->total_power += power;
@@ -301,7 +303,7 @@ static void cgc_vis_buckets(eq_bucket_t *buckets, int vis_type) {
                 // of all frequencies in a given frequency bucket
                 if (h == 0) {
                     cgc_printf("|-----|");
-                } else if (h <= (int)(cgc_log(buckets[i].max_power))) {
+                } else if (h <= (int)(log(buckets[i].max_power))) {
                     cgc_printf("|=====|");
                 } else {
                     if( h <= 30)
@@ -320,7 +322,7 @@ static void cgc_vis_buckets(eq_bucket_t *buckets, int vis_type) {
         // Because loudness of sound is logarithmic (dB), the overall loudness
         // for each second (sample cycle) is best visualized taking the log of the
         // total power of all frequencies in frequency bucket
-        bar_len = (int)(cgc_log(total_power + 1) * 3); // +1 to avoid cgc_log(0), cgc_log(1) is neglible
+        bar_len = (int)(log(total_power + 1) * 3); // +1 to avoid cgc_log(0), cgc_log(1) is neglible
         cgc_memset(line, 0, max_height + 1);
         cgc_memset(line, '=', bar_len );
 

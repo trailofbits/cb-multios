@@ -1,0 +1,242 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>User Manager Console:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Create User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 User Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Admin Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Exit\x0a</data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><delim>: </delim><match><data>Admin Password: </data></match></read>
+    <write><data>\x24admin\x2477\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Admin Commands:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 List Users\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Delete User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Change User Password\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Logout\x0a</data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Listing users in database:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Admin Commands:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 List Users\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Delete User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Change User Password\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Logout\x0a</data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><delim>: </delim><match><data>Username to change password: </data></match></read>
+    <write><data>1glebgmgndb\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>User not found in database.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Admin Commands:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 List Users\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Delete User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Change User Password\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Logout\x0a</data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Listing users in database:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Admin Commands:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 List Users\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Delete User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Change User Password\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Logout\x0a</data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Logging out\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Create User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 User Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Admin Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Exit\x0a</data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter Username: </data></match></read>
+    <write><data>1hndfkhelkd\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter Password: </data></match></read>
+    <write><data>9jo972kcf3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Login failed. Invalid username or password.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Create User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 User Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Admin Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Exit\x0a</data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>Username: </data></match></read>
+    <write><data>qizbxamhyz\x0a</data></write>
+    <read><delim>: </delim><match><data>Password: </data></match></read>
+    <write><data>bfyjdssunu\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>User created successfully.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Create User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 User Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Admin Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Exit\x0a</data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter Username: </data></match></read>
+    <write><data>qizbxamhyz\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter Password: </data></match></read>
+    <write><data>bfyjdssunu\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Login success.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>Username to send to: </data></match></read>
+    <write><data>qizbxamhyz\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter Message: </data></match></read>
+    <write><data>488f25iv0t5p54wruc32o5ns8akq6tk4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Message sent.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><delim>: </delim><match><data>1 messages available. Enter number to delete: </data></match></read>
+    <write><data>27\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Invalid message number.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>1 unread messages available. Last unread message:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>From: qizbxamhyz\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Message: 488f25iv0t5p54wruc32o5ns8akq6tk4\x0a</data></match></read>
+    <read><delim>: </delim><match><data>1 total messages available\x2c enter number to read: </data></match></read>
+    <write><data>0\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Message 0:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>From: qizbxamhyz\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Message: 488f25iv0t5p54wruc32o5ns8akq6tk4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>Username to send to: </data></match></read>
+    <write><data>qizbxamhyz\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter Message: </data></match></read>
+    <write><data>ivxujqjdzll61obvw8cvb7441a3nbblu\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Message sent.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>5\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Logged out.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Create User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 User Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Admin Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Exit\x0a</data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><delim>: </delim><match><data>Admin Password: </data></match></read>
+    <write><data>\x24admin\x2477\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Admin Commands:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 List Users\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Delete User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Change User Password\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Logout\x0a</data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>: </delim><match><data>Username to delete: </data></match></read>
+    <write><data>qizbxamhyz\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>User deleted.</data></match></read>
+    <read><delim>\x0a</delim><match><data>Admin Commands:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 List Users\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Delete User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Change User Password\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Logout\x0a</data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><delim>: </delim><match><data>Username to change password: </data></match></read>
+    <write><data>1jbekdebekf\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>User not found in database.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Admin Commands:\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 List Users\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Delete User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Change User Password\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Logout\x0a</data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Logging out\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Create User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 User Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Admin Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Exit\x0a</data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>Username: </data></match></read>
+    <write><data>wizmzvznlq\x0a</data></write>
+    <read><delim>: </delim><match><data>Password: </data></match></read>
+    <write><data>zpechrblbh\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>User created successfully.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Create User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 User Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Admin Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Exit\x0a</data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter Username: </data></match></read>
+    <write><data>1pfdamkokfg\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter Password: </data></match></read>
+    <write><data>o5da6i92cm\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Login failed. Invalid username or password.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Create User\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 User Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 Admin Login\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Exit\x0a</data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter Username: </data></match></read>
+    <write><data>wizmzvznlq\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter Password: </data></match></read>
+    <write><data>zpechrblbh\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Login success.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>No messages.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>No messages to delete.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>No messages to delete.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>No messages.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>No messages to delete.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>1\x29 Send Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2\x29 Read Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>3\x29 List Messages\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>4\x29 Delete Message\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>5\x29 Logout\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>6\x29 Exit\x0a</data></match></read>
+    <write><data>6\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Exiting\x0a</data></match></read>
+</replay>
+</pov>

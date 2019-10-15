@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+#
+# Copyright (C) 2014 Narf Industries <info@narfindustries.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+---
+nodes:
+- name: start
+- name: broker
+- name: quit
+- name: buy_products
+- name: check_product
+- name: add_product
+- name: rm_product
+- name: update_product
+- name: list_products
+- name: set_onsale
+- name: set_nosale
+edges:
+- start: broker
+
+- broker: buy_products
+  weight: 0.1
+- broker: check_product
+- broker: add_product
+- broker: rm_product
+- broker: update_product
+- broker: list_products
+  weight: 0.01
+- broker: set_onsale
+- broker: set_nosale
+- broker: quit
+  weight: 0.2
+
+- buy_products: broker
+- check_product: broker
+- add_product: broker
+- rm_product: broker
+- update_product: broker
+- list_products: broker
+- set_onsale: broker
+- set_nosale: broker

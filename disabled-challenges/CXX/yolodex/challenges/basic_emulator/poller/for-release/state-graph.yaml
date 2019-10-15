@@ -1,0 +1,29 @@
+---
+nodes:
+- name: start
+- name: insn
+- name: add_insn
+- name: xor_insn
+- name: sub_insn
+- name: ld_insn
+- name: send_rom
+- name: cmd
+- name: cmd_quit
+- name: cmd_help
+
+edges:
+- start: insn
+- insn: send_rom
+  weight: 0.01
+- insn: add_insn
+- insn: xor_insn
+- insn: sub_insn
+- insn: ld_insn
+- add_insn: insn
+- xor_insn: insn
+- sub_insn: insn
+- ld_insn: insn
+- send_rom: cmd
+- cmd: cmd_quit
+- cmd: cmd_help
+- cmd_help: cmd

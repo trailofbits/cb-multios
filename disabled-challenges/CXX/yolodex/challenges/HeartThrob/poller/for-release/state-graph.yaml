@@ -1,0 +1,21 @@
+---
+nodes:
+- name: start
+  chance: 1.0
+  continue: 0.9
+- name: prompt
+  chance: 1.0
+  continue: 0.9
+- name: quit
+- name: john_nomatch
+- name: error
+- name: empty 
+edges:
+- start: prompt
+- prompt: john_nomatch
+- prompt: error
+- prompt: quit
+- prompt: empty
+
+- john_nomatch: prompt
+- empty: prompt

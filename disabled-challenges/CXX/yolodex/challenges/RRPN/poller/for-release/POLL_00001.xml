@@ -1,0 +1,91 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>5 1 2 + 4 * + 3 - |\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>14 (0x0000000e)\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>0x400 8192 / !\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>-9 (0xfffffff7)\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>-0x41414141\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>-1094795585 (0xbebebebf)\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>2</length>
+            <match>
+                <data>> </data>
+            </match>
+        </read>
+
+        <write>
+            <data>2 7 ^ 2 3 + 25 / 6 4 5 + * - -\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>0 (0x00000000)\n</data>
+            </match>
+        </read>
+
+        <write>
+            <data>quit\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>> QUIT\n</data>
+            </match>
+        </read>
+
+    </replay>
+</pov>

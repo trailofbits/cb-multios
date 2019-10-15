@@ -20,6 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_libc.h"
 #include "cgc_common.h"

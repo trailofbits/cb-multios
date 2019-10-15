@@ -12,7 +12,7 @@ copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+all copies or subsqantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 */
 
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_stdlib.h"
 #include "cgc_stdio.h"
@@ -54,7 +55,7 @@ void cgc_monte_initialize() {
 
 float64 cgc_kajigger_from_random_int(uint64 random_int) {
   float64 cast = (float64) random_int;
-  float64 sine = cgc_sin(cast);
+  float64 sine = sin(cast);
   uint64  sine_bytes = *((uint64*)&sine);
   uint64 new_sine_bytes = sine_bytes & 0xffffffffffff0000;
   return *((float64*)&new_sine_bytes);
@@ -66,7 +67,7 @@ void cgc_monte_adjust(float64 new_splatter, float64 new_scaler) {
 }
 
 float64 cgc_monte_gen_step(float64 kj, uint64 ctr, float64 spl, float64 scl) {
-  float64 line = cgc_tan(cgc_sin(kj + (spl * ctr))) * (2.0 / PI);
+  float64 line = tan(sin(kj + (spl * ctr))) * (2.0 / PI);
   return (line + 1) * scl;
 }
 
@@ -85,16 +86,16 @@ uint8 cgc_monte_happy() {
     float64 x = cgc_monte_gen();
     float64 y = cgc_monte_gen();
 
-    float64 dist = cgc_sqrt((x * x) + (y * y));
+    float64 dist = sqrt((x * x) + (y * y));
 
     if (dist <= 1) in_circle++;
   }
 
   float64 ratio = ((float64) in_circle) / ((float64)CHECKS);
 
-  float64 diff = cgc_fabs((4 * ratio) - PI);
+  float64 diff = fabs((4 * ratio) - PI);
 
-  float64 doubler_size = 50 * cgc_log10(1.0 / diff);
+  float64 doubler_size = 50 * log10(1.0 / diff);
   /* cgc_printf("scl %f rat %f dif %f dbl %f\n", scaler, ratio, diff, doubler_size); */
   if (doubler_size > 254.0) return 0xff;
   if (doubler_size < 1.0) return 0;

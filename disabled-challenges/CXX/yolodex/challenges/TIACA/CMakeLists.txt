@@ -1,0 +1,7 @@
+set( POLLS_TESTING_SEED "-803034210" )
+set( NO_STRIP "1" )
+set( POLLS_RELEASE_SEED "388550987" )
+add_compile_options( -O0 -g )
+set( SERVICE_ID "00012" )
+set( AUTHOR_ID "CROMU" )
+buildCB()

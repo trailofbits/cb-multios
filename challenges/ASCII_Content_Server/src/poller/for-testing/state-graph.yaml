@@ -1,0 +1,9 @@
+---
+nodes:
+- name: start
+- name: runtest
+- name: exit
+
+edges:
+- start: runtest
+- runtest: exit

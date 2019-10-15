@@ -1,0 +1,11 @@
+---
+nodes:
+- name: start
+- name: send_vgf
+- name: receive_pmp
+- name: exit
+
+edges:
+- start: send_vgf
+- send_vgf: receive_pmp
+- receive_pmp: exit

@@ -1,0 +1,53 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>new\x0a</data></write>
+    <write><data>sd 1\x0a</data></write>
+    <write><data>s1r3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p7p5\x0a</data></match></read>
+    <write><data>r3p4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move q7q5\x0a</data></match></read>
+    <write><data>t1s1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move q5p4\x0a</data></match></read>
+    <write><data>n1o3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p4o3\x0a</data></match></read>
+    <write><data>s2s4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p8p6\x0a</data></match></read>
+    <write><data>r1t3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p6t2\x0a</data></match></read>
+    <write><data>s1s3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move t2t1\x0a</data></match></read>
+    <write><data>t3r1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move r8p6\x0a</data></match></read>
+    <write><data>s3s1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move o3p2\x0a</data></match></read>
+    <write><data>undo\x0a</data></write>
+    <write><data>q8r8\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move s1t1\x0a</data></match></read>
+    <write><data>o8r5\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move s4r5\x0a</data></match></read>
+    <write><data>r8q7\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p2o3\x0a</data></match></read>
+    <write><data>p6r4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move o1r4\x0a</data></match></read>
+    <write><data>s8t6\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move r4t6\x0a</data></match></read>
+    <write><data>t8p8\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move t6s7\x0a</data></match></read>
+    <write><data>undo\x0a</data></write>
+    <write><data>t6s7\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move n8o6\x0a</data></match></read>
+    <write><data>q1p2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p5p4\x0a</data></match></read>
+    <write><data>p2o1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p4o3\x0a</data></match></read>
+    <write><data>sd 1\x0a</data></write>
+    <write><data>o1n1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p8p1\x0a</data></match></read>
+    <write><data>result 0\x2d1\x0a</data></write>
+    <write><data>quit\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>bye\x0a</data></match></read>
+</replay>
+</pov>

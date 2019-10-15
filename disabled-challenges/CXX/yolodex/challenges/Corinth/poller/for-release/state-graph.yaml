@@ -1,0 +1,32 @@
+---
+nodes:
+- name: start
+- name: hello
+- name: monte_check
+- name: monte_okay
+- name: monte_fail
+- name: menu
+- name: query
+- name: doubler
+- name: terminate
+- name: menu_error
+
+edges:
+- start: hello
+- hello: monte_check
+- monte_check: monte_fail
+  weight: 0.05
+- monte_check: monte_okay
+- monte_okay: menu
+- menu: monte_check
+  weight: .30
+- menu: doubler
+  weight: .30
+- menu: query
+  weight: .30
+- menu: menu_error
+  weight: 0.05
+- menu: terminate
+  weight: 0.05
+- doubler: menu
+- query: menu

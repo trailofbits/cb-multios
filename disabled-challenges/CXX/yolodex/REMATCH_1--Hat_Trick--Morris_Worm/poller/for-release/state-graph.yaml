@@ -1,0 +1,34 @@
+---
+nodes:
+- name: start
+- name: lookupd
+- name: mailsend
+- name: ish
+- name: mailsend_loop
+- name: mailsend_ADDRESSBOOK
+- name: mailsend_LIST
+- name: mailsend_LISTALL
+- name: mailsend_POST
+- name: mailsend_READ
+- name: mailsend_quit
+- name: quit
+
+edges:
+- start: lookupd
+- start: mailsend
+- mailsend: mailsend_loop
+- mailsend_loop: mailsend_ADDRESSBOOK
+- mailsend_loop: mailsend_LIST
+- mailsend_loop: mailsend_LISTALL
+- mailsend_loop: mailsend_POST
+- mailsend_loop: mailsend_READ
+- mailsend_loop: mailsend_quit
+- mailsend_ADDRESSBOOK: mailsend_loop
+- mailsend_LIST: mailsend_loop
+- mailsend_LISTALL: mailsend_loop
+- mailsend_POST: mailsend_loop
+- mailsend_READ: mailsend_loop
+- start: ish
+- lookupd: quit
+- mailsend_quit: quit
+- ish: quit

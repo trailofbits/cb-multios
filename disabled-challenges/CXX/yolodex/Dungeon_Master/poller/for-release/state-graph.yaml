@@ -1,0 +1,72 @@
+#
+# Copyright (C) 2015 Narf Industries <info@narfindustries.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+---
+nodes:
+- name: start
+- name: play
+- name: menu
+- name: scores
+- name: instructions
+- name: start2first
+- name: start2second
+- name: start2zombie
+- name: start2bat
+- name: first2first
+- name: first2second
+- name: first2last
+- name: second2first
+- name: second2second
+- name: second2last
+- name: quit
+
+edges:
+- start: instructions
+- instructions: play
+- menu: instructions 
+  weight: 0.1
+- menu: scores
+- menu: quit
+- scores: menu
+- play: start2first
+- play: start2second
+- play: start2zombie
+- play: start2bat
+- start2first: first2first
+- start2first: first2second
+- first2first: first2first
+- first2first: first2second
+- first2first: first2last
+- first2second: second2first
+- first2second: second2second
+- first2second: second2last
+- first2last: menu
+- start2second: second2first
+- start2second: second2second
+- second2first: first2first
+- second2first: first2second
+- second2first: first2last
+- second2second: second2first
+- second2second: second2second
+- second2second: second2last
+- second2last: menu
+- start2zombie: menu
+- start2bat: menu

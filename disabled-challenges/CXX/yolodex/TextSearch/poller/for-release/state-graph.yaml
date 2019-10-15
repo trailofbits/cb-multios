@@ -1,0 +1,31 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: enter_text
+- name: enter_search
+- name: line_set_partial_match
+- name: line_set_exact_match
+- name: print_text
+- name: print_search
+- name: search_text
+- name: quit
+
+edges:
+- start: menu
+- menu: enter_text
+- menu: enter_search
+- menu: line_set_partial_match
+- menu: line_set_exact_match
+- menu: print_text
+- menu: print_search
+- menu: search_text
+- enter_text: menu
+- enter_search: menu
+- line_set_partial_match: menu
+- line_set_exact_match: menu
+- print_text: menu
+- print_search: menu
+- search_text: menu
+- menu: quit
+  weight: 0.1

@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>wAVjDNM = |"d1H","XwrL","M","AR"|-|"5Hs","kno1RP","CK63k4R","wuLp"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>zAVC5Y3 = |"GOGWTuC","tF55","gfTWQJ","EH","r"|-|"917Nawu","zrqC","gfTWQJ"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>J3qAM0G = |"8fh","WpWMtx4","s8gpnb7","8r7Ga"|^|"Yj6Fy","ayW"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>eo9Oz = wAVjDNM - wAVjDNM\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>x2Zmi2 = |"NkOqc","Ts","Nw","b3p3BNm"|^|"ONB953"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>YEaeZb1 = eo9Oz ^ x2Zmi2\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>kDM8AXd = |"3kxsqIn","Jpxwda","Hxe","UQcejxD","bAwekBH"|-|"3kxsqIn","Hxe","UQcejxD"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>nfbm40nb = zAVC5Y3 ^ x2Zmi2\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>LLhfd5 = |"H3QDR4","zl7","vX8Lw31","jVczf80","7u"|+|"gEs","KClMrNi","ccltXjb","4k","A8aDB"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>MwEZs = |"nhf","dWzVgk","a4wMKy9","Ix","2TKST","qXpn3g2"|-|"VaG","7tSzgb","qXpn3g2"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>yUWAef = YEaeZb1 + nfbm40nb\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>kRSf0b = yUWAef ~ MwEZs\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>wAVjDNM = |"d1H","XwrL","M","AR"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>zAVC5Y3 = |"GOGWTuC","tF55","EH","r"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>J3qAM0G = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>eo9Oz = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>x2Zmi2 = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>YEaeZb1 = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>kDM8AXd = |"Jpxwda","bAwekBH"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>nfbm40nb = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>LLhfd5 = |"H3QDR4","zl7","vX8Lw31","jVczf80","7u","gEs","KClMrNi","ccltXjb","4k","A8aDB"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>MwEZs = |"nhf","dWzVgk","a4wMKy9","Ix","2TKST"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>yUWAef = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>kRSf0b = |"nhf","dWzVgk","a4wMKy9","Ix","2TKST"|\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

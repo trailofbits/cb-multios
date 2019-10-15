@@ -1,0 +1,31 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: blackjack
+- name: poker
+- name: slots
+- name: exit
+- name: register_player
+- name: enter_players_club
+- name: show_status
+- name: leaderboard
+
+edges:
+- start: menu
+- menu: poker
+- menu: blackjack
+- menu: slots
+- menu: register_player
+- menu: enter_players_club
+- menu: leaderboard
+- menu: show_status
+
+- show_status: menu
+- leaderboard: menu
+- register_player: menu
+- enter_players_club: menu
+- poker: menu
+- blackjack: menu
+- slots: menu
+- menu: exit

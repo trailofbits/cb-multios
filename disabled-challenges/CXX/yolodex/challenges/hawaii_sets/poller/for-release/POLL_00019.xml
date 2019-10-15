@@ -1,0 +1,52 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>VkSUYS = |"plIz","wge0o","x7","sCZj","tl7U5","CMwuqH3","IOpdV","DlJvlAg","sEUJT24"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>1SbBT = |"plIz","IOpdV","sCZj","wge0o"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>1SbBT@VkSUYS\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>TRUE\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>wycVAm = 1SbBT + VkSUYS\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>J7T0xBN = 1SbBT + 1SbBT\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>p2KgSny = VkSUYS - wycVAm\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>6whw0Vg = |"hZsV6a","jDwt","Znk","F6BTWz","YJDna","WW"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>yeoU5cv = |"Znk","hZsV6a","F6BTWz","WW","jDwt","9lcTZWOM8I"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>yeoU5cv@6whw0Vg\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>FALSE\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>0Bm6Y1n = |"GX6","Kl","PS2UG9","xDu"|+|"hJKYeE","Eyn3Z"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>4WMQuGJzkG = wycVAm ^ yeoU5cv\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>uYQ2WW = VkSUYS + p2KgSny\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>n7cHz4 = |"bDJtUH","wer","m84z","RNB","eS9N","kIJMhPK","Uctyb"|^|"RNB","eS9N"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>0CmWuJ1dP9 = 6whw0Vg ^ n7cHz4\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>VkSUYS = |"plIz","wge0o","x7","sCZj","tl7U5","CMwuqH3","IOpdV","DlJvlAg","sEUJT24"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>1SbBT = |"plIz","IOpdV","sCZj","wge0o"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>wycVAm = |"plIz","IOpdV","sCZj","wge0o","x7","tl7U5","CMwuqH3","DlJvlAg","sEUJT24"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>J7T0xBN = |"plIz","IOpdV","sCZj","wge0o"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>p2KgSny = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>6whw0Vg = |"hZsV6a","jDwt","Znk","F6BTWz","YJDna","WW"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>yeoU5cv = |"Znk","hZsV6a","F6BTWz","WW","jDwt","9lcTZWOM8I"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>0Bm6Y1n = |"GX6","Kl","PS2UG9","xDu","hJKYeE","Eyn3Z"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>4WMQuGJzkG = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>uYQ2WW = |"plIz","wge0o","x7","sCZj","tl7U5","CMwuqH3","IOpdV","DlJvlAg","sEUJT24"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>n7cHz4 = |"RNB","eS9N"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>0CmWuJ1dP9 = ||\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

@@ -1,0 +1,61 @@
+---
+nodes:
+- name: start
+- name: setup_input
+- name: place 
+- name: setup_map 
+- name: setup_help 
+- name: setup_unknown
+- name: setup_exit
+- name: setup_new
+
+- name: begin 
+- name: game_input
+- name: target
+- name: game_map
+- name: game_help
+- name: game_unknown
+- name: game_exit
+
+- name: end
+
+edges:
+- start: setup_input
+
+- setup_input: place
+- setup_input: setup_map
+- setup_input: setup_help
+- setup_input: setup_unknown
+  weight: .1
+- setup_input: setup_exit
+- setup_input: setup_new
+- setup_input: begin 
+- setup_input: end
+  weight: .01
+
+- place: setup_input
+- setup_map: setup_input
+- setup_help: setup_input
+- setup_unknown: setup_input
+- setup_exit: setup_input
+- setup_new: start
+
+- begin: game_input
+
+- game_input: target
+  weight: 2 
+- game_input: game_map
+- game_input: game_help
+- game_input: game_unknown
+  weight: .1
+- game_input: game_exit
+- game_input: end
+  weight: .1
+
+- target: game_input
+- game_map: game_input
+- game_help: game_input
+- game_unknown: game_input
+- game_exit: game_input
+
+

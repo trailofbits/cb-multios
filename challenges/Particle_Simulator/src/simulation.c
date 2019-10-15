@@ -23,6 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
+#include <math.h> 
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_stdlib.h"
 #include "cgc_mymath.h"
@@ -40,7 +42,7 @@ tParticleData g_particles[MAX_PARTICLE_COUNT];
 #define fp_sub( l, r )      (l-r)
 #define fp_mul( l, r )      (l*r)
 #define fp_div( l, r )      (l/r)
-#define fp_sqrt( l )        (cgc_sqrt(l))
+#define fp_sqrt( l )        (sqrt(l))
 #define fp_fconst( l )      ((double)l)
 #define fp_iconst( l )      ((double)l)
 #define fp_toint( l )       ((uint32_t)l)
@@ -321,14 +323,14 @@ void cgc_simulation_run( uint32_t second_count )
     uint32_t frames_per_second = 1;
     for ( i = 0; i < cgc_g_particleCount; i++ )
     {
-        if ( cgc_fabs( g_particles[i].x_vel ) > g_particles[i].radius )
-            frames_per_second = ((uint32_t)fp_toint( fp_div( cgc_fabs(g_particles[i].x_vel), g_particles[i].radius ))) + 1;
+        if ( fabs( g_particles[i].x_vel ) > g_particles[i].radius )
+            frames_per_second = ((uint32_t)fp_toint( fp_div( fabs(g_particles[i].x_vel), g_particles[i].radius ))) + 1;
 
         if ( frames_per_second > max_frames_per_second )
             max_frames_per_second = frames_per_second;
 
-        if ( cgc_fabs( g_particles[i].y_vel ) > g_particles[i].radius )
-            frames_per_second = ((uint32_t)fp_toint( fp_div( cgc_fabs(g_particles[i].y_vel), g_particles[i].radius))) + 1;
+        if ( fabs( g_particles[i].y_vel ) > g_particles[i].radius )
+            frames_per_second = ((uint32_t)fp_toint( fp_div( fabs(g_particles[i].y_vel), g_particles[i].radius))) + 1;
 
         if ( frames_per_second > max_frames_per_second )
             max_frames_per_second = frames_per_second;

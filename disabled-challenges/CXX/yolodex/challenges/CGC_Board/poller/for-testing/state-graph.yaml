@@ -1,0 +1,30 @@
+---
+nodes:
+ - name: start
+ - name: menu
+ - name: move
+ - name: play
+ - name: quit
+ - name: sd
+ - name: remove
+ - name: undo
+
+edges:
+ - start: menu
+ - menu: quit
+   weight: 0.2
+ - menu: move
+   weight: 0.8
+ - menu: sd
+   weight: 0.1
+ - menu: play
+   weight: 0.01
+ - menu: undo
+   weight: 0.05
+ - menu: remove
+   weight: 0.01
+ - move: menu
+ - sd: menu
+ - play: menu
+ - undo: menu
+ - remove: menu

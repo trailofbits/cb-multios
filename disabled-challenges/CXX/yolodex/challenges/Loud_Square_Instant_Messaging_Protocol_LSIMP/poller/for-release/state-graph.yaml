@@ -1,0 +1,18 @@
+---
+nodes:
+- name: start
+- name: ops
+- name: queue_msg
+- name: process_msg
+- name: quit
+
+edges:
+- start: ops
+- ops: queue_msg
+  weight: 0.75
+- ops: process_msg
+  weight: 0.20
+- queue_msg: ops
+- process_msg: ops
+- ops: quit
+  weight: 0.05

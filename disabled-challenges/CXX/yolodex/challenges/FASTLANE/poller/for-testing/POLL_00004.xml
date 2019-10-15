@@ -1,0 +1,62 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <!--<cbid>FASTLAND</cbid>-->
+    <cbid>NRFIN_00003</cbid>
+    <replay>
+
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- test an invalid one -->
+        <write><data>MOOCH INVALID\n</data></write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">the tubes are "clogged" right now...\n</data>
+                <data format="asciic">------------------------------------\n</data>
+                <data format="asciic">requested file not found\n</data>
+            </match>
+        </read>
+
+        <!-- variable(s) -->
+        <decl>
+            <var>last_filename</var>
+            <value>
+                <data format="asciic">BOGUS</data>
+            </value>
+        </decl>
+
+        <!-- get file listing & pull out name of last file (because that's easiest) -->
+        <write><data>SUP\n</data></write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">here're your files, plebian:\n</data>
+                <data format="asciic">----------------------------\n</data>
+                <pcre>([a-z]{16}\n)+</pcre>
+            </match>
+            <assign>
+                <var>last_filename</var>
+                <!-- for begin (inclusive): subtract len(\r\n) + len(filename) -->
+                <!-- for end (exclusive): subtract len(\r\n) -->
+                <slice begin="-18" end="-2" />
+            </assign>
+        </read>
+
+        <!-- request the contents of the last file -->
+        <write>
+            <data>MOOCH </data>
+            <var>last_filename</var>
+            <data>\n</data>
+        </write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">the tubes are "clogged" right now...\n</data>
+                <data format="asciic">------------------------------------\n</data>
+                <pcre>^[0-9]{16}\r$</pcre>
+            </match>
+        </read>
+    </replay>
+</pov>

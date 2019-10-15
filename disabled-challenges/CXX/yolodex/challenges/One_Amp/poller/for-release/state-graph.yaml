@@ -1,0 +1,64 @@
+---
+nodes:
+- name: start
+- name: master_menu
+- name: master_add_song
+- name: master_remove_song
+- name: master_list_all_songs
+- name: master_sort_playlist_by_song_id
+- name: master_sort_playlist_by_song_title
+- name: master_remix_song
+- name: master_create_new_playlist
+- name: master_delete_playlist
+- name: master_print_all_playlists
+- name: master_select_playlist
+
+- name: playlist_menu
+- name: playlist_add_song
+- name: playlist_delete_song
+- name: playlist_select_master
+- name: playlist_sort_playlist_by_song_id
+- name: playlist_sort_playlist_by_song_title
+- name: playlist_remix_song
+- name: playlist_all_library_songs
+- name: exit
+
+edges:
+- start: master_menu
+- master_menu: master_add_song
+- master_add_song: master_menu
+- master_menu: master_remove_song
+- master_remove_song: master_menu
+- master_menu: master_list_all_songs
+- master_list_all_songs: master_menu
+- master_menu: master_sort_playlist_by_song_id
+- master_sort_playlist_by_song_id: master_menu
+- master_menu: master_sort_playlist_by_song_title
+- master_sort_playlist_by_song_title: master_menu
+- master_menu: master_remix_song
+- master_remix_song: master_menu
+- master_menu: master_create_new_playlist
+- master_create_new_playlist: master_menu
+- master_menu: master_delete_playlist
+- master_delete_playlist: master_menu
+- master_menu: master_print_all_playlists
+- master_print_all_playlists: master_menu
+- master_menu: master_select_playlist
+- master_select_playlist: playlist_menu
+- master_menu: exit
+
+- playlist_menu: playlist_add_song
+- playlist_add_song: playlist_menu
+- playlist_menu: playlist_delete_song
+- playlist_delete_song: playlist_menu
+- playlist_menu: playlist_select_master
+- playlist_select_master: master_menu
+- playlist_menu: playlist_sort_playlist_by_song_id
+- playlist_sort_playlist_by_song_id: playlist_menu
+- playlist_menu: playlist_sort_playlist_by_song_title
+- playlist_sort_playlist_by_song_title: playlist_menu
+- playlist_menu: playlist_remix_song
+- playlist_remix_song: playlist_menu
+- playlist_menu: playlist_all_library_songs
+- playlist_all_library_songs: playlist_menu
+- playlist_menu: exit

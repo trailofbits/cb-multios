@@ -1,0 +1,21 @@
+---
+nodes:
+- name: start
+- name: SendNodes
+- name: SendEdges
+- name: RunSpt
+- name: SendBadNodes
+- name: SendBadEdges
+- name: end
+edges:
+- start: SendNodes
+  weight: 0.8
+- start: SendBadNodes
+  weight: 0.1
+- start: SendBadEdges
+  weight: 0.1
+- SendNodes: SendEdges
+- SendEdges: RunSpt
+- RunSpt: end
+- SendBadNodes: end
+- SendBadEdges: end

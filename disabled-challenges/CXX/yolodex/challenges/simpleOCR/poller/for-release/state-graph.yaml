@@ -1,0 +1,13 @@
+---
+nodes:
+- name: start
+- name: pick_chars
+- name: munge_maps
+- name: insert_newlines
+- name: validate
+
+edges:
+- start: pick_chars
+- pick_chars: munge_maps
+- munge_maps: insert_newlines
+- insert_newlines: validate

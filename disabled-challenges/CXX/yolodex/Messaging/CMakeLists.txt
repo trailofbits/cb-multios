@@ -1,0 +1,6 @@
+add_compile_options( -fno-exceptions -fno-rtti -DCPLUSPLUS )
+set( SERVICE_ID "00075" )
+set( AUTHOR_ID "KPRCA" )
+add_compile_options( -O3 -g -DDISABLE_HEAP_GUARD )
+set( VULN_COUNT "1" )
+buildCB()

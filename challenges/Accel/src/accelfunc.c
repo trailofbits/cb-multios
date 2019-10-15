@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  *
  */
+#include <math.h> 
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_stdlib.h"
 #include "cgc_string.h"
@@ -312,7 +314,7 @@ double cgc_handle_op_stddev(stack_t **args, int *is_bad_formula)
         cgc_free(front);
 
         //TODO - Look into this, I don't know why pow is failing
-        //result += (cgc_pow((operand - mean), 2.0));
+        //result += (pow((operand - mean), 2.0));
         result += ((operand - mean) * (operand - mean));
         front = cgc_pop_copy(args);
         i++;
@@ -329,7 +331,7 @@ done:
         i = 1;
         goto error;
     }
-    return cgc_sqrt(result / (double) i);
+    return sqrt(result / (double) i);
 }
 
 double cgc_handle_op_abs(stack_t **args, int *is_bad_formula)
@@ -352,7 +354,7 @@ double cgc_handle_op_abs(stack_t **args, int *is_bad_formula)
     if (*args != NULL)
         goto error;     // Too many arguments
 
-    result = cgc_fabs(operand1);
+    result = fabs(operand1);
     goto done;
 
 error:
@@ -423,7 +425,7 @@ double cgc_handle_op_cos(stack_t **args, int *is_bad_formula)
     if (*args != NULL)
         goto error;     // Too many arguments
 
-    result = cgc_cos(operand1);
+    result = cos(operand1);
     goto done;
 
 error:
@@ -457,7 +459,7 @@ double cgc_handle_op_ln(stack_t **args, int *is_bad_formula)
     if (operand1 == 0)
         goto error;
 
-    result = cgc_log(operand1);
+    result = log(operand1);
     goto done;
 
 error:
@@ -491,7 +493,7 @@ double cgc_handle_op_log10(stack_t **args, int *is_bad_formula)
     if (operand1 == 0)
         goto error;
 
-    result = cgc_log10(operand1);
+    result = log10(operand1);
     goto done;
 
 error:
@@ -539,10 +541,10 @@ double cgc_handle_op_power(stack_t **args, int *is_bad_formula)
         result = operand2;
     else if (operand1 == 0 && operand2 > 0)
         result = 0.0;
-    else if (operand1 < 0 && cgc_remainder(operand2, 1) == 0.0)
-        result = cgc_pow(-operand1, operand2) * (cgc_remainder(operand2, 2) == 0 ? 1 : -1);
+    else if (operand1 < 0 && remainder(operand2, 1) == 0.0)
+        result = pow(-operand1, operand2) * (remainder(operand2, 2) == 0 ? 1 : -1);
     else
-        result = cgc_pow(operand1, operand2);
+        result = pow(operand1, operand2);
     goto done;
 
 error:
@@ -656,7 +658,7 @@ double cgc_handle_op_sin(stack_t **args, int *is_bad_formula)
     if (*args != NULL)
         goto error;     // Too many arguments
 
-    result = cgc_sin(operand1);
+    result = sin(operand1);
     goto done;
 
 error:
@@ -690,7 +692,7 @@ double cgc_handle_op_sqrt(stack_t **args, int *is_bad_formula)
     if (operand1 < 0)
         goto error;
 
-    result = cgc_sqrt(operand1);
+    result = sqrt(operand1);
     goto done;
 
 error:

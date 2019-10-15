@@ -20,6 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#include <math.h> 
 #include "cgc_libc.h"
 
 // NOTE: not POSIX
@@ -150,11 +151,11 @@ UINT32 cgc_hex2UINT32(char *hex) {
         if ('\0' == hex[i]) { break; }
 
         if ('0' <= curr && curr <= '9') {
-            result += (curr-'0') * cgc_pow(16, len-1);
+            result += (curr-'0') * pow(16, len-1);
         } else if ('A' <= curr && curr <= 'F') {
-            result += (curr-'A' + 10) * cgc_pow(16, len-1);
+            result += (curr-'A' + 10) * pow(16, len-1);
         } else if ('a' <= curr && curr <= 'f') {
-            result += (curr-'a' + 10) * cgc_pow(16, len-1);
+            result += (curr-'a' + 10) * pow(16, len-1);
         } else {
             SENDNULLTRUNC(ERR_hex2UINT32, sizeof(ERR_hex2UINT32), ret);
             return 0xFFFFFFFF;

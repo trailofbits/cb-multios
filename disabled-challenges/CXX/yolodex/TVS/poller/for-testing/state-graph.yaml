@@ -1,0 +1,45 @@
+---
+nodes:
+ - name: start
+ - name: phase1
+ - name: send_time
+ - name: store_things
+ - name: list_things
+ - name: open_it_up
+ - name: phase2
+ - name: store_things_2
+ - name: list_things_2
+ - name: get_things
+ - name: quit
+ - name: ping
+ - name: ping_2
+ - name: update_things
+
+edges:
+ - start: phase1
+ - phase1: send_time
+ - phase1: store_things
+ - phase1: list_things
+ - phase1: update_things
+ - phase1: open_it_up
+   weight: 0.02
+ - phase1: ping
+   weight: 0.1
+ - ping: phase1
+ - send_time: phase1
+ - store_things: phase1
+ - list_things: phase1
+ - update_things: phase1
+ - open_it_up: phase2
+ - phase2: ping_2
+ - phase2: store_things_2
+ - phase2: list_things_2
+ - phase2: get_things
+ - phase2: quit
+   weight: 0.02
+ - ping_2: phase2
+ - store_things_2: phase2
+ - list_things_2: phase2
+ - get_things: phase2
+   weight: 0.8
+

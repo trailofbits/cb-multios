@@ -1,0 +1,6 @@
+set( SERVICE_ID "00054" )
+set( AUTHOR_ID "KPRCA" )
+set( POLLS_RELEASE_SEED "-454027733" )
+add_compile_options( -g -fno-exceptions -fno-rtti )
+set( POLLS_TESTING_SEED "-460066697" )
+buildCB()

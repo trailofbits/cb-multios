@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>7KYYW = |"PZf7E","c","3EW","bJ"|+|"FZ","3EW","hhS","c","PQkQfY2","r3","Dt"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>LyTJ5U = |"ct","d","DK","ocGemk","TCCPS9","ygNCK9i"|-|"DK","TCCPS9","2","DfVhi"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>nMXKk = |"U","Xn","l"|+|"Trbsn","cvxSV","y","Xn","Z","Yy2Kd","U"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>s9l6k5 = |"mG","rug4lS","n5sBVn","FfBm","be","RD3"|-|"FfBm","aTDO","mG"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>yysPw = 7KYYW - s9l6k5\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>6GjWYtK = |"eZ2yh"|~|"eZ2yh","QvRBs","gA8","729O0gU"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>WZ1Uk = |"0Zcuv","9mGo","aPi3jIi","a76M","2Tvx","fs","c2ugL","LfX","UsW","LF8"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>qCNIxMy = |"aPi3jIi","fs","2Tvx","EW9L1B4hq3"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>qCNIxMy@WZ1Uk\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>FALSE\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>3Zp0jAE = 7KYYW + yysPw\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>i2cIFbq = 3Zp0jAE ^ 6GjWYtK\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>UX1Y7yOtY = 3Zp0jAE ^ s9l6k5\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>7KYYW = |"PZf7E","c","3EW","bJ","FZ","hhS","PQkQfY2","r3","Dt"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>LyTJ5U = |"ct","d","ocGemk","ygNCK9i"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>nMXKk = |"U","Xn","l","Trbsn","cvxSV","y","Z","Yy2Kd"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>s9l6k5 = |"rug4lS","n5sBVn","be","RD3"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>yysPw = |"PZf7E","c","3EW","bJ","FZ","hhS","PQkQfY2","r3","Dt"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>6GjWYtK = |"QvRBs","gA8","729O0gU"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>WZ1Uk = |"0Zcuv","9mGo","aPi3jIi","a76M","2Tvx","fs","c2ugL","LfX","UsW","LF8"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>qCNIxMy = |"aPi3jIi","fs","2Tvx","EW9L1B4hq3"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>3Zp0jAE = |"PZf7E","c","3EW","bJ","FZ","hhS","PQkQfY2","r3","Dt"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>i2cIFbq = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>UX1Y7yOtY = ||\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

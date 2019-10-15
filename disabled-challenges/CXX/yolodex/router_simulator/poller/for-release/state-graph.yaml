@@ -1,0 +1,51 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: add
+- name: delete
+- name: query
+- name: quit
+- name: enable_error
+- name: enable
+- name: enable_menu
+- name: enable_quit
+- name: enable_add
+- name: enable_delete
+- name: enable_edit
+- name: enable_list
+
+edges:
+- start: menu
+- menu: add
+  weight: 0.70
+- menu: delete
+  weight: 0.05
+- menu: query
+  weight: 0.17
+- menu: quit
+  weight: 0.01
+- menu: enable_error
+  weight: 0.02
+- menu: enable
+  weight: 0.05
+- add: menu
+- delete: menu
+- query: menu
+- enable_error: menu
+- enable_quit: menu
+- enable: enable_menu
+- enable_menu: enable_quit
+  weight: 0.27
+- enable_menu: enable_add
+  weight: 0.60
+- enable_menu: enable_delete
+  weight: 0.05
+- enable_menu: enable_edit
+  weight: 0.05
+- enable_menu: enable_list
+  weight: 0.02
+- enable_add: enable_menu
+- enable_delete: enable_menu
+- enable_edit: enable_menu
+- enable_list: enable_menu

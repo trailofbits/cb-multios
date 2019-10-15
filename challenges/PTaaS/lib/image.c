@@ -20,6 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <math.h> 
 #include "cgc_stdio.h"
 #include "cgc_string.h"
 #include "cgc_math.h"
@@ -70,9 +71,9 @@ struct pixel
 cgc_color_to_pixel(struct vector color, double gamma)
 {
     struct pixel ret;
-    ret.r = cgc_pow(cgc_clamp(color.x), 1.0 / gamma) * 255.0;
-    ret.g = cgc_pow(cgc_clamp(color.y), 1.0 / gamma) * 255.0;
-    ret.b = cgc_pow(cgc_clamp(color.z), 1.0 / gamma) * 255.0;
+    ret.r = pow(cgc_clamp(color.x), 1.0 / gamma) * 255.0;
+    ret.g = pow(cgc_clamp(color.y), 1.0 / gamma) * 255.0;
+    ret.b = pow(cgc_clamp(color.z), 1.0 / gamma) * 255.0;
     return ret;
 }
 

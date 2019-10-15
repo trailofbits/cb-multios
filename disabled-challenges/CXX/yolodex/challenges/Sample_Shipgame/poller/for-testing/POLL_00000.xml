@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>sample_shipgame</cbid>
+    <replay>
+
+        <write>
+          <data>H\n</data>
+        </write>
+
+        <read>
+          <delim>\n</delim>
+          <match><data format="asciic">Player1:$ Sorry, I am not very helpful\n</data></match>
+        </read>
+    </replay>
+</pov>

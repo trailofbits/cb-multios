@@ -1,0 +1,34 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>bCoNl4 = |"uO","47PUj4d"|~|"yrOSi9","T0Qgk","q5zx","Ic85u","sIi7WVU"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>DA1lTGs = bCoNl4 - bCoNl4\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>xZle72K = |"4SpJ"|+|"f","L","wHKX9","S","qeSXhK","fjE5e","jNO"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>V9l54r = |"XrrRSo","EIPF","pV","atYo"|~|"Q5","UUGfYIJ","90"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>r4izzuY1S = bCoNl4 ^ V9l54r\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>p8IST = xZle72K ^ DA1lTGs\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>N3nFBMgD = p8IST ^ xZle72K\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>bjADqF4 = N3nFBMgD + p8IST\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>bCoNl4 = |"uO","47PUj4d","yrOSi9","T0Qgk","q5zx","Ic85u","sIi7WVU"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>DA1lTGs = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>xZle72K = |"4SpJ","f","L","wHKX9","S","qeSXhK","fjE5e","jNO"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>V9l54r = |"XrrRSo","EIPF","pV","atYo","Q5","UUGfYIJ","90"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>r4izzuY1S = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>p8IST = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>N3nFBMgD = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>bjADqF4 = ||\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

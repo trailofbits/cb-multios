@@ -1,0 +1,86 @@
+#!/usr/bin/env python
+import sys
+sys.path.append('poller')
+from engine import Engine, move_to_str
+from generator.actions import Actions
+import random
+import string
+
+def random_string(size=20):
+    return ''.join([random.choice(string.ascii_letters) for x in xrange(random.randint(1,size))])
+
+class CGCBoard(Actions):
+    def menu(self):
+        pass
+
+    def start(self):
+        self.state['gameover'] = False
+        self.state['me'] = Engine()
+        self.state['me'].reset()
+        self.state['me'].max_depth = 2
+        self.state['me'].max_quiesce_depth = 6
+        self.state['me'].random = True
+        self.state['oracle'] = Engine()
+        self.state['oracle'].reset()
+
+        self.write('new\n')
+        self.write('sd 1\n')
+        self.state['oracle'].max_depth = 1
+
+    def move(self):
+        if self.state['gameover']:
+            return
+
+        score, move = self.state['me'].go()
+        if score < -1000000:
+            self.write('result 0-1\n')
+            self.state['gameover'] = True
+        else:
+            self.state['oracle'].apply_move(move)
+            _, move2 = self.state['oracle'].go()
+            if move2 is None:
+                print self.state['oracle'].moves
+                self.state['gameover'] = True
+                self.write('result 1-0\n')
+            else:
+                self.write(move_to_str(move) + '\n')
+                self.read(delim='\n', expect='move %s\n' % move_to_str(move2))
+                self.state['me'].apply_move(move2)
+
+    def quit(self):
+        self.write('quit\n')
+        self.read(delim='\n', expect='bye\n')
+
+    def sd(self):
+        d = random.randint(1,2)
+        self.write('sd %d\n' % d)
+        self.state['oracle'].max_depth = d
+
+    def play(self):
+        if self.state['gameover']:
+            return
+
+        _, move = self.state['oracle'].go()
+        if move is None:
+            return
+        self.write('?\n')
+        self.read(delim='\n', expect='move %s\n' % move_to_str(move))
+        self.state['me'].apply_move(move)
+
+    def remove(self):
+        if self.state['gameover'] or len(self.state['me'].moves) == 0:
+            return
+
+        self.write('remove\n')
+        self.state['me'].undo_move()
+        self.state['me'].undo_move()
+        self.state['oracle'].undo_move()
+        self.state['oracle'].undo_move()
+
+    def undo(self):
+        if self.state['gameover'] or len(self.state['me'].moves) == 0:
+            return
+
+        self.write('undo\n')
+        self.state['me'].undo_move()
+        self.state['oracle'].undo_move()

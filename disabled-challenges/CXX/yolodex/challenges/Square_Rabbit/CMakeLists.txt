@@ -1,0 +1,8 @@
+set( NO_CB_DPKG "1" )
+set( NO_CB_EXTENDED_APP "1" )
+set( POLLS_TESTING_SEED "-16949350" )
+set( POLLS_RELEASE_SEED "259379680" )
+add_compile_options( -O0 -g )
+set( SERVICE_ID "00018" )
+set( AUTHOR_ID "KPRCA" )
+buildCB()

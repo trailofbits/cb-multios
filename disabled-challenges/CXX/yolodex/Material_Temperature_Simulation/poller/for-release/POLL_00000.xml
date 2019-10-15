@@ -1,0 +1,254 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>CROMU_00029</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>For what material would you like to run this simulation?\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  1. Air\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  2. Aluminum\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  3. Copper\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  4. Custom\x0a</data></match></read>
+    <read><delim>: </delim><match><data>Selection: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>How large is the material \x28X\x2cY\x2cZ meters\x29: </data></match></read>
+    <write><data>10\x2c3\x2c1\x0a</data></write>
+    <read><delim>: </delim><match><data>Should the material be isothermic? \x28y\x2cn\x29: </data></match></read>
+    <write><data>y\x0a</data></write>
+    <read><delim>: </delim><match><data>  What temperature? \x28\x2d173.15000 \x2d 373.00000 degrees C\x29: </data></match></read>
+    <write><data>301.93034\x0a</data></write>
+    <read><delim>: </delim><match><data>Are there any constant energy sources in the room? \x28y\x2cn\x29: </data></match></read>
+    <write><data>n\x0a</data></write>
+    <read><delim>: </delim><match><data>For how long would you like to run the simulation? \x28s\x29: </data></match></read>
+    <write><data>219.19791\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 0.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 10.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 20.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 30.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 40.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 50.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 60.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 70.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 80.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 90.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 100.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 110.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 120.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 130.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 140.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 150.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 160.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 170.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 180.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 190.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 200.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 210.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data> 301.93034  301.93034  301.93034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 220.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+</replay>
+</pov>

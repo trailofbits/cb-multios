@@ -1,0 +1,30 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: define_vars
+- name: view_vars
+- name: submit_text
+- name: render_text
+- name: quit
+- name: invalid
+
+edges:
+- start: menu
+- menu: define_vars
+  weight: 0.25
+- menu: view_vars
+  weight: 0.20
+- menu: submit_text
+  weight: 0.20
+- menu: render_text
+  weight: 0.20
+- menu: quit
+  weight: 0.10
+- menu: invalid
+  weight: 0.05
+- define_vars: menu
+- view_vars: menu
+- submit_text: menu
+- render_text: menu
+- invalid: menu

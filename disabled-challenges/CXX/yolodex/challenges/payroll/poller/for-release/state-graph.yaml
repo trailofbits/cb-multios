@@ -1,0 +1,13 @@
+---
+nodes:
+- name: start
+- name: register
+- name: loghours
+- name: query
+- name: quit
+
+edges:
+- start: register
+- register: loghours
+- loghours: query
+- query: quit 

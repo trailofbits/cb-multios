@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  *
  */
+#include <math.h> 
 #include "cgc_stdlib.h"
 #include "cgc_ctype.h"
 #include "cgc_string.h"
@@ -158,7 +159,7 @@ void cgc_send_error(const char *error, const char *command)
     cgc_write_string("\n");
 }
 
-int cgc_sink_error(const char *buf)
+int sink_error(const char *buf)
 {
     char tmp[2];
     cgc_size_t n = cgc_strlen(buf);
@@ -189,7 +190,7 @@ int cgc_read_keyword(char *input, cgc_size_t n)
 
     state = input_states[(input[0] << 7) | input[1]];
     if (state == STATE_ERROR)
-        return cgc_sink_error(input);
+        return sink_error(input);
 
     if (state == STATE_PLAY_START)
         return state;
@@ -316,7 +317,7 @@ int cgc_read_keyword(char *input, cgc_size_t n)
     }
 
     if (state == STATE_ERROR)
-        return cgc_sink_error(input);
+        return sink_error(input);
     else
         input[i] = 0;
 

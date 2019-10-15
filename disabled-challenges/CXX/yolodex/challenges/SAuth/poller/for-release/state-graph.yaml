@@ -1,0 +1,22 @@
+---
+nodes:
+- name: start
+- name: go
+- name: disconnect
+- name: ignore
+- name: service_request
+- name: userauth_request
+  continue: .9
+- name: unimplemented
+
+edges:
+- start: go
+- go: disconnect
+- go: ignore
+- go: service_request
+- go: userauth_request
+- go: unimplemented
+- ignore: go
+- service_request: go
+- userauth_request: go
+- unimplemented: go

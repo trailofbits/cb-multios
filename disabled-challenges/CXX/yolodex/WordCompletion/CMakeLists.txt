@@ -1,0 +1,6 @@
+set( SERVICE_ID "00011" )
+set( POLLS_RELEASE_SEED "-922465036" )
+set( AUTHOR_ID "YAN01" )
+add_compile_options( -g )
+set( POLLS_TESTING_SEED "-650138979" )
+buildCB()

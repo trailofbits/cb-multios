@@ -1,0 +1,16 @@
+nodes:
+- name: start
+- name: put_good
+  continue: 0.95
+- name: get_good
+  continue: 0.95
+- name: rand_good
+  continue: 0.95
+
+edges:
+- start: put_good
+- start: get_good
+- start: rand_good
+- put_good: start
+- get_good: start
+- rand_good: start

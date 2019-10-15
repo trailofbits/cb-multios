@@ -1,0 +1,527 @@
+/*
+ * Copyright (c) 2015 Kaprica Security, Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "packed.h"
+
+#define MALLOC(_FPTRS, _SZ) ((*((void *(*)(size_t))(_FPTRS)[0]))(((_SZ))))
+#define FREE(_FPTRS, _PTR)  ((*((void *(*)(void *))(_FPTRS)[1]))(((_PTR))))
+#define MEMCPY(_FPTRS, _DST, _SRC, _SZ) ((*(void *(*)(void *, void *, size_t))(_FPTRS)[2])((_DST), (_SRC), (_SZ)))
+#define MEMMOVE(_FPTRS, _DST, _SRC, _SZ) ((*(void *(*)(void *, void *, size_t))(_FPTRS)[3])((_DST), (_SRC), (_SZ)))
+#define PRINT_ARRAY(_FPTRS, _ARR, _SZ) ((*(void (*)(int *, size_t))(_FPTRS)[4])((_ARR), (_SZ)))
+#define SWAP(_FPTRS, _FIRST, _SECOND) ((*(void (*)(int *, int *))(_FPTRS)[5])((_FIRST), (_SECOND)))
+#define HEAPIFY(_FPTRS, _ARR, _SZ) ((*(int (*)(int *, size_t, int *))(_FPTRS)[6])((_ARR), (_SZ), (_FPTRS)))
+#define HEAP_PROPAGATE(_FPTRS, _ARR, _SZ, _SWAP_IDX) \
+                            ((*(int (*)(int *, size_t, size_t, int *))(_FPTRS)[7])((_ARR), (_SZ), (_SWAP_IDX), (_FPTRS)))
+#define MERGE_HELPER(_FPTRS, _ARR1, _ARR2, _IDX1, _IDX2) \
+                            ((*(int (*)(int *, int *, int, int, int *))(_FPTRS)[8])((_ARR1), (_ARR2), (_IDX1), (_IDX2), (_FPTRS)))
+#define ALLOCATE(_FPTRS, _LEN, _IS_X, _PADDR) ((*(int (*)(size_t, int, void **))(_FPTRS)[9])((_LEN), (_IS_X), (_PADDR)))
+#define DEALLOCATE(_FPTRS, _ADDR, _LEN) ((*(int (*)(void *, size_t))(_FPTRS)[10])((_ADDR), (_LEN)))
+
+int insertion_sort(int *array, size_t array_size, int *fptrs)
+{
+    int num_comparisons = 0;
+    int *sorted_array = MALLOC(fptrs, sizeof(int) * array_size);
+    MEMCPY(fptrs, sorted_array, array, sizeof(int) * array_size);
+    for (int i = 0; i < array_size; i++) {
+        int j = 0;
+        int temp = sorted_array[i];
+        for (j = i+1; j < array_size; j++) {
+            ++num_comparisons;
+            if (temp > sorted_array[j]) {
+                temp = sorted_array[j];
+                MEMMOVE(fptrs, &sorted_array[i+1], &sorted_array[i], sizeof(int) * (j-i));
+                sorted_array[i] = temp;
+            }
+        }
+    }
+
+    PRINT_ARRAY(fptrs, sorted_array, array_size);
+    FREE(fptrs, sorted_array);
+    return num_comparisons;
+}
+
+int selection_sort(int *array, size_t array_size, int *fptrs)
+{
+    int num_comparisons = 0;
+    int *sorted_array = MALLOC(fptrs, sizeof(int) * array_size);
+    sorted_array = MEMCPY(fptrs, sorted_array, array, sizeof(int) * array_size);
+    for (int i = 0; i < array_size; i++) {
+        int j = 0;
+        int z = i;
+        int temp = sorted_array[i];
+        for (j = i+1; j < array_size; j++) {
+            ++num_comparisons;
+            if (temp > sorted_array[j]) {
+                temp = sorted_array[j];
+                z = j;
+            }
+        }
+        ++num_comparisons;
+        if (z != i) {
+            sorted_array[z] = sorted_array[i];
+            sorted_array[i] = temp;
+        }
+    }
+
+    PRINT_ARRAY(fptrs, sorted_array, array_size);
+    FREE(fptrs, sorted_array);
+    return num_comparisons;
+}
+
+int heap_propagate(int *array, size_t array_size, size_t swap_idx, int *fptrs)
+{
+    int num_comparisons = 0;
+    int parent, lchild, rchild;
+
+    while (1) {
+        parent = array[swap_idx];
+        ++num_comparisons;
+        if ((2*swap_idx + 1) < array_size) {
+            lchild = array[2*swap_idx + 1];
+        } else {
+            break;
+        }
+
+        ++num_comparisons;
+        if ((2*swap_idx + 2) < array_size) {
+            rchild = array[2*swap_idx + 2];
+        } else {
+            ++num_comparisons;
+            if (parent <  lchild) {
+                SWAP(fptrs, &array[2*swap_idx + 1], &array[swap_idx]);
+                swap_idx = 2*swap_idx + 1;
+            }
+            break;
+        }
+
+        ++num_comparisons;
+        if (lchild >= rchild) {
+            ++num_comparisons;
+            if (parent < lchild) {
+                SWAP(fptrs, &array[2*swap_idx + 1], &array[swap_idx]);
+                swap_idx = 2*swap_idx + 1;
+            } else {
+                break;
+            }
+        } else {
+            ++num_comparisons;
+            if (parent < rchild) {
+                SWAP(fptrs, &array[2*swap_idx + 2], &array[swap_idx]);
+                swap_idx = 2*swap_idx + 2;
+            } else {
+                break;
+            }
+        }
+    }
+
+    return num_comparisons;
+}
+
+int heapify(int *array, size_t array_size, int *fptrs)
+{
+    int num_comparisons = 0;
+    if (array_size < 2)
+        return 1;
+
+    int parent = 0;
+    int lchild = 0;
+    int rchild = 0;
+    int ridx = array_size - 1;
+
+    if (ridx == 1) {
+        if (array[0] < array[1]) {
+            SWAP(fptrs, &array[0], &array[1]);
+        }
+        return 1;
+    }
+
+    if (array_size % 2 == 0) {
+        lchild = array[ridx];
+        parent = array[(ridx - 1) / 2];
+        if (parent < lchild)
+            SWAP(fptrs, &array[ridx], &array[(ridx - 1) / 2]);
+        --ridx;
+    }
+
+    int done = 0;
+    while (!done) {
+        int swap_idx = 0;
+        rchild = array[ridx];
+        lchild = array[ridx - 1];
+        parent = array[(ridx - 1) / 2];
+
+        ++num_comparisons;
+        if (lchild > rchild) {
+            ++num_comparisons;
+            if (parent < lchild)
+                swap_idx = ridx - 1;
+        } else {
+            ++num_comparisons;
+            if (parent < rchild)
+                swap_idx = ridx;
+        }
+
+        if (swap_idx) {
+            SWAP(fptrs, &array[(ridx - 1) / 2], &array[swap_idx]);
+            num_comparisons += HEAP_PROPAGATE(fptrs, array, array_size, swap_idx);
+        }
+
+        if (!((ridx - 1) / 2))
+            done = 1;
+
+        ridx -= 2;
+    }
+
+    return num_comparisons;
+}
+
+int heap_sort(int *array, size_t array_size, int *fptrs)
+{
+    int num_comparisons = 0;
+    int real_array_size = array_size;
+    int *sorted_array = MALLOC(fptrs, sizeof(int) * array_size);
+    MEMCPY(fptrs, sorted_array, array, sizeof(int) * array_size);
+    num_comparisons += HEAPIFY(fptrs, sorted_array, array_size);
+    while (array_size) {
+        SWAP(fptrs, &sorted_array[0], &sorted_array[array_size - 1]);
+        num_comparisons += HEAP_PROPAGATE(fptrs, sorted_array, --array_size, 0);
+    }
+    array_size = real_array_size;
+
+    PRINT_ARRAY(fptrs, sorted_array, array_size);
+    FREE(fptrs, sorted_array);
+    return num_comparisons;
+}
+
+int merge_helper(int *array, int *temp_array, int idx_start, int idx_end, int *fptrs)
+{
+    if (idx_end - idx_start < 2)
+        return 1;
+
+    int idx_mid = (idx_end + idx_start) / 2;
+    int num_comparisons = 0;
+    num_comparisons += MERGE_HELPER(fptrs, array, temp_array, idx_start, idx_mid);
+    num_comparisons += MERGE_HELPER(fptrs, array, temp_array, idx_mid, idx_end);
+
+    int i = 0;
+    int idx_left = idx_start;
+    int idx_right = idx_mid;
+
+    for (i = idx_start; i < idx_end; i++) {
+        ++num_comparisons;
+        if (idx_left < idx_mid) {
+            ++num_comparisons;
+            if (idx_right >= idx_end || array[idx_left] <= array[idx_right])
+                temp_array[i] = array[idx_left++];
+            else
+                temp_array[i] = array[idx_right++];
+        } else {
+            temp_array[i] = array[idx_right++];
+        }
+    }
+    MEMCPY(fptrs, &array[idx_start], &temp_array[idx_start], (idx_end - idx_start) * sizeof(int));
+
+    return num_comparisons;
+}
+
+int merge_sort(int *array, size_t array_size, int *fptrs)
+{
+    int *orig_array = NULL;
+    int used_allocate = 0;
+    int *temp_array = MALLOC(fptrs, sizeof(int) * array_size);
+
+    if (array_size <= 1048 && ALLOCATE(fptrs, 4096, 0, (void **)&orig_array) == 0)
+        used_allocate = 1;
+    else
+        orig_array = MALLOC(fptrs, sizeof(int) * array_size);
+    MEMCPY(fptrs, orig_array, array, sizeof(int) * array_size);
+    int num_comparisons = MERGE_HELPER(fptrs, array, temp_array, 0, array_size);
+    PRINT_ARRAY(fptrs, array, array_size);
+    MEMCPY(fptrs, array, orig_array, sizeof(int) * array_size);
+    FREE(fptrs, temp_array);
+    if (used_allocate)
+        DEALLOCATE(fptrs, orig_array, 4096);
+    else
+        FREE(fptrs, orig_array);
+    return num_comparisons;
+}
+
+int (*insertion_sort_unpacked)(int *, size_t, int *);
+unsigned char *insertion_sort_memory;
+
+int (*selection_sort_unpacked)(int *, size_t, int *);
+unsigned char *selection_sort_memory;
+
+int (*heap_propagate_unpacked)(int *, size_t, size_t, int *);
+unsigned char *heap_propagate_memory;
+
+int (*heapify_unpacked)(int *, size_t, int *);
+unsigned char * heapify_memory;
+
+int (*heap_sort_unpacked)(int *, size_t, int *);
+unsigned char *heap_sort_memory;
+
+int (*merge_helper_unpacked)(int *, int *, int, int, int *);
+unsigned char *merge_helper_memory;
+
+int (*merge_sort_unpacked)(int *, size_t, int *);
+unsigned char *merge_sort_memory;
+
+void unpack(unsigned char *fn_bytes, size_t num_bytes)
+{
+    char unpack_key[] = "CS10FUN!";
+    int i = 0;
+    int keylen = strlen(unpack_key);
+
+    for (i = 0; i < num_bytes; i++)
+        fn_bytes[i] ^= unpack_key[i % keylen];
+}
+
+void init()
+{
+    allocate(sizeof(selection_sort_bytes), 1, (void **)&selection_sort_memory);
+    memcpy(selection_sort_memory, selection_sort_bytes, sizeof(selection_sort_bytes));
+    unpack(selection_sort_memory, sizeof(selection_sort_bytes));
+    selection_sort_unpacked = (int (*)(int *, size_t, int *))selection_sort_memory;
+
+    allocate(sizeof(heap_propagate_bytes), 1, (void **)&heap_propagate_memory);
+    memcpy(heap_propagate_memory, heap_propagate_bytes, sizeof(heap_propagate_bytes));
+    unpack(heap_propagate_memory, sizeof(heap_propagate_bytes));
+    heap_propagate_unpacked = (int (*)(int *, size_t, size_t, int *))heap_propagate_memory;
+
+    allocate(sizeof(heapify_bytes), 1, (void **)&heapify_memory);
+    memcpy(heapify_memory, heapify_bytes, sizeof(heapify_bytes));
+    unpack(heapify_memory, sizeof(heapify_bytes));
+    heapify_unpacked = (int (*)(int *, size_t, int *))heapify_memory;
+
+    allocate(sizeof(heap_sort_bytes), 1, (void **)&heap_sort_memory);
+    memcpy(heap_sort_memory, heap_sort_bytes, sizeof(heap_sort_bytes));
+    unpack(heap_sort_memory, sizeof(heap_sort_bytes));
+    heap_sort_unpacked = (int (*)(int *, size_t, int *))heap_sort_memory;
+
+    allocate(sizeof(merge_helper_bytes), 1, (void **)&merge_helper_memory);
+    memcpy(merge_helper_memory, merge_helper_bytes, sizeof(merge_helper_bytes));
+    unpack(merge_helper_memory, sizeof(merge_helper_bytes));
+    merge_helper_unpacked = (int (*)(int *, int *, int, int, int *))merge_helper_memory;
+
+    allocate(sizeof(merge_sort_bytes), 1, (void **)&merge_sort_memory);
+    memcpy(merge_sort_memory, merge_sort_bytes, sizeof(merge_sort_bytes));
+    unpack(merge_sort_memory, sizeof(merge_sort_bytes));
+    merge_sort_unpacked = (int (*)(int *, size_t, int *))merge_sort_memory;
+
+    allocate(sizeof(insertion_sort_bytes), 1, (void **)&insertion_sort_memory);
+    memcpy(insertion_sort_memory, insertion_sort_bytes, sizeof(insertion_sort_bytes));
+    unpack(insertion_sort_memory, sizeof(insertion_sort_bytes));
+    insertion_sort_unpacked = (int (*)(int *, size_t, int *))insertion_sort_memory;
+}
+
+void swap(int *first, int *second)
+{
+    int swap_pos;
+    swap_pos = *first;
+    *first = *second;
+    *second = swap_pos;
+    return;
+}
+
+void print_array(int *array, size_t array_size) {
+    if (!array || !array_size) {
+        printf("Empty Array\n");
+        return;
+    }
+
+    printf("Array data\n[");
+    int i;
+    for (i = 0; i < array_size; i++) {
+        printf("%d", array[i]);
+        if (i < array_size - 1)
+            printf(", ");
+        else
+            printf("]\n");
+    }
+}
+
+int *create_number_array(size_t *array_size) {
+    char buf[64];
+    int i = 0;
+    int *array = malloc(2 * sizeof(int));
+    int array_len = 0;
+    *array_size = 2;
+
+    printf("Enter a list of numbers to sort. End the list with ';;'\n");
+    fflush(stdout);
+    while (i < sizeof(buf) - 1) {
+        fread(&buf[i], 1, stdin);
+        if (i && buf[i] == ';' && buf[i-1] == ';')
+            break;
+        else if (buf[i] == ',') {
+            buf[i] = '\0';
+            if (i) {
+                array[array_len++] = strtol(buf, NULL, 10);
+                if (array_len == *array_size) {
+                    int * temp_array = malloc(sizeof(int) * *array_size * 2);
+                    memcpy(temp_array, array, sizeof(int) * *array_size);
+                    free(array);
+                    array = temp_array;
+                    *array_size *= 2;
+                }
+            }
+            i = 0;
+        } else {
+            i++;
+        }
+    }
+    while (freaduntil(buf, sizeof(buf), '\n', stdin) == -1);
+    *array_size = array_len;
+    return array;
+}
+
+void multiply_array(int **parray, size_t *array_size) {
+    char buf[64];
+    int multiplier = 0;
+    int *old_array = *parray;
+    int *array = NULL;
+    int array_len = *array_size;
+    ssize_t bytes_read;
+
+    if (array_len > 10000) {
+        printf("Array is too long. Can't multiply any more\n");
+        return;
+    }
+
+    if (!old_array || !array_len)
+        return;
+
+    printf("Quick Grow! Enter a list multiplier. End number with ';'\n");
+    fflush(stdout);
+    if ((bytes_read = freaduntil(buf, sizeof(buf), ';', stdin)) != -1) {
+        multiplier = strtol(buf, NULL, 10);
+        if (multiplier && multiplier <= 10000) {
+            array_len = multiplier * *array_size;
+            array = malloc(sizeof(int) * array_len);
+
+            int i = 0;
+            for (i = 0; i < multiplier; i++)
+                memcpy(&array[i * *array_size], old_array, sizeof(int) * *array_size);
+            *array_size = array_len;
+        } else {
+            printf("Multiplier too big, try again\n");
+            while (freaduntil(buf, sizeof(buf), '\n', stdin) == -1);
+            return;
+        }
+    }
+    while (freaduntil(buf, sizeof(buf), '\n', stdin) == -1);
+    free(old_array);
+    *parray = array;
+}
+
+int __attribute__((fastcall)) main(int secret_page_i, char *unused[]) {
+    init();
+    //int _G_FPTRS[] = { (int) &malloc, (int) &free, (int) &memcpy, (int) &memmove, (int) &print_array, (int) &swap,
+    //                    (int) heapify, (int) heap_propagate, (int) merge_helper,
+    //                    (int) &allocate, (int) &deallocate };
+    int _G_FPTRS[] = { (int) &malloc, (int) &free, (int) &memcpy, (int) &memmove, (int) &print_array, (int) &swap,
+                        (int) heapify_unpacked, (int) heap_propagate_unpacked, (int) merge_helper_unpacked,
+                        (int) &allocate, (int) &deallocate };
+
+    fbuffered(stdout, 1);
+    fxlat(stdin, "2e0715f1709c");
+    fxlat(stdout, "2e0715f1709c");
+
+    printf("Welcome to CS10Fun!\n");
+    printf("Today's lesson is on sorting! We're going to cover 4 types of sorts.\n");
+    printf("Before we begin, create an array of ints\n");
+    size_t array_size = 0;
+    int *array = NULL;
+    int done = 0;
+    int choice = 0;
+    char input[64];
+    while (!done) {
+        printf("Main Menu\n");
+        printf("1. Enter Array\n");
+        printf("2. Multiply Array\n");
+        printf("3. Try Insertion Sort\n");
+        printf("4. Try Selection Sort\n");
+        printf("5. Try Heap Sort\n");
+        printf("6. Try Merge Sort\n");
+        printf("7. Reprint Array\n");
+        printf("0. Exit\n");
+        printf("   -----\n");
+        printf("Current Number of items in array = %d\n", array_size);
+        printf("   -----\n");
+        printf("Make a selection\n");
+        fflush(stdout);
+        if (freaduntil(input, sizeof(input), '\n', stdin) == -1)
+            break;
+
+        choice = strtol(input, NULL, 10);
+        switch (choice) {
+        case 1:
+            array = create_number_array(&array_size);
+            printf("New Array\n");
+            printf("Number of items in array = %d\n", array_size);
+            print_array(array, array_size);
+            break;
+        case 2:
+            multiply_array(&array, &array_size);
+            printf("Multiplied Array\n");
+            printf("Number of items in array = %d\n", array_size);
+            print_array(array, array_size);
+            break;
+        case 3:
+            //printf("Insertion sort takes %d operations\n", insertion_sort(array, array_size, _G_FPTRS));;
+            printf("Insertion sort takes %d operations\n", (*insertion_sort_unpacked)(array, array_size, _G_FPTRS));
+            break;
+        case 4:
+            //printf("Selection sort takes %d operations\n", selection_sort(array, array_size, _G_FPTRS));
+            printf("Selection sort takes %d operations\n", (*selection_sort_unpacked)(array, array_size, _G_FPTRS));
+            break;
+        case 5:
+            //printf("Heap sort takes %d operations\n", heap_sort(array, array_size, _G_FPTRS));
+            printf("Heap sort takes %d operations\n", (*heap_sort_unpacked)(array, array_size, _G_FPTRS));
+            break;
+        case 6:
+            //printf("Merge sort takes %d operations\n", merge_sort(array, array_size, _G_FPTRS));
+            printf("Merge sort takes %d operations\n", (*merge_sort_unpacked)(array, array_size, _G_FPTRS));
+            break;
+        case 7:
+            printf("Current Array\n");
+            printf("Number of items in array = %d\n", array_size);
+            print_array(array, array_size);
+            break;
+        case 0:
+            done = 1;
+            break;
+        default:
+            done = 1;
+        }
+    }
+
+    printf("Thanks for joining us\n");
+    printf("See you next time\n");
+    fflush(stdout);
+    return 0;
+}
+

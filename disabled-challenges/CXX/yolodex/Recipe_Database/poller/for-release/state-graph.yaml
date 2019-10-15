@@ -1,0 +1,28 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: enter_recipe
+- name: find_recipe
+- name: print_tagged
+- name: print_shopping_list
+- name: exit
+
+edges:
+- start: menu
+- menu: enter_recipe
+  weight: .7
+- menu: find_recipe
+  weight: .2
+- menu: print_tagged
+  weight: .2
+- menu: print_shopping_list
+  weight: .2
+- menu: exit
+  weight: .1
+- enter_recipe: menu
+- find_recipe: menu
+- print_tagged: menu
+- print_shopping_list: menu
+
+

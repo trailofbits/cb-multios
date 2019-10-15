@@ -1,0 +1,7 @@
+set( POLLS_TESTING_COUNT "0" )
+add_compile_options( -fno-exceptions -fno-rtti )
+set( POLLS_RELEASE_SEED "0" )
+add_compile_options( -O0 -g -fno-exceptions -fno-rtti )
+set( SERVICE_ID "00002" )
+set( AUTHOR_ID "TNETS" )
+buildCB()

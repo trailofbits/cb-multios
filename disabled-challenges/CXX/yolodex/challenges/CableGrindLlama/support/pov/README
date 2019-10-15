@@ -1,0 +1,6 @@
+This machine will generate a *lot* of povs; however, some of them don't work due to the heap layout (which we still try to make as friendly as possible).
+Due to the large number of possible PoVs, we instead limit ourselves to probing a sampling of those available.
+This should provide reasonable assurance as to whether the vulnerabilities have been patched or not.
+
+New PoVs can be filtered with the following one-liner:
+for i in `ls *.xml`; do if [ -z "`cb-test --xml $i --directory ../bin/ --cb NRFIN_00032 --should_core 2>&1 | grep 'signal 11'`" ]; then mv $i bad/; fi; done

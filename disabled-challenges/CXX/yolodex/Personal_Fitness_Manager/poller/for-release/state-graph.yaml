@@ -1,0 +1,33 @@
+---
+nodes:
+- name: start
+- name: top
+- name: end
+- name: register_user
+- name: set_current_user
+- name: register_sensor
+- name: send_sensor_data
+- name: request_sensors
+- name: remove_sensor
+- name: get_hw_ids
+
+
+edges:
+- start: register_user
+- register_user: top
+- top: set_current_user
+- top: register_sensor
+- top: send_sensor_data
+- top: request_sensors
+- top: remove_sensor
+- top: register_user
+- top: get_hw_ids
+- set_current_user: top
+- remove_sensor: top
+- register_sensor: top
+- send_sensor_data: top
+- request_sensors: top
+- get_hw_ids: top
+- top: end
+  weight: .15
+

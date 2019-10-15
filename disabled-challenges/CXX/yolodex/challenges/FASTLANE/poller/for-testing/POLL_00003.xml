@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <!--<cbid>FASTLAND</cbid>-->
+    <cbid>NRFIN_00003</cbid>
+    <replay>
+
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- add credits -->
+        <write><data>AUTH 7FFF53\n</data></write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">Adding FASTLANE credits...\n</data>
+                <data format="asciic">--------------------------\n</data>
+                <data format="asciic">Authentication successful!\n</data>
+            </match>
+        </read>
+
+        <!-- get file listing & pull out name of last file (because that's easiest) -->
+        <write><data>LIST\n</data></write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">Your files, kind sir/madam!\n</data>
+                <data format="asciic">---------------------------\n</data>
+                <pcre>([a-z]{16}\n)+</pcre>
+            </match>
+        </read>
+    </replay>
+</pov>

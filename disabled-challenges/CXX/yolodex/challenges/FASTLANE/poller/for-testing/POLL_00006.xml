@@ -1,0 +1,32 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <!--<cbid>FASTLAND</cbid>-->
+    <cbid>NRFIN_00003</cbid>
+    <replay>
+
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <!-- add credits -->
+        <write><data>AUTH 7FFF53\n</data></write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">Adding FASTLANE credits...\n</data>
+                <data format="asciic">--------------------------\n</data>
+                <data format="asciic">Authentication successful!\n</data>
+            </match>
+        </read>
+
+        <write><data>STATUS\n</data></write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">FASTLANE fully operational!\n</data>
+                <data format="asciic">Thank you for asking kind sir/madam!\n</data>
+            </match>
+        </read>
+
+    </replay>
+</pov>

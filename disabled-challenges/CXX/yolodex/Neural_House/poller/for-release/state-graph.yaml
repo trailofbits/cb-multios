@@ -1,0 +1,13 @@
+---
+nodes:
+- name: start
+- name: ready
+- name: query
+- name: quit
+
+edges:
+- start: ready
+- ready: query
+- query: ready
+- ready: quit
+  weight: 0.1

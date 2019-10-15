@@ -1,0 +1,30 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>charstats</cbid>
+    <replay>
+        <write><data format="hex">00000000</data></write>
+        <write><data format="hex">50000000</data></write>
+        <write><data format="hex">02000000</data></write>
+        <write><data format="hex">0D000000</data></write>
+        <write><data format="hex">08000000</data></write>
+        <write><data format="hex">07000000</data></write>
+        <write><data format="hex">14000000</data></write>
+        <write><data format="hex">1C000000</data></write>
+        <write><data format="hex">10000000</data></write>
+        <write><data format="hex">06000000</data></write>
+        <write><data format="hex">1C000000</data></write>
+        <write><data format="hex">01000000</data></write>
+        <write><data format="hex">02000000</data></write>
+        <write><data format="hex">38000000</data></write>
+        <write><data format="hex">06000000</data></write>
+        <write><data format="hex">15000000</data></write>
+        <write><data format="hex">03000000</data></write>
+        <write><data format="hex">00000000</data></write>
+        <write><data format="hex">03000000</data></write>
+        <write><data format="hex">01000000</data></write>
+        <write><data format="hex">01000000</data></write>
+        <write><data format="hex">FFFFFFFF</data></write>
+        <read><length>4</length><match><data format="hex">14000000</data></match></read>
+    </replay>
+</pov>

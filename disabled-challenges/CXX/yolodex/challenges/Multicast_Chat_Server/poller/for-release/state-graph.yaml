@@ -1,0 +1,184 @@
+#
+# Copyright (C) 2015 Narf Industries <info@narfindustries.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+---
+nodes:
+- name: start
+- name: subscribeGuaranteed
+- name: subscribeLatest
+- name: subscribeIncremental
+- name: subscribeLow
+- name: subscribeMedium
+- name: subscribeHigh
+- name: subscribeToFlagChannel
+- name: getMessagesFromAnyChannel
+- name: getMessagesFromAllChannels
+- name: quit
+#- name: POV1
+
+edges:
+#- start: POV1
+#- POV1: quit
+- start: subscribeGuaranteed
+- start: subscribeLatest
+- start: subscribeIncremental
+- subscribeGuaranteed: getMessagesFromAnyChannel
+  weight: 0.2
+- subscribeGuaranteed: getMessagesFromAllChannels
+  weight: 0.2
+- subscribeGuaranteed: subscribeGuaranteed
+  weight: 0.2
+- subscribeGuaranteed: subscribeLatest
+  weight: 0.2
+- subscribeGuaranteed: subscribeIncremental
+  weight: 0.2
+- subscribeGuaranteed: subscribeLow
+  weight: 0.2
+- subscribeGuaranteed: subscribeMedium
+  weight: 0.2
+- subscribeGuaranteed: subscribeHigh
+  weight: 0.2
+- subscribeGuaranteed: quit
+- subscribeLatest: getMessagesFromAnyChannel
+  weight: 0.2
+- subscribeLatest: getMessagesFromAllChannels
+  weight: 0.2
+- subscribeLatest: subscribeGuaranteed
+  weight: 0.2
+- subscribeLatest: subscribeLatest
+  weight: 0.2
+- subscribeLatest: subscribeIncremental
+  weight: 0.2
+- subscribeLatest: subscribeLow
+  weight: 0.2
+- subscribeLatest: subscribeMedium
+  weight: 0.2
+- subscribeLatest: subscribeHigh
+  weight: 0.2
+- subscribeLatest: quit
+- subscribeIncremental: getMessagesFromAnyChannel
+  weight: 0.2
+- subscribeIncremental: getMessagesFromAllChannels
+  weight: 0.2
+- subscribeIncremental: subscribeGuaranteed
+  weight: 0.2
+- subscribeIncremental: subscribeLatest
+  weight: 0.2
+- subscribeIncremental: subscribeIncremental
+  weight: 0.2
+- subscribeIncremental: subscribeLow
+  weight: 0.2
+- subscribeIncremental: subscribeMedium
+  weight: 0.2
+- subscribeIncremental: subscribeHigh
+  weight: 0.2
+- subscribeIncremental: quit
+- subscribeLow: getMessagesFromAnyChannel
+  weight: 0.2
+- subscribeLow: getMessagesFromAllChannels
+  weight: 0.2
+- subscribeLow: subscribeGuaranteed
+  weight: 0.2
+- subscribeLow: subscribeLatest
+  weight: 0.2
+- subscribeLow: subscribeIncremental
+  weight: 0.2
+- subscribeLow: subscribeLow
+  weight: 0.2
+- subscribeLow: subscribeMedium
+  weight: 0.2
+- subscribeLow: subscribeHigh
+  weight: 0.2
+- subscribeLow: quit
+- subscribeMedium: getMessagesFromAnyChannel
+  weight: 0.2
+- subscribeMedium: getMessagesFromAllChannels
+  weight: 0.2
+- subscribeMedium: subscribeGuaranteed
+  weight: 0.2
+- subscribeMedium: subscribeLatest
+  weight: 0.2
+- subscribeMedium: subscribeIncremental
+  weight: 0.2
+- subscribeMedium: subscribeLow
+  weight: 0.2
+- subscribeMedium: subscribeMedium
+  weight: 0.2
+- subscribeMedium: subscribeHigh
+  weight: 0.2
+- subscribeMedium: quit
+- subscribeHigh: getMessagesFromAnyChannel
+  weight: 0.2
+- subscribeHigh: getMessagesFromAllChannels
+  weight: 0.2
+- subscribeHigh: subscribeGuaranteed
+  weight: 0.2
+- subscribeHigh: subscribeLatest
+  weight: 0.2
+- subscribeHigh: subscribeIncremental
+  weight: 0.2
+- subscribeHigh: subscribeLow
+  weight: 0.2
+- subscribeHigh: subscribeMedium
+  weight: 0.2
+- subscribeHigh: subscribeHigh
+  weight: 0.2
+- subscribeHigh: quit
+- getMessagesFromAnyChannel: subscribeLatest
+  weight: 0.2
+- getMessagesFromAnyChannel: subscribeGuaranteed
+  weight: 0.2
+- getMessagesFromAnyChannel: subscribeIncremental
+  weight: 0.2
+- getMessagesFromAnyChannel: subscribeLow
+  weight: 0.2
+- getMessagesFromAnyChannel: subscribeMedium
+  weight: 0.2
+- getMessagesFromAnyChannel: subscribeHigh
+  weight: 0.2
+- getMessagesFromAnyChannel: getMessagesFromAnyChannel
+  weight: 0.2
+- getMessagesFromAnyChannel: getMessagesFromAllChannels
+  weight: 0.2
+- getMessagesFromAnyChannel: subscribeToFlagChannel
+  weight: 0.2
+- getMessagesFromAnyChannel: quit
+- getMessagesFromAllChannels: subscribeLatest
+  weight: 0.2
+- getMessagesFromAllChannels: subscribeGuaranteed
+  weight: 0.2
+- getMessagesFromAllChannels: subscribeIncremental
+  weight: 0.2
+- getMessagesFromAllChannels: subscribeLow
+  weight: 0.2
+- getMessagesFromAllChannels: subscribeMedium
+  weight: 0.2
+- getMessagesFromAllChannels: subscribeHigh
+  weight: 0.2
+- getMessagesFromAllChannels: getMessagesFromAnyChannel
+  weight: 0.2
+- getMessagesFromAllChannels: getMessagesFromAllChannels
+  weight: 0.2
+- getMessagesFromAllChannels: subscribeToFlagChannel
+  weight: 0.2
+- getMessagesFromAllChannels: quit
+- subscribeToFlagChannel: quit
+

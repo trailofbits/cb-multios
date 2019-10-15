@@ -23,7 +23,7 @@
 #include "cgc_stdio.h"
 #include "libcgc.h"
 #include "cgc_hi_lo_game.h"
-
+#include <math.h>
 #define UPPER_RAND_MAX 0xFFFF
 
 static const int *secret = (const int *)0x4347C000;
@@ -86,7 +86,7 @@ int cgc_play_hi_lo()
 
     unsigned int upper_limit;
     int winning_number = get_cgc_random(&upper_limit);
-    unsigned int guesses_left = cgc_log2f(upper_limit) + 1;
+    unsigned int guesses_left = log2f(upper_limit) + 1;
     char *input = cgc_malloc(max_input);
     while (guesses_left) {
         cgc_printf("Guess the number [%d guesses left]: ", guesses_left);

@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>benchmark</cbid>
+    <replay>
+        <decl>
+          <var>uid</var>
+          <value><data>invalid</data></value>
+        </decl>
+
+        <write>
+          <data>HELLO I AM JOE\n</data>
+        </write>
+
+        <read>
+          <delim>\n</delim>
+          <assign><var>uid</var><pcre group="1">HELLO JOE YOUR UID IS ([a-f0-9]+) HOW CAN I HELP YOU\n</pcre></assign>
+        </read>
+
+        <write>
+          <var>uid</var><data> SAYS GET walkthrough/submitting-a-cb.md PLEASE\n</data>
+        </write> 
+
+        <read>
+          <delim>\n\t\n\t\n</delim>
+          <match><pcre>.*</pcre></match>
+        </read>
+
+        <write>
+          <data>GOODBYE\n</data>
+        </write>
+
+        <read>
+          <delim>\n</delim>
+          <match><data>GOODBYE</data></match>
+        </read>
+    </replay>
+</pov>

@@ -1,0 +1,42 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>new\x0a</data></write>
+    <write><data>sd 1\x0a</data></write>
+    <write><data>s1r3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p7p5\x0a</data></match></read>
+    <write><data>t1s1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p8p6\x0a</data></match></read>
+    <write><data>r3p4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move p6t2\x0a</data></match></read>
+    <write><data>p4r3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move t2r4\x0a</data></match></read>
+    <write><data>s2s4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move o8s4\x0a</data></match></read>
+    <write><data>sd 1\x0a</data></write>
+    <write><data>s1s3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move r4o4\x0a</data></match></read>
+    <write><data>s3s1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move s4r3\x0a</data></match></read>
+    <write><data>s1s7\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move r8s7\x0a</data></match></read>
+    <write><data>n1o3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move r3s4\x0a</data></match></read>
+    <write><data>o3m4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move o4m4\x0a</data></match></read>
+    <write><data>r1t3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move s4t3\x0a</data></match></read>
+    <write><data>r2r4\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move m4r4\x0a</data></match></read>
+    <write><data>p2p3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move r4s3\x0a</data></match></read>
+    <write><data>q1p2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move n8m6\x0a</data></match></read>
+    <write><data>p1q1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>move s7q5\x0a</data></match></read>
+    <write><data>quit\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>bye\x0a</data></match></read>
+</replay>
+</pov>

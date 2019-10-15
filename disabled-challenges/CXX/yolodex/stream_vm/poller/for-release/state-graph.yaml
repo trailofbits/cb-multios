@@ -1,0 +1,46 @@
+---
+nodes:
+- name: start
+- name: opcode
+- name: opc_load
+- name: opc_store
+- name: opc_add
+- name: opc_sub
+- name: opc_mul
+- name: opc_div
+- name: opc_and
+- name: opc_xor
+- name: opc_or
+- name: opc_slt
+- name: opc_slte
+- name: opc_syscall
+- name: end
+
+edges:
+- start: opcode
+- opcode: opc_load
+- opcode: opc_store
+- opcode: opc_add
+- opcode: opc_sub
+- opcode: opc_mul
+- opcode: opc_div
+- opcode: opc_and
+- opcode: opc_xor
+- opcode: opc_or
+- opcode: opc_slt
+- opcode: opc_slte
+- opcode: opc_syscall
+- opc_load: opcode
+- opc_store: opcode
+- opc_add: opcode
+- opc_sub: opcode
+- opc_mul: opcode
+- opc_div: opcode
+- opc_and: opcode
+- opc_xor: opcode
+- opc_or: opcode
+- opc_slt: opcode
+- opc_slte: opcode
+- opc_syscall: opcode
+- opcode: end
+  weight: 0.01

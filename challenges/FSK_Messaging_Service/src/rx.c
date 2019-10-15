@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
+#include <math.h> 
 #include "cgc_rx.h"
 #include "libcgc.h"
 #include "cgc_stdlib.h"
@@ -56,10 +57,10 @@ int8_t cgc_add_awgn_to_sample( int8_t sample_in )
 		S = (V1 * V1) + (V2 * V2);
 	} while ( S >= 1.0 );
 
-	double X = cgc_sqrt( -2 * cgc_log(S) / S) * V1;
-	double Y = cgc_sqrt( -2 * cgc_log(S) / S) * V2;
+	double X = sqrt( -2 * log(S) / S) * V1;
+	double Y = sqrt( -2 * log(S) / S) * V2;
 
-	int8_t noise = (int8_t)(X * cgc_sqrt(NOISE_POWER_AMP));
+	int8_t noise = (int8_t)(X * sqrt(NOISE_POWER_AMP));
 
 	// Apply clipping...
 	int16_t new_value = (int16_t)noise + (int16_t)sample_in;

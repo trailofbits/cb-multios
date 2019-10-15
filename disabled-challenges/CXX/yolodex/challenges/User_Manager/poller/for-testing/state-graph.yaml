@@ -1,0 +1,61 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: user_manager_create_user
+- name: admin_login
+- name: admin_bad_login
+- name: admin_good_login
+- name: admin_console
+
+- name: admin_list_users
+- name: admin_delete_user
+- name: admin_change_user_password
+- name: admin_logout
+
+- name: user_bad_login
+- name: create_user_and_login
+
+- name: user_menu
+- name: user_send_message
+- name: user_read_message
+- name: user_list_messages
+- name: user_delete_message
+- name: user_logout
+- name: user_exit
+
+- name: exit
+
+edges:
+- start: menu
+- menu: user_manager_create_user
+- menu: admin_login
+- menu: user_bad_login
+- menu: create_user_and_login
+- menu: exit
+- admin_login: admin_bad_login
+- admin_login: admin_good_login
+- admin_bad_login: menu
+- admin_good_login: admin_console
+- admin_console: admin_list_users
+- admin_console: admin_delete_user
+- admin_console: admin_change_user_password
+- admin_console: admin_logout
+- admin_list_users: admin_console
+- admin_delete_user: admin_console
+- admin_change_user_password: admin_console
+- admin_logout: menu
+- user_bad_login: menu
+- user_manager_create_user: menu
+- create_user_and_login: user_menu
+- user_menu: user_send_message
+- user_menu: user_read_message
+- user_menu: user_list_messages
+- user_menu: user_delete_message
+- user_menu: user_logout
+- user_menu: user_exit
+- user_send_message: user_menu
+- user_read_message: user_menu
+- user_list_messages: user_menu
+- user_delete_message: user_menu
+- user_logout: menu

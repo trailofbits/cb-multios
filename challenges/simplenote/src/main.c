@@ -64,19 +64,19 @@ typedef struct { long _b[8]; } jmp_buf[1];
 int setjmp(jmp_buf) __attribute__((__returns_twice__));
 void longjmp(jmp_buf, int) __attribute__((__noreturn__));
 
-float sinf(float); double cgc_sin(double); long double sinl(long double);
-float cosf(float); double cgc_cos(double); long double cosl(long double);
-float tanf(float); double cgc_tan(double); long double tanl(long double);
+float sinf(float); double sin(double); long double sinl(long double);
+float cosf(float); double cos(double); long double cosl(long double);
+float tanf(float); double tan(double); long double tanl(long double);
 float cgc_logf(float); double cgc_log(double); long double logl(long double);
-float rintf(float); double cgc_rint(double); long double rintl(long double);
-float cgc_sqrtf(float); double cgc_sqrt(double); long double sqrtl(long double);
-float fabsf(float); double cgc_fabs(double); long double fabsl(long double);
-float cgc_log2f(float); double cgc_log2(double); long double log2l(long double);
-float cgc_exp2f(float); double exp2(double); long double exp2l(long double);
+float rintf(float); double rint(double); long double rintl(long double);
+float sqrtf(float); double sqrt(double); long double sqrtl(long double);
+float fabsf(float); double fabs(double); long double fabsl(long double);
+float log2f(float); double log2(double); long double log2l(long double);
+float exp2f(float); double exp2(double); long double exp2l(long double);
 float expf(float); double exp(double); long double expl(long double);
-float log10f(float); double cgc_log10(double); long double log10l(long double);
+float log10f(float); double log10(double); long double log10l(long double);
 float powf(float, float);
-double cgc_pow(double, double);
+double pow(double, double);
 long double powl(long double, long double);
 float atan2f(float, float);
 double cgc_atan2(double, double);
@@ -120,6 +120,8 @@ int toupper(int c);
 
 
 #ifdef WIN
+#include <math.h> 
+#include <math.h> 
 #include <stdarg.h>
 #else
 typedef __builtin_va_list __gnuc_va_list;

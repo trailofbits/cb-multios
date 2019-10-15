@@ -1,0 +1,25 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: load_file1
+- name: load_file2
+- name: toggle_ignore_whitespace
+- name: toggle_treat_as_ascii
+- name: compare_files
+- name: quit
+
+edges:
+- start: menu
+- menu: load_file1
+- menu: load_file2
+- menu: toggle_ignore_whitespace
+- menu: toggle_treat_as_ascii
+- menu: compare_files
+- load_file1: menu
+- load_file2: menu
+- toggle_ignore_whitespace: menu
+- toggle_treat_as_ascii: menu
+- compare_files: menu
+- menu: quit
+  weight: 0.1

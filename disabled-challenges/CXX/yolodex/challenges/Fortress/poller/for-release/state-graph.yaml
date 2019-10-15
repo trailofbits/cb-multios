@@ -1,0 +1,41 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: mission_menu
+- name: explorer_menu
+- name: do_next_day
+- name: do_send_mission
+- name: do_view_missions
+- name: do_hire_explorer
+- name: do_view_explorers
+- name: do_remove_explorer
+- name: do_learn_skills
+- name: _read_mission_menu
+- name: _read_explorer_menu
+- name: quit
+
+edges:
+- start: menu
+- menu: mission_menu
+- menu: explorer_menu
+- menu: do_next_day
+- mission_menu: _read_mission_menu
+- _read_mission_menu: do_send_mission
+- _read_mission_menu: do_view_missions
+- explorer_menu: _read_explorer_menu
+- _read_explorer_menu: do_hire_explorer
+- _read_explorer_menu: do_view_explorers
+- _read_explorer_menu: do_remove_explorer
+- _read_explorer_menu: do_learn_skills
+- menu: quit
+  weight: 0.05
+
+- do_next_day: menu
+- do_send_mission: menu
+- do_view_missions: menu
+- do_hire_explorer: menu
+- do_view_explorers: menu
+- do_remove_explorer: menu
+- do_learn_skills: menu
+

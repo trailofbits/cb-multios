@@ -1,0 +1,23 @@
+---
+nodes:
+- name: start
+- name: negotiate
+- name: kx
+- name: main
+- name: buy
+- name: sell
+- name: list
+- name: quit
+
+edges:
+- start: negotiate
+- negotiate: kx
+- kx: main
+- main: quit
+  weight: 0.05
+- main: buy
+- main: sell
+- main: list
+- buy: main
+- sell: main
+- list: main
