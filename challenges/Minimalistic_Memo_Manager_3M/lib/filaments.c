@@ -28,7 +28,7 @@
 
 #include "libcgc.h"
 
-
+#include <setjmp.h>
 #include "cgc_filaments.h"
 #include "cgc_string.h"
 
@@ -53,11 +53,11 @@ void cgc_filaments_switch(fib_t *new_fib)
     if (new_fib == g_fib)
         return;
 
-    if (cgc_setjmp(g_fib->env) == 0)
+    if (setjmp(g_fib->env) == 0)
     {
         // switch to new_fib
         g_fib = new_fib;
-        cgc_longjmp(g_fib->env, 1);
+        longjmp(g_fib->env, 1);
     }
     else
     {
