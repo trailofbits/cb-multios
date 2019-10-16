@@ -39,7 +39,15 @@ int method;
 
 	i = 0;
 
+#ifdef PATCHED_2
+
+	while (i < MAX_PLAYERS && playerList[i].player_name[0] != 0)
+
+#else
+
 	while (playerList[i].player_name[0] != 0 && i < MAX_PLAYERS) 
+
+#endif
 		++i;
 
 	if (i == MAX_PLAYERS) {

@@ -36,3 +36,8 @@ This vulnerability is easy to find and very easy to fix.  Exploitation is hard g
 	Proving Vulnerability 1: hard
 	Fixing Vulnerability 1: easy
 
+### Unmarked Bugs/Vulnerabilities
+
+Vulnerability 2 was unmarked in the original challenge, and it is more of a bug/undefined behavior than something that can be exploited. The fix is to reorder the tests to avoid undefined behavior. Otherwise, when `i == MAX_PLAYERS`, we end up accessing an element beyond the end of the array. Found with Frama-C.
+
+No PoV is provided.
