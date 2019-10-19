@@ -60,6 +60,12 @@ else(WIN32)
         #-m32
     )
 
+        #if(NOT ARCH=64)
+        #               add_compile_options(
+        #               -m32
+        #               )
+        #endif()
+
     # Link everything 32-bit (until we have a 64-bit option)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ")#-m32")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ") #-m32")
