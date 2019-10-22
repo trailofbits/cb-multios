@@ -57,18 +57,19 @@ else(WIN32)
         -fno-builtin
         -w
         -g3
-        #-m32
     )
 
-        #if(NOT ARCH=64)
-        #               add_compile_options(
-        #               -m32
-        #               )
-        #endif()
+    # It's 2019 so we compile and link everything 64-bit, unless the host architecture is i368
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ")")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ") ")
 
-    # Link everything 32-bit (until we have a 64-bit option)
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ")#-m32")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ") #-m32")
+    EXECUTE_PROCESS( COMMAND uname -m '\n' OUTPUT_VARIABLE ARCHITECTURE )
+    message( STATUS "Architecture: ${ARCHITECTURE}" )
+    if( ${ARCHITECTURE} MATCHES "i368")
+        add_compile_options(-m32)
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
+    endif()
 
     # Linker options
     # Dynamic by default
