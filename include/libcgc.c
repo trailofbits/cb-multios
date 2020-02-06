@@ -155,7 +155,7 @@ int cgc_allocate(cgc_size_t length, int is_executable, void **addr) {
   if (is_executable)
     page_perms |= PROT_EXEC;
 
-  void *return_address = mmap(NULL, length, page_perms, MAP_ANONYMOUS | MAP_PRIVATE, 0, 0);
+  void *return_address = mmap(NULL, length, page_perms, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 
   if (return_address == MAP_FAILED) {
     return errno;
