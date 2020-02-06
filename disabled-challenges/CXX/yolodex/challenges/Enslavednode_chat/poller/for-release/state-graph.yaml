@@ -1,0 +1,29 @@
+nodes:
+- name: start
+- name: read_until_prompt
+
+- name: dosomething
+- name: call_reverse
+- name: call_hello
+- name: call_howsmart
+- name: call_pont
+- name: jabber
+- name: part
+
+edges:
+- start: read_until_prompt
+- read_until_prompt: dosomething
+
+- dosomething: call_reverse
+- dosomething: call_hello
+- dosomething: call_howsmart
+- dosomething: call_pont
+- dosomething: jabber
+- dosomething: part
+  weight: 0.1
+
+- call_reverse: read_until_prompt
+- call_hello: read_until_prompt
+- call_howsmart: read_until_prompt
+- call_pont: read_until_prompt
+- jabber: read_until_prompt

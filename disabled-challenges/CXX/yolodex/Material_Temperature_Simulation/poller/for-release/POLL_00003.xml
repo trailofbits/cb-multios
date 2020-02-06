@@ -1,0 +1,1113 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>CROMU_00029</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>For what material would you like to run this simulation?\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  1. Air\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  2. Aluminum\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  3. Copper\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  4. Custom\x0a</data></match></read>
+    <read><delim>: </delim><match><data>Selection: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>How large is the material \x28X\x2cY\x2cZ meters\x29: </data></match></read>
+    <write><data>4\x2c9\x2c5\x0a</data></write>
+    <read><delim>: </delim><match><data>Should the material be isothermic? \x28y\x2cn\x29: </data></match></read>
+    <write><data>y\x0a</data></write>
+    <read><delim>: </delim><match><data>  What temperature? \x28\x2d173.15000 \x2d 373.00000 degrees C\x29: </data></match></read>
+    <write><data>86.34259\x0a</data></write>
+    <read><delim>: </delim><match><data>Are there any constant energy sources in the room? \x28y\x2cn\x29: </data></match></read>
+    <write><data>y\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>  Send the heat sources as temperatures in a comma separated list of Celcius decimal values.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  The program will populate the X\x2c then Y\x2c then Z dimensions of the room.\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  Send \x2d174.00000 for any grid location which doesn\x27t have a heat source.\x0a</data></match></read>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d64.87124</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>106.86470</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>247.34496</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>150.73080</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>296.00020</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d39.42580</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>198.89688</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d156.96293</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d142.49807</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>225.83290</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d49.14390</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>152.06067</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>238.84328</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d29.08089</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>57.58684</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>259.69381</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d152.79026</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>352.51863</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d7.84543</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d9.07456</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>114.93855</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>\x2d174.0000</data></write>
+    <write><data>\x2c</data></write>
+    <write><data>22.39711</data></write>
+    <write><data>\x0a</data></write>
+    <read><delim>: </delim><match><data>For how long would you like to run the simulation? \x28s\x29: </data></match></read>
+    <write><data>206.42307\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 0.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259  247.34496   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259  296.00020  198.89688   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259  \x2d64.87124   86.34259   86.34259  150.73080   86.34259  \x2d39.42580   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259  106.86470   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259  225.83290   86.34259  \x2d49.14390   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259 \x2d156.96293   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259 \x2d142.49807   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259  152.06067   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259  238.84328   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259  \x2d29.08089   86.34259  259.69381   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   57.58684   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259  352.51863   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   86.34259   86.34259   86.34259   \x2d7.84543   86.34259   86.34259   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 10.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.38919  247.34496   86.42957   86.40700   86.34823   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.31505   86.34259   86.34259   86.38148   86.40700  296.00020  198.89688   86.37291 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.31505  \x2d64.87124   86.32008   86.35993  150.73080   86.33703  \x2d39.42580   86.35000   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.32008  106.86470   86.34762   86.33637   86.34259   86.31969   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.40451  225.83290   86.35829  \x2d49.14390   86.31792 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.33524 \x2d156.96293   86.35791   86.40700   86.34823   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.31505   86.34259   86.34259   86.31131   86.34259   86.31969   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34762   86.31902 \x2d142.49807   86.31902   86.34259   86.38673   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.36029   86.34259   86.38297   86.34259   86.31792   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.31582   86.36029  152.06067   86.33524   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.33554   86.34259   86.36029   86.34259   86.34259   86.34259   86.38673   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.31902   86.34259   86.38673  238.84328   86.38673 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.31582   86.34259   86.47454   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.29119  \x2d29.08089   86.36600  259.69381   86.37092   86.34259   86.34259   86.32046   86.34960 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.33554   57.58684   86.33554   86.39277   86.34259   86.34259   86.34259   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.33554   86.34259   86.34259   86.34259   86.34259   86.34259   86.38673   86.32776 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.31796   86.34259   86.42436  352.51863   86.40252   86.34259   86.34259   86.32046   86.34960 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   86.29119   86.34259   86.45269   \x2d7.84543   86.32075   86.32046   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.31796   86.33554   86.34259   86.34259   86.32075   86.34259   86.34259   86.32046   86.33477 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.34259   86.32776   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 20.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34258   86.34260   86.43575  247.34496   86.51648   86.47137   86.35389   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.28754   86.34258   86.34261   86.42034   86.47136  296.00020  198.89688   86.40320 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.28754  \x2d64.87124   86.29761   86.37725  150.73080   86.33149  \x2d39.42580   86.35741   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.29760  106.86470   86.35265   86.33015   86.34258   86.29680   86.34260   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34262   86.46636  225.83290   86.37400  \x2d49.14390   86.29326 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34257   86.34259   86.32789 \x2d156.96293   86.37324   86.47131   86.35389   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.28755   86.34258   86.34258   86.28007   86.34257   86.29683   86.34261   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34258   86.35265   86.29549 \x2d142.49807   86.29548   86.34259   86.43082   86.34261 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34258   86.34260   86.37801   86.34262   86.42329   86.34260   86.29327   86.34258 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34257   86.28909   86.37797  152.06067   86.32790   86.34260   86.34261   86.34259   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.32848   86.34260   86.37798   86.34258   86.34259   86.34261   86.43081   86.34261 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34258   86.29548   86.34259   86.43082  238.84328   86.43082 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34256   86.28908   86.34264   86.60631   86.34264   86.34260   86.34259   86.34257   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.23985  \x2d29.08089   86.38937  259.69381   86.39921   86.34259   86.34258   86.29836   86.35660 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.32847   57.58684   86.32851   86.44287   86.34260   86.34259   86.34259   86.34260   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.32849   86.34259   86.34260   86.34258   86.34259   86.34261   86.43081   86.31296 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.29335   86.34258   86.50605  352.51863   86.46238   86.34260   86.34258   86.29835   86.35661 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   86.23985   86.34263   86.56265   \x2d7.84543   86.29892   86.29835   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.29336   86.32847   86.34259   86.34262   86.29893   86.34258   86.34258   86.29835   86.32696 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34259   86.34259   86.34259   86.34258   86.34259   86.34259   86.31295   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 30.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34257   86.34262   86.48225  247.34496   86.60334   86.53569   86.35955   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34255   86.26007   86.34255   86.34266   86.45918   86.53567  296.00020  198.89688   86.43346 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.26005  \x2d64.87124   86.27517   86.39455  150.73080   86.32598  \x2d39.42580   86.36481   86.34262 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34255   86.27514  106.86470   86.35767   86.32395   86.34255   86.27394   86.34261   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34268   86.52814  225.83290   86.38973  \x2d49.14390   86.26863 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34253   86.34260   86.32056 \x2d156.96293   86.38858   86.53553   86.35955   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34255   86.26008   86.34256   86.34257   86.24887   86.34254   86.27402   86.34265   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34256   86.35766   86.27198 \x2d142.49807   86.27197   86.34260   86.47485   86.34265 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34255   86.34262   86.39573   86.34267   86.46356   86.34261   86.26865   86.34255 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34253   86.26240   86.39562  152.06067   86.32058   86.34263   86.34264   86.34259   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.32142   86.34261   86.39566   86.34256   86.34259   86.34264   86.47481   86.34265 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34258   86.34259   86.34257   86.27197   86.34259   86.47485  238.84328   86.47487 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34251   86.26238   86.34274   86.73792   86.34275   86.34262   86.34259   86.34254   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.18856  \x2d29.08089   86.41271  259.69381   86.42745   86.34259   86.34256   86.27630   86.36359 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.32140   57.58684   86.32151   86.49290   86.34263   86.34259   86.34259   86.34262   86.34258 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.32146   86.34258   86.34263   86.34257   86.34259   86.34265   86.47482   86.29821 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.26876   86.34257   86.58765  352.51863   86.52218   86.34262   86.34256   86.27627   86.36360 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   86.18856   86.34271   86.67246   \x2d7.84543   86.27712   86.27626   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.26876   86.32140   86.34258   86.34269   86.27713   86.34256   86.34256   86.27626   86.31915 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34257   86.34258   86.34259   86.34259   86.34257   86.34259   86.34258   86.29816   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 40.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34255   86.34266   86.52871  247.34496   86.69013   86.59998   86.36523   86.34261 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34251   86.23263   86.34252   86.34273   86.49798   86.59992  296.00020  198.89688   86.46368 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.23259  \x2d64.87124   86.25275   86.41181  150.73080   86.32048  \x2d39.42580   86.37219   86.34265 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34252   86.25269  106.86470   86.36268   86.31774   86.34250   86.25110   86.34263   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34276   86.58985  225.83290   86.40547  \x2d49.14390   86.24403 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34247   86.34261   86.31324 \x2d156.96293   86.40393   86.59965   86.36521   86.34261 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34251   86.23266   86.34252   86.34255   86.21771   86.34249   86.25126   86.34271   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34252   86.36265   86.24849 \x2d142.49807   86.24848   86.34262   86.51882   86.34272 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34251   86.34264   86.41346   86.34276   86.50379   86.34264   86.24406   86.34252 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34248   86.23576   86.41324  152.06067   86.31328   86.34266   86.34268   86.34259   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34257   86.31436   86.34262   86.41332   86.34252   86.34259   86.34269   86.51876   86.34272 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34257   86.34260   86.34255   86.24848   86.34259   86.51882  238.84328   86.51886 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34244   86.23570   86.34290   86.86935   86.34291   86.34265   86.34259   86.34249   86.34261 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.13733  \x2d29.08089   86.43602  259.69381   86.45565   86.34260   86.34252   86.25427   86.37056 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.31432   57.58684   86.31455   86.54286   86.34267   86.34259   86.34259   86.34265   86.34257 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34257   86.31443   86.34257   86.34266   86.34256   86.34259   86.34272   86.51878   86.28348 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.24417   86.34256   86.66916  352.51863   86.58192   86.34265   86.34252   86.25421   86.37058 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   86.13733   86.34283   86.78213   \x2d7.84543   86.25534   86.25420   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.24419   86.31432   86.34257   86.34279   86.25537   86.34253   86.34252   86.25420   86.31134 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34255   86.34257   86.34259   86.34259   86.34256   86.34259   86.34257   86.28339   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 50.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34252   86.34270   86.57512  247.34496   86.77687   86.66423   86.37092   86.34262 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34246   86.20522   86.34247   86.34282   86.53676   86.66413  296.00020  198.89688   86.49388 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.20515  \x2d64.87124   86.23037   86.42905  150.73080   86.31501  \x2d39.42580   86.37957   86.34268 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34247   86.23027  106.86470   86.36768   86.31155   86.34245   86.22828   86.34266   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34288   86.65148  225.83290   86.42122  \x2d49.14390   86.21944 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34239   86.34262   86.30593 \x2d156.96293   86.41930   86.66368   86.37089   86.34262 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34246   86.20527   86.34248   86.34252   86.18658   86.34242   86.22855   86.34278   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34248   86.36764   86.22504 \x2d142.49807   86.22502   86.34264   86.56274   86.34281 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34246   86.34268   86.43120   86.34287   86.54396   86.34267   86.21950   86.34247 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34240   86.20916   86.43083  152.06067   86.30599   86.34271   86.34275   86.34260   86.34261 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34256   86.30729   86.34264   86.43096   86.34248   86.34259   86.34275   86.56263   86.34281 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34256   86.34260   86.34252   86.22502   86.34258   86.56274  238.84328   86.56281 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34234   86.20906   86.34310   87.00062   86.34313   86.34269   86.34259   86.34242   86.34262 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.08614  \x2d29.08089   86.45930  259.69381   86.48381   86.34261   86.34248   86.23228   86.37752 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.30722   57.58684   86.30761   86.59274   86.34273   86.34259   86.34259   86.34270   86.34255 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34256   86.30741   86.34256   86.34271   86.34253   86.34259   86.34281   86.56267   86.26880 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.21961   86.34254   86.75059  352.51863   86.64160   86.34268   86.34248   86.23217   86.37756 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   86.08614   86.34299   86.89165   \x2d7.84543   86.23358   86.23215   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.21963   86.30722   86.34256   86.34293   86.23363   86.34248   86.34248   86.23215   86.30353 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34253   86.34256   86.34259   86.34259   86.34254   86.34259   86.34255   86.26863   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 60.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34249   86.34276   86.62149  247.34496   86.86354   86.72843   86.37661   86.34263 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34239   86.17784   86.34241   86.34294   86.57550   86.72829  296.00020  198.89688   86.52405 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.17774  \x2d64.87124   86.20802   86.44627  150.73080   86.30956  \x2d39.42580   86.38694   86.34273 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34241   86.20787  106.86470   86.37267   86.30536   86.34238   86.20548   86.34270   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34303   86.71304  225.83290   86.43698  \x2d49.14390   86.19488 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34229   86.34263   86.29862 \x2d156.96293   86.43467   86.72761   86.37657   86.34263 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34239   86.17791   86.34242   86.34249   86.15549   86.34234   86.20588   86.34288   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34242   86.37261   86.20161 \x2d142.49807   86.20158   86.34266   86.60660   86.34291 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34239   86.34272   86.44896   86.34300   86.58408   86.34271   86.19497   86.34241 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34230   86.18259   86.44840  152.06067   86.29873   86.34277   86.34283   86.34260   86.34262 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34254   86.30023   86.34267   86.44859   86.34243   86.34259   86.34283   86.60644   86.34291 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34254   86.34261   86.34248   86.20158   86.34258   86.60660  238.84328   86.60671 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34221   86.18246   86.34336   87.13171   86.34340   86.34274   86.34259   86.34234   86.34264 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.03501  \x2d29.08089   86.48254  259.69381   86.51192   86.34261   86.34243   86.21032   86.38447 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.30012   57.58684   86.30069   86.64255   86.34280   86.34259   86.34259   86.34275   86.34253 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34254   86.30040   86.34254   86.34277   86.34250   86.34259   86.34291   86.60649   86.25414 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.19505   86.34251   86.83194  352.51863   86.70122   86.34273   86.34243   86.21016   86.38452 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   86.03501   86.34319   87.00103   \x2d7.84543   86.21184   86.21013   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.19509   86.30012   86.34254   86.34310   86.21192   86.34243   86.34243   86.21013   86.29572 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34250   86.34254   86.34259   86.34259   86.34251   86.34259   86.34254   86.25390   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 70.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34245   86.34283   86.66781  247.34496   86.95015   86.79260   86.38232   86.34265 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34231   86.15049   86.34233   86.34308   86.61422   86.79241  296.00020  198.89688   86.55418 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.15035  \x2d64.87124   86.18569   86.46346  150.73080   86.30414  \x2d39.42580   86.39430   86.34278 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34233   86.18549  106.86470   86.37766   86.29918   86.34229   86.18270   86.34274   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34320   86.77453  225.83290   86.45276  \x2d49.14390   86.17034 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34217   86.34264   86.29133 \x2d156.96293   86.45005   86.79145   86.38226   86.34265 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34231   86.15059   86.34236   86.34245   86.12444   86.34224   86.18326   86.34299   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34236   86.37758   86.17822 \x2d142.49807   86.17816   86.34269   86.65041   86.34304 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34232   86.34277   86.46672   86.34317   86.62415   86.34275   86.17047   86.34234 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34219   86.15607   86.46594  152.06067   86.29147   86.34284   86.34292   86.34261   86.34263 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34252   86.29315   86.34270   86.46621   86.34236   86.34259   86.34293   86.65018   86.34304 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34252   86.34262   86.34244   86.17816   86.34257   86.65041  238.84328   86.65056 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34206   86.15588   86.34367   87.26263   86.34372   86.34280   86.34259   86.34224   86.34266 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.98394  \x2d29.08089   86.50576  259.69381   86.53998   86.34262   86.34236   86.18839   86.39140 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.29301   57.58684   86.29381   86.69229   86.34288   86.34259   86.34259   86.34282   86.34251 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34252   86.29340   86.34252   86.34285   86.34247   86.34259   86.34304   86.65025   86.23953 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.17052   86.34248   86.91320  352.51863   86.76078   86.34279   86.34236   86.18816   86.39147 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.98394   86.34343   87.11027   \x2d7.84543   86.19012   86.18813   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.17057   86.29301   86.34252   86.34330   86.19023   86.34237   86.34236   86.18813   86.28792 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34246   86.34252   86.34259   86.34259   86.34248   86.34259   86.34251   86.23919   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 80.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34240   86.34291   86.71407  247.34496   87.03670   86.85672   86.38804   86.34267 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34221   86.12317   86.34225   86.34324   86.65291   86.85647  296.00020  198.89688   86.58429 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.12298  \x2d64.87124   86.16340   86.48062  150.73080   86.29873  \x2d39.42580   86.40166   86.34285 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34225   86.16313  106.86470   86.38264   86.29300   86.34219   86.15994   86.34279   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34340   86.83594  225.83290   86.46855  \x2d49.14390   86.14583 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34203   86.34266   86.28405 \x2d156.96293   86.46544   86.85519   86.38796   86.34267 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34221   86.12331   86.34228   86.34240   86.09343   86.34213   86.16069   86.34313   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34228   86.38253   86.15485 \x2d142.49807   86.15478   86.34272   86.69416   86.34319 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34222   86.34283   86.48449   86.34336   86.66416   86.34281   86.14599   86.34225 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34206   86.12959   86.48345  152.06067   86.28424   86.34292   86.34303   86.34261   86.34264 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34249   86.28608   86.34274   86.48381   86.34229   86.34259   86.34304   86.69386   86.34319 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34249   86.34262   86.34239   86.15478   86.34257   86.69416  238.84328   86.69436 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34189   86.12934   86.34403   87.39339   86.34410   86.34287   86.34259   86.34212   86.34269 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.93291  \x2d29.08089   86.52894  259.69381   86.56801   86.34263   86.34229   86.16650   86.39831 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.28588   57.58684   86.28695   86.74195   86.34298   86.34259   86.34259   86.34289   86.34248 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34249   86.28640   86.34249   86.34293   86.34243   86.34259   86.34319   86.69395   86.22495 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.14599   86.34245   86.99438  352.51863   86.82028   86.34285   86.34229   86.16620   86.39841 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.93291   86.34371   87.21936   \x2d7.84543   86.16842   86.16615   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.14606   86.28588   86.34249   86.34354   86.16857   86.34229   86.34229   86.16614   86.28012 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34242   86.34249   86.34259   86.34259   86.34244   86.34259   86.34249   86.22449   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 90.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34235   86.34300   86.76030  247.34496   87.12318   86.92080   86.39376   86.34269 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34211   86.09589   86.34215   86.34343   86.69157   86.92048  296.00020  198.89688   86.61437 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.09565  \x2d64.87124   86.14114   86.49776  150.73080   86.29335  \x2d39.42580   86.40900   86.34292 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34215   86.14079  106.86470   86.38761   86.28683   86.34208   86.13720   86.34284   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34363   86.89729  225.83290   86.48435  \x2d49.14390   86.12133 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34187   86.34268   86.27677 \x2d156.96293   86.48085   86.91884   86.39366   86.34269 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34211   86.09607   86.34220   86.34235   86.06246   86.34199   86.13817   86.34328   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34219   86.38747   86.13150 \x2d142.49807   86.13141   86.34276   86.73785   86.34337 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34212   86.34290   86.50228   86.34358   86.70413   86.34287   86.12155   86.34216 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34190   86.10315   86.50093  152.06067   86.27702   86.34302   86.34316   86.34262   86.34265 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34246   86.27900   86.34278   86.50140   86.34220   86.34259   86.34316   86.73746   86.34336 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34247   86.34263   86.34233   86.13141   86.34256   86.73785  238.84328   86.73811 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34169   86.10283   86.34444   87.52397   86.34452   86.34295   86.34259   86.34198   86.34271 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.88194  \x2d29.08089   86.55208  259.69381   86.59599   86.34265   86.34220   86.14464   86.40522 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.27875   57.58684   86.28013   86.79155   86.34309   86.34259   86.34259   86.34298   86.34245 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34247   86.27942   86.34247   86.34303   86.34238   86.34259   86.34336   86.73759   86.21040 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.12148   86.34241   87.07547  352.51863   86.87971   86.34292   86.34220   86.14425   86.40534 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.88194   86.34403   87.32830   \x2d7.84543   86.14674   86.14419   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.12158   86.27875   86.34247   86.34380   86.14694   86.34221   86.34220   86.14418   86.27232 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34237   86.34247   86.34259   86.34259   86.34240   86.34259   86.34246   86.20982   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 100.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34229   86.34310   86.80647  247.34496   87.20961   86.98485   86.39950   86.34271 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34199   86.06864   86.34204   86.34364   86.73020   86.98444  296.00020  198.89688   86.64441 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.06833  \x2d64.87124   86.11890   86.51487  150.73080   86.28799  \x2d39.42580   86.41634   86.34300 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34204   86.11847  106.86470   86.39257   86.28067   86.34195   86.11449   86.34290   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34389   86.95856  225.83290   86.50016  \x2d49.14390   86.09686 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34169   86.34270   86.26951 \x2d156.96293   86.49626   86.98240   86.39938   86.34271 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34199   86.06886   86.34210   86.34229   86.03152   86.34185   86.11569   86.34345   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34210   86.39239   86.10819 \x2d142.49807   86.10808   86.34280   86.78149   86.34356 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34200   86.34298   86.52007   86.34383   86.74405   86.34294   86.09713   86.34205 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34173   86.07675   86.51839  152.06067   86.26982   86.34312   86.34330   86.34262   86.34267 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34243   86.27193   86.34282   86.51898   86.34210   86.34259   86.34331   86.78101   86.34356 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34243   86.34264   86.34227   86.10808   86.34256   86.78149  238.84328   86.78181 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34146   86.07635   86.34490   87.65438   86.34501   86.34303   86.34259   86.34183   86.34274 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.83102  \x2d29.08089   86.57520  259.69381   86.62392   86.34266   86.34211   86.12281   86.41211 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.27161   57.58684   86.27333   86.84107   86.34321   86.34259   86.34259   86.34307   86.34242 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34243   86.27244   86.34244   86.34314   86.34233   86.34259   86.34356   86.78117   86.19589 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.09699   86.34236   87.15648  352.51863   86.93908   86.34301   86.34210   86.12233   86.41226 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.83102   86.34439   87.43711   \x2d7.84543   86.12509   86.12225   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.09710   86.27161   86.34244   86.34411   86.12533   86.34211   86.34210   86.12225   86.26452 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34232   86.34243   86.34259   86.34259   86.34235   86.34259   86.34243   86.19517   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 110.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34222   86.34321   86.85260  247.34496   87.29598   87.04885   86.40525   86.34274 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34185   86.04142   86.34192   86.34387   86.76880   87.04835  296.00020  198.89688   86.67443 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.04105  \x2d64.87124   86.09670   86.53196  150.73080   86.28265  \x2d39.42580   86.42366   86.34310 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34192   86.09617  106.86470   86.39753   86.27451   86.34181   86.09179   86.34297   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34418   87.01976  225.83290   86.51599  \x2d49.14390   86.07241 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34150   86.34273   86.26226 \x2d156.96293   86.51168   87.04586   86.40510   86.34274 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34185   86.04169   86.34199   86.34223   86.00062   86.34168   86.09327   86.34364   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34199   86.39731   86.08490 \x2d142.49807   86.08476   86.34284   86.82508   86.34377 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34187   86.34307   86.53787   86.34410   86.78391   86.34301   86.07274   86.34193 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34154   86.05040   86.53582  152.06067   86.26263   86.34324   86.34345   86.34263   86.34268 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34240   86.26484   86.34288   86.53654   86.34200   86.34259   86.34347   86.82449   86.34377 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34240   86.34266   86.34220   86.08476   86.34255   86.82508  238.84328   86.82547 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34121   86.04990   86.34541   87.78463   86.34554   86.34313   86.34259   86.34167   86.34278 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.78016  \x2d29.08089   86.59828  259.69381   86.65181   86.34268   86.34200   86.10102   86.41898 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.26446   57.58684   86.26655   86.89052   86.34335   86.34259   86.34259   86.34318   86.34238 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34240   86.26547   86.34240   86.34326   86.34228   86.34259   86.34377   86.82468   86.18142 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.07251   86.34231   87.23740  352.51863   86.99840   86.34310   86.34200   86.10043   86.41917 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.78016   86.34478   87.54577   \x2d7.84543   86.10345   86.10034   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.07265   86.26446   86.34240   86.34444   86.10375   86.34200   86.34200   86.10033   86.25673 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34226   86.34240   86.34259   86.34259   86.34230   86.34259   86.34239   86.18053   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 120.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34215   86.34334   86.89868  247.34496   87.38228   87.11282   86.41101   86.34277 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34170   86.01423   86.34179   86.34412   86.80738   87.11222  296.00020  198.89688   86.70441 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.01378  \x2d64.87124   86.07453   86.54902  150.73080   86.27733  \x2d39.42580   86.43098   86.34320 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34178   86.07389  106.86470   86.40247   86.26836   86.34165   86.06912   86.34305   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34450   87.08089  225.83290   86.53183  \x2d49.14390   86.04798 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34128   86.34275   86.25501 \x2d156.96293   86.52712   87.10923   86.41082   86.34277 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34171   86.01455   86.34187   86.34215   85.96975   86.34150   86.07089   86.34385   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34187   86.40221   86.06164 \x2d142.49807   86.06148   86.34289   86.86861   86.34401 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34173   86.34316   86.55569   86.34440   86.82373   86.34310   86.04838   86.34180 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34133   86.02408   86.55323  152.06067   86.25546   86.34337   86.34362   86.34264   86.34270 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34236   86.25776   86.34293   86.55409   86.34188   86.34259   86.34364   86.86790   86.34401 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34236   86.34267   86.34212   86.06148   86.34254   86.86860  238.84328   86.86908 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34094   86.02348   86.34597   87.91470   86.34613   86.34324   86.34259   86.34148   86.34281 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.72934  \x2d29.08089   86.62134  259.69381   86.67966   86.34269   86.34188   86.07926   86.42584 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.25729   57.58684   86.25981   86.93989   86.34350   86.34259   86.34259   86.34329   86.34234 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34236   86.25852   86.34237   86.34339   86.34221   86.34259   86.34401   86.86813   86.16698 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.04804   86.34225   87.31824  352.51863   87.05765   86.34320   86.34188   86.07855   86.42607 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.72935   86.34522   87.65428   \x2d7.84543   86.08184   86.07844   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.04821   86.25729   86.34237   86.34481   86.08219   86.34189   86.34188   86.07843   86.24893 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34219   86.34236   86.34259   86.34259   86.34224   86.34259   86.34235   86.16592   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 130.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34207   86.34347   86.94471  247.34496   87.46853   87.17674   86.41678   86.34281 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34154   85.98707   86.34164   86.34440   86.84592   87.17603  296.00020  198.89688   86.73437 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.98655  \x2d64.87124   86.05239   86.56605  150.73080   86.27204  \x2d39.42580   86.43829   86.34331 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34164   86.05163  106.86470   86.40741   86.26222   86.34148   86.04646   86.34313   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34485   87.14195  225.83290   86.54768  \x2d49.14390   86.02358 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34104   86.34278   86.24778 \x2d156.96293   86.54256   87.17250   86.41656   86.34281 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34155   85.98746   86.34174   86.34208   85.93893   86.34131   86.04855   86.34408   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34174   86.40710   86.03841 \x2d142.49807   86.03822   86.34295   86.91208   86.34427 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34158   86.34327   86.57351   86.34473   86.86349   86.34319   86.02405   86.34165 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34111   85.99780   86.57061  152.06067   86.24831   86.34351   86.34381   86.34265   86.34272 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34232   86.25067   86.34299   86.57162   86.34175   86.34259   86.34383   86.91124   86.34426 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34232   86.34268   86.34203   86.03822   86.34253   86.91208  238.84328   86.91264 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34064   85.99710   86.34658   88.04461   86.34677   86.34336   86.34259   86.34128   86.34285 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.67858  \x2d29.08089   86.64436  259.69381   86.70747   86.34271   86.34175   86.05753   86.43269 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.25012   57.58684   86.25309   86.98920   86.34366   86.34259   86.34259   86.34342   86.34230 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34232   86.25156   86.34232   86.34354   86.34214   86.34259   86.34426   86.91152   86.15258 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.02359   86.34219   87.39899  352.51863   87.11684   86.34331   86.34175   86.05670   86.43295 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.67859   86.34570   87.76266   \x2d7.84543   86.06024   86.05657   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.02379   86.25012   86.34233   86.34521   86.06067   86.34176   86.34175   86.05655   86.24114 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34212   86.34232   86.34259   86.34259   86.34217   86.34259   86.34231   86.15132   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 140.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34198   86.34362   86.99070  247.34496   87.55471   87.24062   86.42256   86.34284 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34137   85.95994   86.34149   86.34470   86.88444   87.23980  296.00020  198.89688   86.76429 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.95933  \x2d64.87124   86.03027   86.58306  150.73080   86.26677  \x2d39.42580   86.44559   86.34343 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34148   86.02939  106.86470   86.41234   86.25609   86.34130   86.02383   86.34322   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34259   86.34522   87.20293  225.83290   86.56354  \x2d49.14390   85.99920 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34078   86.34281   86.24055 \x2d156.96293   86.55801   87.23568   86.42230   86.34284 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34137   85.96039   86.34160   86.34199   85.90814   86.34109   86.02627   86.34432   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34159   86.41198   86.01520 \x2d142.49807   86.01498   86.34301   86.95550   86.34454 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34141   86.34338   86.59134   86.34509   86.90321   86.34329   85.99974   86.34150 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34086   85.97157   86.58796  152.06067   86.24118   86.34366   86.34401   86.34266   86.34275 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34227   86.24358   86.34306   86.58914   86.34161   86.34259   86.34404   86.95453   86.34454 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34228   86.34270   86.34194   86.01498   86.34252   86.95550  238.84328   86.95615 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34031   85.97075   86.34724   88.17435   86.34746   86.34349   86.34259   86.34107   86.34290 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.62787  \x2d29.08089   86.66735  259.69381   86.73523   86.34273   86.34161   86.03584   86.43952 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.24294   57.58684   86.24640   87.03843   86.34384   86.34259   86.34259   86.34356   86.34225 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34228   86.24462   86.34228   86.34370   86.34207   86.34259   86.34454   86.95484   86.13821 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.99915   86.34212   87.47966  352.51863   87.17597   86.34343   86.34161   86.03486   86.43983 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.62788   86.34621   87.87089   \x2d7.84543   86.03867   86.03471   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.99939   86.24294   86.34228   86.34565   86.03916   86.34162   86.34161   86.03470   86.23335 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34204   86.34228   86.34259   86.34259   86.34211   86.34259   86.34226   86.13674   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 150.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34189   86.34378   87.03664  247.34496   87.64083   87.30446   86.42835   86.34288 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34118   85.93285   86.34132   86.34502   86.92292   87.30352  296.00020  198.89688   86.79419 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.93215  \x2d64.87124   86.00819   86.60005  150.73080   86.26151  \x2d39.42580   86.45289   86.34355 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34131   86.00717  106.86470   86.41726   86.24996   86.34110   86.00122   86.34332   86.34259 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34259   86.34260   86.34562   87.26385  225.83290   86.57941  \x2d49.14390   85.97484 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34051   86.34285   86.23334 \x2d156.96293   86.57348   87.29877   86.42805   86.34288 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34119   85.93337   86.34144   86.34190   85.87739   86.34087   86.00403   86.34459   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34144   86.41685   85.99203 \x2d142.49807   85.99177   86.34307   86.99886   86.34484 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34123   86.34350   86.60919   86.34547   86.94287   86.34340   85.97547   86.34133 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34060   85.94538   86.60528  152.06067   86.23406   86.34383   86.34423   86.34267   86.34277 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34222   86.23649   86.34313   86.60664   86.34146   86.34259   86.34426   86.99774   86.34484 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34223   86.34272   86.34184   85.99177   86.34251   86.99886  238.84328   86.99961 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.33996   85.94443   86.34795   88.30392   86.34820   86.34363   86.34259   86.34083   86.34294 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.57722  \x2d29.08089   86.69030  259.69381   86.76295   86.34275   86.34147   86.01418   86.44634 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.23575   57.58684   86.23974   87.08759   86.34403   86.34259   86.34259   86.34371   86.34220 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34223   86.23769   86.34223   86.34387   86.34199   86.34259   86.34484   86.99811   86.12388 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.97473   86.34205   87.56025  352.51863   87.23504   86.34356   86.34146   86.01305   86.44670 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.57723   86.34677   87.97898   \x2d7.84543   86.01712   86.01288   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.97500   86.23575   86.34224   86.34611   86.01769   86.34147   86.34146   86.01287   86.22557 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34196   86.34223   86.34259   86.34259   86.34203   86.34259   86.34221   86.12219   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 160.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34179   86.34395   87.08253  247.34496   87.72689   87.36827   86.43415   86.34292 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34098   85.90578   86.34114   86.34537   86.96138   87.36718  296.00020  198.89688   86.82405 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.90498  \x2d64.87124   85.98614   86.61701  150.73080   86.25629  \x2d39.42580   86.46017   86.34369 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34113   85.98498  106.86470   86.42218   86.24383   86.34089   85.97862   86.34342   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34258   86.34260   86.34606   87.32469  225.83290   86.59530  \x2d49.14390   85.95050 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34021   86.34288   86.22614 \x2d156.96293   86.58895   87.36177   86.43381   86.34292 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34099   85.90638   86.34128   86.34180   85.84667   86.34062   85.98183   86.34487   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34128   86.42171   85.96888 \x2d142.49807   85.96858   86.34314   87.04217   86.34516 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34103   86.34363   86.62704   86.34588   86.98249   86.34351   85.95122   86.34115 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34031   85.91922   86.62258  152.06067   86.22696   86.34400   86.34446   86.34268   86.34280 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34217   86.22939   86.34321   86.62413   86.34130   86.34259   86.34449   87.04089   86.34516 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34218   86.34273   86.34174   85.96858   86.34250   87.04217  238.84328   87.04303 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.33959   85.91814   86.34871   88.43332   86.34900   86.34377   86.34259   86.34058   86.34299 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.52661  \x2d29.08089   86.71323  259.69381   86.79062   86.34278   86.34131   85.99256   86.45315 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.22855   57.58684   86.23311   87.13668   86.34423   86.34259   86.34259   86.34387   86.34214 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34218   86.23076   86.34218   86.34405   86.34191   86.34259   86.34516   87.04131   86.10958 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.95032   86.34198   87.64075  352.51863   87.29405   86.34370   86.34130   85.99127   86.45356 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.52662   86.34736   88.08692   \x2d7.84543   85.99559   85.99107   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.95063   86.22855   86.34219   86.34661   85.99624   86.34132   86.34130   85.99105   86.21778 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34187   86.34218   86.34259   86.34260   86.34195   86.34259   86.34216   86.10765   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 170.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34168   86.34413   87.12838  247.34496   87.81289   87.43203   86.43996   86.34297 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34077   85.87875   86.34095   86.34574   86.99981   87.43080  296.00020  198.89688   86.85389 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.87784  \x2d64.87124   85.96411   86.63394  150.73080   86.25108  \x2d39.42580   86.46745   86.34384 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34093   85.96280  106.86470   86.42709   86.23771   86.34067   85.95605   86.34353   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34258   86.34260   86.34651   87.38547  225.83290   86.61119  \x2d49.14390   85.92619 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.33990   86.34292   86.21894 \x2d156.96293   86.60443   87.42467   86.43957   86.34296 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34077   85.87942   86.34111   86.34170   85.81600   86.34036   85.95969   86.34517   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34110   86.42655   85.94575 \x2d142.49807   85.94542   86.34321   87.08543   86.34550 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34083   86.34377   86.64490   86.34632   87.02205   86.34363   85.92700   86.34096 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34001   85.89311   86.63985  152.06067   86.21987   86.34419   86.34471   86.34269   86.34282 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34211   86.22230   86.34329   86.64161   86.34113   86.34259   86.34475   87.08398   86.34550 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34212   86.34275   86.34162   85.94542   86.34249   87.08542  238.84328   87.08639 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.33919   85.89189   86.34952   88.56255   86.34985   86.34393   86.34259   86.34032   86.34305 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.47606  \x2d29.08089   86.73612  259.69381   86.81826   86.34280   86.34114   85.97096   86.45994 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.22134   57.58684   86.22650   87.18569   86.34445   86.34259   86.34259   86.34403   86.34208 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34212   86.22385   86.34213   86.34424   86.34182   86.34259   86.34550   87.08445   86.09532 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.92593   86.34189   87.72117  352.51863   87.35299   86.34385   86.34113   85.96950   86.46040 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.47607   86.34799   88.19473   \x2d7.84543   85.97408   85.96928   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.92628   86.22134   86.34214   86.34715   85.97481   86.34115   86.34113   85.96926   86.21000 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34177   86.34212   86.34259   86.34260   86.34187   86.34259   86.34210   86.09313   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 180.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34157   86.34432   87.17417  247.34496   87.89883   87.49575   86.44578   86.34301 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34055   85.85175   86.34074   86.34613   87.03821   87.49437  296.00020  198.89688   86.88370 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.85073  \x2d64.87124   85.94212   86.65085  150.73080   86.24589  \x2d39.42580   86.47471   86.34399 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34073   85.94064  106.86470   86.43199   86.23160   86.34043   85.93350   86.34365   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34258   86.34260   86.34700   87.44617  225.83290   86.62710  \x2d49.14390   85.90189 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.33956   86.34296   86.21176 \x2d156.96293   86.61993   87.48748   86.44534   86.34301 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34055   85.85251   86.34093   86.34158   85.78536   86.34009   85.93759   86.34550   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34092   86.43138   85.92266 \x2d142.49807   85.92228   86.34329   87.12862   86.34587 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34061   86.34391   86.66277   86.34678   87.06157   86.34376   85.90281   86.34076 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.33969   85.86704   86.65710  152.06067   86.21280   86.34439   86.34497   86.34271   86.34285 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34206   86.21520   86.34338   86.65907   86.34095   86.34259   86.34501   87.12700   86.34586 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34206   86.34277   86.34150   85.92229   86.34248   87.12862  238.84328   87.12971 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.33877   85.86567   86.35038   88.69162   86.35075   86.34410   86.34259   86.34004   86.34310 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.42556  \x2d29.08089   86.75899  259.69381   86.84584   86.34283   86.34096   85.94940   86.46672 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.21412   57.58684   86.21992   87.23464   86.34468   86.34259   86.34260   86.34421   86.34202 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34206   86.21694   86.34207   86.34444   86.34172   86.34259   86.34586   87.12753   86.08109 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.90155   86.34181   87.80151  352.51863   87.41188   86.34400   86.34095   85.94776   86.46724 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.42558   86.34866   88.30239   \x2d7.84543   85.95259   85.94751   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.90194   86.21412   86.34208   86.34771   85.95342   86.34097   86.34095   85.94749   86.20222 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34167   86.34206   86.34259   86.34260   86.34178   86.34259   86.34204   86.07863   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 190.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34145   86.34452   87.21993  247.34496   87.98471   87.55943   86.45161   86.34306 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34031   85.82478   86.34053   86.34654   87.07659   87.55789  296.00020  198.89688   86.91347 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.82364  \x2d64.87124   85.92015   86.66773  150.73080   86.24073  \x2d39.42580   86.48197   86.34415 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34051   85.91850  106.86470   86.43688   86.22550   86.34018   85.91097   86.34377   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34258   86.34260   86.34752   87.50680  225.83290   86.64303  \x2d49.14390   85.87762 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34257   86.33921   86.34301   86.20459 \x2d156.96293   86.63543   87.55019   86.45112   86.34306 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34031   85.82562   86.34073   86.34147   85.75475   86.33980   85.91553   86.34583   86.34261 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34073   86.43621   85.89959 \x2d142.49807   85.89917   86.34337   87.17177   86.34625 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34038   86.34407   86.68065   86.34727   87.10103   86.34390   85.87864   86.34054 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.33936   85.84100   86.67432  152.06067   86.20575   86.34460   86.34525   86.34272   86.34288 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34199   86.20809   86.34347   86.67651   86.34076   86.34259   86.34530   87.16995   86.34624 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34200   86.34279   86.34138   85.89917   86.34246   87.17177  238.84328   87.17299 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.33833   85.83948   86.35129   88.82052   86.35171   86.34427   86.34259   86.33974   86.34316 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.37512  \x2d29.08089   86.78182  259.69381   86.87339   86.34286   86.34077   85.92788   86.47349 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.20689   57.58684   86.21337   87.28351   86.34492   86.34259   86.34260   86.34440   86.34195 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34200   86.21004   86.34201   86.34466   86.34162   86.34259   86.34624   87.17054   86.06690 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.87718   86.34172   87.88176  352.51863   87.47071   86.34417   86.34076   85.92605   86.47407 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.37513   86.34937   88.40991   \x2d7.84543   85.93112   85.92577   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.87762   86.20689   86.34202   86.34831   85.93204   86.34078   86.34075   85.92574   86.19444 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34156   86.34200   86.34259   86.34260   86.34168   86.34259   86.34198   86.06415   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 200.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+    <read><length>7</length><match><data>\x1b\x5b2J\x1b\x5bH</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 0\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34133   86.34473   87.26563  247.34496   88.07053   87.62307   86.45745   86.34311 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34005   85.79784   86.34030   86.34698   87.11493   87.62136  296.00020  198.89688   86.94322 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.79658  \x2d64.87124   85.89822   86.68459  150.73080   86.23558  \x2d39.42580   86.48922   86.34433 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34028   85.89639  106.86470   86.44176   86.21940   86.33991   85.88847   86.34391   86.34260 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 1\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34258   86.34260   86.34806   87.56736  225.83290   86.65896  \x2d49.14390   85.85337 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34257   86.33884   86.34305   86.19742 \x2d156.96293   86.65094   87.61282   86.45691   86.34311 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34006   85.79878   86.34053   86.34134   85.72419   86.33949   85.89353   86.34619   86.34261 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34258   86.34052   86.44102   85.87655 \x2d142.49807   85.87609   86.34346   87.21486   86.34665 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 2\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34257   86.34014   86.34423   86.69854   86.34779   87.14045   86.34404   85.85451   86.34032 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.33900   85.81501   86.69151  152.06067   86.19871   86.34482   86.34555   86.34273   86.34291 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34192   86.20099   86.34357   86.69395   86.34056   86.34259   86.34559   87.21284   86.34664 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34259   86.34194   86.34282   86.34124   85.87609   86.34245   87.21486  238.84328   87.21621 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 3\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.33786   85.81332   86.35225   88.94926   86.35271   86.34446   86.34258   86.33943   86.34323 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.32472  \x2d29.08089   86.80462  259.69381   86.90089   86.34289   86.34057   85.90638   86.48024 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.19965   57.58684   86.20684   87.33232   86.34518   86.34259   86.34260   86.34460   86.34188 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34193   86.20315   86.34195   86.34489   86.34151   86.34259   86.34664   87.21350   86.05274 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>z: 4\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.85283   86.34162   87.96193  352.51863   87.52948   86.34434   86.34055   85.90435   86.48088 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x2d152.79026   85.32474   86.35011   88.51729   \x2d7.84543   85.90967   85.90404   \x2d9.07456  114.93855 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  85.85332   86.19965   86.34196   86.34894   85.91070   86.34058   86.34055   85.90401   86.18667 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>  86.34145   86.34193   86.34259   86.34260   86.34158   86.34258   86.34191   86.04969   22.39711 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>At 210.00000 seconds\x0a</data></match></read>
+    <write><data>\x0a</data></write>
+</replay>
+</pov>

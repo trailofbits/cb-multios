@@ -1,0 +1,42 @@
+---
+nodes:
+- name: start
+- name: main_menu
+- name: return_to_main_menu
+- name: search_classes
+- name: sc_by_prof
+- name: sc_by_dept
+- name: sc_by_class_id
+- name: sc_by_course_id
+- name: add_class
+- name: ac_by_class_id
+- name: ac_by_course_id
+- name: remove_class
+- name: view_schedule
+- name: quit
+
+edges:
+- start: main_menu
+- main_menu: search_classes
+- main_menu: add_class
+- main_menu: remove_class
+- main_menu: view_schedule
+- return_to_main_menu: main_menu
+- search_classes: return_to_main_menu
+- search_classes: sc_by_prof
+- search_classes: sc_by_dept
+- search_classes: sc_by_class_id
+- search_classes: sc_by_course_id
+- sc_by_prof: search_classes
+- sc_by_dept: search_classes
+- sc_by_class_id: search_classes
+- sc_by_course_id: search_classes
+- add_class: return_to_main_menu
+- add_class: ac_by_class_id
+- add_class: ac_by_course_id
+- ac_by_class_id: add_class
+- ac_by_course_id: add_class
+- remove_class: main_menu
+- view_schedule: main_menu
+- main_menu: quit
+

@@ -22,6 +22,8 @@
 #include "libcgc.h"
 #include "cgc_libc.h"
 #include "cgc_csum.h"
+#include <math.h>
+
 
 uint32_t cgc_crctable[256] = {0};
 uint32_t cgc_md5table[64] = {0};
@@ -116,7 +118,7 @@ void cgc_calc_me_md5() {
     uint32_t i;
 
     for (i=0; i < 64; i++)
-        cgc_md5table[i] = (uint32_t)(cgc_fabs(cgc_sin(i+1))*cgc_pow(2,32));
+        cgc_md5table[i] = (uint32_t)(fabs(sin(i+1))*pow(2,32));
 }
 
 void cgc_md5(uint8_t *data, cgc_size_t s, uint32_t* out) {

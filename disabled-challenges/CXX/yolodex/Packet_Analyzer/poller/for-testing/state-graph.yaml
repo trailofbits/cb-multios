@@ -1,0 +1,11 @@
+---
+nodes:
+- name: start
+- name: send_file
+- name: send_stream
+#- name: do_test
+
+edges:
+- start: send_file
+- start: send_stream
+#- start: do_test

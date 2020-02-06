@@ -1,0 +1,5 @@
+set( SERVICE_ID "00073" )
+set( AUTHOR_ID "KPRCA" )
+add_compile_options( -g -O1 )
+set( VULN_COUNT "1" )
+buildCB()

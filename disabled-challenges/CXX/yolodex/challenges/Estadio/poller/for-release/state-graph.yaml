@@ -1,0 +1,34 @@
+---
+nodes:
+- name: start
+- name: hello
+- name: seed
+- name: gauntlet
+- name: fail_gauntlet
+- name: menu
+- name: guess
+- name: wrong_guess
+- name: echo
+- name: reseed
+- name: terminate
+
+edges:
+- start: hello
+- hello: seed
+- seed: gauntlet
+- seed: fail_gauntlet
+  weight: .5
+- gauntlet: menu
+- guess: menu
+- reseed: menu
+- echo: menu
+- menu: terminate
+  weight: .1
+- menu: guess
+  weight: .1
+- menu: wrong_guess
+  weight: .1
+- menu: reseed
+  weight: .1
+- menu: echo
+  weight: .8

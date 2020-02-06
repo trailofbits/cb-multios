@@ -1,0 +1,22 @@
+---
+nodes:
+- name: start
+- name: main_menu
+- name: squarerabbit
+- name: quit
+- name: bet
+- name: quit_squarerabbit
+- name: play
+
+edges:
+- start: main_menu
+- main_menu: squarerabbit
+- main_menu: quit
+  weight: .7
+- squarerabbit: bet
+- squarerabbit: quit_squarerabbit
+- bet: play
+- play: bet
+- play: quit_squarerabbit
+  weight: .33
+- quit_squarerabbit: main_menu

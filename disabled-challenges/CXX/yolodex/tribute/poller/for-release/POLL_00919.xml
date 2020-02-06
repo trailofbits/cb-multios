@@ -1,0 +1,185 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>EAGLE_00004</cbid>
+<replay>
+   <write>
+      <data>aPenFullOfSheep:)\n</data>
+      <data>mov r1,218960009\npush r1\n</data>
+      <data>pop m0\nout m0\n</data>
+      <data>mov r1,1029586752\npush r1\n</data>
+      <data>pop m1\nout m1\n</data>
+      <data>push -480634270\n</data>
+      <data>mov r1,796550733\npush r1\n</data>
+      <data>pop r3\nout r3\nmov m2,r3\n</data>
+      <data>push -1924349968\n</data>
+      <data>pop m3\nout m3\n</data>
+      <data>mov r1,2052574776\npush r1\n</data>
+      <data>mov r3,2033869398\npush r3\n</data>
+      <data>mov r2,1817377271\npush r2\n</data>
+      <data>pop m4\nout m4\n</data>
+      <data>push 359403738\n</data>
+      <data>pop r3\nout r3\nmov m5,r3\n</data>
+      <data>pop m6\nout m6\n</data>
+      <data>mov r0,514681324\npush r0\n</data>
+      <data>mov r1,1999676084\npush r1\n</data>
+      <data>mov r2,1779579575\npush r2\n</data>
+      <data>pop m7\nout m7\n</data>
+      <data>mov r0,-1075779001\npush r0\n</data>
+      <data>pop m8\nout m8\n</data>
+      <data>pop r3\nout r3\nmov m9,r3\n</data>
+      <data>push 783050171\n</data>
+      <data>pop m10\nout m10\n</data>
+      <data>pop r3\nout r3\nmov m11,r3\n</data>
+      <data>pop m12\nout m12\n</data>
+      <data>pop m13\nout m13\n</data>
+      <data>mov r0,1803587910\n</data>
+      <data>shr r0,4\n</data>
+      <data>out r0\n</data>
+      <data>out 112724244\n</data>
+      <data>div r0,m0\n</data>
+      <data>out r0\n</data>
+      <data>out 0\n</data>
+      <data>shl r0,5\n</data>
+      <data>out r0\n</data>
+      <data>out 0\n</data>
+      <data>mov r1,m1\ndiv r0,r1\n</data>
+      <data>out r0\n</data>
+      <data>out 0\n</data>
+      <data>mov r3,m2\ndiv r0,r3\n</data>
+      <data>out r0\n</data>
+      <data>out 0\n</data>
+      <data>sub r0,m3\n</data>
+      <data>out r0\n</data>
+      <data>out 1924349968\n</data>
+      <data>mov r1,m4\nadd r0,r1\n</data>
+      <data>out r0\n</data>
+      <data>out -553240057\n</data>
+      <data>shr r0,5\n</data>
+      <data>out r0\n</data>
+      <data>out -17288752\n</data>
+      <data>swp r0\n</data>
+      <data>out r0\n</data>
+      <data>out -802031362\n</data>
+      <data>mod r0,m5\n</data>
+      <data>out r0\n</data>
+      <data>out -83223886\n</data>
+      <data>mod r0,m6\n</data>
+      <data>out r0\n</data>
+      <data>out -83223886\n</data>
+      <data>shl r0,5\n</data>
+      <data>out r0\n</data>
+      <data>out 1631802944\n</data>
+      <data>shr r0,3\n</data>
+      <data>out r0\n</data>
+      <data>out 203975368\n</data>
+      <data>swp r0\n</data>
+      <data>out r0\n</data>
+      <data>out -932567028\n</data>
+      <data>shr r0,5\n</data>
+      <data>out r0\n</data>
+      <data>out -29142720\n</data>
+      <data>mov r3,m7\ndiv r0,r3\n</data>
+      <data>out r0\n</data>
+      <data>out 0\n</data>
+      <data>shr r0,6\n</data>
+      <data>out r0\n</data>
+      <data>out 0\n</data>
+      <data>mov r3,m8\nmod r0,r3\n</data>
+      <data>out r0\n</data>
+      <data>out 0\n</data>
+      <data>mov r1,m9\nmul r0,r1\n</data>
+      <data>out r0\n</data>
+      <data>out 0\n</data>
+      <data>swp r0\n</data>
+      <data>out r0\n</data>
+      <data>out 0\n</data>
+      <data>mov r1,m10\nsub r0,r1\n</data>
+      <data>out r0\n</data>
+      <data>out -783050171\n</data>
+      <data>mov r1,m11\ndiv r0,r1\n</data>
+      <data>out r0\n</data>
+      <data>out -1\n</data>
+      <data>mov r1,m12\nadd r0,r1\n</data>
+      <data>out r0\n</data>
+      <data>out 2052574775\n</data>
+      <data>swp r0\n</data>
+      <data>out r0\n</data>
+      <data>out 936269690\n</data>
+      <data>swp r0\n</data>
+      <data>out r0\n</data>
+      <data>out 2052574775\n</data>
+      <data>mul r0,m13\n</data>
+      <data>out r0\n</data>
+      <data>out 82085646\n</data>
+      <data>END\n</data>
+   </write>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x0d0d1089\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x3d5e3f40\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x2f7a664d\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x8d4cbff0\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x6c52f9f7\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x156c10da\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x793a6256\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x6a123ab7\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xbfe0ea47\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x7730a2b4\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x2eac65bb\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x1ead69ec\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x7a57ce38\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xe35a1a62\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x06b80914\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x06b80914\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x72b34010\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x72b34010\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xdf063a07\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xdf063a07\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xfef831d0\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xfef831d0\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xd031f8fe\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xd031f8fe\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xfb0a1ab2\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xfb0a1ab2\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xfb0a1ab2\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xfb0a1ab2\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x61435640\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x61435640\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x0c286ac8\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x0c286ac8\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xc86a280c\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xc86a280c\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xfe435140\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xfe435140\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x00000000\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xd1539a45\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xd1539a45\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xffffffff\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0xffffffff\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x7a57ce37\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x7a57ce37\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x37ce577a\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x37ce577a\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x7a57ce37\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x7a57ce37\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x04e4870e\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>OUT: 0x04e4870e\n</data></match></read>
+   <read echo="ascii"><delim>\n</delim><match><data>COMPLETE\n</data></match></read>
+</replay>
+</pov>

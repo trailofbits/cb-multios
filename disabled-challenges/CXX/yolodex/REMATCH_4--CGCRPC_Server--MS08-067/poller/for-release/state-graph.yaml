@@ -1,0 +1,47 @@
+---
+nodes:
+- name: start
+- name: echo
+- name: exit
+- name: negotiate
+- name: session
+- name: tree_connect
+- name: tree_disconnect
+- name: file_write
+- name: file_read
+- name: transaction_bind
+- name: netstuff_file_stat
+- name: netstuff_canon_path
+- name: netstuff_service_enum
+edges:
+- start: negotiate
+- start: echo
+  weight: 0.1
+- echo: exit
+- negotiate: session
+- negotiate: exit
+  weight: 0.1
+- session: tree_connect
+- session: transaction_bind
+- session: exit
+  weight: 0.1
+- tree_connect: tree_connect
+  weight: 0.1
+- tree_connect: file_write
+- tree_connect: file_read
+- tree_connect: tree_disconnect
+  weight: 0.4
+- tree_connect: exit
+- tree_disconnect: tree_connect
+- tree_disconnect: exit
+- file_write: exit
+- file_write: tree_disconnect
+- file_read: exit
+- file_read: tree_disconnect
+- transaction_bind : exit
+- transaction_bind: netstuff_service_enum
+- transaction_bind : netstuff_canon_path
+- transaction_bind : netstuff_file_stat
+- netstuff_service_enum: exit
+- netstuff_canon_path : exit
+- netstuff_file_stat: exit

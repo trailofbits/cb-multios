@@ -1,0 +1,82 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+        <write>
+            <data>HELLO\n</data>
+        </write>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <assign>
+                <var>token</var>
+                <pcre group="1">OK ([0-9A-F]*)\n</pcre>
+            </assign>
+        </read>
+
+        <write>
+            <data>AUTH </data>
+            <var>token</var>
+            <data>\n</data>
+        </write>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data>OK\n</data>
+            </match>
+        </read>
+
+        <write>
+            <data>SET data L6bqR6KWIKaWQNCWT6bqR6La8295RcXXRcDbP21JTN9sPMbiR65kOsKWK79lOsLaTN9bSo8i865kP21ZRtPbSdCWOMni865pS6LZT7CWRsOWT6Xb87DrSdPbQMniOMvZPI1lPY1pTNDmPMDqPMGWT6LoSczoQNDqSomWT6XlSsKWStLpS6LZT6La86zc86LkPs5dQMvd86bk86DlRN1rT6Lo86PoONLa86zo865YTNDbB21XRcGWOMTbRdHp86zc\n</data>
+        </write>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data>OK\n</data>
+            </match>
+        </read>
+
+        <write>
+            <data>SET mode decode\n</data>
+        </write>
+
+        <read echo="yes">
+            <delim>\n</delim>
+            <match>
+                <data>OK\n</data>
+            </match>
+        </read>
+
+        <write>
+            <data>CALL /root64\n</data>
+        </write>
+
+        <read echo="ascii">
+            <delim>\n</delim>
+            <match>
+                <data>OK 192\n</data>
+            </match>
+        </read>
+
+        <read>
+            <length>192</length>
+            <match>
+                <data>Title II is titled "Enhanced Surveillance Procedures", and covers all aspects of the surveillance of suspected terrorists, those suspected of engaging in computer fraud or abuse, and agents of</data>
+            </match>
+        </read>
+
+        <write>
+            <data>BYE\n</data>
+        </write>
+
+        <read>
+            <delim>\n</delim>
+            <match>
+                <data>BYE\n</data>
+            </match>
+        </read>
+    </replay>
+</pov>

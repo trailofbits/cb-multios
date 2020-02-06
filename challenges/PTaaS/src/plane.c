@@ -20,6 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <math.h> 
 #include "libcgc.h"
 
 #include "cgc_float.h"
@@ -49,7 +50,7 @@ cgc_plane_intersect(struct plane *plane, struct ray *ray, void *data)
     struct vector p0_minus_l0 = cgc_vector_trunc(cgc_vector_sub(plane->shape.position, l0));
     double p0_minus_l0_dot_n = cgc_vector_dot(p0_minus_l0, cgc_vector_trunc(cgc_vector_norm(plane->normal)));
 
-    if (cgc_fabs(p0_minus_l0_dot_n) > EPSILON)
+    if (fabs(p0_minus_l0_dot_n) > EPSILON)
         return p0_minus_l0_dot_n / cgc_vector_dot(cgc_vector_trunc(ray->direction), cgc_vector_trunc(cgc_vector_norm(plane->normal)));
     else
         return 0.0;

@@ -1,0 +1,24 @@
+---
+nodes:
+ - name: start
+ - name: menu
+ - name: list_movie
+ - name: rent_movie
+ - name: return_movie
+ - name: try_login
+ - name: invalid_menu
+ - name: quit
+
+edges:
+ - start: menu
+ - menu: list_movie
+ - menu: rent_movie
+ - menu: return_movie
+ - menu: try_login
+ - menu: invalid_menu
+ - menu: quit
+ - list_movie: menu
+ - rent_movie: menu
+ - return_movie: menu
+ - try_login: menu
+ - invalid_menu: menu

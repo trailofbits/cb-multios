@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>\x00\x0e\x01E\x0bsystem.name</data></write>
+    <read><length>10</length><match><data>\x00\x08\x03ECGC CB</data></match></read>
+</replay>
+</pov>

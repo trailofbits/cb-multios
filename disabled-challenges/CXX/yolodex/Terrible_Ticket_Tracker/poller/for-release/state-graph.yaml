@@ -1,0 +1,39 @@
+---
+nodes:
+- name: start
+- name: fin
+
+- name: pick_command
+
+- name: add_ticket
+- name: view_tickets
+- name: view_ticket
+- name: cancel_ticket
+- name: list_support
+- name: list_free_support
+- name: hire
+- name: fire
+
+edges:
+- start: pick_command
+
+- pick_command: add_ticket
+- pick_command: view_tickets
+- pick_command: view_ticket
+- pick_command: cancel_ticket
+- pick_command: list_support
+- pick_command: list_free_support
+- pick_command: hire
+- pick_command: fire
+
+- pick_command: fin
+  weight: 0.1
+
+- add_ticket: pick_command
+- view_tickets: pick_command
+- view_ticket: pick_command
+- cancel_ticket: pick_command
+- list_support: pick_command
+- list_free_support: pick_command
+- hire: pick_command
+- fire: pick_command

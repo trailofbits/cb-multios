@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>login\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>You logged in.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>update\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to update: </data></match></read>
+    <write><data>664\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record not found.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>update\x0a</data></write>
+    <read><delim>: </delim><match><data>Enter record number to update: </data></match></read>
+    <write><data>851\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Record not found.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>: </delim><match><data>First name: </data></match></read>
+    <write><data>Charles\x0a</data></write>
+    <read><delim>: </delim><match><data>Last name: </data></match></read>
+    <write><data>William\x0a</data></write>
+    <read><delim>: </delim><match><data>User name: </data></match></read>
+    <write><data>cwilliam\x0a</data></write>
+    <read><delim>: </delim><match><data>Birthdate \x28mm\x2fdd\x2fyy hh:mm:ss\x29: </data></match></read>
+    <write><data>8\x2f2\x2f91 15:7:31\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 8\x2f2\x2f1991 15:7:31\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Data added\x2c record 0\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>\x5e\x23\x26\x24\x5e!\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Command not found.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>exit\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Disconnecting.\x0a</data></match></read>
+</replay>
+</pov>

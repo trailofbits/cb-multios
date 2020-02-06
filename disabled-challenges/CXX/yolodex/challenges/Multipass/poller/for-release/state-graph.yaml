@@ -1,0 +1,27 @@
+---
+nodes:
+- name: start
+- name: loop
+- name: issue
+- name: purchase
+- name: balance
+- name: history
+- name: recharge
+- name: refund
+- name: exit
+
+edges:
+- start: issue
+- loop: issue
+- loop: purchase
+- loop: balance
+- loop: history
+- loop: recharge
+- loop: refund
+- issue: loop
+- purchase: loop
+- balance: loop
+- history: loop
+- recharge: loop
+- refund: loop
+- loop: exit

@@ -1,0 +1,42 @@
+---
+nodes:
+- name: start
+- name: readFile
+- name: top
+- name: newFile
+- name: skewImage
+- name: rotateImage
+- name: scaleImage
+- name: brightness
+- name: showPixel
+- name: opacity
+- name: compress
+- name: decompress
+- name: end
+
+edges:
+- start: readFile
+- readFile: top
+- top: newFile
+  weight: 0.25
+- newFile: top
+- top: skewImage
+- skewImage: top
+- top: rotateImage
+- rotateImage: top
+- top: scaleImage
+- scaleImage: top
+- top: brightness
+- brightness: top
+- top: showPixel
+- showPixel: top
+- top: opacity
+- opacity: top
+- top: compress
+  weight: 0.25
+- compress: top
+- top: decompress
+  weight: 0.25
+- decompress: top
+- top: end
+  weight: 0.25

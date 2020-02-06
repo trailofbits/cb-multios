@@ -24,6 +24,7 @@
 #include "cgc_stdio.h"
 #include "cgc_string.h"
 #include "cgc_queue.h"
+#include <math.h>
 
 typedef struct {
     unsigned int timestamp;
@@ -204,9 +205,9 @@ float calculate_speed(pkt_t *pkt)
 
         if (pstate->flags & FLAG_LOCATION)
         {
-            return cgc_sqrtf(cgc_exp2f(pstate->x - pkt->loc.x) +
-                    cgc_exp2f(pstate->y - pkt->loc.y) +
-                    cgc_exp2f(pstate->z - pkt->loc.z)) / (pkt->timestamp - pstate->timestamp);
+            return sqrtf(exp2f(pstate->x - pkt->loc.x) +
+                    exp2f(pstate->y - pkt->loc.y) +
+                    exp2f(pstate->z - pkt->loc.z)) / (pkt->timestamp - pstate->timestamp);
         }
     }
 

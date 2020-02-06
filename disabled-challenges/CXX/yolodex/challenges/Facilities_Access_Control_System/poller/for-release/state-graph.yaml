@@ -1,0 +1,22 @@
+---
+nodes:
+- name: start
+- name: end
+- name: PowerOff
+- name: GoodTests
+- name: BadTests
+edges:
+- start: GoodTests
+- start: BadTests
+
+- PowerOff: end
+
+- GoodTests: GoodTests
+- GoodTests: BadTests
+- GoodTests: PowerOff
+  weight: 0.1
+
+- BadTests: GoodTests
+- BadTests: BadTests
+- BadTests: PowerOff
+  weight: 0.1

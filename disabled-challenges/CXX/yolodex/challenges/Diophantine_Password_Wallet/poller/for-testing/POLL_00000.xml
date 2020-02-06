@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>charstats</cbid>
+    <replay>
+        <read><delim>\x0a</delim><match><data>Welcome to the Diophantine Password Wallet\n</data></match></read>
+        <read><delim>\x0a</delim><match><data>Login\n</data></match></read>
+
+        <write><data>0\n</data></write>
+        <read><delim>\x0a</delim><match><data>First Secret\n</data></match></read>
+        <write><data>3\n</data></write>
+        <read><delim>\x0a</delim><match><data>Second Secret\n</data></match></read>
+        <write><data>4\n</data></write>
+        <read><delim>\x0a</delim><match><data>Third Secret\n</data></match></read>
+        <write><data>5\n</data></write>
+
+        <write><data>L\n</data></write>
+
+        <read><delim>\x0a</delim><match><data>Welcome to the Diophantine Password Wallet\n</data></match></read>
+        <read><delim>\x0a</delim><match><data>Login\n</data></match></read>
+        <write><data>0\n</data></write>
+        <read><delim>\x0a</delim><match><data>First Secret\n</data></match></read>
+        <write><data>0\n</data></write>
+        <read><delim>\x0a</delim><match><data>Second Secret\n</data></match></read>
+        <write><data>0\n</data></write>
+        <read><delim>\x0a</delim><match><data>Third Secret\n</data></match></read>
+        <write><data>0\n</data></write>
+    </replay>
+</pov>

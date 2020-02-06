@@ -1,0 +1,21 @@
+---
+nodes:
+- name: start
+- name: play
+- name: win
+- name: lose
+- name: end
+
+edges:
+
+- start: play
+
+- play: win
+  weight: 1
+- play: lose
+  weight: .5 
+
+- win: play
+- lose: end
+
+

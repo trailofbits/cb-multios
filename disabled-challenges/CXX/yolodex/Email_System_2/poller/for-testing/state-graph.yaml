@@ -1,0 +1,44 @@
+---
+nodes:
+- name: start
+- name: begin
+- name: valid_login
+- name: logout
+- name: list_drafts
+- name: list_inbox
+- name: list_all_messages
+- name: create_message
+- name: send_message
+- name: leave_A
+- name: leave_B
+- name: read_A
+- name: read_B
+
+edges:
+- start: begin
+- begin: read_A
+- read_A: valid_login
+  weight: .9
+- read_A: leave_A
+  weight: .1
+- valid_login: read_B
+- read_B: create_message
+  weight: .4
+- read_B: send_message
+  weight: .2
+- read_B: list_inbox
+  weight: .1
+- read_B: list_drafts
+  weight: .1
+- read_B: list_all_messages
+  weight: .1
+- read_B: logout 
+  weight: .5
+- read_B: leave_B
+  weight: .5
+- logout: read_A
+- create_message: read_B
+- send_message: read_B
+- list_inbox: read_B
+- list_drafts: read_B
+- list_all_messages: read_B

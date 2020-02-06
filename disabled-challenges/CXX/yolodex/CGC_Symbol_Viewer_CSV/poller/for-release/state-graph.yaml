@@ -1,0 +1,9 @@
+---
+nodes:
+- name: start
+- name: gen_cgcf
+- name: parse_cgcf
+
+edges:
+- start: gen_cgcf
+- gen_cgcf: parse_cgcf

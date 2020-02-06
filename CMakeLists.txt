@@ -57,12 +57,13 @@ else(WIN32)
         -fno-builtin
         -w
         -g3
-        -m32
+        #-m32
+	-fsanitize=dataflow
     )
 
     # Link everything 32-bit (until we have a 64-bit option)
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=dataflow")#-m32")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fsanitize=dataflow ") #-m32")
 
     # Linker options
     # Dynamic by default

@@ -1,0 +1,13 @@
+---
+nodes:
+- name: start
+- name: valid
+- name: invalid_char
+- name: insufficient_symbol_diversity
+edges:
+- start: valid
+  weight: .90
+- start: invalid_char
+  weight: .05
+- start: insufficient_symbol_diversity
+  weight: .05

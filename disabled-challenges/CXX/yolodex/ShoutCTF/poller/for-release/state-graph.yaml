@@ -1,0 +1,42 @@
+---
+nodes:
+- name: start
+- name: ready
+- name: main_menu
+- name: ctf_menu
+- name: register_user
+- name: login_user
+- name: quit
+- name: view_challenge_list
+- name: view_challenge_detail
+- name: view_ranking
+- name: view_team_profile
+- name: submit_flag
+- name: logout_user
+
+edges:
+- start: ready
+- ready: main_menu
+- ready: ctf_menu
+- main_menu: register_user
+- main_menu: login_user
+- ctf_menu: view_challenge_list
+- ctf_menu: view_challenge_detail
+- ctf_menu: view_ranking
+- ctf_menu: view_team_profile
+- ctf_menu: submit_flag
+- ctf_menu: logout_user
+- main_menu: quit
+  weight: 0.02
+
+- main_menu: ready
+- ctf_menu: ready
+
+- register_user: main_menu
+- login_user: main_menu
+- view_challenge_list: ctf_menu
+- view_challenge_detail: ctf_menu
+- view_ranking: ctf_menu
+- view_team_profile: ctf_menu
+- submit_flag: ctf_menu
+- logout_user: main_menu

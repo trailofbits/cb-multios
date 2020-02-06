@@ -1,0 +1,34 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>CROMU_00009</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Welcome to the cgcfs shell!\x0a</data></match></read>
+    <read><delim>\x25 </delim><match><data>Type help for a list of available commands.\x0a</data></match></read>
+
+    <write><data>echo "aaaa" > /testfile\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>file created\x0a</data></match></read>
+
+    <write><data>dump /testfile\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>aaaa</data></match></read>
+
+    <write><data>echo "\\x41\\x42\\x43\\x44" > /testfile2\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>file created\x0a</data></match></read>
+
+    <write><data>dump /testfile2\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>ABCD</data></match></read>
+
+    <write><data>mkfolder "test folder"\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+
+    <write><data>echo "\\x41\\x42\\x43\\x44" > "/test folder/testfile3"\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>file created\x0a</data></match></read>
+
+    <write><data>dump "/test folder/testfile3"\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>ABCD</data></match></read>
+
+    <write><data>delete "/test folder//testfile3"\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>file removed</data></match></read>
+
+</replay>
+</pov>

@@ -1,0 +1,38 @@
+---
+nodes:
+- name: start
+- name: v0x
+- name: v0x_out
+- name: v0y
+- name: v0y_out
+- name: init_count
+- name: running_input
+- name: running_c
+- name: running_p
+- name: end
+
+edges:
+- start: v0x
+
+- v0x: v0x
+- v0x: v0x_out
+
+- v0x_out: v0y
+
+- v0y: v0y
+- v0y: v0y_out
+
+- v0y_out: init_count
+
+- init_count: running_input
+
+- running_input: running_c
+
+- running_c: running_input
+
+- running_input: running_p
+  weight: .2
+
+- running_p: running_input
+
+- running_input: end

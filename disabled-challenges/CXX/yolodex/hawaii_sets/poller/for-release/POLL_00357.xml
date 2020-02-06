@@ -1,0 +1,49 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>D87Ss = |"zDQm","vDdCivH","Vs0J","4k"|~|"vDdCivH","kPe2","Vs0J","GaA4"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>a22vl = |"vJWI3S","tHv","Cdc","geDDN4J","6l","n7t","v3FgKM"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>bHTWfX = |"tHv","Cdc","vJWI3S","v3FgKM","n7t"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>bHTWfX@a22vl\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>TRUE\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>cyF5K4 = bHTWfX + D87Ss\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>DBM8e = |"aUyW","73o0Zln","BYPt","v","TIoi9mM"|-|"aUyW","v","TIoi9mM","eOF","k70j","XrI"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>Ljtmu = |"y53Si0p","YPU","sog","WN5"|-|"evNPjL","H8","D6k1w","WN5","sXhlV"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>CU9sc = |"uuPb","z","TY","Oo6rDw"|+|"cCEShY","N","4O","hT","DuE","kG"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>HgFkQA = |"hvZK7Ni","CmFg","LK","6vKkc","GGJkq3","k"|-|"msFq5u","El","LK","CmFg","NIrqT2"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>RWrbqnH = cyF5K4 ^ bHTWfX\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>g2GDa = a22vl ~ DBM8e\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>a5KjdWq = |"ypFlqAX"|+|"Jp1hv1","ypFlqAX","YijkW","Z","9j4G"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>OyKLeV = Ljtmu - CU9sc\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>D87Ss = |"zDQm","4k","kPe2","GaA4"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>a22vl = |"vJWI3S","tHv","Cdc","geDDN4J","6l","n7t","v3FgKM"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>bHTWfX = |"tHv","Cdc","vJWI3S","v3FgKM","n7t"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>cyF5K4 = |"tHv","Cdc","vJWI3S","v3FgKM","n7t","zDQm","4k","kPe2","GaA4"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>DBM8e = |"73o0Zln","BYPt"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>Ljtmu = |"y53Si0p","YPU","sog"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>CU9sc = |"uuPb","z","TY","Oo6rDw","cCEShY","N","4O","hT","DuE","kG"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>HgFkQA = |"hvZK7Ni","6vKkc","GGJkq3","k"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>RWrbqnH = |"tHv","Cdc","vJWI3S","v3FgKM","n7t"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>g2GDa = |"vJWI3S","tHv","Cdc","geDDN4J","6l","n7t","v3FgKM","73o0Zln","BYPt"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>a5KjdWq = |"ypFlqAX","Jp1hv1","YijkW","Z","9j4G"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>OyKLeV = |"y53Si0p","YPU","sog"|\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

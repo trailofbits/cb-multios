@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  *
  */
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_stdlib.h"
 #include "cgc_string.h"
@@ -46,14 +47,14 @@ char *cgc_ftoa(double value, char *str, cgc_size_t size) {
         return NULL;
 
     // apply rounding
-    double rem = cgc_remainder(value, 0.001) * cgc_pow(10, 4);
+    double rem = remainder(value, 0.001) * pow(10, 4);
     if (rem > 5 || (rem < 0 && rem > -5))
         if (!negative)
             value += 0.0005;
     else
         if (negative)
             value += 0.0005;
-    int magnitude = value == 0 ? 0 : cgc_log10(value);
+    int magnitude = value == 0 ? 0 : log10(value);
     if (magnitude < 0)
         magnitude = 0;
     for (; magnitude > -4; magnitude--)
@@ -68,7 +69,7 @@ char *cgc_ftoa(double value, char *str, cgc_size_t size) {
                 break;
         }
 
-        double e = cgc_pow(10, magnitude);
+        double e = pow(10, magnitude);
         int digit = value / e;
         value -= digit * e;
         str[i++] = digit + '0';

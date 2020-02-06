@@ -203,7 +203,7 @@ static void cgc_session_configuration_request(command_t *cmd)
 
     struct __attribute__ ((__packed__)) configuration_response {
         control_hdr_t hdr;
-        unsigned remote : 16;
+        unsigned remote : 32;
         unsigned flags : 16;
         unsigned result : 16;
         unsigned char config[];
@@ -293,15 +293,17 @@ static void cgc_session_configuration_request(command_t *cmd)
     cgc__session_send(0x0001, resp->hdr.length + sizeof(control_hdr_t), (unsigned char *)resp);
     cgc_free(resp);
 
-    if (resp->result == 0)
-        if ((resp->flags & 1) == 0 && ch->state != OPEN)
+    if (resp->result == 0){
+        if ((resp->flags & 1) == 0 && ch->state != OPEN){
             cgc_session_send_config(ch);
+}
+}
 }
 
 void cgc_session_configuration_response(command_t *cmd)
 {
     struct __attribute__ ((__packed__)) configuration_response {
-        unsigned local : 16;
+        unsigned local : 32;
         unsigned flags : 16;
         unsigned result : 16;
         unsigned char config[];

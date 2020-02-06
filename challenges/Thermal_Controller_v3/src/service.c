@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 */
 
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_stdarg.h"
 #include "cgc_stdlib.h"
@@ -79,14 +80,14 @@ void cgc_new_state(pState state){
 }
 
 
-int cgc_power_on(pState state){
+int power_on(pState state){
 	if (state == NULL){return 1;}	
 //	if (state->power == ON){return 2;}
 	state->power = ON;
 	return 0;
 }
 
-int cgc_power_off(pState state){
+int power_off(pState state){
 	if (state == NULL){return 1;}	
 //	if (state->power == OFF){return 2;}
 	cgc_new_state(state);

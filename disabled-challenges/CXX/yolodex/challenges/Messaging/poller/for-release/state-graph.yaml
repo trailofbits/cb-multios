@@ -1,0 +1,29 @@
+---
+nodes:
+- name: start
+- name: new_packet
+- name: add_frames
+- name: add_title
+- name: add_album
+- name: add_artist
+- name: send_packet
+- name: do_attestation
+- name: quit
+
+edges:
+- start: do_attestation
+- do_attestation: new_packet
+- new_packet: add_frames
+- add_frames: add_title
+- add_frames: add_album
+- add_frames: add_artist
+- add_frames: send_packet
+- add_title: add_frames
+- add_album: add_frames
+- add_artist: add_frames
+- send_packet: new_packet
+  weight: 0.90
+- send_packet: do_attestation
+  weight: 0.05
+- send_packet: quit
+  weight: 0.05

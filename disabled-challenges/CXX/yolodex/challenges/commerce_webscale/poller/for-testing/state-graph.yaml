@@ -1,0 +1,19 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: list
+- name: buy
+- name: sell
+- name: end
+
+edges:
+- start: menu
+- menu: end
+  weight: 0.05
+- menu: list
+- menu: buy
+- menu: sell
+- list: menu
+- buy: menu
+- sell: menu

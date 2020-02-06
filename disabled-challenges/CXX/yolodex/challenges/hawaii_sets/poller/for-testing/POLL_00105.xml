@@ -1,0 +1,49 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>M0dMIW = |"MovJF","hIq","u3UNM4","tTh6Xui","fP2uaJG"|-|"O","MovJF","8hop7f","gOmP","1","tTh6Xui"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>D9Ed8K = M0dMIW ^ M0dMIW\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>8s7bRq = D9Ed8K - M0dMIW\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>LcfQh = 8s7bRq ^ M0dMIW\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>0c38JfFS0 = D9Ed8K ^ D9Ed8K\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>JjdpN = |"68A","m2GfR","w","P2i5gDf","WrWTA","pP3y","Od0"|+|"hg1","lIB4zds","righJov"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>rs04h = M0dMIW + LcfQh\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>S7ghed4 = |"68T","CFP","TNzB","YFOd","DDvHm","bd","AddsO"|+|"BjIDgD","TNzB","n","DDvHm","OW63z","r0NWa","e9BUvv"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>AQCNd = |"tfG","DVbQ","b4xZy94","2O1iwsj","Nu","TQ4G"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>aXTRe = |"DVbQ","b4xZy94"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>aXTRe@AQCNd\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>TRUE\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>xwsUdK = AQCNd ~ M0dMIW\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>MKw3UdNsK = JjdpN ^ JjdpN\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>M0dMIW = |"hIq","u3UNM4","fP2uaJG"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>D9Ed8K = |"hIq","u3UNM4","fP2uaJG"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>8s7bRq = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>LcfQh = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>0c38JfFS0 = |"hIq","u3UNM4","fP2uaJG"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>JjdpN = |"68A","m2GfR","w","P2i5gDf","WrWTA","pP3y","Od0","hg1","lIB4zds","righJov"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>rs04h = |"hIq","u3UNM4","fP2uaJG"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>S7ghed4 = |"68T","CFP","TNzB","YFOd","DDvHm","bd","AddsO","BjIDgD","n","OW63z","r0NWa","e9BUvv"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>AQCNd = |"tfG","DVbQ","b4xZy94","2O1iwsj","Nu","TQ4G"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>aXTRe = |"DVbQ","b4xZy94"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>xwsUdK = |"tfG","DVbQ","b4xZy94","2O1iwsj","Nu","TQ4G","hIq","u3UNM4","fP2uaJG"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>MKw3UdNsK = |"68A","m2GfR","w","P2i5gDf","WrWTA","pP3y","Od0","hg1","lIB4zds","righJov"|\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

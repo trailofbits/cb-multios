@@ -1,0 +1,10 @@
+---
+nodes:
+- name: start
+- name: write_packets
+- name: exit
+
+
+edges:
+- start: write_packets
+- write_packets: exit

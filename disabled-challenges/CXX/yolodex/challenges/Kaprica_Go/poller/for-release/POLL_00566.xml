@@ -1,0 +1,267 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write><data>UUUUUUUU</data></write>
+    <read><delim>\x0a</delim><match><data>What is your name?\x0a</data></match></read>
+    <write><data>User\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Hi\x2c User\x0a</data></match></read>
+    <read><delim>\x3e</delim><match><pcre>.*?0 B ></pcre></match></read>
+    <write><data>17 8\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?1 B ></pcre></match></read>
+    <write><data>3 1\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?2 B ></pcre></match></read>
+    <write><data>12 16\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?3 B ></pcre></match></read>
+    <write><data>7 8\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?4 B ></pcre></match></read>
+    <write><data>8 11\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?5 B ></pcre></match></read>
+    <write><data>8 12\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?6 B ></pcre></match></read>
+    <write><data>6 4\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?7 B ></pcre></match></read>
+    <write><data>0 11\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?8 B ></pcre></match></read>
+    <write><data>19 6\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?8 B ></pcre></match></read>
+    <write><data>15 3\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?9 B ></pcre></match></read>
+    <write><data>16 14\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?10 B ></pcre></match></read>
+    <write><data>13 11\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?11 B ></pcre></match></read>
+    <write><data>5 16\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?12 B ></pcre></match></read>
+    <write><data>4 10\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?13 B ></pcre></match></read>
+    <write><data>4 14\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?14 B ></pcre></match></read>
+    <write><data>6 2\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?15 B ></pcre></match></read>
+    <write><data>15 17\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?16 B ></pcre></match></read>
+    <write><data>9 7\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?17 B ></pcre></match></read>
+    <write><data>15 3\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?17 B ></pcre></match></read>
+    <write><data>2 3\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?18 B ></pcre></match></read>
+    <write><data>4 8\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?19 B ></pcre></match></read>
+    <write><data>14 2\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?19 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?20 B ></pcre></match></read>
+    <write><data>18 8\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?21 B ></pcre></match></read>
+    <write><data>7 5\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?22 B ></pcre></match></read>
+    <write><data>14 14\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?23 B ></pcre></match></read>
+    <write><data>18 13\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?24 B ></pcre></match></read>
+    <write><data>17 3\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?25 B ></pcre></match></read>
+    <write><data>7 2\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?26 B ></pcre></match></read>
+    <write><data>11 5\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?27 B ></pcre></match></read>
+    <write><data>12 5\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?28 B ></pcre></match></read>
+    <write><data>4 14\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?28 B ></pcre></match></read>
+    <write><data>15 10\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?29 B ></pcre></match></read>
+    <write><data>3 18\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?30 B ></pcre></match></read>
+    <write><data>16 5\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?31 B ></pcre></match></read>
+    <write><data>19 11\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?31 B ></pcre></match></read>
+    <write><data>18 4\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?32 B ></pcre></match></read>
+    <write><data>14 14\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?32 B ></pcre></match></read>
+    <write><data>9 10\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?33 B ></pcre></match></read>
+    <write><data>1 9\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?34 B ></pcre></match></read>
+    <write><data>0 5\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?35 B ></pcre></match></read>
+    <write><data>18 5\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?36 B ></pcre></match></read>
+    <write><data>18 7\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?37 B ></pcre></match></read>
+    <write><data>6 7\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?38 B ></pcre></match></read>
+    <write><data>10 6\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?38 B ></pcre></match></read>
+    <write><data>17 1\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?38 B ></pcre></match></read>
+    <write><data>6 14\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?39 B ></pcre></match></read>
+    <write><data>10 0\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?40 B ></pcre></match></read>
+    <write><data>11 19\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?40 B ></pcre></match></read>
+    <write><data>3 12\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?41 B ></pcre></match></read>
+    <write><data>6 7\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?41 B ></pcre></match></read>
+    <write><data>5 3\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?42 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?43 B ></pcre></match></read>
+    <write><data>13 16\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?44 B ></pcre></match></read>
+    <write><data>0 4\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?44 B ></pcre></match></read>
+    <write><data>7 10\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?45 B ></pcre></match></read>
+    <write><data>18 16\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?46 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?47 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?48 B ></pcre></match></read>
+    <write><data>17 18\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?49 B ></pcre></match></read>
+    <write><data>3 0\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?50 B ></pcre></match></read>
+    <write><data>0 7\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?51 B ></pcre></match></read>
+    <write><data>7 12\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?52 B ></pcre></match></read>
+    <write><data>9 8\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?53 B ></pcre></match></read>
+    <write><data>4 11\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?54 B ></pcre></match></read>
+    <write><data>8 17\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?55 B ></pcre></match></read>
+    <write><data>14 7\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?56 B ></pcre></match></read>
+    <write><data>0 16\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?57 B ></pcre></match></read>
+    <write><data>5 13\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?58 B ></pcre></match></read>
+    <write><data>19 8\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?58 B ></pcre></match></read>
+    <write><data>4 5\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?59 B ></pcre></match></read>
+    <write><data>19 14\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?59 B ></pcre></match></read>
+    <write><data>19 0\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?59 B ></pcre></match></read>
+    <write><data>8 0\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?60 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?61 B ></pcre></match></read>
+    <write><data>18 19\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?61 B ></pcre></match></read>
+    <write><data>12 18\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?62 B ></pcre></match></read>
+    <write><data>17 1\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?62 B ></pcre></match></read>
+    <write><data>19 16\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?62 B ></pcre></match></read>
+    <write><data>8 9\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?63 B ></pcre></match></read>
+    <write><data>13 7\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?64 B ></pcre></match></read>
+    <write><data>4 1\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?65 B ></pcre></match></read>
+    <write><data>16 6\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?66 B ></pcre></match></read>
+    <write><data>1 17\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?67 B ></pcre></match></read>
+    <write><data>9 4\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?68 B ></pcre></match></read>
+    <write><data>11 14\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?69 B ></pcre></match></read>
+    <write><data>3 17\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?70 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?71 B ></pcre></match></read>
+    <write><data>10 13\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?72 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?73 B ></pcre></match></read>
+    <write><data>6 15\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?74 B ></pcre></match></read>
+    <write><data>18 15\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?75 B ></pcre></match></read>
+    <write><data>8 11\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?75 B ></pcre></match></read>
+    <write><data>19 0\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?75 B ></pcre></match></read>
+    <write><data>16 6\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?75 B ></pcre></match></read>
+    <write><data>1 10\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?75 B ></pcre></match></read>
+    <write><data>9 19\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?75 B ></pcre></match></read>
+    <write><data>12 17\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?76 B ></pcre></match></read>
+    <write><data>6 4\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?76 B ></pcre></match></read>
+    <write><data>5 13\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?76 B ></pcre></match></read>
+    <write><data>18 15\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?76 B ></pcre></match></read>
+    <write><data>6 15\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?76 B ></pcre></match></read>
+    <write><data>13 19\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?76 B ></pcre></match></read>
+    <write><data>6 17\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?77 B ></pcre></match></read>
+    <write><data>2 13\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?78 B ></pcre></match></read>
+    <write><data>5 2\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?79 B ></pcre></match></read>
+    <write><data>6 19\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?79 B ></pcre></match></read>
+    <write><data>4 1\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?79 B ></pcre></match></read>
+    <write><data>10 11\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?80 B ></pcre></match></read>
+    <write><data>16 13\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?81 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?82 B ></pcre></match></read>
+    <write><data>8 18\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?83 B ></pcre></match></read>
+    <write><data>2 3\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?83 B ></pcre></match></read>
+    <write><data>17 19\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?83 B ></pcre></match></read>
+    <write><data>3 7\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?83 B ></pcre></match></read>
+    <write><data>0 15\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?84 B ></pcre></match></read>
+    <write><data>19 8\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?84 B ></pcre></match></read>
+    <write><data>5 4\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?84 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?85 B ></pcre></match></read>
+    <write><data>10 5\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?85 B ></pcre></match></read>
+    <write><data>3 6\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?86 B ></pcre></match></read>
+    <write><data>8 1\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?87 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?88 B ></pcre></match></read>
+    <write><data>17 3\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?88 B ></pcre></match></read>
+    <write><data>7 4\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?89 B ></pcre></match></read>
+    <write><data>pass\x0a</data></write>
+    <read><delim>\x3e</delim><match><pcre>.*?90 B ></pcre></match></read>
+    <write><data>6 13\x0a</data></write>
+    <read><delim>User</delim><match><pcre>.*?Game Over Stones Exhausted
+You are a Winner, User</pcre></match></read>
+</replay>
+</pov>

@@ -1,0 +1,37 @@
+---
+nodes:
+- name: start
+- name: Banner
+- name: choice
+  continue: .999
+- name: NAME_MAP
+- name: ADDROAD
+- name: ADDADDRESS
+- name: ADDINTERSECTION
+- name: PRINTMAP
+- name: FINDROUTE
+- name: finish
+
+edges:
+- start: Banner
+- Banner: choice
+- choice: NAME_MAP
+  weight: 0.1
+- NAME_MAP: choice
+- choice: ADDROAD
+  weight: 0.1
+- ADDROAD: choice
+- choice: ADDADDRESS
+  weight: 0.2
+- ADDADDRESS: choice
+- choice: ADDINTERSECTION
+  weight: 0.2
+- ADDINTERSECTION: choice
+- choice: PRINTMAP
+  weight: 0.2
+- PRINTMAP: choice
+- choice: FINDROUTE
+  weight: 0.9
+- FINDROUTE: choice
+# LimitTest quits after a run
+- choice: finish

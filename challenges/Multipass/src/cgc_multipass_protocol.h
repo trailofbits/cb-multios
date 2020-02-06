@@ -527,9 +527,9 @@ typedef enum {
 typedef struct packet_head {
 	uint32_t card_id;			// 4 bytes
 	uint32_t auth_code;			// 4 bytes
-	PKT_TYPE pkt_type : 8;		// 1 byte
-	OP_CODE op_code : 8;		// 1 byte
-	STATUS status : 8;			// 1 byte
+	PKT_TYPE pkt_type : 16;		// 1 byte
+	OP_CODE op_code : 16;		// 1 byte
+	STATUS status : 32;			// 1 byte
 	uint32_t transaction_id;	// 4 bytes
 } __attribute__((__packed__)) packet_head_t;
 

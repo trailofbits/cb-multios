@@ -1,0 +1,114 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>: </delim><match><data>: </data></match></read>
+    <write><data>matrix\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Matrix Calculator</data></match></read>
+    <read><delim>\x0a</delim><match><data>1. Add two matrices</data></match></read>
+    <read><delim>\x0a</delim><match><data>2. Subtract two matrices</data></match></read>
+    <read><delim>\x0a</delim><match><data>3. Scalar multiply a matrix</data></match></read>
+    <read><delim>\x0a</delim><match><data>4. Return to main menu</data></match></read>
+    <read><delim>: </delim><match><data>Choice: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>First matrix</data></match></read>
+    <read><delim>\x0a</delim><match><data>Provide the matrix dimensions</data></match></read>
+    <read><delim>: </delim><match><data>X: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>: </delim><match><data>Y: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter the matrix values</data></match></read>
+    <read><delim>: </delim><match><data>0\x2c0: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>0\x2c1: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>1\x2c0: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>1\x2c1: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Second matrix</data></match></read>
+    <read><delim>\x0a</delim><match><data>Enter the matrix values</data></match></read>
+    <read><delim>: </delim><match><data>0\x2c0: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>0\x2c1: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>1\x2c0: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>1\x2c1: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Result</data></match></read>
+    <read><delim>\x0a</delim><match><data>2 2 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2 2 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Matrix Calculator</data></match></read>
+    <read><delim>\x0a</delim><match><data>1. Add two matrices</data></match></read>
+    <read><delim>\x0a</delim><match><data>2. Subtract two matrices</data></match></read>
+    <read><delim>\x0a</delim><match><data>3. Scalar multiply a matrix</data></match></read>
+    <read><delim>\x0a</delim><match><data>4. Return to main menu</data></match></read>
+    <read><delim>: </delim><match><data>Choice: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>First matrix</data></match></read>
+    <read><delim>\x0a</delim><match><data>Provide the matrix dimensions</data></match></read>
+    <read><delim>: </delim><match><data>X: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>: </delim><match><data>Y: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter the matrix values</data></match></read>
+    <read><delim>: </delim><match><data>0\x2c0: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>0\x2c1: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>1\x2c0: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>1\x2c1: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Second matrix</data></match></read>
+    <read><delim>\x0a</delim><match><data>Enter the matrix values</data></match></read>
+    <read><delim>: </delim><match><data>0\x2c0: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>0\x2c1: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>1\x2c0: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>1\x2c1: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Result</data></match></read>
+    <read><delim>\x0a</delim><match><data>0 0 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>0 0 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Matrix Calculator</data></match></read>
+    <read><delim>\x0a</delim><match><data>1. Add two matrices</data></match></read>
+    <read><delim>\x0a</delim><match><data>2. Subtract two matrices</data></match></read>
+    <read><delim>\x0a</delim><match><data>3. Scalar multiply a matrix</data></match></read>
+    <read><delim>\x0a</delim><match><data>4. Return to main menu</data></match></read>
+    <read><delim>: </delim><match><data>Choice: </data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Provide the matrix dimensions</data></match></read>
+    <read><delim>: </delim><match><data>X: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>: </delim><match><data>Y: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter the matrix values</data></match></read>
+    <read><delim>: </delim><match><data>0\x2c0: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>0\x2c1: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>1\x2c0: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>1\x2c1: </data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><delim>: </delim><match><data>Multiplier: </data></match></read>
+    <write><data>2\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Result</data></match></read>
+    <read><delim>\x0a</delim><match><data>2 2 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>2 2 \x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Matrix Calculator</data></match></read>
+    <read><delim>\x0a</delim><match><data>1. Add two matrices</data></match></read>
+    <read><delim>\x0a</delim><match><data>2. Subtract two matrices</data></match></read>
+    <read><delim>\x0a</delim><match><data>3. Scalar multiply a matrix</data></match></read>
+    <read><delim>\x0a</delim><match><data>4. Return to main menu</data></match></read>
+    <read><delim>: </delim><match><data>Choice: </data></match></read>
+    <write><data>4\x0a</data></write>
+    <read><delim>: </delim><match><data>: </data></match></read>
+    <write><data>exit\x0a</data></write>
+</replay>
+</pov>

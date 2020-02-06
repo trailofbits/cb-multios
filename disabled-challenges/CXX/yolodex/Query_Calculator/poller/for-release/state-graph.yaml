@@ -1,0 +1,19 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: intmath
+- name: strfuns
+# - name: evalfun
+- name: disconnect
+
+edges:
+- start: menu
+- menu: intmath
+- menu: strfuns
+# - menu: evalfun
+- menu: disconnect
+  weight: 0.1
+- intmath: menu
+- strfuns: menu
+# - evalfun: menu

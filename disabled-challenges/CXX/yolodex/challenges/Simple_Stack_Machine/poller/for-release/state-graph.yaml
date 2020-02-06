@@ -1,0 +1,32 @@
+---
+nodes:
+- name: start
+- name: generate_work
+- name: gen_push
+- name: gen_pop
+- name: gen_add
+- name: gen_sub
+- name: gen_swap
+- name: gen_dup
+- name: gen_loop
+- name: end
+
+edges:
+- start: generate_work
+- generate_work: gen_push
+  weight: 9
+- gen_push: generate_work
+- generate_work: gen_pop
+- gen_pop: generate_work
+- generate_work: gen_add
+- gen_add: generate_work
+- generate_work: gen_sub
+- gen_sub: generate_work
+- generate_work: gen_swap
+- gen_swap: generate_work
+- generate_work: gen_dup
+- gen_dup: generate_work
+- generate_work: gen_loop
+- gen_loop: generate_work
+- generate_work: end
+  weight: .1

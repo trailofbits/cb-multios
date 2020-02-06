@@ -1,0 +1,8 @@
+set( POLLS_TESTING_COUNT "1000" )
+set( POLLS_TESTING_SEED "1687964335" )
+add_compile_options( -g -fno-exceptions -fno-rtti )
+set( POLLS_RELEASE_SEED "-771117232" )
+add_compile_options( -g -fno-exceptions -fno-rtti )
+set( SERVICE_ID "00026" )
+set( AUTHOR_ID "CROMU" )
+buildCB()

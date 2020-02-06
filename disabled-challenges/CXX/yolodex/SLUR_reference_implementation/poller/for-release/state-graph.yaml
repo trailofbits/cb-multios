@@ -1,0 +1,39 @@
+nodes:
+- name: start
+- name: read_intro
+- name: read_repl
+- name: pick_elements
+- name: pick_quote
+- name: pick_car
+- name: pick_cdr
+- name: pick_cons
+- name: pick_equal
+- name: pick_atom
+- name: pick_cond
+- name: pick_lambda
+- name: produce
+
+edges:
+- start: read_intro
+- read_intro: read_repl
+
+- read_repl: pick_elements
+
+- pick_elements: pick_quote
+- pick_elements: pick_car
+- pick_elements: pick_cdr
+- pick_elements: pick_cons
+- pick_elements: pick_equal
+- pick_elements: pick_atom
+- pick_elements: pick_cond
+- pick_elements: pick_lambda
+- pick_elements: produce
+  weight: 0.1
+- pick_quote: pick_elements
+- pick_car: pick_elements
+- pick_cdr: pick_elements
+- pick_cons: pick_elements
+- pick_equal: pick_elements
+- pick_atom: pick_elements
+- pick_cond: pick_elements
+- pick_lambda: pick_elements

@@ -1,0 +1,36 @@
+---
+nodes:
+- name: start
+- name: req_loop
+- name: done
+
+- name: do_open
+- name: do_read
+- name: do_write
+- name: do_lseek
+- name: do_close
+- name: do_creat
+- name: do_unlink
+
+
+edges:
+- start: req_loop
+
+- req_loop: do_open
+- req_loop: do_read
+- req_loop: do_write
+- req_loop: do_lseek
+- req_loop: do_close
+- req_loop: do_creat
+- req_loop: do_unlink
+
+- do_open: req_loop
+- do_read: req_loop
+- do_write: req_loop
+- do_lseek: req_loop
+- do_close: req_loop
+- do_creat: req_loop
+- do_unlink: req_loop
+
+- req_loop: done
+  weight: 0.08

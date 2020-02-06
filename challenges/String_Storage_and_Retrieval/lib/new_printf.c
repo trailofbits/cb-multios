@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_stdarg.h"
 #include "cgc_stdlib.h"
@@ -180,7 +181,7 @@ void cgc_float_to_str( double val, char *buf, int precision )
         }
 
         // Calculate magnitude
-        m = cgc_log10( val );
+        m = log10( val );
 
         if ( m < 1.0 )
             m = 0;
@@ -189,7 +190,7 @@ void cgc_float_to_str( double val, char *buf, int precision )
         in_fraction = 0;
         while ( val > F32_PRECISION || m >= 0 )
         {
-            double weight = cgc_pow( 10.0, m );
+            double weight = pow( 10.0, m );
             if ( weight > 0 && !cgc_isinf(weight) )
             {
                 digit = cgc_floor( val / weight );

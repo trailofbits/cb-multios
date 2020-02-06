@@ -69,7 +69,7 @@ cgc_vector_mag_sqr(struct vector a)
 double
 cgc_vector_mag(struct vector a)
 {
-    return cgc_sqrt(cgc_vector_mag_sqr(a));
+    return sqrt(cgc_vector_mag_sqr(a));
 }
 
 struct vector

@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><pcre>ID=[A-z]{32}\n</pcre></match></read>
+    <write><data>BALANCE\x3d0\x07</data></write>
+</replay>
+</pov>

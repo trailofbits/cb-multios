@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>service</cbid>
+    <replay>
+	<read echo='ascii'><delim>r\n</delim><match><data>\nWelcome to Palindrome Finder\n</data></match></read>
+	<read echo='ascii'><delim>: </delim><match><data>\n\tPlease enter a possible palindrome: </data></match></read>
+        <write echo='ascii'><data format='asciic'>race\n</data></write>
+	<read echo='ascii'><delim>\n</delim><match><data>\t\tNope, that's not a palindrome\n</data></match></read>
+	<read echo='ascii'><delim>: </delim><match><data>\n\tPlease enter a possible palindrome: </data></match></read>
+	<write echo='ascii'><data format='asciic'>racecar\n</data></write>
+	<read echo='ascii'><delim>\n</delim><match><data>\t\tYes, that's a palindrome!\n</data></match></read>
+    </replay>
+</pov>

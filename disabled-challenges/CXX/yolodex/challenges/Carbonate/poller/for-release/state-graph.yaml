@@ -1,0 +1,39 @@
+---
+nodes:
+- name: start
+- name: hello
+- name: scramble
+- name: menu
+- name: check_find
+- name: check_missing
+- name: add_new
+- name: add_exists
+- name: subtract_find
+- name: subtract_missing
+- name: clear
+- name: terminate
+
+edges:
+- start: hello
+- hello: scramble
+- scramble: menu
+  weight: .95
+- scramble: terminate
+  weight: .05
+- menu: check_find
+- menu: check_missing
+- menu: add_new
+- menu: add_exists
+- menu: subtract_find
+- menu: subtract_missing
+- menu: clear
+  weight: .10
+- menu: terminate
+  weight: .05
+- check_find: menu
+- check_missing: menu
+- add_new: menu
+- add_exists: menu
+- subtract_find: menu
+- subtract_missing: menu
+- clear: menu

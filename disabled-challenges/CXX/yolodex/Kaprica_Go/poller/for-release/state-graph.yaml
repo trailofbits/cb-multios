@@ -1,0 +1,13 @@
+---
+nodes:
+- name: start
+- name: read_name_prompt
+- name: write_name
+- name: read_greeting
+- name: play
+
+edges:
+- start: read_name_prompt
+- read_name_prompt: write_name
+- write_name: read_greeting
+- read_greeting: play

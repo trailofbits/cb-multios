@@ -1,0 +1,78 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+	<cbid>CROMU_00015</cbid>
+	<replay>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>Z8fIB0txMvm\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>eaVjtUSOKtRp\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>pvWoONid0G\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>2\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>PML: </data></match></read>
+		<write echo="ascii"><data>{Planet}{Name    }J2EGdWuN {   #Name}{     Mass   }     2.06154     {#Mass}{    Period}7.70000 {     #Period  }  {Gravity}   0.07216{     #Gravity  } { Perihelion     }     1.02198   {   #Perihelion}  {Aphelion     }0.77876     { #Aphelion }    { ERadius   }    0.41117 {    #ERadius   }    {    Radius     }     0.68421 {#Radius }  {    OrbitSpeed}    6.22581     {   #OrbitSpeed  } {     Population}     1130  {   #Population    }     {    Country     } {Population    }     36009  {  #Population    }{     Border   }  1.81395 5.21212 0.51163 0.45405   {    #Border     }{  Border }0.10526 0.99375 0.32432 0.65116  {     #Border   }{    Name    }  NGYr0qKjE   {   #Name}{ Language    }ihojrX { #Language  }{  Language   } pLTfth     {     #Language   }{Capitol} oZJvCo{     #Capitol}{    Territory   }   {Established}   -96{   #Established   }{    Border  }  5.08108 3.97959 0.51010 0.06504     {  #Border  }{    Name    } c1Cx5   {    #Name   }{ Founder }   Qzd1z3QJdgH {   #Founder   }{  Population  } 4142     {     #Population }{     County     }{ Name   }  HlQAw0     { #Name     }{  Density}    1.86667     {     #Density}{  Area }     2.28000 {#Area     }{     Seat    }    kyocMftb  {  #Seat}{    Border  }    0.69231 0.99206 0.83505 41.33333  {    #Border}{  Border    }    0.25128 0.40373 0.32927 1.52846    { #Border }{  Population   }     4023 {    #Population}{  City    }{     Url }http://MsTByi.com {   #Url}{ Mayor}ZyWWy22leexQO  {    #Mayor   }{ Border     }     0.80978 0.02174 2.17284 5.25000  {  #Border     }{Border}  3.60000 1.96939 1.95385 2.45455    {  #Border     }{ Border   }0.60366 0.30519 1.12644 1.02548  {     #Border    }{    Name}    UfsAS     {  #Name     }{  Population  }     22735    {     #Population   }   {  #City }    {  #County}     { #Territory}{ #Country} {#Planet}\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: Z8fIB0txMvm\nName: eaVjtUSOKtRp\nName: pvWoONid0G\nName: J2EGdWuN\n\tPopulation: 1130\n\tPeriod: 7.70000\n\tOrbit Speed: 6.22581\n\tAphelion: 0.77876\n\tPerihelion: 1.02198\n\tRadius: 0.68421\n\tERadius: 0.41117\n\tMass: 2.06154\n\tGravity: 0.07216\n\tCountry: NGYr0qKjE\n\t\tCapitol: oZJvCo\n\t\tPopulation: 36009\n\t\tLanguage: ihojrX\n\t\tLanguage: pLTfth\n\t\tBorder: 1.81395 5.21212 0.51163 0.45405\n\t\tBorder: 0.10526 0.99375 0.32432 0.65116\n\t\tTerritory: c1Cx5\n\t\t\tPopulation: 4142\n\t\t\tEstablished: -96\n\t\t\tFounder: Qzd1z3QJdgH\n\t\t\tBorder: 5.08108 3.97959 0.51010 0.06504\n\t\t\tCounty: HlQAw0\n\t\t\t\tSeat: kyocMftb\n\t\t\t\tPopulation: 4023\n\t\t\t\tArea: 2.28000\n\t\t\t\tDensity: 1.86667\n\t\t\t\tBorder: 0.69231 0.99206 0.83505 41.33333\n\t\t\t\tBorder: 0.25128 0.40373 0.32927 1.52846\n\t\t\t\tCity: UfsAS\n\t\t\t\t\tPopulation: 22735\n\t\t\t\t\tMayor: ZyWWy22leexQO\n\t\t\t\t\tUrl: http://MsTByi.com\n\t\t\t\t\tBorder: 0.80978 0.02174 2.17284 5.25000\n\t\t\t\t\tBorder: 3.60000 1.96939 1.95385 2.45455\n\t\t\t\t\tBorder: 0.60366 0.30519 1.12644 1.02548\n</delim><match><data>Name: Z8fIB0txMvm\nName: eaVjtUSOKtRp\nName: pvWoONid0G\nName: J2EGdWuN\n\tPopulation: 1130\n\tPeriod: 7.70000\n\tOrbit Speed: 6.22581\n\tAphelion: 0.77876\n\tPerihelion: 1.02198\n\tRadius: 0.68421\n\tERadius: 0.41117\n\tMass: 2.06154\n\tGravity: 0.07216\n\tCountry: NGYr0qKjE\n\t\tCapitol: oZJvCo\n\t\tPopulation: 36009\n\t\tLanguage: ihojrX\n\t\tLanguage: pLTfth\n\t\tBorder: 1.81395 5.21212 0.51163 0.45405\n\t\tBorder: 0.10526 0.99375 0.32432 0.65116\n\t\tTerritory: c1Cx5\n\t\t\tPopulation: 4142\n\t\t\tEstablished: -96\n\t\t\tFounder: Qzd1z3QJdgH\n\t\t\tBorder: 5.08108 3.97959 0.51010 0.06504\n\t\t\tCounty: HlQAw0\n\t\t\t\tSeat: kyocMftb\n\t\t\t\tPopulation: 4023\n\t\t\t\tArea: 2.28000\n\t\t\t\tDensity: 1.86667\n\t\t\t\tBorder: 0.69231 0.99206 0.83505 41.33333\n\t\t\t\tBorder: 0.25128 0.40373 0.32927 1.52846\n\t\t\t\tCity: UfsAS\n\t\t\t\t\tPopulation: 22735\n\t\t\t\t\tMayor: ZyWWy22leexQO\n\t\t\t\t\tUrl: http://MsTByi.com\n\t\t\t\t\tBorder: 0.80978 0.02174 2.17284 5.25000\n\t\t\t\t\tBorder: 3.60000 1.96939 1.95385 2.45455\n\t\t\t\t\tBorder: 0.60366 0.30519 1.12644 1.02548\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>Name: Z8fIB0txMvm\nName: eaVjtUSOKtRp\nName: pvWoONid0G\nName: J2EGdWuN\n\tPopulation: 1130\n\tPeriod: 7.70000\n\tOrbit Speed: 6.22581\n\tAphelion: 0.77876\n\tPerihelion: 1.02198\n\tRadius: 0.68421\n\tERadius: 0.41117\n\tMass: 2.06154\n\tGravity: 0.07216\n\tCountry: NGYr0qKjE\n\t\tCapitol: oZJvCo\n\t\tPopulation: 36009\n\t\tLanguage: ihojrX\n\t\tLanguage: pLTfth\n\t\tBorder: 1.81395 5.21212 0.51163 0.45405\n\t\tBorder: 0.10526 0.99375 0.32432 0.65116\n\t\tTerritory: c1Cx5\n\t\t\tPopulation: 4142\n\t\t\tEstablished: -96\n\t\t\tFounder: Qzd1z3QJdgH\n\t\t\tBorder: 5.08108 3.97959 0.51010 0.06504\n\t\t\tCounty: HlQAw0\n\t\t\t\tSeat: kyocMftb\n\t\t\t\tPopulation: 4023\n\t\t\t\tArea: 2.28000\n\t\t\t\tDensity: 1.86667\n\t\t\t\tBorder: 0.69231 0.99206 0.83505 41.33333\n\t\t\t\tBorder: 0.25128 0.40373 0.32927 1.52846\n\t\t\t\tCity: UfsAS\n\t\t\t\t\tPopulation: 22735\n\t\t\t\t\tMayor: ZyWWy22leexQO\n\t\t\t\t\tUrl: http://MsTByi.com\n\t\t\t\t\tBorder: 0.80978 0.02174 2.17284 5.25000\n\t\t\t\t\tBorder: 3.60000 1.96939 1.95385 2.45455\n\t\t\t\t\tBorder: 0.60366 0.30519 1.12644 1.02548\n</delim><match><data>Name: Z8fIB0txMvm\nName: eaVjtUSOKtRp\nName: pvWoONid0G\nName: J2EGdWuN\n\tPopulation: 1130\n\tPeriod: 7.70000\n\tOrbit Speed: 6.22581\n\tAphelion: 0.77876\n\tPerihelion: 1.02198\n\tRadius: 0.68421\n\tERadius: 0.41117\n\tMass: 2.06154\n\tGravity: 0.07216\n\tCountry: NGYr0qKjE\n\t\tCapitol: oZJvCo\n\t\tPopulation: 36009\n\t\tLanguage: ihojrX\n\t\tLanguage: pLTfth\n\t\tBorder: 1.81395 5.21212 0.51163 0.45405\n\t\tBorder: 0.10526 0.99375 0.32432 0.65116\n\t\tTerritory: c1Cx5\n\t\t\tPopulation: 4142\n\t\t\tEstablished: -96\n\t\t\tFounder: Qzd1z3QJdgH\n\t\t\tBorder: 5.08108 3.97959 0.51010 0.06504\n\t\t\tCounty: HlQAw0\n\t\t\t\tSeat: kyocMftb\n\t\t\t\tPopulation: 4023\n\t\t\t\tArea: 2.28000\n\t\t\t\tDensity: 1.86667\n\t\t\t\tBorder: 0.69231 0.99206 0.83505 41.33333\n\t\t\t\tBorder: 0.25128 0.40373 0.32927 1.52846\n\t\t\t\tCity: UfsAS\n\t\t\t\t\tPopulation: 22735\n\t\t\t\t\tMayor: ZyWWy22leexQO\n\t\t\t\t\tUrl: http://MsTByi.com\n\t\t\t\t\tBorder: 0.80978 0.02174 2.17284 5.25000\n\t\t\t\t\tBorder: 3.60000 1.96939 1.95385 2.45455\n\t\t\t\t\tBorder: 0.60366 0.30519 1.12644 1.02548\n</data></match></read>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>
+-\x3E </data></match></read>
+		<write echo="ascii"><data>32XuRnmS0z\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>4\n</data></write>
+		<read echo="ascii"><delim>\x3E </delim><match><data>1) Z8fIB0txMvm\n2) eaVjtUSOKtRp\n3) pvWoONid0G\n4) J2EGdWuN\n5) 32XuRnmS0z\n\n-\x3E </data></match></read>
+		<write echo="ascii"><data>5\n</data></write>
+<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: 32XuRnmS0z\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+<write echo="ascii"><data>11\n</data></write>
+<read echo="ascii"><delim>: </delim><match><data>\nNew Name: </data></match></read>
+<write echo="ascii"><data>i55mLIZ\n</data></write>
+<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: 32XuRnmS0z\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+<write echo="ascii"><data>3\n</data></write>
+<read echo="ascii"><delim>\x3E </delim><match><data>\n-\x3E </data></match></read>
+<write echo="ascii"><data>0.94521\n</data></write>
+<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: 32XuRnmS0z\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+<write echo="ascii"><data>3\n</data></write>
+<read echo="ascii"><delim>\x3E </delim><match><data>\n-\x3E </data></match></read>
+<write echo="ascii"><data>0.61062\n</data></write>
+<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: 32XuRnmS0z\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+<write echo="ascii"><data>8\n</data></write>
+<read echo="ascii"><delim>\x3E </delim><match><data>\n-\x3E </data></match></read>
+<write echo="ascii"><data>0.94167\n</data></write>
+<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: 32XuRnmS0z\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+<write echo="ascii"><data>2\n</data></write>
+<read echo="ascii"><delim>\x3E </delim><match><data>\n-\x3E </data></match></read>
+<write echo="ascii"><data>1.05556\n</data></write>
+<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: 32XuRnmS0z\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+<write echo="ascii"><data>6\n</data></write>
+<read echo="ascii"><delim>\x3E </delim><match><data>\n-\x3E </data></match></read>
+<write echo="ascii"><data>15.66667\n</data></write>
+<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: 32XuRnmS0z\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+<write echo="ascii"><data>11\n</data></write>
+<read echo="ascii"><delim>: </delim><match><data>\nNew Name: </data></match></read>
+<write echo="ascii"><data>2cwkFi\n</data></write>
+<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: 32XuRnmS0z\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+<write echo="ascii"><data>10\n</data></write>
+<read echo="ascii"><delim>\x3E </delim><match><data>\n-\x3E </data></match></read>
+<write echo="ascii"><data>6869\n</data></write>
+<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet: 32XuRnmS0z\n1) Display planet information\n2) Set Period\n3) Set Orbit Speed\n4) Set Aphelion\n5) Set Perihelion\n6) Set Mean Radius\n7) Set Equatorial Radius\n8) Set Mass\n9) Set Gravity\n10) Set population\n11) Add Country\n12) Select country\n13) Delete Planet and exit menu\n14) Exit menu\nSelection: </data></match></read>
+<write echo="ascii"><data>14\n</data></write>
+		<read echo="ascii"><delim>Selection: </delim><match><data>\nPlanet Markup Language Main\n1) Print Planets\n2) Add PML\n3) Add Planet\n4) Select Planet\n5) Exit\nSelection: </data></match></read>
+		<write echo="ascii"><data>5\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>Exitting..\n</data></match></read>
+	</replay>
+</pov>

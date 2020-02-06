@@ -1,0 +1,59 @@
+---
+nodes:
+- name: start
+- name: top
+- name: addProduct
+- name: listProduct
+- name: deleteProduct
+- name: addPBI
+- name: addSprint
+- name: movePBI2Sprint
+- name: updateSBIStatus
+- name: updateSBIPoints
+- name: updateSBIDesc
+- name: deleteSprint
+- name: moveSBI2PBL
+- name: listAllProducts
+- name: end
+
+
+edges:
+- start: top
+- top: addProduct
+  weight: .2
+- addProduct: top
+- top: listProduct
+  weight: .5
+- listProduct: top
+- top: deleteProduct
+  weight: .3
+- deleteProduct: top
+- top: addPBI
+  weight: .6
+- addPBI: top
+- top: addSprint
+  weight: .2
+- addSprint: top
+- top: movePBI2Sprint
+  weight: .6
+- movePBI2Sprint: top
+- top: updateSBIStatus
+  weight: .6
+- updateSBIStatus: top
+- top: updateSBIPoints
+  weight: .6
+- updateSBIPoints: top
+- top: updateSBIDesc
+  weight: .2
+- updateSBIDesc: top
+- top: deleteSprint
+  weight: .6
+- deleteSprint: top
+- top: moveSBI2PBL
+  weight: .6
+- moveSBI2PBL: top
+- top: listAllProducts
+  weight: .05
+- listAllProducts: top
+- top: end
+  weight: .25

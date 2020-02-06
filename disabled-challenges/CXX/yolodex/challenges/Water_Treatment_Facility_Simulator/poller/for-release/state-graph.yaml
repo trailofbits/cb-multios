@@ -1,0 +1,32 @@
+---
+nodes:
+- name: start
+- name: RunGoodSim
+- name: RunBadSim
+- name: EndSimEarly
+- name: TestInvalid
+- name: CheckRenameSystems
+- name: CheckValves
+edges:
+- start: TestInvalid
+  weight: 0.33
+- start: CheckRenameSystems
+  weight: 0.33
+- start: CheckValves
+  weight: 0.33
+- start: RunGoodSim
+  weight: 0.01
+- TestInvalid: RunGoodSim
+  weight: 0.02
+- CheckRenameSystems: RunGoodSim
+  weight: 0.02
+- TestInvalid: RunBadSim
+  weight: 0.02
+- CheckRenameSystems: RunBadSim
+  weight: 0.02
+- TestInvalid: EndSimEarly
+  weight: 0.96
+- CheckRenameSystems: EndSimEarly
+  weight: 0.96
+- CheckValves: EndSimEarly
+  weight: 1.0

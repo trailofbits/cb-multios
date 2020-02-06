@@ -1,0 +1,28 @@
+---
+nodes:
+- name: commands
+- name: start
+- name: cmd_auth
+- name: cmd_new_permit
+- name: cmd_new_permit_ring
+- name: cmd_refactor_ring
+- name: cmd_test_permit
+- name: cmd_test_permit_ring
+- name: quit
+
+edges:
+- start: commands
+- commands: cmd_auth
+- commands: cmd_new_permit
+- commands: cmd_new_permit_ring
+- commands: cmd_refactor_ring
+- commands: cmd_test_permit
+- commands: cmd_test_permit_ring
+- cmd_auth: commands
+- cmd_new_permit: commands
+- cmd_new_permit_ring: commands
+- cmd_refactor_ring: commands
+- cmd_test_permit: commands
+- cmd_test_permit_ring: commands
+- commands: quit
+  weight: 0.10

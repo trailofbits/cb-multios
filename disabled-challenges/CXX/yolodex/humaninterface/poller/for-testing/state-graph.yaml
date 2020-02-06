@@ -1,0 +1,31 @@
+---
+nodes:
+- name: start
+- name: before_ready
+- name: open_control
+- name: open_interrupt
+- name: disconnect
+- name: echo
+- name: ready
+- name: get_report
+- name: set_report
+- name: get_protocol
+- name: set_protocol
+
+edges:
+- start: open_control
+- open_control: before_ready
+- before_ready: open_interrupt
+- before_ready: disconnect
+- before_ready: echo
+- echo: before_ready
+- open_interrupt: ready
+- ready: set_report
+- ready: get_report
+- ready: get_protocol
+- ready: set_protocol
+- ready: disconnect
+- set_report: ready
+- get_report: ready
+- get_protocol: ready
+- set_protocol: ready

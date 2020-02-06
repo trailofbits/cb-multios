@@ -1,0 +1,36 @@
+---
+nodes:
+- name: start
+  continue: 1.0
+- name: chooseGame
+  continue: 1.0
+- name: banner
+  continue: 1.0
+- name: getName
+  continue: 1.0
+- name: coinflip
+  continue: 1.0
+- name: quit
+  continue: 1.0
+- name: hangman
+  continue: 1.0
+- name: dicegame
+  continue: 1.0
+- name: war
+  continue: 1.0
+- name: end
+
+edges:
+- start: banner
+- banner: getName
+- getName: chooseGame
+- chooseGame: coinflip
+- chooseGame: quit
+- chooseGame: hangman
+- chooseGame: war
+- chooseGame: dicegame
+- quit: end
+- coinflip: chooseGame
+- hangman: chooseGame
+- dicegame: chooseGame
+- war: chooseGame

@@ -1,0 +1,57 @@
+---
+nodes:
+- name: start
+- name: mainmenu
+- name: showmenu
+- name: showprev
+- name: shownext
+- name: showinvalid
+- name: showGoodUser
+- name: showBadUser
+- name: showexit
+- name: delete
+- name: edit
+- name: add
+- name: addGood
+- name: addBadName
+- name: addBadPhone
+- name: addBadHacker
+- name: sort
+- name: showlist
+- name: showdelete
+- name: exit
+- name: badcommand
+
+edges:
+- start: mainmenu
+- mainmenu: add
+- mainmenu: delete
+- mainmenu: showmenu
+- mainmenu: showlist
+- mainmenu: exit
+  weight: .05
+- mainmenu: edit
+- mainmenu: sort
+- mainmenu: badcommand
+  weight: .01
+- add: addGood
+  weight: .7
+- add: addBadName
+  weight: .1
+- add: addBadPhone
+  weight: .1
+- add: addBadHacker
+  weight: .1
+- showmenu: showGoodUser
+- showmenu: showBadUser
+- showGoodUser: showprev
+- showGoodUser: shownext
+- showGoodUser: showexit
+- showGoodUser: showdelete
+- showGoodUser: showinvalid
+- badcommand: mainmenu
+- showexit: mainmenu
+- addGood: mainmenu
+- edit: mainmenu
+- delete: mainmenu
+- showlist: mainmenu

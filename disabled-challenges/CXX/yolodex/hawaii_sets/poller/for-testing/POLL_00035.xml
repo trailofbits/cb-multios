@@ -1,0 +1,52 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>1WH3wr = |"fKLJuM","8omYO","PHz","i7IIm","5728","yZIYb"|^|"5UXo","43j","5728","RbnCJJW","fI0zyjt","CeL0kN","fL3v"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>taiUx = |"8baAt","GztOUIK","ze","DVT"|+|"B8","P2qYX"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>pwxtW = |"Eo","ZlPpM","Xuy","IZ","Xf8","eYOtX","8Sh","1B"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>4kRV5O = |"Eo","8Sh","IZ","1B","Xf8"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>4kRV5O@pwxtW\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>TRUE\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>KLuEWG7 = 4kRV5O - pwxtW\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>LG4dL = 1WH3wr - pwxtW\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>YJxap6e = 4kRV5O ~ LG4dL\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>dGl4A = LG4dL - 4kRV5O\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>fNHt2G = taiUx - KLuEWG7\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>fUVECmyi = YJxap6e ^ taiUx\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>1Kuwn = 1WH3wr ~ 1WH3wr\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>n1mhecdJB = fNHt2G ^ KLuEWG7\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>O2gVL = |"NlCqfXq","I","x","EGzhKw","os"|~|"EGzhKw","I","KN","c"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>1WH3wr = |"5728"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>taiUx = |"8baAt","GztOUIK","ze","DVT","B8","P2qYX"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>pwxtW = |"Eo","ZlPpM","Xuy","IZ","Xf8","eYOtX","8Sh","1B"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>4kRV5O = |"Eo","8Sh","IZ","1B","Xf8"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>KLuEWG7 = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>LG4dL = |"5728"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>YJxap6e = |"Eo","8Sh","IZ","1B","Xf8","5728"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>dGl4A = |"5728"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>fNHt2G = |"8baAt","GztOUIK","ze","DVT","B8","P2qYX"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>fUVECmyi = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>1Kuwn = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>n1mhecdJB = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>O2gVL = |"NlCqfXq","x","os","KN","c"|\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

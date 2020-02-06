@@ -1,0 +1,43 @@
+---
+nodes:
+- name: start
+- name: login
+- name: prompt
+- name: insert
+- name: remove
+- name: update_record
+- name: print_record
+- name: find
+- name: bad_command
+- name: logout
+- name: exit
+
+edges:
+- start: login
+  weight: 0.95
+- start: exit
+  weight: 0.05
+- login: prompt
+- prompt: insert
+  weight: 0.3
+- prompt: update_record
+  weight: 0.1
+- prompt: remove
+  weight: 0.19
+- prompt: find
+  weight: 0.2
+- prompt: print_record
+  weight: 0.1
+- prompt: logout
+  weight: 0.01
+- prompt: bad_command
+  weight: 0.01
+- prompt: exit
+  weight: 0.09
+- update_record: prompt
+- insert: prompt
+- remove: prompt
+- find: prompt
+- bad_command: prompt
+- logout: prompt
+- print_record: prompt

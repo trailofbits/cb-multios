@@ -1,0 +1,24 @@
+---
+nodes:
+- name: start
+- name: dictionary
+- name: loop
+- name: add_word
+- name: remove_word
+- name: query
+- name: query_subset
+- name: quit
+
+edges:
+- start: dictionary
+- dictionary: loop
+- loop: add_word
+- loop: remove_word
+- loop: query
+- loop: query_subset
+- loop: quit
+  weight: 0.01
+- add_word: loop
+- remove_word: loop
+- query: loop
+- query_subset: loop

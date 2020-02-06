@@ -1,0 +1,26 @@
+---
+nodes:
+- name: start
+- name: keepPlaying
+- name: makeValidMove
+- name: leaveTheGame
+- name: displayBoard
+- name: badMoveValidPieceOnBoard
+- name: badMoveValidPieceOffBoard
+
+edges:
+- start: keepPlaying
+- keepPlaying: makeValidMove
+  weight: .7
+- keepPlaying: displayBoard
+  weight: .05
+- keepPlaying: leaveTheGame
+  weight: .05
+- keepPlaying: badMoveValidPieceOnBoard
+  weight: .1
+- keepPlaying: badMoveValidPieceOffBoard
+  weight: .1
+- makeValidMove: keepPlaying
+- displayBoard: keepPlaying
+- badMoveValidPieceOnBoard: keepPlaying
+- badMoveValidPieceOffBoard: keepPlaying

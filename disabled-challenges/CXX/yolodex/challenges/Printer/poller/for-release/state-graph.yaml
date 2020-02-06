@@ -1,0 +1,36 @@
+---
+nodes:
+- name: start
+- name: commands
+- name: cmd_print_jobs
+- name: cmd_recv_job
+- name: cmd_abort_job
+- name: cmd_send_queue_state
+- name: cmd_recv_control_file
+- name: cmd_remove_jobs
+- name: cmd_recv_data_file
+- name: done_recv
+- name: invalid
+- name: quit
+
+edges:
+- start: cmd_recv_job
+- commands: cmd_print_jobs
+- commands: cmd_recv_job
+- commands: cmd_abort_job
+- commands: cmd_send_queue_state
+- commands: cmd_recv_control_file
+- commands: cmd_remove_jobs
+- commands: invalid
+- commands: quit
+  weight: 0.05
+- cmd_print_jobs: commands
+- cmd_recv_job: commands
+- cmd_abort_job: commands
+- cmd_send_queue_state: commands
+- cmd_recv_control_file: cmd_recv_data_file
+- cmd_recv_data_file: done_recv
+- cmd_recv_data_file: cmd_abort_job
+- cmd_remove_jobs: commands
+- done_recv: commands
+- invalid: commands

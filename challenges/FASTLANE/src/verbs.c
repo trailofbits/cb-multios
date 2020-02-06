@@ -20,6 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
  
+#include <math.h> 
 #include "cgc_verbs.h"
 
 #define BANNER_TIP "Just the Tip!\n" \
@@ -157,7 +158,7 @@ int cgc_do_auth(char *uri) {
     UINT32 attempt = cgc_hex2UINT32(uri);
 
     // We're sometimes expiring a timer installed by the make infrastructure 
-    // when attempt is too large and cgc_pow() recurses too many times.
+    // when attempt is too large and pow() recurses too many times.
     // We scope the range of the solution to something that will not trigger 
     // the alarm signal.  Obviously this has a direct impact on the difficulty
     // of the crypto problem.

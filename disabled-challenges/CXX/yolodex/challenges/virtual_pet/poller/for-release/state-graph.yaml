@@ -1,0 +1,25 @@
+---
+nodes:
+- name: start
+- name: main
+- name: create_and_name
+- name: delete
+- name: rollover
+- name: speak
+- name: debug
+- name: done
+  continue: .9
+
+
+edges:
+- start: main
+- main: create_and_name
+- main: delete
+- main: rollover
+- main: speak
+- main: debug
+- speak: done
+- rollover: done
+- create_and_name: done
+- delete: done
+- done: main

@@ -1,0 +1,82 @@
+---
+nodes:
+
+# intialization of state
+- name: start
+
+# proc is the "default" node that everyone falls back to
+# We don't need to re-check state _every_ time
+# This is safe because proc only verifies state and doesn't permute it.
+# Actually, we can't do this because then start->proc may not happen...
+- name: proc
+#  chance: 0.1
+
+# ERROR nodes
+- name: invalid_syscall_major
+- name: invalid_futex_minor
+- name: invalid_futex_tid
+- name: invalid_proc_minor
+- name: invalid_tgkill_minor
+- name: invalid_tgkill_tid
+
+# NON-ERROR nodes
+- name: futex_wait
+- name: futex_wake
+- name: futex_fd
+- name: futex_requeue_pi
+- name: futex_cmp_requeue_pi
+- name: sendmsg
+- name: tgkill
+- name: finish
+
+
+edges:
+
+# initialize state and go to proc loop
+- start: proc
+
+#### "going out"
+
+# ERROR nodes
+- proc: invalid_syscall_major
+  weight: 0.1
+- proc: invalid_futex_minor
+  weight: 0.1
+- proc: invalid_futex_tid
+  weight: 0.1
+- proc: invalid_proc_minor
+  weight: 0.1
+- proc: invalid_tgkill_minor
+  weight: 0.1
+- proc: invalid_tgkill_tid
+  weight: 0.1
+
+# NON-ERROR nodes
+- proc: futex_wait
+- proc: futex_wake
+- proc: futex_fd
+- proc: futex_requeue_pi
+- proc: futex_cmp_requeue_pi
+- proc: sendmsg
+- proc: tgkill
+# - proc: finish
+#   weight: 0.3
+
+#### "coming back"
+
+# ERROR nodes
+- invalid_syscall_major: proc
+- invalid_futex_minor: proc
+- invalid_futex_tid: proc
+- invalid_proc_minor: proc
+- invalid_tgkill_minor: proc
+- invalid_tgkill_tid: proc
+
+# NON-ERROR nodes
+- futex_wait: proc
+- futex_wake: proc
+- futex_fd: proc
+- futex_requeue_pi: proc
+- futex_cmp_requeue_pi: proc
+- sendmsg: proc
+- tgkill: proc

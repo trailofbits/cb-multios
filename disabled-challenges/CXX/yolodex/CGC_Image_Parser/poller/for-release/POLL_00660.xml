@@ -1,0 +1,86 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+	<cbid>CROMU_00025</cbid>
+	<replay>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>naoomnivgfi\n</data></write>
+		<write echo="ascii"><data>\x11\x00\x24\xc7\xee\x85\x9a\x69\x80\x00\x0e\x20\x99\x32\x28\x90\x0c\x42\x64</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>csapuikxgyrocm\n</data></write>
+		<write echo="ascii"><data>\x7c\x00\xcb\x59\x0f\x31\x38\x9e\x00\x00\x58\xdd\xe2\xfb\xf7\xe8\x9d\x42\x90\xca\x56\xc9\x4f\x04\xa4\xc5\x93\x37\xca\x8d\x47\x5b\x20\xd3\x85\xc3\xdf\x1c\xa4\xf9\xc9\x3a\xc1\x59\x24\x47\x54\xc5\xc1\xe9\x4b\x85\x80\xd4\xf8\xb3\xb3\xd9\x02\x0f\x42\xa5\x61\x71\xe2\x35\x9c\xce\xc0\x39\x90\x02\xa9\x48\xf2\x54\xd5\xea\xa9\x5e\x66\xf0\xfa\x23\x32\xa1\x36\x5c\x86\xd2\x40\xb4\x65\xb4\x28\xd9\x58\x88\xe5\x8c\x25\x52\x2d\xf0\x40\xe9\x87\x5e\xb2\x92\xfd\x38\x0d\x0f\xd0\x6a\xbe\xf1\x1a\x30\xc0\x00\x00\x00\xbb\xe0</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>snxdogtbgzqdua\n</data></write>
+		<write echo="ascii"><data>\x46\x00\xcb\x59\x0f\x31\x84\x26\x00\x00\x49\x41\x15\xf7\x2c\x8c\x24\x9e\x2c\xd1\xe3\x62\xeb\xa2\x8a\xc0\x73\x81\xf6\x92\xcc\x4e\xcd\xfd\x28\x8e\x6e\xb0\xb6\x49\x94\xfa\x90\x65\xc3\x23\x3d\xbc\x15\x63\xd9\x8c\xac\xc5\xfc\xe7\xe2\xa4\x9f\x0c\xbc\x7b\x04\x36\x9a\x56\x56\x2c\x00\x00\xe1\xf0</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>suetddevccuyz\n</data></write>
+		<write echo="ascii"><data>\x1c\x00\xd3\x09\x51\xc3\x89\xa0\xe4\x58\x12\x10\x78\x0b\xb0\x47\x52\x22\x56\x34\x7a\x60\xcb\xcf\x00\x02\x99\x29\x91\x40</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>aormfcy\n</data></write>
+		<write echo="ascii"><data>\x16\x01\xcb\x59\x0f\x31\x4d\x02\x00\x00\x2c\x20\x45\xc5\x72\x2f\x15\x16\xdc\x63\xb8\x52\x2f\x3d\xb9\x54\x1a\x7a\x8f\xd0\x08\x3c\x6a\xab\x57\xac\x0a\x3c\x74\x1e\xab\x15\x45\x4b\xa7\x3f\x25\xd1\x3a\xcf\x4a\x4e\x1d\x5d\x93\x36\x34\x47\x19\x88\xf9\x55\x55\x69\xe3\x3b\x6e\x0c\x49\x42\xa8\x5b\x92\x5c\x81\x22\xe3\x09\x9d\xd4\x30\x50\xdc\x63\xb0\xce\x37\xa2\xde\x2c\xa1\x81\x48\xb1\x4a\x86\x85\x7b\xa3\x05\x29\xa4\xe5\xb1\xe8\x51\x90\x07\xb6\x91\x6d\x50\xb2\x88\x38\x49\x05\x4d\xf2\xa2\xc1\x3c\xb2\x6d\xd9\xb1\xb1\xa4\x22\x4c\x35\x8d\x07\x60\x90\x94\x82\xe5\xe4\x33\xcc\x9a\xc0\x33\x21\xd0\xb5\x75\x1f\x9a\x16\x5d\x5d\x0b\x0b\x92\xb6\x6e\xec\x2c\x0a\x21\x42\x2c\x42\xd9\x04\x33\x6e\x1b\x3e\x12\x25\x64\x5b\xee\x14\xaa\x2a\xda\x48\xe8\x4c\xd2\x19\x38\x3a\x45\xc3\x64\xa4\x8f\x1a\x92\xea\x88\x77\xd9\x5a\x0e\x69\xb3\xe1\xa4\xef\x4b\x6a\xfe\x11\x69\xa6\x80\xcf\xbb\x30\x58\xa0\x73\x0f\x22\x70\x81\x21\xd9\xa4\x8a\xa5\x28\xfd\x85\xa3\x37\x43\xd5\x30\x22\x99\xe5\xb6\xc9\x4f\xa3\x45\xd4\xb3\xca\xc8\xb7\x99\x42\x81\xba\x16\x4d\xb6\x74\x22\x52\x96\xaf\x62\x43\x62\x89\xfc\xea\xe4\x5a\x83\xb9\x0a\x18\x97\x69\xa3\x28\x00\x00\x91\x00</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>jxxdmdczzh\n</data></write>
+		<write echo="ascii"><data>\x39\x00\xb0\xc4\xdf\x76\xaa\xaa\x22\x08\xaa\xbb\x14\xaa\xcc\x40\x5f\x34\xe8\xde\x4b\x51\xc5\x0b\xe7\x01\x52\xf8\x41\x82\x57\x71\xcd\x78\x26\x42\xdc\x86\xa3\x6d\x8d\xa4\xbb\x53\x46\x3e\xfd\x93\x92\x00\x00\xaa\xdd\xeb\x82\xfa\xf3\xaa\xee</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>jhhrra\n</data></write>
+		<write echo="ascii"><data>\x1e\x00\xcb\x59\x0f\x31\x4c\x10\x00\x00\x6a\x08\x3b\x05\x74\x11\x2c\x27\x49\xd3\x74\xe2\xca\xcd\x30\xb1\xe8\x00\x00\x00\x26\x76</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>pfhempgfrxho\n</data></write>
+		<write echo="ascii"><data>\x32\x00\xde\xb6\xd9\x55\x61\x54\x5b\x46\x8b\x3c\xec\x99\xb2\xeb\xc6\x13\x12\x13\x29\x14\x5d\x4c\xa6\x3e\x0c\x22\x32\xe8\x2a\x01\x21\xfc\x89\x24\x2b\x46\x59\x52\x0a\x39\x90\x94\x4c\x9a\x92\x20\x03\xb4\x65\xa4</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>gpaqcxuaywr\n</data></write>
+		<write echo="ascii"><data>\x11\x00\xd3\x09\x51\xc3\x5c\xd2\x80\x58\x9a\x08\x40\x68\x90\x63\x42\x23\x18</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>naoomnivgfi\n</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>csapuikxgyrocm\n</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>1\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>vadtgi\n</data></write>
+		<write echo="ascii"><data>\x26\x00\xde\xb6\xd9\x55\x9c\x49\xd6\x24\xae\x08\x35\xa0\x2d\xf1\x03\x1d\x88\x03\x69\xc0\x94\x51\x04\xef\x00\x20\xf2\xc0\xca\x84\x09\xfd\x50\x4c\x2f\x80\x32\x00</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>2\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>vadtgi\n</data></match></read>
+		<read echo="ascii"><delim>\n</delim><match><data>gpaqcxuaywr\n</data></match></read>
+		<read echo="ascii"><delim>\n</delim><match><data>pfhempgfrxho\n</data></match></read>
+		<read echo="ascii"><delim>\n</delim><match><data>jhhrra\n</data></match></read>
+		<read echo="ascii"><delim>\n</delim><match><data>jxxdmdczzh\n</data></match></read>
+		<read echo="ascii"><delim>\n</delim><match><data>aormfcy\n</data></match></read>
+		<read echo="ascii"><delim>\n</delim><match><data>suetddevccuyz\n</data></match></read>
+		<read echo="ascii"><delim>\n</delim><match><data>snxdogtbgzqdua\n</data></match></read>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo = "ascii"><data>4\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>jhhrra\n</data></write>
+		<read echo= "ascii"><delim>\x54\x21\x26\x4f\x4a\x6f\x41\x4b\x32\x71\x59\x56\x46\x2a\x34\x6c\x37\x4b\x5c\n</delim><match><data>\x54\x21\x26\x4f\x4a\x6f\x41\x4b\x32\x71\x59\x56\x46\x2a\x34\x6c\x37\x4b\x5c\n</data></match></read>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>3\n</data></write>
+		<read echo="ascii"><delim>: </delim><match><data>Image Name: </data></match></read>
+		<write echo="ascii"><data>jxxdmdczzh\n</data></write>
+		<read echo="ascii"><delim>} </delim><match><data>1- Upload Image\n2- List Images\n3- Remove Image\n4- Display Image\n5- Leave\n} </data></match></read>
+		<write echo="ascii"><data>5\n</data></write>
+	</replay>
+</pov>

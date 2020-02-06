@@ -1,0 +1,27 @@
+---
+nodes:
+- name: start
+- name: mainMenu
+- name: solveArea
+- name: solveVolume
+- name: solvePerimeter
+- name: printStats
+- name: solveEquation
+- name: createEquation
+- name: exit
+
+edges:
+- start: mainMenu
+- mainMenu: solveEquation
+- solveEquation: mainMenu
+- mainMenu: createEquation
+- createEquation: mainMenu
+- mainMenu: solveArea
+- solveArea: mainMenu
+- mainMenu: solveVolume
+- solveVolume: mainMenu
+- mainMenu: solvePerimeter
+- solvePerimeter: mainMenu
+- mainMenu: printStats
+- printStats: mainMenu
+- mainMenu: exit

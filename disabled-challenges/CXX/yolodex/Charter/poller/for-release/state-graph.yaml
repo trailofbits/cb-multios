@@ -1,0 +1,47 @@
+---
+nodes:
+- name: start
+- name: send_data
+- name: menu
+- name: sparks
+- name: bars
+- name: echo
+- name: seed
+- name: noise
+- name: tainted_menu
+- name: tainted_sparks
+- name: tainted_bars
+- name: tainted_echo
+- name: tainted_noise
+- name: tainted_replacer
+- name: terminate
+
+edges:
+- start: send_data
+- send_data: menu
+- menu: terminate
+  weight: .8
+- menu: sparks
+- menu: bars
+- menu: echo
+- menu: seed
+- menu: noise
+- tainted_menu: terminate
+  weight: .8
+- tainted_menu: tainted_sparks
+- tainted_menu: tainted_bars
+- tainted_menu: tainted_echo
+- tainted_menu: seed
+- tainted_menu: tainted_noise
+- tainted_menu: tainted_replacer
+
+- sparks: menu
+- bars: menu
+- echo: menu
+- seed: tainted_menu
+- noise: menu
+- tainted_replacer: tainted_menu
+- tainted_sparks: tainted_menu
+- tainted_bars: tainted_menu
+- tainted_echo: tainted_menu
+- tainted_noise: tainted_menu

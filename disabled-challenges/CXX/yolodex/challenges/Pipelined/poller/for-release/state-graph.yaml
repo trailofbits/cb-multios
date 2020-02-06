@@ -1,0 +1,11 @@
+---
+nodes:
+- name: start
+- name: setup
+- name: finish
+- name: do_it
+  continue: .75
+edges:
+- start: setup
+- setup: do_it
+- do_it: do_it

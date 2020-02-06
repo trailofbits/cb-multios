@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>NRFIN_00003</cbid>
+    <replay>
+
+        <!-- reliability -->
+        <delay>100</delay>
+
+        <write><data>YOUUP\n</data></write>
+        <read>
+            <delim>\r</delim>
+            <match>
+                <data format="asciic">Yep, i'm up, but all our basic lines are "clogged"\n</data>
+                <data format="asciic">Upgrade to FASTLANE today!\n</data>
+            </match>
+        </read>
+        
+    </replay>
+</pov>

@@ -1,0 +1,30 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <write echo="ascii"><data>\xf8\xff</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>SOM marker found\x0a</data></match></read>
+    <write echo="ascii"><data>\xf0\xff</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>SAP0 marker found\x0a</data></match></read>
+    <write echo="ascii"><data>\x10\x00</data></write>
+    <write echo="ascii"><data>SAP0</data></write>
+    <write echo="ascii"><data>\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</data></write>
+    <write echo="ascii"><data>\xf1\xff</data></write>
+    <read echo="ascii"><delim>\x0a</delim><match><data>SAP1 marker found\x0a</data></match></read>
+    <write echo="ascii"><data>\x3e\x00SAP1\x00\x00II\x2a\x00\x08\x00\x00\x00\x01\x00i\x87\x07\x00\x01\x00\x00\x00\x16\x00\x00\x00\x01\x00\x92\x92\x02\x00\x00\x00\x00\x00\x0e\x00\x00\xfffvMoHk6GzIc2V2\x00\x00\x00\x00\x00\x00</data></write>
+    <read echo="ascii"><length>21</length><match><data>sizeof section is 62\x0a</data></match></read>
+    <read echo="ascii"><length>25</length><match><data>Intel formatted integers\x0a</data></match></read>
+    <read echo="ascii"><length>13</length><match><data>TagMark \x3d 2A\x0a</data></match></read>
+    <read echo="ascii"><length>11</length><match><data>Offset \x3d 8\x0a</data></match></read>
+    <read echo="ascii"><length>27</length><match><data>\x23 of compatility arrays: 1\x0a</data></match></read>
+    <read echo="ascii"><length>29</length><match><data>Tag: 8769 \x28EXIF IFD Pointer\x29\x0a</data></match></read>
+    <read echo="ascii"><length>20</length><match><data>Type: 7 \x28UNDEFINED\x29\x0a</data></match></read>
+    <read echo="ascii"><length>9</length><match><data>Count: 1\x0a</data></match></read>
+    <read echo="ascii"><length>10</length><match><data>Value: 22\x0a</data></match></read>
+    <read echo="ascii"><length>15</length><match><data>\x23 of arrays: 1\x0a</data></match></read>
+    <read echo="ascii"><length>32</length><match><data>Tag: 9292 \x28SubSecTimeDigitized\x29\x0a</data></match></read>
+    <read echo="ascii"><length>16</length><match><data>Type: 2 \x28ASCII\x29\x0a</data></match></read>
+    <read echo="ascii"><length>9</length><match><data>Count: 0\x0a</data></match></read>
+</replay>
+</pov>

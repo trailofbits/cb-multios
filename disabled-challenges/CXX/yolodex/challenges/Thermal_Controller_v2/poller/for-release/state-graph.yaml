@@ -1,0 +1,57 @@
+---
+nodes:
+- name: start
+- name: top
+- name: send_power_on
+- name: send_power_off
+- name: send_set_temp
+- name: set_smoke_sensor_on
+- name: set_smoke_sensor_off
+- name: send_get_status
+- name: update_program
+- name: read_simple_response
+- name: read_status_response
+- name: send_get_program
+- name: read_controller_program
+- name: simulate_temp_change
+- name: end
+- name: bad_command
+- name: send_add_sensor
+- name: remove_sensor
+- name: validate_firmware
+
+
+edges:
+- start: validate_firmware
+- validate_firmware: top
+- top: send_power_on
+- top: send_power_off
+- top: send_set_temp
+- top: set_smoke_sensor_off
+- top: set_smoke_sensor_on
+- top: send_get_status
+- top: simulate_temp_change
+- top: update_program
+- top: send_get_program
+- top: bad_command
+- top: send_add_sensor
+- top: remove_sensor
+- top: validate_firmware
+- send_get_program: read_controller_program
+- read_controller_program: top
+- send_get_status: read_status_response
+- read_status_response: top
+- set_smoke_sensor_off: read_simple_response
+- set_smoke_sensor_on: read_simple_response
+- send_power_off: read_simple_response
+- send_power_on: read_simple_response
+- update_program: top
+- send_set_temp: top
+- read_simple_response: top
+- simulate_temp_change: top
+- bad_command: top
+- send_add_sensor: top
+- remove_sensor: top
+- top: end
+  weight: .15
+

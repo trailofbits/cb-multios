@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  *
  */
+#include <math.h> 
 #include "cgc_stdlib.h"
 #include "cgc_string.h"
 #include "cgc_ctype.h"
@@ -78,7 +79,7 @@ error:
 
 done:
     if (has_exp)
-        val *= cgc_pow(10, exp);
+        val *= pow(10, exp);
 
     return val * negative;
 }

@@ -1,0 +1,20 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: compress
+- name: decompress
+- name: invalid
+- name: quit
+
+edges:
+- start: menu
+- menu: invalid
+- menu: compress
+- menu: decompress
+- menu: quit
+  weight: 0.10
+
+- invalid: menu
+- compress: menu
+- decompress: menu

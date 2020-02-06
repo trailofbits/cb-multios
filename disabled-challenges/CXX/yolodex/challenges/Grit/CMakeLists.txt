@@ -1,0 +1,7 @@
+set( POLLS_RELEASE_MAX_DEPTH "2000" )
+set( VULN_COUNT "1" )
+add_compile_options( -fno-exceptions -fno-rtti -DCPLUSPLUS )
+add_compile_options( -O3 -mstackrealign -g )
+set( SERVICE_ID "00068" )
+set( AUTHOR_ID "KPRCA" )
+buildCB()

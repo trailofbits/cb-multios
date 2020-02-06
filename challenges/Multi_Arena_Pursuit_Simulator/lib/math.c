@@ -19,6 +19,8 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+#include <math.h> 
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_math.h"
 
@@ -64,7 +66,7 @@ double cgc_ln(double x) {
 	return sum;
 }
 
-double cgc_pow(double x, double n) {
+double pow(double x, double n) {
 	int powerOfTwenty = 0;
 	int two = 1;
 	double sum = 1.0;
@@ -85,7 +87,7 @@ double cgc_pow(double x, double n) {
 	return sum * cgc_exponential(e_exp);
 }
 
-double cgc_cosine(double x) {
+double cosine(double x) {
 	double sum = 1.0;
 
 	while(x >= 2*PI || x <= -2*PI) {
@@ -112,7 +114,7 @@ double cgc_cosine(double x) {
 	return sum;
 }
 
-double cgc_sine(double x) {
+double sine(double x) {
 	double sum;
 
 	while(x >= 2*PI || x <= -2*PI) {
@@ -194,7 +196,7 @@ double cgc_atanTwo(double y, double x) {
 
 }
 
-double cgc_sqrt(const double x) {
+double sqrt(const double x) {
 
 	const double acc = .001;
 	double upper, lower, guess;

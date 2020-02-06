@@ -20,6 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <math.h> 
 #include "libcgc.h"
 
 #include "cgc_float.h"
@@ -37,7 +38,7 @@ void
 cgc_sphere_init(struct sphere *sphere, double radius)
 {
     sphere->data = NULL;
-    sphere->radius = cgc_fabs(radius);
+    sphere->radius = fabs(radius);
     sphere->intersect = cgc_sphere_intersect;
 }
 
@@ -54,7 +55,7 @@ cgc_sphere_intersect(struct sphere *sphere, struct ray *ray, void *data)
     if (disc < 0)
         return 0.0;
     else
-        disc = cgc_sqrt(disc);
+        disc = sqrt(disc);
 
     if ((ret = -b + disc) > EPSILON)
         return ret;

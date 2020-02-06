@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>CROMU_00009</cbid>
+<replay>
+    <read><delim>\x0a</delim><match><data>Welcome to the cgcfs shell!\x0a</data></match></read>
+    <read><delim>\x25 </delim><match><data>Type help for a list of available commands.\x0a</data></match></read>
+
+    <write><data>mkfolder testfolder\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>directory created\x0a</data></match></read>
+
+    <write><data>echo "aaaa" > /testfolder/testfile\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>file created\x0a</data></match></read>
+
+    <write><data>fsinfo\x0a</data></write>
+    <read><delim>\x25 </delim><match><data>Filesystem info:\x0a  Blocksize: 512\x0a  Used Inodes: 3/1024\x0a  Used Blocks: 3/1024\x0a</data></match></read>
+
+    <write><data>bye\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>bye\x0a</data></match></read>
+
+</replay>
+</pov>

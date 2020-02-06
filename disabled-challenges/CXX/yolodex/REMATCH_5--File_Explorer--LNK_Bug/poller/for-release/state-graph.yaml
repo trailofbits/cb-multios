@@ -1,0 +1,32 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: cwd
+- name: UploadFile
+- name: ReadAFile
+- name: DeleteAFile
+- name: ListFiles
+- name: ListFilesLong
+- name: CreateDir
+- name: ChangeDir
+- name: exit
+edges:
+- start: menu
+- menu: cwd
+- cwd: menu
+- menu: UploadFile
+- UploadFile: menu
+- menu: ReadAFile
+- ReadAFile: menu
+- menu: DeleteAFile
+- DeleteAFile: menu
+- menu: ListFiles
+- ListFiles: menu
+- menu: CreateDir
+- CreateDir: menu
+- menu: ListFilesLong
+- ListFilesLong: menu
+- menu: ChangeDir
+- ChangeDir: menu
+- menu: exit

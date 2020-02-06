@@ -1,0 +1,54 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>login\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>You logged in.\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>: </delim><match><data>First name: </data></match></read>
+    <write><data>w9n3owOP\x0a</data></write>
+    <read><delim>: </delim><match><data>Last name: </data></match></read>
+    <write><data>pTdvEFLduHVQHIb\x0a</data></write>
+    <read><delim>: </delim><match><data>User name: </data></match></read>
+    <write><data>d3GMeyf6eQ97VE9\x0a</data></write>
+    <read><delim>: </delim><match><data>Birthdate \x28mm\x2fdd\x2fyy hh:mm:ss\x29: </data></match></read>
+    <write><data>5\x2f4\x2f81 12:59:30\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 5\x2f4\x2f1981 12:59:30\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Data added\x2c record 0\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>: </delim><match><data>First name: </data></match></read>
+    <write><data>wvIUd43UefCySZxqD\x0a</data></write>
+    <read><delim>: </delim><match><data>Last name: </data></match></read>
+    <write><data>qQeYX\x0a</data></write>
+    <read><delim>: </delim><match><data>User name: </data></match></read>
+    <write><data>kClAIxgCE\x0a</data></write>
+    <read><delim>: </delim><match><data>Birthdate \x28mm\x2fdd\x2fyy hh:mm:ss\x29: </data></match></read>
+    <write><data>1\x2f30\x2f96 11:23:13\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 1\x2f30\x2f1996 11:23:13\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Data added\x2c record 1\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>find\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Enter search express \x28firstname or fn\x2c lastname or ln\x2c username or un\x2c birthdate or bd\x2c operators \x3d\x3d\x2c !\x3d\x2c \x3e\x2c \x3c\x2c AND and OR\x29:\x0a</data></match></read>
+    <write><data>username \x3c\x22xdDVRNBQTTrhqk\x22 AND birthdate \x3c6\x2f9\x2f1 20:33:47\x28\x29\x29\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Syntax error\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>insert\x0a</data></write>
+    <read><delim>: </delim><match><data>First name: </data></match></read>
+    <write><data>3UObTzRCcqMJ9\x0a</data></write>
+    <read><delim>: </delim><match><data>Last name: </data></match></read>
+    <write><data>uxGtDLiupjI\x0a</data></write>
+    <read><delim>: </delim><match><data>User name: </data></match></read>
+    <write><data>acp7!g4ku3Xqqr\x0a</data></write>
+    <read><delim>: </delim><match><data>Birthdate \x28mm\x2fdd\x2fyy hh:mm:ss\x29: </data></match></read>
+    <write><data>3\x2f20\x2f4 14:0:10\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Date is: 3\x2f20\x2f2004 14:0:10\x0a</data></match></read>
+    <read><delim>\x0a</delim><match><data>Data added\x2c record 2\x0a</data></match></read>
+    <read><delim> </delim><match><data>\x3e </data></match></read>
+    <write><data>exit\x0a</data></write>
+    <read><delim>\x0a</delim><match><data>Disconnecting.\x0a</data></match></read>
+</replay>
+</pov>

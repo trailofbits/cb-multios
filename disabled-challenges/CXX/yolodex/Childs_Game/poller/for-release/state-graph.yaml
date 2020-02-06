@@ -1,0 +1,25 @@
+---
+nodes:
+- name: start
+- name: new_user_menu
+- name: new_user
+- name: game_menu
+- name: play_rps
+- name: play_hi_lo
+- name: play_ttt
+- name: player_give_up
+- name: exit
+edges:
+- start: new_user_menu
+- new_user_menu: new_user
+- new_user_menu: exit
+  weight: .5
+- new_user: game_menu
+- game_menu: play_rps
+- play_rps: game_menu
+- game_menu: play_hi_lo
+- play_hi_lo: game_menu
+- game_menu: play_ttt
+- play_ttt: game_menu
+- game_menu: player_give_up
+- player_give_up: new_user_menu

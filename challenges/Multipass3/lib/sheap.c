@@ -20,6 +20,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_sheap.h"
 #define DEBUG 1
@@ -218,7 +219,7 @@ void cgc_malloc_init(){
 	int start = 4;
 	for(int j = 0; j < MAX_HEADS; j++){
 		HEAP_MEM_T *hm = &(sheap_heap.heads[j]);
-		hm->chunk_size = (int) cgc_pow(CHUNK_BASE+j, j+start);
+		hm->chunk_size = (int) pow(CHUNK_BASE+j, j+start);
 		hm->n_chunks = MIN_ELEMENTS;
 
 		if(hm->chunk_size < LAZY_THRESH){

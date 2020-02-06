@@ -1,0 +1,43 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd"><pov>
+	<cbid>CROMU_00011</cbid>
+	<replay>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>cutR49u = |"N0zO9ez","TNP"|^|"MiA","q7LCw","L9Jtsja","TNP","OFNd"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>qZALKL = |"UKo2Sv","z","V","wOTjlP"|+|"z","JU7wbOg","wOTjlP"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>wxUsO = cutR49u - qZALKL\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>0p7kLN = cutR49u - wxUsO\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>qs8SzGd = wxUsO + 0p7kLN\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>kvJZd2n = |"gIVX","xj","53hT","4VE","HGSj19a","XM","WmAtpl","qp6YwI","Hwfi","aF"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>BEV5Ci = |"HGSj19a","4VE","xj"|\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>BEV5Ci@kvJZd2n\n</data></write>
+		<read echo="ascii"><delim>\n</delim><match><data>TRUE\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>Skn2TM = qs8SzGd ^ wxUsO\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>vDPXK = wxUsO ^ qs8SzGd\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>YlL9V2 = 0p7kLN + Skn2TM\n</data></write>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.p\n</data></write>
+<read echo="ascii"><delim>\n</delim><match><data>cutR49u = |"TNP"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>qZALKL = |"UKo2Sv","z","V","wOTjlP","JU7wbOg"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>wxUsO = |"TNP"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>0p7kLN = ||\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>qs8SzGd = |"TNP"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>kvJZd2n = |"gIVX","xj","53hT","4VE","HGSj19a","XM","WmAtpl","qp6YwI","Hwfi","aF"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>BEV5Ci = |"HGSj19a","4VE","xj"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>Skn2TM = |"TNP"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>vDPXK = |"TNP"|\n</data></match></read>
+<read echo="ascii"><delim>\n</delim><match><data>YlL9V2 = |"TNP"|\n</data></match></read>
+		<read echo="ascii"><delim> </delim><match><data>\x3E </data></match></read>
+		<write echo="ascii"><data>.l\n</data></write>
+	</replay>
+</pov>

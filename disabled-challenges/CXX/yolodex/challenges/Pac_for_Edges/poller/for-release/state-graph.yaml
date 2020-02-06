@@ -1,0 +1,13 @@
+---
+nodes:
+- name: start
+- name: go
+- name: win
+- name: quit
+
+edges:
+- start: go
+- start: win
+  weight: 0.01
+- go: quit
+- win: quit

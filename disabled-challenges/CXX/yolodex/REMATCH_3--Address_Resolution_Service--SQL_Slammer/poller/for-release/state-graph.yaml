@@ -1,0 +1,25 @@
+---
+nodes:
+- name: start
+- name: main_loop
+- name: query_invalid
+- name: query_all
+- name: query_server
+- name: query_one
+- name: query_admin
+- name: quit
+
+edges:
+- start: main_loop
+- main_loop: query_invalid
+  weight: 0.01
+- main_loop: query_all
+- main_loop: query_server
+- main_loop: query_one
+- main_loop: query_admin
+- query_all: main_loop
+- query_server: main_loop
+- query_one: main_loop
+- query_admin: main_loop
+- main_loop: quit 
+  weight: 0.1

@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+    <cbid>EAGLE_00005</cbid>
+    <replay>
+        <delay>10</delay>
+        <read echo="ascii">
+            <length>10</length>
+            <match><data>Password: </data></match>
+        </read>
+        <write echo="ascii">
+            <data>HANGEMHIGH!\n</data>
+        </write>
+        <read echo="ascii">
+            <delim>\n</delim>
+            <match><data>Welcome to Hangman Blondie!\n</data></match>
+        </read>
+    </replay>
+</pov>

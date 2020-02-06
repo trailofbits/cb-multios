@@ -21,6 +21,8 @@
 */
 
 
+#include <math.h> 
+#include <math.h> 
 #include "cgc_libc.h"
 #include "cgc_malloc.h"
 #include "cgc_crc32.h"
@@ -7635,7 +7637,7 @@ if (cgc_crc32("ywPkn",5) == 2226601221) cgc_strcat(s, "n");
     return s;
 }
 
-char *cgc_tanguile_nouns() {
+char *tanguile_nouns() {
     char *s = cgc_calloc(9);
     if (cgc_crc32("UlodkSbfDjEeKvC",15) == 2221220084) cgc_strcat(s, "B");
 if (cgc_crc32("saTZD",5) == 2711243615) cgc_strcat(s, "t");
@@ -14839,7 +14841,7 @@ if (cgc_crc32("levUHdo",7) == 2702672875) cgc_strcat(s, "e");
     return s;
 }
 
-char *cgc_sinew_nouns() {
+char *sinew_nouns() {
     char *s = cgc_calloc(6);
     if (cgc_crc32("gpGgZYINRrCcIB",14) == 3733013124) cgc_strcat(s, "K");
 if (cgc_crc32("vKrBmKho",8) == 3898741127) cgc_strcat(s, "s");
@@ -16981,7 +16983,7 @@ if (cgc_crc32("kkbAAv",6) == 2371906132) cgc_strcat(s, "r");
     return s;
 }
 
-char *cgc_sinuation_nouns() {
+char *sinuation_nouns() {
     char *s = cgc_calloc(10);
     if (cgc_crc32("oSGPbVVyJgWqiUf",15) == 3637405708) cgc_strcat(s, "Z");
 if (cgc_crc32("ydiCwlvSPNGHMj",14) == 216973372) cgc_strcat(s, "s");
@@ -24662,7 +24664,7 @@ if (cgc_crc32("wlFmpMhAblARaQ",14) == 2202838236) cgc_strcat(s, "d");
     return s;
 }
 
-char *cgc_sinhalite_nouns() {
+char *sinhalite_nouns() {
     char *s = cgc_calloc(10);
     if (cgc_crc32("uFebTcCnE",9) == 3514368444) cgc_strcat(s, "i");
 if (cgc_crc32("dFPUTIV",7) == 928180291) cgc_strcat(s, "s");
@@ -46150,7 +46152,7 @@ if (cgc_crc32("wWtebQAavLbmB",13) == 2540323106) cgc_strcat(s, "y");
     return s;
 }
 
-char *cgc_tantrum_nouns() {
+char *tantrum_nouns() {
     char *s = cgc_calloc(8);
     if (cgc_crc32("ASTUNUMlrqul",12) == 2384087506) cgc_strcat(s, "B");
 if (cgc_crc32("wkOYXPt",7) == 894097035) cgc_strcat(s, "t");
@@ -53607,7 +53609,7 @@ if (cgc_crc32("feszJMoNOdH",11) == 567410944) cgc_strcat(s, "r");
     return s;
 }
 
-char *cgc_tantara_nouns() {
+char *tantara_nouns() {
     char *s = cgc_calloc(8);
     if (cgc_crc32("TIdZXApwR",9) == 789356261) cgc_strcat(s, "V");
 if (cgc_crc32("aLkQNG",6) == 3899804201) cgc_strcat(s, "t");
@@ -66806,7 +66808,7 @@ if (cgc_crc32("OTuCaONNphNKdC",14) == 2699776421) cgc_strcat(s, "n");
     return s;
 }
 
-char *cgc_cosmopolitanism_nouns() {
+char *cosmopolitanism_nouns() {
     char *s = cgc_calloc(16);
     if (cgc_crc32("sJGVmRoMFBlGpbL",15) == 687723666) cgc_strcat(s, "y");
 if (cgc_crc32("UZKuR",5) == 964921130) cgc_strcat(s, "c");
@@ -68505,7 +68507,7 @@ if (cgc_crc32("yryMf",5) == 1240513358) cgc_strcat(s, "n");
     return s;
 }
 
-char *cgc_tanning_nouns() {
+char *tanning_nouns() {
     char *s = cgc_calloc(8);
     if (cgc_crc32("kigUsBXVpRkaJJE",15) == 2835164834) cgc_strcat(s, "t");
 if (cgc_crc32("GwkELWWnY",9) == 1739093046) cgc_strcat(s, "a");
@@ -69061,7 +69063,7 @@ if (cgc_crc32("RVSgzNkNBDKqw",13) == 808812453) cgc_strcat(s, "g");
     return s;
 }
 
-char *cgc_costard_nouns() {
+char *costard_nouns() {
     char *s = cgc_calloc(8);
     if (cgc_crc32("jqCtKWHS",8) == 3362486132) cgc_strcat(s, "D");
 if (cgc_crc32("gmJppDpnDZlIz",13) == 1377881399) cgc_strcat(s, "c");
@@ -72315,7 +72317,7 @@ cgc_Ivy_nouns,
 cgc_mobility_nouns,
 cgc_bhaktimarga_nouns,
 cgc_anatman_nouns,
-cgc_tanguile_nouns,
+tanguile_nouns,
 cgc_demilitarization_nouns,
 cgc_EQ_nouns,
 cgc_Silvis_nouns,
@@ -72727,7 +72729,7 @@ cgc_kismet_nouns,
 cgc_mirror_nouns,
 cgc_middleagedness_nouns,
 cgc_anabasine_nouns,
-cgc_sinew_nouns,
+sinew_nouns,
 cgc_assertiveness_nouns,
 cgc_Caelum_nouns,
 cgc_boyarism_nouns,
@@ -72849,7 +72851,7 @@ cgc_hyperanakinesia_nouns,
 cgc_Goddard_nouns,
 cgc_mash_nouns,
 cgc_Felder_nouns,
-cgc_sinuation_nouns,
+sinuation_nouns,
 cgc_superobjection_nouns,
 cgc_quietism_nouns,
 cgc_clamminess_nouns,
@@ -73293,7 +73295,7 @@ cgc_plasterer_nouns,
 cgc_Faraday_nouns,
 cgc_nontangibleness_nouns,
 cgc_Arvind_nouns,
-cgc_sinhalite_nouns,
+sinhalite_nouns,
 cgc_Norw_nouns,
 cgc_prover_nouns,
 cgc_Christoforo_nouns,
@@ -74509,7 +74511,7 @@ cgc_Eliades_nouns,
 cgc_Tillion_nouns,
 cgc_Sarre_nouns,
 cgc_militancy_nouns,
-cgc_tantrum_nouns,
+tantrum_nouns,
 cgc_unvituperativeness_nouns,
 cgc_Mungo_nouns,
 cgc_chlorocarbon_nouns,
@@ -74935,7 +74937,7 @@ cgc_Karafuto_nouns,
 cgc_alcoholicity_nouns,
 cgc_buttonball_nouns,
 cgc_shusher_nouns,
-cgc_tantara_nouns,
+tantara_nouns,
 cgc_Elmo_nouns,
 cgc_tranquilizer_nouns,
 cgc_supercharger_nouns,
@@ -75674,7 +75676,7 @@ cgc_cusk_nouns,
 cgc_DoubleCrostic_nouns,
 cgc_Deonne_nouns,
 cgc_recondensation_nouns,
-cgc_cosmopolitanism_nouns,
+cosmopolitanism_nouns,
 cgc_Tristis_nouns,
 cgc_minglement_nouns,
 cgc_hatred_nouns,
@@ -75770,7 +75772,7 @@ cgc_embroiderer_nouns,
 cgc_CCP_nouns,
 cgc_harmonium_nouns,
 cgc_Aiden_nouns,
-cgc_tanning_nouns,
+tanning_nouns,
 cgc_deplorableness_nouns,
 cgc_chanduy_nouns,
 cgc_varindor_nouns,
@@ -75802,7 +75804,7 @@ cgc_Thedric_nouns,
 cgc_glassblowing_nouns,
 cgc_Cathryn_nouns,
 cgc_golliwog_nouns,
-cgc_costard_nouns,
+costard_nouns,
 cgc_Jezreelite_nouns,
 cgc_Asius_nouns,
 cgc_apologue_nouns,

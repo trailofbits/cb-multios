@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 */
 
+#include <math.h> 
 #include "libcgc.h"
 #include "cgc_churn.h"
 
@@ -68,10 +69,10 @@ uint64 cgc_init_one(uint64 i, uint64 j) {
 }
 
 float64 cgc_init_two(float64 i, float64 j) {
-  i = cgc_fabs(cgc_sin(i)) + cgc_fabs(cgc_cos(j));
-  i *= 3 + cgc_cos(i);
-  i += cgc_cos(j) + cgc_cos(i);
-  i *= cgc_tan(j);
+  i = fabs(sin(i)) + fabs(cos(j));
+  i *= 3 + cos(i);
+  i += cos(j) + cos(i);
+  i *= tan(j);
   return i;
 }
 
@@ -84,11 +85,11 @@ uint64 cgc_init_thr(uint64 i, uint64 j) {
 }
 
 float64 cgc_init_fou(float64 i, float64 j) {
-  float64 k = cgc_fabs(cgc_cos(j) / cgc_sin(i));
-  j -= cgc_sin(k);
-  i += cgc_log2(cgc_fabs(k));
+  float64 k = fabs(cos(j) / sin(i));
+  j -= sin(k);
+  i += log2(fabs(k));
   k += i + j;
-  i -= cgc_sin(cgc_fabs(k));
+  i -= sin(fabs(k));
   return i;
 }
 

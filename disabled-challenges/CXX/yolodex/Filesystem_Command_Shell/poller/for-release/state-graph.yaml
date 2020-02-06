@@ -1,0 +1,53 @@
+---
+nodes:
+- name: start
+- name: top
+- name: unauthed
+- name: authed
+- name: authenticate
+- name: bad_auth
+- name: create_file
+- name: set_perms
+- name: delete_file
+- name: write_file
+- name: read_file
+- name: list_files
+- name: copy_file
+- name: read_first_n
+- name: read_last_n
+- name: exit
+- name: logout
+
+
+
+edges:
+- start: top
+- top: unauthed
+- unauthed: bad_auth
+- bad_auth: unauthed
+- unauthed: authenticate
+- authenticate: authed
+- authed: logout
+  weight: .2
+- logout: unauthed
+- authed: create_file
+- create_file: authed
+- authed: set_perms
+- set_perms: authed
+- authed: delete_file
+- delete_file: authed
+- authed: write_file
+- write_file: authed
+- authed: read_file
+- read_file: authed
+- authed: copy_file
+- copy_file: authed
+- authed: list_files
+- list_files: authed
+- authed: read_first_n
+- read_first_n: authed
+- authed: read_last_n
+- read_last_n: authed
+- authed: exit
+  weight: .30
+

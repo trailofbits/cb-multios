@@ -1,0 +1,97 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE pov SYSTEM "/usr/share/cgc-docs/replay.dtd">
+<pov>
+<cbid>service</cbid>
+<replay>
+    <read><length>31</length><match><data>17: Create Election\x0a\x0095. Quit\x0a\x00</data></match></read>
+    <read><length>19</length><match><data>Choose an option: \x00</data></match></read>
+    <write><data>17\x0a</data></write>
+    <read><length>31</length><match><data>\x23\x23 Create election manager \x23\x23\x0a\x00</data></match></read>
+    <read><length>20</length><match><data>\x09Enter first name: \x00</data></match></read>
+    <write><data>qMODwrlHSQgMoGqUqLgtlMWdXkag\x0a</data></write>
+    <read><length>19</length><match><data>\x09Enter last name: \x00</data></match></read>
+    <write><data>EkEaVhPlARyPpEjmJYYUJfhuHcCtHl\x0a</data></write>
+    <read><length>20</length><match><data>\x09Your ID number is: </data></match></read>
+    <read><length>9</length><match><data>10101010\x0a</data></match></read>
+    <read><length>19</length><match><data>\x09Your auth key is: </data></match></read>
+    <read><delim>\x0a</delim><assign> <var>authkey</var> <slice begin="0" /> </assign></read>
+    <read><length>22</length><match><data>Enter election name: \x00</data></match></read>
+    <write><data>rbcBmGZdUksnhWNSH\x0a</data></write>
+    <read><length>43</length><match><data>Enter number of election winners desired: \x00</data></match></read>
+    <write><data>3\x0a</data></write>
+    <read><length>45</length><match><data>Enter the max number of candidates allowed: \x00</data></match></read>
+    <write><data>11\x0a</data></write>
+    <read><length>46</length><match><data>Can voters write\x2din new candidates? \x28Yy\x2fNn\x29: \x00</data></match></read>
+    <write><data>Y\x0a</data></write>
+    <read><length>19</length><match><data>Election Created.\x0a\x00</data></match></read>
+    <read><length>41</length><match><data>14: Login\x0a\x0038. Register Voter\x0a\x0095. Quit\x0a\x00</data></match></read>
+    <read><length>19</length><match><data>Choose an option: \x00</data></match></read>
+    <write><data>38\x0a</data></write>
+    <read><length>20</length><match><data>\x23\x23 Create voter \x23\x23\x0a\x00</data></match></read>
+    <read><length>20</length><match><data>\x09Enter first name: \x00</data></match></read>
+    <write><data>\x25S\x25U\x25U\x25U\x25U\x25U\x25U\x25U\x25U\x25U\x25U\x25U\x25U\x25U\x25U\x25U\x0a</data></write>
+    <read><length>19</length><match><data>\x09Enter last name: \x00</data></match></read>
+    <write><data>fnFNHnvzkvSWZrXFMUMFBsYGjcUbUUvxVPrbQxznXmUorOQPPBpVHhsgvyVnJFUKLAMxAihuaHixAgGgzAkOMOMgFjgqsxBDHgLjsQVmQUrPFMetaLFwFsaOPthzkBdrGzQWEFBXnMLeaTXSgNiXmdHxaCOiMryOdPptgZwyzUEGVGkxJruvMSYQzsCNzPgMiyeWqynWmfQzvUgJEWvGJLrCiGMgSIiIWPMjpHfQFvPrlVviaWsVtmqrNRmODlaYfIVxDGUyOZZXyWdNMCHypgjNhTnslhxJEONKqfhChTcjVNhTMmuECiUJrAZDdiVRAJiVrStypuhRcztRqwCtuTCXyvKSwwkyBhGDCywcKmlHKCLKfZnZbaCDFvLGGiRWLpJlfvwgfTHbJvdDsEuESQQTRYaQSYjarrkiVUCAjOICncRZPCpjBZZFnPiOAEzbkLhBADLCsaXIPwimrzUOesqkQitTmbvzSvSdzJTnLkIPTekHTmtHNAFKxkzvnuxwaUYbiYWiYIxRwXXZIgPfxnOrsKchIhLFxXjAZSABnthDRAREYFrftyGiMBbwknEZvmtYCgIXeaFxSMzyJREOzQLoydKpPtNNADDDAyPDSfBByrCXZtfyVykBEdtsHIMHLlDDzalpSzuIZpFPexUErymjXbrcCekfGXvuTxnGAFbzikRkbnWFhdIQhCKXAAJyqJZKJgGbQPgtvOSnQpVvlJqHvJtROdiJrLjGBgsKtFLvwpfOPOXOLOCkXHgHKyswXoUnwcoOAwOEBYALwGBsgGZBzzQgkfQoRHhsixwxMiBTdftvcdLuLeEqmFJcZEfrRtmKxIgwOqnjTKGVBwolKgNesCpYpOFCQUUwPwYNhVvZUDRdWMuGjyRMODhbinajOBCTGamquNJBOwaGFYxkzLICVyrPZklLhkbjRcWDOxpdvWbgyYOYNdgxafDljkuCanBqIaRCAcupbhvCQSmlcMwECNMRylTXoAWqHbro</data></write>
+    <write><data>AAAA</data></write>
+    <write><data>rqYp</data></write>
+    <write><data>BBBB</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>20</length><match><data>\x09Your ID number is: </data></match></read>
+    <read><length>9</length><match><data>12341234\x0a</data></match></read>
+    <read><length>41</length><match><data>14: Login\x0a\x0038. Register Voter\x0a\x0095. Quit\x0a\x00</data></match></read>
+    <read><length>19</length><match><data>Choose an option: \x00</data></match></read>
+    <write><data>14\x0a</data></write>
+    <read><length>24</length><match><data>\x09Enter your ID number: \x00</data></match></read>
+    <write><data>10101010\x0a</data></write>
+    <read><length>19</length><match><data>\x09Enter last name: \x00</data></match></read>
+    <write><data>EkEaVhPlARyPpEjmJYYUJfhuHcCtHl\x0a</data></write>
+    <read><length>18</length><match><data>\x09Enter auth key: \x00</data></match></read>
+    <write><var>authkey</var></write>
+    <read><length>82</length><match><data>15: Main Menu\x0a\x0018. Open Voting\x0a\x0022. Election Status\x0a\x0054. Add Candidate\x0a\x0095. Quit\x0a\x00</data></match></read>
+    <read><length>19</length><match><data>Choose an option: \x00</data></match></read>
+    <write><data>54\x0a</data></write>
+    <read><length>24</length><match><data>\x23\x23 Create candidate \x23\x23\x0a\x00</data></match></read>
+    <read><length>20</length><match><data>\x09Enter first name: \x00</data></match></read>
+    <write><data>iTxfJ\x0a</data></write>
+    <read><length>19</length><match><data>\x09Enter last name: \x00</data></match></read>
+    <write><data>axZEldWVVWRGLV\x0a</data></write>
+    <read><length>18</length><match><data>Candidate Added.\x0a\x00</data></match></read>
+    <read><length>41</length><match><data>14: Login\x0a\x0038. Register Voter\x0a\x0095. Quit\x0a\x00</data></match></read>
+    <read><length>19</length><match><data>Choose an option: \x00</data></match></read>
+    <write><data>14\x0a</data></write>
+    <read><length>24</length><match><data>\x09Enter your ID number: \x00</data></match></read>
+    <write><data>10101010\x0a</data></write>
+    <read><length>19</length><match><data>\x09Enter last name: \x00</data></match></read>
+    <write><data>EkEaVhPlARyPpEjmJYYUJfhuHcCtHl\x0a</data></write>
+    <read><length>18</length><match><data>\x09Enter auth key: \x00</data></match></read>
+    <write><var>authkey</var></write>
+    <read><length>82</length><match><data>15: Main Menu\x0a\x0018. Open Voting\x0a\x0022. Election Status\x0a\x0054. Add Candidate\x0a\x0095. Quit\x0a\x00</data></match></read>
+    <read><length>19</length><match><data>Choose an option: \x00</data></match></read>
+    <write><data>18\x0a</data></write>
+    <read><length>14</length><match><data>Voting Open.\x0a\x00</data></match></read>
+    <read><length>41</length><match><data>14: Login\x0a\x0038. Register Voter\x0a\x0095. Quit\x0a\x00</data></match></read>
+    <read><length>19</length><match><data>Choose an option: \x00</data></match></read>
+    <write><data>14\x0a</data></write>
+    <read><length>24</length><match><data>\x09Enter your ID number: \x00</data></match></read>
+    <write><data>12341234\x0a</data></write>
+    <read><length>19</length><match><data>\x09Enter last name: \x00</data></match></read>
+    <write><data>fnFNHnvzkvSWZrXFMUMFBsYGjcUbUUvxVPrbQxznXmUorOQPPBpVHhsgvyVnJFUKLAMxAihuaHixAgGgzAkOMOMgFjgqsxBDHgLjsQVmQUrPFMetaLFwFsaOPthzkBdrGzQWEFBXnMLeaTXSgNiXmdHxaCOiMryOdPptgZwyzUEGVGkxJruvMSYQzsCNzPgMiyeWqynWmfQzvUgJEWvGJLrCiGMgSIiIWPMjpHfQFvPrlVviaWsVtmqrNRmODlaYfIVxDGUyOZZXyWdNMCHypgjNhTnslhxJEONKqfhChTcjVNhTMmuECiUJrAZDdiVRAJiVrStypuhRcztRqwCtuTCXyvKSwwkyBhGDCywcKmlHKCLKfZnZbaCDFvLGGiRWLpJlfvwgfTHbJvdDsEuESQQTRYaQSYjarrkiVUCAjOICncRZPCpjBZZFnPiOAEzbkLhBADLCsaXIPwimrzUOesqkQitTmbvzSvSdzJTnLkIPTekHTmtHNAFKxkzvnuxwaUYbiYWiYIxRwXXZIgPfxnOrsKchIhLFxXjAZSABnthDRAREYFrftyGiMBbwknEZvmtYCgIXeaFxSMzyJREOzQLoydKpPtNNADDDAyPDSfBByrCXZtfyVykBEdtsHIMHLlDDzalpSzuIZpFPexUErymjXbrcCekfGXvuTxnGAFbzikRkbnWFhdIQhCKXAAJyqJZKJgGbQPgtvOSnQpVvlJqHvJtROdiJrLjGBgsKtFLvwpfOPOXOLOCkXHgHKyswXoUnwcoOAwOEBYALwGBsgGZBzzQgkfQoRHhsixwxMiBTdftvcdLuLeEqmFJcZEfrRtmKxIgwOqnjTKGVBwolKgNesCpYpOFCQUUwPwYNhVvZUDRdWMuGjyRMODhbinajOBCTGamquNJBOwaGFYxkzLICVyrPZklLhkbjRcWDOxpdvWbgyYOYNdgxafDljkuCanBqIaRCAcupbhvCQSmlcMwECNMRylTXoAWqHbro</data></write>
+    <write><data>AAAA</data></write>
+    <write><data>rqYp</data></write>
+    <write><data>BBBB</data></write>
+    <write><data>\x0a</data></write>
+    <read><length>54</length><match><data>15: Main Menu\x0a\x0036. Vote\x0a\x0054. Add Candidate\x0a\x0095. Quit\x0a\x00</data></match></read>
+    <read><length>19</length><match><data>Choose an option: \x00</data></match></read>
+    <write><data>36\x0a</data></write>
+    <read><length>43</length><match><data>Select one candidate from the folloowing:\x0a\x00</data></match></read>
+    <read><length>25</length><match><data>\x091: iTxfJ axZEldWVVWRGLV\x0a</data></match></read>
+    <read><length>19</length><match><data>Choose an option: \x00</data></match></read>
+    <write><data>1\x0a</data></write>
+    <read><length>14</length><match><data>Confirmation \x23</data></match></read>
+    <read><delim>.</delim><assign> <var>voteid12341234</var> <slice begin="0" /> </assign></read>
+    <read><length>52</length><match><data> Vote recorded for candidate: iTxfJ axZEldWVVWRGLV.\x0a</data></match></read>
+    <read><length>41</length><match><data>14: Login\x0a\x0038. Register Voter\x0a\x0095. Quit\x0a\x00</data></match></read>
+    <read><length>19</length><match><data>Choose an option: \x00</data></match></read>
+    <write><data>95\x0a</data></write>
+</replay>
+</pov>

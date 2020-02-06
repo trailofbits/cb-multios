@@ -1,0 +1,43 @@
+---
+nodes:
+- name: start
+- name: hello
+- name: auth
+- name: init_data
+- name: init_mode
+- name: init_key
+- name: initialized
+- name: set_random
+- name: set_data
+- name: set_mode
+- name: set_key
+- name: call_random
+- name: call_home
+- name: call_root64
+- name: call_parcour
+- name: bye
+
+edges:
+- start: hello
+- hello: auth
+- auth: init_data
+- init_data: init_mode
+- init_mode: init_key
+- init_key: initialized
+- initialized: set_random
+- initialized: set_data
+- initialized: set_mode
+- initialized: set_key
+- initialized: call_random
+- initialized: call_home
+- initialized: call_root64
+- initialized: call_parcour
+- initialized: bye
+- set_random: initialized
+- set_data: initialized
+- set_mode: initialized
+- set_key: initialized
+- call_random: initialized
+- call_home: initialized
+- call_root64: initialized
+- call_parcour: initialized

@@ -1,0 +1,40 @@
+---
+nodes:
+- name: start
+- name: top
+- name: authenticate
+- name: bad_auth
+- name: create_user
+- name: newPost
+- name: addComment
+- name: retrievePost
+- name: badRetrieve
+- name: retrieveStickyPost
+- name: newFeed
+- name: exit
+
+
+
+edges:
+- start: top
+- top: bad_auth
+- bad_auth: top
+- top: authenticate
+- authenticate: top
+- top: create_user
+- create_user: top
+- top: newPost
+- newPost: top
+- top: addComment
+- addComment: top
+- top: retrievePost
+- retrievePost: top
+- top: badRetrieve
+- badRetrieve: top
+- top: retrieveStickyPost
+- retrieveStickyPost: top
+- top: newFeed
+- newFeed: top
+- top: exit
+  weight: .3
+

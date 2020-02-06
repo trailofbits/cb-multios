@@ -1,0 +1,37 @@
+---
+nodes:
+- name: start
+- name: menu
+- name: init_parser
+- name: load_data
+- name: get_attr
+- name: set_attr
+- name: list_attr
+- name: get_tag
+- name: get_ns
+- name: query
+- name: quit
+- name: version_check
+
+edges:
+- start: menu
+- menu: init_parser
+- menu: load_data
+- menu: get_attr
+- menu: set_attr
+- menu: list_attr
+- menu: get_tag
+- menu: get_ns
+- menu: query
+- menu: version_check
+- menu: quit
+  weight: 0.04
+- init_parser: menu
+- load_data: menu
+- get_attr: menu
+- set_attr: menu
+- list_attr: menu
+- get_tag: menu
+- get_ns: menu
+- query: menu
+- version_check: menu

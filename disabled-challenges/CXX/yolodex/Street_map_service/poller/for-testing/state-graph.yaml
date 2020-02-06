@@ -1,0 +1,45 @@
+---
+nodes:
+- name: start
+- name: Banner
+- name: choice
+  continue: .9
+- name: GenerateMapContext
+  continue: .8
+- name: NAME_MAP
+  continue: .8
+- name: ADDROAD
+  continue: .8 
+- name: ADDADDRESS
+  continue: .8 
+- name: ADDINTERSECTION
+  continue: .8 
+- name: PRINTMAP
+  continue: .8 
+- name: FINDROUTE
+  continue: .8 
+- name: finish
+
+edges:
+- start: Banner
+- Banner: GenerateMapContext
+- GenerateMapContext: choice
+- choice: NAME_MAP
+  weight: 0.05
+- NAME_MAP: choice
+- choice: ADDROAD
+  weight: 0.2
+- ADDROAD: choice
+- choice: ADDADDRESS
+  weight: 0.2
+- ADDADDRESS: choice
+- choice: ADDINTERSECTION
+  weight: 0.2
+- ADDINTERSECTION: choice
+- choice: PRINTMAP
+  weight: 0.05
+- PRINTMAP: choice
+- choice: FINDROUTE
+  weight: 0.9
+- FINDROUTE: choice
+- choice: finish

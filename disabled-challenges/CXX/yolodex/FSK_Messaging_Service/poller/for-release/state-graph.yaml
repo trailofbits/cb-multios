@@ -1,0 +1,9 @@
+---
+nodes:
+- name: start
+- name: run
+- name: finish
+
+edges:
+- start: run
+- run: finish

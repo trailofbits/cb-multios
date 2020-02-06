@@ -1,0 +1,21 @@
+---
+nodes:
+- name: start
+- name: entanglement_razzmatazz
+- name: causality_poppycock
+- name: heisenberg_hooey
+- name: relativistic_jabberwock
+- name: exit
+
+edges:
+- start: entanglement_razzmatazz
+- start: causality_poppycock
+- start: heisenberg_hooey
+- start: relativistic_jabberwock
+- start: exit
+  weight: 0.7
+
+- entanglement_razzmatazz: start
+- causality_poppycock: start
+- heisenberg_hooey: start
+- relativistic_jabberwock: start
