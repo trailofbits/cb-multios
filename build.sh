@@ -34,14 +34,20 @@ case $LINK in
     STATIC) CMAKE_OPTS="$CMAKE_OPTS -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON";;
 esac
 
+#if [[ "$(uname -p)" == "x86_64" ]]; then
+#       CMAKE_OPTS="$CMAKE_OPTS -DARCH=64";
+#fii
+
 # Prefer ninja over make, if it is available
-if which ninja 2>&1 >/dev/null; then
-  CMAKE_OPTS="-G Ninja $CMAKE_OPTS"
-  BUILD_FLAGS=
-else
+#if which ninja 2>&1 >/dev/null; then
+#  CMAKE_OPTS="-G Ninja $CMAKE_OPTS"
+#  BUILD_FLAGS=
+#else
   # BUILD_FLAGS="-- -j$(getconf _NPROCESSORS_ONLN)"
   BUILD_FLAGS=
-fi
+#fi
+
+
 
 cmake $CMAKE_OPTS ..
 
