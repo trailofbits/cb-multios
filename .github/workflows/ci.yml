@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  schedule:
+    # run CI every day even if no PRs/merges occur
+    - cron: '0 12 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libc6-dev libc6-dev-i386 g++-multilib ninja-build
+          pip install --upgrade --user xlsxwriter pycrypto
+      - name: build
+        run: ./build.sh
+  build-nopy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libc6-dev libc6-dev-i386 g++-multilib ninja-build
+      - name: build
+        run: NO_PYTHON_I_KNOW_WHAT_I_AM_DOING_I_SWEAR=1 ./build.sh

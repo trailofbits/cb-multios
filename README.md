@@ -65,6 +65,15 @@ Then to build all challenges, run:
 $ ./build.sh
 ```
 
+If you are **absolutely certain** that you don't intend to use any of the Python components of the
+build or repository, you can tell the build script to ignore them:
+
+```bash
+$ NO_PYTHON_I_KNOW_WHAT_I_AM_DOING_I_SWEAR=1 ./build.sh
+```
+
+This is **not** a publicly supported build mode.
+
 ### Windows
 
 The following packages are required for building the challenges on Windows:
