@@ -64,6 +64,12 @@ else(WIN32)
         add_compile_options(-march=i386)
     endif(ONLY_80386)
 
+    if(CMAKE_C_COMPILER EQUAL "gcc")
+        # NOTE(ww): Recent versions of GCC are more strict than Clang about
+        # nonsensical C/C++ constructs, some of which are present in the challenges.
+        add_compile_options(-fpermissive)
+    endif(CMAKE_C_COMPILER EQUAL "gcc")
+
     # Link everything 32-bit (until we have a 64-bit option)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
