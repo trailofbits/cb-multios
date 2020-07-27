@@ -48,7 +48,7 @@ typedef struct
   bool registered;
   bool waiting;
   uint32_t last_read;
-  blubber* blubber;
+  blubber* blubber_;
 } client_state;
 
 client_state* new_client(int n)
@@ -73,7 +73,7 @@ client_state* new_client(int n)
 
   c->last_read = 0;
   c->registered = false;
-  c->blubber = new blubber();
+  c->blubber_ = new blubber();
   return c;
 }
 
@@ -128,11 +128,11 @@ void handle_read(server_state* s, client_state* c)
   for (cgc_size_t i = 0; i < s->num_clients; ++i)
   {
     client_state* other = s->clients[i];
-    if (c->blubber->subs.contains(other->blubber))
+    if (c->blubber_->subs.contains(other->blubber_))
     {
-      for (cgc_size_t j = 0; j < other->blubber->blubs.length(); j++)
+      for (cgc_size_t j = 0; j < other->blubber_->blubs.length(); j++)
       {
-        blub* b = (blub*)other->blubber->blubs.get(j);
+        blub* b = (blub*)other->blubber_->blubs.get(j);
         if (b->ts > c->last_read)
         {
           unread.add(b);
@@ -169,11 +169,11 @@ void handle_blub(client_state* c)
     tmp[BLUB_MAX] = '\0';
 
     dbg("Recorded blub (%s) %d", tmp, cgc_strlen(tmp))
-    c->blubber->record_blub(tmp);
+    c->blubber_->record_blub(tmp);
   }
   else
   {
-    blub* b = c->blubber->gen_blub();
+    blub* b = c->blubber_->gen_blub();
     if (b)
     {
       dbg("Recorded blub (%s) %d", b->content, cgc_strlen(b->content));
@@ -202,23 +202,23 @@ void handle_reblub(server_state* s, client_state* c)
 
   idx = cgc_strtol(num, NULL, 10);
 
-  dbg("(%s) attempting to reblub (%s)'s %d blub", c->blubber->username, username, idx);
+  dbg("(%s) attempting to reblub (%s)'s %d blub", c->blubber_->username, username, idx);
   for (cgc_size_t i = 0; i < s->num_clients; ++i)
   {
     client_state* other = s->clients[i];
     // Make sure author exists and client is subbed to them.
-    if (cgc_strcmp(other->blubber->username, username) == 0 && c->blubber->subs.contains(other->blubber))
+    if (cgc_strcmp(other->blubber_->username, username) == 0 && c->blubber_->subs.contains(other->blubber_))
     {
-      dbg("Found (%s) in (%s)'s subs", other->blubber->username, c->blubber->username);
-      if (other->blubber->blubs.length() > idx)
+      dbg("Found (%s) in (%s)'s subs", other->blubber_->username, c->blubber_->username);
+      if (other->blubber_->blubs.length() > idx)
       {
-        dbg("Fetching (%s) %d blub", other->blubber->username, idx);
-        blub* b = (blub*)other->blubber->blubs.get(idx);
+        dbg("Fetching (%s) %d blub", other->blubber_->username, idx);
+        blub* b = (blub*)other->blubber_->blubs.get(idx);
         if (b)
         {
-          dbg("(%s) reblubbed (%s)'s %d blub", c->blubber->username, other->blubber->username, idx);
-          blub* n = new blub(c->blubber->username, b->content);
-          c->blubber->blubs.add(n);
+          dbg("(%s) reblubbed (%s)'s %d blub", c->blubber_->username, other->blubber_->username, idx);
+          blub* n = new blub(c->blubber_->username, b->content);
+          c->blubber_->blubs.add(n);
         }
       }
     }
@@ -235,26 +235,26 @@ void handle_sub(server_state* s, client_state* c)
   }
   username[USERNAME_MAX] = '\0';
 
-  dbg("Attempting to sub (%s) to (%s)", c->blubber->username, username);
+  dbg("Attempting to sub (%s) to (%s)", c->blubber_->username, username);
   for (cgc_size_t i = 0; i < s->num_clients; ++i)
   {
     client_state* other = s->clients[i];
-    if (cgc_strcmp(other->blubber->username, username) == 0)
+    if (cgc_strcmp(other->blubber_->username, username) == 0)
     {
-      if (c->blubber->subs.contains(other->blubber))
+      if (c->blubber_->subs.contains(other->blubber_))
       {
-        dbg("(%s) is already subbed to (%s)", c->blubber->username, username);
+        dbg("(%s) is already subbed to (%s)", c->blubber_->username, username);
         return;
       }
       else
       {
-        dbg("Subbed (%s) to (%s)", c->blubber->username, username);
-        c->blubber->subs.add(other->blubber);
+        dbg("Subbed (%s) to (%s)", c->blubber_->username, username);
+        c->blubber_->subs.add(other->blubber_);
         return;
       }
     }
   }
-  dbg("Failed to sub (%s) to (%s)", c->blubber->username, username);
+  dbg("Failed to sub (%s) to (%s)", c->blubber_->username, username);
 }
 
 int run_server(server_state* state)
@@ -275,7 +275,7 @@ int run_server(server_state* state)
       dbg("Registered %d as (%s)", c->n, username);
       cgc_fprintf(c->tx, (char *)"Welcome to blubber, %s" EOT_S, username);
       c->registered = true;
-      c->blubber->set_username(username);
+      c->blubber_->set_username(username);
       state->num_alive++;
     }
 
