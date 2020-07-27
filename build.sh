@@ -25,6 +25,16 @@ CMAKE_OPTS="${CMAKE_OPTS} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 CC=${CC:-clang}
 CXX=${CXX:-clang++}
 
+if [[ -n "${ONLY_80386}" ]]; then
+  # NOTE(ww): clang's -march=i386 generates instructions for i486 and i586.
+  # See: https://reviews.llvm.org/D18802 (which was never merged)
+  if [[ "${CC}" == "clang" ]]; then
+    echo "80386-only instructions requested, but clang has a buggy -march=i386. Good luck!"
+  fi
+
+  CMAKE_OPTS="$CMAKE_OPTS -DONLY_80386=1"
+fi
+
 CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_C_COMPILER=$CC"
 CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_ASM_COMPILER=$CC"
 CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_CXX_COMPILER=$CXX"
