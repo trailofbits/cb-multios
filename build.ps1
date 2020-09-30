@@ -38,9 +38,9 @@ Write-Host "`tNow in $BUILD_DIR`n"
 
 Write-Host "Creating Build Files..."
 if ($Compiler -eq "clang") {
-    & cmake -GNinja -DCLANGCL:BOOL=TRUE -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl ..
+    & cmake -A Win32 -T clangcl ..
 } elseIf ($Compiler -eq "msvc") {
-    & cmake ..
+    & cmake -A Win32 ..
 } else {
     Write-Error "`tUnrecognized compiler: $Compiler`n"
     exit 1
