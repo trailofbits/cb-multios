@@ -38,7 +38,7 @@ Write-Host "`tNow in $BUILD_DIR`n"
 
 Write-Host "Creating Build Files..."
 if ($Compiler -eq "clang") {
-    & cmake -A Win32 -T clangcl ..
+    & cmake -A Win32 -T clangcl -DCLANGCL:BOOL=TRUE ..
 } elseIf ($Compiler -eq "msvc") {
     & cmake -A Win32 ..
 } else {
