@@ -26,6 +26,7 @@ THE SOFTWARE.
 #include "cgc_string.h"
 #include "cgc_stdint.h"
 
+/* NOTE(ekilmer): Duplicate symbol and code from libpov
 cgc_size_t cgc_strlen( const char *str )
 {
 	cgc_size_t len = 0;
@@ -34,6 +35,7 @@ cgc_size_t cgc_strlen( const char *str )
 
 	return len;
 }
+*/
 
 int cgc_strcmp( const char *s1, const char *s2 )
 {

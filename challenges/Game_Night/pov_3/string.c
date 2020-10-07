@@ -54,6 +54,7 @@ cgc_memset(void *ptr, int value, cgc_size_t num)
     return ptr;
 }
 
+/* NOTE(ekilmer): Duplicate symbol and code from libpov
 cgc_size_t
 cgc_strlen(const char *str)
 {
@@ -62,6 +63,8 @@ cgc_strlen(const char *str)
         ret++;
     return ret;
 }
+*/
+
 
 cgc_size_t
 cgc_strnlen(const char *str, cgc_size_t num)
@@ -72,6 +75,7 @@ cgc_strnlen(const char *str, cgc_size_t num)
     return ret;
 }
 
+/* NOTE(ekilmer): Duplicate symbol and code from libpov
 char *
 cgc_strcpy(char *destination, const char *source)
 {
@@ -81,6 +85,7 @@ cgc_strcpy(char *destination, const char *source)
     destination[i] = '\0';
     return destination;
 }
+*/
 
 char *
 cgc_strncpy(char *destination, const char *source, cgc_size_t num)

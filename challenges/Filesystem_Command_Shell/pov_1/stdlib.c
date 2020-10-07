@@ -140,6 +140,7 @@ int digit_value;
 
 }
 
+/* NOTE(ekilmer): Duplicate symbol and code from libpov
 char *cgc_strcpy( char *pDest, const char *pSrc )
 {
 	char *pDestReturn = pDest;
@@ -151,6 +152,7 @@ char *cgc_strcpy( char *pDest, const char *pSrc )
 
 	return (pDestReturn);
 }
+*/
 
 char *cgc_strncpy( char *pDest, const char *pSrc, cgc_size_t maxlen )
 {
