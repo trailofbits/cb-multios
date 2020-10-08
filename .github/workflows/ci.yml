@@ -21,6 +21,7 @@ jobs:
           pip install --upgrade --user xlsxwriter pycrypto
       - name: build
         run: ./build.sh
+
   build-nopy:
     runs-on: ubuntu-latest
     steps:
@@ -31,3 +32,20 @@ jobs:
           sudo apt-get install -y libc6-dev libc6-dev-i386 g++-multilib ninja-build
       - name: build
         run: NO_PYTHON_I_KNOW_WHAT_I_AM_DOING_I_SWEAR=1 ./build.sh
+
+  build-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        COMPILER:
+          - "clang"
+          - "msvc"
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: deps
+        run: |
+          python -m pip install --upgrade --user xlsxwriter pycryptodome pypiwin32
+      - name: build
+        run: .\build.ps1 ${{ matrix.COMPILER }}
+        continue-on-error: ${{matrix.COMPILER == 'msvc' }}
