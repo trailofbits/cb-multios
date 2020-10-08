@@ -1,7 +1,6 @@
 # DARPA Challenge Binaries on Linux, OS X, and Windows
 
-[![Build Status](https://travis-ci.org/trailofbits/cb-multios.svg?branch=master)](https://travis-ci.org/trailofbits/cb-multios)
-[![Build status](https://ci.appveyor.com/api/projects/status/l17viygqmgb404oe/branch/master?svg=true)](https://ci.appveyor.com/project/dguido/cb-multios/branch/master)
+[![Build Status](https://img.shields.io/github/workflow/status/trailofbits/cb-multios/CI/master)](https://github.com/trailofbits/cb-multios/workflows/CI/badge.svg?branch=master)
 [![Slack Status](https://empireslacking.herokuapp.com/badge.svg)](https://empireslacking.herokuapp.com)
 
 The DARPA Challenge Binaries (CBs) are custom-made programs specifically designed to contain vulnerabilities that represent a wide variety of crashing software flaws. They are more than simple test cases, they approximate real software with enough complexity to stress both manual and automated vulnerability discovery. The CBs come with extensive functionality tests, triggers for introduced bugs, patches, and performance monitoring tools, enabling benchmarking of patching tools and bug mitigation strategies.
