@@ -15,7 +15,7 @@ The search algorithm is inspired by Ken Thompson's 1968 paper on matching using 
 
 The approach builds a not quite NFA a not quite DFA, but stores the transitions from state to state as a directed graph. Epsilon transitions (no character input) are a special transition that enables operators like * and ? to function properly. 
 
-Each operator has a very specifically designed digraph that enables the proper state transtion to occur. These digraphs were built in order to accommodate all the operators as well as be attached to new states. These are stored in the **state_t** strucuture with either a left or right path (**t1, t2**).
+Each operator has a very specifically designed digraph that enables the proper state transtion to occur. These digraphs were built in order to accommodate all the operators as well as be attached to new states. These are stored in the **state_t** structure with either a left or right path (**t1, t2**).
 
 ## Vulnerability
 
