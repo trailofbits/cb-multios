@@ -61,6 +61,10 @@ else(WIN32)
         -m32
     )
 
+    if(ONLY_80386)
+        add_compile_options(-march=i386)
+    endif(ONLY_80386)
+
     # Link everything 32-bit (until we have a 64-bit option)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
