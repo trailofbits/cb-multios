@@ -17,14 +17,12 @@ fi
 echo "Creating Makefiles"
 CMAKE_OPTS="${CMAKE_OPTS} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 
-if [ -n "$BUILD32" ]; then
-  echo "Building32";
-  CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_TOOLCHAIN_FILE=../cmake/32.cmake"
-  BUILD_DIR="build32"
-else
-  echo "Building64";
+if [ -n "$BUILD64" ]; then
   CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_TOOLCHAIN_FILE=../cmake/64.cmake"
   BUILD_DIR="build64"
+else
+  CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_TOOLCHAIN_FILE=../cmake/32.cmake"
+  BUILD_DIR="build"
 fi;
 
 echo "Creating build directory"
