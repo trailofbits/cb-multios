@@ -14,20 +14,20 @@ if [[ -z "${NO_PYTHON_I_KNOW_WHAT_I_AM_DOING_I_SWEAR}" ]]; then
   fi
 fi
 
-echo "Creating build directory"
-mkdir -p "${DIR}/build"
-cd "${DIR}/build"
-
 echo "Creating Makefiles"
 CMAKE_OPTS="${CMAKE_OPTS} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 
-# Honor CC and CXX environment variables, default to clang otherwise
-CC=${CC:-clang}
-CXX=${CXX:-clang++}
+if [ -n "$BUILD64" ]; then
+  CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_TOOLCHAIN_FILE=../cmake/64.cmake"
+  BUILD_DIR="build64"
+else
+  CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_TOOLCHAIN_FILE=../cmake/32.cmake"
+  BUILD_DIR="build"
+fi;
 
-CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_C_COMPILER=$CC"
-CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_ASM_COMPILER=$CC"
-CMAKE_OPTS="$CMAKE_OPTS -DCMAKE_CXX_COMPILER=$CXX"
+echo "Creating build directory"
+mkdir -p "${DIR}/${BUILD_DIR}"
+cd "${DIR}/${BUILD_DIR}"
 
 LINK=${LINK:-SHARED}
 case $LINK in

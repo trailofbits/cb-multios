@@ -11,8 +11,13 @@ typedef unsigned short int uint16_t;
 typedef unsigned int uint32_t;
 typedef unsigned long long int uint64_t;
 
-typedef int intptr_t;
-typedef unsigned int uintptr_t;
+#ifdef X32_COMPILE
+    typedef int32_t intptr_t;
+    typedef uint32_t uintptr_t;
+#else
+    typedef int64_t intptr_t;
+    typedef uint64_t uintptr_t;
+#endif
 
 #  define __INT64_C(c)  c ## LL
 #  define __UINT64_C(c) c ## ULL
