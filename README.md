@@ -73,7 +73,7 @@ $ NO_PYTHON_I_KNOW_WHAT_I_AM_DOING_I_SWEAR=1 ./build.sh
 
 This is **not** a publicly supported build mode.
 
-#### Build 32-bits version of the challenges
+#### Build 64-bits version of the challenges
 By default, the build system will build 32 bits version of the challenges.
 However, by defining `BUILD64`, the build system will build 64-bits version of the challenges.
 
