@@ -1,4 +1,4 @@
-add_compile_options( -fno-exceptions -fno-rtti -DCPLUSPLUS )
+add_compile_options( -fno-exceptions -fno-rtti -DCPLUSPLUS -fpermissive -fms-extensions)
 set( SERVICE_ID "00097" )
 set( AUTHOR_ID "KPRCA" )
 add_compile_options( -O3 -g )
