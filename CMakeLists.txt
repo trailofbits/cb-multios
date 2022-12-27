@@ -220,7 +220,7 @@ endif()
 
 add_definitions(
     -Derrno=__cgc_errno
-    -DFORTIFY_SOURCE=0
+    -D_FORTIFY_SOURCE=0
 )
 
 if(LINUX)
