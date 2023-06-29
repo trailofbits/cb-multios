@@ -1,7 +1,7 @@
 # DARPA Challenge Binaries on Linux, OS X, and Windows
 
 [![Build Status](https://img.shields.io/github/workflow/status/trailofbits/cb-multios/CI/master)](https://github.com/trailofbits/cb-multios/actions?query=workflow%3ACI)
-[![Slack Status](https://empireslacking.herokuapp.com/badge.svg)](https://empireslacking.herokuapp.com)
+[![Slack Status](https://slack.empirehacking.nyc/badge.svg)](https://slack.empirehacking.nyc)
 
 The DARPA Challenge Binaries (CBs) are custom-made programs specifically designed to contain vulnerabilities that represent a wide variety of crashing software flaws. They are more than simple test cases, they approximate real software with enough complexity to stress both manual and automated vulnerability discovery. The CBs come with extensive functionality tests, triggers for introduced bugs, patches, and performance monitoring tools, enabling benchmarking of patching tools and bug mitigation strategies.
 
@@ -177,7 +177,7 @@ reporting any build and/or behavior errors you discover!
 
 We use the CMake build system to enable portability across different compilers and operating systems. CMake works across a large matrix of compiler and operating system versions, while providing a consistent interface to check for dependencies and build software projects.
 
-We are working to make this repository easier to use for the evaluation of program analysis tools. If you have questions about the challenge binaries, please [join our Slack](https://empireslacking.herokuapp.com) and we'll be happy to answer them.
+We are working to make this repository easier to use for the evaluation of program analysis tools. If you have questions about the challenge binaries, please [join our Slack](https://slack.empirehacking.nyc) and we'll be happy to answer them.
 
 ## Authors
 
